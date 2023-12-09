@@ -11,6 +11,8 @@ open class BaseBannerItem {
     open var name: String = ""
     open var url: String = ""
 
+    constructor() : this("")
+
     constructor(url: String) : this("", url)
 
     constructor(name: String, url: String) {

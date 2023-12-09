@@ -77,7 +77,7 @@ object AppTaskDaoManager : IUtilK {
 
     @JvmStatic
     fun getAllAtTaskDownloadOrWaitOrPause(): List<AppTask> {
-        return _tasks.filter { it.value.isTaskDownload() || it.value.taskState == CNetKAppTaskState.STATE_TASK_WAIT || it.value.taskState == CNetKAppTaskState.STATE_TASK_PAUSE }
+        return _tasks.filter { it.value.isTaskDownload() /*|| it.value.taskState == CNetKAppTaskState.STATE_TASK_WAIT*/ || it.value.taskState == CNetKAppTaskState.STATE_TASK_PAUSE }
             .map { it.value }
     }
 

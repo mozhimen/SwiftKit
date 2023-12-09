@@ -23,6 +23,8 @@
 
     <style name="ThemeK_AppLightDarkAction" parent="Theme.AppCompat.Light.DarkActionBar" />
 
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
     <style name="ThemeK_AppLightNoAction" parent="Theme.AppCompat.Light.NoActionBar" />
 
     <style name="ThemeK_AppLightNoAction.Translucent">
@@ -30,6 +32,12 @@
         <item name="android:windowTranslucentStatus">true</item>
         <!--设置导航栏半透明状态, true为半透明, false为不透明-->
         <item name="android:windowTranslucentNavigation">true</item>
+
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="ThemeK_AppLightNoAction.Translucent.Transparent">
+        <item name="android:windowBackground">@color/cok_transparent</item>
     </style>
 
     <style name="ThemeK_AppLightNoAction.Transparent">
@@ -53,7 +61,13 @@
         <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">shortEdges</item>
     </style>
 
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
     <style name="ThemeK_AppDayNoAction" parent="Theme.AppCompat.DayNight.NoActionBar" />
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <style name="ThemeK_AppLightDialog" parent="@style/Theme.AppCompat.Light.Dialog" />
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
     <!--ThemeK_Dialog-->

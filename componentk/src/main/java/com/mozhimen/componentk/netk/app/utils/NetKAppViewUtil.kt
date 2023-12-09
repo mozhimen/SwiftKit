@@ -43,7 +43,7 @@ object NetKAppViewUtil {
 //                    }
                 }
                 //如果是未下载，则下载app
-                CNetKAppTaskState.STATE_TASK_CREATE, CNetKAppTaskState.STATE_TASK_WAIT -> {
+                CNetKAppTaskState.STATE_TASK_CREATE/*, CNetKAppTaskState.STATE_TASK_WAIT*/ -> {
                     //startTask(it.context, appTask)
                     onStart.invoke(it.context, appTask)
                 }
@@ -102,7 +102,7 @@ object NetKAppViewUtil {
         }
         view.setOnLongClickListener {
             when (appTask.taskState) {
-                CNetKAppTaskState.STATE_TASK_WAIT, CNetKAppState.STATE_DOWNLOADING, CNetKAppTaskState.STATE_TASK_PAUSE -> {
+                /*CNetKAppTaskState.STATE_TASK_WAIT,*/ CNetKAppState.STATE_DOWNLOADING, CNetKAppTaskState.STATE_TASK_PAUSE -> {
 //                    cancelTask(it.context, appTask)
                     onCancel.invoke(it.context, appTask)
                 }

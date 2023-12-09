@@ -6,6 +6,8 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
+import com.mozhimen.basick.imagek.glide.temps.BlurTransformation
 import com.mozhimen.basick.imagek.glide.temps.CircleBorderTransform
 
 /**
@@ -26,13 +28,21 @@ object ImageKGlide {
 
 
     @JvmStatic
-    fun loadImageGlide(imageView: ImageView, res: Any) {
+    fun loadImageGlide(
+        imageView: ImageView,
+        res: Any?
+    ) {
         Glide.with(imageView).load(res)
             .into(imageView)
     }
 
     @JvmStatic
-    fun loadImageComplexGlide(imageView: ImageView, res: Any, placeholder: Int, error: Int) {
+    fun loadImageComplexGlide(
+        imageView: ImageView,
+        res: Any?,
+        placeholder: Int,
+        error: Int
+    ) {
         Glide.with(imageView).load(res)
             .transition(DrawableTransitionOptions.withCrossFade())
             .error(error)
@@ -44,7 +54,12 @@ object ImageKGlide {
      * 加载圆形图片
      */
     @JvmStatic
-    fun loadImageCircleGlide(imageView: ImageView, res: Any, placeholder: Int, error: Int) {
+    fun loadImageCircleGlide(
+        imageView: ImageView,
+        res: Any?,
+        placeholder: Int,
+        error: Int
+    ) {
         Glide.with(imageView).load(res)
             .transition(DrawableTransitionOptions.withCrossFade())
             .transform(CircleCrop())
@@ -58,7 +73,10 @@ object ImageKGlide {
      */
     @JvmStatic
     fun loadImageBorderRoundedCornerGlide(
-        imageView: ImageView, res: Any, placeholder: Int, error: Int,
+        imageView: ImageView,
+        res: Any?,
+        placeholder: Int,
+        error: Int,
         borderWidth: Float,
         borderColor: Int
     ) {
@@ -75,13 +93,34 @@ object ImageKGlide {
      */
     @JvmStatic
     fun loadImageRoundedCornerGlide(
-        imageView: ImageView, res: Any?, placeholder: Int, error: Int,
+        imageView: ImageView,
+        res: Any?,
+        placeholder: Int,
+        error: Int,
         cornerRadius: Int
     ) {
         Glide.with(imageView).load(res)
             .transition(DrawableTransitionOptions.withCrossFade())
             .transform(CenterCrop(), RoundedCorners(cornerRadius))
             .placeholder(placeholder).error(error)
+            .into(imageView)
+    }
+
+    @JvmStatic
+    fun loadImageBlurGlide(
+        imageView: ImageView,
+        res: Any?,
+        placeholder: Int,
+        error: Int,
+        radius: Int = BlurTransformation.BLUR_MAX_RADIUS,
+        sampling: Int = BlurTransformation.BLUR_DEFAULT_DOWN_SAMPLING
+    ) {
+        Glide.with(imageView)
+            .load(res)
+            .placeholder(placeholder)
+            .error(error)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .transform(BlurTransformation(radius, sampling))
             .into(imageView)
     }
 }

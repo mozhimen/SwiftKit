@@ -19,6 +19,7 @@ import java.io.File
 internal object NetKAppTaskManager : IUtilK {
     private val _cacheKDSProvider by lazy { CacheKDS.instance.with(NAME) }
     var isDeleteApkFile by CacheKDSVarPropertyBoolean(_cacheKDSProvider, "is_delete_apk_file", false)
+    var isAutoInstall by CacheKDSVarPropertyBoolean(_cacheKDSProvider, "is_auto_install", true)
 
 //    /**
 //     * 获取本地保存的文件

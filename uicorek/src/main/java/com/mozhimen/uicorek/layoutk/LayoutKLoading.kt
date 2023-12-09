@@ -11,6 +11,7 @@ import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.appcompat.widget.AppCompatRatingBar
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
@@ -43,7 +44,7 @@ class LayoutKLoading @JvmOverloads constructor(context: Context, attrs: Attribut
         val progressBar = ProgressBar(context)
         if (_loadColor != 0) {
             progressBar.indeterminateTintList = ColorStateList.valueOf(_loadColor)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (UtilKBuildVersion.isAfterV_29_10_Q()) {
                 progressBar.indeterminateTintBlendMode = BlendMode.SRC_ATOP
             }
 

@@ -9,13 +9,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.utilk.android.content.startContext
+import com.mozhimen.basick.utilk.android.view.applyRequestFocus
 import com.mozhimen.basick.utilk.android.widget.value
 import com.mozhimen.uicorek.textk.edit.bar.bases.BaseEditBarHolder
 import com.mozhimen.uicorek.textk.edit.bar.commons.ITextKEditBarListener
 import com.mozhimen.uicorek.textk.edit.bar.cons.CTextKEditBar
 import com.mozhimen.uicorek.textk.edit.bar.helpers.TextKEditBarHolderHelper
 import com.mozhimen.uicorek.textk.edit.bar.mos.MTextKEditBarConfig
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.regex.Pattern
 
 /**
@@ -109,6 +114,25 @@ class TextKEditBarActivity : FragmentActivity(), View.OnClickListener {
         finish()
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+
+    private fun initView() {
+        _editBarHolder?.viewIdCancel?.let {
+            _viewCancel = findViewById(it)
+        }
+        _editBarHolder?.viewIdSubmit?.let {
+            _viewSubmit = findViewById(it)
+        }
+        _editBarHolder?.editId?.let {
+            _edit = findViewById(it)
+        }
+        _viewCancel?.setOnClickListener(this)
+        _viewSubmit?.setOnClickListener(this)
+        _edit?.post {
+            _edit?.applyRequestFocus()
+        }
+    }
+
     private fun onCheck(): Boolean {
         val content = _edit!!.value
         if (TextUtils.isEmpty(content) || content.length < _mTextKEditBarConfig!!.minLength) {
@@ -133,20 +157,6 @@ class TextKEditBarActivity : FragmentActivity(), View.OnClickListener {
 
         }
         return true
-    }
-
-    private fun initView() {
-        _editBarHolder?.viewIdCancel?.let {
-            _viewCancel = findViewById(it)
-        }
-        _editBarHolder?.viewIdSubmit?.let {
-            _viewSubmit = findViewById(it)
-        }
-        _editBarHolder?.editId?.let {
-            _edit = findViewById(it)
-        }
-        _viewCancel?.setOnClickListener(this)
-        _viewSubmit?.setOnClickListener(this)
     }
 }
 

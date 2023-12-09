@@ -199,7 +199,7 @@ object CPermission {
     const val INTERNET = Manifest.permission.INTERNET
     const val KILL_BACKGROUND_PROCESSES = Manifest.permission.KILL_BACKGROUND_PROCESSES
 
-    @RequiresApi(Build.VERSION_CODES.S_V2)
+    @RequiresApi(CVersCode.V_32_11_S_V2)
     const val LAUNCH_MULTI_PANE_SETTINGS_DEEP_LINK = Manifest.permission.LAUNCH_MULTI_PANE_SETTINGS_DEEP_LINK
 
     @RequiresApi(CVersCode.V_30_11_R)

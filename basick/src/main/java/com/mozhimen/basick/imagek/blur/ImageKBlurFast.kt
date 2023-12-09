@@ -1,15 +1,11 @@
 package com.mozhimen.basick.imagek.blur
 
 import android.graphics.Bitmap
-import android.renderscript.Allocation
-import android.renderscript.Element
-import android.renderscript.RenderScript
-import android.renderscript.ScriptIntrinsicBlur
-import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapDeal
+import androidx.annotation.FloatRange
+import androidx.annotation.IntRange
+import com.mozhimen.basick.utilk.bases.IUtilK
 import kotlin.math.min
 import kotlin.math.max
-import kotlin.math.roundToInt
 
 /**
  * @ClassName UtilKBitmapBlur
@@ -23,43 +19,10 @@ import kotlin.math.roundToInt
  * @Date 2022/11/30 22:07
  * @Version 1.0
  */
-object ImageKBlur : BaseUtilK() {
-
-    /**
-     * 模糊图片,API>=17
-     * @param sourceBitmap Bitmap
-     * @param bitmapScale Float 图片缩放比例
-     * @param blurRadius Float 最大模糊度(0.0-25.0之间)
-     * @return Bitmap
-     */
-    @JvmStatic
-    fun blurBitmap(sourceBitmap: Bitmap, bitmapScale: Float = 0.4f, blurRadius: Float = 25f): Bitmap {
-        //将缩小后的图片作为预渲染的图片
-        val inputBitmap = UtilKBitmapDeal.applyBitmapAnyResize(sourceBitmap, (sourceBitmap.width * bitmapScale).roundToInt(), (sourceBitmap.height * bitmapScale).roundToInt(), false)
-        //创建一张渲染后的输出图片
-        val outputBitmap = Bitmap.createBitmap(inputBitmap)
-        //创建RenderScript内核对象
-        val renderScript = RenderScript.create(_context)
-        //创建一个模糊效果的RenderScript的工具对象
-        val scriptIntrinsicBlur = ScriptIntrinsicBlur.create(renderScript, Element.U8_4(renderScript))
-        //由于RenderScript并没有使用VM来分配内存,所以需要使用Allocation类来创建和分配内存空间
-        //创建Allocation对象的时候其实内存时空的,需要使用copyTo()将数据填充进去
-        val allocationIn = Allocation.createFromBitmap(renderScript, inputBitmap)
-        val allocationOut = Allocation.createFromBitmap(renderScript, outputBitmap)
-        //设置渲染的模糊程度,25f是最大模糊度
-        scriptIntrinsicBlur.setRadius(blurRadius)
-        //设置blurScript对象的输入内存
-        scriptIntrinsicBlur.setInput(allocationIn)
-        //将输出数据保存到输出内存中
-        scriptIntrinsicBlur.forEach(allocationOut)
-        //将数据填充到Allocation中
-        allocationOut.copyTo(outputBitmap)
-
-        return outputBitmap
-    }
+object ImageKBlurFast : IUtilK {
 
     @JvmStatic
-    fun blurBitmap(sourceBitmap: Bitmap, radius: Int, canReuseInBitmap: Boolean): Bitmap? {
+    fun blurBitmap(sourceBitmap: Bitmap, @IntRange(from = 1) radius: Int, canReuseInBitmap: Boolean): Bitmap {
 
         // Stack Blur v1.0 from
         // http://www.quasimondo.com/StackBlurForCanvas/StackBlurDemo.html
@@ -92,9 +55,6 @@ object ImageKBlur : BaseUtilK() {
             sourceBitmap
         } else {
             sourceBitmap.copy(sourceBitmap.config, true)
-        }
-        if (radius < 1) {
-            return null
         }
 
         val w = bitmap.width

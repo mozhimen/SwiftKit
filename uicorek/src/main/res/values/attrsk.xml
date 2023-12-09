@@ -395,18 +395,22 @@
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
     <!--textk-->
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
-    <declare-styleable name="TextKEditRect">
-        <attr name="textKEditRect_rectNum" format="integer"/>
-        <attr name="textKEditRect_rectWidth" format="dimension|reference"/>
-        <attr name="textKEditRect_rectHeight" format="dimension|reference"/>
-        <attr name="textKEditRect_rectGap" format="dimension|reference"/>
-        <attr name="textKEditRect_rectStateDrawable" format="reference"/>
+    <declare-styleable name="TextKExpandable">
+        <attr name="textKExpandable_maxLines" format="integer" />
+    </declare-styleable>
 
-        <attr name="textKEditRect_cursorIsShow" format="boolean"/>
-        <attr name="textKEditRect_cursorFlashIntervalMillis" format="integer"/>
-        <attr name="textKEditRect_cursorWidth" format="dimension|reference"/>
-        <attr name="textKEditRect_cursorHeight" format="dimension|reference"/>
-        <attr name="textKEditRect_cursorStateDrawable" format="reference"/>
+    <declare-styleable name="TextKEditRect">
+        <attr name="textKEditRect_rectNum" format="integer" />
+        <attr name="textKEditRect_rectWidth" format="dimension|reference" />
+        <attr name="textKEditRect_rectHeight" format="dimension|reference" />
+        <attr name="textKEditRect_rectGap" format="dimension|reference" />
+        <attr name="textKEditRect_rectStateDrawable" format="reference" />
+
+        <attr name="textKEditRect_cursorIsShow" format="boolean" />
+        <attr name="textKEditRect_cursorFlashIntervalMillis" format="integer" />
+        <attr name="textKEditRect_cursorWidth" format="dimension|reference" />
+        <attr name="textKEditRect_cursorHeight" format="dimension|reference" />
+        <attr name="textKEditRect_cursorStateDrawable" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="TextKProgress">

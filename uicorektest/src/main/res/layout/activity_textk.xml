@@ -12,8 +12,8 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/UicoreKStyle_Btn"
-            android:text="goTextKEdit"
             android:onClick="goTextKEdit"
+            android:text="goTextKEdit"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.mozhimen.uicorek.textk.bubble.TextKBubble
@@ -70,8 +70,8 @@
             android:id="@+id/textk_progress1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_040"
-            android:textStyle="bold"
             android:textSize="@dimen/sp_20"
+            android:textStyle="bold"
             app:textKProgress_backgroundColor="@color/cok_blue_bbdefb"
             app:textKProgress_backgroundColorEnd="@color/white"
             app:textKProgress_backgroundColorStart="@color/cok_blue_bbdefb"
@@ -82,5 +82,11 @@
             app:textKProgress_textColorCover="@color/white"
             app:textKProgress_textColorDefault="@color/cok_blue_e8f3ff"
             app:textKProgress_textColorUnCover="@color/cok_blue_bbdefb" />
+
+        <com.mozhimen.uicorek.textk.TextKExpandable
+            android:id="@+id/textk_expandable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/cok_blue_287ff1"/>
     </LinearLayout>
 </layout>

@@ -17,7 +17,7 @@ object NetKAppUtil {
     @JvmStatic
     fun intAppState2strAppState(state: Int): String =
         when (state) {
-            CNetKAppState.STATE_DOWNLOAD_WAIT -> "下载等待"
+//            CNetKAppState.STATE_DOWNLOAD_WAIT -> "下载等待"
             CNetKAppState.STATE_DOWNLOADING -> "下载中 "
             CNetKAppState.STATE_DOWNLOAD_PAUSE -> "下载暂停"
             CNetKAppState.STATE_DOWNLOAD_CANCEL -> "下载取消"
@@ -40,7 +40,7 @@ object NetKAppUtil {
             CNetKAppState.STATE_UNINSTALL_SUCCESS -> "卸载成功"
 
             CNetKAppTaskState.STATE_TASK_CREATE -> "任务创建"
-            CNetKAppTaskState.STATE_TASK_WAIT -> "任务等待"
+//            CNetKAppTaskState.STATE_TASK_WAIT -> "任务等待"
             CNetKAppTaskState.STATE_TASK_PAUSE -> "任务暂停"
             CNetKAppTaskState.STATE_TASK_CANCEL -> "任务取消"
             CNetKAppTaskState.STATE_TASK_SUCCESS -> "任务成功"

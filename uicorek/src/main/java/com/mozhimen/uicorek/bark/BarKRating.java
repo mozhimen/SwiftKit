@@ -11,6 +11,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RatingBar;
 
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion;
 import com.mozhimen.uicorek.R;
 import com.mozhimen.uicorek.drawablek.BaseDrawable;
 import com.mozhimen.uicorek.drawablek.StarDrawable;
@@ -235,7 +236,7 @@ public class BarKRating extends RatingBar {
             if (drawable instanceof BaseDrawable) {
                 drawable.setTintList(tintList);
             } else {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if (UtilKBuildVersion.isAfterV_21_5_L()) {
                     drawable.setTintList(tintList);
                 }
             }

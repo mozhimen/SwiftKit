@@ -63,8 +63,8 @@ data class AppTask(
     fun isTaskProcess(): Boolean =
         !apkIsInstalled && CNetKAppTaskState.isTaskProcess(taskState)
 
-    fun isTaskWait(): Boolean =
-        !apkIsInstalled && CNetKAppTaskState.isTaskWait(taskState)
+//    fun isTaskWait(): Boolean =
+//        !apkIsInstalled && CNetKAppTaskState.isTaskWait(taskState)
 
     fun isTasking(): Boolean =
         !apkIsInstalled && CNetKAppTaskState.isTasking(taskState)

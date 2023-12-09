@@ -46,7 +46,7 @@ interface INetKAppStateVerify {
 }
 
 interface INetKAppStateDownload {
-    fun onDownloadWait(appTask: AppTask) {}
+//    fun onDownloadWait(appTask: AppTask) {}
     fun onDownloading(appTask: AppTask, progress: Int, currentIndex: Long, totalIndex: Long, offsetIndexPerSeconds: Long) {}//下载进度回调方法
     fun onDownloadPause(appTask: AppTask) {}//下载暂停的回调
     fun onDownloadCancel(appTask: AppTask) {}//下载取消的回调
@@ -56,7 +56,7 @@ interface INetKAppStateDownload {
 
 interface INetKAppStateTask {
     fun onTaskCreate(appTask: AppTask)
-    fun onTaskWait(appTask: AppTask) //任务等待的回调
+//    fun onTaskWait(appTask: AppTask) //任务等待的回调
     fun onTasking(appTask: AppTask, state: Int)//任务进行中
     fun onTaskPause(appTask: AppTask)
     fun onTaskFinish(appTask: AppTask, finishType: ENetKAppFinishType)

@@ -1,7 +1,6 @@
 package com.mozhimen.basick.utilk.androidx.renderscript
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.graphics.*
 import android.view.View
@@ -10,15 +9,13 @@ import androidx.renderscript.*
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.UtilKNumber
-import com.mozhimen.basick.utilk.android.view.UtilKStatusBar
-import com.mozhimen.basick.imagek.blur.ImageKBlur
+import com.mozhimen.basick.imagek.blur.ImageKBlurFast
 import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapDeal
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.UtilKLogSupport
 import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.view.UtilKView
-import com.mozhimen.basick.utilk.kotlin.strColor2intColor
 
 /**
  * @ClassName RenderScriptHelper
@@ -118,7 +115,7 @@ object UtilKRenderScript : BaseUtilK() {
     fun fastBlur(origin: Bitmap?, outWidth: Int, outHeight: Int, radius: Float): Bitmap? {
         var tempOrigin = origin
         if (tempOrigin == null || tempOrigin.isRecycled) return null
-        tempOrigin = ImageKBlur.blurBitmap(tempOrigin, UtilKNumber.normalize(radius, 0f, 20f).toInt(), false)
+        tempOrigin = ImageKBlurFast.blurBitmap(tempOrigin, UtilKNumber.normalize(radius, 0f, 20f).toInt(), false)
         if (tempOrigin == null || tempOrigin.isRecycled) return null
         tempOrigin = UtilKBitmapDeal.applyBitmapAnyResize(tempOrigin, outWidth, outHeight)
         val time = System.currentTimeMillis() - _startTime

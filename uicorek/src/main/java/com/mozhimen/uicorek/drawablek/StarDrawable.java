@@ -12,6 +12,7 @@ import android.view.Gravity;
 
 import androidx.appcompat.content.res.AppCompatResources;
 
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion;
 import com.mozhimen.uicorek.R;
 
 import java.lang.reflect.Field;
@@ -95,7 +96,7 @@ public class StarDrawable extends LayerDrawable {
             case android.R.id.progress: {
                 ClipDrawable clipDrawable = (ClipDrawable) layerDrawable;
                 // fix bug:sdk<23 class ClipDrawable has no getDrawable() #8
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (UtilKBuildVersion.isAfterV_23_6_M()) {
                     return (TileDrawable) clipDrawable.getDrawable();
                 } else {
                     try {
