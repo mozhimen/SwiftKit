@@ -198,10 +198,11 @@ open class ShowHideFragmentNavigator(
 
         //android.fragment.app.xxx->xxx
         val tag = className.substring(className.lastIndexOf(".") + 1)
-        var frag = fragmentManager.findFragmentByTag(tag)
-        if (frag == null) frag = instantiateFragment(context, fragmentManager, className, args)
-        frag.arguments = args
-        val ft = fragmentManager.beginTransaction()
+        var fragmentByTag = fragmentManager.findFragmentByTag(tag)
+        if (fragmentByTag == null)
+            fragmentByTag = instantiateFragment(context, fragmentManager, className, args)
+        fragmentByTag.arguments = args
+        val fragmentTransaction = fragmentManager.beginTransaction()
 
         ///////////////////////////////////////////////////////////////////////////////
 
@@ -214,17 +215,19 @@ open class ShowHideFragmentNavigator(
             exitAnim = if (exitAnim != -1) exitAnim else 0
             popEnterAnim = if (popEnterAnim != -1) popEnterAnim else 0
             popExitAnim = if (popExitAnim != -1) popExitAnim else 0
-            ft.setCustomAnimations(enterAnim, exitAnim, popEnterAnim, popExitAnim)
+            fragmentTransaction.setCustomAnimations(enterAnim, exitAnim, popEnterAnim, popExitAnim)
         }
 
         //ft.replace(mContainerId, frag);
         val fragments = fragmentManager.fragments
-        for (fragment in fragments) ft.hide(fragment!!)
-        if (!frag.isAdded) ft.add(containerId, frag, tag)
-        ft.show(frag)
-        ft.setPrimaryNavigationFragment(frag)
-        ft.setReorderingAllowed(true)
-        return ft
+        for (fragment in fragments) {
+            fragmentTransaction.hide(fragment!!)
+        }
+        if (!fragmentByTag.isAdded) fragmentTransaction.add(containerId, fragmentByTag, tag)
+        fragmentTransaction.show(fragmentByTag)
+        fragmentTransaction.setPrimaryNavigationFragment(fragmentByTag)
+        fragmentTransaction.setReorderingAllowed(true)
+        return fragmentTransaction
     }
 
     override fun onSaveState(): Bundle? {
