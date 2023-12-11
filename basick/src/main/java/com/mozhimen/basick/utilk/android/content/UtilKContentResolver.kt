@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.android.content
 import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Context
+import android.content.UriPermission
 import android.database.Cursor
 import android.net.Uri
 import androidx.annotation.RequiresPermission
@@ -30,6 +31,10 @@ object UtilKContentResolver : BaseUtilK() {
     @JvmStatic
     fun getType(contentResolver: ContentResolver, uri: Uri): String? =
         contentResolver.getType(uri)
+
+    @JvmStatic
+    fun getPersistedUriPermissions(context: Context): List<UriPermission> =
+        get(context).persistedUriPermissions
 
     ////////////////////////////////////////////////////////////////////////
 

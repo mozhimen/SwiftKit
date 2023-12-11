@@ -16,12 +16,18 @@ class InvisibleProxyFragment : Fragment() {
         const val PERMISSION_REQUEST_CODE = 1
     }
 
+    ///////////////////////////////////////////////////////////////////////
+
     private var _listener: IManifestKPermissionListener? = null
+
+    ///////////////////////////////////////////////////////////////////////
 
     fun request(permissions: Array<out String>, listener: IManifestKPermissionListener) {
         _listener = listener
         requestPermissions(permissions, PERMISSION_REQUEST_CODE)
     }
+
+    ///////////////////////////////////////////////////////////////////////
 
     @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
@@ -29,7 +35,7 @@ class InvisibleProxyFragment : Fragment() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == 1) {
+        if (requestCode == PERMISSION_REQUEST_CODE) {
             val deniedList = ArrayList<String>()
             for ((position, result) in grantResults.withIndex()) {
                 if (result != CPackageManager.PERMISSION_GRANTED)

@@ -37,7 +37,6 @@ object UtilKFilter {
     fun filterAlphabet(alphabet: String): String =
         alphabet.replace("[^(A-Za-z)]".toRegex(), "")
 
-
     /**
      * 过滤出中文
      */

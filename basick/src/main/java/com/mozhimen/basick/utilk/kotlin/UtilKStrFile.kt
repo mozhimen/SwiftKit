@@ -27,6 +27,7 @@ import com.mozhimen.basick.utilk.java.io.getNameExpExtension
 import com.mozhimen.basick.utilk.java.io.isFileExist
 import com.mozhimen.basick.utilk.java.io.isFolder
 import com.mozhimen.basick.utilk.java.io.isFolderExist
+import com.mozhimen.basick.utilk.kotlin.text.replaceEndSeparator
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -176,6 +177,9 @@ object UtilKStrFile : IUtilK {
     @JvmStatic
     fun isFileExist(strFilePathName: String): Boolean =
         strFilePathName.strFilePath2file().isFileExist()
+
+    /////////////////////////////////////////////////////////////////
+
 
     /////////////////////////////////////////////////////////////////
 

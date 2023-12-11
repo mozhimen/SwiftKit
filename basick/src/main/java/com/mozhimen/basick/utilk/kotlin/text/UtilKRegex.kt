@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.kotlin.text
 
 import com.mozhimen.basick.elemk.cons.CMsg
+import java.io.File
 
 /**
  * @ClassName UtilKRegex
@@ -18,6 +19,10 @@ fun String.replaceRegexLineBreak(): String =
 fun String.replaceRegexDoubleQuote(): String =
     UtilKRegex.replaceRegexDoubleQuote(this)
 
+fun String.replaceEndSeparator(): String =
+    UtilKRegex.replaceEndSeparator(this)
+
+
 object UtilKRegex {
     @JvmStatic
     fun replaceDot(str: String): String =
@@ -30,4 +35,8 @@ object UtilKRegex {
     @JvmStatic
     fun replaceRegexDoubleQuote(str: String): String =
         str.replace("\"".toRegex(), "")
+
+    @JvmStatic
+    fun replaceEndSeparator(str: String): String =
+        if (str.endsWith("/")) str.substring(0, str.length - 1) else str
 }
