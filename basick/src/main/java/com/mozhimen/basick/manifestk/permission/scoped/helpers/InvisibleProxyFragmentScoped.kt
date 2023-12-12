@@ -2,14 +2,19 @@ package com.mozhimen.basick.manifestk.permission.scoped.helpers
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
+import com.mozhimen.basick.elemk.android.provider.cons.CDocumentsContract
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.manifestk.permission.scoped.cons.CManifestKPermissionScoped
 import com.mozhimen.basick.manifestk.permission.scoped.utils.ManifestKPermissionScopedUtil
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.kotlin.strUri2uri
 
 /**
  * @ClassName InvisibleProxyFragmentScoped
@@ -63,7 +68,20 @@ class InvisibleProxyFragmentScoped : Fragment(), IUtilK {
         if (ManifestKPermissionScopedUtil.isPermissionStrFilePathProtectedGranted(requireActivity(), _strFilePath)) {
             _listener?.invoke(true)
         } else {
-            ManifestKPermissionScopedUtil.requestPermissionForStrFilePathOfStrUriDocumentAndroid(requireActivity(), _strFilePath, CManifestKPermissionScoped.CODE_PERMISSION_REQUEST_SCOPED)
+            val uriDocumentAndroid: Uri = ManifestKPermissionScopedUtil.getStrUriDocumentAndroidForStrFilePath(_strFilePath).strUri2uri() //调用方法，把path转换成可解析的uri文本
+            val documentFile: DocumentFile? = DocumentFile.fromTreeUri(requireContext(), uriDocumentAndroid)
+            val intent = Intent(CIntent.ACTION_OPEN_DOCUMENT_TREE).apply {
+                addFlags(
+                    CIntent.FLAG_GRANT_READ_URI_PERMISSION
+                            or CIntent.FLAG_GRANT_WRITE_URI_PERMISSION
+                            or CIntent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
+                            or CIntent.FLAG_GRANT_PREFIX_URI_PERMISSION
+                )
+            }
+            if (UtilKBuildVersion.isAfterV_26_8_O()) {
+                intent.putExtra(CDocumentsContract.EXTRA_INITIAL_URI, documentFile!!.uri)
+            }
+            startActivityForResult(intent, CManifestKPermissionScoped.CODE_PERMISSION_REQUEST_SCOPED) //开始授权
         }
     }
 

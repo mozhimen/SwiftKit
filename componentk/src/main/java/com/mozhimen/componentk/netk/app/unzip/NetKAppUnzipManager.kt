@@ -98,7 +98,9 @@ internal object NetKAppUnzipManager : IUtilK {
                 /////////////////////////////////////////////////////////
 
                 TaskKHandler.post {
-                    onUnzipSuccess(appTask.apply { apkPathName = strPathNameUnzip })
+                    onUnzipSuccess(appTask.apply {
+                        apkPathName = strPathNameUnzip
+                    })
                 }
             } catch (e: AppDownloadException) {
                 TaskKHandler.post {

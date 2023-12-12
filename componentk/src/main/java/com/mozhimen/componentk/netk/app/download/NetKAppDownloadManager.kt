@@ -43,8 +43,8 @@ import kotlin.math.abs
 @OptInApiInit_InApplication
 internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
     private const val PARALLEL_RUNNING_COUNT = 3
-    private const val RETRY_COUNT_MIN = 5
-    private const val RETRY_COUNT_MAX = 10
+    private const val RETRY_COUNT_MIN = 10
+//    private const val RETRY_COUNT_MAX = 10
     private const val BLOCK_SIZE_MIN = 100L
     private val _downloadingTasks = SparseArray<MAppDownloadProgress>()
 
@@ -340,18 +340,18 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
             Log.d(TAG, "downloadCancel: get download task fail")
             return
         }
+        //        DownloadTask.cancel(arrayOf(downloadTask))
+//        _appDownloadSerialQueue.remove(task)
         downloadTask.cancel()
         _downloadingTasks.delete(downloadTask.id)//先从队列中移除
-//        DownloadTask.cancel(arrayOf(downloadTask))
-//        _appDownloadSerialQueue.remove(task)
         OkDownload.with().breakpointStore().remove(downloadTask.id)
         downloadTask.file?.delete()
 
         //            onDeleteBlock?.invoke(true, -1)
-//        /**
-//         * [CNetKAppState.STATE_DOWNLOAD_CANCEL]
-//         */
-//        NetKApp.onDownloadCancel(appTask)
+        /**
+         * [CNetKAppState.STATE_DOWNLOAD_CANCEL]
+         */
+        NetKApp.onDownloadCancel(appTask)
     }
 
     @JvmStatic
@@ -444,7 +444,7 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
                 }
 
                 EndCause.CANCELED -> {
-                    if (appTask.appTask.isTaskPause())
+                    if (appTask.appTask.isTaskPause()||appTask.appTask.isTaskCancel())
                         return
                     if (appTask.isRetry) {
                         appTask.isRetry = false
@@ -476,7 +476,7 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
                             _downloadingTasks.delete(downloadTask.id)//从队列里移除掉
                         }
                         return
-                    } else if (appTask.retryCount < RETRY_COUNT_MAX) {
+                    } /*else if (appTask.retryCount < RETRY_COUNT_MAX) {
                         try {
                             appTask.retryCount++
                             appTask.isRetry = true
@@ -484,14 +484,14 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
                             download(appTask.appTask)
                             Log.d(TAG, "taskEnd: MAX通信问题重试 ${appTask.retryCount}次 appTask ${appTask.appTask}")
                         } catch (e: AppDownloadException) {
-                            /**
+                            *//**
                              * [CNetKAppState.STATE_DOWNLOAD_FAIL]
-                             */
+                             *//*
                             NetKApp.onDownloadFail(appTask.appTask, e)
                             _downloadingTasks.delete(downloadTask.id)//从队列里移除掉
                         }
                         return
-                    }
+                    }*/
 
                     /**
                      * [CNetKAppState.STATE_DOWNLOAD_FAIL]

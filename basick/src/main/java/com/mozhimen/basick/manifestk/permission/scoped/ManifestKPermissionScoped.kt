@@ -1,7 +1,7 @@
 package com.mozhimen.basick.manifestk.permission.scoped
 
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.mozhimen.basick.lintk.optin.OptInApiDeprecated_Official_AfterV_30_11_R
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CApplication
 import com.mozhimen.basick.manifestk.cons.CPermission
@@ -17,6 +17,8 @@ import com.mozhimen.basick.utilk.bases.IUtilK
  * @Date 2023/12/10 0:16
  * @Version 1.0
  */
+@Deprecated("OptInApiDeprecated_Official_AfterV_30_11_R")
+@OptInApiDeprecated_Official_AfterV_30_11_R
 @AManifestKRequire(
     CPermission.WRITE_EXTERNAL_STORAGE,
     CPermission.READ_EXTERNAL_STORAGE,

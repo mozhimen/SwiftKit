@@ -3,6 +3,7 @@ package com.mozhimen.componentk.netk.app.utils
 import android.content.Context
 import android.view.View
 import com.mozhimen.basick.elemk.commons.IAB_Listener
+import com.mozhimen.basick.elemk.commons.I_AListener
 import com.mozhimen.basick.utilk.android.content.UtilKContextStart
 import com.mozhimen.componentk.netk.app.cons.CNetKAppState
 import com.mozhimen.componentk.netk.app.task.cons.CNetKAppTaskState
@@ -17,10 +18,31 @@ import com.mozhimen.componentk.netk.app.task.db.AppTask
  */
 object NetKAppViewUtil {
     @JvmStatic
+    fun generateViewLongClickOfAppTask(
+        view: View,
+        onGetAppTask: I_AListener<AppTask>,
+        onCancel: IAB_Listener<Context, AppTask>
+    ) {
+        view.setOnLongClickListener {
+            val appTask = onGetAppTask.invoke()
+            when (appTask.taskState) {
+                /*CNetKAppTaskState.STATE_TASK_WAIT,*/ CNetKAppState.STATE_DOWNLOADING, CNetKAppTaskState.STATE_TASK_PAUSE -> {
+//                    cancelTask(it.context, appTask)
+                onCancel.invoke(it.context, appTask)
+            }
+
+                CNetKAppState.STATE_UNZIP_SUCCESS, CNetKAppState.STATE_INSTALLING -> {
+                    onCancel.invoke(it.context, appTask)
+                }
+            }
+            true
+        }
+    }
+
+    @JvmStatic
     fun generateViewClickOfAppTask(
         view: View,
-        appTask: AppTask,
-        packageName: String,
+        onGetAppTask: I_AListener<AppTask>,
         onStart: IAB_Listener<Context, AppTask>,
         onPause: IAB_Listener<Context, AppTask>,
         onResume: IAB_Listener<Context, AppTask>,
@@ -32,6 +54,7 @@ object NetKAppViewUtil {
             //获取当前最新的状态
 //            val fileParams = appBriefRes.createAppFileParams()
 //            onButtonClick?.invoke(it, fileParams.downloadState)
+            val appTask:AppTask = onGetAppTask.invoke()
             when (appTask.taskState) {
                 //如果是已安装，则打开App
                 CNetKAppTaskState.STATE_TASK_SUCCESS -> {
@@ -39,7 +62,7 @@ object NetKAppViewUtil {
 //                    if (appBriefRes.haveUpdate == 1) {
 //                        download(it.context, button, fileParams)
 //                    } else {
-                    UtilKContextStart.startContextByPackageName(it.context, packageName)
+                    UtilKContextStart.startContextByPackageName(it.context, appTask.apkPackageName)
 //                    }
                 }
                 //如果是未下载，则下载app
@@ -100,18 +123,6 @@ object NetKAppViewUtil {
                 }
             }
         }
-        view.setOnLongClickListener {
-            when (appTask.taskState) {
-                /*CNetKAppTaskState.STATE_TASK_WAIT,*/ CNetKAppState.STATE_DOWNLOADING, CNetKAppTaskState.STATE_TASK_PAUSE -> {
-//                    cancelTask(it.context, appTask)
-                    onCancel.invoke(it.context, appTask)
-                }
-
-                CNetKAppState.STATE_UNZIP_SUCCESS, CNetKAppState.STATE_INSTALLING -> {
-                    onCancel.invoke(it.context, appTask)
-                }
-            }
-            true
-        }
+        generateViewLongClickOfAppTask(view, onGetAppTask, onCancel)
     }
 }
