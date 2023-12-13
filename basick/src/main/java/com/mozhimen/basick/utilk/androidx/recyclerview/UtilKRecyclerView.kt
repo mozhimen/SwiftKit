@@ -223,7 +223,7 @@ object UtilKRecyclerView {
      * 均分 LinearLayoutManager 间距的便捷方法
      */
     @JvmStatic
-    fun equilibriumAssignmentOfLinearLayoutManager(recyclerView: RecyclerView, itemView: View, outRect: Rect, gapOuter: Int, gapInner: Int = gapOuter / 2) {
+    fun equilibriumAssignmentOfLinearLayoutManager(recyclerView: RecyclerView, itemView: View, outRect: Rect, gapOuter: Int, gapInner: Int = gapOuter / 2, gapOther: Int = gapOuter) {
         val itemCount = recyclerView.getItemCount()// item 的个数
         val itemPosition = recyclerView.getChildAdapterPosition(itemView)// 当前 item 的 position
         val layoutManager = recyclerView.requireLinearLayoutManager() ?: return
@@ -234,11 +234,11 @@ object UtilKRecyclerView {
                     if (orientation == RecyclerView.VERTICAL) {// 第一行/列 && VERTICAL 布局方式 -> 对item的底部特殊处理
                         outRect.top = gapOuter
                         outRect.bottom = gapInner
-                        outRect.left = gapOuter
-                        outRect.right = gapOuter
+                        outRect.left = gapOther
+                        outRect.right = gapOther
                     } else {// 第一行/列 && HORIZONTAL 布局方式 -> 对item的右边特殊处理
-                        outRect.top = gapOuter
-                        outRect.bottom = gapOuter
+                        outRect.top = gapOther
+                        outRect.bottom = gapOther
                         outRect.left = gapOuter
                         outRect.right = gapInner
                     }
@@ -248,11 +248,11 @@ object UtilKRecyclerView {
                     if (orientation == RecyclerView.VERTICAL) {// 最后一行/列 && VERTICAL 布局方式 -> 对item的顶部特殊处理
                         outRect.top = gapInner
                         outRect.bottom = gapOuter
-                        outRect.left = gapOuter
-                        outRect.right = gapOuter
+                        outRect.left = gapOther
+                        outRect.right = gapOther
                     } else {// 最后一行/列 && HORIZONTAL 布局方式 -> 对item的左边特殊处理
-                        outRect.top = gapOuter
-                        outRect.bottom = gapOuter
+                        outRect.top = gapOther
+                        outRect.bottom = gapOther
                         outRect.left = gapInner
                         outRect.right = gapOuter
                     }
@@ -262,11 +262,11 @@ object UtilKRecyclerView {
                     if (orientation == RecyclerView.VERTICAL) {// 中间的行/列 && VERTICAL 布局方式 -> 对item的顶部和底部特殊处理
                         outRect.top = gapInner
                         outRect.bottom = gapInner
-                        outRect.left = gapOuter
-                        outRect.right = gapOuter
+                        outRect.left = gapOther
+                        outRect.right = gapOther
                     } else {// 中间的行/列 && HORIZONTAL 布局方式 -> 对item的左边和右边特殊处理
-                        outRect.top = gapOuter
-                        outRect.bottom = gapOuter
+                        outRect.top = gapOther
+                        outRect.bottom = gapOther
                         outRect.left = gapInner
                         outRect.right = gapInner
                     }
@@ -281,13 +281,13 @@ object UtilKRecyclerView {
      * 均分 GridLayoutManager 间距的便捷方法
      */
     @JvmStatic
-    fun equilibriumAssignmentOfGridLayoutManager(recyclerView: RecyclerView, itemView: View, outRect: Rect, gapOuter: Int, gapInner: Int) {
+    fun equilibriumAssignmentOfGridLayoutManager(recyclerView: RecyclerView, itemView: View, outRect: Rect, gapOuter: Int, gapInner: Int = gapOuter / 2, gapOther: Int = gapOuter) {
         val itemCount = recyclerView.getItemCount()// item 的个数
         val spanCount = recyclerView.getSpanCount()// 网格布局的跨度数
         val itemPosition = recyclerView.getChildAdapterPosition(itemView)// 当前 item 的 position
         val layoutManager = recyclerView.requireGridLayoutManager() ?: return
         if (spanCount < 2) {
-            equilibriumAssignmentOfLinearLayoutManager(recyclerView, itemView, outRect, gapOuter, gapInner)
+            equilibriumAssignmentOfLinearLayoutManager(recyclerView, itemView, outRect, gapOuter, gapInner, gapOther)
             return
         }
         val orientation = layoutManager.orientation// 获取 GridLayoutManager 的布局方向
@@ -315,10 +315,12 @@ object UtilKRecyclerView {
                     outRect.top = gapOuter
                     outRect.bottom = gapInner
                 }
+
                 in (itemCount - spanCount) until itemCount -> {// 判断是否为最后一行，最后一行单独添加底部的间距
                     outRect.bottom = gapOuter
                     outRect.top = gapInner
                 }
+
                 else -> {
                     outRect.top = gapInner
                     outRect.bottom = gapInner

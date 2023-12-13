@@ -21,17 +21,23 @@ fun Fragment.replaceFragment(@IdRes containerViewId: Int, fragment: Fragment) {
     UtilKFragmentTransaction.replaceFragment(this, containerViewId, fragment)
 }
 
+//////////////////////////////////////////////////////////////////////////
+
 fun FragmentActivity.removeFragment(fragment: Fragment) {
     UtilKFragmentTransaction.removeFragment(this, fragment)
 }
 
-fun FragmentTransaction.addHideFragments(@IdRes containerViewId: Int, currentFragment: Fragment, tag: String, lastFragment: Fragment?) {
-    UtilKFragmentTransaction.addHideFragments(this, containerViewId, currentFragment, tag, lastFragment)
+//////////////////////////////////////////////////////////////////////////
+
+fun FragmentActivity.addHideFragments(currentFragment: Fragment, currentTag: String, lastFragment: Fragment?, lastTag: String?, @IdRes containerViewId: Int) {
+    UtilKFragmentTransaction.addHideFragments(this, currentFragment, currentTag, lastFragment, lastTag, containerViewId)
 }
 
-fun FragmentTransaction.showHideFragments(currentFragment: Fragment, lastFragment: Fragment?) {
-    UtilKFragmentTransaction.showHideFragments(this, currentFragment, lastFragment)
+fun FragmentActivity.showHideFragments(currentFragment: Fragment, currentTag: String, lastFragment: Fragment?, lastTag: String?, @IdRes containerViewId: Int) {
+    UtilKFragmentTransaction.showHideFragments(this, currentFragment, currentTag, lastFragment, lastTag, containerViewId)
 }
+
+//////////////////////////////////////////////////////////////////////////
 
 object UtilKFragmentTransaction {
     @JvmStatic
@@ -62,23 +68,35 @@ object UtilKFragmentTransaction {
     ///////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun addHideFragments(fragmentTransaction: FragmentTransaction, @IdRes containerViewId: Int, currentFragment: Fragment, tag: String, lastFragment: Fragment?) {
-        fragmentTransaction.add(containerViewId, currentFragment, tag)
-        fragmentTransaction.setMaxLifecycle(currentFragment, Lifecycle.State.RESUMED)
-        lastFragment?.let {
-            fragmentTransaction.hide(it)
-            fragmentTransaction.setMaxLifecycle(it, Lifecycle.State.STARTED)
+    fun addHideFragments(fragmentActivity: FragmentActivity, currentFragment: Fragment, currentTag: String, lastFragment: Fragment?, lastTag: String?, @IdRes containerViewId: Int) {
+        val fragmentTransaction = get(fragmentActivity)
+        if (fragmentActivity.findFragmentByTag(currentTag) == null) {
+            fragmentTransaction.add(containerViewId, currentFragment, currentTag)
+            fragmentTransaction.setMaxLifecycle(currentFragment, Lifecycle.State.RESUMED)
+        } else {
+            fragmentTransaction.show(currentFragment)
+            fragmentTransaction.setMaxLifecycle(currentFragment, Lifecycle.State.RESUMED)
+        }
+        if (lastFragment != null && lastTag != null && fragmentActivity.findFragmentByTag(lastTag) != null) {
+            fragmentTransaction.hide(lastFragment)
+            fragmentTransaction.setMaxLifecycle(lastFragment, Lifecycle.State.STARTED)
         }
         fragmentTransaction.commitAllowingStateLoss()
     }
 
     @JvmStatic
-    fun showHideFragments(fragmentTransaction: FragmentTransaction, currentFragment: Fragment, lastFragment: Fragment?) {
-        fragmentTransaction.show(currentFragment)
-        fragmentTransaction.setMaxLifecycle(currentFragment, Lifecycle.State.RESUMED)
-        lastFragment?.let {
-            fragmentTransaction.hide(it)
-            fragmentTransaction.setMaxLifecycle(it, Lifecycle.State.STARTED)
+    fun showHideFragments(fragmentActivity: FragmentActivity, currentFragment: Fragment, currentTag: String, lastFragment: Fragment?, lastTag: String?, @IdRes containerViewId: Int) {
+        val fragmentTransaction = get(fragmentActivity)
+        if (fragmentActivity.findFragmentByTag(currentTag) != null) {
+            fragmentTransaction.show(currentFragment)
+            fragmentTransaction.setMaxLifecycle(currentFragment, Lifecycle.State.RESUMED)
+        } else {
+            fragmentTransaction.add(containerViewId, currentFragment, currentTag)
+            fragmentTransaction.setMaxLifecycle(currentFragment, Lifecycle.State.RESUMED)
+        }
+        if (lastFragment != null && lastTag != null && fragmentActivity.findFragmentByTag(lastTag) != null) {
+            fragmentTransaction.hide(lastFragment)
+            fragmentTransaction.setMaxLifecycle(lastFragment, Lifecycle.State.STARTED)
         }
         fragmentTransaction.commitAllowingStateLoss()
     }

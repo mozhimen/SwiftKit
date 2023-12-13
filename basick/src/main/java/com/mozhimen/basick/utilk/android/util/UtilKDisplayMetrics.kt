@@ -74,11 +74,15 @@ object UtilKDisplayMetrics {
 
     //region # get function
     @JvmStatic
-    fun get(): DisplayMetrics =
-        UtilKResource.getDisplayMetrics()
+    fun get(context: Context) =
+        UtilKResource.getDisplayMetrics(context)
 
     @JvmStatic
-    fun get(context: Context): DisplayMetrics {
+    fun getOfSystem(): DisplayMetrics =
+        UtilKResource.getSystemDisplayMetrics()
+
+    @JvmStatic
+    fun getOfDefault(context: Context): DisplayMetrics {
         val displayMetrics = DisplayMetrics()
         UtilKDisplay.getDefaultMetrics(context, displayMetrics)
         return displayMetrics
@@ -89,47 +93,47 @@ object UtilKDisplayMetrics {
      */
     @JvmStatic
     fun getDensityDpi(): Int =
-        get().densityDpi
+        getOfSystem().densityDpi
 
     /**
      * 获取密度
      */
     @JvmStatic
     fun getDensity(): Float =
-        get().density
+        getOfSystem().density
 
     /**
      * 获取widthPixels
      */
     @JvmStatic
     fun getWidthPixels(): Int =
-        get().widthPixels
+        getOfSystem().widthPixels
 
     /**
      * 获取heightPixels
      */
     @JvmStatic
     fun getHeightPixels(): Int =
-        get().heightPixels
+        getOfSystem().heightPixels
 
     @JvmStatic
     fun getXdpi(): Float =
-        get().xdpi
+        getOfSystem().xdpi
 
     @JvmStatic
     fun getYdpi(): Float =
-        get().ydpi
+        getOfSystem().ydpi
 
     @JvmStatic
     fun getScaledDensity(): Float =
-        get().scaledDensity
+        getOfSystem().scaledDensity
     //endregion
 
     /////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun dp2px(@FloatRange(from = 0.0) dp: Float): Float =
-        TypedValue.applyDimension(CTypedValue.COMPLEX_UNIT_DIP, dp, get())
+        TypedValue.applyDimension(CTypedValue.COMPLEX_UNIT_DIP, dp, getOfSystem())
 
     @JvmStatic
     fun dp2px2(@FloatRange(from = 0.0) dp: Float): Float =
@@ -156,10 +160,10 @@ object UtilKDisplayMetrics {
         px / getScaledDensity() + 0.5f
 
     /////////////////////////////////////////////////////////////
-    
+
     @JvmStatic
     fun sp2px(@FloatRange(from = 0.0) sp: Float): Float =
-        TypedValue.applyDimension(CTypedValue.COMPLEX_UNIT_SP, sp, get())
+        TypedValue.applyDimension(CTypedValue.COMPLEX_UNIT_SP, sp, getOfSystem())
 
     @JvmStatic
     fun sp2px2(@FloatRange(from = 0.0) sp: Float): Float =

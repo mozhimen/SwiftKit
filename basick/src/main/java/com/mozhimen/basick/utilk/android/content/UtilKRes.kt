@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.android.content
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorRes
@@ -20,15 +21,15 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 object UtilKRes : BaseUtilK() {
 
     @JvmStatic
-    fun getString(@StringRes resId: Int): String =
-        UtilKContext.getString(_context, resId)
+    fun getString(@StringRes resId: Int, context: Context = _context): String =
+        UtilKContext.getString(context, resId)
 
     @JvmStatic
     fun getString(@StringRes resId: Int, vararg formatArgs: Any): String =
         UtilKContext.getString(_context, resId, formatArgs)
 
     @JvmStatic
-    fun getStringArray( resId: Int): Array<String> =
+    fun getStringArray(resId: Int): Array<String> =
         UtilKResource.getStringArray(_context, resId)
 
     /////////////////////////////////////////////////////////////////////

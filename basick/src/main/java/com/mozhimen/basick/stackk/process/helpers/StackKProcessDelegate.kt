@@ -75,6 +75,10 @@ internal class StackKProcessDelegate : IStackK {
         StackKCb.instance.finishAllActivity()
     }
 
+    override fun finishAllInvisibleActivity() {
+        StackKCb.instance.finishAllInvisibleActivity()
+    }
+
     override fun isFront(): Boolean =
         _isFront
 

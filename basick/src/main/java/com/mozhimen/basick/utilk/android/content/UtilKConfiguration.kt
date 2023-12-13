@@ -15,6 +15,9 @@ import com.mozhimen.basick.utilk.android.telephony.UtilKTelephonyManager
  * @Version 1.0
  */
 object UtilKConfiguration {
+    @JvmStatic
+    fun get(context: Context):Configuration=
+        UtilKResource.getConfiguration(context)
     /**
      * 获取自定义Configuration
      */
