@@ -1,6 +1,7 @@
 package com.mozhimen.uicorek.popwink.bases
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
@@ -34,12 +35,13 @@ open class BasePopwinKLifecycle(context: Context) : BasePopwinK(context), Lifecy
     }
 
     override fun onDismiss() {
-//        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
         super.onDismiss()
     }
 
     override fun onDestroy() {
-        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+//        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+        Log.d(TAG, "onDestroy: ")
         super.onDestroy()
     }
 
