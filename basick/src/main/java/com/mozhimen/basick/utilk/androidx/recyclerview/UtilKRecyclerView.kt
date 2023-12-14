@@ -1,11 +1,13 @@
 package com.mozhimen.basick.utilk.androidx.recyclerview
 
 import android.graphics.Rect
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.mozhimen.basick.utilk.bases.IUtilK
 
 /**
  * @ClassName UtilKViewRecycler
@@ -60,7 +62,7 @@ fun RecyclerView.requireLinearLayoutManager(): LinearLayoutManager? =
 fun RecyclerView.requireGridLayoutManager(): GridLayoutManager? =
     UtilKRecyclerView.requireGridLayoutManager(this)
 
-object UtilKRecyclerView {
+object UtilKRecyclerView : IUtilK {
 
     /**
      * 获取 spanCount
@@ -285,6 +287,7 @@ object UtilKRecyclerView {
         val itemCount = recyclerView.getItemCount()// item 的个数
         val spanCount = recyclerView.getSpanCount()// 网格布局的跨度数
         val itemPosition = recyclerView.getChildAdapterPosition(itemView)// 当前 item 的 position
+        val lastRowFirstPosition = itemCount - (itemCount % spanCount)
         val layoutManager = recyclerView.requireGridLayoutManager() ?: return
         if (spanCount < 2) {
             equilibriumAssignmentOfLinearLayoutManager(recyclerView, itemView, outRect, gapOuter, gapInner, gapOther)
@@ -316,7 +319,8 @@ object UtilKRecyclerView {
                     outRect.bottom = gapInner
                 }
 
-                in (itemCount - spanCount) until itemCount -> {// 判断是否为最后一行，最后一行单独添加底部的间距
+                in lastRowFirstPosition until itemCount /*(itemCount - spanCount) until itemCount*/ -> {// 判断是否为最后一行，最后一行单独添加底部的间距
+                    Log.d(TAG, "equilibriumAssignmentOfGridLayoutManager: itemPosition $itemPosition")
                     outRect.bottom = gapOuter
                     outRect.top = gapInner
                 }

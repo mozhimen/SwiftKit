@@ -48,6 +48,15 @@ object ManifestKPermission : BaseUtilK() {
     }
 
     @JvmStatic
+    fun requestPermission(
+        activity: AppCompatActivity,
+        permission: String,
+        onResult: IA_Listener<Boolean>? = null
+    ) {
+        requestPermissions(activity, arrayOf(permission), onResult)
+    }
+
+    @JvmStatic
     fun requestPermissions(
         activity: AppCompatActivity,
         permissions: Array<String>,
