@@ -52,7 +52,13 @@
             android:exported="false" />
         <activity
             android:name=".adapterk.AdapterKRecyclerVBActivity"
-            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+            android:exported="false" />
+        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+        <!-- bark -->
+        <activity
+            android:name=".bark.BarKActivity"
+            android:exported="false" />
+        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- btnk -->
         <activity
             android:name=".btnk.BtnKActivity"
