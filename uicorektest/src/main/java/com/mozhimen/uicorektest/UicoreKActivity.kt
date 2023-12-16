@@ -16,6 +16,7 @@ import com.mozhimen.uicorektest.adaptk.AdaptKActivity
 import com.mozhimen.uicorektest.textk.TextKActivity
 import com.mozhimen.uicorektest.toastk.ToastKActivity
 import com.mozhimen.uicorektest.viewk.ViewKActivity
+import com.mozhimen.uicorektest.bark.BarKActivity
 
 class UicoreKActivity : BaseActivityVB<ActivityUicorekBinding>() {
 
@@ -25,6 +26,10 @@ class UicoreKActivity : BaseActivityVB<ActivityUicorekBinding>() {
 
     fun goAdaptK(view: View) {
         startContext<AdaptKActivity>()
+    }
+
+    fun goBarK(view: View) {
+        startContext<BarKActivity>()
     }
 
     fun goBtnK(view: View) {

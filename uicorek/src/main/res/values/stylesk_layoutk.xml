@@ -18,6 +18,8 @@
         <item name="layoutKAmount_btnSize">20dp</item>
     </style>
 
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
     <style name="StyleK_LayoutKEmpty_BtnCancel">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -78,6 +80,8 @@
         <item name="layoutKSearch_keyword_padding">4dp</item>
     </style>
 
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
     <!--layoutk_NavBar-->
     <style name="StyleK_LayoutKNavBar">
         <item name="layoutKNavBar_title_textSize">17sp</item>
@@ -90,4 +94,28 @@
         <item name="layoutKNavBar_lineColor">@color/cok_gray_eeeeee</item>
         <item name="layoutKNavBar_lineWidth">0dp</item>
     </style>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+<!--    <style name="StyleK_TabLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/height_41</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabMode">fixed</item>
+        <item name="tabMaxWidth">0dp</item>
+        <item name="tabIndicator">@drawable/ic_line_blue0177fd_size44</item>
+        <item name="tabIndicatorColor">@color/le_blue_0177fd</item>
+        <item name="tabIndicatorFullWidth">false</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabIndicatorAnimationMode">elastic</item>
+        <item name="tabSelectedTextColor">@color/le_blue_0177fd</item>
+        <item name="tabTextAppearance">@style/LeleTabLayout_TextStyle</item>
+        <item name="tabTextColor">@color/le_black</item>
+        <item name="tabRippleColor">@android:color/transparent</item>
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="LeleTabLayout_TextStyle">
+        <item name="android:textSize">13sp</item>
+    </style>-->
 </resources>

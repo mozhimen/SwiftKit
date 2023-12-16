@@ -12,26 +12,38 @@ import kotlinx.coroutines.CoroutineScope
  * @Date 2023/5/12 14:47
  * @Version 1.0
  */
-fun LifecycleOwner.runOnBackThread(block: I_Listener) {
-    UtilKLifecycle.runOnBackThread(this, block)
+fun LifecycleOwner.runOnMainScope(block: suspend CoroutineScope.() -> Unit) {
+    UtilKLifecycle.runOnMainScope(this, block)
 }
+
+fun LifecycleOwner.runOnBackScope(block: suspend CoroutineScope.() -> Unit) {
+    UtilKLifecycle.runOnBackScope(this, block)
+}
+
+////////////////////////////////////////////////////////////////////
 
 fun LifecycleOwner.runOnMainThread(block: I_Listener) {
     UtilKLifecycle.runOnMainThread(this, block)
 }
 
-fun LifecycleOwner.runOnMainScope(block: suspend CoroutineScope.() -> Unit) {
-    UtilKLifecycle.runOnMainScope(this, block)
+fun LifecycleOwner.runOnBackThread(block: I_Listener) {
+    UtilKLifecycle.runOnBackThread(this, block)
 }
 
+////////////////////////////////////////////////////////////////////
+
 object UtilKLifecycle {
-    /**
-     * 在子线程上运行
-     */
     @JvmStatic
-    fun runOnBackThread(lifecycleOwner: LifecycleOwner, block: I_Listener) {
-        UtilKLooper.runOnBackThread(lifecycleOwner, block)
+    fun runOnMainScope(lifecycleOwner: LifecycleOwner, block: suspend CoroutineScope.() -> Unit) {
+        UtilKLooper.runOnMainScope(lifecycleOwner, block)
     }
+
+    @JvmStatic
+    fun runOnBackScope(lifecycleOwner: LifecycleOwner, block: suspend CoroutineScope.() -> Unit) {
+        UtilKLooper.runOnBackScope(lifecycleOwner, block)
+    }
+
+    ////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun runOnMainThread(lifecycleOwner: LifecycleOwner, block: I_Listener) {
@@ -39,7 +51,7 @@ object UtilKLifecycle {
     }
 
     @JvmStatic
-    fun runOnMainScope(lifecycleOwner: LifecycleOwner, block: suspend CoroutineScope.() -> Unit) {
-        UtilKLooper.runOnMainScope(lifecycleOwner, block)
+    fun runOnBackThread(lifecycleOwner: LifecycleOwner, block: I_Listener) {
+        UtilKLooper.runOnBackThread(lifecycleOwner, block)
     }
 }

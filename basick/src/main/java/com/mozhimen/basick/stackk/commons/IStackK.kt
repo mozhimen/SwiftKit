@@ -13,6 +13,8 @@ import java.lang.ref.WeakReference
 interface IStackK {
     fun init()
 
+    /////////////////////////////////////////////////////////////////
+
     /**
      * 找出栈顶不为空，且没有被销毁的activity
      * @return Activity?
@@ -40,6 +42,14 @@ interface IStackK {
     fun getStackTopActivityRef(onlyAlive: Boolean): WeakReference<Activity>?
 
     /**
+     * 获取activity集合
+     * @return List<WeakReference<Activity>>
+     */
+    fun getActivityRefs(): ArrayList<WeakReference<Activity>>
+
+    /////////////////////////////////////////////////////////////////
+
+    /**
      * 增加栈监听器
      * @param listener StackKListener
      */
@@ -57,10 +67,19 @@ interface IStackK {
      */
     fun getFrontBackListeners(): ArrayList<IStackKListener>
 
+    /////////////////////////////////////////////////////////////////
+
     /**
      * 结束所有堆栈
      */
     fun finishAllActivity()
+
+    /**
+     * 结束除顶部的堆栈
+     */
+    fun finishAllInvisibleActivity()
+
+    /////////////////////////////////////////////////////////////////
 
     /**
      * 是否在前台
@@ -68,11 +87,6 @@ interface IStackK {
      */
     fun isFront(): Boolean
 
-    /**
-     * 获取activity集合
-     * @return List<WeakReference<Activity>>
-     */
-    fun getActivityRefs(): ArrayList<WeakReference<Activity>>
 
     /**
      * 获取堆栈数量

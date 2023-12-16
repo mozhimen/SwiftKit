@@ -27,6 +27,12 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/UicoreKStyle_Btn"
+                android:onClick="goBarK"
+                android:text="goBarK"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/UicoreKStyle_Btn"
                 android:onClick="goBtnK"
                 android:text="goBtnK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />

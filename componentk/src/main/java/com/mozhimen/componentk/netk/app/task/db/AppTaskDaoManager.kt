@@ -75,10 +75,15 @@ object AppTaskDaoManager : IUtilK {
         return _tasks.filter { it.value.apkPackageName == packageName }.map { it.value }.getOrNull(0)
     }
 
+//    @JvmStatic
+//    fun getAllAtTaskDownloadOrWaitOrPause(): List<AppTask> {
+//        return _tasks.filter { it.value.isTaskDownload() /*|| it.value.taskState == CNetKAppTaskState.STATE_TASK_WAIT*/ || it.value.taskState == CNetKAppTaskState.STATE_TASK_PAUSE }
+//            .map { it.value }
+//    }
+
     @JvmStatic
-    fun getAllAtTaskDownloadOrWaitOrPause(): List<AppTask> {
-        return _tasks.filter { it.value.isTaskDownload() /*|| it.value.taskState == CNetKAppTaskState.STATE_TASK_WAIT*/ || it.value.taskState == CNetKAppTaskState.STATE_TASK_PAUSE }
-            .map { it.value }
+    fun getAppTasksIsDownloading(): List<AppTask> {
+        return _tasks.filter { it.value.isDownloading() }.map { it.value }
     }
 
     @JvmStatic

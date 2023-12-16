@@ -42,12 +42,24 @@ object UtilKResource {
         getConfiguration(getSystemResources())
 
     @JvmStatic
+    fun getConfiguration(context: Context): Configuration =
+        getConfiguration(getAppResources(context))
+
+    @JvmStatic
     fun getConfiguration(resources: Resources): Configuration =
         resources.configuration
 
     @JvmStatic
-    fun getDisplayMetrics(): DisplayMetrics =
-        getSystemResources().displayMetrics
+    fun getSystemDisplayMetrics(): DisplayMetrics =
+        getDisplayMetrics(getSystemResources())
+
+    @JvmStatic
+    fun getDisplayMetrics(context: Context): DisplayMetrics =
+        getAppResources(context).displayMetrics
+
+    @JvmStatic
+    fun getDisplayMetrics(resources: Resources): DisplayMetrics =
+        resources.displayMetrics
 
     @JvmStatic
     @SuppressLint("DiscouragedApi")
@@ -94,4 +106,9 @@ object UtilKResource {
     @JvmStatic
     fun obtainAttributes(context: Context, set: AttributeSet, @StyleableRes attrs: IntArray): TypedArray =
         getAppResources(context).obtainAttributes(set, attrs)
+
+    @JvmStatic
+    fun updateConfiguration(context: Context, configuration: Configuration, displayMetrics: DisplayMetrics) {
+        getAppResources(context).updateConfiguration(configuration, displayMetrics)
+    }
 }

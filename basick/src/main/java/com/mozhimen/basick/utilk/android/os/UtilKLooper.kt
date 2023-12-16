@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.android.os
 
 import android.os.Looper
+import androidx.annotation.WorkerThread
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.commons.ISuspend_Listener
@@ -66,12 +67,23 @@ object UtilKLooper {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun runOnMainScope(lifecycleOwner: LifecycleOwner, block: suspend CoroutineScope.() -> Unit) {
         lifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
             this.block()
         }
     }
+
+    @JvmStatic
+    fun runOnBackScope(lifecycleOwner: LifecycleOwner, block: suspend CoroutineScope.() -> Unit) {
+        lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            this.block()
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun runOnMainThread(lifecycleOwner: LifecycleOwner, block: I_Listener) {
@@ -81,21 +93,20 @@ object UtilKLooper {
             lifecycleOwner.lifecycleScope.launch(Dispatchers.Main) { block.invoke() }
     }
 
-    /**
-     * 在子线程运行
-     */
-    @JvmStatic
-    suspend fun runOnBackThread(block: ISuspend_Listener) {
-        if (isMainThread())
-            withContext(Dispatchers.IO) { block.invoke() }
-        else
-            block.invoke()
-    }
-
     @JvmStatic
     fun runOnBackThread(lifecycleOwner: LifecycleOwner, block: I_Listener) {
         if (isMainThread())
             lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) { block.invoke() }
+        else
+            block.invoke()
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    suspend fun runOnBackThread(block: ISuspend_Listener) {
+        if (isMainThread())
+            withContext(Dispatchers.IO) { block.invoke() }
         else
             block.invoke()
     }

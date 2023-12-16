@@ -60,7 +60,7 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
     @JvmStatic
     fun init(context: Context) {
         try {
-            AppTaskDaoManager.getAllAtTaskDownloadOrWaitOrPause().forEach {
+//            AppTaskDaoManager.getAllAtTaskDownloadOrWaitOrPause().forEach {
 //                getDownloadTask(it)?.let { downloadTask ->
 ////                    _downloadingTasks.put(downloadTask.id, MAppDownloadProgress(it))
 //
@@ -73,6 +73,13 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
 //                     */
 //                    NetKApp.onDownloadCancel(it)
 //                }
+//            }
+            AppTaskDaoManager.getAppTasksIsDownloading().forEach {
+                getDownloadTask(it)?.let { downloadTask ->
+                    _downloadingTasks.put(downloadTask.id,MAppDownloadProgress(it))
+                }
+                if (it.isDownloading())
+                    downloadPause(it)
             }
             Log.d(TAG, "init: resume task num ${_downloadingTasks.size()}")
             val builder = OkDownload.Builder(context)

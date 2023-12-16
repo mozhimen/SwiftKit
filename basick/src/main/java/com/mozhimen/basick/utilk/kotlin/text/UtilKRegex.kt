@@ -22,6 +22,10 @@ fun String.replaceRegexDoubleQuote(): String =
 fun String.replaceEndSeparator(): String =
     UtilKRegex.replaceEndSeparator(this)
 
+fun String.complementStart0(): String =
+    UtilKRegex.complementStart0(this)
+
+/////////////////////////////////////////////////////////////////////////////
 
 object UtilKRegex {
     @JvmStatic
@@ -39,4 +43,8 @@ object UtilKRegex {
     @JvmStatic
     fun replaceEndSeparator(str: String): String =
         if (str.endsWith("/")) str.substring(0, str.length - 1) else str
+
+    @JvmStatic
+    fun complementStart0(str: String): String =
+        if (str.startsWith(".")) "0$str" else str
 }

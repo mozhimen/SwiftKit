@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.java.text
 
+import com.mozhimen.basick.utilk.kotlin.text.complementStart0
 import com.mozhimen.basick.utilk.kotlin.text.replaceDot
 import com.mozhimen.basick.utilk.kotlin.text.replaceRegexLineBreak
 import java.math.RoundingMode
@@ -86,11 +87,11 @@ object UtilKDecimalFormat {
 
     @JvmStatic
     fun getStrDecimal(obj: Any, bit: Int): String =
-        getOf(bit).format(obj).replaceDot()
+        getOf(bit).format(obj).replaceDot().complementStart0()
 
     @JvmStatic
     fun getStrDecimal(obj: Any, bit: Int, roundingMode: RoundingMode): String =
-        getOf(bit, roundingMode).format(obj).replaceDot()
+        getOf(bit, roundingMode).format(obj).replaceDot().complementStart0()
 
     //////////////////////////////////////////////////////////////////////
 

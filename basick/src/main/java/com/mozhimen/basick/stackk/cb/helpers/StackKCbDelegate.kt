@@ -88,6 +88,17 @@ internal class StackKCbDelegate : IStackK {
         _activityRefs.clear()
     }
 
+    override fun finishAllInvisibleActivity() {
+        val stackTopActivityRef = getStackTopActivityRef()
+        for (activityRef in _activityRefs) {
+            if (activityRef == stackTopActivityRef) continue
+            if (activityRef.get()?.isFinishing == false) {
+                activityRef.get()?.finish()
+            }
+        }
+        _activityRefs.clear()
+    }
+
     override fun isFront(): Boolean =
         _isFront
 
