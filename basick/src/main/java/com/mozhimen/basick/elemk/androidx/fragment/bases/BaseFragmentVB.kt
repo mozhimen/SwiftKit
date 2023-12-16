@@ -85,6 +85,13 @@ open class BaseFragmentVB<VB : ViewDataBinding>(
 
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+
+    @CallSuper
+    override fun onHiddenChanged(hidden: Boolean) {
+        Log.v(TAG, "onHiddenChanged: hidden $hidden")
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         Log.v(TAG, "onAttach")
