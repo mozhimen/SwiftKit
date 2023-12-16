@@ -14,51 +14,64 @@ import com.mozhimen.basick.utilk.bases.IUtilK
  * @Date 2023/7/25 15:58
  * @Version 1.0
  */
-fun Class<*>.getDestinationId(): Int =
-    DestinationUtil.getId(this)
-
 fun NavController.startDestinationId(destinationId: Int) {
-    DestinationUtil.startId(this, destinationId)
+    DestinationUtil.startDestinationId(this, destinationId)
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+fun Activity.getDestinationId(): Int =
+    DestinationUtil.getDestinationId(this)
+
+fun Fragment.getDestinationId(): Int =
+    DestinationUtil.getDestinationId(this)
+
+fun Class<*>.getDestinationId(): Int =
+    DestinationUtil.getDestinationId(this)
+
 fun NavController.findNavigationId(destinationId: Int): Boolean =
-    DestinationUtil.findId(this, destinationId)
+    DestinationUtil.findNavigationId(this, destinationId)
 
 fun NavController.getCurrentDestinationId(): Int? =
-    DestinationUtil.getCurrentId(this)
+    DestinationUtil.getCurrentDestinationId(this)
+
+////////////////////////////////////////////////////////////////////////////////
 
 object DestinationUtil : IUtilK {
-    @JvmStatic
-    fun getId(activity: Activity): Int =
-        getId(activity::class.java)
 
     @JvmStatic
-    fun getId(fragment: Fragment): Int =
-        getId(fragment::class.java)
-
-    @JvmStatic
-    fun getId(clazz: Class<*>): Int =
-        kotlin.math.abs(clazz.name.hashCode())
-
-    @JvmStatic
-    fun startId(navController: NavController, destinationId: Int) {
-        if (!findId(navController, destinationId)) {
+    fun startDestinationId(navController: NavController, destinationId: Int) {
+        if (!findNavigationId(navController, destinationId)) {
             "startId don't find thid id".wt(TAG)
             return
         }
-        if (getCurrentId(navController) == destinationId) {
+        if (getCurrentDestinationId(navController) == destinationId) {
             "startId current id is this id".wt(TAG)
             return
         }
         navController.navigate(destinationId)
     }
 
+    ////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun getDestinationId(activity: Activity): Int =
+        getDestinationId(activity::class.java)
+
+    @JvmStatic
+    fun getDestinationId(fragment: Fragment): Int =
+        getDestinationId(fragment::class.java)
+
+    @JvmStatic
+    fun getDestinationId(clazz: Class<*>): Int =
+        kotlin.math.abs(clazz.name.hashCode())
+
     @SuppressLint("RestrictedApi")
     @JvmStatic
-    fun findId(navController: NavController, destinationId: Int): Boolean =
+    fun findNavigationId(navController: NavController, destinationId: Int): Boolean =
         navController.findDestination(destinationId) != null
 
     @JvmStatic
-    fun getCurrentId(navController: NavController): Int? =
+    fun getCurrentDestinationId(navController: NavController): Int? =
         navController.currentDestination?.id
 }

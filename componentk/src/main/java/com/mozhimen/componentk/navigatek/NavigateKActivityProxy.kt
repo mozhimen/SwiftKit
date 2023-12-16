@@ -20,7 +20,7 @@ import com.mozhimen.componentk.navigatek.mos.MNavigateKConfig
  */
 @OptInApiCall_BindLifecycle
 @OptInApiInit_ByLazy
-class NavigateKProxy<A>(
+class NavigateKActivityProxy<A>(
     private val _activity: A,
     private val _containerId: Int,
     private val _classes: List<Class<*>>,
@@ -29,7 +29,7 @@ class NavigateKProxy<A>(
 ) : BaseWakeBefDestroyLifecycleObserver() where A : FragmentActivity, A : LifecycleOwner {
     ///////////////////////////////////////////////////////////////////////////////////////
 
-    private val _navigateK: NavigateK by lazy { NavigateK(_activity) }
+    private val _navigateKActivity: NavigateKActivity by lazy { NavigateKActivity(_activity) }
     private var _navController: NavController? = null
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -56,6 +56,6 @@ class NavigateKProxy<A>(
     ///////////////////////////////////////////////////////////////////////////////////////
 
     private fun init() {
-        _navController = _navigateK.setNavigateKConfig(_navigateKConfig).setupNavGraph(_containerId, _classes)
+        _navController = _navigateKActivity.setNavigateKConfig(_navigateKConfig).setupNavGraph(_containerId, _classes)
     }
 }

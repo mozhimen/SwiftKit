@@ -31,7 +31,7 @@ open class BaseDialogFragmentVB<VB : ViewDataBinding>(
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         inflateView(container)
         _vb = UtilKViewDataBinding.get<VB>(this::class.java, inflater, container/*, 0*/).apply {
-            lifecycleOwner = this@BaseDialogFragmentVB
+            lifecycleOwner = viewLifecycleOwner
         }
         return vb.root
     }

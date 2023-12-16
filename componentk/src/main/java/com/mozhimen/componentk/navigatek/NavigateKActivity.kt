@@ -2,7 +2,7 @@ package com.mozhimen.componentk.navigatek
 
 import androidx.fragment.app.FragmentActivity
 import com.mozhimen.componentk.navigatek.commons.INavigateK
-import com.mozhimen.componentk.navigatek.helpers.NavigateKDelegate
+import com.mozhimen.componentk.navigatek.helpers.NavigateKActivityDelegate
 
 
 /**
@@ -12,4 +12,4 @@ import com.mozhimen.componentk.navigatek.helpers.NavigateKDelegate
  * @Date 2023/7/26 13:26
  * @Version 1.0
  */
-class NavigateK(activity: FragmentActivity) : INavigateK by NavigateKDelegate(activity)
+class NavigateKActivity(activity: FragmentActivity) : INavigateK by NavigateKActivityDelegate(activity)

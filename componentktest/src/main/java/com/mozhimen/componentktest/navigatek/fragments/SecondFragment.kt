@@ -1,21 +1,26 @@
 package com.mozhimen.componentktest.navigatek.fragments
 
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.androidx.fragment.bases.BaseFragmentVB
-import com.mozhimen.basick.elemk.mos.MKey
 import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
 import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
-import com.mozhimen.componentktest.BR
+import com.mozhimen.componentk.navigatek.NavigateKActivityProxy
+import com.mozhimen.componentk.navigatek.NavigateKFragmentProxy
+import com.mozhimen.componentk.navigatek.helpers.getDestinationId
+import com.mozhimen.componentk.navigatek.mos.MNavigateKConfig
 import com.mozhimen.componentktest.R
 import com.mozhimen.componentktest.databinding.FragmentSecondBinding
-import com.mozhimen.componentktest.databinding.ItemNavigatekBinding
 import com.mozhimen.componentktest.navigatek.NavigateKActivity
-import com.mozhimen.uicorek.adapterk.quick.AdapterKQuickRecyclerVB
 
+@OptIn(OptInApiCall_BindLifecycle::class, OptInApiInit_ByLazy::class)
 class SecondFragment : BaseFragmentVB<FragmentSecondBinding>() {
-    private val _datas = mutableListOf(MKey("01", "01"))
-    private var _adapter: AdapterKQuickRecyclerVB<MKey, ItemNavigatekBinding>? = null
+    private val _fragments = listOf(ThirdFragment::class.java, ForthFragment::class.java)
+    private val _navigateKProxy by lazy {
+        NavigateKFragmentProxy(requireActivity(),this, R.id.navigatek_fragment_container, _fragments, MNavigateKConfig(isFragmentShowHide = true))//show_hide方式
+//        NavigateKProxy(this, R.id.navigatek_fragment_container, _fragments)
+    }
+
+    val navigateKProxy get() = _navigateKProxy
 
     @OptIn(OptInApiCall_BindLifecycle::class, OptInApiInit_ByLazy::class)
     override fun initView(savedInstanceState: Bundle?) {
@@ -23,11 +28,11 @@ class SecondFragment : BaseFragmentVB<FragmentSecondBinding>() {
             vb.navigatekFragmentSecondTxt1.text = it
         }
         vb.navigatekFragmentSecondTxt2.setOnClickListener {
-            (requireActivity() as NavigateKActivity).navigateKProxy.navController.popBackStack()
+            (requireActivity() as NavigateKActivity).navigateKProxy.startDestinationId(FirstFragment::class.java.getDestinationId())
         }
 
-        vb.navigatekFragmentSecondRecycler.layoutManager = LinearLayoutManager(requireActivity())
-        _adapter = AdapterKQuickRecyclerVB<MKey, ItemNavigatekBinding>(_datas, R.layout.item_navigatek, BR.item_navigatek)
-        vb.navigatekFragmentSecondRecycler.adapter = _adapter
+        ///////////////////////////////////////////////////////////////////////
+
+        _navigateKProxy.bindLifecycle(this)
     }
 }

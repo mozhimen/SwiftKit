@@ -17,7 +17,7 @@ class ExampleUnitTest {
     fun addition_isCorrect() {
         FirstFragment::class.java.name.toString().printlog()
         FirstFragment::class.java.canonicalName?.toString().printlog()
-        DestinationUtil.getId(FirstFragment::class.java).printlog()
+        DestinationUtil.getDestinationId(FirstFragment::class.java).printlog()
         abs(FirstFragment::class.java.name.hashCode()).printlog()
     }
 }

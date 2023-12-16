@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.mozhimen.basick.elemk.androidx.appcompat.commons.IActivity
 import com.mozhimen.basick.elemk.androidx.appcompat.commons.IFragment
 import com.mozhimen.basick.utilk.androidx.databinding.UtilKViewDataBinding
@@ -33,7 +32,7 @@ open class BaseFragmentVB<VB : ViewDataBinding>(
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         inflateView(container)
         _vb = UtilKViewDataBinding.get<VB>(this::class.java, inflater, container/*, 0*/).apply {
-            lifecycleOwner = this@BaseFragmentVB
+            lifecycleOwner = viewLifecycleOwner
         }
         return vb.root
     }

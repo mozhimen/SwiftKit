@@ -3,10 +3,12 @@ package com.mozhimen.componentk.navigatek.helpers
 import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.util.Log
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.*
 import androidx.navigation.fragment.DialogFragmentNavigator
 import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.fragment.findNavController
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.kotlin.collections.joinT2list
@@ -17,7 +19,7 @@ import com.mozhimen.componentk.navigatek.mos.MNavigateKPageInfo
 import com.mozhimen.componentk.navigatek.temps.ShowHideFragmentNavigator
 import java.util.*
 
-internal class NavigateKDelegate(private val _activity: FragmentActivity) : INavigateK, IUtilK {
+internal class NavigateKFragmentDelegate(private val _activity: FragmentActivity, private val _fragment: Fragment) : INavigateK, IUtilK {
 
     private var _mNavigateKConfig: MNavigateKConfig = MNavigateKConfig()
 
@@ -31,14 +33,21 @@ internal class NavigateKDelegate(private val _activity: FragmentActivity) : INav
         if (clazzes.isEmpty()) throw Exception("clazzes must not be empty!")
 
         //1
-        val navController = _activity.findNavController(containerId).apply { setLifecycleOwner(_activity) }
+        val navController = Navigation.findNavController(_fragment.requireView().findViewById(containerId)).apply { setLifecycleOwner(_fragment.viewLifecycleOwner) }
         /////////////////////////////////////////////////////////////////////////////
 
         //2
         val navigatorProvider =
             navController.navigatorProvider.apply {
-                if (_mNavigateKConfig.isFragmentShowHide) {
-                    addNavigator(ShowHideFragmentNavigator(_activity, _activity.supportFragmentManager.findFragmentById(containerId)!!.childFragmentManager, containerId))
+                val isHasShowHideNavigator = try {
+                    getNavigator<ShowHideFragmentNavigator>("navigatek_fragment")
+                    true
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    false
+                }
+                if (_mNavigateKConfig.isFragmentShowHide && !isHasShowHideNavigator) {
+                    addNavigator(ShowHideFragmentNavigator(_activity, _fragment.childFragmentManager.findFragmentById(containerId)!!.childFragmentManager, containerId))
                 }
             }
         /////////////////////////////////////////////////////////////////////////////
