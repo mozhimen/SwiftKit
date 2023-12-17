@@ -50,7 +50,7 @@ class NavigateKFragmentProxy<A>(
         _navController?.startDestinationId(destinationId)
     }
 
-    override fun onPause(owner: LifecycleOwner) {
+    override fun onDestroy(owner: LifecycleOwner) {
         _navController = null
         super.onDestroy(owner)
     }
