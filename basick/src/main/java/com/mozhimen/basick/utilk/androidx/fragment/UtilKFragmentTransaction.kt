@@ -70,14 +70,14 @@ object UtilKFragmentTransaction {
     @JvmStatic
     fun addHideFragments(fragmentActivity: FragmentActivity, currentFragment: Fragment, currentTag: String, lastFragment: Fragment?, lastTag: String?, @IdRes containerViewId: Int) {
         val fragmentTransaction = get(fragmentActivity)
-        if (fragmentActivity.findFragmentByTag(currentTag) == null) {
+        if (fragmentActivity.findFragmentByTag(currentTag) == null && !currentFragment.isAdded) {
             fragmentTransaction.add(containerViewId, currentFragment, currentTag)
             fragmentTransaction.setMaxLifecycle(currentFragment, Lifecycle.State.RESUMED)
         } else {
             fragmentTransaction.show(currentFragment)
             fragmentTransaction.setMaxLifecycle(currentFragment, Lifecycle.State.RESUMED)
         }
-        if (lastFragment != null && lastTag != null && fragmentActivity.findFragmentByTag(lastTag) != null) {
+        if (lastFragment != null && lastTag != null && fragmentActivity.findFragmentByTag(lastTag) != null && lastFragment.isAdded) {
             fragmentTransaction.hide(lastFragment)
             fragmentTransaction.setMaxLifecycle(lastFragment, Lifecycle.State.STARTED)
         }
@@ -87,14 +87,14 @@ object UtilKFragmentTransaction {
     @JvmStatic
     fun showHideFragments(fragmentActivity: FragmentActivity, currentFragment: Fragment, currentTag: String, lastFragment: Fragment?, lastTag: String?, @IdRes containerViewId: Int) {
         val fragmentTransaction = get(fragmentActivity)
-        if (fragmentActivity.findFragmentByTag(currentTag) != null) {
+        if (fragmentActivity.findFragmentByTag(currentTag) != null && currentFragment.isAdded) {
             fragmentTransaction.show(currentFragment)
             fragmentTransaction.setMaxLifecycle(currentFragment, Lifecycle.State.RESUMED)
         } else {
             fragmentTransaction.add(containerViewId, currentFragment, currentTag)
             fragmentTransaction.setMaxLifecycle(currentFragment, Lifecycle.State.RESUMED)
         }
-        if (lastFragment != null && lastTag != null && fragmentActivity.findFragmentByTag(lastTag) != null) {
+        if (lastFragment != null && lastTag != null && fragmentActivity.findFragmentByTag(lastTag) != null && lastFragment.isAdded) {
             fragmentTransaction.hide(lastFragment)
             fragmentTransaction.setMaxLifecycle(lastFragment, Lifecycle.State.STARTED)
         }
