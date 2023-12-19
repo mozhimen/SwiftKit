@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk.android.provider
 
-import android.content.ContentResolver
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
@@ -10,8 +9,6 @@ import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
 import com.mozhimen.basick.utilk.android.database.getColumnString
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.io.isFileExist
-import com.mozhimen.basick.utilk.kotlin.strFilePath2file
 
 /**
  * @ClassName UtilKMideaStore
@@ -23,27 +20,9 @@ import com.mozhimen.basick.utilk.kotlin.strFilePath2file
 fun Uri.getMediaColumns(selection: String? = null, selectionArgs: Array<String>? = null): String? =
     UtilKMediaStore.getMediaColumns(this, selection, selectionArgs)
 
-fun Uri.getStrFilePathNameOfMediaColumns(strFilePathNameDest: String, selection: String? = null, selectionArgs: Array<String>? = null): String? =
-    UtilKMediaStore.getStrFilePathNameOfMediaColumns(this, strFilePathNameDest, selection, selectionArgs)
-
 ////////////////////////////////////////////////////////////////////////////////////
 
 object UtilKMediaStore : BaseUtilK() {
-    @JvmStatic
-    fun getStrFilePathNameOfMediaColumns(uri: Uri, strFilePathNameDest: String, selection: String? = null, selectionArgs: Array<String>? = null): String? {
-        var strFilePathName: String? = null
-        when (uri.scheme) {
-            null, ContentResolver.SCHEME_FILE -> strFilePathName = uri.path
-            ContentResolver.SCHEME_CONTENT -> strFilePathName = uri.getMediaColumns(selection, selectionArgs)
-        }
-
-        if (strFilePathName.isNullOrEmpty() && strFilePathNameDest.isNotEmpty()) {
-            val file = strFilePathNameDest.strFilePath2file()
-            if (file.isFileExist())
-                strFilePathName = file.absolutePath
-        }
-        return strFilePathName
-    }
 
     /**
      * api 24?

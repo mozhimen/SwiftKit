@@ -50,8 +50,8 @@ internal class SystemDownloader(request: DownloadRequest) : BaseDownloader(reque
                 CDownloadManager.STATUS_SUCCESSFUL -> {
                     val uri = downloader.getDownloadedFileUri(downloadId)
                     if (uri != null) {
-                        val path = uri.uri2strFilePath()//getRealPathFromURI(request.context, )
-                        path?.let {
+                        val strFilePath = uri.uri2strFilePath()//getRealPathFromURI(request.context, )
+                        strFilePath?.let {
                             val file = File(it)
                             if (file.exists() && file.length() == downloadInfo.totalSize) {
                                 request.onComplete(uri)
