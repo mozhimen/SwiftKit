@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import com.mozhimen.basick.elemk.commons.IExtension_Listener
 
 /**
  * @ClassName UtilKIntent
@@ -12,6 +13,9 @@ import android.content.Intent
  * @Date 2023/2/26 23:03
  * @Version 1.0
  */
+fun Intent.createChooser(title: CharSequence): Intent =
+    UtilKIntent.createChooser(this, title)
+
 fun Intent.isIntentAvailable(context: Context): Boolean =
     UtilKIntent.isIntentAvailable(this, context)
 
@@ -19,6 +23,15 @@ fun Intent.getQueryParameter(key: String): String? =
     UtilKIntent.getQueryParameter(this, key)
 
 object UtilKIntent {
+    fun get(context: Context, clazz: Class<*>): Intent =
+        Intent(context, clazz)
+
+    inline fun <reified T> get(context: Context): Intent =
+        Intent(context, T::class.java)
+
+    inline fun <reified T> get(context: Context, block: IExtension_Listener<Intent>): Intent =
+        Intent(context, T::class.java).apply(block)
+
     @JvmStatic
     fun getQueryParameter(intent: Intent, key: String): String? =
         intent.data?.getQueryParameter(key)
@@ -38,5 +51,7 @@ object UtilKIntent {
     fun resolveActivity(intent: Intent, context: Context): ComponentName? =
         intent.resolveActivity(UtilKPackageManager.get(context))
 
-
+    @JvmStatic
+    fun createChooser(target: Intent, title: CharSequence): Intent =
+        Intent.createChooser(target, title)
 }

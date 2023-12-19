@@ -10,8 +10,8 @@ import android.view.ViewGroup
  * @Version 1.0
  */
 interface ITextKEditBarListener {
-    fun onCancel()
+    fun onCancel(){}
     fun onIllegal()
     fun onSubmit(content: String?)
-    fun onAttached(rootView: ViewGroup?)
+    fun onAttached(rootView: ViewGroup?){}
 }

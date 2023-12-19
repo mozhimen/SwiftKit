@@ -35,6 +35,10 @@ object UtilKStrPath {
                 UtilKFileDir.External.getEnvStorage().absolutePath
 
             @JvmStatic
+            fun getEnvStoragePublicPictures(): String =
+                UtilKFileDir.External.getEnvStoragePublicPictures().absolutePath
+
+            @JvmStatic
             fun getEnvStoragePublicDCIM(): String =
                 UtilKFileDir.External.getEnvStoragePublicDCIM().absolutePath
 

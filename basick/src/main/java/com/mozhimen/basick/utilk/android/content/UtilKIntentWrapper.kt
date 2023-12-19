@@ -18,6 +18,7 @@ import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.net.UtilKUri
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.java.io.UtilKFileFormat
+import com.mozhimen.basick.utilk.java.io.file2uri
 import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import com.mozhimen.basick.utilk.kotlin.UtilKString
 import com.mozhimen.basick.utilk.kotlin.strUri2uri
@@ -30,34 +31,23 @@ import java.io.File
  * @Date 2023/9/26 22:12
  * @Version 1.0
  */
-fun Intent.createChooser(title: CharSequence): Intent =
-    UtilKIntentWrapper.createChooser(this, title)
-
 object UtilKIntentWrapper {
-    fun get(context: Context, clazz: Class<*>): Intent =
-        Intent(context, clazz)
 
-    inline fun <reified T> get(context: Context): Intent =
-        Intent(context, T::class.java)
-
-    inline fun <reified T> get(context: Context, block: IExtension_Listener<Intent>): Intent =
-        Intent(context, T::class.java).apply(block)
-
-    @JvmStatic
-    fun createChooser(target: Intent, title: CharSequence): Intent =
-        Intent.createChooser(target, title)
-
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //CIntent
     ///////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 分享文字
      */
     @JvmStatic
-    fun getShareText(str:String):Intent =
+    fun getShareText(str: String): Intent =
         Intent(CIntent.ACTION_SEND).apply {
-            putExtra(CIntent.EXTRA_TEXT,str)
+            putExtra(CIntent.EXTRA_TEXT, str)
             type = CMediaFormat.MIMETYPE_TEXT_PLAIN
         }
+
+    ///////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 选择系统文件
@@ -72,6 +62,8 @@ object UtilKIntentWrapper {
     @JvmStatic
     fun getPickImage(): Intent =
         getPick().apply { setDataAndType(CMediaStore.Images.Media.EXTERNAL_CONTENT_URI, CMediaFormat.MIMETYPE_IMAGE_ALL) }
+
+    ///////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun getContent(): Intent =
@@ -89,6 +81,95 @@ object UtilKIntentWrapper {
     fun getContentAudioVideo(): Intent =
         getContent().apply { setType("${CMediaFormat.MIMETYPE_AUDIO_ALL};${CMediaFormat.MIMETYPE_VIDEO_ALL}") }
 
+    ///////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 获取mainLauncher
+     */
+    @JvmStatic
+    fun getMainLauncher(packageName: String, launcherActivityName: String): Intent =
+        Intent(CIntent.ACTION_MAIN).apply {
+            addCategory(CIntent.CATEGORY_LAUNCHER)
+            setClassName(packageName, launcherActivityName)
+        }
+
+    /**
+     * 获取mainLauncher
+     */
+    @JvmStatic
+    fun getMainLauncher(packageName: String, uri: Uri? = null): Intent =
+        Intent(CIntent.ACTION_MAIN, uri).apply {
+            addCategory(CIntent.CATEGORY_LAUNCHER)
+            setPackage(packageName)
+        }
+
+    /**
+     * 获取mainLauncher
+     */
+    @JvmStatic
+    fun getMainLauncher(packageName: String): Intent =
+        Intent(CIntent.ACTION_MAIN).apply {
+            addCategory(CIntent.CATEGORY_LAUNCHER)
+            setPackage(packageName)
+            addFlags(CIntent.FLAG_ACTIVITY_NEW_TASK)
+        }
+
+    /**
+     * 获取启动App的Intent
+     */
+    @JvmStatic
+    fun getLauncherActivity(context: Context, packageName: String): Intent? {
+        val launcherActivityName: String = UtilKActivity.getLauncherActivityName(context, packageName)
+        if (UtilKString.hasSpace(launcherActivityName) || launcherActivityName.isEmpty()) return getLauncherForPackage(context)
+        return getMainLauncher(packageName, launcherActivityName)
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 获取安装app的intent
+     */
+    @SuppressLint("InlinedApi")
+    @JvmStatic
+    @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
+    fun getInstall(apkUri: Uri): Intent {
+        val intent = Intent(CIntent.ACTION_VIEW)
+        if (UtilKBuildVersion.isAfterV_24_7_N()) //判断安卓系统是否大于7.0  大于7.0使用以下方法
+            intent.addFlags(CIntent.FLAG_GRANT_READ_URI_PERMISSION) //增加读写权限//添加这一句表示对目标应用临时授权该Uri所代表的文件
+        intent.setDataAndType(apkUri, "application/vnd.android.package-archive")
+        return intent
+    }
+
+    /**
+     * 获取安装app的intent
+     */
+    @SuppressLint("InlinedApi")
+    @JvmStatic
+    @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
+    fun getInstall(strFilePathName: String): Intent? =
+        UtilKStrFile.strFilePath2uri(strFilePathName)?.let { getInstall(it) }
+
+    /**
+     * 获取安装app的intent
+     */
+    @SuppressLint("InlinedApi")
+    @JvmStatic
+    @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
+    fun getInstall(fileApk: File): Intent? =
+        fileApk.file2uri()?.let { getInstall(it) }
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun getUri(uri: Uri): Intent =
+        Intent(CIntent.ACTION_VIEW, uri)
+
+    @JvmStatic
+    fun getStrUrl(strUrl: String): Intent =
+        getUri(Uri.parse(strUrl))
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //CSettings
     ///////////////////////////////////////////////////////////////////////////////////////
 
     /**
@@ -155,93 +236,18 @@ object UtilKIntentWrapper {
         Intent(CSettings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, UtilKUri.getPackageUri(context))
 
     ///////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * 获取mainLauncher
-     */
-    @JvmStatic
-    fun getMainLauncher(packageName: String, launcherActivityName: String): Intent =
-        Intent(CIntent.ACTION_MAIN).apply {
-            addCategory(CIntent.CATEGORY_LAUNCHER)
-            setClassName(packageName, launcherActivityName)
-        }
-
-    /**
-     * 获取mainLauncher
-     */
-    @JvmStatic
-    fun getMainLauncher(packageName: String, uri: Uri? = null): Intent =
-        Intent(CIntent.ACTION_MAIN, uri).apply {
-            addCategory(CIntent.CATEGORY_LAUNCHER)
-            setPackage(packageName)
-        }
-
-    /**
-     * 获取mainLauncher
-     */
-    @JvmStatic
-    fun getMainLauncher(packageName: String): Intent =
-        Intent(CIntent.ACTION_MAIN).apply {
-            addCategory(CIntent.CATEGORY_LAUNCHER)
-            setPackage(packageName)
-            addFlags(CIntent.FLAG_ACTIVITY_NEW_TASK)
-        }
-
+    //MediaStore
     ///////////////////////////////////////////////////////////////////////////////////////
 
-    /**
-     * 获取启动App的Intent
-     */
     @JvmStatic
-    fun getLauncherActivity(context: Context, packageName: String): Intent? {
-        val launcherActivityName: String = UtilKActivity.getLauncherActivityName(context, packageName)
-        if (UtilKString.hasSpace(launcherActivityName) || launcherActivityName.isEmpty()) return getLauncherForPackage(context)
-        return getMainLauncher(packageName, launcherActivityName)
-    }
+    fun getImageCapture(): Intent =
+        Intent(CMediaStore.ACTION_IMAGE_CAPTURE)
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //other
+    ///////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun getLauncherForPackage(context: Context): Intent? =
         UtilKPackageManager.get(context).getLaunchIntentForPackage(UtilKPackage.getPackageName())
-
-    /**
-     * 获取安装app的intent
-     */
-    @SuppressLint("InlinedApi")
-    @JvmStatic
-    @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
-    fun getInstall(strFilePathName: String): Intent? =
-        UtilKStrFile.strFilePath2uri(strFilePathName)?.let { getInstall(it) }
-
-    /**
-     * 获取安装app的intent
-     */
-    @SuppressLint("InlinedApi")
-    @JvmStatic
-    @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
-    fun getInstall(fileApk: File): Intent? =
-        UtilKFileFormat.file2uri(fileApk)?.let { getInstall(it) }
-
-    /**
-     * 获取安装app的intent
-     */
-    @SuppressLint("InlinedApi")
-    @JvmStatic
-    @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
-    fun getInstall(apkUri: Uri): Intent {
-        val intent = Intent(CIntent.ACTION_VIEW)
-        if (UtilKBuildVersion.isAfterV_24_7_N()) //判断安卓系统是否大于7.0  大于7.0使用以下方法
-            intent.addFlags(CIntent.FLAG_GRANT_READ_URI_PERMISSION) //增加读写权限//添加这一句表示对目标应用临时授权该Uri所代表的文件
-        intent.setDataAndType(apkUri, "application/vnd.android.package-archive")
-        return intent
-    }
-
-    ///////////////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun getUri(uri: Uri): Intent =
-        Intent(CIntent.ACTION_VIEW, uri)
-
-    @JvmStatic
-    fun getStrUrl(strUrl: String): Intent =
-        getUri(Uri.parse(strUrl))
 }

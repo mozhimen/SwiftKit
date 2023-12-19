@@ -51,6 +51,10 @@ object UtilKFileDir : BaseUtilK() {
             UtilKEnvironment.getExternalStorageDir()
 
         @JvmStatic
+        fun getEnvStoragePublicPictures(): File =
+            UtilKEnvironment.getExternalStoragePublicDirPictures()
+
+        @JvmStatic
         fun getEnvStoragePublicDCIM(): File =
             UtilKEnvironment.getExternalStoragePublicDirDCIM()
 

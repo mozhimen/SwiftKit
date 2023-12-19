@@ -13,7 +13,7 @@ class TestUtilKString {
         UtilKString.isNotEmpty(",",".").printlog()
 
         val str = "http://www.sq.com/construction-sites-images"
-        UtilKString.getSplitFirst(str,"/").printlog()
+        UtilKString.getSplitFirstIndexToStart(str,"/").printlog()
         str.checkStrUrl().printlog()
     }
 }

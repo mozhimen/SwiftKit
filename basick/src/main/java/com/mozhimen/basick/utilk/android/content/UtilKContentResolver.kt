@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.UriPermission
 import android.database.Cursor
 import android.net.Uri
+import android.os.ParcelFileDescriptor
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.provider.cons.CMediaStore
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -49,6 +50,10 @@ object UtilKContentResolver : BaseUtilK() {
     @JvmStatic
     fun openOutputStream(context: Context, uri: Uri): OutputStream? =
         get(context).openOutputStream(uri)
+
+    @JvmStatic
+    fun openFileDescriptor(context: Context, uri: Uri, mode: String): ParcelFileDescriptor? =
+        get(context).openFileDescriptor(uri, mode)
 
     @JvmStatic
     fun insert(context: Context, @RequiresPermission.Write uri: Uri, values: ContentValues?): Uri? =

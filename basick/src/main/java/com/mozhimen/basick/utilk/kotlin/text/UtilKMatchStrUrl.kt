@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.annotation.MainThread
 import com.mozhimen.basick.utilk.android.widget.showToast
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.kotlin.getSplitFirst
+import com.mozhimen.basick.utilk.kotlin.getSplitFirstIndexToStart
 
 /**
  * @ClassName Verifier
@@ -84,7 +84,7 @@ object UtilKMatchStrUrl : BaseUtilK() {
         }
         var second = splitArray[1].replace("//", "")
         if (second.contains("/")) {
-            second = second.getSplitFirst("/")
+            second = second.getSplitFirstIndexToStart("/")
         }
         if (!second.isStrUrlIp() && !second.isStrUrlDomain()) {
             "请输入正确的IP或域名".showToast()
@@ -93,7 +93,7 @@ object UtilKMatchStrUrl : BaseUtilK() {
         if (splitArray.getOrNull(2) != null) {
             var third = splitArray[2]
             if (third.contains("/")) {
-                third = third.getSplitFirst("/")
+                third = third.getSplitFirstIndexToStart("/")
             }
             if (!third.isStrUrlPort()) {
                 "请输入正确的端口".showToast()

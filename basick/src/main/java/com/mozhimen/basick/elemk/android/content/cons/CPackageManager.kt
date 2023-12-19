@@ -18,6 +18,7 @@ object CPackageManager {
     const val GET_SIGNATURES = PackageManager.GET_SIGNATURES
     const val GET_ACTIVITIES = PackageManager.GET_ACTIVITIES
     const val GET_CONFIGURATIONS = PackageManager.GET_CONFIGURATIONS
+    const val MATCH_DEFAULT_ONLY = PackageManager.MATCH_DEFAULT_ONLY
 
     const val PERMISSION_GRANTED = PackageManager.PERMISSION_GRANTED
 

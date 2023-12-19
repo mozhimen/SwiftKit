@@ -1,7 +1,6 @@
 package com.mozhimen.basick.elemk.android.media.cons
 
 import android.media.MediaFormat
-import android.os.Build
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 

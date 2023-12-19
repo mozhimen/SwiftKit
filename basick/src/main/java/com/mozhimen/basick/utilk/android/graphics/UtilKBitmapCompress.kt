@@ -5,8 +5,8 @@ import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
 import com.mozhimen.basick.utilk.android.util.vt
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.kotlin.UtilKString
 import com.mozhimen.basick.utilk.kotlin.bytes2bitmapAny
+import com.mozhimen.basick.utilk.kotlin.getStrFileExtension
 import com.mozhimen.basick.utilk.kotlin.strFilePath2bitmapAny
 import kotlin.math.roundToInt
 import kotlin.math.sqrt
@@ -44,7 +44,7 @@ object UtilKBitmapCompress : BaseUtilK() {
 
     @JvmStatic
     fun strCompressFormat2compressFormat(strCompressFormat: String): CompressFormat =
-        when (UtilKString.getFilenameExtension(strCompressFormat).lowercase()) {
+        when (strCompressFormat.getStrFileExtension()?.lowercase()) {
             "png" -> CompressFormat.PNG
             "webp" -> CompressFormat.WEBP
             else -> CompressFormat.JPEG

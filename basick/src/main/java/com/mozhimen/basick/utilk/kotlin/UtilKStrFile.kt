@@ -4,10 +4,10 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
+import com.mozhimen.basick.elemk.android.media.cons.CMediaFormat
 import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
-import com.mozhimen.basick.utilk.java.io.UtilKFileFormat
 import com.mozhimen.basick.utilk.java.io.createFile
 import com.mozhimen.basick.utilk.java.io.createFolder
 import com.mozhimen.basick.utilk.java.io.deleteFile
@@ -23,11 +23,10 @@ import com.mozhimen.basick.utilk.java.io.getFileSizeAvailable
 import com.mozhimen.basick.utilk.java.io.getFileSizeTotal
 import com.mozhimen.basick.utilk.java.io.getFolderAllFiles
 import com.mozhimen.basick.utilk.java.io.getFolderFiles
-import com.mozhimen.basick.utilk.java.io.getNameExpExtension
+import com.mozhimen.basick.utilk.java.io.getFileNameNoExtension
 import com.mozhimen.basick.utilk.java.io.isFileExist
 import com.mozhimen.basick.utilk.java.io.isFolder
 import com.mozhimen.basick.utilk.java.io.isFolderExist
-import com.mozhimen.basick.utilk.kotlin.text.replaceEndSeparator
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -42,11 +41,19 @@ import java.util.Vector
  */
 
 //region # file
-fun String.getFileNameExtension(): String? =
-    UtilKStrFile.getFileNameExtension(this)
+fun String.getStrFileExtension(): String? =
+    UtilKStrFile.getStrFileExtension(this)
 
-fun String.getFileNameExpExtension(): String? =
-    UtilKStrFile.getFileNameExpExtension(this)
+fun String.getStrFileNameNoExtension(): String? =
+    UtilKStrFile.getStrFileNameNoExtension(this)
+
+fun String.getStrFileName(): String? =
+    UtilKStrFile.getStrFileName(this)
+
+fun String.getStrFileParentPath(): String? =
+    UtilKStrFile.getStrFileParentPath(this)
+
+/////////////////////////////////////////////////////////////////
 
 fun String.getFileSizeTotal(): Long? =
     UtilKStrFile.getFileSizeTotal(this)
@@ -60,6 +67,9 @@ fun String.isFileExist(): Boolean =
     UtilKStrFile.isFile(this)
 
 /////////////////////////////////////////////////////////////////
+
+fun String.strFileExtension2strMineTypeImage(): String =
+    UtilKStrFile.strFileExtension2strMineTypeImage(this)
 
 fun String.strFilePath2str(): String? =
     UtilKStrFile.strFilePath2str(this)
@@ -111,6 +121,8 @@ fun String.deleteFile(): Boolean =
     UtilKStrFile.deleteFile(this)
 //endregion
 
+/////////////////////////////////////////////////////////////////
+
 //region # folder
 fun String.getStrFolderPath(): String =
     UtilKStrFile.getStrFolderPath(this)
@@ -134,17 +146,31 @@ fun String.deleteFolder(): Boolean =
     UtilKStrFile.deleteFolder(this)
 //endregion
 
+/////////////////////////////////////////////////////////////////
+
 object UtilKStrFile : IUtilK {
     //region # file
     @JvmStatic
-    fun getFileNameExtension(strFilePathName: String): String? =
+    fun getStrFileExtension(strFilePathName: String): String? =
         if (strFilePathName.isEmpty()) null
-        else if (strFilePathName.containStr(".")) strFilePathName.getSplitLast(".") else null
+        else if (strFilePathName.containStr(".")) strFilePathName.getSplitLastIndexToEnd(".") else null
 
     @JvmStatic
-    fun getFileNameExpExtension(strFilePathName: String): String? =
+    fun getStrFileNameNoExtension(strFilePathName: String): String? =
         if (strFilePathName.isEmpty()) null
-        else strFilePathName.strFilePath2file().getNameExpExtension()
+        else strFilePathName.strFilePath2file().getFileNameNoExtension()
+
+    @JvmStatic
+    fun getStrFileName(strFilePathName: String): String? =
+        if (strFilePathName.isEmpty()) null
+        else strFilePathName.getSplitLastIndexToEnd("/")
+
+    @JvmStatic
+    fun getStrFileParentPath(strFilePathName: String): String? =
+        if (strFilePathName.isEmpty()) null
+        else strFilePathName.getSplitLastIndexToStart("/")
+
+    //////////////////////////////////////////////////////////////////////
 
     /**
      * 获取文件大小
@@ -180,8 +206,13 @@ object UtilKStrFile : IUtilK {
 
     /////////////////////////////////////////////////////////////////
 
-
-    /////////////////////////////////////////////////////////////////
+    @JvmStatic
+    fun strFileExtension2strMineTypeImage(strFileExtension: String): String =
+        when (strFileExtension) {
+            "jpeg", "jpg" -> CMediaFormat.MIMETYPE_IMAGE_JPEG
+            "png" -> CMediaFormat.MIMETYPE_IMAGE_PNG
+            else -> CMediaFormat.MIMETYPE_IMAGE_ALL
+        }
 
     @JvmStatic
     fun strFilePath2str(strFilePathName: String): String? =

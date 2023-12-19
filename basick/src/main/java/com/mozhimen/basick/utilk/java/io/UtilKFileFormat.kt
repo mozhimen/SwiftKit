@@ -4,12 +4,13 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Log
-import androidx.core.content.FileProvider
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.lintk.annors.ADescription
+import com.mozhimen.basick.utilk.android.content.UtilKContentResolverWrapper
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import com.mozhimen.basick.utilk.androidx.core.UtilKFileProvider
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import java.io.BufferedOutputStream
@@ -17,7 +18,6 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
-import java.nio.Buffer
 
 /**
  * @ClassName UtilKFileFormat
@@ -26,6 +26,9 @@ import java.nio.Buffer
  * @Date 2023/8/3 16:42
  * @Version 1.0
  */
+fun File.file2uriImage(): Uri? =
+    UtilKFileFormat.file2uriImage(this)
+
 fun File.file2uri(): Uri? =
     UtilKFileFormat.file2uri(this)
 
@@ -72,6 +75,17 @@ fun File.file2bytes2(): ByteArray? =
 
 object UtilKFileFormat : BaseUtilK() {
     @JvmStatic
+    fun file2uriImage(file: File): Uri? {
+        if (!UtilKFile.isFileExist(file)) {
+            Log.e(TAG, "file2imageUri: file isFileExist false")
+            return null
+        }
+        return if (UtilKBuildVersion.isAfterV_29_10_Q()) {
+            UtilKContentResolverWrapper.insertImageAfter29(_context, file)
+        } else file2uri(file)
+    }
+
+    @JvmStatic
     @ADescription(CIntent.FLAG_GRANT_READ_URI_PERMISSION.toString(), CIntent.FLAG_GRANT_WRITE_URI_PERMISSION.toString())
     fun file2uri(file: File): Uri? {
         if (!UtilKFile.isFileExist(file)) {
@@ -79,9 +93,8 @@ object UtilKFileFormat : BaseUtilK() {
             return null
         }
         return if (UtilKBuildVersion.isAfterV_24_7_N()) {
-            val authority = "${UtilKPackage.getPackageName()}.fileProvider"
-            Log.d(TAG, "file2Uri: authority $authority")
-            FileProvider.getUriForFile(_context, authority, file).also {
+            val authority = "${UtilKPackage.getPackageName()}.fileProvider".also { Log.d(TAG, "file2Uri: authority $it") }
+            UtilKFileProvider.getUriForFile(_context, authority, file).also {
                 UtilKContext.grantUriPermission(_context, it, CIntent.FLAG_GRANT_READ_URI_PERMISSION)
             }
         } else Uri.fromFile(file)
@@ -140,7 +153,7 @@ object UtilKFileFormat : BaseUtilK() {
         if (!UtilKFile.isFileExist(file)) null
         else {
             val byteArrayOutputStream = ByteArrayOutputStream(file.length().toInt())
-            file.file2fileInputStream().inputStream2bufferedInputStream().inputStream2outputStream2(byteArrayOutputStream, 1024)
+            file.file2fileInputStream().inputStream2bufferedInputStream().inputStream2outputStreamOfFileUtils(byteArrayOutputStream, 1024)
             byteArrayOutputStream.byteArrayOutputStream2bytes()
         }
 }

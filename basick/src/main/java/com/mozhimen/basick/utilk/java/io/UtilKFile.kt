@@ -11,7 +11,6 @@ import com.mozhimen.basick.utilk.java.util.UtilKZipOutputStream
 import com.mozhimen.basick.utilk.java.util.longDate2strDate
 import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import java.io.File
-import java.io.FileInputStream
 import java.util.Locale
 import java.util.Vector
 
@@ -23,8 +22,10 @@ import java.util.Vector
  * @Date 2022/2/22 11:59
  * @Version 1.0
  */
-fun File.getNameExpExtension(): String? =
-    UtilKFile.getNameExpExtension(this)
+fun File.getFileNameNoExtension(): String? =
+    UtilKFile.getFileNameNoExtension(this)
+
+/////////////////////////////////////////////////////////////////////////////////////////////
 
 fun File.getFileSizeAvailable(): Long? =
     UtilKFile.getFileSizeAvailable(this)
@@ -108,7 +109,7 @@ object UtilKFile : BaseUtilK() {
     /////////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun getNameExpExtension(file: File): String? =
+    fun getFileNameNoExtension(file: File): String? =
         if (!isFileExist(file)) null
         else file.nameWithoutExtension
 

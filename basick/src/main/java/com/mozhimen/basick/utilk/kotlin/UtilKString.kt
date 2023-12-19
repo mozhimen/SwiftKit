@@ -12,17 +12,14 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
  * @Date 2022/4/29 21:43
  * @Version 1.0
  */
-fun String.getSplitLast(splitStr: String): String =
-    UtilKString.getSplitLast(this, splitStr)
+fun String.getSplitLastIndexToEnd(splitStr: String): String =
+    UtilKString.getSplitLastIndexToEnd(this, splitStr)
 
-fun String.getSplitExLast(splitStr: String, isContainSplitStr: Boolean = true): String =
-    UtilKString.getSplitExLast(this, splitStr, isContainSplitStr)
+fun String.getSplitLastIndexToStart(splitStr: String, isContainSplitStr: Boolean = true): String =
+    UtilKString.getSplitLastIndexToStart(this, splitStr, isContainSplitStr)
 
-fun String.getSplitFirst(splitStr: String): String =
-    UtilKString.getSplitFirst(this, splitStr)
-
-fun String.getFilenameExtension(): String =
-    UtilKString.getFilenameExtension(this)
+fun String.getSplitFirstIndexToStart(splitStr: String): String =
+    UtilKString.getSplitFirstIndexToStart(this, splitStr)
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -65,19 +62,18 @@ fun String.throwIllegalStateException() {
 
 object UtilKString : BaseUtilK() {
 
-
     /**
      * 获取分割后的最后一个元素
      */
     @JvmStatic
-    fun getSplitLast(str: String, splitStr: String): String =
+    fun getSplitLastIndexToEnd(str: String, splitStr: String): String =
         str.substring(str.lastIndexOf(splitStr) + 1, str.length)
 
     /**
      * 获取分割后的最后一个元素的互斥集合
      */
     @JvmStatic
-    fun getSplitExLast(str: String, splitStr: String, isContainSplitStr: Boolean = true): String =
+    fun getSplitLastIndexToStart(str: String, splitStr: String, isContainSplitStr: Boolean = true): String =
         if (isContainSplitStr)
             str.substring(0, str.lastIndexOf(splitStr) + 1)
         else
@@ -87,15 +83,8 @@ object UtilKString : BaseUtilK() {
      * 获取分割后的第一个元素
      */
     @JvmStatic
-    fun getSplitFirst(str: String, splitStr: String): String =
+    fun getSplitFirstIndexToStart(str: String, splitStr: String): String =
         str.substring(0, str.indexOf(splitStr))
-
-    /**
-     * 获取扩展名
-     */
-    @JvmStatic
-    fun getFilenameExtension(str: String): String =
-        str.substring(str.lastIndexOf(".") + 1)
 
     ////////////////////////////////////////////////////////////////////////////
 

@@ -10,6 +10,9 @@ import android.provider.MediaStore
  * @Version 1.0
  */
 object CMediaStore {
+    const val ACTION_IMAGE_CAPTURE = MediaStore.ACTION_IMAGE_CAPTURE
+    const val EXTRA_OUTPUT = MediaStore.EXTRA_OUTPUT
+
     object Type {
         const val VIDEO = "video"
         const val AUDIO = "audio"

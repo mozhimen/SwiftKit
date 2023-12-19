@@ -62,17 +62,17 @@ object UtilKContextStart : BaseUtilK() {
 
     @JvmStatic
     fun startContext(context: Context, clazz: Class<*>) {
-        startContext(context, UtilKIntentWrapper.get(context, clazz))
+        startContext(context, UtilKIntent.get(context, clazz))
     }
 
     @JvmStatic
     inline fun <reified T : Context> startContext(context: Context) {
-        startContext(context, UtilKIntentWrapper.get<T>(context))
+        startContext(context, UtilKIntent.get<T>(context))
     }
 
     @JvmStatic
     inline fun <reified T : Context> startContext(context: Context, block: IExtension_Listener<Intent>) {
-        startContext(context, UtilKIntentWrapper.get<T>(context, block))
+        startContext(context, UtilKIntent.get<T>(context, block))
     }
 
     /////////////////////////////////////////////////////////////////////////////////

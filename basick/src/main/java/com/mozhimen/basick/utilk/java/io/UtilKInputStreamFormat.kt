@@ -123,8 +123,8 @@ fun InputStream.inputStream2outputStream(outputStream: OutputStream, bufferSize:
     UtilKInputStreamFormat.inputStream2outputStream(this, outputStream, bufferSize, block)
 }
 
-fun InputStream.inputStream2outputStream2(outputStream: OutputStream, bufferSize: Int) {
-    UtilKInputStreamFormat.inputStream2outputStream2(this, outputStream, bufferSize)
+fun InputStream.inputStream2outputStreamOfFileUtils(outputStream: OutputStream, bufferSize: Int) {
+    UtilKInputStreamFormat.inputStream2outputStreamOfFileUtils(this, outputStream, bufferSize)
 }
 
 fun InputStream.inputStream2outputStream(outputStream: OutputStream) {
@@ -132,8 +132,8 @@ fun InputStream.inputStream2outputStream(outputStream: OutputStream) {
 }
 
 @RequiresApi(CVersCode.V_29_10_Q)
-fun InputStream.inputStream2outputStream2(outputStream: OutputStream) {
-    UtilKInputStreamFormat.inputStream2outputStream2(this, outputStream)
+fun InputStream.inputStream2outputStreamOfFileUtils(outputStream: OutputStream) {
+    UtilKInputStreamFormat.inputStream2outputStreamOfFileUtils(this, outputStream)
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -340,7 +340,7 @@ object UtilKInputStreamFormat : IUtilK {
         //            return file//"the two files is same, don't need overwrite"
         //        }*/
         try {
-            inputStream.inputStream2outputStream2(fileDest.file2fileOutputStream(isAppend))
+            inputStream.inputStream2outputStreamOfFileUtils(fileDest.file2fileOutputStream(isAppend))
             return fileDest
         } catch (e: Exception) {
             e.printStackTrace()
@@ -378,7 +378,7 @@ object UtilKInputStreamFormat : IUtilK {
 
     @JvmStatic
     @Throws(Exception::class)
-    fun inputStream2outputStream2(inputStream: InputStream, outputStream: OutputStream, bufferSize: Int) {
+    fun inputStream2outputStreamOfFileUtils(inputStream: InputStream, outputStream: OutputStream, bufferSize: Int) {
         try {
             var readCount: Int
             val bytes = ByteArray(bufferSize)
@@ -410,7 +410,7 @@ object UtilKInputStreamFormat : IUtilK {
     @JvmStatic
     @Throws(Exception::class)
     @RequiresApi(CVersCode.V_29_10_Q)
-    fun inputStream2outputStream2(inputStream: InputStream, outputStream: OutputStream) {
+    fun inputStream2outputStreamOfFileUtils(inputStream: InputStream, outputStream: OutputStream) {
         try {
             FileUtils.copy(inputStream, outputStream)
         } catch (e: Exception) {

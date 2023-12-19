@@ -46,6 +46,8 @@ open class LogKPrinterFile() : ILogKPrinter, BaseUtilK() {
     protected var _printerWorker: PrinterWorker
     private var _printerWriter: PrinterWriter
 
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
     /**
      * retentionMillis log文件的有效时长，单位ms，<=0表示一直有效
      */
@@ -58,11 +60,15 @@ open class LogKPrinterFile() : ILogKPrinter, BaseUtilK() {
      */
     constructor(retentionDay: Int) : this(retentionDay * 1000L * 60L * 60L * 24L)
 
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
     init {
         _printerWriter = PrinterWriter()
         _printerWorker = PrinterWorker()
         cleanExpiredLog()
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
 
     fun setCreateLogFileDateType(type: EDateType) {
         _createLogFileDateType = type
@@ -71,35 +77,14 @@ open class LogKPrinterFile() : ILogKPrinter, BaseUtilK() {
     fun getLogFiles(): Array<File> =
             logPath!!.getFolderFiles()
 
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
     override fun print(config: BaseLogKConfig, priority: Int, tag: String, msg: String) {
         val currentTimeMillis = System.currentTimeMillis()
         if (!_printerWorker.isRunning())
             _printerWorker.start()
 
         _printerWorker.put(BaseLogKRecord(currentTimeMillis, priority, tag, msg))
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////
-
-    private fun getLogFileName(): String =
-            when (_createLogFileDateType) {
-                EDateType.HOUR -> "${UtilKFile.getStrFileNameForStrCurrentHour()}.txt"
-                else -> "${UtilKFile.getStrFileNameForStrToday()}.txt"
-            }
-
-    /**
-     * 清除过期log
-     */
-    private fun cleanExpiredLog() {
-        if (_retentionTime <= 0)
-            return
-
-        val currentTimeMillis = System.currentTimeMillis()
-        val files = getLogFiles()
-        for (file in files) {
-            if (currentTimeMillis - file.getFileCreateTime() > _retentionTime)
-                file.delete()
-        }
     }
 
     protected inner class PrinterWorker : Runnable {
@@ -168,6 +153,29 @@ open class LogKPrinterFile() : ILogKPrinter, BaseUtilK() {
                     return
             }
             _printerWriter.append(log.flattenedLog())
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
+    private fun getLogFileName(): String =
+            when (_createLogFileDateType) {
+                EDateType.HOUR -> "${UtilKFile.getStrFileNameForStrCurrentHour()}.txt"
+                else -> "${UtilKFile.getStrFileNameForStrToday()}.txt"
+            }
+
+    /**
+     * 清除过期log
+     */
+    private fun cleanExpiredLog() {
+        if (_retentionTime <= 0)
+            return
+
+        val currentTimeMillis = System.currentTimeMillis()
+        val files = getLogFiles()
+        for (file in files) {
+            if (currentTimeMillis - file.getFileCreateTime() > _retentionTime)
+                file.delete()
         }
     }
 

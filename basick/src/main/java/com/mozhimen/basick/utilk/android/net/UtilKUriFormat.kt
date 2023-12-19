@@ -4,27 +4,38 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.FileUtils
 import android.provider.DocumentsContract
+import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.content.cons.CContentResolver
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.provider.cons.CMediaStore
 import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
 import com.mozhimen.basick.utilk.android.content.withAppendedId
+import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapFactory
 import com.mozhimen.basick.utilk.android.graphics.UtilKImageDecoder
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.provider.UtilKDocumentsContract
 import com.mozhimen.basick.utilk.android.provider.UtilKMediaStore
-import com.mozhimen.basick.utilk.android.provider.getMediaColumns
+import com.mozhimen.basick.utilk.android.provider.UtilKOpenableColumns
+import com.mozhimen.basick.utilk.android.provider.getStrFilePathNameOfMediaColumns
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.utilk.android.webkit.UtilKMimeTypeMap
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.inputStream2bitmapAny
 import com.mozhimen.basick.utilk.java.io.inputStream2file
+import com.mozhimen.basick.utilk.java.io.inputStream2fileOfFileUtils
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
+import com.mozhimen.basick.utilk.kotlin.getStrFileName
+import com.mozhimen.basick.utilk.kotlin.getStrFileParentPath
+import com.mozhimen.basick.utilk.kotlin.getStrFolderPath
 import com.mozhimen.basick.utilk.kotlin.strUri2uri
 import com.mozhimen.basick.utilk.kotlin.text.isStrDigits2
 import java.io.File
+import java.io.FileOutputStream
 import java.io.InputStream
 import kotlin.math.ceil
+import kotlin.random.Random
 
 /**
  * @ClassName UtilKUriFormat
@@ -42,23 +53,60 @@ fun Uri.uri2file(): File? =
 fun Uri.uri2bitmap(): Bitmap =
     UtilKUriFormat.uri2bitmap(this)
 
-fun Uri.uri2bitmap2(): Bitmap? =
-    UtilKUriFormat.uri2bitmap2(this)
+fun Uri.uri2bitmapOfStream(): Bitmap? =
+    UtilKUriFormat.uri2bitmapOfStream(this)
 
 object UtilKUriFormat : BaseUtilK() {
+    @JvmStatic
+    fun uri2file(uri: Uri, strFilePathNameDest: String = ""): File? =
+        uri2strFilePath(uri, strFilePathNameDest)?.let { File(it) }
+
     @SuppressLint("Recycle")
     @JvmStatic
-    fun uri2strFilePath(uri: Uri, strFilePathNameDest: String = ""): String? {
+    fun uri2strFilePath(uri: Uri, strFilePathNameDest: String = ""): String? =
+        if (UtilKBuildVersion.isAfterV_29_10_Q()) {
+            uri2strFilePathAfter29(uri, strFilePathNameDest)
+        } else if (UtilKBuildVersion.isAfterV_19_44_K() && UtilKDocumentsContract.isDocumentUri(_context, uri)) {
+            uri2strFilePathOfContent(uri, strFilePathNameDest)
+        } else {
+            when (uri.scheme) {
+                CContentResolver.SCHEME_FILE -> uri.path
+                CContentResolver.SCHEME_CONTENT -> uri.getStrFilePathNameOfMediaColumns(strFilePathNameDest=strFilePathNameDest)
+                else -> null
+            }
+        }
+
+    /**
+     * android Q 的写法
+     */
+    @SuppressLint("Recycle")
+    @RequiresApi(CVersCode.V_29_10_Q)
+    fun uri2strFilePathAfter29(uri: Uri, strFilePathNameDest: String): String? =
         when (uri.scheme) {
             CContentResolver.SCHEME_FILE -> uri.path
-            CContentResolver.SCHEME_CONTENT -> return uri2strFilePathOfContent(uri, strFilePathNameDest)
+            CContentResolver.SCHEME_CONTENT -> {
+                //把文件保存到沙盒
+                val contentResolver = UtilKContentResolver.get(_context)
+                val displayName = run {
+                    UtilKOpenableColumns.getOpenableColumns(uri)
+                } ?: run {
+                    strFilePathNameDest.getStrFileName() ?: "${System.currentTimeMillis()}${Random.nextInt(0, 9999)}.${UtilKMimeTypeMap.getExtensionFromMimeType(_context, uri)}"
+                }
+
+                val parentPath = if (strFilePathNameDest.isNotEmpty()) {
+                    strFilePathNameDest.getStrFileParentPath() ?: UtilKStrPath.Absolute.Internal.getCache()
+                } else {
+                    UtilKStrPath.Absolute.Internal.getCache()
+                }
+                contentResolver.openInputStream(uri)?.inputStream2fileOfFileUtils("${parentPath.getStrFolderPath()}$displayName")?.absolutePath
+            }
+
+            else -> null
         }
-        return null
-    }
 
     @JvmStatic
     fun uri2strFilePathOfContent(uri: Uri, strFilePathNameDest: String = ""): String? {
-        if (DocumentsContract.isDocumentUri(_context, uri)) {
+        if (UtilKBuildVersion.isAfterV_19_44_K() && DocumentsContract.isDocumentUri(_context, uri)) {
             val documentId = UtilKDocumentsContract.getDocumentId(uri)
             val split = documentId.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             val type = split[0]
@@ -67,7 +115,7 @@ object UtilKUriFormat : BaseUtilK() {
             when {
                 uri.isAuthorityDownloadsDocument() -> {
                     if (documentId.isStrDigits2())
-                        return "content://downloads/public_downloads".strUri2uri().withAppendedId(documentId.toLong()).getMediaColumns()
+                        return "content://downloads/public_downloads".strUri2uri().withAppendedId(documentId.toLong()).getStrFilePathNameOfMediaColumns(strFilePathNameDest=strFilePathNameDest)
                 }
 
                 uri.isAuthorityExternalStorageDocument() -> {
@@ -87,7 +135,7 @@ object UtilKUriFormat : BaseUtilK() {
                         else -> null
                     }
                     if (externalContentUri != null)
-                        return externalContentUri.getMediaColumns("${CMediaStore.MediaColumns._ID}=?", arrayOf(path))
+                        return externalContentUri.getStrFilePathNameOfMediaColumns("${CMediaStore.MediaColumns._ID}=?", arrayOf(path))
                 }
             }
 
@@ -96,12 +144,9 @@ object UtilKUriFormat : BaseUtilK() {
                     ?.inputStream2file("$strFilePathNameDest.${UtilKMimeTypeMap.getExtensionFromMimeType(_context, uri)}")?.absolutePath
         }
 
-        return uri.getMediaColumns()
+        return uri.getStrFilePathNameOfMediaColumns(strFilePathNameDest)
     }
 
-    @JvmStatic
-    fun uri2file(uri: Uri, strFilePathNameDest: String = ""): File? =
-        uri2strFilePath(uri, strFilePathNameDest)?.let { File(it) }
 
     /**
      * 从相册获得图片
@@ -109,11 +154,31 @@ object UtilKUriFormat : BaseUtilK() {
     @JvmStatic
     fun uri2bitmap(uri: Uri): Bitmap =
         if (UtilKBuildVersion.isAfterV_28_9_P())
-            UtilKImageDecoder.decodeBitmap(_context, uri)
-        else UtilKMediaStore.getImagesMediaBitmap(_context, uri)
+            uri2bitmapOfDecoder(uri)
+        else
+            uri2bitmapOfMedia(uri)
 
     @JvmStatic
-    fun uri2bitmap2(uri: Uri): Bitmap? {
+    fun uri2bitmapOfDescriptor(uri: Uri, opts: BitmapFactory.Options? = null): Bitmap? =
+        try {
+            UtilKContentResolver.openFileDescriptor(_context, uri, "r")?.use {// mode："r" 表示只读 "w"表示只写
+                UtilKBitmapFactory.decodeFileDescriptor(it.fileDescriptor, null, opts = opts)
+            }
+        } catch (e: Exception) {
+            null
+        }
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_28_9_P)
+    fun uri2bitmapOfDecoder(uri: Uri): Bitmap =
+        UtilKImageDecoder.decodeBitmap(_context, uri)
+
+    @JvmStatic
+    fun uri2bitmapOfMedia(uri: Uri): Bitmap =
+        UtilKMediaStore.getImagesMediaBitmap(_context, uri)
+
+    @JvmStatic
+    fun uri2bitmapOfStream(uri: Uri): Bitmap? {
         var contentSizeInputStream: InputStream? = null
         var realInputStream: InputStream? = null
         try {

@@ -171,7 +171,12 @@ object UtilKContext {
 
     @JvmStatic
     fun grantUriPermission(context: Context, uri: Uri, modeFlags: Int) {
-        context.grantUriPermission(getPackageName(context), uri, modeFlags)
+        grantUriPermission(context, getPackageName(context), uri, modeFlags)
+    }
+
+    @JvmStatic
+    fun grantUriPermission(context: Context, packageName: String, uri: Uri, modeFlags: Int) {
+        context.grantUriPermission(packageName, uri, modeFlags)
     }
 
     @JvmStatic
