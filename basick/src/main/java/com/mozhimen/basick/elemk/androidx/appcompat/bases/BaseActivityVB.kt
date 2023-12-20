@@ -11,7 +11,7 @@ import com.mozhimen.basick.utilk.bases.IUtilK
 
 abstract class BaseActivityVB<VB : ViewDataBinding>(
     /*protected var _factory: ViewModelProvider.Factory? = null*/
-) : AppCompatActivity(), IActivity, IUtilK {
+) : BaseActivity(), IActivity {
 
     protected val vb: VB by lazy(mode = LazyThreadSafetyMode.NONE) {
         UtilKViewDataBinding.get<VB>(this::class.java, layoutInflater/*, 0*/).apply {

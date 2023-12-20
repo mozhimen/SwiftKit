@@ -17,7 +17,7 @@ import com.mozhimen.basick.utilk.bases.IUtilK
 
 open class BaseDialogFragmentVB<VB : ViewDataBinding>(
     /*protected open var _factory: ViewModelProvider.Factory? = null*/
-) : DialogFragment(), IActivity, IFragment, IUtilK {
+) : BaseDialogFragment(), IActivity, IFragment {
 
     private var _vb: VB? = null
     protected val vb get() = _vb!!
@@ -57,6 +57,14 @@ open class BaseDialogFragmentVB<VB : ViewDataBinding>(
         }
     }
 
+    override fun inflateView(viewGroup: ViewGroup?) {
+
+    }
+
+    override fun initFlag() {
+
+    }
+
     override fun initLayout() {
 
     }
@@ -67,43 +75,11 @@ open class BaseDialogFragmentVB<VB : ViewDataBinding>(
         initObserver()
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.v(TAG, "onAttach")
+    override fun initView(savedInstanceState: Bundle?) {
+
     }
 
-    override fun onPause() {
-        super.onPause()
-        Log.v(TAG, "onPause")
-    }
+    override fun initObserver() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.v(TAG, "onCreate")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.v(TAG, "onDestroy")
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        Log.v(TAG, "onDetach")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.v(TAG, "onResume")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.v(TAG, "onStart")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.v(TAG, "onStop")
     }
 }

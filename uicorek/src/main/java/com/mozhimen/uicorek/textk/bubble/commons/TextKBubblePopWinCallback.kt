@@ -10,8 +10,6 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
-import androidx.annotation.RequiresApi
-import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
@@ -141,8 +139,8 @@ open class TextKBubblePopWinCallback(contentView: View, bubbleView: ITextKBubble
      */
     open fun showArrowTo(anchorView: View, relativePos: MRelativePos, marginH: Int, marginV: Int) {
         dismiss()
-        val screenWidth = UtilKScreen.getRealWidth()
-        val screenHeight = UtilKScreen.getRealHeight()
+        val screenWidth = UtilKScreen.getWidthOfWindow()
+        val screenHeight = UtilKScreen.getHeightOfWindow()
 
         val navigationBarHeight = getNavigationBarHeightOffset(anchorView)
         val anchorRect = getRectInWindow(anchorView)

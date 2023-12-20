@@ -17,7 +17,7 @@ import com.mozhimen.basick.utilk.bases.IUtilK
 
 open class BaseFragmentVB<VB : ViewDataBinding>(
     /*protected open var _factory: ViewModelProvider.Factory? = null*/
-) : Fragment(), IActivity, IFragment, IUtilK {
+) : BaseFragment(), IActivity, IFragment {
 
     private var _vb: VB? = null
     protected val vb get() = _vb!!
@@ -82,52 +82,5 @@ open class BaseFragmentVB<VB : ViewDataBinding>(
 
     override fun initObserver() {
 
-    }
-
-    ////////////////////////////////////////////////////////////////////////////
-
-    @CallSuper
-    override fun onHiddenChanged(hidden: Boolean) {
-        Log.v(TAG, "onHiddenChanged: hidden $hidden")
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.v(TAG, "onAttach")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.v(TAG, "onPause")
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.v(TAG, "onCreate")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.v(TAG, "onDestroy")
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        Log.v(TAG, "onDetach")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.v(TAG, "onResume")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.v(TAG, "onStart")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.v(TAG, "onStop")
     }
 }

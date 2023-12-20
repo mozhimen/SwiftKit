@@ -88,6 +88,14 @@ object UtilKDisplayMetrics {
         return displayMetrics
     }
 
+    @JvmStatic
+    fun getOfDefaultWidthPixels(context: Context): Int =
+        getOfDefault(context).widthPixels
+
+    @JvmStatic
+    fun getOfDefaultHeightPixels(context: Context): Int =
+        getOfDefault(context).heightPixels
+
     /**
      * 获取密度dp
      */

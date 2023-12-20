@@ -45,8 +45,10 @@ object UtilKBuildVersion {
     fun isBeforeVersion(versionInt: Int): Boolean =
         getSDKInt() < versionInt
 
-    @ChecksSdkIntAtLeast(api = CVersCode.V_1_1_B)
+    ///////////////////////////////////////////////////////////////////////
+
     @JvmStatic
+    @ChecksSdkIntAtLeast(api = CVersCode.V_1_1_B)
     fun isAfterV_1_1_B(): Boolean =
         isAfterVersion(CVersCode.V_1_1_B)
 
@@ -209,4 +211,139 @@ object UtilKBuildVersion {
     @ChecksSdkIntAtLeast(api = CVersCode.V_33_11_TIRAMISU)
     fun isAfterV_33_11_TIRAMISU(): Boolean =
         isAfterVersion(CVersCode.V_33_11_TIRAMISU)
+
+    ///////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun isBeforeV_1_1_B(): Boolean =
+        isBeforeVersion(CVersCode.V_1_1_B)
+
+    @JvmStatic
+    fun isBeforeV_2_11_B11(): Boolean =
+        isBeforeVersion(CVersCode.V_2_11_B11)
+
+    @JvmStatic
+    fun isBeforeV_3_15_C(): Boolean =
+        isBeforeVersion(CVersCode.V_3_15_C)
+
+    @JvmStatic
+    fun isBeforeV_4_16_D(): Boolean =
+        isBeforeVersion(CVersCode.V_4_16_D)
+
+    @JvmStatic
+    fun isBeforeV_5_2_E(): Boolean =
+        isBeforeVersion(CVersCode.V_5_2_E)
+
+    @JvmStatic
+    fun isBeforeV_6_201_E01(): Boolean =
+        isBeforeVersion(CVersCode.V_6_201_E01)
+
+    @JvmStatic
+    fun isBeforeV_7_21_E1(): Boolean =
+        isBeforeVersion(CVersCode.V_7_21_E1)
+
+    @JvmStatic
+    fun isBeforeV_8_22_F(): Boolean =
+        isBeforeVersion(CVersCode.V_8_22_F)
+
+    @JvmStatic
+    fun isBeforeV_9_23_G(): Boolean =
+        isBeforeVersion(CVersCode.V_9_23_G)
+
+    @JvmStatic
+    fun isBeforeV_10_233_G1(): Boolean =
+        isBeforeVersion(CVersCode.V_10_233_G1)
+
+    @JvmStatic
+    fun isBeforeV_11_3_H(): Boolean =
+        isBeforeVersion(CVersCode.V_11_3_H)
+
+    @JvmStatic
+    fun isBeforeV_12_31_H1(): Boolean =
+        isBeforeVersion(CVersCode.V_12_31_H1)
+
+    @JvmStatic
+    fun isBeforeV_13_32_H2(): Boolean =
+        isBeforeVersion(CVersCode.V_13_32_H2)
+
+    @JvmStatic
+    fun isBeforeV_14_4_I(): Boolean =
+        isBeforeVersion(CVersCode.V_14_4_I)
+
+    @JvmStatic
+    fun isBeforeV_15_403_I1(): Boolean =
+        isBeforeVersion(CVersCode.V_15_403_I1)
+
+    @JvmStatic
+    fun isBeforeV_16_41_J(): Boolean =
+        isBeforeVersion(CVersCode.V_16_41_J)
+
+    @JvmStatic
+    fun isBeforeV_17_42_J1(): Boolean =
+        isBeforeVersion(CVersCode.V_17_42_J1)
+
+    @JvmStatic
+    fun isBeforeV_18_43_J2(): Boolean =
+        isBeforeVersion(CVersCode.V_18_43_J2)
+
+    @JvmStatic
+    fun isBeforeV_19_44_K(): Boolean =
+        isBeforeVersion(CVersCode.V_19_44_K)
+
+    @JvmStatic
+    fun isBeforeV_20_44W_KW(): Boolean =
+        isBeforeVersion(CVersCode.V_20_44W_KW)
+
+    @JvmStatic
+    fun isBeforeV_21_5_L(): Boolean =
+        isBeforeVersion(CVersCode.V_21_5_L)
+
+    @JvmStatic
+    fun isBeforeV_22_51_L1(): Boolean =
+        isBeforeVersion(CVersCode.V_22_51_L1)
+
+    @JvmStatic
+    fun isBeforeV_23_6_M(): Boolean =
+        isBeforeVersion(CVersCode.V_23_6_M)
+
+    @JvmStatic
+    fun isBeforeV_24_7_N(): Boolean =
+        isBeforeVersion(CVersCode.V_24_7_N)
+
+    @JvmStatic
+    fun isBeforeV_25_71_N1(): Boolean =
+        isBeforeVersion(CVersCode.V_25_71_N1)
+
+    @JvmStatic
+    fun isBeforeV_26_8_O(): Boolean =
+        isBeforeVersion(CVersCode.V_26_8_O)
+
+    @JvmStatic
+    fun isBeforeV_27_81_O1(): Boolean =
+        isBeforeVersion(CVersCode.V_27_81_O1)
+
+    @JvmStatic
+    fun isBeforeV_28_9_P(): Boolean =
+        isBeforeVersion(CVersCode.V_28_9_P)
+
+    @JvmStatic
+    fun isBeforeV_29_10_Q(): Boolean =
+        isBeforeVersion(CVersCode.V_29_10_Q)
+
+    @JvmStatic
+    fun isBeforeV_30_11_R(): Boolean =
+        isBeforeVersion(CVersCode.V_30_11_R)
+
+    @JvmStatic
+    fun isBeforeV_31_11_S(): Boolean =
+        isBeforeVersion(CVersCode.V_31_11_S)
+
+    @JvmStatic
+    fun isBeforeV_32_11_S_V2(): Boolean =
+        isBeforeVersion(CVersCode.V_32_11_S_V2)
+
+    @JvmStatic
+    fun isBeforeV_33_11_TIRAMISU(): Boolean =
+        isBeforeVersion(CVersCode.V_33_11_TIRAMISU)
+
 }

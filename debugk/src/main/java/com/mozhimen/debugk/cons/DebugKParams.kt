@@ -159,11 +159,11 @@ class DebugKParams {
 
     @ADebugKParams("屏幕真实分辨率px")
     fun screenResolution(): String =
-        "设备分辨率: w " + UtilKScreen.getRealWidth() + " h " + UtilKScreen.getRealHeight()
+        "设备分辨率: w " + UtilKScreen.getWidthOfWindow() + " h " + UtilKScreen.getHeightOfWindow()
 
     @ADebugKParams("屏幕当前分辨率px")
     fun screenResolution2(): String =
-        "设备分辨率: w " + UtilKScreen.getCurrentWidth() + " h " + UtilKScreen.getCurrentHeight()
+        "设备分辨率: w " + UtilKScreen.getWidthOfDisplay() + " h " + UtilKScreen.getHeightOfDisplay()
 
     @ADebugKParams("屏幕分辨率dp")
     fun screenResolutionDpi(): String =

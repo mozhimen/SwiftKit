@@ -10,7 +10,7 @@ import androidx.annotation.Px
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.android.util.dp2px
-import com.mozhimen.basick.utilk.android.view.UtilKScreen.getRealWidth
+import com.mozhimen.basick.utilk.android.view.UtilKScreen.getWidthOfWindow
 import com.mozhimen.uicorek.layoutk.tab.commons.ILayoutKTab
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener
 import com.mozhimen.uicorek.layoutk.tab.top.mos.MTabTop
@@ -124,7 +124,7 @@ class LayoutKTabTop @JvmOverloads constructor(context: Context, attrs: Attribute
             _tabTopWidth = tabTop.width
         }
         //判断点击了屏幕左侧还是右侧
-        val scrollWidth: Int = if ((location[0] + _tabTopWidth / 2) > getRealWidth() / 2) {
+        val scrollWidth: Int = if ((location[0] + _tabTopWidth / 2) > getWidthOfWindow() / 2) {
             rangeScrollWidth(index, 2)
         } else {
             rangeScrollWidth(index, -2)

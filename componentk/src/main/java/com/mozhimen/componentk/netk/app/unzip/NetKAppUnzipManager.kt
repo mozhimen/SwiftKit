@@ -6,18 +6,16 @@ import androidx.annotation.WorkerThread
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basick.taskk.handler.TaskKHandler
-import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFileDir
 import com.mozhimen.basick.utilk.java.io.createFolder
 import com.mozhimen.basick.utilk.java.io.deleteFile
 import com.mozhimen.basick.utilk.java.io.flushClose
-import com.mozhimen.basick.utilk.java.io.inputStream2file
 import com.mozhimen.basick.utilk.java.io.inputStream2fileOfBufferedOps
 import com.mozhimen.basick.utilk.kotlin.collections.containsBy
 import com.mozhimen.basick.utilk.kotlin.createFolder
 import com.mozhimen.basick.utilk.kotlin.deleteFolder
-import com.mozhimen.basick.utilk.kotlin.getSplitExLast
+import com.mozhimen.basick.utilk.kotlin.getSplitLastIndexToStart
 import com.mozhimen.basick.utilk.kotlin.normalize
 import com.mozhimen.basick.utilk.kotlin.strFilePath2file
 import com.mozhimen.componentk.netk.app.NetKApp
@@ -25,7 +23,6 @@ import com.mozhimen.componentk.netk.app.cons.CNetKAppErrorCode
 import com.mozhimen.componentk.netk.app.cons.CNetKAppState
 import com.mozhimen.componentk.netk.app.download.mos.AppDownloadException
 import com.mozhimen.componentk.netk.app.download.mos.intAppErrorCode2appDownloadException
-import com.mozhimen.componentk.netk.app.task.NetKAppTaskManager
 import com.mozhimen.componentk.netk.app.task.db.AppTask
 import java.io.BufferedOutputStream
 import java.io.File
@@ -159,7 +156,7 @@ internal object NetKAppUnzipManager : IUtilK {
     @WorkerThread
     private fun unzipNpkOnBack(fileSource: File, strFilePathDest: String): String {
         try {
-            val fileNameReal = fileSource.name.getSplitExLast(".", false)//name.subSequence(0, name.lastIndexOf("."))
+            val fileNameReal = fileSource.name.getSplitLastIndexToStart(".", false)//name.subSequence(0, name.lastIndexOf("."))
             val strFilePathDestReal = (strFilePathDest + File.separator + fileNameReal).also { Log.d(TAG, "unzipOnBack: strFilePathDestReal $it") }
 
             //用来记录apk的文件名
@@ -215,7 +212,7 @@ internal object NetKAppUnzipManager : IUtilK {
      */
     @WorkerThread
     private fun unzipApkOnBack(apkFileSource: File, appTask: AppTask, strApkFilePathDest: String): String {
-        val strApkFileNameReal = apkFileSource.name.getSplitExLast(".", false)//name.subSequence(0, name.lastIndexOf("."))
+        val strApkFileNameReal = apkFileSource.name.getSplitLastIndexToStart(".", false)//name.subSequence(0, name.lastIndexOf("."))
         val strApkFilePathDestReal = (strApkFilePathDest + File.separator + strApkFileNameReal).also { Log.d(TAG, "unzipOnBack: strFilePathDestReal $it") }
 
         try {

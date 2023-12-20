@@ -5,7 +5,7 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.net.Uri
 import com.mozhimen.basick.utilk.android.content.UtilKPackageInfo
-import com.mozhimen.basick.utilk.android.net.uri2strFilePath
+import com.mozhimen.basick.utilk.android.net.uri2strFilePathName
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.UtilKLog.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -24,7 +24,7 @@ object InstallUtils : BaseUtilK() {
      * @return true 可以安装；false 不需安装
      */
     private fun compare(context: Context, uri: Uri): Boolean {
-        val realFilePath = uri.uri2strFilePath() ?: return false
+        val realFilePath = uri.uri2strFilePathName() ?: return false
         val fileApkInfo = getFileApkSignature(context, realFilePath) ?: return false
         try {
             val packageInfo = UtilKPackageInfo.getOfGetConfigurations(context)!!

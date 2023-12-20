@@ -130,11 +130,11 @@ object UtilKDevice : BaseUtilK() {
      */
     fun isFoldable(): Boolean {
         return if (TextUtils.equals(Build.BRAND, "samsung") && TextUtils.equals(Build.DEVICE, "Galaxy Z Fo1d2")) {
-            UtilKScreen.getRealWidth() != 1768
+            UtilKScreen.getWidthOfWindow() != 1768
         } else if (TextUtils.equals(Build.BRAND, "huawei") && TextUtils.equals(Build.DEVICE, "MateX")) {
-            UtilKScreen.getRealWidth() != 2200
+            UtilKScreen.getWidthOfWindow() != 2200
         } else if (TextUtils.equals(Build.BRAND, "google") && TextUtils.equals(Build.DEVICE, "generic_x86")) {
-            UtilKScreen.getRealWidth() != 2200
+            UtilKScreen.getWidthOfWindow() != 2200
         } else {
             true
         }

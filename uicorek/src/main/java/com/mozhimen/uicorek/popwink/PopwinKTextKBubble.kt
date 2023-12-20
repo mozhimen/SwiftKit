@@ -41,8 +41,8 @@ open class TextKBubblePopWin(
     override fun showArrowTo(anchorView: View, relativePos: MRelativePos, marginH: Int, marginV: Int) {
         dismiss()
 
-        val screenWidth = UtilKScreen.getRealWidth()
-        val screenHeight = UtilKScreen.getRealHeight()
+        val screenWidth = UtilKScreen.getWidthOfWindow()
+        val screenHeight = UtilKScreen.getHeightOfWindow()
         val navigationBarHeight = getNavigationBarHeightOffset(anchorView)
         val anchorRect = getRectInWindow(anchorView)
 

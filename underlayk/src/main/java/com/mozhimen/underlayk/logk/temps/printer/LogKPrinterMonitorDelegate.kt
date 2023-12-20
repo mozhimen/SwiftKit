@@ -208,15 +208,15 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
             layoutParams.width = _titleView!!.width
             layoutParams.height = _titleView!!.height
         } else {
-            layoutParams.width = UtilKScreen.getRealWidth()
-            layoutParams.height = UtilKScreen.getRealHeight() / 3
+            layoutParams.width = UtilKScreen.getWidthOfWindow()
+            layoutParams.height = UtilKScreen.getHeightOfWindow() / 3
         }
         return layoutParams
     }
 
     private fun getWindowLayoutParams(isFold: Boolean): WindowManager.LayoutParams {
         _layoutParams.width = if (isFold) CWinMgr.Lp.WRAP_CONTENT else CWinMgr.Lp.MATCH_PARENT
-        _layoutParams.height = if (isFold) CWinMgr.Lp.WRAP_CONTENT else (UtilKScreen.getRealHeight() / 3)
+        _layoutParams.height = if (isFold) CWinMgr.Lp.WRAP_CONTENT else (UtilKScreen.getHeightOfWindow() / 3)
         return _layoutParams
     }
 

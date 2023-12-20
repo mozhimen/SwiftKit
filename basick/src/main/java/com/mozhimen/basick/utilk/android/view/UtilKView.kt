@@ -159,7 +159,7 @@ object UtilKView : BaseUtilK() {
     fun getVisiblePercent(view: View): Int {
         if (view.isShown) {
             val rect = Rect().apply { view.getGlobalVisibleRect(this) }
-            return if (rect.top > 0 && rect.left < UtilKScreen.getCurrentWidth())
+            return if (rect.top > 0 && rect.left < UtilKScreen.getWidthOfDisplay())
                 ((rect.width().toFloat() * rect.height().toFloat()) / (view.width.toFloat() * view.height.toFloat()) * 100).toInt()
             else 0
         }

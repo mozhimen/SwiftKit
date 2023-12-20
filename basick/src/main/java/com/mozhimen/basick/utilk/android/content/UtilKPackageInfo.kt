@@ -55,6 +55,10 @@ object UtilKPackageInfo : BaseUtilK() {
     fun getRequestedPermissions(packageInfo: PackageInfo?): Array<String>? =
         packageInfo?.requestedPermissions
 
+    @JvmStatic
+    fun getPackageName(context: Context): String? =
+        get(context)?.packageName
+
     /////////////////////////////////////////////////////////////////////////
 
     /**

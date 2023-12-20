@@ -23,10 +23,10 @@ import com.mozhimen.basick.utilk.android.webkit.UtilKMimeTypeMap
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.inputStream2bitmapAny
-import com.mozhimen.basick.utilk.java.io.inputStream2file
 import com.mozhimen.basick.utilk.java.io.inputStream2fileOfFileUtils
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import com.mozhimen.basick.utilk.kotlin.getStrFolderPath
+import com.mozhimen.basick.utilk.kotlin.isFileExist
 import com.mozhimen.basick.utilk.kotlin.strUri2uri
 import com.mozhimen.basick.utilk.kotlin.text.isStrDigits2
 import java.io.File
@@ -40,11 +40,13 @@ import kotlin.math.ceil
  * @Date 2023/10/19 0:23
  * @Version 1.0
  */
-fun Uri.uri2strFilePath(): String? =
-    UtilKUriFormat.uri2strFilePath(this)
+fun Uri.uri2strFilePathName(): String? =
+    UtilKUriFormat.uri2strFilePathName(this)
 
 fun Uri.uri2file(): File? =
     UtilKUriFormat.uri2file(this)
+
+//////////////////////////////////////////////////////////////////////////////
 
 fun Uri.uri2bitmap(): Bitmap =
     UtilKUriFormat.uri2bitmap(this)
@@ -52,51 +54,70 @@ fun Uri.uri2bitmap(): Bitmap =
 fun Uri.uri2bitmapOfStream(): Bitmap? =
     UtilKUriFormat.uri2bitmapOfStream(this)
 
+//////////////////////////////////////////////////////////////////////////////
+
 object UtilKUriFormat : BaseUtilK() {
     @JvmStatic
     fun uri2file(uri: Uri): File? =
-        uri2strFilePath(uri)?.let { File(it) }
+        this.uri2strFilePathName(uri)?.let { File(it) }
 
     @SuppressLint("Recycle")
     @JvmStatic
-    fun uri2strFilePath(uri: Uri): String? =
-        if (UtilKBuildVersion.isAfterV_29_10_Q()) {
-            uri2strFilePathAfter29(uri)
-        } else if (UtilKBuildVersion.isAfterV_19_44_K() && UtilKDocumentsContract.isDocumentUri(_context, uri)) {
-            uri2strFilePathAfter19(uri)
+    fun uri2strFilePathName(uri: Uri): String? =
+        if (uri.scheme == CContentResolver.SCHEME_FILE) {
+            uri.path
+        } else if (UtilKBuildVersion.isAfterV_29_10_Q()) {
+            uri2strFilePathNameAfter29(uri)
         } else if (UtilKBuildVersion.isAfterV_24_7_N()) {
-
-        } else {
-            when (uri.scheme) {
-                CContentResolver.SCHEME_FILE -> uri.path
-                CContentResolver.SCHEME_CONTENT -> uri.getMediaColumns()
-                else -> null
-            }
-        }
+            uri2strFilePathNameAfter24(uri)
+        } else if (UtilKBuildVersion.isAfterV_19_44_K() && UtilKDocumentsContract.isDocumentUri(_context, uri)) {
+            uri2strFilePathNameAfter19(uri)
+        } else if (uri.scheme == CContentResolver.SCHEME_CONTENT) {
+            uri.getMediaColumns()
+        } else null
 
     /**
      * android Q 的写法 沙盒
      */
     @SuppressLint("Recycle")
     @RequiresApi(CVersCode.V_29_10_Q)
-    fun uri2strFilePathAfter29(uri: Uri): String? =
+    fun uri2strFilePathNameAfter29(uri: Uri): String? =
         when (uri.scheme) {
             CContentResolver.SCHEME_FILE -> uri.path
             CContentResolver.SCHEME_CONTENT -> {
                 //把文件保存到沙盒
-                val contentResolver = UtilKContentResolver.get(_context)
                 val strFileName = UtilKOpenableColumns.getOpenableColumns(uri) ?: run {
                     "${UtilKFile.getStrFileNameForStrNowDate()}.${UtilKMimeTypeMap.getExtensionFromMimeType(_context, uri)}"
                 }
                 val strFilePathName = "${UtilKStrPath.Absolute.Internal.getCache().getStrFolderPath()}uri/$strFileName"
-                contentResolver.openInputStream(uri)?.inputStream2fileOfFileUtils(strFilePathName)?.absolutePath
+                UtilKContentResolver.openInputStream(_context, uri)?.inputStream2fileOfFileUtils(strFilePathName)?.absolutePath
             }
 
             else -> null
         }
 
     @JvmStatic
-    fun uri2strFilePathAfter19(uri: Uri): String? {
+    @RequiresApi(CVersCode.V_24_7_N)
+    fun uri2strFilePathNameAfter24(uri: Uri): String? {
+        if (uri.scheme == CContentResolver.SCHEME_FILE)
+            return uri.path
+        val strFilePath = uri.path
+        if (strFilePath != null) {
+            val externals = arrayOf("/external", "/external_path")
+            externals.forEach {
+                if (strFilePath.startsWith("$it/")) {
+                    val strFilePathName = UtilKStrPath.Absolute.External.getEnvStorage() + strFilePath.replace(it, "")
+                    if (strFilePathName.isFileExist())
+                        return strFilePathName
+                }
+            }
+        }
+        return uri.getMediaColumns()
+    }
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_19_44_K)
+    fun uri2strFilePathNameAfter19(uri: Uri): String? {
         if (uri.scheme == CContentResolver.SCHEME_FILE)
             return uri.path
         if (UtilKBuildVersion.isAfterV_19_44_K() && DocumentsContract.isDocumentUri(_context, uri)) {
@@ -133,13 +154,14 @@ object UtilKUriFormat : BaseUtilK() {
             }
 
             //沙盒
-            if (UtilKBuildVersion.isAfterV_29_10_Q()){
-                return UtilKContentResolver.openInputStream(_context, uri)?.inputStream2file("$strFilePathNameDest.${UtilKMimeTypeMap.getExtensionFromMimeType(_context, uri)}")?.absolutePath
-            }
+//            if (UtilKBuildVersion.isAfterV_29_10_Q()){
+//                return UtilKContentResolver.openInputStream(_context, uri)?.inputStream2file("$strFilePathNameDest.${UtilKMimeTypeMap.getExtensionFromMimeType(_context, uri)}")?.absolutePath
+//            }
         }
         return uri.getMediaColumns()
     }
 
+    //////////////////////////////////////////////////////////////////////////////
 
     /**
      * 从相册获得图片
@@ -188,8 +210,8 @@ object UtilKUriFormat : BaseUtilK() {
             val outHeight = options.outHeight.toDouble()
             val outWidth = options.outWidth.toDouble()
             //heightPixels就是要压缩后的图片高度，宽度也一样
-            val a = ceil((outHeight / UtilKScreen.getCurrentHeight().toDouble())).toInt()
-            val b = ceil((outWidth / UtilKScreen.getCurrentWidth().toDouble())).toInt()
+            val a = ceil((outHeight / UtilKScreen.getHeightOfDisplay().toDouble())).toInt()
+            val b = ceil((outWidth / UtilKScreen.getWidthOfDisplay().toDouble())).toInt()
             //比例计算,一般是图片比较大的情况下进行压缩
             val max = a.coerceAtLeast(b)
             if (max > 1)

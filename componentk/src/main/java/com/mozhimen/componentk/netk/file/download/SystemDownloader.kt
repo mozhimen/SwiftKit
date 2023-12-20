@@ -6,9 +6,9 @@ import android.widget.Toast
 import com.mozhimen.basick.elemk.android.app.cons.CDownloadManager
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
-import com.mozhimen.basick.utilk.android.net.uri2strFilePath
 import com.mozhimen.basick.utilk.android.util.UtilKLog
 import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.android.net.uri2strFilePathName
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.netk.file.download.bases.BaseDownloader
 import java.io.File
@@ -50,7 +50,7 @@ internal class SystemDownloader(request: DownloadRequest) : BaseDownloader(reque
                 CDownloadManager.STATUS_SUCCESSFUL -> {
                     val uri = downloader.getDownloadedFileUri(downloadId)
                     if (uri != null) {
-                        val strFilePath = uri.uri2strFilePath()//getRealPathFromURI(request.context, )
+                        val strFilePath = uri.uri2strFilePathName()//getRealPathFromURI(request.context, )
                         strFilePath?.let {
                             val file = File(it)
                             if (file.exists() && file.length() == downloadInfo.totalSize) {

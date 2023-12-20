@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="cok_transparent">#00ffffff</color>
+    <color name="cok_transparent">@color/cok_tran_00_00f</color>
     <color name="cok_white">@color/cok_gray_ffffff</color>
     <color name="cok_black">@color/cok_gray_000000</color>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--tran-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <color name="cok_tran_00_00f">#00ffffff</color>
+    <color name="cok_tran_38_61f">#61ffffff</color>
+    <color name="cok_tran_47_77f">#77ffffff</color>
+
+    <color name="cok_tran_05_0d0">#0d000000</color>
+    <color name="cok_tran_30_4d0">#4d000000</color>
+    <color name="cok_tran_87_de0">#de000000</color>
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
     <!--gray-->
@@ -23,6 +35,7 @@
     <color name="cok_gray_d2d4d7">#d2d4d7</color>
     <color name="cok_gray_a9a9a9">#a9a9a9</color>
     <color name="cok_gray_9e9e9e">#9e9e9e</color>
+    <color name="cok_gray_808080">#808080</color>
     <color name="cok_gray_8a8a8a">#8a8a8a</color>
     <color name="cok_gray_7d7d7d">#7d7d7d</color>
     <color name="cok_gray_757575">#757575</color>
