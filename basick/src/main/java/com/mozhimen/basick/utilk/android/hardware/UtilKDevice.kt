@@ -75,7 +75,7 @@ object UtilKDevice : BaseUtilK() {
     fun getSerialNumberShort(): String {
         var serial = getSerialNumber()
         if (!TextUtils.isEmpty(serial) && serial.length > 14)
-            serial = serial.substring(14, serial.length)
+            serial = serial.substring(14)
         return serial
     }
 

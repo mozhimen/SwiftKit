@@ -36,7 +36,7 @@ object UtilKWifiInfo {
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
     fun getRealSsid(context: Context): String? =
-        getSsid(context)?.let { it.substring(1, it.length - 1) }
+        getSsid(context)?.substring(1)
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
@@ -67,7 +67,7 @@ object UtilKWifiInfo {
         } else {
             val ssid = getSsid(context) ?: return false
             if (ssid.length < 2) return false
-            val sid = ssid.substring(1, ssid.length - 1)
+            val sid = ssid.substring(1)
             for (scan in UtilKWifiManager.getScanResults(context)) {
                 if (scan.SSID == sid) {
                     frequency = scan.frequency

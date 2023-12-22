@@ -25,7 +25,7 @@ object UtilKClazz {
     @JvmStatic
     fun getStrPackage(clazz: Class<*>): String {
         val clazzName = clazz.getStrPackageName()
-        return clazzName.substring(0, clazzName.lastIndexOf(".") + 1)
+        return clazzName.substring(0, clazzName.lastIndexOf("."))
     }
 
     @JvmStatic

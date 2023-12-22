@@ -176,6 +176,9 @@ class TextKEditRect @JvmOverloads constructor(context: Context, attrs: Attribute
         applyLengthFilter(max)
     }
 
+    fun getRectNum():Int =
+        _rectNum
+
     fun setRectWidth(rectWidth: Int) {
         _rectWidth = rectWidth
     }

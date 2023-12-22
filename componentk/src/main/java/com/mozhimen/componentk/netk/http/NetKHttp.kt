@@ -25,14 +25,16 @@ import java.util.concurrent.TimeUnit
 @AManifestKRequire(CPermission.INTERNET, CApplication.USES_CLEAR_TEXT_TRAFFIC_TRUE)
 open class NetKHttp(
     baseUrl: String,
+    connectTimeoutSecond: Long = 15,
+    readTimeoutSecond: Long = 15,
     interceptors: List<Interceptor> = emptyList()
 ) : BaseUtilK() {
     private val _interceptors: ArrayList<Interceptor> = ArrayList()
     private val _okHttpClient by lazy {
         OkHttpClient.Builder().apply {
             if (BuildConfig.DEBUG) {
-                connectTimeout(15, TimeUnit.SECONDS)
-                readTimeout(15, TimeUnit.SECONDS)
+                connectTimeout(connectTimeoutSecond, TimeUnit.SECONDS)
+                readTimeout(readTimeoutSecond, TimeUnit.SECONDS)
                 addInterceptor(HttpLoggingInterceptor { msg -> UtilKLog.longLog(CLogPriority.V, TAG, msg) }.also { it.level = HttpLoggingInterceptor.Level.BODY })
                 if (_interceptors.isNotEmpty())
                     for (interceptor in _interceptors) addInterceptor(interceptor)

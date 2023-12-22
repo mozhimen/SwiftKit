@@ -19,15 +19,15 @@ class LogKPrinterConsole(private val _ignoreLineBreak: Boolean = false) : BaseLo
         super.print(config, priority, tag, msg)
 
         if (_ignoreLineBreak) {
-            val len = msg.length
-            val countOfSub = len / CLogKCons.LOG_MAX_LEN
+            val length = msg.length
+            val countOfSub = length / CLogKCons.LOG_MAX_LEN
             if (countOfSub > 0) {
                 var index = 0
                 for (i in 0 until countOfSub) {
                     printlog(priority, tag, msg.substring(index, index + CLogKCons.LOG_MAX_LEN))
                     index += CLogKCons.LOG_MAX_LEN
                 }
-                if (index != len) printlog(priority, tag, msg.substring(index, len))
+                if (index != length) printlog(priority, tag, msg.substring(index, length))
             } else
                 printlog(priority, tag, msg)
         } else {
