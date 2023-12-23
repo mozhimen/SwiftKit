@@ -29,6 +29,10 @@ import kotlinx.coroutines.flow.onEach
  * @Date 2022/11/6 0:28
  * @Version 1.0
  */
+val EditText.value: String get() = UtilKEditText.getValue(this)
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
 fun EditText.applyOnEditorActionSearchListener(block: I_Listener) {
     UtilKEditText.applyOnEditorActionSearchListener(this, block)
 }
@@ -63,7 +67,9 @@ fun EditText.addTextChangeWatcher(onTextChanged: IA_Listener<String>/*(newText: 
     UtilKEditText.addTextChangeWatcher(this, onTextChanged)
 }
 
-val EditText.value: String get() = UtilKEditText.getValue(this)
+fun EditText.applyClearText() {
+    UtilKEditText.applyClearText(this)
+}
 
 object UtilKEditText {
 
@@ -75,6 +81,11 @@ object UtilKEditText {
         editText.text.obj2stringTrim()
 
     //////////////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun applyClearText(editText: EditText) {
+        editText.text.clear()
+    }
 
     @JvmStatic
     fun applyOnEditorActionSearchListener(editText: EditText, block: I_Listener) {
