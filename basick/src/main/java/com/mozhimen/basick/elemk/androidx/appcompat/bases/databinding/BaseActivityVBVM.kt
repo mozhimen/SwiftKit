@@ -1,4 +1,4 @@
-package com.mozhimen.basick.elemk.androidx.appcompat.bases
+package com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding
 
 import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
@@ -8,13 +8,13 @@ import com.mozhimen.basick.elemk.androidx.databinding.commons.IViewDataBinding
 import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKViewModel
 
 /**
- * @ClassName BaseSaveStateActivityVBVM
- * @Description TODO
- * @Author Mozhimen & Kolin Zhao
- * @Date 2023/9/26 15:18
+ * @ClassName BaseActivity
+ * @Description
+ * @Author Kolin Zhao / Mozhimen
+ * @Date 2022/1/25 18:47
  * @Version 1.0
  */
-abstract class BaseSaveStateActivityVBVM<VB : ViewDataBinding, VM : ViewModel> : BaseSaveStateActivityVB<VB>, IViewDataBinding<VB> {
+abstract class BaseActivityVBVM<VB : ViewDataBinding, VM : ViewModel> : BaseActivityVB<VB>, IViewDataBinding<VB> {
 
     protected var _factory: ViewModelProvider.Factory?
 
@@ -24,7 +24,7 @@ abstract class BaseSaveStateActivityVBVM<VB : ViewDataBinding, VM : ViewModel> :
      */
     constructor() : this(null)
 
-    constructor(factory: ViewModelProvider.Factory?){
+    constructor(factory: ViewModelProvider.Factory?) : super(){
         _factory = factory
     }
 

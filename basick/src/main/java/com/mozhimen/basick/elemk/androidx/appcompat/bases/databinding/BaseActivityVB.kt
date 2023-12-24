@@ -1,17 +1,13 @@
-package com.mozhimen.basick.elemk.androidx.appcompat.bases
+package com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding
 
 import android.os.Bundle
 import androidx.annotation.CallSuper
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.ViewModelProvider
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.official.BaseActivity
 import com.mozhimen.basick.elemk.androidx.appcompat.commons.IActivity
 import com.mozhimen.basick.utilk.androidx.databinding.UtilKViewDataBinding
-import com.mozhimen.basick.utilk.bases.IUtilK
 
-abstract class BaseActivityVB<VB : ViewDataBinding>(
-    /*protected var _factory: ViewModelProvider.Factory? = null*/
-) : BaseActivity(), IActivity {
+abstract class BaseActivityVB<VB : ViewDataBinding> : BaseActivity(), IActivity {
 
     protected val vb: VB by lazy(mode = LazyThreadSafetyMode.NONE) {
         UtilKViewDataBinding.get<VB>(this::class.java, layoutInflater/*, 0*/).apply {

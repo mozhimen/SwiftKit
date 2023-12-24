@@ -3,7 +3,7 @@ package com.mozhimen.basick.elemk.androidx.appcompat.bases
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.KeyEvent
-import androidx.databinding.ViewDataBinding
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.official.BaseActivity
 
 /**
  * @ClassName BaseSaveStateActivityVB
@@ -12,15 +12,7 @@ import androidx.databinding.ViewDataBinding
  * @Date 2023/9/26 15:00
  * @Version 1.0
  */
-abstract class BaseSaveStateActivityVB<VB : ViewDataBinding> : BaseActivityVB<VB> {
-
-    /**
-     * 针对Hilt(@JvmOverloads kotlin默认参数值无效)
-     * @constructor
-     */
-    constructor() :  super()
-
-    //////////////////////////////////////////////////////////////////////////////
+abstract class BaseSaveStateActivity : BaseActivity() {
 
     private var _stateSaved = false
     

@@ -15,9 +15,7 @@ import com.mozhimen.basick.utilk.androidx.databinding.UtilKViewDataBinding
 import com.mozhimen.basick.utilk.androidx.fragment.UtilKFragment
 import com.mozhimen.basick.utilk.bases.IUtilK
 
-open class BaseFragmentVB<VB : ViewDataBinding>(
-    /*protected open var _factory: ViewModelProvider.Factory? = null*/
-) : BaseFragment(), IActivity, IFragment {
+open class BaseFragmentVB<VB : ViewDataBinding> : BaseFragment(), IActivity, IFragment {
 
     private var _vb: VB? = null
     protected val vb get() = _vb!!

@@ -5,7 +5,7 @@ import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.basick.utilk.android.view.applyGone
 import com.mozhimen.basick.utilk.android.view.applyVisible
 import com.mozhimen.componentk.pagingk.commons.IPagingKActivity
