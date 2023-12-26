@@ -22,6 +22,7 @@ class TaskKBackPressedExit : BaseWakeBefDestroyTaskK() {
     private var _exitWaitTime = 2000L//退出App判断时间
     private var _firstClickTime = 0L//用来记录第一次点击的时间
     private var _strTip = "再按一次退出"
+    private var _onExit: I_Listener? = null
 
     override fun isActive(): Boolean = _firstClickTime != 0L
 
@@ -41,14 +42,18 @@ class TaskKBackPressedExit : BaseWakeBefDestroyTaskK() {
         return this
     }
 
-    fun onBackPressed(onExit: I_Listener? = null): Boolean {
+    fun setOnExitListener(onExit: I_Listener) {
+        _onExit = onExit
+    }
+
+    fun onBackPressed(): Boolean {
         val secondClickTime = System.currentTimeMillis()
         if (secondClickTime - _firstClickTime > _exitWaitTime) {
             _firstClickTime = secondClickTime
             _strTip.showToast()
             return false
         }
-        onExit?.invoke()
+        _onExit?.invoke()
         UtilKApp.exitApp()
         return true
     }

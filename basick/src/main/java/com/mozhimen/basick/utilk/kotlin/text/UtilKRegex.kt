@@ -28,6 +28,9 @@ fun String.replaceStartSeparator(): String =
 fun String.complementStart0(): String =
     UtilKRegex.complementStart0(this)
 
+fun String.complementStartPlus(): String =
+    UtilKRegex.complementStartPlus(this)
+
 /////////////////////////////////////////////////////////////////////////////
 
 object UtilKRegex {
@@ -54,4 +57,8 @@ object UtilKRegex {
     @JvmStatic
     fun complementStart0(str: String): String =
         if (str.startsWith(".")) "0$str" else str
+
+    @JvmStatic
+    fun complementStartPlus(str: String): String =
+        if (!str.startsWith("+")) "+$str" else str
 }

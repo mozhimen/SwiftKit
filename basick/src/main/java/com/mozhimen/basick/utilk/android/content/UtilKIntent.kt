@@ -5,6 +5,8 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import com.mozhimen.basick.elemk.commons.IExtension_Listener
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CIntentFilter
 
 /**
  * @ClassName UtilKIntent
@@ -23,6 +25,7 @@ fun Intent.getQueryParameter(key: String): String? =
     UtilKIntent.getQueryParameter(this, key)
 
 object UtilKIntent {
+    @JvmStatic
     fun get(context: Context, clazz: Class<*>): Intent =
         Intent(context, clazz)
 
@@ -33,6 +36,7 @@ object UtilKIntent {
         Intent(context, T::class.java).apply(block)
 
     @JvmStatic
+    @AManifestKRequire(CIntentFilter.ACTION_VIEW_CATEGORY_DEFAULT_BROWSABLE)
     fun getQueryParameter(intent: Intent, key: String): String? =
         intent.data?.getQueryParameter(key)
 
@@ -41,6 +45,7 @@ object UtilKIntent {
     /**
      * 要启动的intent是否可用
      */
+    @JvmStatic
     fun isIntentAvailable(intent: Intent, context: Context): Boolean =
         resolveActivity(intent, context) != null
 
