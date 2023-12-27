@@ -1,14 +1,22 @@
 package com.mozhimen.basick.imagek.glide
 
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
+import android.util.Log
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
-import com.mozhimen.basick.imagek.glide.temps.BlurTransformation
-import com.mozhimen.basick.imagek.glide.temps.CircleBorderTransform
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
+import com.mozhimen.basick.imagek.glide.commons.ICustomTarget
+import com.mozhimen.basick.imagek.glide.impls.BlurTransformation
+import com.mozhimen.basick.imagek.glide.impls.CircleBorderTransform
+import com.mozhimen.basick.utilk.bases.BaseUtilK
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
 
 /**
  * @ClassName ImageKGlide
@@ -17,6 +25,12 @@ import com.mozhimen.basick.imagek.glide.temps.CircleBorderTransform
  * @Date 2023/6/10 16:53
  * @Version 1.0
  */
+suspend fun String.isImageHorizontal(): Boolean =
+    ImageKGlide.isImageHorizontal(this)
+
+suspend fun String.isImageVertical(): Boolean =
+    ImageKGlide.isImageVertical(this)
+
 @Deprecated(
     message = "replace to coil 用coil替代glide",
     replaceWith = ReplaceWith(
@@ -24,7 +38,40 @@ import com.mozhimen.basick.imagek.glide.temps.CircleBorderTransform
         imports = ["com.mozhimen.basick.imagek.coil.ImageKCoil"]
     )
 )
-object ImageKGlide {
+object ImageKGlide : BaseUtilK() {
+
+    @JvmStatic
+    suspend fun getImageWidthAndHeight(res: Any?): Pair<Int, Int> = suspendCancellableCoroutine { coroutine ->
+        Glide.with(_context).asBitmap().load(res).into(object : ICustomTarget<Bitmap>() {
+            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                Log.d(TAG, "onResourceReady: res $res resource width ${resource.width} height ${resource.height}")
+                coroutine.resume(resource.width to resource.height)
+            }
+
+            override fun onLoadFailed(errorDrawable: Drawable?) {
+                Log.d(TAG, "onLoadFailed: resource width 0 height 0")
+                coroutine.resume(0 to 0)
+            }
+        })
+    }
+
+    /**
+     * 是否是横图
+     */
+    @JvmStatic
+    suspend fun isImageHorizontal(res: Any?): Boolean {
+        val imageSize = getImageWidthAndHeight(res)
+        return imageSize.first > imageSize.second
+    }
+
+    /**
+     * 是否是竖图
+     */
+    @JvmStatic
+    suspend fun isImageVertical(res: Any?): Boolean =
+        !isImageHorizontal(res)
+
+    //////////////////////////////////////////////////////////////////////////////////
 
 
     @JvmStatic

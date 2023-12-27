@@ -39,7 +39,9 @@ object AppTaskDaoManager : IUtilK {
 
     @JvmStatic
     fun getByTaskId_PackageName(taskId: String, packageName: String): AppTask? {
-        val appTask: AppTask = _tasks[taskId] ?: return null
+        val appTask: AppTask = _tasks[taskId] ?: kotlin.run {
+            return null
+        }
         if (appTask.apkPackageName == packageName)
             return appTask
         return null

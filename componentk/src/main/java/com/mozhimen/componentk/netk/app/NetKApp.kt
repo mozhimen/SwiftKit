@@ -246,11 +246,17 @@ object NetKApp : INetKAppState, BaseUtilK() {
     fun generateAppTaskByPackageName(appTask: AppTask): AppTask {
         if (getAppTaskByTaskId_PackageName(appTask.taskId, appTask.apkPackageName) == null && InstallKManager.hasPackageNameAndSatisfyVersion(appTask.apkPackageName, appTask.apkVersionCode)) {
             onTaskFinish(appTask, ENetKAppFinishType.SUCCESS)
-        } else if ((appTask.apkIsInstalled || appTask.taskState == CNetKAppTaskState.STATE_TASK_SUCCESS) && !InstallKManager.hasPackageNameAndSatisfyVersion(
-                appTask.apkPackageName,
-                appTask.apkVersionCode
-            )
+        } else if (
+            (appTask.apkIsInstalled || appTask.taskState == CNetKAppTaskState.STATE_TASK_SUCCESS) &&
+            !InstallKManager.hasPackageNameAndSatisfyVersion(appTask.apkPackageName, appTask.apkVersionCode)
         ) {
+            /**
+             * [CNetKAppTaskState.STATE_TASK_CREATE]
+             */
+            onTaskCreate(appTask.apply {
+                apkIsInstalled = false
+            })
+        } else if (getAppTaskByTaskId_PackageName(appTask.taskId, appTask.apkPackageName) == null) {
             /**
              * [CNetKAppTaskState.STATE_TASK_CREATE]
              */

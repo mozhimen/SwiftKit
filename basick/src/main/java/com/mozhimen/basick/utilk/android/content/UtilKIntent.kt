@@ -4,9 +4,12 @@ import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.os.Build
+import android.os.Parcelable
 import com.mozhimen.basick.elemk.commons.IExtension_Listener
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CIntentFilter
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 
 /**
  * @ClassName UtilKIntent
@@ -39,6 +42,15 @@ object UtilKIntent {
     @AManifestKRequire(CIntentFilter.ACTION_VIEW_CATEGORY_DEFAULT_BROWSABLE)
     fun getQueryParameter(intent: Intent, key: String): String? =
         intent.data?.getQueryParameter(key)
+
+    @JvmStatic
+    fun <T> getParcelableArrayListExtra(intent: Intent, name: String, clazz: Class<T>): ArrayList<T>? {
+        return if (UtilKBuildVersion.isAfterV_33_11_TIRAMISU()) {
+            intent.getParcelableArrayListExtra(name, clazz)
+        } else {
+            intent.getParcelableArrayListExtra<Parcelable>(name) as? ArrayList<T>?
+        }
+    }
 
     ///////////////////////////////////////////////////////////////////////////////////////
 
