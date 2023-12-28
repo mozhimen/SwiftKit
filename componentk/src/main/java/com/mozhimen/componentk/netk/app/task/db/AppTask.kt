@@ -43,7 +43,7 @@ data class AppTask(
     @ColumnInfo(name = "apk_version_name")
     val apkVersionName: String,
     @ColumnInfo(name = "apk_icon_url")
-    val apkIconUrl: String,
+    var apkIconUrl: String,
     @ColumnInfo(name = "apk_icon_Id")
     val apkIconId: Int,
     @ColumnInfo("apk_file_name")
@@ -58,6 +58,7 @@ data class AppTask(
     var apkUnzipNeed: Boolean,
     @ColumnInfo(name = "task_update_time")
     var taskUpdateTime: Long = System.currentTimeMillis(),//更新时间
+    @ColumnInfo(name = "downloadId")
     var downloadId: Int = 0
 ) {
     fun isTaskProcess(): Boolean =

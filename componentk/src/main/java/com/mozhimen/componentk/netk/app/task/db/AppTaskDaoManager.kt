@@ -151,7 +151,7 @@ object AppTaskDaoManager : IUtilK {
             appTask.forEach {
                 it.taskState = CNetKAppTaskState.STATE_TASK_CREATE
                 it.downloadProgress = 0
-                it.taskUpdateTime = System.currentTimeMillis()
+//                it.taskUpdateTime = System.currentTimeMillis()
             }
             appTask.forEach {
                 if (_tasks[it.taskId] != null) {
@@ -225,7 +225,7 @@ object AppTaskDaoManager : IUtilK {
     @Synchronized
     @WorkerThread
     private fun updateOnBack(appTask: AppTask) {
-        appTask.taskUpdateTime = System.currentTimeMillis()
+//        appTask.taskUpdateTime = System.currentTimeMillis()
         try {
             if (_tasks.containsKey(appTask.taskId)) {
                 AppTaskDbManager.appTaskDao.update(appTask)//将本条数据插入到数据库
