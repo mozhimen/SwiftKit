@@ -19,9 +19,9 @@ import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.cons.CPackageManager
 import com.mozhimen.basick.elemk.android.os.cons.CProcess
-import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.cons.CStrPackage
+import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 
@@ -199,6 +199,16 @@ object UtilKPackageManager {
     @JvmStatic
     fun hasSystemFeature(context: Context, featureName: String): Boolean =
         get(context).hasSystemFeature(featureName)
+
+    @JvmStatic
+    fun isInstalled(context: Context, packageName: String): Boolean {
+        return try {
+            get(context).getApplicationInfo(packageName, 0).enabled
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+            false
+        }
+    }
 
     /**
      * 是否有匹配的包名

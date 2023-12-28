@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import androidx.annotation.FloatRange
+import androidx.annotation.FontRes
 import com.mozhimen.basick.elemk.android.util.cons.CDisplayMetrics
 import com.mozhimen.basick.elemk.android.util.cons.CTypedValue
 import com.mozhimen.basick.utilk.android.content.UtilKResource
@@ -28,6 +29,18 @@ val Int.dp2px: Float
 fun Int.dp2px(): Float =
     UtilKDisplayMetrics.dp2px(this.toFloat())
 
+val Float.dp2sp: Float
+    get() = dp2sp()
+
+fun Float.dp2sp(): Float =
+    UtilKDisplayMetrics.dp2sp(this)
+
+val Int.dp2sp: Float
+    get() = dp2sp()
+
+fun Int.dp2sp(): Float =
+    UtilKDisplayMetrics.dp2sp(this.toFloat())
+
 /////////////////////////////////////////////////////////////
 
 val Float.px2dp: Float
@@ -41,8 +54,6 @@ val Int.px2dp: Float
 
 fun Int.px2dp(): Float =
     UtilKDisplayMetrics.px2dp(this.toFloat())
-
-/////////////////////////////////////////////////////////////
 
 val Float.px2sp: Float
     get() = px2sp()
@@ -151,6 +162,10 @@ object UtilKDisplayMetrics {
     fun dp2px3(@FloatRange(from = 0.0) dp: Float): Float =
         dp * (getXdpi() / CDisplayMetrics.DENSITY_DEFAULT)
 
+    @JvmStatic
+    fun dp2sp(@FloatRange(from = 0.0) dp: Float): Float =
+        dp2px(dp).px2sp()
+
     /////////////////////////////////////////////////////////////
 
     @JvmStatic
@@ -160,8 +175,6 @@ object UtilKDisplayMetrics {
     @JvmStatic
     fun px2dp2(@FloatRange(from = 0.0) px: Float): Float =
         px / getDensity()
-
-    /////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun px2sp(@FloatRange(from = 0.0) px: Float): Float =

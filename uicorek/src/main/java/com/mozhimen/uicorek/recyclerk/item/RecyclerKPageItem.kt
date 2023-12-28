@@ -79,8 +79,6 @@ abstract class RecyclerKPageItem<DATA> : LifecycleOwner, IUtilK {
         @LayoutRes
         get
 
-    abstract fun onBindViewHolder(holder: VHKRecycler, item: DATA?, position: Int)
-
     ///////////////////////////////////////////////////////////////////////
 
     /**
@@ -91,8 +89,9 @@ abstract class RecyclerKPageItem<DATA> : LifecycleOwner, IUtilK {
         VHKRecycler(parent.findViewByInflate(layoutId))
 
     open fun onBindViewHolder(holder: VHKRecycler, item: DATA?, position: Int, payloads: List<Any>) {
-        onBindViewHolder(holder, item, position)
     }
+
+    abstract fun onBindViewHolder(holder: VHKRecycler, item: DATA?, position: Int)
 
     /**
      * （可选重写）ViewHolder创建完毕以后的回掉方法。
