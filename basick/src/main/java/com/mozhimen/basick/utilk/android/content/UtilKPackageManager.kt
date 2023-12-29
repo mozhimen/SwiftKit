@@ -17,6 +17,7 @@ import android.graphics.drawable.Drawable
 import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
+import com.mozhimen.basick.elemk.android.content.cons.CPackageInfo
 import com.mozhimen.basick.elemk.android.content.cons.CPackageManager
 import com.mozhimen.basick.elemk.android.os.cons.CProcess
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
@@ -52,6 +53,10 @@ object UtilKPackageManager {
     @JvmStatic
     fun getPackageInstaller(context: Context): PackageInstaller =
         get(context).packageInstaller
+
+    @JvmStatic
+    fun getApplicationInfo(context: Context, packageName: String): ApplicationInfo =
+        get(context).getApplicationInfo(packageName, CPackageInfo.INSTALL_LOCATION_AUTO)
 
     /**
      * 得到应用名
