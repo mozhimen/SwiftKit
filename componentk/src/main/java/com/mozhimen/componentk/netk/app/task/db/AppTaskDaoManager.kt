@@ -1,10 +1,13 @@
 package com.mozhimen.componentk.netk.app.task.db
 
+import android.util.Log
 import androidx.annotation.WorkerThread
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
+import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.componentk.netk.app.task.cons.CNetKAppTaskState
+import com.mozhimen.componentk.netk.app.utils.intAppState2strAppState
 import java.lang.Exception
 import java.util.concurrent.ConcurrentHashMap
 
@@ -168,7 +171,7 @@ object AppTaskDaoManager : IUtilK {
      * 更新数据
      */
     fun update(appTask: AppTask) {
-        TaskKExecutor.execute(TAG + "update") {
+        TaskKExecutor.execute(TAG + "update ${appTask.taskState.intAppState2strAppState()}") {
             updateOnBack(appTask)
         }
     }
@@ -214,9 +217,12 @@ object AppTaskDaoManager : IUtilK {
     @Synchronized
     @WorkerThread
     private fun deleteOnBack(appTask: AppTask) {
-        if (_tasks.contains(appTask.taskId))
+        if (_tasks.contains(appTask.taskId)) {
+            Log.d(TAG, "deleteOnBack: _tasks ")
             _tasks.remove(appTask.taskId)
+        } else return
         AppTaskDbManager.appTaskDao.delete(appTask)
+
     }
 
     /**

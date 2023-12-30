@@ -30,7 +30,6 @@ import com.mozhimen.componentk.netk.app.task.db.AppTaskDaoManager
 import com.mozhimen.componentk.netk.app.verify.NetKAppVerifyManager
 import okhttp3.OkHttpClient
 import java.lang.Exception
-import java.util.Queue
 import kotlin.math.abs
 
 /**
@@ -184,6 +183,7 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
         val externalFilesDir = UtilKFileDir.External.getFilesDownloadsDir()
             ?: throw CNetKAppErrorCode.CODE_DOWNLOAD_PATH_NOT_EXIST.intAppErrorCode2appDownloadException()
         val downloadTask = DownloadTask.Builder(appTask.downloadUrlCurrent, externalFilesDir)//先构建一个Task 框架可以保证Id唯一
+            .setConnectionCount(1)
             .setFilename(appTask.apkFileName)
             .setMinIntervalMillisCallbackProcess(1000)// 下载进度回调的间隔时间（毫秒）
             .setPassIfAlreadyCompleted(!appTask.apkIsInstalled)// 任务过去已完成是否要重新下载

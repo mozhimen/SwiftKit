@@ -71,7 +71,7 @@ internal object NetKAppVerifyManager : IUtilK {
             Log.e(TAG, "verifyAndUnzipNpk: getFilesDownloadsDir is null")
             return
         }
-        val fileApk = File(externalFilesDir, appTask.apkName)
+        val fileApk = File(externalFilesDir, appTask.apkFileName)
         if (!fileApk.exists()) {
             /**
              * [CNetKAppState.STATE_VERIFY_FAIL]

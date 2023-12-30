@@ -11,6 +11,7 @@ import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.postk.event.PostKEventLiveData
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
+import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFileDir
 import com.mozhimen.basick.utilk.kotlin.strFilePath2file
@@ -103,7 +104,7 @@ object NetKApp : INetKAppState, BaseUtilK() {
     @JvmStatic
     fun taskStart(appTask: AppTask) {
         try {
-            if (appTask.isTaskProcess()) {
+            if (appTask.isTaskProcess() && !appTask.isTaskPause()) {
                 Log.d(TAG, "taskStart: the task already start")
                 return
             }
@@ -230,6 +231,12 @@ object NetKApp : INetKAppState, BaseUtilK() {
         if (appTask.apkPathName.isNotEmpty()) {
             NetKAppUnzipManager.unzip(appTask)
         }
+    }
+
+    @JvmStatic
+    fun taskDelete(appTask: AppTask) {
+        AppTaskDaoManager.delete(appTask)
+        NetKAppUnInstallManager.deleteFileApk(appTask)
     }
 
     @JvmStatic

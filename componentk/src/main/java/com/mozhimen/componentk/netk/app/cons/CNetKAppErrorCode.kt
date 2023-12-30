@@ -30,10 +30,10 @@ object CNetKAppErrorCode {
     @JvmStatic
     fun intAppErrorCode2strAppError(code: Int): String =
         when (code) {
-            CODE_TASK_NEED_MEMORY_APK -> "任务空间不足APK"
-            CODE_TASK_NEED_MEMORY_NPK -> "任务空间不足NPK"
-            CODE_TASK_CANCEL_FAIL_ON_UNZIPING -> "任务取消失败在解压"
-            CODE_TASK_HAS_INSTALL -> "任务已经安装"
+            CODE_TASK_NEED_MEMORY_APK -> "APK安装所需空间不足"
+            CODE_TASK_NEED_MEMORY_NPK -> "NPK安装所需空间不足"
+            CODE_TASK_CANCEL_FAIL_ON_UNZIPING -> "在解压时任务取消失败"
+            CODE_TASK_HAS_INSTALL -> "APK已经安装"
             CODE_DOWNLOAD_PATH_NOT_EXIST -> "下载路径不存在"
             CODE_DOWNLOAD_CANT_FIND_TASK -> "下载任务丢失"
             CODE_DOWNLOAD_SERVER_CANCELED -> "下载服务取消"
@@ -41,7 +41,7 @@ object CNetKAppErrorCode {
             CODE_VERIFY_DIR_NULL -> "验证路径为空"
             CODE_VERIFY_FILE_NOT_EXIST -> "验证文件不存在"
             CODE_VERIFY_MD5_FAIL -> "验证MD5失败"
-            CODE_VERIFY_FORMAT_INVALID -> "验证格式非法"
+            CODE_VERIFY_FORMAT_INVALID -> "APK验证格式非法"
             CODE_UNZIP_DIR_NULL -> "解压路径为空"
             CODE_UNZIP_FAIL -> "解压失败"
             CODE_INSTALL_HAST_VERIFY_OR_UNZIP -> "安装文件未解压或验证"

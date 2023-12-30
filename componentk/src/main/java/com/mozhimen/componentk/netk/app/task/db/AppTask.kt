@@ -106,9 +106,6 @@ data class AppTask(
     fun isInstalled(): Boolean =
         CNetKAppState.isInstalled(taskState) || CNetKAppTaskState.isInstalled(taskState) || apkIsInstalled
 
-    override fun toString(): String {
-        return "AppTask(taskId='$taskId', taskState=$taskState, downloadProgress=$downloadProgress, apkFileSize=$apkFileSize, apkFileMd5='$apkFileMd5', apkPackageName='$apkPackageName', apkName='$apkName', apkFileName='$apkFileName', apkPathName='$apkPathName', apkIsInstalled=$apkIsInstalled, apkVerifyNeed=$apkVerifyNeed, apkUnzipNeed=$apkUnzipNeed, downloadUrl='$downloadUrl', downloadUrlOutSide='$downloadUrlOutSide', downloadUrlCurrent='$downloadUrlCurrent', taskUpdateTime=$taskUpdateTime)"
-    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -164,5 +161,7 @@ data class AppTask(
         return result
     }
 
-
+    override fun toString(): String {
+        return "AppTask(taskId='$taskId', taskState=$taskState, downloadProgress=$downloadProgress, downloadFileSize=$downloadFileSize, apkFileSize=$apkFileSize, apkFileMd5='$apkFileMd5', apkPackageName='$apkPackageName', apkName='$apkName', apkVersionCode=$apkVersionCode, apkVersionName='$apkVersionName', apkIconUrl='$apkIconUrl', apkIconId=$apkIconId, apkFileName='$apkFileName', apkPathName='$apkPathName', apkIsInstalled=$apkIsInstalled, apkVerifyNeed=$apkVerifyNeed, apkUnzipNeed=$apkUnzipNeed, taskUpdateTime=$taskUpdateTime, downloadId=$downloadId, downloadUrl='$downloadUrl', downloadUrlOutSide='$downloadUrlOutSide', downloadUrlCurrent='$downloadUrlCurrent')"
+    }
 }
