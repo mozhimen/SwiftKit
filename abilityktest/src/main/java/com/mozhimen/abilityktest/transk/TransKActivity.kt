@@ -3,7 +3,7 @@ package com.mozhimen.abilityktest.transk
 import android.os.Bundle
 import com.mozhimen.abilityk.transk.TransKTTSProxy
 import com.mozhimen.abilityktest.databinding.ActivityTranskBinding
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
 import com.mozhimen.basick.manifestk.cons.CPermission

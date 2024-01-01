@@ -1,7 +1,7 @@
 package com.mozhimen.uicorektest.toastk
 
 import android.os.Bundle
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.basick.lintk.optin.OptInApiDeprecated_Official_AfterV_30_11_R
 import com.mozhimen.basick.utilk.android.widget.showToast
 import com.mozhimen.uicorek.toastk.builder.ToastKViewBuilder

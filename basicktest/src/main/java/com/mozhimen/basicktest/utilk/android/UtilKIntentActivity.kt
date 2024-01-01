@@ -3,7 +3,7 @@ package com.mozhimen.basicktest.utilk.android
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.basick.elemk.android.media.cons.CMediaFormat
 import com.mozhimen.basick.utilk.android.content.UtilKContextStart
 import com.mozhimen.basick.utilk.android.content.UtilKIntent

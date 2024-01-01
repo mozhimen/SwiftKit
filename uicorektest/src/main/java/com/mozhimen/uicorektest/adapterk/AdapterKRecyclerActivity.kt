@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.uicorek.adapterk.item.AdapterKItemRecycler
 import com.mozhimen.uicorek.recyclerk.item.RecyclerKItem
 import com.mozhimen.uicorektest.databinding.ActivityAdapterkRecyclerBinding

@@ -2,7 +2,7 @@ package com.mozhimen.uicorektest.viewk
 
 import android.os.Bundle
 import android.util.Log
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.uicorek.viewk.wheel.temps.ArrayWheelAdapter
 import com.mozhimen.uicorektest.databinding.ActivityViewkWheelBinding
 

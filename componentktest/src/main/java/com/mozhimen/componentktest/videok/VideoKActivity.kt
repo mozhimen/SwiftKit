@@ -2,7 +2,7 @@ package com.mozhimen.componentktest.videok
 
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.basick.utilk.kotlin.UtilKStrAsset
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import com.mozhimen.componentktest.databinding.ActivityVideokBinding

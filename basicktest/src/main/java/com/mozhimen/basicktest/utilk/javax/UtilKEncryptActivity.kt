@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest.utilk.javax
 
 import android.os.Bundle
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.basick.postk.crypto.PostKCryptoAES
 import com.mozhimen.basick.postk.crypto.mos.MCryptoAESConfig
 import com.mozhimen.basicktest.databinding.ActivityUtilkEncryptBinding

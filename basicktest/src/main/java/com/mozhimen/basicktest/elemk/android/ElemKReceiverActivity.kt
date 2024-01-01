@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import com.mozhimen.basick.elemk.android.content.bases.BaseBroadcastReceiverProxy
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
 import com.mozhimen.basick.lintk.optin.OptInApiCall_RegisterDynamic

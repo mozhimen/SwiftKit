@@ -2,7 +2,7 @@ package com.mozhimen.uicorektest.textk
 
 import android.view.View
 import android.view.ViewGroup
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.basick.utilk.android.widget.showToast
 import com.mozhimen.uicorek.textk.edit.bar.TextKEditBarActivity
 import com.mozhimen.uicorek.textk.edit.bar.commons.ITextKEditBarListener

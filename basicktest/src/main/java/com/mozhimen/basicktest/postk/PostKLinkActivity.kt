@@ -1,6 +1,6 @@
 package com.mozhimen.basicktest.postk
 
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.basicktest.databinding.ActivityPostkLinkBinding
 import android.content.Intent
 import android.util.Log

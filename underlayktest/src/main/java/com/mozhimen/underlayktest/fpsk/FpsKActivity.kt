@@ -1,7 +1,7 @@
 package com.mozhimen.underlayktest.fpsk
 
 import android.os.Bundle
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.utilk.android.widget.showToast
 import com.mozhimen.underlayk.fpsk.FpsK

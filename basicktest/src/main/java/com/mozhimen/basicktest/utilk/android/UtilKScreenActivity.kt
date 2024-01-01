@@ -2,7 +2,7 @@ package com.mozhimen.basicktest.utilk.android
 
 import android.os.Bundle
 import android.util.Log
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basicktest.databinding.ActivityUtilkScreenBinding
 import com.mozhimen.uicorek.adaptk.systembar.annors.AAdaptKSystemBarProperty
@@ -22,9 +22,9 @@ class UtilKScreenActivity : BaseActivityVB<ActivityUtilkScreenBinding>() {
         super.initData(savedInstanceState)
         Log.d(TAG, "initData: getScreenWidthDp ${UtilKScreen.getWidthDp()}")
         Log.d(TAG, "initData: getScreenHeightDp ${UtilKScreen.getHeightDp()}")
-        Log.d(TAG, "initData: getScreenWidth ${UtilKScreen.getRealWidth()}")
-        Log.d(TAG, "initData: getScreenHeight ${UtilKScreen.getRealHeight()}")
-        Log.d(TAG, "initData: getScreenWidth2 ${UtilKScreen.getCurrentWidth()}")
-        Log.d(TAG, "initData: getScreenHeight2 ${UtilKScreen.getCurrentHeight()}")
+        Log.d(TAG, "initData: getScreenWidth ${UtilKScreen.getWidthOfWindow()}")
+        Log.d(TAG, "initData: getScreenHeight ${UtilKScreen.getHeightOfWindow()}")
+        Log.d(TAG, "initData: getScreenWidth2 ${UtilKScreen.getWidthOfDisplay()}")
+        Log.d(TAG, "initData: getScreenHeight2 ${UtilKScreen.getHeightOfDisplay()}")
     }
 }

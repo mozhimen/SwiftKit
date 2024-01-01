@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basicktest.BR

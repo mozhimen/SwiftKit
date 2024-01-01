@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.camera.core.ImageProxy
 import com.mozhimen.abilityktest.databinding.ActivityScankFaceBinding
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck

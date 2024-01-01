@@ -1,6 +1,6 @@
 package com.mozhimen.uicorektest.adaptk
 
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.uicorek.adaptk.systembar.annors.AAdaptKSystemBarProperty
 import com.mozhimen.uicorek.adaptk.systembar.annors.AAdaptKSystemBarPropertyOr
 import com.mozhimen.uicorek.adaptk.systembar.cons.CProperty

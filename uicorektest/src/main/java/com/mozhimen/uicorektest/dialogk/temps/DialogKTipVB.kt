@@ -56,6 +56,6 @@ class DialogKTipVB(context: Context, private val _txt: String, private var _onSu
     }
 
     override fun onInitWindowWidth(): Int {
-        return (UtilKScreen.getCurrentWidth() * 0.25f).roundToInt()
+        return (UtilKScreen.getWidthOfDisplay() * 0.25f).roundToInt()
     }
 }

@@ -2,7 +2,7 @@ package com.mozhimen.componentktest.navigatek
 
 import android.os.Bundle
 import androidx.navigation.ui.NavigationUI
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
 import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.componentk.navigatek.NavigateKActivityProxy

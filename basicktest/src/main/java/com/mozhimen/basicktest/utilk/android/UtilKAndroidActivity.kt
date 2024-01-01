@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest.utilk.android
 
 import android.view.View
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.basick.utilk.android.content.startContext
 import com.mozhimen.basick.utilk.android.view.UtilKView
 import com.mozhimen.basicktest.databinding.ActivityUtilkAndroidBinding

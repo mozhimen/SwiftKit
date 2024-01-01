@@ -1,7 +1,7 @@
 package com.mozhimen.uicorektest.popwink
 
 import android.view.View
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.uicorektest.databinding.ActivityPopwinkBinding
 import com.mozhimen.uicorektest.popwink.temps.PopwinKAnim
 import com.mozhimen.uicorektest.popwink.temps.PopwinKSelector

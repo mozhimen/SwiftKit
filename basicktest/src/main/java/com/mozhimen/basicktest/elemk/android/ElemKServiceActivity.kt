@@ -3,7 +3,7 @@ package com.mozhimen.basicktest.elemk.android
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.elemk.android.app.bases.BaseServiceResCallback
 import com.mozhimen.basick.elemk.android.app.ServiceProxy

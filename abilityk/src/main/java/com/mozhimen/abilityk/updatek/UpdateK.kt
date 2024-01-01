@@ -13,10 +13,10 @@ import com.mozhimen.basick.postk.event.PostKEventLiveData
 import com.mozhimen.basick.utilk.android.content.UtilKApk
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKPackageInfo
-import com.mozhimen.basick.utilk.kotlin.getSplitLast
-import com.mozhimen.basick.utilk.java.io.UtilKFile
+import com.mozhimen.basick.utilk.kotlin.getSplitLastIndexToEnd
 import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
+import com.mozhimen.basick.utilk.kotlin.getSplitLastIndexToEnd
 import com.mozhimen.componentk.installk.InstallK
 import com.mozhimen.componentk.netk.file.download.commons.IDownloadListener
 import com.mozhimen.componentk.netk.file.download.DownloadRequest
@@ -186,7 +186,7 @@ class UpdateK : BaseUtilK() {
      * @return String
      */
     fun getApkNameFromUrl(apkUrl: String): String {
-        return apkUrl.getSplitLast("/").also { Log.d(TAG, "getApkNameFromUrl: $it") }
+        return apkUrl.getSplitLastIndexToEnd("/").also { Log.d(TAG, "getApkNameFromUrl: $it") }
     }
 
     /**
