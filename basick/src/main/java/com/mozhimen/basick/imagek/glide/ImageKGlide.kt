@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.util.Log
 import android.widget.ImageView
+import androidx.annotation.WorkerThread
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
@@ -55,6 +56,8 @@ object ImageKGlide : BaseUtilK() {
         })
     }
 
+    //////////////////////////////////////////////////////////////////////////////////
+
     /**
      * 是否是横图
      */
@@ -73,6 +76,18 @@ object ImageKGlide : BaseUtilK() {
 
     //////////////////////////////////////////////////////////////////////////////////
 
+    @JvmStatic
+    @WorkerThread
+    fun obj2Bitmap(obj: Any, placeholder: Int, width: Int, height: Int): Bitmap {
+        return Glide.with(_context).asBitmap().load(obj)
+            .centerCrop()
+            .placeholder(placeholder)
+            .error(placeholder)
+            .into(width, height)
+            .get()
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun loadImageGlide(

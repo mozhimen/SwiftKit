@@ -3,7 +3,11 @@ package com.mozhimen.basick.utilk.kotlin
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import androidx.annotation.RequiresPermission
+import androidx.annotation.WorkerThread
+import androidx.constraintlayout.widget.Placeholder
 import coil.request.ImageRequest
+import com.bumptech.glide.Glide
+import com.mozhimen.basick.imagek.glide.ImageKGlide
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContext
@@ -37,6 +41,12 @@ fun String.strUrl2bitmapAny(): Bitmap =
     UtilKStrUrl.strUrl2bitmapAny(this)
 
 @RequiresPermission(CPermission.INTERNET)
+@AManifestKRequire(CPermission.INTERNET)
+@WorkerThread
+fun String.strUrl2bitmapOfGlide(placeholder: Int, width: Int, height: Int): Bitmap =
+    UtilKStrUrl.strUrl2bitmapOfGlide(this, placeholder, width, height)
+
+@RequiresPermission(CPermission.INTERNET)
 @AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE, CPermission.INTERNET)
 fun String.strUrl2file(strFileNameDest: String, isAppend: Boolean = false): File? =
     UtilKStrUrl.strUrl2file(this, strFileNameDest, isAppend)
@@ -67,6 +77,15 @@ object UtilKStrUrl : BaseUtilK() {
     @AManifestKRequire(CPermission.INTERNET)
     fun strUrl2bitmapAny(strUrl: String): Bitmap =
         URL(strUrl).openStream().inputStream2bitmapAny()
+
+    @JvmStatic
+    @RequiresPermission(CPermission.INTERNET)
+    @AManifestKRequire(CPermission.INTERNET)
+    @WorkerThread
+    fun strUrl2bitmapOfGlide(strUrl: String, placeholder: Int, width: Int, height: Int): Bitmap =
+        ImageKGlide.obj2Bitmap(strUrl, placeholder, width, height)
+
+    /////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     @AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE, CPermission.INTERNET)
