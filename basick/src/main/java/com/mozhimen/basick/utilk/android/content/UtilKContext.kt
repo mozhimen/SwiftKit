@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.android.content
 import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.app.DownloadManager
+import android.app.NotificationManager
 import android.content.ContentResolver
 import android.content.Context
 import android.content.pm.ApplicationInfo
@@ -129,6 +130,10 @@ object UtilKContext {
     @JvmStatic
     fun getUsbManager(context: Context): UsbManager =
         context.getSystemService(CContext.USB_SERVICE) as UsbManager
+
+    @JvmStatic
+    fun getNotificationManager(context: Context): NotificationManager =
+        context.getSystemService(CContext.NOTIFICATION_SERVICE) as NotificationManager
 
     ////////////////////////////////////////////////////////////////////////
 

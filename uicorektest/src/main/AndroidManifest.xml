@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mozhimen.uicorektest">
 
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <application
         android:name=".UicoreKApplication"
         android:allowBackup="true"
@@ -150,7 +152,13 @@
             android:exported="false" />
         <activity
             android:name=".layoutk.tab.LayoutKTabTopLayoutActivity"
-            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+            android:exported="false" />
+        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+        <!-- notifyk -->
+        <activity
+            android:name=".notifyk.NotifyKActivity"
+            android:exported="false" />
+        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- popwink -->
         <activity
             android:name=".popwink.PopwinKActivity"

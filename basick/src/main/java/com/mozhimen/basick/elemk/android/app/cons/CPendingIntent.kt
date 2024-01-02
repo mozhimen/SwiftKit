@@ -11,4 +11,5 @@ import android.app.PendingIntent
  */
 object CPendingIntent {
     const val FLAG_UPDATE_CURRENT = PendingIntent.FLAG_UPDATE_CURRENT
+    const val FLAG_IMMUTABLE = PendingIntent.FLAG_IMMUTABLE
 }

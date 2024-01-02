@@ -63,6 +63,12 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/UicoreKStyle_Btn"
+                android:onClick="goNotifyK"
+                android:text="goNotifyK"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/UicoreKStyle_Btn"
                 android:onClick="goPopwinK"
                 android:text="goPopwinK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />

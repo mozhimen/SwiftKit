@@ -111,8 +111,5 @@ internal class NotifierUtils private constructor() {
         fun cancelNotification(context: Context, id: Int) {
             getNotificationManager(context).cancel(id)
         }
-
     }
-
-
 }

@@ -17,6 +17,7 @@ import com.mozhimen.uicorektest.textk.TextKActivity
 import com.mozhimen.uicorektest.toastk.ToastKActivity
 import com.mozhimen.uicorektest.viewk.ViewKActivity
 import com.mozhimen.uicorektest.bark.BarKActivity
+import com.mozhimen.uicorektest.notifyk.NotifyKActivity
 
 class UicoreKActivity : BaseActivityVB<ActivityUicorekBinding>() {
 
@@ -50,6 +51,10 @@ class UicoreKActivity : BaseActivityVB<ActivityUicorekBinding>() {
 
     fun goLayoutK(view: View) {
         startContext<LayoutKActivity>()
+    }
+
+    fun goNotifyK(view: View) {
+        startContext<NotifyKActivity>()
     }
 
     fun goPopwinK(view: View) {
