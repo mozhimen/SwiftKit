@@ -18,6 +18,9 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
  * @Date 2023/3/20 10:53
  * @Version 1.0
  */
+fun PackageInfo.getVersionCode(): Int =
+    UtilKPackageInfo.getVersionCode(this)
+
 object UtilKPackageInfo : BaseUtilK() {
     @JvmStatic
     fun get(context: Context): PackageInfo? =

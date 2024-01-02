@@ -1,57 +1,56 @@
 package com.mozhimen.basick.utilk.kotlin.text
 
 import com.mozhimen.basick.elemk.cons.CMsg
-import java.io.File
 
 /**
- * @ClassName UtilKRegex
+ * @ClassName UtilKFilter
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/8/2 15:18
+ * @Date 2024/1/2
  * @Version 1.0
  */
 fun String.replaceDot(): String =
-    UtilKRegex.replaceDot(this)
+    UtilKStringsJVM.replaceDot(this)
 
-fun String.replaceRegexLineBreak(): String =
-    UtilKRegex.replaceRegexLineBreak(this)
+fun String.replaceLineBreakStr(): String =
+    UtilKStringsJVM.replaceLineBreakStr(this)
 
-fun String.replaceRegexDoubleQuote(): String =
-    UtilKRegex.replaceRegexDoubleQuote(this)
+fun String.replaceLineBreak(): String =
+    UtilKStringsJVM.replaceLineBreak(this)
 
-fun String.replaceEndSeparator(): String =
-    UtilKRegex.replaceEndSeparator(this)
+fun String.substringEndSeparator(): String =
+    UtilKStringsJVM.substringEndSeparator(this)
 
-fun String.replaceStartSeparator(): String =
-    UtilKRegex.replaceStartSeparator(this)
+fun String.substringStartSeparator(): String =
+    UtilKStringsJVM.substringStartSeparator(this)
 
 fun String.complementStart0(): String =
-    UtilKRegex.complementStart0(this)
+    UtilKStringsJVM.complementStart0(this)
 
 fun String.complementStartPlus(): String =
-    UtilKRegex.complementStartPlus(this)
+    UtilKStringsJVM.complementStartPlus(this)
 
 /////////////////////////////////////////////////////////////////////////////
 
-object UtilKRegex {
+object UtilKStringsJVM {
     @JvmStatic
     fun replaceDot(str: String): String =
         str.replace(",", ".")
 
     @JvmStatic
-    fun replaceRegexLineBreak(str: String): String =
-        str.replace("\\n".toRegex(), CMsg.LINE_BREAK)
+    fun replaceLineBreakStr(str: String): String =
+        str.replace(CMsg.LINE_BREAK_STR, "")
 
     @JvmStatic
-    fun replaceRegexDoubleQuote(str: String): String =
-        str.replace("\"".toRegex(), "")
+    fun replaceLineBreak(str: String): String =
+        str.replace(CMsg.LINE_BREAK, "")
 
     @JvmStatic
-    fun replaceEndSeparator(str: String): String =
+    fun substringEndSeparator(str: String): String =
         if (str.endsWith("/")) str.substring(0, str.length - 1) else str
 
     @JvmStatic
-    fun replaceStartSeparator(str: String): String =
+    fun substringStartSeparator(str: String): String =
         if (str.startsWith("/")) str.substring(1) else str
 
     @JvmStatic
