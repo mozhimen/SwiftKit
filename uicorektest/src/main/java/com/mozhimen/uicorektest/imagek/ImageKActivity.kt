@@ -18,4 +18,8 @@ class ImageKActivity : BaseActivityVB<ActivityImagekBinding>() {
     fun goImageKBindingAdapter(view: View) {
         startContext<ImageKBindingAdapterActivity>()
     }
+
+    fun goImageKPhoto(view: View) {
+        startContext<ImageKPhotoActivity>()
+    }
 }

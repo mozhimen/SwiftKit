@@ -82,6 +82,9 @@
             android:exported="false" />
         <activity
             android:name=".imagek.ImageKBindingAdapterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".imagek.ImageKPhotoActivity"
             android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- layoutk -->
         <activity

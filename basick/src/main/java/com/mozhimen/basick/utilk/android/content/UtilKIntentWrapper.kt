@@ -1,9 +1,11 @@
 package com.mozhimen.basick.utilk.android.content
 
 import android.annotation.SuppressLint
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
@@ -211,6 +213,17 @@ object UtilKIntentWrapper {
         }
 
     /**
+     * 管理通知
+     */
+    @RequiresApi(CVersCode.V_26_8_O)
+    @JvmStatic
+    private fun startNotificationSetting2(context: Context): Intent =
+        getAppNotificationSettings(context).apply {
+            putExtra("app_package", context.packageName)
+            putExtra("app_uid", context.applicationInfo.uid)
+        }
+
+    /**
      * 获取管理所有APP
      */
     @RequiresApi(CVersCode.V_30_11_R)
@@ -250,4 +263,22 @@ object UtilKIntentWrapper {
     @JvmStatic
     fun getLauncherForPackage(context: Context): Intent? =
         UtilKPackageManager.get(context).getLaunchIntentForPackage(UtilKPackage.getPackageName())
+
+    @JvmStatic
+    fun getByPackageName(context: Context, packageName: String): Intent? {
+        val intent = Intent(Intent.ACTION_MAIN).apply {
+            addCategory(Intent.CATEGORY_LAUNCHER)
+            setPackage(packageName) //包名
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }// 指定入口,启动类型,包名//入口Main// 启动LAUNCHER,跟MainActivity里面的配置类似
+        val resolveInfos = UtilKPackageManager.queryIntentActivities(context, intent, 0) //查询要启动的Activity
+        return if (resolveInfos.isNotEmpty()) { //如果包名存在
+            val resolveInfo = resolveInfos[0]
+            val componentName = ComponentName(resolveInfo.activityInfo.packageName, resolveInfo.activityInfo.name)//组装包名和类名
+            intent.component = componentName//设置给Intent
+            intent//根据包名类型打开Activity
+        } else {
+            null
+        }
+    }
 }

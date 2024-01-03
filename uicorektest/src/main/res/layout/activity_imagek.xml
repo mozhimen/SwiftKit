@@ -14,5 +14,11 @@
             android:onClick="goImageKBindingAdapter"
             android:text="goImageKBindingAdapter"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/UicoreKStyle_Btn"
+            android:onClick="goImageKPhoto"
+            android:text="goImageKPhoto"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>
 </layout>

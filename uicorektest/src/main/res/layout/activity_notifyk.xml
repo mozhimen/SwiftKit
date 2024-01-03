@@ -9,8 +9,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
-            style="@style/StyleK_Btn"
+        <com.google.android.material.button.MaterialButton
+            style="@style/UicoreKStyle_Btn"
             android:onClick="showNotification"
             android:text="showNotification"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

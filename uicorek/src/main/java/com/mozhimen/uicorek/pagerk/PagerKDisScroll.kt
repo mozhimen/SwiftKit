@@ -27,10 +27,16 @@ open class PagerKDisScroll @JvmOverloads constructor(
         //super.onTouchEvent(ev) //不行,
         //虽然onInterceptTouchEvent中拦截了,
         //但是如果viewpage里面子控件不是viewGroup,还是会调用这个方法.
-        return if (_isEnableScroll) {
-            super.onTouchEvent(ev)
-        } else {
-            true// 可行,消费,拦截事件
+//        return if (_isEnableScroll) {
+//            super.onTouchEvent(ev)
+//        } else {
+//            true// 可行,消费,拦截事件
+//        }
+        return try {
+            _isEnableScroll && super.onTouchEvent(ev);
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
         }
     }
 
@@ -41,9 +47,15 @@ open class PagerKDisScroll @JvmOverloads constructor(
      */
     override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
         // return false//可行,不拦截事件,
-        return if (_isEnableScroll) {
-            super.onInterceptTouchEvent(ev)
-        } else {
+//        return if (_isEnableScroll) {
+//            super.onInterceptTouchEvent(ev)
+//        } else {
+//            false
+//        }
+        return try {
+            return _isEnableScroll && super.onInterceptTouchEvent(ev)
+        } catch (e: Exception) {
+            e.printStackTrace()
             false
         }
     }

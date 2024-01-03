@@ -109,20 +109,9 @@ object UtilKContextStart : BaseUtilK() {
     /////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun startContextByPackageName(context: Context, packageName: String) {
-        val intent = Intent(Intent.ACTION_MAIN).apply {
-            addCategory(Intent.CATEGORY_LAUNCHER)
-            setPackage(packageName) //包名
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        }// 指定入口,启动类型,包名//入口Main// 启动LAUNCHER,跟MainActivity里面的配置类似
-        val resolveInfos = UtilKPackageManager.queryIntentActivities(context, intent, 0) //查询要启动的Activity
-        if (resolveInfos.isNotEmpty()) { //如果包名存在
-            val resolveInfo = resolveInfos[0]
-            val componentName = ComponentName(resolveInfo.activityInfo.packageName, resolveInfo.activityInfo.name)//组装包名和类名
-            intent.component = componentName//设置给Intent
-            context.startContext(intent)//根据包名类型打开Activity
-        } else {
-            Toast.makeText(context, "找不到包名;$packageName", Toast.LENGTH_SHORT).show()
-        }
+    fun startContextByPackageName(context: Context, packageName: String): Boolean {
+        val intent = UtilKIntentWrapper.getByPackageName(context, packageName) ?: return false
+        context.startContext(intent)
+        return true
     }
 }

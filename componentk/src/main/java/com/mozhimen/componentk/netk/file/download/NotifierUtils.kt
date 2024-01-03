@@ -73,7 +73,7 @@ internal class NotifierUtils private constructor() {
             when (status) {
                 CDownloadManager.STATUS_SUCCESSFUL -> {
                     // click to install
-                    file?.let {
+//                    file?.let {
 //                        val clickIntent = createInstallIntent(context, it)
 //                        val pendingIntent = PendingIntent.getActivity(
 //                            context,
@@ -82,7 +82,7 @@ internal class NotifierUtils private constructor() {
 //                            getPendingIntentFlag()
 //                        )
 //                        builder.setContentIntent(pendingIntent)
-                    }
+//                    }
                 }
 
                 CDownloadManager.STATUS_RUNNING -> {

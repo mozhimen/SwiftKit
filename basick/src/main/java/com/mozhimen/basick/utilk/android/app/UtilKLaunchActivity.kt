@@ -83,6 +83,14 @@ object UtilKLaunchActivity {
             context.startContext(UtilKIntentWrapper.getManageUnknownAppSources(context))
     }
 
+    @JvmStatic
+    fun startAppNotificationSettings(context: Context) {
+        if (UtilKBuildVersion.isAfterV_26_8_O())
+            context.startContext(UtilKIntentWrapper.getAppNotificationSettings(context))
+        else
+            startSettingAppDetails(context)
+    }
+
     /**
      * 打开包安装权限
      */
