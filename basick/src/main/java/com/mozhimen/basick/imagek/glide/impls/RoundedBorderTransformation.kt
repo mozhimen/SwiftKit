@@ -13,7 +13,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
  * @Date 2023/6/10 17:28
  * @Version 1.0
  */
-class CircleBorderTransform(private val _borderWidth: Float, borderColor: Int) : CircleCrop() {
+class RoundedBorderTransformation(private val _borderWidth: Float, borderColor: Int) : CircleCrop() {
     private val _borderPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
     init {

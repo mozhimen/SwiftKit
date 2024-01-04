@@ -10,11 +10,10 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.mozhimen.basick.imagek.glide.commons.ICustomTarget
 import com.mozhimen.basick.imagek.glide.impls.BlurTransformation
-import com.mozhimen.basick.imagek.glide.impls.CircleBorderTransform
+import com.mozhimen.basick.imagek.glide.impls.RoundedBorderTransformation
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
@@ -87,6 +86,18 @@ object ImageKGlide : BaseUtilK() {
             .get()
     }
 
+    @JvmStatic
+    @WorkerThread
+    fun obj2Bitmap(obj: Any, placeholder: Int, width: Int, height: Int, cornerRadius: Int): Bitmap {
+        return Glide.with(_context).asBitmap().load(obj)
+            .centerCrop()
+            .transform(RoundedCorners(cornerRadius))
+            .placeholder(placeholder)
+            .error(placeholder)
+            .into(width, height)
+            .get()
+    }
+
     //////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
@@ -144,7 +155,7 @@ object ImageKGlide : BaseUtilK() {
     ) {
         Glide.with(imageView).load(res)
             .transition(DrawableTransitionOptions.withCrossFade())
-            .transform(CircleBorderTransform(borderWidth, borderColor))
+            .transform(RoundedBorderTransformation(borderWidth, borderColor))
             .placeholder(placeholder)
             .error(error)
             .into(imageView)

@@ -47,6 +47,12 @@ fun String.strUrl2bitmapOfGlide(placeholder: Int, width: Int, height: Int): Bitm
     UtilKStrUrl.strUrl2bitmapOfGlide(this, placeholder, width, height)
 
 @RequiresPermission(CPermission.INTERNET)
+@AManifestKRequire(CPermission.INTERNET)
+@WorkerThread
+fun String.strUrl2bitmapOfGlide(placeholder: Int, width: Int, height: Int, cornerRadius: Int): Bitmap =
+    UtilKStrUrl.strUrl2bitmapOfGlide(this, placeholder, width, height, cornerRadius)
+
+@RequiresPermission(CPermission.INTERNET)
 @AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE, CPermission.INTERNET)
 fun String.strUrl2file(strFileNameDest: String, isAppend: Boolean = false): File? =
     UtilKStrUrl.strUrl2file(this, strFileNameDest, isAppend)
@@ -84,6 +90,13 @@ object UtilKStrUrl : BaseUtilK() {
     @WorkerThread
     fun strUrl2bitmapOfGlide(strUrl: String, placeholder: Int, width: Int, height: Int): Bitmap =
         ImageKGlide.obj2Bitmap(strUrl, placeholder, width, height)
+
+    @JvmStatic
+    @RequiresPermission(CPermission.INTERNET)
+    @AManifestKRequire(CPermission.INTERNET)
+    @WorkerThread
+    fun strUrl2bitmapOfGlide(strUrl: String, placeholder: Int, width: Int, height: Int, cornerRadius: Int): Bitmap =
+        ImageKGlide.obj2Bitmap(strUrl, placeholder, width, height, cornerRadius)
 
     /////////////////////////////////////////////////////////////////////////
 
