@@ -45,8 +45,8 @@ class LayoutKActivity : BaseActivityVB<ActivityLayoutkBinding>() {
         startContext<LayoutKRollActivity>()
     }
 
-    fun goLayoutKScrollable(view: View) {
-
+    fun goLayoutKScroll(view: View) {
+        startContext<LayoutKScrollActivity>()
     }
 
     fun goLayoutSearch(view: View) {

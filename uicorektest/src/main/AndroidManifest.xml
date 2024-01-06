@@ -94,6 +94,9 @@
             android:name=".layoutk.LayoutKRollActivity"
             android:exported="false" />
         <activity
+            android:name=".layoutk.LayoutKScrollActivity"
+            android:exported="false" />
+        <activity
             android:name=".layoutk.LayoutKSpinnerActivity"
             android:exported="false" />
         <activity
@@ -156,6 +159,7 @@
         <activity
             android:name=".layoutk.tab.LayoutKTabTopLayoutActivity"
             android:exported="false" />
+
         <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- notifyk -->
         <activity

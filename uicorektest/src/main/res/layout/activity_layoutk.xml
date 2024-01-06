@@ -59,6 +59,12 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/UicoreKStyle_Btn"
+                android:onClick="goLayoutKScroll"
+                android:text="goLayoutKScroll"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/UicoreKStyle_Btn"
                 android:onClick="goLayoutKSide"
                 android:text="goLayoutKSide"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />

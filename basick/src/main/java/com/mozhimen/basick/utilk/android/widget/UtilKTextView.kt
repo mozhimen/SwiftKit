@@ -30,6 +30,12 @@ fun TextView.getValueIfNotEmpty(invoke: IA_Listener<String>/*(value: String) -> 
     UtilKTextView.getValueIfNotEmpty(this, invoke)
 }
 
+//////////////////////////////////////////////////////////////////////////////////////
+
+fun TextView.applySingleLine() {
+    UtilKTextView.applySingleLine(this)
+}
+
 fun TextView.applyTextStyle(@IntRange(from = 0, to = 3) style: Int = Typeface.NORMAL) {
     UtilKTextView.applyTextStyle(this, style)
 }
@@ -54,8 +60,8 @@ fun TextView.applyTextColorStateList(colors: ColorStateList) {
     UtilKTextView.applyTextColorStateList(this, colors)
 }
 
-fun TextView.applyLengthFilter(max:Int){
-    UtilKTextView.applyLengthFilter(this,max)
+fun TextView.applyLengthFilter(max: Int) {
+    UtilKTextView.applyLengthFilter(this, max)
 }
 
 object UtilKTextView {
@@ -90,6 +96,12 @@ object UtilKTextView {
     }
 
     ////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun applySingleLine(textView: TextView) {
+        textView.setSingleLine()
+        textView.maxLines = 1
+    }
 
     /**
      * 设置字体的细或粗
@@ -131,8 +143,8 @@ object UtilKTextView {
     }
 
     @JvmStatic
-    fun applyLengthFilter(textView: TextView,max:Int){
-        if (max>0){
+    fun applyLengthFilter(textView: TextView, max: Int) {
+        if (max > 0) {
             textView.filters = arrayOf(UtilKInputFilter.getLengthFilter(max))
         }
     }
