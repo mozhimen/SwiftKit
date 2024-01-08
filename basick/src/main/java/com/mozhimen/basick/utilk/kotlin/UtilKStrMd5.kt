@@ -1,8 +1,7 @@
 package com.mozhimen.basick.utilk.kotlin
 
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.digest.DigestUtils
+//import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.digest.DigestUtils
 import com.mozhimen.basick.utilk.java.security.UtilKMd5
-import java.io.UnsupportedEncodingException
 import java.math.BigInteger
 import java.security.NoSuchAlgorithmException
 
@@ -22,8 +21,8 @@ fun String.str2strMd5_16(): String =
 fun String.str2strMd5_32_lowerCase(): String =
     UtilKStrMd5.str2strMd5_32_lowerCase(this)
 
-fun String.str2strMd5_32(): String =
-    UtilKStrMd5.str2strMd5_32(this)
+//fun String.str2strMd5_32(): String =
+//    UtilKStrMd5.str2strMd5_32(this)
 
 object UtilKStrMd5 {
     @JvmStatic
@@ -62,8 +61,8 @@ object UtilKStrMd5 {
     /**
      * MD5_32加密
      */
-    @JvmStatic
-    @Throws(NoSuchAlgorithmException::class, UnsupportedEncodingException::class)
-    fun str2strMd5_32(str: String): String =
-        DigestUtils.md5Hex(str.str2bytes())
+//    @JvmStatic
+//    @Throws(NoSuchAlgorithmException::class, UnsupportedEncodingException::class)
+//    fun str2strMd5_32(str: String): String =
+//        DigestUtils.md5Hex(str.str2bytes())
 }

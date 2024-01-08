@@ -149,7 +149,7 @@ dependencies {
 
     //////////////////////////////////////////////////////////////////
     //firebase
-    api 'com.google.firebase:firebase-crashlytics-buildtools:2.9.2'
+//    api 'com.google.firebase:firebase-crashlytics-buildtools:2.9.2'
 
     //////////////////////////////////////////////////////////////////
     //net
