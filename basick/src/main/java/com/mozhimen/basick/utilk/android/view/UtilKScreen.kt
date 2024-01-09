@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.view.WindowManager
 import androidx.annotation.FloatRange
 import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
+import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKConfiguration
 import com.mozhimen.basick.utilk.android.content.UtilKTheme
@@ -47,6 +48,7 @@ object UtilKScreen : BaseUtilK() {
      * 获取屏幕宽度
      */
     @JvmStatic
+    @ADescription("getCurrentWidth")
     fun getWidthOfDisplay(): Int =
         UtilKDisplayMetrics.getWidthPixels()
 
