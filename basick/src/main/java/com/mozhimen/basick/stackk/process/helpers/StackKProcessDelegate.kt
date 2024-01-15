@@ -140,6 +140,7 @@ internal class StackKProcessDelegate : IStackK {
          */
         override fun onDestroy(owner: LifecycleOwner) {
             Log.d(TAG, "onDestroy")
+            super.onDestroy(owner)
         }
 
         //////////////////////////////////////////////////////////////////////////

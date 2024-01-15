@@ -29,9 +29,6 @@ fun CharSequence.ifNotEmptyOr(onNotEmpty: IA_Listener<CharSequence>, onEmpty: I_
 fun <C : CharSequence> C?.ifNullOrEmpty(defaultValue: I_AListener<C>): C =
     UtilKCharSequence.ifNullOrEmpty(this, defaultValue)
 
-fun CharSequence.applyTextColor(@ColorInt intColor: Int, start: Int, end: Int): CharSequence =
-    UtilKCharSequence.applyTextColor(this, intColor, start, end)
-
 object UtilKCharSequence {
     @JvmStatic
     fun isEquals(chars1: CharSequence, char2: CharSequence): Boolean {
@@ -71,10 +68,5 @@ object UtilKCharSequence {
     @JvmStatic
     fun <C : CharSequence> ifNullOrEmpty(str: C?, defaultValue: I_AListener<C>): C =
         if (str.isNullOrEmpty()) defaultValue() else str
-
-    @JvmStatic
-    fun applyTextColor(chars: CharSequence, @ColorInt intColor: Int, start: Int, end: Int): CharSequence {
-        return SpannableString(chars).apply { setSpan(ForegroundColorSpan(intColor), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE) }
-    }
 }
 

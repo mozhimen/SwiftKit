@@ -148,7 +148,6 @@ class BasePopwinKDelegate(context: BasePopwinKContextWrapper) : PopupWindow(cont
         try {
             removeViewFromParent(contentView)
         } catch (e: Exception) {
-            e.printStackTrace()
             e.message?.et(TAG)
         }
         if (destroy) {

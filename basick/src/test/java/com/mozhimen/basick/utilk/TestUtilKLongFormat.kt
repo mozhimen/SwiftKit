@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk
 import com.mozhimen.basick.utilk.kotlin.longFileSize2strFileSize
 import com.mozhimen.basick.utilk.kotlin.printlog
 import org.junit.Test
+import java.util.Locale
 
 /**
  * @ClassName TestUtilKLongFormat
@@ -14,6 +15,6 @@ import org.junit.Test
 class TestUtilKLongFormat {
     @Test
     fun longFileSize2strFileSize() {
-        1073000000L.longFileSize2strFileSize().printlog()
+        1073000000L.longFileSize2strFileSize(locale = Locale.ENGLISH).printlog()
     }
 }

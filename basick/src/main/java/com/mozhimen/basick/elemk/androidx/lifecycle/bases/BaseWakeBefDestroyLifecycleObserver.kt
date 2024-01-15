@@ -1,5 +1,6 @@
 package com.mozhimen.basick.elemk.androidx.lifecycle.bases
 
+import androidx.annotation.CallSuper
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.elemk.androidx.lifecycle.commons.IDefaultLifecycleObserver
@@ -18,6 +19,7 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 @OptInApiInit_ByLazy
 open class BaseWakeBefDestroyLifecycleObserver : IDefaultLifecycleObserver, BaseUtilK() {
 
+    @CallSuper
     override fun bindLifecycle(owner: LifecycleOwner) {
         owner.runOnMainThread {
             owner.lifecycle.removeObserver(this@BaseWakeBefDestroyLifecycleObserver)
@@ -25,6 +27,7 @@ open class BaseWakeBefDestroyLifecycleObserver : IDefaultLifecycleObserver, Base
         }
     }
 
+    @CallSuper
     override fun onDestroy(owner: LifecycleOwner) {
         owner.lifecycle.removeObserver(this@BaseWakeBefDestroyLifecycleObserver)
     }

@@ -23,7 +23,7 @@ import kotlinx.coroutines.CoroutineScope
  * @Version 1.0
  */
 abstract class BasePagingKViewModel<RES, DES>(protected val pagingKConfig: PagingKConfig = PagingKConfig()) : BaseViewModel(), IPagingKDataSource<RES, DES> {
-    private val _pagingKDataSourceLoadingListener: IPagingKDataSourceLoadListener=  object : IPagingKDataSourceLoadListener {
+    private val _pagingKDataSourceLoadingListener: IPagingKDataSourceLoadListener = object : IPagingKDataSourceLoadListener {
         override fun onFirstLoadStart() {
             liveLoadState.postValue(CPagingKLoadingState.STATE_FIRST_LOAD_START)
         }
@@ -72,14 +72,10 @@ abstract class BasePagingKViewModel<RES, DES>(protected val pagingKConfig: Pagin
         return LivePagedListBuilder(
             dataSourceFactory,
             PagedList.Config.Builder()
-                //设置是否显示占位符
-                .setEnablePlaceholders(false)
-                //设置每页的大小
-                .setPageSize(pagingKConfig.loadPageSize)
-                //设置距离底部还有多少条时开始加载下一页
-                .setPrefetchDistance(3)
-                //设置首次加载的数量，要求是pageSize的整数倍
-                .setInitialLoadSizeHint(pagingKConfig.loadPageSize * 3)
+                .setEnablePlaceholders(false)//设置是否显示占位符
+                .setPageSize(pagingKConfig.loadPageSize)//设置每页的大小
+                .setPrefetchDistance(pagingKConfig.loadPageSize / 2)//设置距离底部还有多少条时开始加载下一页
+                .setInitialLoadSizeHint(pagingKConfig.loadPageSize * 3)//设置首次加载的数量，要求是pageSize的整数倍
                 .build()
         ).build()
     }

@@ -336,6 +336,15 @@ import kotlin.jvm.functions.Function2;
 @SuppressWarnings("All")
 public abstract class BasePopwinK extends BaseUtilK implements PopupWindow.OnDismissListener, LifecycleObserver {
     protected final String TAG = this.getClass().getSimpleName() + ">>>>>";
+
+    /////////////////////////////////////////////////////////////////////////////////
+
+    private static final int MAX_RETRY_SHOW_TIME = 3;
+    private View mAnchorDecorView;
+    private boolean isDestroyed;
+
+    /////////////////////////////////////////////////////////////////////////////////
+
     public static int DEFAULT_BACKGROUND_COLOR = UtilKStrColor.strColor2intColor("#8f000000");
 
     public static final int FLAG_KEYBOARD_ALIGN_TO_VIEW = CFlag.KEYBOARD_ALIGN_TO_VIEW;
@@ -361,12 +370,8 @@ public abstract class BasePopwinK extends BaseUtilK implements PopupWindow.OnDis
         }
     }
 
-    private static final int MAX_RETRY_SHOW_TIME = 3;
     public static final int MATCH_PARENT = ViewGroup.LayoutParams.MATCH_PARENT;
     public static final int WRAP_CONTENT = ViewGroup.LayoutParams.WRAP_CONTENT;
-
-    private View mAnchorDecorView;
-    private boolean isDestroyed;
 
     public BasePopupHelper mHelper;
     Activity mContext;
@@ -386,6 +391,7 @@ public abstract class BasePopwinK extends BaseUtilK implements PopupWindow.OnDis
 
     private volatile boolean isExitAnimatePlaying = false;
 
+    /////////////////////////////////////////////////////////////////////////////////
 
     /**
      * <ul>
@@ -440,6 +446,8 @@ public abstract class BasePopwinK extends BaseUtilK implements PopupWindow.OnDis
         initWidth = width;
         initHeight = height;
     }
+
+    /////////////////////////////////////////////////////////////////////////////////
 
     private void checkActivity() {
         if (mContext != null) {

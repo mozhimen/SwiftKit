@@ -5,6 +5,8 @@ import com.mozhimen.basick.utilk.kotlin.text.replaceDot
 import com.mozhimen.basick.utilk.kotlin.text.replaceRegexLineBreak
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.Locale
 
 /**
  * @ClassName UtilKDecimalFormat
@@ -44,6 +46,9 @@ fun Double.getStrDecimalOf2(): String =
 fun Float.getStrDecimalOf1(): String =
     UtilKDecimalFormat.getStrDecimalOf1(this)
 
+fun Float.getStrDecimalOf1(locale: Locale): String =
+    UtilKDecimalFormat.getStrDecimalOf1(this, locale)
+
 fun Float.getStrDecimalOf2(): String =
     UtilKDecimalFormat.getStrDecimalOf2(this)
 
@@ -68,7 +73,11 @@ fun Float.getFloatDecimalOf2(): Float =
 object UtilKDecimalFormat {
     @JvmStatic
     fun get(pattern: String): DecimalFormat =
-        DecimalFormat(pattern)
+        DecimalFormat(pattern/*, DecimalFormatSymbols()*/)
+
+    @JvmStatic
+    fun get(pattern: String, locale: Locale): DecimalFormat =
+        DecimalFormat(pattern, DecimalFormatSymbols(locale))
 
     @JvmStatic
     fun getOf(bit: Int): DecimalFormat {
@@ -80,6 +89,15 @@ object UtilKDecimalFormat {
     }
 
     @JvmStatic
+    fun getOf(bit: Int, locale: Locale): DecimalFormat {
+        var pattern = "#."
+        repeat(bit) {
+            pattern += "0"
+        }
+        return get(pattern, locale)
+    }
+
+    @JvmStatic
     fun getOf(bit: Int, roundingMode: RoundingMode): DecimalFormat =
         getOf(bit).apply { this.roundingMode = roundingMode }
 
@@ -88,6 +106,11 @@ object UtilKDecimalFormat {
     @JvmStatic
     fun getStrDecimal(obj: Any, bit: Int): String =
         getOf(bit).format(obj).replaceDot().complementStart0()
+
+    @JvmStatic
+    fun getStrDecimal(obj: Any, bit: Int, locale: Locale): String =
+        getOf(bit, locale).format(obj).replaceDot().complementStart0()
+
 
     @JvmStatic
     fun getStrDecimal(obj: Any, bit: Int, roundingMode: RoundingMode): String =
@@ -108,6 +131,10 @@ object UtilKDecimalFormat {
     @JvmStatic
     fun getStrDecimalOf1(obj: Any): String =
         getStrDecimal(obj, 1)
+
+    @JvmStatic
+    fun getStrDecimalOf1(obj: Any, locale: Locale): String =
+        getStrDecimal(obj, 1, locale)
 
     @JvmStatic
     fun getStrDecimalOf2(obj: Any): String =
