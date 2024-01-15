@@ -27,5 +27,11 @@
             android:onClick="goNetKHttp"
             android:text="goNetKHttp"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/ComponentKStyle_Btn"
+            android:onClick="goNetKObserver"
+            android:text="goNetKObserver"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>
 </layout>

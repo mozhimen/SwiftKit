@@ -12,6 +12,7 @@ import com.mozhimen.basick.elemk.android.content.bases.BaseConnectivityBroadcast
 import com.mozhimen.basick.elemk.android.net.cons.CConnectivityManager
 import com.mozhimen.basick.elemk.android.net.cons.CNetType
 import com.mozhimen.basick.lintk.annors.ANetType
+import com.mozhimen.basick.taskk.handler.TaskKHandler
 import com.mozhimen.basick.utilk.android.app.UtilKApplicationReflect
 import com.mozhimen.basick.utilk.android.net.UtilKNetConn
 import com.mozhimen.basick.utilk.android.net.eNetType2strNetType
@@ -47,7 +48,6 @@ class NetworkCallbackImpl : ConnectivityManager.NetworkCallback(), IUtilK, INetK
     init {
         val intentFilter = IntentFilter().apply { addAction(CConnectivityManager.CONNECTIVITY_ACTION/*"android.net.conn.CONNECTIVITY_CHANGE"*/) }
         UtilKApplicationReflect.instance.applicationContext.registerReceiver(_netStatusReceiver, intentFilter)
-        post(UtilKNetConn.getNetType().eNetType2strNetType())
     }
 
     //////////////////////////////////////////////////////////////////////////////////
@@ -67,7 +67,9 @@ class NetworkCallbackImpl : ConnectivityManager.NetworkCallback(), IUtilK, INetK
         val type = networkCapabilities.networkCapabilities2netType().eNetType2strNetType()
         "onCapabilitiesChanged: net status change (网络连接改变) $type".it(TAG)// 表明此网络连接成功验证
         if (type == _liveNetType.value) return
-        post(type)
+        TaskKHandler.post {
+            post(type)
+        }
     }
 
     //////////////////////////////////////////////////////////////////////////////////
@@ -85,6 +87,7 @@ class NetworkCallbackImpl : ConnectivityManager.NetworkCallback(), IUtilK, INetK
         if (!_checkManMap.containsKey(clz)) {
             val method = findAnnotationMethod(clz) ?: return
             _checkManMap[obj] = method
+            post(obj, method, UtilKNetConn.getNetType().eNetType2strNetType())
         }
     }
 
@@ -120,12 +123,12 @@ class NetworkCallbackImpl : ConnectivityManager.NetworkCallback(), IUtilK, INetK
         val set: Set<Any> = _checkManMap.keys
         for (obj in set) {
             val method = _checkManMap[obj] ?: continue
-            invoke(obj, method, str)
+            post(obj, method, str)
         }
     }
 
     // 反射执行
-    private fun invoke(obj: Any, method: Method, type: @ANetType String) {
+    private fun post(obj: Any, method: Method, type: @ANetType String) {
         try {
             method.invoke(obj, type)
         } catch (e: Exception) {
