@@ -14,7 +14,7 @@
         tools:targetApi="m">
 
         <activity
-            android:name="com.mozhimen.componentktest.ComponentKActivity"
+            android:name=".ComponentKActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,15 +28,15 @@
             android:exported="false" />
         <!--camerak-->
         <activity
-            android:name="com.mozhimen.componentktest.camerak.CameraKActivity"
+            android:name=".camerak.CameraKActivity"
             android:exported="false" />
         <!--cameraxk-->
         <activity
-            android:name="com.mozhimen.componentktest.cameraxk.CameraXKActivity"
+            android:name=".cameraxk.CameraXKActivity"
             android:exported="false" />
         <!--installk-->
         <activity
-            android:name="com.mozhimen.componentktest.installk.InstallKActivity"
+            android:name=".installk.InstallKActivity"
             android:exported="false" />
         <service
             android:name=".installk.InstallKService"
@@ -65,11 +65,14 @@
         </receiver>
         <!--navigatek-->
         <activity
-            android:name="com.mozhimen.componentktest.navigatek.NavigateKActivity"
+            android:name=".navigatek.NavigateKActivity"
             android:exported="false" />
         <!--netk-->
         <activity
-            android:name="com.mozhimen.componentktest.netk.connection.NetKConnectionActivity"
+            android:name=".netk.NetKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".netk.connection.NetKConnectionActivity"
             android:exported="false" />
         <activity
             android:name=".netk.file.NetKFileActivity"
@@ -78,7 +81,7 @@
             android:name=".netk.http.NetKHttpActivity"
             android:exported="false" />
         <activity
-            android:name=".netk.NetKActivity"
+            android:name=".netk.observer.NetKObserverActivity"
             android:exported="false" />
         <!--videok-->
         <activity
