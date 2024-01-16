@@ -30,8 +30,6 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
-import coil.ImageLoader
-import coil.imageLoader
 import com.mozhimen.basick.elemk.android.content.cons.CContext
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 
@@ -44,10 +42,6 @@ import com.mozhimen.basick.elemk.android.os.cons.CVersCode
  * @Version 1.0
  */
 object UtilKContext {
-    @JvmStatic
-    fun getImageLoader(context: Context): ImageLoader =
-        context.imageLoader
-
     @JvmStatic
     fun getClassLoader(context: Context): ClassLoader =
         context.classLoader
@@ -180,8 +174,8 @@ object UtilKContext {
     }
 
     @JvmStatic
-    fun grantUriPermission(context: Context, packageName: String, uri: Uri, modeFlags: Int) {
-        context.grantUriPermission(packageName, uri, modeFlags)
+    fun grantUriPermission(context: Context, strPackageName: String, uri: Uri, modeFlags: Int) {
+        context.grantUriPermission(strPackageName, uri, modeFlags)
     }
 
     @JvmStatic

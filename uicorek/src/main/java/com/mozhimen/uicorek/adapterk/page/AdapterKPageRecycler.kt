@@ -76,8 +76,8 @@ open class AdapterKPageRecycler<DATA>(@LayoutRes private val _layoutId: Int, ite
         return super.getItem(position)
     }
 
-    override fun getLifecycle(): Lifecycle =
-        lifecycleRegistry
+    override val lifecycle: Lifecycle
+        get() = lifecycleRegistry
 
     //////////////////////////////////////////////////////////////////////////////
 

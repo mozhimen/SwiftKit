@@ -6,7 +6,5 @@ import com.mozhimen.basick.utilk.android.content.startContext
 import com.mozhimen.basicktest.databinding.ActivityImagekBinding
 
 class ImageKActivity : BaseActivityVB<ActivityImagekBinding>() {
-    fun goImageKCoil(view: View) {
-        startContext<ImageKCoilActivity>()
-    }
+
 }

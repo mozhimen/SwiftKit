@@ -26,7 +26,7 @@ class StickyObserver<T>(
         if (_lastVersion >= _stickyLiveData.getStickyVersion()) {
             //就说明stickyLiveData 没有更新的数据需要发送
             if (_isSticky && _stickyLiveData.getStickyValue() != null) {
-                _observer.onChanged(_stickyLiveData.getStickyValue())
+                _observer.onChanged(_stickyLiveData.getStickyValue()!!)
             }
             return
         }

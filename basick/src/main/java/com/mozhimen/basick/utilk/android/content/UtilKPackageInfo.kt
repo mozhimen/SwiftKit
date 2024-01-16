@@ -31,8 +31,8 @@ object UtilKPackageInfo : BaseUtilK() {
         get(context, UtilKContext.getPackageName(context), flags /*0*/)
 
     @JvmStatic
-    fun get(context: Context, packageName: String, flags: Int): PackageInfo? =
-        UtilKPackageManager.getPackageInfo(context, packageName, flags)
+    fun get(context: Context, strPackageName: String, flags: Int): PackageInfo? =
+        UtilKPackageManager.getPackageInfo(context, strPackageName, flags)
 
     @JvmStatic
     fun getOfInstallLocationAuto(context: Context): PackageInfo? =

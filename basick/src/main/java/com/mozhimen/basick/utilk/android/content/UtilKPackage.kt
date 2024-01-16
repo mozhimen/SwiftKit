@@ -1,6 +1,8 @@
 package com.mozhimen.basick.utilk.android.content
 
+import android.content.Context
 import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.kotlin.UtilKStrClazz
 import java.util.Arrays
 
 
@@ -28,4 +30,22 @@ object UtilKPackage : BaseUtilK() {
     @JvmStatic
     fun getRequestedPermissionsStr(): String =
         Arrays.toString(UtilKPackageInfo.getRequestedPermissions(_context))
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun isPackageInstalled(context: Context, strPackageName: String): Boolean =
+        UtilKPackageManager.isPackageInstalled(context, strPackageName)
+
+    @JvmStatic
+    fun hasPackageOfQuery(context: Context, strPackageName: String): Boolean =
+        UtilKPackageManager.hasPackageOfQuery(context, strPackageName)
+
+    @JvmStatic
+    fun hasPackage(context: Context, strPackageName: String): Boolean =
+        UtilKPackageManager.hasPackage(context, strPackageName)
+
+    @JvmStatic
+    fun hasPackageOfClazz(strPackageNameWithActivity: String): Boolean =
+        UtilKStrClazz.isStrClassPackageExists(strPackageNameWithActivity)
 }

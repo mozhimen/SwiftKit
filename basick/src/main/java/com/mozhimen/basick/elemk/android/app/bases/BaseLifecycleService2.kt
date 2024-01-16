@@ -42,6 +42,6 @@ open class BaseLifecycleService2 : BaseService(), LifecycleOwner {
         super.onDestroy()
     }
 
-    override fun getLifecycle(): Lifecycle =
-        lifecycleRegistry
+    override val lifecycle: Lifecycle
+        get() = lifecycleRegistry
 }

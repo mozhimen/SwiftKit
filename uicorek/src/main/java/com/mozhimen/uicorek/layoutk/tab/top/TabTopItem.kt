@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.mozhimen.basick.imagek.coil.loadImageCoil
+import com.mozhimen.basick.imagek.glide.loadImageGlide
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.android.util.dp2px
@@ -140,11 +140,11 @@ class TabTopItem @JvmOverloads constructor(
             if (selected) {
                 _tabIndicator.visibility = VISIBLE
                 _tabIndicator.setBackgroundColor(_tabTopItem!!.colorIndicator!!)
-                _tabImageView.loadImageCoil(_tabTopItem!!.bitmapSelected!!)
+                _tabImageView.loadImageGlide(_tabTopItem!!.bitmapSelected!!)
                 _tabImageView.applyLayoutParams(27f.dp2px().toInt())
             } else {
                 _tabIndicator.visibility = GONE
-                _tabImageView.loadImageCoil(_tabTopItem!!.bitmapDefault!!)
+                _tabImageView.loadImageGlide(_tabTopItem!!.bitmapDefault!!)
                 _tabImageView.applyLayoutParams(26f.dp2px().toInt())
             }
         } else if (_tabTopItem!!.tabType == ETabTopType.IMAGE_TEXT) {
@@ -159,14 +159,14 @@ class TabTopItem @JvmOverloads constructor(
             if (selected) {
                 _tabIndicator.visibility = VISIBLE
                 _tabIndicator.setBackgroundColor(_tabTopItem!!.colorSelected!!)
-                _tabImageView.loadImageCoil(_tabTopItem!!.bitmapSelected!!)
+                _tabImageView.loadImageGlide(_tabTopItem!!.bitmapSelected!!)
                 _tabImageView.applyLayoutParams(25f.dp2px().toInt())
                 _tabNameView.setTextColor(_tabTopItem!!.colorSelected ?: _tabTopItem!!.colorDefault!!)
                 _tabNameView.textSize = 17f
                 _tabNameView.applyTextStyle(Typeface.BOLD)
             } else {
                 _tabIndicator.visibility = GONE
-                _tabImageView.loadImageCoil(_tabTopItem!!.bitmapDefault!!)
+                _tabImageView.loadImageGlide(_tabTopItem!!.bitmapDefault!!)
                 _tabImageView.applyLayoutParams(24f.dp2px().toInt())
                 _tabNameView.setTextColor(_tabTopItem!!.colorDefault!!)
                 _tabNameView.textSize = 16f

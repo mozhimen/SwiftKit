@@ -52,8 +52,8 @@ abstract class BaseAdapterK<T>(
         return viewHolder.itemView
     }
 
-    override fun getLifecycle(): Lifecycle =
-        lifecycleRegistry
+    override val lifecycle: Lifecycle
+        get() = lifecycleRegistry
 
     //////////////////////////////////////////////////////////////////////////
 

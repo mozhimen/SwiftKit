@@ -8,8 +8,9 @@ android {
     compileSdk 33
 
     defaultConfig {
-        minSdk 21
+        minSdk 19
         targetSdk 33
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -52,12 +53,7 @@ dependencies {
 //    api 'com.liulishuo.okdownload:okhttp:1.0.7'//提供okhttp连接，如果使用的话，需要引入okhttp网络请求库
 //    api 'in.xiandan:okdownload-ext:1.0.7'
 
-    //cameraxk
-    api 'androidx.camera:camera-camera2:1.2.0'
-    api 'androidx.camera:camera-lifecycle:1.2.0'
-    api 'androidx.camera:camera-extensions:1.2.0'
-    api 'androidx.camera:camera-view:1.2.0'
-    api 'androidx.camera:camera-core:1.2.0'
+
 
     //navigatek
     api 'androidx.navigation:navigation-fragment-ktx:2.5.3'

@@ -36,8 +36,8 @@ object InstallKManager : BaseUtilK() {
 
     /////////////////////////////////////////////////////////////////////////
 
-    fun getPackageInfoByPackageName(packageName: String): PackageInfo? {
-        return _installedPackageInfos.find { it.packageName == packageName }
+    fun getPackageInfoByPackageName(strPackageName: String): PackageInfo? {
+        return _installedPackageInfos.find { it.packageName == strPackageName }
     }
 
     /////////////////////////////////////////////////////////////////////////
@@ -46,19 +46,19 @@ object InstallKManager : BaseUtilK() {
      * 查询应用是否安装
      */
     @JvmStatic
-    fun hasPackageName(packageName: String): Boolean =
-        _installedPackageInfos.containsBy { exist -> packageName == exist.packageName }
+    fun hasPackageName(strPackageName: String): Boolean =
+        _installedPackageInfos.containsBy { exist -> strPackageName == exist.packageName }
 
     /**
      * 查询应用是否安装并且大于等于需要下载的版本
      */
     @JvmStatic
-    fun hasPackageNameAndSatisfyVersion(packageName: String, versionCode: Int): Boolean =
-        _installedPackageInfos.containsBy { exist -> packageName == exist.packageName && versionCode <= UtilKPackageInfo.getVersionCode(exist) }
+    fun hasPackageNameAndSatisfyVersion(strPackageName: String, versionCode: Int): Boolean =
+        _installedPackageInfos.containsBy { exist -> strPackageName == exist.packageName && versionCode <= UtilKPackageInfo.getVersionCode(exist) }
 
     @JvmStatic
-    fun getByPackageName(packageName: String): PackageInfo? =
-        _installedPackageInfos.find { it.packageName == packageName }
+    fun getByPackageName(strPackageName: String): PackageInfo? =
+        _installedPackageInfos.find { it.packageName == strPackageName }
 
     /////////////////////////////////////////////////////////////////////////
 
@@ -66,14 +66,14 @@ object InstallKManager : BaseUtilK() {
      * 应用安装的时候调用
      */
     @JvmStatic
-    fun onPackageAdded(packageName: String) {
-        Log.d(TAG, "onPackageAdded: packageName $packageName")
-        if (hasPackageName(packageName)) {
+    fun onPackageAdded(strPackageName: String) {
+        Log.d(TAG, "onPackageAdded: strPackageName $strPackageName")
+        if (hasPackageName(strPackageName)) {
             Log.d(TAG, "onPackageAdded: already has package")
             return
         }
-        UtilKPackageInfo.get(_context, packageName, 0)?.let {
-            Log.d(TAG, "onPackageAdded: add packageName $packageName")
+        UtilKPackageInfo.get(_context, strPackageName, 0)?.let {
+            Log.d(TAG, "onPackageAdded: add strPackageName $strPackageName")
             _installedPackageInfos.add(it)
         }
     }
@@ -82,16 +82,16 @@ object InstallKManager : BaseUtilK() {
      * 应用卸载的时候调用
      */
     @JvmStatic
-    fun onPackageRemoved(packageName: String) {
-        Log.d(TAG, "onPackageRemoved: packageName $packageName")
-        if (!hasPackageName(packageName)) {
+    fun onPackageRemoved(strPackageName: String) {
+        Log.d(TAG, "onPackageRemoved: strPackageName $strPackageName")
+        if (!hasPackageName(strPackageName)) {
             Log.d(TAG, "onPackageRemoved: already remove package")
         }
         val iterator = _installedPackageInfos.iterator()
         while (iterator.hasNext()) {
             val packageInfo = iterator.next()
-            if (packageInfo.packageName == packageName) {
-                Log.d(TAG, "onPackageRemoved: remove packageName $packageName")
+            if (packageInfo.packageName == strPackageName) {
+                Log.d(TAG, "onPackageRemoved: remove strPackageName $strPackageName")
                 iterator.remove()
                 break
             }

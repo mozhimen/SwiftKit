@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
-import com.mozhimen.basick.imagek.coil.loadImageCoil
+import com.mozhimen.basick.imagek.glide.loadImageGlide
 import com.mozhimen.uicorek.layoutk.banner.bases.BaseBannerItem
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerBindListener
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerIndicator
@@ -80,7 +80,7 @@ class LayoutKBannerActivity : BaseActivityVB<ActivityLayoutkBannerBinding>() {
                     val model = item as MyBannerMo
                     val imageView: ImageView = viewHolder.findViewById(R.id.item_layoutk_banner_img)
                     val titleView: TextView = viewHolder.findViewById(R.id.item_layoutk_banner_title)
-                    model.url.let { imageView.loadImageCoil(it) }
+                    model.url.let { imageView.loadImageGlide(it) }
                     model.name.let { titleView.text = it }
                 }
             })

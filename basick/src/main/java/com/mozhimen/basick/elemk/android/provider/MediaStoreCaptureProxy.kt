@@ -63,9 +63,9 @@ class MediaStoreCaptureProxy {
             if (UtilKBuildVersion.isBeforeVersion(CVersCode.V_21_5_L)) {
                 val resInfoList = UtilKPackageManager.queryIntentActivities(context,intent, CPackageManager.MATCH_DEFAULT_ONLY)
                 for (resolveInfo in resInfoList) {
-                    val packageName = resolveInfo.activityInfo.packageName
+                    val strPackageName = resolveInfo.activityInfo.packageName
                     _currentPhotoUri?.let {
-                        UtilKContext.grantUriPermission(context, packageName, it, Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                        UtilKContext.grantUriPermission(context, strPackageName, it, Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
                     }
                 }
             }

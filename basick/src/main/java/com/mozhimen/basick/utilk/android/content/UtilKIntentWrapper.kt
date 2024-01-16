@@ -89,30 +89,30 @@ object UtilKIntentWrapper {
      * 获取mainLauncher
      */
     @JvmStatic
-    fun getMainLauncher(packageName: String, launcherActivityName: String): Intent =
+    fun getMainLauncher(strPackageName: String, launcherActivityName: String): Intent =
         Intent(CIntent.ACTION_MAIN).apply {
             addCategory(CIntent.CATEGORY_LAUNCHER)
-            setClassName(packageName, launcherActivityName)
+            setClassName(strPackageName, launcherActivityName)
         }
 
     /**
      * 获取mainLauncher
      */
     @JvmStatic
-    fun getMainLauncher(packageName: String, uri: Uri? = null): Intent =
+    fun getMainLauncher(strPackageName: String, uri: Uri? = null): Intent =
         Intent(CIntent.ACTION_MAIN, uri).apply {
             addCategory(CIntent.CATEGORY_LAUNCHER)
-            setPackage(packageName)
+            setPackage(strPackageName)
         }
 
     /**
      * 获取mainLauncher
      */
     @JvmStatic
-    fun getMainLauncher(packageName: String): Intent =
+    fun getMainLauncher(strPackageName: String): Intent =
         Intent(CIntent.ACTION_MAIN).apply {
             addCategory(CIntent.CATEGORY_LAUNCHER)
-            setPackage(packageName)
+            setPackage(strPackageName)
             addFlags(CIntent.FLAG_ACTIVITY_NEW_TASK)
         }
 
@@ -120,10 +120,10 @@ object UtilKIntentWrapper {
      * 获取启动App的Intent
      */
     @JvmStatic
-    fun getLauncherActivity(context: Context, packageName: String): Intent? {
-        val launcherActivityName: String = UtilKActivity.getLauncherActivityName(context, packageName)
+    fun getLauncherActivity(context: Context, strPackageName: String): Intent? {
+        val launcherActivityName: String = UtilKActivity.getLauncherActivityName(context, strPackageName)
         if (UtilKString.hasSpace(launcherActivityName) || launcherActivityName.isEmpty()) return getLauncherForPackage(context)
-        return getMainLauncher(packageName, launcherActivityName)
+        return getMainLauncher(strPackageName, launcherActivityName)
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -265,10 +265,10 @@ object UtilKIntentWrapper {
         UtilKPackageManager.get(context).getLaunchIntentForPackage(UtilKPackage.getPackageName())
 
     @JvmStatic
-    fun getByPackageName(context: Context, packageName: String): Intent? {
+    fun getByPackageName(context: Context, strPackageName: String): Intent? {
         val intent = Intent(Intent.ACTION_MAIN).apply {
             addCategory(Intent.CATEGORY_LAUNCHER)
-            setPackage(packageName) //包名
+            setPackage(strPackageName) //包名
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }// 指定入口,启动类型,包名//入口Main// 启动LAUNCHER,跟MainActivity里面的配置类似
         val resolveInfos = UtilKPackageManager.queryIntentActivities(context, intent, 0) //查询要启动的Activity

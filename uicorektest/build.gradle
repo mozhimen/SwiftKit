@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.mozhimen.uicorektest"
-        minSdk 21
+        minSdk 24
         targetSdk 33
         versionCode rootProject.android.versionCode
         versionName rootProject.android.versionName

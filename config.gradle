@@ -3,7 +3,7 @@ ext {
             compileSdk           : 33,
             namespace            : "com.mozhimen.app",
             applicationId        : "com.mozhimen.app",
-            minSdk               : 21,
+            minSdk               : 24,
             targetSdk            : 33,
             versionCode          : 3,
             renderscriptTargetApi: 18,

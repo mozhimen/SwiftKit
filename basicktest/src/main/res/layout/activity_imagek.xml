@@ -11,10 +11,5 @@
         android:orientation="vertical"
         tools:context=".imagek.ImageKActivity">
 
-        <Button
-            style="@style/StyleK_Btn.Ellip_End.StateL_Anim_Null.PH_10.Width_Mat.Height_040"
-            android:onClick="goImageKCoil"
-            android:text="goImageKCoil"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
-    </LinearLayout>
+ </LinearLayout>
 </layout>

@@ -53,6 +53,12 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/BasicKStyle_Btn"
+            android:onClick="goUtilKPackageActivity"
+            android:text="goUtilKPackageActivity"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/BasicKStyle_Btn"
             android:onClick="goUtilKScreen"
             android:text="goUtilKScreen"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.mozhimen.basicktest"
-        minSdk 21
+        minSdk 24
         targetSdk 25
         versionCode rootProject.android.versionCode
         versionName rootProject.android.versionName

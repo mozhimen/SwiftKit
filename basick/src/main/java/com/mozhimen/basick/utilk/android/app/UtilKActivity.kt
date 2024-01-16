@@ -101,13 +101,13 @@ object UtilKActivity {
 
     /**
      * 获取启动Activity
-     * @param packageName String
+     * @param strPackageName String
      * @return String?
      */
     @JvmStatic
-    fun getLauncherActivityName(context: Context, packageName: String): String {
-        if (UtilKString.hasSpace(packageName) || packageName.isEmpty()) return ""
-        val resolveInfos = UtilKPackageManager.queryIntentActivities(context, UtilKIntentWrapper.getMainLauncher(packageName, null), 0)
+    fun getLauncherActivityName(context: Context, strPackageName: String): String {
+        if (UtilKString.hasSpace(strPackageName) || strPackageName.isEmpty()) return ""
+        val resolveInfos = UtilKPackageManager.queryIntentActivities(context, UtilKIntentWrapper.getMainLauncher(strPackageName, null), 0)
         return if (resolveInfos.isEmpty()) "" else resolveInfos[0].activityInfo.name
     }
 

@@ -106,8 +106,8 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    override fun getLifecycle(): Lifecycle =
-        lifecycleRegistry
+    override val lifecycle: Lifecycle
+        get() = lifecycleRegistry
 
     override fun print(config: BaseLogKConfig, priority: Int, tag: String, msg: String) {
         if (_isOpen) {

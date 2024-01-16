@@ -8,8 +8,9 @@ android {
     compileSdk 33
 
     defaultConfig {
-        minSdk 21
+        minSdk 19
         targetSdk 33
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -38,7 +39,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.mozhimen:CrashKit_Native:1.0.0'
+    implementation 'com.github.mozhimen:ACrashKit_Native:1.0.1'
     implementation project(project.path.replace(project.name, '') +  ':basick')
     implementation project(project.path.replace(project.name, '') +  ':uicorek')
 

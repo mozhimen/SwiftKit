@@ -38,8 +38,8 @@ abstract class RecyclerKPageItem<DATA> : LifecycleOwner, IUtilK {
 
     ///////////////////////////////////////////////////////////////////////
 
-    override fun getLifecycle(): Lifecycle =
-        lifecycleRegistry
+    override val lifecycle: Lifecycle
+        get() = lifecycleRegistry
 
     ///////////////////////////////////////////////////////////////////////
 

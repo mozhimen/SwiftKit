@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.mozhimen.componentktest"
-        minSdk 21
+        minSdk 24
         targetSdk 25
         versionCode 1
         versionName "0.0.1"

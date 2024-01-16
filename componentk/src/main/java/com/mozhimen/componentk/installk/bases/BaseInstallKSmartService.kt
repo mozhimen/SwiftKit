@@ -40,8 +40,8 @@ open class BaseInstallKSmartService : AccessibilityService(), IUtilK {
 //    private var _handledMap: MutableMap<Int, Boolean?> = HashMap()
 
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
-        val packageName = event.packageName.toString()
-        if (!packageName.contains("packageinstaller") && !packageName.contains("accessibility") && !packageName.contains("settings")) return
+        val strPackageName = event.packageName.toString()
+        if (!strPackageName.contains("packageinstaller") && !strPackageName.contains("accessibility") && !strPackageName.contains("settings")) return
 
         val nodeInfo = event.source
         if (nodeInfo != null) {

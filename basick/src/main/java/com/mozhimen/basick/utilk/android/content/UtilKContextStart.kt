@@ -109,8 +109,8 @@ object UtilKContextStart : BaseUtilK() {
     /////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun startContextByPackageName(context: Context, packageName: String): Boolean {
-        val intent = UtilKIntentWrapper.getByPackageName(context, packageName) ?: return false
+    fun startContextByPackageName(context: Context, strPackageName: String): Boolean {
+        val intent = UtilKIntentWrapper.getByPackageName(context, strPackageName) ?: return false
         context.startContext(intent)
         return true
     }

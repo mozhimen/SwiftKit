@@ -8,7 +8,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        minSdk 21
+        minSdk 19
         targetSdk 33
         multiDexEnabled true
 
@@ -70,7 +70,7 @@ dependencies {
     api 'androidx.core:core-ktx:1.7.0'//1.10.1
     api 'com.google.android.material:material:1.5.0'//1.9.0
     api 'androidx.fragment:fragment-ktx:1.4.0'
-    //api 'androidx.activity:activity-ktx:1.7.2'
+    api 'androidx.activity:activity-ktx:1.7.2'
     api 'androidx.documentfile:documentfile:1.0.1'
 
     //////////////////////////////////////////////////////////////////
@@ -133,10 +133,6 @@ dependencies {
 
     //////////////////////////////////////////////////////////////////
     //load image
-    //coil
-    api 'io.coil-kt:coil:2.2.0'
-    api 'io.coil-kt:coil-gif:2.2.0'
-    api 'io.coil-kt:coil-svg:2.2.0'
 
     //glide
     api 'com.github.bumptech.glide:glide:4.12.0'//图片加载库

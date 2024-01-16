@@ -31,11 +31,20 @@ suspend fun String.isImageHorizontal(): Boolean =
 suspend fun String.isImageVertical(): Boolean =
     ImageKGlide.isImageVertical(this)
 
+fun ImageView.loadImageGlide(res: Any) {
+    ImageKGlide.loadImageGlide(this, res)
+}
+fun ImageView.loadImageComplexGlide(
+    res: Any, placeholder: Int, error: Int
+) {
+    ImageKGlide.loadImageComplexGlide(this, res, placeholder, error)
+}
+
 @Deprecated(
     message = "replace to coil 用coil替代glide",
     replaceWith = ReplaceWith(
         expression = "ImageKCoil",
-        imports = ["com.mozhimen.basick.imagek.coil.ImageKCoil"]
+        imports = ["com.mozhimen.imagek.coil.ImageKCoil"]
     )
 )
 object ImageKGlide : BaseUtilK() {

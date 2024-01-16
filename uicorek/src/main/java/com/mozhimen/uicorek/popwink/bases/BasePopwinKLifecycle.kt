@@ -45,6 +45,6 @@ open class BasePopwinKLifecycle(context: Context) : BasePopwinK(context), Lifecy
         super.onDestroy()
     }
 
-    override fun getLifecycle(): Lifecycle =
-        lifecycleRegistry
+    override val lifecycle: Lifecycle
+        get() = lifecycleRegistry
 }

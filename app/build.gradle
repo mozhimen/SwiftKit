@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId rootProject.android.applicationId
-        minSdk 21
+        minSdk 19
         targetSdk 33
         versionCode rootProject.android.versionCode
         versionName rootProject.android.versionName

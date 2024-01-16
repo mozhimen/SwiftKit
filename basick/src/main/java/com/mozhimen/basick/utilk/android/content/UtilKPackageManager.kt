@@ -10,6 +10,7 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageInstaller
 import android.content.pm.PackageManager
+import android.content.pm.PackageManager.NameNotFoundException
 import android.content.pm.PermissionGroupInfo
 import android.content.pm.PermissionInfo
 import android.content.pm.ResolveInfo
@@ -43,8 +44,8 @@ object UtilKPackageManager {
         UtilKContext.getPackageManager(context)
 
     @JvmStatic
-    fun getPackageInfo(context: Context, packageName: String, flags: Int): PackageInfo? =
-        get(context).getPackageInfo(packageName, flags)
+    fun getPackageInfo(context: Context, strPackageName: String, flags: Int): PackageInfo? =
+        get(context).getPackageInfo(strPackageName, flags)
 
     @JvmStatic
     fun getPackageArchiveInfo(context: Context, archiveFilePath: String, flags: Int): PackageInfo? =
@@ -55,8 +56,8 @@ object UtilKPackageManager {
         get(context).packageInstaller
 
     @JvmStatic
-    fun getApplicationInfo(context: Context, packageName: String): ApplicationInfo =
-        get(context).getApplicationInfo(packageName, CPackageInfo.INSTALL_LOCATION_AUTO)
+    fun getApplicationInfo(context: Context, strPackageName: String): ApplicationInfo =
+        get(context).getApplicationInfo(strPackageName, CPackageInfo.INSTALL_LOCATION_AUTO)
 
     /**
      * 得到应用名
@@ -66,8 +67,8 @@ object UtilKPackageManager {
         get(context).getApplicationLabel(applicationInfo).toString()
 
     @JvmStatic
-    fun getApplicationEnabledSetting(context: Context, packageName: String): Int =
-        get(context).getApplicationEnabledSetting(packageName)
+    fun getApplicationEnabledSetting(context: Context, strPackageName: String): Int =
+        get(context).getApplicationEnabledSetting(strPackageName)
 
     /**
      * 得到图标
@@ -153,9 +154,9 @@ object UtilKPackageManager {
             } catch (e: Exception) {
                 null
             }
-            packagesForUid?.forEach { packageName ->
+            packagesForUid?.forEach { strPackageName ->
                 val packageInfo = try {
-                    packageManager.getPackageInfo(packageName, 0)
+                    packageManager.getPackageInfo(strPackageName, 0)
                 } catch (e: Exception) {
                     null
                 }
@@ -168,21 +169,6 @@ object UtilKPackageManager {
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * 系统的下载组件是否可用
-     */
-    fun isDownloadComponentEnabled(context: Context): Boolean {
-        try {
-            val setting = getApplicationEnabledSetting(context, CStrPackage.COM_ANDROID_PROVIDERS_DOWNLOADS)
-            if (setting == CPackageManager.COMPONENT_ENABLED_STATE_DISABLED || setting == CPackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER || setting == CPackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED)
-                return false
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return false
-        }
-        return true
-    }
 
     /**
      * 是否有前置
@@ -205,10 +191,27 @@ object UtilKPackageManager {
     fun hasSystemFeature(context: Context, featureName: String): Boolean =
         get(context).hasSystemFeature(featureName)
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 系统的下载组件是否可用
+     */
+    fun isDownloadComponentEnabled(context: Context): Boolean {
+        try {
+            val setting = getApplicationEnabledSetting(context, CStrPackage.COM_ANDROID_PROVIDERS_DOWNLOADS)
+            if (setting == CPackageManager.COMPONENT_ENABLED_STATE_DISABLED || setting == CPackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER || setting == CPackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED)
+                return false
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
+        return true
+    }
+
     @JvmStatic
-    fun isInstalled(context: Context, packageName: String): Boolean {
+    fun isPackageInstalled(context: Context, strPackageName: String): Boolean {
         return try {
-            get(context).getApplicationInfo(packageName, 0).enabled
+            get(context).getApplicationInfo(strPackageName, 0).enabled
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             false
@@ -218,9 +221,18 @@ object UtilKPackageManager {
     /**
      * 是否有匹配的包名
      */
-    fun hasPackage(context: Context, packageName: String): Boolean =
-        queryIntentActivities(context, UtilKIntentWrapper.getMainLauncher(packageName), 0).isNotEmpty()
+    @JvmStatic
+    fun hasPackageOfQuery(context: Context, strPackageName: String): Boolean =
+        queryIntentActivities(context, UtilKIntentWrapper.getMainLauncher(strPackageName), 0).isNotEmpty()
 
+    @JvmStatic
+    fun hasPackage(context: Context, strPackageName: String): Boolean =
+        try {
+            get(context).getPackageInfo(strPackageName, CPackageManager.GET_ACTIVITIES)
+            true
+        } catch (e: NameNotFoundException) {
+            false
+        }
 
     /**
      * 是否有包安装权限
@@ -232,6 +244,4 @@ object UtilKPackageManager {
     @ADescription(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
     fun canRequestPackageInstalls(context: Context): Boolean =
         get(context).canRequestPackageInstalls()
-
-
 }

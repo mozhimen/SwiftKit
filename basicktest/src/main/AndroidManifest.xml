@@ -93,9 +93,6 @@
         <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- imagek -->
         <activity
-            android:name=".imagek.ImageKCoilActivity"
-            android:exported="false" />
-        <activity
             android:name=".imagek.ImageKActivity"
             android:exported="false" />
         <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
@@ -203,6 +200,9 @@
             android:exported="false" />
         <activity
             android:name=".utilk.android.UtilKLaunchActivityActivity"
+            android:exported="false" />
+        <activity
+            android:name=".utilk.android.UtilKPackageActivity"
             android:exported="false" />
         <activity
             android:name=".utilk.android.UtilKInputActivity"

@@ -4,9 +4,6 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import androidx.annotation.RequiresPermission
 import androidx.annotation.WorkerThread
-import androidx.constraintlayout.widget.Placeholder
-import coil.request.ImageRequest
-import com.bumptech.glide.Glide
 import com.mozhimen.basick.imagek.glide.ImageKGlide
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
@@ -29,11 +26,6 @@ fun String.isStrUrlConnectable(): Boolean =
     UtilKStrUrl.isStrUrlConnectable(this)
 
 /////////////////////////////////////////////////////////////////////////
-
-@RequiresPermission(CPermission.INTERNET)
-@AManifestKRequire(CPermission.INTERNET)
-suspend fun String.strUrl2bitmapAnyOfCoil(): Bitmap? =
-    UtilKStrUrl.strUrl2bitmapAnyOfCoil(this)
 
 @RequiresPermission(CPermission.INTERNET)
 @AManifestKRequire(CPermission.INTERNET)
@@ -71,12 +63,6 @@ object UtilKStrUrl : BaseUtilK() {
         UtilKURI.isStrUrlConnectable(strUrl)
 
     /////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    @RequiresPermission(CPermission.INTERNET)
-    @AManifestKRequire(CPermission.INTERNET)
-    suspend fun strUrl2bitmapAnyOfCoil(strUrl: String): Bitmap? =
-        (UtilKContext.getImageLoader(_context).execute(ImageRequest.Builder(_context).data(strUrl).build()).drawable as? BitmapDrawable)?.bitmap
 
     @JvmStatic
     @RequiresPermission(CPermission.INTERNET)

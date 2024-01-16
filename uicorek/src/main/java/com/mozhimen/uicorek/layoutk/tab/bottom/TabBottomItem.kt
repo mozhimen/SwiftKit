@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import coil.load
+import com.mozhimen.basick.imagek.glide.loadImageGlide
 import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.utilk.android.view.applyLayoutParams
 import com.mozhimen.basick.utilk.android.widget.applyIconFont
@@ -150,10 +150,10 @@ class TabBottomItem @JvmOverloads constructor(
                 _tabIconView.visibility = GONE
             }
             if (selected) {
-                _tabImageView.load(_tabBottomItem!!.bitmapSelected!!)
+                _tabImageView.loadImageGlide(_tabBottomItem!!.bitmapSelected!!)
                 _tabImageView.applyLayoutParams(58f.dp2px().toInt())
             } else {
-                _tabImageView.load(_tabBottomItem!!.bitmapDefault!!)
+                _tabImageView.loadImageGlide(_tabBottomItem!!.bitmapDefault!!)
                 _tabImageView.applyLayoutParams(56f.dp2px().toInt())
             }
         } else if (_tabBottomItem!!.tabType == ETabBottomType.IMAGE_TEXT) {
@@ -167,10 +167,10 @@ class TabBottomItem @JvmOverloads constructor(
                 }
             }
             if (selected) {
-                _tabImageView.load(_tabBottomItem!!.bitmapSelected!!)
+                _tabImageView.loadImageGlide(_tabBottomItem!!.bitmapSelected!!)
                 _tabNameView.setTextColor(_tabBottomItem!!.iconColorSelected!!)
             } else {
-                _tabImageView.load(_tabBottomItem!!.bitmapDefault!!)
+                _tabImageView.loadImageGlide(_tabBottomItem!!.bitmapDefault!!)
                 _tabNameView.setTextColor(_tabBottomItem!!.iconColorDefault!!)
             }
         }
