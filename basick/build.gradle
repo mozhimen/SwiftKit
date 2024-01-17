@@ -102,6 +102,7 @@ dependencies {
     //////////////////////////////////////////////////////////////////
     //lifecycle
     api 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.0-alpha03'
+    api 'androidx.lifecycle:lifecycle-livedata:2.6.1'
     api 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0-alpha03'
     api "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.4.0"
     api "androidx.lifecycle:lifecycle-extensions:2.2.0"

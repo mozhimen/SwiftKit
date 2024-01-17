@@ -189,6 +189,18 @@ object ImageKGlide : BaseUtilK() {
     }
 
     @JvmStatic
+    fun loadImageRoundedCornerGlide(
+        imageView: ImageView,
+        res: Any?,
+        cornerRadius: Int
+    ) {
+        Glide.with(imageView).load(res)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .transform(CenterCrop(), RoundedCorners(cornerRadius))
+            .into(imageView)
+    }
+
+    @JvmStatic
     fun loadImageBlurGlide(
         imageView: ImageView,
         res: Any?,
@@ -201,6 +213,22 @@ object ImageKGlide : BaseUtilK() {
             .load(res)
             .placeholder(placeholder)
             .error(error)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .transform(BlurTransformation(radius, sampling))
+            .into(imageView)
+    }
+
+    @JvmStatic
+    fun loadImageBlurGlide(
+        imageView: ImageView,
+        res: Any?,
+        placeholder: Int,
+        radius: Int = BlurTransformation.BLUR_MAX_RADIUS,
+        sampling: Int = BlurTransformation.BLUR_DEFAULT_DOWN_SAMPLING
+    ) {
+        Glide.with(imageView)
+            .load(res)
+            .placeholder(placeholder)
             .transition(DrawableTransitionOptions.withCrossFade())
             .transform(BlurTransformation(radius, sampling))
             .into(imageView)

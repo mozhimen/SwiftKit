@@ -22,18 +22,6 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/ComponentKStyle_Btn"
-                android:onClick="goCameraK"
-                android:text="goCameraK"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/ComponentKStyle_Btn"
-                android:onClick="goCameraXK"
-                android:text="goCameraXK"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/ComponentKStyle_Btn"
                 android:onClick="goInstallK"
                 android:text="goInstallK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />

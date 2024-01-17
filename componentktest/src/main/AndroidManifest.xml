@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.mozhimen.componentktest">
 
     <application
@@ -10,8 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit"
-        android:usesCleartextTraffic="true"
-        tools:targetApi="m">
+        android:usesCleartextTraffic="true">
 
         <activity
             android:name=".ComponentKActivity"
@@ -25,14 +23,6 @@
         <!--audiok-->
         <activity
             android:name=".audiok.AudioKActivity"
-            android:exported="false" />
-        <!--camerak-->
-        <activity
-            android:name=".camerak.CameraKActivity"
-            android:exported="false" />
-        <!--cameraxk-->
-        <activity
-            android:name=".cameraxk.CameraXKActivity"
             android:exported="false" />
         <!--installk-->
         <activity

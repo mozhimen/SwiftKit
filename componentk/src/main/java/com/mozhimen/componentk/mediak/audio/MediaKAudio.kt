@@ -154,8 +154,8 @@ class MediaKAudio : IMediaKAudio, LifecycleOwner {
 
     ////////////////////////////////////////////////////////////////////////
 
-    override fun getLifecycle(): Lifecycle =
-        lifecycleRegistry
+    override val lifecycle: Lifecycle
+        get() = lifecycleRegistry
 
     ////////////////////////////////////////////////////////////////////////
 

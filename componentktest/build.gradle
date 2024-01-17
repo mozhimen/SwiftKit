@@ -61,7 +61,6 @@ dependencies {
     implementation project(':componentk')
     implementation project(':uicorek')
     implementation project(':debugk')
-    implementation 'com.github.mozhimen.CameraKit_UVC:camerak_uvc:1.0.4'
 
     //test
     testImplementation 'junit:junit:4.13.2'

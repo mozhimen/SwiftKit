@@ -4,8 +4,6 @@ import android.view.View
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.basick.utilk.android.content.startContext
 import com.mozhimen.componentktest.audiok.AudioKActivity
-import com.mozhimen.componentktest.camerak.CameraKActivity
-import com.mozhimen.componentktest.cameraxk.CameraXKActivity
 import com.mozhimen.componentktest.databinding.ActivityComponentkBinding
 import com.mozhimen.componentktest.installk.InstallKActivity
 import com.mozhimen.componentktest.navigatek.NavigateKActivity
@@ -16,14 +14,6 @@ class ComponentKActivity : BaseActivityVB<ActivityComponentkBinding>() {
 
     fun goAudioK(view: View) {
         startContext<AudioKActivity>()
-    }
-
-    fun goCameraK(view: View) {
-        startContext<CameraKActivity>()
-    }
-
-    fun goCameraXK(view: View) {
-        startContext<CameraXKActivity>()
     }
 
     fun goInstallK(view: View) {
