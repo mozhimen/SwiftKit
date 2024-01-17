@@ -80,7 +80,7 @@ object UtilKContext {
     fun getVibrator(context: Context): Vibrator =
         context.getSystemService(CContext.VIBRATOR_SERVICE) as Vibrator
 
-    @RequiresApi(CVersCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_12_S)
     @JvmStatic
     fun getVibratorManager(context: Context): VibratorManager =
         context.getSystemService(CContext.VIBRATOR_MANAGER_SERVICE) as VibratorManager

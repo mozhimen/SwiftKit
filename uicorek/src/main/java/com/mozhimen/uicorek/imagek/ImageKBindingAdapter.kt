@@ -14,6 +14,15 @@ import com.mozhimen.basick.utilk.android.util.dp2px
  */
 object ImageKBindingAdapter {
     @JvmStatic
+    @BindingAdapter(value = ["loadImageWhenGlide", "loadImageWhenGlide_statusTrue", "loadImageWhenGlide_statusFalse"], requireAll = true)
+    fun loadImageWhenGlide(imageView: ImageView, loadImageWhenGlide: Boolean, loadImageWhenGlide_statusTrue: Any, loadImageWhenGlide_statusFalse: Any) {
+        if (loadImageWhenGlide) {
+            ImageKGlide.loadImageGlide(imageView, loadImageWhenGlide_statusTrue)
+        } else {
+            ImageKGlide.loadImageGlide(imageView, loadImageWhenGlide_statusFalse)
+        }
+    }
+    @JvmStatic
     @BindingAdapter(value = ["loadImageBlurGlide", "placeholder"], requireAll = true)
     fun loadImageBlurGlide(imageView: ImageView, loadImageBlurGlide: Any, placeholder: Int) {
         ImageKGlide.loadImageBlurGlide(imageView, loadImageBlurGlide, placeholder)

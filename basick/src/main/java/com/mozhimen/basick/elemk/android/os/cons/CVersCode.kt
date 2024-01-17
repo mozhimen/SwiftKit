@@ -41,7 +41,7 @@ object CVersCode {
     const val V_28_9_P = Build.VERSION_CODES.P//P
     const val V_29_10_Q = Build.VERSION_CODES.Q//Q
     const val V_30_11_R = Build.VERSION_CODES.R//R
-    const val V_31_11_S = Build.VERSION_CODES.S//S
-    const val V_32_11_S_V2 = Build.VERSION_CODES.S_V2//S_V2
-    const val V_33_11_TIRAMISU = Build.VERSION_CODES.TIRAMISU//TIRAMISU
+    const val V_31_12_S = Build.VERSION_CODES.S//S
+    const val V_32_12_S_V2 = Build.VERSION_CODES.S_V2//S_V2
+    const val V_33_13_TIRAMISU = Build.VERSION_CODES.TIRAMISU//TIRAMISU
 }

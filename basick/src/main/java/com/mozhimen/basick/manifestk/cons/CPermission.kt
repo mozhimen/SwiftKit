@@ -1,7 +1,6 @@
 package com.mozhimen.basick.manifestk.cons
 
 import android.Manifest
-import android.os.Build
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 
@@ -32,7 +31,7 @@ object CPermission {
     @RequiresApi(CVersCode.V_29_10_Q)
     const val ACCESS_BACKGROUND_LOCATION = Manifest.permission.ACCESS_BACKGROUND_LOCATION
 
-    @RequiresApi(CVersCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_12_S)
     const val ACCESS_BLOBS_ACROSS_USERS = Manifest.permission.ACCESS_BLOBS_ACROSS_USERS
     const val ACCESS_CHECKIN_PROPERTIES = Manifest.permission.ACCESS_CHECKIN_PROPERTIES
     const val ACCESS_COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION
@@ -78,7 +77,7 @@ object CPermission {
     @Deprecated("android.permission.BIND_CHOOSER_TARGET_SERVICE")
     val BIND_CHOOSER_TARGET_SERVICE = Manifest.permission.BIND_CHOOSER_TARGET_SERVICE
 
-    @RequiresApi(CVersCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_12_S)
     const val BIND_COMPANION_DEVICE_SERVICE = Manifest.permission.BIND_COMPANION_DEVICE_SERVICE
 
     @RequiresApi(CVersCode.V_24_7_N)
@@ -114,7 +113,7 @@ object CPermission {
     const val BIND_TEXT_SERVICE = Manifest.permission.BIND_TEXT_SERVICE
     const val BIND_TV_INPUT = Manifest.permission.BIND_TV_INPUT
 
-    @RequiresApi(CVersCode.V_33_11_TIRAMISU)
+    @RequiresApi(CVersCode.V_33_13_TIRAMISU)
     const val BIND_TV_INTERACTIVE_APP = Manifest.permission.BIND_TV_INTERACTIVE_APP
 
     @RequiresApi(CVersCode.V_26_8_O)
@@ -128,18 +127,18 @@ object CPermission {
     const val BLUETOOTH = Manifest.permission.BLUETOOTH
     const val BLUETOOTH_ADMIN = Manifest.permission.BLUETOOTH_ADMIN
 
-    @RequiresApi(CVersCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_12_S)
     const val BLUETOOTH_ADVERTISE = Manifest.permission.BLUETOOTH_ADVERTISE
 
-    @RequiresApi(CVersCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_12_S)
     const val BLUETOOTH_CONNECT = Manifest.permission.BLUETOOTH_CONNECT
     const val BLUETOOTH_PRIVILEGED = Manifest.permission.BLUETOOTH_PRIVILEGED
 
-    @RequiresApi(CVersCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_12_S)
     const val BLUETOOTH_SCAN = Manifest.permission.BLUETOOTH_SCAN
     const val BODY_SENSORS = Manifest.permission.BODY_SENSORS
 
-    @RequiresApi(CVersCode.V_33_11_TIRAMISU)
+    @RequiresApi(CVersCode.V_33_13_TIRAMISU)
     const val BODY_SENSORS_BACKGROUND = Manifest.permission.BODY_SENSORS_BACKGROUND
     const val BROADCAST_PACKAGE_REMOVED = Manifest.permission.BROADCAST_PACKAGE_REMOVED
     const val BROADCAST_SMS = Manifest.permission.BROADCAST_SMS
@@ -162,7 +161,7 @@ object CPermission {
     const val DELETE_CACHE_FILES = Manifest.permission.DELETE_CACHE_FILES
     const val DELETE_PACKAGES = Manifest.permission.DELETE_PACKAGES
 
-    @RequiresApi(CVersCode.V_33_11_TIRAMISU)
+    @RequiresApi(CVersCode.V_33_13_TIRAMISU)
     const val DELIVER_COMPANION_MESSAGES = Manifest.permission.DELIVER_COMPANION_MESSAGES
     const val DIAGNOSTIC = Manifest.permission.DIAGNOSTIC
     const val DISABLE_KEYGUARD = Manifest.permission.DISABLE_KEYGUARD
@@ -182,10 +181,10 @@ object CPermission {
     const val GET_TASKS = Manifest.permission.GET_TASKS
     const val GLOBAL_SEARCH = Manifest.permission.GLOBAL_SEARCH
 
-    @RequiresApi(CVersCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_12_S)
     const val HIDE_OVERLAY_WINDOWS = Manifest.permission.HIDE_OVERLAY_WINDOWS
 
-    @RequiresApi(CVersCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_12_S)
     const val HIGH_SAMPLING_RATE_SENSORS = Manifest.permission.HIGH_SAMPLING_RATE_SENSORS
     const val INSTALL_LOCATION_PROVIDER = Manifest.permission.INSTALL_LOCATION_PROVIDER
     const val INSTALL_PACKAGES = Manifest.permission.INSTALL_PACKAGES
@@ -199,7 +198,7 @@ object CPermission {
     const val INTERNET = Manifest.permission.INTERNET
     const val KILL_BACKGROUND_PROCESSES = Manifest.permission.KILL_BACKGROUND_PROCESSES
 
-    @RequiresApi(CVersCode.V_32_11_S_V2)
+    @RequiresApi(CVersCode.V_32_12_S_V2)
     const val LAUNCH_MULTI_PANE_SETTINGS_DEEP_LINK = Manifest.permission.LAUNCH_MULTI_PANE_SETTINGS_DEEP_LINK
 
     @RequiresApi(CVersCode.V_30_11_R)
@@ -210,19 +209,19 @@ object CPermission {
     @RequiresApi(CVersCode.V_30_11_R)
     const val MANAGE_EXTERNAL_STORAGE = Manifest.permission.MANAGE_EXTERNAL_STORAGE
 
-    @RequiresApi(CVersCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_12_S)
     const val MANAGE_MEDIA = Manifest.permission.MANAGE_MEDIA
 
-    @RequiresApi(CVersCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_12_S)
     const val MANAGE_ONGOING_CALLS = Manifest.permission.MANAGE_ONGOING_CALLS
 
     @RequiresApi(CVersCode.V_26_8_O)
     const val MANAGE_OWN_CALLS = Manifest.permission.MANAGE_OWN_CALLS
 
-    @RequiresApi(CVersCode.V_33_11_TIRAMISU)
+    @RequiresApi(CVersCode.V_33_13_TIRAMISU)
     const val MANAGE_WIFI_INTERFACES = Manifest.permission.MANAGE_WIFI_INTERFACES
 
-    @RequiresApi(CVersCode.V_33_11_TIRAMISU)
+    @RequiresApi(CVersCode.V_33_13_TIRAMISU)
     const val MANAGE_WIFI_NETWORK_SELECTION = Manifest.permission.MANAGE_WIFI_NETWORK_SELECTION
     const val MASTER_CLEAR = Manifest.permission.MASTER_CLEAR
     const val MEDIA_CONTENT_CONTROL = Manifest.permission.MEDIA_CONTENT_CONTROL
@@ -231,7 +230,7 @@ object CPermission {
     const val MOUNT_FORMAT_FILESYSTEMS = Manifest.permission.MOUNT_FORMAT_FILESYSTEMS
     const val MOUNT_UNMOUNT_FILESYSTEMS = Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS
 
-    @RequiresApi(CVersCode.V_33_11_TIRAMISU)
+    @RequiresApi(CVersCode.V_33_13_TIRAMISU)
     const val NEARBY_WIFI_DEVICES = Manifest.permission.NEARBY_WIFI_DEVICES
     const val NFC = Manifest.permission.NFC
 
@@ -241,7 +240,7 @@ object CPermission {
     @RequiresApi(CVersCode.V_28_9_P)
     const val NFC_TRANSACTION_EVENT = Manifest.permission.NFC_TRANSACTION_EVENT
 
-    @RequiresApi(CVersCode.V_33_11_TIRAMISU)
+    @RequiresApi(CVersCode.V_33_13_TIRAMISU)
     const val OVERRIDE_WIFI_CONFIG = Manifest.permission.OVERRIDE_WIFI_CONFIG
 
     @RequiresApi(CVersCode.V_23_6_M)
@@ -250,7 +249,7 @@ object CPermission {
     @Deprecated("android.permission.PERSISTENT_ACTIVITY")
     val PERSISTENT_ACTIVITY = Manifest.permission.PERSISTENT_ACTIVITY
 
-    @RequiresApi(CVersCode.V_33_11_TIRAMISU)
+    @RequiresApi(CVersCode.V_33_13_TIRAMISU)
     const val POST_NOTIFICATIONS = Manifest.permission.POST_NOTIFICATIONS
 
     @Deprecated("android.permission.PROCESS_OUTGOING_CALLS")
@@ -259,33 +258,33 @@ object CPermission {
     @RequiresApi(CVersCode.V_30_11_R)
     const val QUERY_ALL_PACKAGES = Manifest.permission.QUERY_ALL_PACKAGES
 
-    @RequiresApi(CVersCode.V_33_11_TIRAMISU)
+    @RequiresApi(CVersCode.V_33_13_TIRAMISU)
     const val READ_ASSISTANT_APP_SEARCH_DATA = Manifest.permission.READ_ASSISTANT_APP_SEARCH_DATA
 
-    @RequiresApi(CVersCode.V_33_11_TIRAMISU)
+    @RequiresApi(CVersCode.V_33_13_TIRAMISU)
     const val READ_BASIC_PHONE_STATE = Manifest.permission.READ_BASIC_PHONE_STATE
     const val READ_CALENDAR = Manifest.permission.READ_CALENDAR
     const val READ_CALL_LOG = Manifest.permission.READ_CALL_LOG
     const val READ_CONTACTS = Manifest.permission.READ_CONTACTS
     const val READ_EXTERNAL_STORAGE = Manifest.permission.READ_EXTERNAL_STORAGE
 
-    @RequiresApi(CVersCode.V_33_11_TIRAMISU)
+    @RequiresApi(CVersCode.V_33_13_TIRAMISU)
     const val READ_HOME_APP_SEARCH_DATA = Manifest.permission.READ_HOME_APP_SEARCH_DATA
 
     @Deprecated("android.permission.READ_INPUT_STATE")
     val READ_INPUT_STATE = Manifest.permission.READ_INPUT_STATE
     const val READ_LOGS = Manifest.permission.READ_LOGS
 
-    @RequiresApi(CVersCode.V_33_11_TIRAMISU)
+    @RequiresApi(CVersCode.V_33_13_TIRAMISU)
     const val READ_MEDIA_AUDIO = Manifest.permission.READ_MEDIA_AUDIO
 
-    @RequiresApi(CVersCode.V_33_11_TIRAMISU)
+    @RequiresApi(CVersCode.V_33_13_TIRAMISU)
     const val READ_MEDIA_IMAGES = Manifest.permission.READ_MEDIA_IMAGES
 
-    @RequiresApi(CVersCode.V_33_11_TIRAMISU)
+    @RequiresApi(CVersCode.V_33_13_TIRAMISU)
     const val READ_MEDIA_VIDEO = Manifest.permission.READ_MEDIA_VIDEO
 
-    @RequiresApi(CVersCode.V_33_11_TIRAMISU)
+    @RequiresApi(CVersCode.V_33_13_TIRAMISU)
     const val READ_NEARBY_STREAMING_POLICY = Manifest.permission.READ_NEARBY_STREAMING_POLICY
 
     @RequiresApi(CVersCode.V_26_8_O)
@@ -306,25 +305,25 @@ object CPermission {
     const val RECORD_AUDIO = Manifest.permission.RECORD_AUDIO
     const val REORDER_TASKS = Manifest.permission.REORDER_TASKS
 
-    @RequiresApi(CVersCode.V_33_11_TIRAMISU)
+    @RequiresApi(CVersCode.V_33_13_TIRAMISU)
     const val REQUEST_COMPANION_PROFILE_APP_STREAMING = Manifest.permission.REQUEST_COMPANION_PROFILE_APP_STREAMING
 
-    @RequiresApi(CVersCode.V_33_11_TIRAMISU)
+    @RequiresApi(CVersCode.V_33_13_TIRAMISU)
     const val REQUEST_COMPANION_PROFILE_AUTOMOTIVE_PROJECTION = Manifest.permission.REQUEST_COMPANION_PROFILE_AUTOMOTIVE_PROJECTION
 
-    @RequiresApi(CVersCode.V_33_11_TIRAMISU)
+    @RequiresApi(CVersCode.V_33_13_TIRAMISU)
     const val REQUEST_COMPANION_PROFILE_COMPUTER = Manifest.permission.REQUEST_COMPANION_PROFILE_COMPUTER
 
-    @RequiresApi(CVersCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_12_S)
     const val REQUEST_COMPANION_PROFILE_WATCH = Manifest.permission.REQUEST_COMPANION_PROFILE_WATCH
 
     @RequiresApi(CVersCode.V_26_8_O)
     const val REQUEST_COMPANION_RUN_IN_BACKGROUND = Manifest.permission.REQUEST_COMPANION_RUN_IN_BACKGROUND
 
-    @RequiresApi(CVersCode.V_33_11_TIRAMISU)
+    @RequiresApi(CVersCode.V_33_13_TIRAMISU)
     const val REQUEST_COMPANION_SELF_MANAGED = Manifest.permission.REQUEST_COMPANION_SELF_MANAGED
 
-    @RequiresApi(CVersCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_12_S)
     const val REQUEST_COMPANION_START_FOREGROUND_SERVICES_FROM_BACKGROUND = Manifest.permission.REQUEST_COMPANION_START_FOREGROUND_SERVICES_FROM_BACKGROUND
 
     @RequiresApi(CVersCode.V_26_8_O)
@@ -339,7 +338,7 @@ object CPermission {
     @RequiresApi(CVersCode.V_23_6_M)
     const val REQUEST_INSTALL_PACKAGES = Manifest.permission.REQUEST_INSTALL_PACKAGES
 
-    @RequiresApi(CVersCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_12_S)
     const val REQUEST_OBSERVE_COMPANION_DEVICE_PRESENCE = Manifest.permission.REQUEST_OBSERVE_COMPANION_DEVICE_PRESENCE
 
     @RequiresApi(CVersCode.V_29_10_Q)
@@ -348,7 +347,7 @@ object CPermission {
     @Deprecated("android.permission.RESTART_PACKAGES")
     val RESTART_PACKAGES = Manifest.permission.RESTART_PACKAGES
 
-    @RequiresApi(CVersCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_12_S)
     const val SCHEDULE_EXACT_ALARM = Manifest.permission.SCHEDULE_EXACT_ALARM
     const val SEND_RESPOND_VIA_MESSAGE = Manifest.permission.SEND_RESPOND_VIA_MESSAGE
     const val SEND_SMS = Manifest.permission.SEND_SMS
@@ -370,30 +369,30 @@ object CPermission {
     @Deprecated("android.permission.SMS_FINANCIAL_TRANSACTIONS")
     val SMS_FINANCIAL_TRANSACTIONS = Manifest.permission.SMS_FINANCIAL_TRANSACTIONS
 
-    @RequiresApi(CVersCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_12_S)
     const val START_FOREGROUND_SERVICES_FROM_BACKGROUND = Manifest.permission.START_FOREGROUND_SERVICES_FROM_BACKGROUND
 
-    @RequiresApi(CVersCode.V_33_11_TIRAMISU)
+    @RequiresApi(CVersCode.V_33_13_TIRAMISU)
     const val START_VIEW_APP_FEATURES = Manifest.permission.START_VIEW_APP_FEATURES
 
     @RequiresApi(CVersCode.V_29_10_Q)
     const val START_VIEW_PERMISSION_USAGE = Manifest.permission.START_VIEW_PERMISSION_USAGE
     const val STATUS_BAR = Manifest.permission.STATUS_BAR
 
-    @RequiresApi(CVersCode.V_33_11_TIRAMISU)
+    @RequiresApi(CVersCode.V_33_13_TIRAMISU)
     const val SUBSCRIBE_TO_KEYGUARD_LOCKED_STATE = Manifest.permission.SUBSCRIBE_TO_KEYGUARD_LOCKED_STATE
     const val SYSTEM_ALERT_WINDOW = Manifest.permission.SYSTEM_ALERT_WINDOW
     const val TRANSMIT_IR = Manifest.permission.TRANSMIT_IR
     const val UNINSTALL_SHORTCUT = "com.android.launcher.permission.UNINSTALL_SHORTCUT"
     const val UPDATE_DEVICE_STATS = Manifest.permission.UPDATE_DEVICE_STATS
 
-    @RequiresApi(CVersCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_12_S)
     const val UPDATE_PACKAGES_WITHOUT_USER_ACTION = Manifest.permission.UPDATE_PACKAGES_WITHOUT_USER_ACTION
 
     @RequiresApi(CVersCode.V_28_9_P)
     const val USE_BIOMETRIC = Manifest.permission.USE_BIOMETRIC
 
-    @RequiresApi(CVersCode.V_33_11_TIRAMISU)
+    @RequiresApi(CVersCode.V_33_13_TIRAMISU)
     const val USE_EXACT_ALARM = Manifest.permission.USE_EXACT_ALARM
 
     @RequiresApi(CVersCode.V_23_6_M)
@@ -403,11 +402,11 @@ object CPermission {
     @RequiresApi(CVersCode.V_29_10_Q)
     const val USE_FULL_SCREEN_INTENT = Manifest.permission.USE_FULL_SCREEN_INTENT
 
-    @RequiresApi(CVersCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_12_S)
     const val USE_ICC_AUTH_WITH_DEVICE_IDENTIFIER = Manifest.permission.USE_ICC_AUTH_WITH_DEVICE_IDENTIFIER
     const val USE_SIP = Manifest.permission.USE_SIP
 
-    @RequiresApi(CVersCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_12_S)
     const val UWB_RANGING = Manifest.permission.UWB_RANGING
     const val VIBRATE = Manifest.permission.VIBRATE
     const val WAKE_LOCK = Manifest.permission.WAKE_LOCK

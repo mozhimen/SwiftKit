@@ -1,7 +1,6 @@
 package com.mozhimen.basick.elemk.android.content.cons
 
 import android.content.Context
-import android.os.Build
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 
@@ -16,7 +15,7 @@ import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 object CContext {
     const val VIBRATOR_SERVICE = Context.VIBRATOR_SERVICE
 
-    @RequiresApi(CVersCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_12_S)
     const val VIBRATOR_MANAGER_SERVICE = Context.VIBRATOR_MANAGER_SERVICE
     const val WINDOW_SERVICE = Context.WINDOW_SERVICE
     const val INPUT_METHOD_SERVICE = Context.INPUT_METHOD_SERVICE

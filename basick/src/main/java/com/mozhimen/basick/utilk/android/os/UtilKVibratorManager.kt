@@ -14,7 +14,7 @@ import com.mozhimen.basick.utilk.android.content.UtilKContext
  * @Version 1.0
  */
 object UtilKVibratorManager {
-    @RequiresApi(CVersCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_12_S)
     fun get(context: Context): VibratorManager =
         UtilKContext.getVibratorManager(context)
 }

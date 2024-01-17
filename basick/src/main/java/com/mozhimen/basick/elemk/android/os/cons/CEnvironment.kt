@@ -1,6 +1,5 @@
 package com.mozhimen.basick.elemk.android.os.cons
 
-import android.os.Build
 import android.os.Environment
 import androidx.annotation.RequiresApi
 
@@ -35,7 +34,7 @@ object CEnvironment {
         Environment.DIRECTORY_AUDIOBOOKS
 
     @JvmStatic
-    @RequiresApi(CVersCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_12_S)
     fun getDirectoryRecordings(): String =
         Environment.DIRECTORY_RECORDINGS
 }

@@ -53,8 +53,6 @@ dependencies {
 //    api 'com.liulishuo.okdownload:okhttp:1.0.7'//提供okhttp连接，如果使用的话，需要引入okhttp网络请求库
 //    api 'in.xiandan:okdownload-ext:1.0.7'
 
-
-
     //navigatek
     api 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     api 'androidx.navigation:navigation-ui-ktx:2.5.3'

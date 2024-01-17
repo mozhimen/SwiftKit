@@ -147,7 +147,7 @@ object UtilKContextDir {
             context.getExternalFilesDir(CEnvironment.getDirectoryAudioBooks())
 
         @JvmStatic
-        @RequiresApi(CVersCode.V_31_11_S)
+        @RequiresApi(CVersCode.V_31_12_S)
         fun getFilesRecordingsDir(context: Context): File? =
             context.getExternalFilesDir(CEnvironment.getDirectoryRecordings())
     }

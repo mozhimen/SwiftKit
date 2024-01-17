@@ -57,7 +57,7 @@ object UtilKEnvironment {
     fun getExternalStoragePublicDirScreenshots(): File =
             Environment.getExternalStoragePublicDirectory(CEnvironment.getDirectoryScreenShots())
 
-    @RequiresApi(CVersCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_12_S)
     @JvmStatic
     fun getExternalStoragePublicDirRecordings(): File =
             Environment.getExternalStoragePublicDirectory(CEnvironment.getDirectoryRecordings())
