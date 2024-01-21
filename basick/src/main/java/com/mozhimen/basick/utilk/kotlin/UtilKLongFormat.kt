@@ -16,10 +16,17 @@ import java.util.Locale
 fun Long.longFileSize2strFileSize(suffix: String = "B", bit: Int = 2, locale: Locale): String =
     UtilKLongFormat.longFileSize2strFileSize(this, suffix, bit, locale)
 
+fun Long.longFileSize2strFileSize(suffix: String = "B", bit: Int = 2): String =
+    UtilKLongFormat.longFileSize2strFileSize(this, suffix, bit)
+
 fun Long.longFileSize2strFileSizeLong(suffix: String = "B"): String =
     UtilKLongFormat.longFileSize2strFileSizeLong(this, suffix)
 
 object UtilKLongFormat : IUtilK {
+    @JvmStatic
+    fun longFileSize2strFileSize(fileSize: Long, suffix: String = "B", bit: Int = 2): String =
+        longFileSize2strFileSize(fileSize, suffix, bit, Locale.ENGLISH)
+
     @JvmStatic
     fun longFileSize2strFileSize(fileSize: Long, suffix: String = "B", bit: Int = 2, locale: Locale): String {
         val decimalFormat = UtilKDecimalFormat.getOf(bit, locale)

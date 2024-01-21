@@ -9,6 +9,7 @@ import android.content.Intent
 import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
 import com.mozhimen.basick.elemk.android.app.cons.CDownloadManager
+import com.mozhimen.basick.utilk.android.app.UtilKPendingIntent
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.netk.file.download.annors.ADownloadStatus
@@ -22,11 +23,6 @@ import java.io.File
 internal class NotifierUtils private constructor() {
 
     companion object {
-        private fun getPendingIntentFlag() =
-            if (UtilKBuildVersion.isAfterV_23_6_M()) {
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-            } else PendingIntent.FLAG_UPDATE_CURRENT
-
 
         private fun getNotificationManager(context: Context): NotificationManager {
             return context.applicationContext.getSystemService(Context.NOTIFICATION_SERVICE)
@@ -96,7 +92,7 @@ internal class NotifierUtils private constructor() {
                     intent.putExtra(CDownloadParameter.EXTRA_URL, url)
                     intent.putExtra(CDownloadParameter.EXTRA_FROM, CDownloadParameter.EXTRA_FROM_NOTIFIER)
                     val pendingIntent =
-                        PendingIntent.getService(context, 1, intent, getPendingIntentFlag())
+                        PendingIntent.getService(context, 1, intent, UtilKPendingIntent.getFlagOfUpdate())
                     builder.setContentIntent(pendingIntent)
                     //builder.addAction(NotificationCompat.Action(null, null, pendingIntent))
                 }

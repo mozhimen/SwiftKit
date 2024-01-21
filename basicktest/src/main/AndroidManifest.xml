@@ -15,6 +15,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit">
+        <receiver
+            android:name=".utilk.android.InstallKReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="100">
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
 
         <activity
             android:name=".BasicKActivity"
@@ -191,6 +203,9 @@
             android:exported="false" />
         <activity
             android:name=".utilk.android.UtilKApkActivity"
+            android:exported="false" />
+        <activity
+            android:name=".utilk.android.UtilKAppInstallActivity"
             android:exported="false" />
         <activity
             android:name=".utilk.android.UtilKAssetActivity"

@@ -18,6 +18,10 @@ class UtilKAndroidActivity : BaseActivityVB<ActivityUtilkAndroidBinding>() {
         startContext<UtilKApkActivity>()
     }
 
+    fun goUtilKAppInstall(view: View) {
+        startContext<UtilKAppInstallActivity>()
+    }
+
     fun goUtilKAsset(view: View) {
         startContext<UtilKAssetActivity>()
     }

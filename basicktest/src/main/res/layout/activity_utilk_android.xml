@@ -17,6 +17,12 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/BasicKStyle_Btn"
+            android:onClick="goUtilKAppInstall"
+            android:text="goUtilKAppInstall"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/BasicKStyle_Btn"
             android:onClick="goUtilKAsset"
             android:text="goUtilKAsset"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
