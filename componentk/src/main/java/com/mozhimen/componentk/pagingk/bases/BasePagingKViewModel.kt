@@ -22,7 +22,7 @@ import kotlinx.coroutines.CoroutineScope
  * @Date 2023/10/11 16:22
  * @Version 1.0
  */
-abstract class BasePagingKViewModel<RES, DES>(protected val pagingKConfig: PagingKConfig = PagingKConfig()) : BaseViewModel(), IPagingKDataSource<RES, DES> {
+abstract class BasePagingKViewModel<RES, DES : Any>(protected val pagingKConfig: PagingKConfig = PagingKConfig()) : BaseViewModel(), IPagingKDataSource<RES, DES> {
     private val _pagingKDataSourceLoadingListener: IPagingKDataSourceLoadListener = object : IPagingKDataSourceLoadListener {
         override fun onFirstLoadStart() {
             liveLoadState.postValue(CPagingKLoadingState.STATE_FIRST_LOAD_START)

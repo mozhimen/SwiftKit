@@ -39,6 +39,10 @@ android {
 }
 
 dependencies {
+    implementation project(project.path.replace(project.name, '') + ':basick')
+    implementation project(project.path.replace(project.name, '') + ':uicorek')
+
+    //////////////////////////////////////////////////////////////////
     //netk_http
     api 'com.squareup.retrofit2:retrofit:2.9.0'//retrofit
     api "com.squareup.okhttp3:logging-interceptor:4.9.2"
@@ -57,9 +61,12 @@ dependencies {
     api 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     api 'androidx.navigation:navigation-ui-ktx:2.5.3'
 
-    implementation project(project.path.replace(project.name, '') + ':basick')
-    implementation project(project.path.replace(project.name, '') + ':uicorek')
+    //////////////////////////////////////////////////////////////////
+    //data source
+    api "androidx.paging:paging-runtime:3.0.0-alpha03"
+    api "androidx.paging:paging-common:3.0.0-alpha03"
 
+    //////////////////////////////////////////////////////////////////
     //kapt
     kapt 'androidx.room:room-compiler:2.5.2'
 

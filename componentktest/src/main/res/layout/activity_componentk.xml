@@ -38,6 +38,12 @@
                 android:text="goNetK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
+            <com.google.android.material.button.MaterialButton
+                style="@style/ComponentKStyle_Btn"
+                android:onClick="goPagingK"
+                android:text="goPagingK"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

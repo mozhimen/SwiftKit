@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
  * @Date 2023/10/11 16:31
  * @Version 1.0
  */
-abstract class BasePagingKKeyedDataSource<RES, DES>(
+abstract class BasePagingKKeyedDataSource<RES, DES : Any>(
     private val _pagingKConfig: PagingKConfig,
     private val _coroutineScope: CoroutineScope,
     private val _pagingKDataSourceLoadListener: IPagingKDataSourceLoadListener

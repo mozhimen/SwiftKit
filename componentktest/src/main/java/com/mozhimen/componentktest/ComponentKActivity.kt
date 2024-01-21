@@ -10,6 +10,7 @@ import com.mozhimen.componentktest.mediak.MediaKActivity
 import com.mozhimen.componentktest.navigatek.NavigateKActivity
 import com.mozhimen.componentktest.netk.NetKActivity
 import com.mozhimen.componentktest.mediak.MediaKVideoActivity
+import com.mozhimen.componentktest.pagingk.PagingKActivity
 
 class ComponentKActivity : BaseActivityVB<ActivityComponentkBinding>() {
     fun goInstallK(view: View) {
@@ -26,5 +27,9 @@ class ComponentKActivity : BaseActivityVB<ActivityComponentkBinding>() {
 
     fun goNetK(view: View) {
         startContext<NetKActivity>()
+    }
+
+    fun goPagingK(view: View) {
+        startContext<PagingKActivity>()
     }
 }

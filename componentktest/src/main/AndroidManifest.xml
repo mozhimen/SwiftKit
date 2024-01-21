@@ -83,7 +83,11 @@
         <activity
             android:name=".netk.observer.NetKObserverActivity"
             android:exported="false" />
-
+        <!--///////////////////////////////////////////////////////////////////////////-->
+        <!--pagingk-->
+        <activity
+            android:name=".pagingk.PagingKActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -18,7 +18,7 @@ import com.mozhimen.componentk.pagingk.cons.CPagingKLoadingState
  * @Date 2023/10/26 22:51
  * @Version 1.0
  */
-abstract class BasePagingKActivityVBVM<DES, VB : ViewDataBinding, VM : BasePagingKViewModel<*, DES>> : BaseActivityVB<VB>(), IPagingKActivity<DES, VM> {
+abstract class BasePagingKActivityVBVM<DES : Any, VB : ViewDataBinding, VM : BasePagingKViewModel<*, DES>> : BaseActivityVB<VB>(), IPagingKActivity<DES, VM> {
 
     private val _pagedListObserver: Observer<PagedList<DES>> by lazy {
         Observer<PagedList<DES>> { pagedList ->

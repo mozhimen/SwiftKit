@@ -10,7 +10,7 @@ import com.mozhimen.componentktest.pagingk.restful.mos.DataRes
  * @Date 2024/1/21 16:37
  * @Version 1.0
  */
-class Repository {
+object Repository {
     /**
      * 查询护理数据
      */
