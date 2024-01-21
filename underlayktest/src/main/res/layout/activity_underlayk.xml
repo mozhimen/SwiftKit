@@ -7,31 +7,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context="com.mozhimen.underlayktest.UnderlayKActivity">
-
+        android:orientation="vertical">
         <com.google.android.material.button.MaterialButton
             style="@style/UnderlayKStyle_Btn"
             android:onClick="goCrashK"
             android:text="goCrashK"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/UnderlayKStyle_Btn"
-            android:onClick="goFpsK"
-            android:text="goFpsK"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/UnderlayKStyle_Btn"
-            android:onClick="goLogK"
-            android:text="goLogK"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/underlayk_print_log"
-            style="@style/UnderlayKStyle_Btn"
-            android:text="打印log"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>
 </layout>

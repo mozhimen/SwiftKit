@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="logk_v">#FFFFFF</color>
-    <color name="logk_d">#DCDCDC</color>
-    <color name="logk_i">#90EE90</color>
-    <color name="logk_w">#FFFF99</color>
-    <color name="logk_e">#FF0000</color>
-    <color name="logk_other">#007FFF</color>
-</resources>

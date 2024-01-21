@@ -4,7 +4,7 @@ import androidx.annotation.IntDef
 import com.mozhimen.basick.elemk.android.util.cons.CLogPriority
 
 /**
- * @ClassName LogKType
+ * @ClassName ALogPriority
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
  * @Date 2021/12/20 16:59

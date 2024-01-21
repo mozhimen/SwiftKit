@@ -4,11 +4,11 @@ import com.mozhimen.basick.elemk.commons.ISuspendAB_Listener
 import com.mozhimen.basick.elemk.commons.ISuspendA_Listener
 import com.mozhimen.basick.elemk.commons.ISuspend_AListener
 import com.mozhimen.basick.elemk.mos.MResultIST
+import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.util.vt
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.componentk.netk.http.commons.NetKRep
 import com.mozhimen.componentk.netk.http.cons.CResCode
-import com.mozhimen.underlayk.logk.etk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
@@ -53,7 +53,7 @@ object NetKHelper : BaseUtilK() {
                 is NetKRep.MSuccess -> onSuccess(it.data)
                 is NetKRep.MError -> {
                     val netKThrowable = NetKRepErrorParser.getThrowable(it.exception)
-                    "asNetKRes: Error code ${netKThrowable.code} message ${netKThrowable.message}".etk(TAG)
+                    "asNetKRes: Error code ${netKThrowable.code} message ${netKThrowable.message}".et(TAG)
                     onFail(netKThrowable.code, netKThrowable.message)
                 }
 
@@ -73,7 +73,7 @@ object NetKHelper : BaseUtilK() {
                 is NetKRep.MSuccess -> MResultIST(CResCode.SUCCESS, null, it.data)
                 is NetKRep.MError -> {
                     val netKThrowable = NetKRepErrorParser.getThrowable(it.exception)
-                    "asNetKResSync: Error code ${netKThrowable.code} message ${netKThrowable.message}".etk(TAG)
+                    "asNetKResSync: Error code ${netKThrowable.code} message ${netKThrowable.message}".et(TAG)
                     MResultIST(netKThrowable.code, netKThrowable.message, null)
                 }
 

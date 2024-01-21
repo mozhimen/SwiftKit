@@ -11,33 +11,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit">
 
-        <activity
-            android:name=".UnderlayKActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
-        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
-        <!-- crashk -->
-        <activity
-            android:name=".crashk.CrashKActivity"
-            android:exported="false" />
-        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
-        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
-        <!-- fpsk -->
-        <activity
-            android:name=".fpsk.FpsKActivity"
-            android:exported="false" />
-        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
-        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
-        <!-- underlayk -->
-        <activity
-            android:name=".logk.LogKActivity"
-            android:exported="false" />
     </application>
 
 </manifest>

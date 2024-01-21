@@ -20,10 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--audiok-->
-        <activity
-            android:name=".audiok.AudioKActivity"
-            android:exported="false" />
+        <!--///////////////////////////////////////////////////////////////////////////-->
         <!--installk-->
         <activity
             android:name=".installk.InstallKActivity"
@@ -53,10 +50,23 @@
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
+        <!--///////////////////////////////////////////////////////////////////////////-->
+        <!--mediak-->
+        <activity
+            android:name=".mediak.MediaKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".mediak.MediaKAudioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".mediak.MediaKVideoActivity"
+            android:exported="false" />
+        <!--///////////////////////////////////////////////////////////////////////////-->
         <!--navigatek-->
         <activity
             android:name=".navigatek.NavigateKActivity"
             android:exported="false" />
+        <!--///////////////////////////////////////////////////////////////////////////-->
         <!--netk-->
         <activity
             android:name=".netk.NetKActivity"
@@ -73,10 +83,7 @@
         <activity
             android:name=".netk.observer.NetKObserverActivity"
             android:exported="false" />
-        <!--videok-->
-        <activity
-            android:name=".videok.VideoKActivity"
-            android:exported="false" />
+
     </application>
 
 </manifest>

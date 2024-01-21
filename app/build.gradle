@@ -37,8 +37,6 @@ dependencies {
     implementation project(':componentk')
     implementation project(':basick')
     implementation project(':uicorek')
-    implementation project(':underlayk')
-    implementation project(':debugk')
 
     //test
     testImplementation 'junit:junit:4.13.2'

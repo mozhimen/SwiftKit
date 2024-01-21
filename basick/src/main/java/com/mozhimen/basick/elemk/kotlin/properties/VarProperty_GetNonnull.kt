@@ -12,7 +12,7 @@ import kotlin.reflect.KProperty
 private var _fpsView: TextView? = null
 get() {
 if (field != null) return field
-return (LayoutInflater.from(_context).inflate(R.layout.fpsk_view, null, false) as TextView).also { field = it }
+return (LayoutInflater.from(_context).inflate(R.layout.optk_fps_view, null, false) as TextView).also { field = it }
 }
 
  * @Author Mozhimen & Kolin Zhao

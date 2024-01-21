@@ -41,7 +41,6 @@ android {
 
 dependencies {
     implementation project(':basick')
-    implementation project(':debugk')
     implementation project(':componentk')
     implementation project(':uicorek')
     implementation 'androidx.appcompat:appcompat:1.6.1'

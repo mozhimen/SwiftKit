@@ -39,7 +39,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.mozhimen:ACrashKit_Native:1.0.1'
+
     implementation project(project.path.replace(project.name, '') +  ':basick')
     implementation project(project.path.replace(project.name, '') +  ':uicorek')
 

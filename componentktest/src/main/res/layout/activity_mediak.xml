@@ -16,28 +16,18 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/ComponentKStyle_Btn"
-                android:onClick="goInstallK"
-                android:text="goInstallK"
+                android:onClick="goAudioK"
+                android:text="goAudioK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/ComponentKStyle_Btn"
-                android:onClick="goMediaK"
-                android:text="goMediaK"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/ComponentKStyle_Btn"
-                android:onClick="goNavigateK"
-                android:text="goNavigateK"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/ComponentKStyle_Btn"
-                android:onClick="goNetK"
-                android:text="goNetK"
+                android:onClick="goVideoK"
+                android:text="goVideoK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
+
 </layout>
