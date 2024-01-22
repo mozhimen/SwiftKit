@@ -14,7 +14,6 @@ import com.mozhimen.basick.utilk.android.widget.applyImageResourceWhen
  * @Date 2022/11/6 14:20
  * @Version 1.0
  */
-@AManifestKRequire(CPermission.INTERNET)
 object ImageKBindingAdapter {
 
     @JvmStatic

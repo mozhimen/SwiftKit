@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.cons.CStrPackage
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
@@ -34,6 +35,7 @@ object UtilKImei : IUtilK {
     @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.READ_PHONE_STATE)
+    @AManifestKRequire(CPermission.READ_PHONE_STATE)
     fun getImei(context: Context): String =
         getImeiOrMeid(context, 0)
 
@@ -43,6 +45,7 @@ object UtilKImei : IUtilK {
     @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.READ_PHONE_STATE)
+    @AManifestKRequire(CPermission.READ_PHONE_STATE)
     fun getImei2(context: Context): String {
         //imei2必须与 imei1不一样
         val imeiDefault = getImei(context)
@@ -75,6 +78,7 @@ object UtilKImei : IUtilK {
     @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.READ_PHONE_STATE)
+    @AManifestKRequire(CPermission.READ_PHONE_STATE)
     fun getImeiOrMeid(context: Context, slotId: Int): String {
         var imei = ""
         //Android 6.0 以后需要获取动态权限  检查权限

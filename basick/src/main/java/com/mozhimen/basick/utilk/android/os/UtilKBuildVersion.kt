@@ -199,17 +199,17 @@ object UtilKBuildVersion {
 
     @JvmStatic
     @ChecksSdkIntAtLeast(api = CVersCode.V_31_12_S)
-    fun isAfterV_31_11_S(): Boolean =
+    fun isAfterV_31_12_S(): Boolean =
         isAfterVersion(CVersCode.V_31_12_S)
 
     @JvmStatic
     @ChecksSdkIntAtLeast(api = CVersCode.V_32_12_S_V2)
-    fun isAfterV_32_11_S_V2(): Boolean =
+    fun isAfterV_32_12_S_V2(): Boolean =
         isAfterVersion(CVersCode.V_32_12_S_V2)
 
     @JvmStatic
     @ChecksSdkIntAtLeast(api = CVersCode.V_33_13_TIRAMISU)
-    fun isAfterV_33_11_TIRAMISU(): Boolean =
+    fun isAfterV_33_13_TIRAMISU(): Boolean =
         isAfterVersion(CVersCode.V_33_13_TIRAMISU)
 
     ///////////////////////////////////////////////////////////////////////

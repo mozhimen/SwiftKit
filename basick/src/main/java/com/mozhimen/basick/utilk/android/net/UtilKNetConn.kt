@@ -3,10 +3,12 @@ package com.mozhimen.basick.utilk.android.net
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.net.NetworkRequest
+import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.net.cons.CConnectivityManager
 import com.mozhimen.basick.elemk.android.net.cons.CNetType
 import com.mozhimen.basick.elemk.android.net.cons.ENetType
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.telephony.CTelephonyManager
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
@@ -38,6 +40,7 @@ object UtilKNetConn : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
+    @AManifestKRequire(CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION)
     fun getWifiStrength(): Int =
         UtilKWifiInfo.getRssiAbs(_context) ?: 0
 
@@ -78,6 +81,7 @@ object UtilKNetConn : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
     fun getConnectionType(): Int =
         UtilKActiveNetworkInfo.getType(_context) ?: -1
 
@@ -88,6 +92,7 @@ object UtilKNetConn : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
     fun isNetConnected(): Boolean {
         UtilKConnectivityManager.getAllNetworkInfo(_context).forEach {
             if (it.isConnected) return true
@@ -100,6 +105,7 @@ object UtilKNetConn : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
     fun isNetAvailable(): Boolean =
         UtilKActiveNetworkInfo.isAvailable(_context) ?: false//UtilKConnectivityManager.getActiveNetworkInfo(_context)?.isAvailable ?: false
 
@@ -108,6 +114,7 @@ object UtilKNetConn : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
     fun isWifiConnected(): Boolean =
         UtilKActiveNetworkInfo.isWifiConnected(_context)
 
@@ -116,6 +123,7 @@ object UtilKNetConn : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
     fun isMobileConnected(): Boolean =
         UtilKActiveNetworkInfo.isMobileConnected(_context)
 
@@ -136,12 +144,15 @@ object UtilKNetConn : BaseUtilK() {
     /////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    @RequiresPermission(value = CPermission.ACCESS_NETWORK_STATE)
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
+    @RequiresApi(CVersCode.V_21_5_L)
     fun registerNetworkCallback(request: NetworkRequest, networkCallback: ConnectivityManager.NetworkCallback) {
         UtilKConnectivityManager.registerNetworkCallback(_context, request, networkCallback)
     }
 
     @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
     fun unregisterNetworkCallback(networkCallback: ConnectivityManager.NetworkCallback) {
         UtilKConnectivityManager.unregisterNetworkCallback(_context, networkCallback)
     }
@@ -151,6 +162,7 @@ object UtilKNetConn : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
     fun printActiveNetworkInfo() {
         val activeNetworkInfo = UtilKConnectivityManager.getActiveNetworkInfo(_context)
         if (activeNetworkInfo != null) {

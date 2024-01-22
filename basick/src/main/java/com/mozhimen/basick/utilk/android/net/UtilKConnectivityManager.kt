@@ -7,6 +7,7 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkInfo
 import android.net.NetworkRequest
+import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.net.cons.CConnectivityManager
@@ -37,6 +38,7 @@ object UtilKConnectivityManager {
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
     fun getActiveNetworkInfo(context: Context): NetworkInfo? =
         get(context).activeNetworkInfo
 
@@ -45,15 +47,18 @@ object UtilKConnectivityManager {
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
     fun getAllNetworkInfo(context: Context): Array<NetworkInfo> =
         get(context).allNetworkInfo
 
     @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
     fun getActiveNetwork(context: Context): Network? =
         get(context).activeNetwork
 
+    @RequiresApi(CVersCode.V_21_5_L)
     @JvmStatic
     fun getNetworkCapabilities(context: Context, network: Network): NetworkCapabilities? =
         get(context).getNetworkCapabilities(network)
@@ -62,6 +67,7 @@ object UtilKConnectivityManager {
 
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
     fun isNetworkConnected(context: Context): Boolean =
         if (UtilKBuildVersion.isAfterV_23_6_M())
             isNetworkConnectedAfter23(context)
@@ -70,6 +76,7 @@ object UtilKConnectivityManager {
     @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
     fun isNetworkConnectedAfter23(context: Context): Boolean {
         val networkCapabilities = getNetworkCapabilities(context, getActiveNetwork(context) ?: return false) ?: return false
         return when {
@@ -82,6 +89,7 @@ object UtilKConnectivityManager {
 
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
     fun isNetworkConnectedBefore23(context: Context): Boolean {
         return getActiveNetworkInfo(context)?.let {
             when (it.type) {
@@ -96,12 +104,15 @@ object UtilKConnectivityManager {
     ////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    @RequiresPermission(value = CPermission.ACCESS_NETWORK_STATE)
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
+    @RequiresApi(CVersCode.V_21_5_L)
     fun registerNetworkCallback(context: Context, request: NetworkRequest, networkCallback: NetworkCallback) {
         get(context).registerNetworkCallback(request, networkCallback)
     }
 
     @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
     fun unregisterNetworkCallback(context: Context, networkCallback: NetworkCallback) {
         get(context).unregisterNetworkCallback(networkCallback)
     }

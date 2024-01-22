@@ -2,14 +2,10 @@ package com.mozhimen.componentktest.pagingk
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVBVM
 import com.mozhimen.componentktest.databinding.ActivityPagingkBinding
 import com.mozhimen.componentktest.pagingk.restful.mos.DataRes

@@ -23,6 +23,7 @@ object CPermission {
     const val REPLACE_EXISTING_PACKAGE = "android.permission.REPLACE_EXISTING_PACKAGE"
     const val READ_INSTALL_SESSIONS = "android.permission.READ_INSTALL_SESSIONS"
     const val FLASHLIGHT = "android.permission.FLASHLIGHT"
+    const val GET_INSTALLED_APPS = "com.android.permission.GET_INSTALLED_APPS"
     //endregion
 
     @RequiresApi(CVersCode.V_28_9_P)
@@ -187,6 +188,10 @@ object CPermission {
     @RequiresApi(CVersCode.V_31_12_S)
     const val HIGH_SAMPLING_RATE_SENSORS = Manifest.permission.HIGH_SAMPLING_RATE_SENSORS
     const val INSTALL_LOCATION_PROVIDER = Manifest.permission.INSTALL_LOCATION_PROVIDER
+
+    /**
+     * 特别的，如果是静默安装，则需要INSTALL_PACKAGES权限（注意：INSTALL_PACKAGES权限是针对于系统应用的，换言之，想要实现静默安装，那你得要是系统应用）
+     */
     const val INSTALL_PACKAGES = Manifest.permission.INSTALL_PACKAGES
     const val INSTALL_SHORTCUT = "com.android.launcher.permission.INSTALL_SHORTCUT"
 

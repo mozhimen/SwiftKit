@@ -15,7 +15,7 @@ import com.mozhimen.basick.utilk.android.content.UtilKAppInstall
  *
 
  * 权限:
-Permission.INSTALL_PACKAGES,
+/*Permission.INSTALL_PACKAGES,*/
 Permission.REQUEST_INSTALL_PACKAGES,
 Permission.READ_INSTALL_SESSIONS,
 Permission.REPLACE_EXISTING_PACKAGE
@@ -37,8 +37,7 @@ android:exported="true">
  * @Date 2022/6/13 12:04
  * @Version 1.0
  */
-@SuppressLint("InlinedApi")
-@AManifestKRequire(CPermission.INSTALL_PACKAGES, CPermission.REQUEST_INSTALL_PACKAGES, CPermission.READ_INSTALL_SESSIONS, CPermission.REPLACE_EXISTING_PACKAGE)
+@AManifestKRequire(/*CPermission.INSTALL_PACKAGES,*/ CPermission.REQUEST_INSTALL_PACKAGES, CPermission.READ_INSTALL_SESSIONS, CPermission.REPLACE_EXISTING_PACKAGE)
 open class BaseDownloadInstallBroadcastReceiver(private val _strPathNameApk: String) : BaseBroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {

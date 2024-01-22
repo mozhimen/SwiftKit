@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.android.net
 import android.net.wifi.WifiInfo
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.net.cons.CWifiManager
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
@@ -13,6 +14,7 @@ object UtilKWifi : BaseUtilK() {
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
+    @AManifestKRequire(CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION)
     fun getIpAddress(): String {
         var ipAddress = 0
         if (UtilKBuildVersion.isAfterV_29_10_Q()) {
@@ -29,6 +31,7 @@ object UtilKWifi : BaseUtilK() {
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
+    @AManifestKRequire(CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION)
     fun getName(): String {
         if (!UtilKWifiManager.isWifiEnabled(_context))
             return CWifiManager.DISABLED

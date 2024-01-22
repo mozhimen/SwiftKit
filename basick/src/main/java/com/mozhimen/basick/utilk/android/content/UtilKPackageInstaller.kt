@@ -5,8 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInstaller
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.app.cons.CPendingIntent
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -46,6 +49,8 @@ object UtilKPackageInstaller : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
+    @AManifestKRequire(CPermission.INSTALL_PACKAGES)
+    @RequiresApi(CVersCode.V_21_5_L)
     fun commitSession(packageInstaller: PackageInstaller, sessionId: Int, receiverClazz: Class<*>) {
         var session: PackageInstaller.Session? = null
         try {

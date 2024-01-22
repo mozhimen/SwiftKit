@@ -28,6 +28,7 @@ class TaskKVibrate : BaseWakeBefDestroyTaskK() {
      * @param duration Long
      */
     @RequiresPermission(CPermission.VIBRATE)
+    @AManifestKRequire(CPermission.VIBRATE)
     fun start(duration: Long = 200L) {
         if (isActive()) return
         if (_vibrator == null) {
@@ -44,6 +45,7 @@ class TaskKVibrate : BaseWakeBefDestroyTaskK() {
      * 停止
      */
     @RequiresPermission(CPermission.VIBRATE)
+    @AManifestKRequire(CPermission.VIBRATE)
     override fun cancel() {
         if (!isActive()) return
         _vibrator?.cancel()

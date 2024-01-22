@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="installk_auto_accessibility_service_description">应用自动安装服务</string>
 
     <string name="netk_file_component_disable">下载服务不可用,请您启用</string>
     <string name="netk_file_title">发现新版本啦</string>

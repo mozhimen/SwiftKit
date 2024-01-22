@@ -26,7 +26,6 @@ import java.io.*
  * @Date 2023/1/4 23:29
  * @Version 1.0
  */
-@SuppressLint("InlinedApi")
 @AManifestKRequire(
     CPermission.INSTALL_PACKAGES,
     CPermission.REQUEST_INSTALL_PACKAGES,
@@ -40,6 +39,7 @@ object UtilKAppInstall : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
+    @AManifestKRequire(CPermission.REQUEST_INSTALL_PACKAGES)
     fun hasPackageInstalls(): Boolean =
         UtilKPermission.hasPackageInstalls().also { "hasPackageInstalls: $it".dt(TAG) }
 
@@ -66,6 +66,7 @@ object UtilKAppInstall : BaseUtilK() {
     @Throws(Exception::class)
     @OptInDeviceRoot
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
+    @AManifestKRequire(CPermission.INSTALL_PACKAGES)
     fun installRoot(strPathNameApk: String): Boolean =
         UtilKRuntime.execSuInstall(strPathNameApk)
 
@@ -73,7 +74,8 @@ object UtilKAppInstall : BaseUtilK() {
      * 手动安装 if sdk >= 24 add provider
      */
     @JvmStatic
-    @RequiresPermission(CPermission.INSTALL_PACKAGES)
+    @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
+    @AManifestKRequire(CPermission.REQUEST_INSTALL_PACKAGES)
     fun installHand(strPathNameApk: String) {
         UtilKLaunchActivity.startInstall(_context, strPathNameApk)
     }
@@ -82,7 +84,8 @@ object UtilKAppInstall : BaseUtilK() {
      * 手动安装 if sdk >= 24 add provider
      */
     @JvmStatic
-    @RequiresPermission(CPermission.INSTALL_PACKAGES)
+    @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
+    @AManifestKRequire(CPermission.REQUEST_INSTALL_PACKAGES)
     fun installHand(fileApk: File) {
         UtilKLaunchActivity.startInstall(_context, fileApk)
     }
@@ -92,6 +95,7 @@ object UtilKAppInstall : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
+    @AManifestKRequire(CPermission.INSTALL_PACKAGES)
     fun installSilence(strPathNameApk: String, receiver: Class<*>) {
         if (UtilKBuildVersion.isAfterV_28_9_P()) installSilenceAfter28(strPathNameApk, receiver)
         else UtilKRuntime.execInstallBefore28(strPathNameApk)
@@ -103,6 +107,7 @@ object UtilKAppInstall : BaseUtilK() {
     @JvmStatic
     @RequiresApi(CVersCode.V_28_9_P)
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
+    @AManifestKRequire(CPermission.INSTALL_PACKAGES)
     fun installSilenceAfter28(strPathNameApk: String, receiver: Class<*>) {
         "installSilenceAfter28 pathApk $strPathNameApk".dt(TAG)
         val fileApk = File(strPathNameApk)

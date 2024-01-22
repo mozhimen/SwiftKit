@@ -87,6 +87,7 @@ object UtilKStrUrl : BaseUtilK() {
     /////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
+    @RequiresPermission(CPermission.INTERNET)
     @AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE, CPermission.INTERNET)
     fun strUrl2file(strUrl: String, strFileNameDest: String, isAppend: Boolean = false): File? =
         strUrl2file(strUrl, strFileNameDest.strFilePath2file(), isAppend)

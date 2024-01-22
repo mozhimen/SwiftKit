@@ -3,6 +3,7 @@ package com.mozhimen.basick.elemk.android.content.bases
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.commons.IBroadcastReceiver
 import com.mozhimen.basick.elemk.android.net.cons.CConnectivityManager
 import com.mozhimen.basick.elemk.commons.IConnectionListener

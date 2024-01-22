@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk.android.content
 
-import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.content.ComponentName
 import android.content.Context
@@ -11,6 +10,7 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageInstaller
 import android.content.pm.PackageManager
 import android.content.pm.PackageManager.NameNotFoundException
+import android.content.pm.PackageManager.PackageInfoFlags
 import android.content.pm.PermissionGroupInfo
 import android.content.pm.PermissionInfo
 import android.content.pm.ResolveInfo
@@ -26,6 +26,7 @@ import com.mozhimen.basick.elemk.cons.CStrPackage
 import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 
 
 /**
@@ -35,8 +36,6 @@ import com.mozhimen.basick.manifestk.cons.CPermission
  * @Date 2023/3/20 10:50
  * @Version 1.0
  */
-@SuppressLint("InlinedApi")
-@AManifestKRequire(CPermission.REQUEST_INSTALL_PACKAGES)
 object UtilKPackageManager {
 
     @JvmStatic
@@ -52,6 +51,7 @@ object UtilKPackageManager {
         get(context).getPackageArchiveInfo(archiveFilePath, flags)
 
     @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
     fun getPackageInstaller(context: Context): PackageInstaller =
         get(context).packageInstaller
 
@@ -87,15 +87,30 @@ object UtilKPackageManager {
     /**
      * 查询所有的符合Intent的Activities
      */
-    @SuppressLint("QueryPermissionsNeeded")
     @JvmStatic
     fun queryIntentActivities(context: Context, intent: Intent, flags: Int): List<ResolveInfo> =
         get(context).queryIntentActivities(intent, flags)
 
-    @SuppressLint("QueryPermissionsNeeded")
     @JvmStatic
     fun getInstalledPackages(context: Context, flags: Int): List<PackageInfo> =
         get(context).getInstalledPackages(flags)
+
+
+    @RequiresApi(CVersCode.V_33_13_TIRAMISU)
+    fun getInstalledPackages(context: Context, flags: PackageInfoFlags): List<PackageInfo> =
+        get(context).getInstalledPackages(flags)
+
+    @JvmStatic
+    fun getInstalledPackages(context: Context): List<PackageInfo> {
+        val flags = CPackageManager.GET_ACTIVITIES or CPackageManager.GET_SERVICES
+        val packageInfos: List<PackageInfo> = if (UtilKBuildVersion.isAfterV_33_13_TIRAMISU()) {
+            getInstalledPackages(context, PackageInfoFlags.of(flags.toLong()))
+        } else {
+            getInstalledPackages(context, flags)
+        }
+        return packageInfos
+    }
+
 
     @JvmStatic
     fun getInstalledPackagesActivities(context: Context): List<PackageInfo> =
@@ -123,10 +138,8 @@ object UtilKPackageManager {
      * 获取所有安装程序包名
      */
     @JvmStatic
-    @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
-    @AManifestKRequire(CPermission.REQUEST_INSTALL_PACKAGES)
     fun getInstalledPackages(context: Context, hasSystemPackages: Boolean = false): List<PackageInfo> {
-        var installedPackages = getInstalledPackages(context, 0).toMutableList()
+        var installedPackages = getInstalledPackages(context).toMutableList()
         if (installedPackages.isEmpty()) {
             installedPackages = getInstalledPackagesForce(context).toMutableList()
         }
@@ -145,7 +158,8 @@ object UtilKPackageManager {
      * 强制获取软件包列表
      * @return 获取查询到的应用列表
      */
-    private fun getInstalledPackagesForce(context: Context): List<PackageInfo> {
+    @JvmStatic
+    fun getInstalledPackagesForce(context: Context): List<PackageInfo> {
         val installedPackages = mutableListOf<PackageInfo>()
         val packageManager = get(context)
         for (uid in CProcess.SYSTEM_UID..CProcess.LAST_APPLICATION_UID) {
@@ -241,6 +255,7 @@ object UtilKPackageManager {
     @RequiresApi(CVersCode.V_26_8_O)
     @TargetApi(CVersCode.V_26_8_O)
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
+    @AManifestKRequire(CPermission.REQUEST_INSTALL_PACKAGES)
     @ADescription(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
     fun canRequestPackageInstalls(context: Context): Boolean =
         get(context).canRequestPackageInstalls()

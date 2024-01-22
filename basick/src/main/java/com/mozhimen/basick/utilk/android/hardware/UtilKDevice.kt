@@ -28,6 +28,7 @@ object UtilKDevice : BaseUtilK() {
 
     @JvmStatic
     @RequiresPermission(CPermission.READ_PHONE_STATE)
+    @AManifestKRequire(CPermission.READ_PHONE_STATE)
     fun getImei(): String =
         if (UtilKBuildVersion.isAfterV_23_6_M()) {
             UtilKImei.getImei(_context)

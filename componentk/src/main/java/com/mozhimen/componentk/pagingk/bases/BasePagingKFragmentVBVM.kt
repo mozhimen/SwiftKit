@@ -5,6 +5,8 @@ import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.mozhimen.basick.elemk.androidx.fragment.bases.BaseFragmentVB
 import com.mozhimen.basick.utilk.android.view.applyGone
 import com.mozhimen.basick.utilk.android.view.applyInVisible
@@ -41,7 +43,10 @@ abstract class BasePagingKFragmentVBVM<DES : Any, VB : ViewDataBinding, VM : Bas
         getRecyclerView().apply {
             layoutManager = getRecyclerViewLayoutManager()
             getRecyclerViewItemDecoration()?.let { addItemDecoration(it) }
-            adapter = getPagedListAdapter()
+            adapter = if (getLoadStateAdapter() != null)
+                getPagedListAdapter()/*.withLoadStateFooter(getLoadStateAdapter()!!)*/
+            else
+                getPagedListAdapter()
         }
         getViewModel().liveLoadState.observe(this) {
             if (it == CPagingKLoadingState.STATE_FIRST_LOAD_START) {

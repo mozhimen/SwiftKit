@@ -15,6 +15,7 @@ import com.mozhimen.basick.elemk.android.provider.cons.CMediaStore
 import com.mozhimen.basick.elemk.android.provider.cons.CSettings
 import com.mozhimen.basick.elemk.commons.IExtension_Listener
 import com.mozhimen.basick.elemk.cons.CStrPackage
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.net.UtilKUri
@@ -131,9 +132,9 @@ object UtilKIntentWrapper {
     /**
      * 获取安装app的intent
      */
-    @SuppressLint("InlinedApi")
     @JvmStatic
-    @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
+    @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
+    @AManifestKRequire(CPermission.REQUEST_INSTALL_PACKAGES)
     fun getInstall(apkUri: Uri): Intent {
         val intent = Intent(CIntent.ACTION_VIEW)
         if (UtilKBuildVersion.isAfterV_24_7_N()) //判断安卓系统是否大于7.0  大于7.0使用以下方法
@@ -145,18 +146,18 @@ object UtilKIntentWrapper {
     /**
      * 获取安装app的intent
      */
-    @SuppressLint("InlinedApi")
     @JvmStatic
-    @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
+    @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
+    @AManifestKRequire(CPermission.REQUEST_INSTALL_PACKAGES)
     fun getInstall(strFilePathName: String): Intent? =
         UtilKStrFile.strFilePath2uri(strFilePathName)?.let { getInstall(it) }
 
     /**
      * 获取安装app的intent
      */
-    @SuppressLint("InlinedApi")
     @JvmStatic
-    @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
+    @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
+    @AManifestKRequire(CPermission.REQUEST_INSTALL_PACKAGES)
     fun getInstall(fileApk: File): Intent? =
         fileApk.file2uri()?.let { getInstall(it) }
 
@@ -229,6 +230,7 @@ object UtilKIntentWrapper {
     @RequiresApi(CVersCode.V_30_11_R)
     @JvmStatic
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
+    @AManifestKRequire(CPermission.MANAGE_EXTERNAL_STORAGE)
     fun getManageAppAllFilesAccessPermission(context: Context): Intent =
         Intent(CSettings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, UtilKUri.getPackageUri(context))
 

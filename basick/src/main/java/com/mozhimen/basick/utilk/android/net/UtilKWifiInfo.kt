@@ -2,7 +2,10 @@ package com.mozhimen.basick.utilk.android.net
 
 import android.content.Context
 import android.net.wifi.WifiInfo
+import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 
@@ -16,16 +19,20 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 object UtilKWifiInfo {
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
+    @AManifestKRequire(CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION)
     fun get(context: Context): WifiInfo? =
         UtilKWifiManager.getConnectionInfo(context)
 
     @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
+    @AManifestKRequire(CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION)
     fun getFrequency(context: Context): Int? =
         get(context)?.frequency
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
+    @AManifestKRequire(CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION)
     fun getSsid(context: Context): String? =
         get(context)?.ssid
 
@@ -35,21 +42,25 @@ object UtilKWifiInfo {
      */
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
+    @AManifestKRequire(CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION)
     fun getRealSsid(context: Context): String? =
         getSsid(context)?.substring(1)
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
+    @AManifestKRequire(CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION)
     fun getRssi(context: Context): Int? =
         get(context)?.rssi
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
+    @AManifestKRequire(CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION)
     fun getRssiAbs(context: Context): Int? =
         getRssi(context)?.let { kotlin.math.abs(it) }
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
+    @AManifestKRequire(CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION)
     fun getIpAddress(context: Context): Int? =
         get(context)?.ipAddress
 
@@ -60,6 +71,7 @@ object UtilKWifiInfo {
      */
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
+    @AManifestKRequire(CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION)
     fun isConnect5G(context: Context): Boolean {
         var frequency = 0// 频段
         if (UtilKBuildVersion.isAfterV_21_5_L()) {

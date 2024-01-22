@@ -52,9 +52,6 @@
 
     <uses-permission android:name="android.permission.READ_INSTALL_SESSIONS" />
     <uses-permission android:name="android.permission.REPLACE_EXISTING_PACKAGE" />
-    <uses-permission
-        android:name="android.permission.INSTALL_PACKAGES"
-        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />

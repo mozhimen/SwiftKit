@@ -16,6 +16,7 @@ import com.mozhimen.basick.elemk.android.media.cons.CMediaFormat
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.provider.cons.CMediaStore
 import com.mozhimen.basick.elemk.android.util.cons.CBase64
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
@@ -51,6 +52,7 @@ fun Bitmap.bitmapAny2strBase64(compressFormat: CompressFormat = CompressFormat.J
 
 @RequiresApi(CVersCode.V_29_10_Q)
 @RequiresPermission(CPermission.WRITE_EXTERNAL_STORAGE)
+@AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE)
 fun Bitmap.bitmapAny2fileImage(strFilePathName: String, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
     UtilKBitmapFormat.bitmapAny2fileImage(this, strFilePathName, compressFormat, quality)
 
@@ -116,6 +118,7 @@ object UtilKBitmapFormat : BaseUtilK() {
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
     @RequiresPermission(CPermission.WRITE_EXTERNAL_STORAGE)
+    @AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE)
     fun bitmapAny2fileImage(sourceBitmap: Bitmap, strFilePathName: String, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? {
         var outputStream: OutputStream? = null
         val fileDest = strFilePathName.createFile()

@@ -6,6 +6,7 @@ import android.location.Location
 import android.location.LocationListener
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.location.commons.ILocationListener
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.provider.UtilKSettings
@@ -32,6 +33,7 @@ object UtilKLocation : BaseUtilK() {
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_FINE_LOCATION, CPermission.ACCESS_COARSE_LOCATION])
+    @AManifestKRequire(CPermission.ACCESS_FINE_LOCATION, CPermission.ACCESS_COARSE_LOCATION)
     fun getForGps(): Location? =
         (if (UtilKLocationManager.isProviderEnabledGps(_context))
             UtilKLocationManager.getLastKnownLocationGps(_context)
@@ -44,6 +46,7 @@ object UtilKLocation : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_FINE_LOCATION, CPermission.ACCESS_COARSE_LOCATION])
+    @AManifestKRequire(CPermission.ACCESS_FINE_LOCATION, CPermission.ACCESS_COARSE_LOCATION)
     fun getForNetwork(minTimeMs: Long, minDistanceM: Float, listener: LocationListener = object : ILocationListener {}): Location? {
         if (!UtilKLocationManager.isProviderEnabledNetwork(_context)) return null
         UtilKLocationManager.requestLocationUpdatesNetwork(_context, minTimeMs, minDistanceM, listener)
@@ -52,6 +55,7 @@ object UtilKLocation : BaseUtilK() {
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_FINE_LOCATION, CPermission.ACCESS_COARSE_LOCATION])
+    @AManifestKRequire(CPermission.ACCESS_FINE_LOCATION, CPermission.ACCESS_COARSE_LOCATION)
     fun getLastLocation(): Location? {
         var lastLocation: Location? = null
         val providers = UtilKLocationManager.getProviders(_context, true)

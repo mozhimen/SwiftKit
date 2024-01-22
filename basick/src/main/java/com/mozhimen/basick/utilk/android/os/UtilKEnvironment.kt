@@ -7,6 +7,7 @@ import com.mozhimen.basick.elemk.android.os.cons.CEnvironment
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.provider.cons.CSettings
 import com.mozhimen.basick.lintk.annors.ADescription
+import com.mozhimen.basick.lintk.annors.ADigitPlace
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import java.io.File
@@ -111,6 +112,7 @@ object UtilKEnvironment {
 
     @RequiresApi(CVersCode.V_30_11_R)
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
+    @AManifestKRequire(CPermission.MANAGE_EXTERNAL_STORAGE)
     @ADescription(CSettings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
     @JvmStatic
     fun isExternalStorageManager(): Boolean =

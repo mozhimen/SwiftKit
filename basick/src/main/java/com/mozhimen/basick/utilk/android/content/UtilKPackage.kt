@@ -1,6 +1,9 @@
 package com.mozhimen.basick.utilk.android.content
 
 import android.content.Context
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.UtilKStrClazz
 import java.util.Arrays
@@ -32,6 +35,7 @@ object UtilKPackage : BaseUtilK() {
         Arrays.toString(UtilKPackageInfo.getRequestedPermissions(_context))
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     @JvmStatic
     fun isPackageInstalled(context: Context, strPackageName: String): Boolean =
