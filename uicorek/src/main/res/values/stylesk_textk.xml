@@ -18,37 +18,23 @@
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
-    <style name="StyleK_Txt.Font_Sans_Serif" />
-
-    <style name="StyleK_Txt.Font_Rubik_Regu">
-        <item name="android:fontFamily">@font/rubik_regular</item>
-    </style>
-
-    <style name="StyleK_Txt.Font_Ali_Puhuit">
-        <item name="android:fontFamily">@font/alibaba_puhuiti_regular</item>
+    <style name="StyleK_Txt.Font_Sans_Serif">
+        <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center" />
-
-    <style name="StyleK_Txt.Font_Rubik_Regu.Gravity_Center" />
-
-    <style name="StyleK_Txt.Font_Ali_Puhuit.Gravity_Center" />
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center">
+        <item name="android:gravity">center</item>
+    </style>
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm" />
-
-    <style name="StyleK_Txt.Font_Ali_Puhuit.Gravity_Center.Style_Norm" />
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm">
+        <item name="android:textStyle">normal</item>
+    </style>
 
     <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Bold">
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="StyleK_Txt.Font_Rubik_Regu.Gravity_Center.Style_Norm" />
-
-    <style name="StyleK_Txt.Font_Rubik_Regu.Gravity_Center.Style_Bold">
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -58,23 +44,17 @@
         <item name="android:textColor">@color/cok_gray_ffffff</item>
     </style>
 
-    <style name="StyleK_Txt.Font_Rubik_Regu.Gravity_Center.Style_Norm.Color_Gray_000">
-        <item name="android:textColor">@color/cok_gray_ffffff</item>
-    </style>
-
-    <style name="StyleK_Txt.Font_Rubik_Regu.Gravity_Center.Style_Norm.Color_Gray_999" />
-
-    <style name="StyleK_Txt.Font_Ali_Puhuit.Gravity_Center.Style_Norm.Color_Gray_999" />
-
     <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_000">
         <item name="android:textColor">@color/cok_gray_ffffff</item>
     </style>
 
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999" />
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999">
+        <item name="android:textColor">@color/cok_gray_000000</item>
+    </style>
 
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999" />
-
-    <style name="StyleK_Txt.Font_Rubik_Regu.Gravity_Center.Style_Bold.Color_Gray_999" />
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999">
+        <item name="android:textColor">@color/cok_gray_000000</item>
+    </style>
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
@@ -90,23 +70,22 @@
         <item name="android:textSize">@dimen/sp_13</item>
     </style>
 
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_013" />
-
-    <style name="StyleK_Txt.Font_Rubik_Regu.Gravity_Center.Style_Norm.Color_Gray_000.Size_013">
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_013">
         <item name="android:textSize">@dimen/sp_13</item>
     </style>
 
-    <style name="StyleK_Txt.Font_Rubik_Regu.Gravity_Center.Style_Bold.Color_Gray_999.Size_014" />
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_014">
+        <item name="android:textSize">@dimen/sp_14</item>
 
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_014" />
+    </style>
 
-    <style name="StyleK_Txt.Font_Ali_Puhuit.Gravity_Center.Style_Norm.Color_Gray_999.Size_014" />
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_000.Size_014">
+        <item name="android:textSize">@dimen/sp_14</item>
+    </style>
 
-    <style name="StyleK_Txt.Font_Rubik_Regu.Gravity_Center.Style_Norm.Color_Gray_000.Size_014" />
-
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_000.Size_014" />
-
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_014" />
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_014">
+        <item name="android:textSize">@dimen/sp_14</item>
+    </style>
 
     <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_016">
         <item name="android:textSize">@dimen/sp_16</item>
@@ -130,85 +109,70 @@
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
-    <style name="StyleK_Txt.Font_Rubik_Regu.Gravity_Center.Style_Norm.Color_Gray_000.Size_013.Width_Wrap" />
 
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_012.Width_Wrap" />
-
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_013.Width_Wrap" />
-
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_000.Size_013.Width_Wrap" />
-
-    <style name="StyleK_Txt.Font_Rubik_Regu.Gravity_Center.Style_Norm.Color_Gray_000.Size_014.Width_Wrap" />
-
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_014.Width_Wrap" />
-
-    <style name="StyleK_Txt.Font_Ali_Puhuit.Gravity_Center.Style_Norm.Color_Gray_999.Size_014.Width_Wrap" />
-
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_000.Size_014.Width_Wrap" />
-
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_014.Width_Wrap" />
-
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_000.Size_020.Width_Wrap" />
-
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_013.Width_Wrap" />
-
-    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
-
-    <style name="StyleK_Txt.Font_Rubik_Regu.Gravity_Center.Style_Norm.Color_Gray_000.Size_013.Width_Wrap.Height_Wrap" />
-
-    <style name="StyleK_Txt.Font_Rubik_Regu.Gravity_Center.Style_Norm.Color_Gray_000.Size_014.Width_Wrap.Height_Wrap" />
-
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_014.Width_Wrap.Height_Wrap" />
-
-    <style name="StyleK_Txt.Font_Ali_Puhuit.Gravity_Center.Style_Norm.Color_Gray_999.Size_014.Width_Wrap.Height_Wrap" />
-
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_014.Width_Wrap.Height_Wrap" />
-
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_012.Width_Wrap.Height_Wrap" />
-
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_013.Width_Wrap.Height_Wrap" />
-
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_000.Size_013.Width_Wrap.Height_Wrap" />
-
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_000.Size_014.Width_Wrap.Height_Wrap" />
-
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_000.Size_020.Width_Wrap.Height_Wrap" />
-
-    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_013.Width_Wrap.Height_Wrap" />
-
-    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
-
-    <!--textk_Bubble-->
-    <style name="StyleK_TextKBubble">
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_012.Width_Wrap">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">4dp</item>
-        <item name="android:fontFamily">monospace</item>
-        <item name="android:includeFontPadding">false</item>
-        <item name="android:textColor">@android:color/black</item>
-        <item name="android:padding">8dp</item>
-        <item name="textKBubble_arrowDirection">up</item>
-        <item name="textKBubble_arrowHeight">8dp</item>
-        <item name="textKBubble_arrowWidth">16dp</item>
-        <item name="textKBubble_bgColor">@android:color/white</item>
-        <item name="textKBubble_borderColor">@color/cok_blue_287ff1</item>
-        <item name="textKBubble_borderWidth">2dp</item>
-        <item name="textKBubble_cornerRadius">6dp</item>
+    </style>
+
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_013.Width_Wrap">
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_000.Size_013.Width_Wrap">
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_014.Width_Wrap">
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_000.Size_014.Width_Wrap">
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_014.Width_Wrap">
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_000.Size_020.Width_Wrap">
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_013.Width_Wrap">
+        <item name="android:layout_width">wrap_content</item>
     </style>
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
-    <style name="StyleK_TextKProgress_Rounded" parent="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_013.Width_Wrap.Height_Wrap">
-        <item name="android:textColor">@color/cok_blue_0177fd</item>
-        <item name="android:background">@null</item>
-        <item name="textKProgress_backgroundColor">@color/cok_blue_0177fd</item>
-        <item name="textKProgress_backgroundColorEnd">@color/cok_white</item>
-        <item name="textKProgress_backgroundColorStart">@color/cok_blue_0177fd</item>
-        <item name="textKProgress_borderColor">@color/cok_blue_0177fd</item>
-        <item name="textKProgress_borderRadius">30dp</item>
-        <item name="textKProgress_borderWidth">0dp</item>
-        <item name="textKProgress_textColorCover">@color/cok_white</item>
-        <item name="textKProgress_textColorDefault">@color/cok_white</item>
-        <item name="textKProgress_textColorUnCover">@color/cok_blue_0177fd</item>
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_014.Width_Wrap.Height_Wrap">
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_014.Width_Wrap.Height_Wrap">
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_012.Width_Wrap.Height_Wrap">
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_013.Width_Wrap.Height_Wrap">
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_000.Size_013.Width_Wrap.Height_Wrap">
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_000.Size_014.Width_Wrap.Height_Wrap">
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_000.Size_020.Width_Wrap.Height_Wrap">
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_013.Width_Wrap.Height_Wrap">
+        <item name="android:layout_height">wrap_content</item>
     </style>
 </resources>
