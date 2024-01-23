@@ -42,7 +42,6 @@ android {
 dependencies {
     implementation project(':uicorek')
     implementation project(':basick')
-    implementation project(':componentk')
 
     //test
     testImplementation 'junit:junit:4.13.2'

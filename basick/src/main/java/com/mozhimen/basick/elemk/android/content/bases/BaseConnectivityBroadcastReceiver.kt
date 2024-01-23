@@ -15,7 +15,7 @@ import com.mozhimen.basick.utilk.android.util.wt
 
 
 /**
- * @ClassName NetKConnReceiver
+ * @ClassName BaseConnectivityBroadcastReceiver
  * @Description
 
  * 权限:

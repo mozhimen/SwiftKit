@@ -4,7 +4,7 @@ import com.mozhimen.basick.elemk.android.net.cons.ENetType
 
 
 /**
- * @ClassName INetKConnListener
+ * @ClassName IConnectionListener
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
  * @Date 2023/2/13 15:02

@@ -34,7 +34,6 @@ android {
 }
 
 dependencies {
-    implementation project(':componentk')
     implementation project(':basick')
     implementation project(':uicorek')
 

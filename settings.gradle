@@ -24,5 +24,4 @@ include ':basick'
 include ':basicktest'
 include ':uicorek'
 include ':uicorektest'
-include ':componentk'
-include ':componentktest'
+ 
