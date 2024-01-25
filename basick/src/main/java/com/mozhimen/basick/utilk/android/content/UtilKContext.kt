@@ -20,6 +20,7 @@ import android.media.AudioManager
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.net.wifi.WifiManager
+import android.os.Build
 import android.os.Vibrator
 import android.os.VibratorManager
 import android.telephony.TelephonyManager
@@ -32,6 +33,7 @@ import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import com.mozhimen.basick.elemk.android.content.cons.CContext
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 
 
 /**
@@ -154,6 +156,7 @@ object UtilKContext {
         context.getColorStateList(resId)
 
     @SuppressLint("UseCompatLoadingForDrawables")
+    @RequiresApi(CVersCode.V_21_5_L)
     @JvmStatic
     fun getDrawable(context: Context, @DrawableRes drawableId: Int): Drawable? =
         context.getDrawable(drawableId)

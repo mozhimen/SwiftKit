@@ -11,6 +11,7 @@ import android.util.AttributeSet
 import android.util.DisplayMetrics
 import androidx.annotation.AnyRes
 import androidx.annotation.ArrayRes
+import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.IntegerRes
@@ -69,9 +70,13 @@ object UtilKResource {
     ////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
+    fun getColor(context: Context, @ColorRes resId: Int): Int =
+        getAppResources(context).getColor(resId)
+
+    @JvmStatic
     @SuppressLint("UseCompatLoadingForDrawables")
-    fun getDrawable(context: Context, @DrawableRes id: Int): Drawable =
-        getAppResources(context).getDrawable(id)// ResourcesCompat.getDrawable()
+    fun getDrawable(context: Context, @DrawableRes resId: Int): Drawable =
+        getAppResources(context).getDrawable(resId)// ResourcesCompat.getDrawable()
 
     @JvmStatic
     fun getAssets(context: Context): AssetManager =

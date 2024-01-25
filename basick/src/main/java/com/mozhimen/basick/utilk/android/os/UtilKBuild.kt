@@ -71,16 +71,19 @@ object UtilKBuild {
 
     //设备支持架构
     @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
     fun getSupportABIs(): String =
         Build.SUPPORTED_ABIS.joinArray2str()
 
     //设备支持32位架构
     @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
     fun getSupport32BitABIs(): String =
         Build.SUPPORTED_32_BIT_ABIS.joinArray2str()
 
     //设备支持64位架构
     @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
     fun getSupport64BitABIs(): String =
         Build.SUPPORTED_64_BIT_ABIS.joinArray2str()
 
