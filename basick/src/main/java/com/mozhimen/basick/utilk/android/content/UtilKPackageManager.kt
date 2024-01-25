@@ -132,6 +132,10 @@ object UtilKPackageManager {
     fun getActivityInfo(context: Context, packageClazzName: String, activityClazzName: String): ActivityInfo =
         getActivityInfo(context, ComponentName(packageClazzName, activityClazzName), CPackageManager.GET_ACTIVITIES)
 
+    @JvmStatic
+    fun getLaunchIntentForPackage(context: Context, strPackageName: String): Intent? =
+        get(context).getLaunchIntentForPackage(strPackageName)
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**

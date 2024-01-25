@@ -1,10 +1,8 @@
 package com.mozhimen.basick.utilk.android.content
 
 import android.app.Activity
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.widget.Toast
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.elemk.commons.IExtension_Listener
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -110,8 +108,13 @@ object UtilKContextStart : BaseUtilK() {
 
     @JvmStatic
     fun startContextByPackageName(context: Context, strPackageName: String): Boolean {
-        val intent = UtilKIntentWrapper.getByPackageName(context, strPackageName) ?: return false
+        val intent = UtilKIntentWrapper.getLauncherForPackageOfComponent(context, strPackageName) ?: return false
         context.startContext(intent)
         return true
+    }
+
+    @JvmStatic
+    fun startContextByPackageName(context: Context, strPackageName: String, strActivityName: String) {
+        context.startContext(UtilKIntentWrapper.getLauncherForPackageOfComponent(strPackageName, strActivityName))
     }
 }

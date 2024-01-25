@@ -1,11 +1,9 @@
 package com.mozhimen.basick.utilk.android.content
 
-import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
@@ -13,14 +11,12 @@ import com.mozhimen.basick.elemk.android.media.cons.CMediaFormat
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.provider.cons.CMediaStore
 import com.mozhimen.basick.elemk.android.provider.cons.CSettings
-import com.mozhimen.basick.elemk.commons.IExtension_Listener
 import com.mozhimen.basick.elemk.cons.CStrPackage
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.net.UtilKUri
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.java.io.UtilKFileFormat
 import com.mozhimen.basick.utilk.java.io.file2uri
 import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import com.mozhimen.basick.utilk.kotlin.UtilKString
@@ -74,15 +70,15 @@ object UtilKIntentWrapper {
 
     @JvmStatic
     fun getContentAudio(): Intent =
-        getContent().apply { setType(CMediaFormat.MIMETYPE_AUDIO_ALL) }
+        getContent().apply { type = CMediaFormat.MIMETYPE_AUDIO_ALL }
 
     @JvmStatic
     fun getContentVideo(): Intent =
-        getContent().apply { setType(CMediaFormat.MIMETYPE_VIDEO_ALL) }
+        getContent().apply { type = CMediaFormat.MIMETYPE_VIDEO_ALL }
 
     @JvmStatic
     fun getContentAudioVideo(): Intent =
-        getContent().apply { setType("${CMediaFormat.MIMETYPE_AUDIO_ALL};${CMediaFormat.MIMETYPE_VIDEO_ALL}") }
+        getContent().apply { type = "${CMediaFormat.MIMETYPE_AUDIO_ALL};${CMediaFormat.MIMETYPE_VIDEO_ALL}" }
 
     ///////////////////////////////////////////////////////////////////////////////////////
 
@@ -90,10 +86,10 @@ object UtilKIntentWrapper {
      * 获取mainLauncher
      */
     @JvmStatic
-    fun getMainLauncher(strPackageName: String, launcherActivityName: String): Intent =
+    fun getMainLauncher(strPackageName: String, strActivityName: String): Intent =
         Intent(CIntent.ACTION_MAIN).apply {
             addCategory(CIntent.CATEGORY_LAUNCHER)
-            setClassName(strPackageName, launcherActivityName)
+            setClassName(strPackageName, strActivityName)
         }
 
     /**
@@ -121,11 +117,36 @@ object UtilKIntentWrapper {
      * 获取启动App的Intent
      */
     @JvmStatic
-    fun getLauncherActivity(context: Context, strPackageName: String): Intent? {
-        val launcherActivityName: String = UtilKActivity.getLauncherActivityName(context, strPackageName)
-        if (UtilKString.hasSpace(launcherActivityName) || launcherActivityName.isEmpty()) return getLauncherForPackage(context)
-        return getMainLauncher(strPackageName, launcherActivityName)
+    @AManifestKRequire(CPermission.QUERY_ALL_PACKAGES)
+    @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
+    fun getLauncherForPackageOfQuery(context: Context, strPackageName: String): Intent? {
+        val strLauncherActivityName: String = UtilKActivity.getLauncherActivityName(context, strPackageName)
+        if (UtilKString.hasSpace(strLauncherActivityName) || strLauncherActivityName.isEmpty()) return getLauncherForPackage(context, strPackageName)
+        return getMainLauncher(strPackageName, strLauncherActivityName)
     }
+
+    @JvmStatic
+    fun getLauncherForPackage(context: Context, strPackageName: String): Intent? =
+        UtilKPackageManager.getLaunchIntentForPackage(context, strPackageName)
+
+    @JvmStatic
+    @AManifestKRequire(CPermission.QUERY_ALL_PACKAGES)
+    @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
+    fun getLauncherForPackageOfComponent(context: Context, strPackageName: String): Intent? {
+        val intent = getMainLauncher(strPackageName)
+        val resolveInfos = UtilKPackageManager.queryIntentActivities(context, intent, 0) //查询要启动的Activity
+        return if (resolveInfos.isNotEmpty()) { //如果包名存在
+            val resolveInfo = resolveInfos[0]
+            intent.component = ComponentName(resolveInfo.activityInfo.packageName, resolveInfo.activityInfo.name)//组装包名和类名//设置给Intent
+            intent//根据包名类型打开Activity
+        } else null
+    }
+
+    @JvmStatic
+    fun getLauncherForPackageOfComponent(strPackageName: String, strActivityName: String): Intent =
+        Intent().apply {
+            component = ComponentName(strPackageName, "$strPackageName.$strActivityName")
+        }
 
     ///////////////////////////////////////////////////////////////////////////////////////
 
@@ -257,31 +278,5 @@ object UtilKIntentWrapper {
     @JvmStatic
     fun getImageCapture(): Intent =
         Intent(CMediaStore.ACTION_IMAGE_CAPTURE)
-
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //other
-    ///////////////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun getLauncherForPackage(context: Context): Intent? =
-        UtilKPackageManager.get(context).getLaunchIntentForPackage(UtilKPackage.getPackageName())
-
-    @JvmStatic
-    fun getByPackageName(context: Context, strPackageName: String): Intent? {
-        val intent = Intent(Intent.ACTION_MAIN).apply {
-            addCategory(Intent.CATEGORY_LAUNCHER)
-            setPackage(strPackageName) //包名
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        }// 指定入口,启动类型,包名//入口Main// 启动LAUNCHER,跟MainActivity里面的配置类似
-        val resolveInfos = UtilKPackageManager.queryIntentActivities(context, intent, 0) //查询要启动的Activity
-        return if (resolveInfos.isNotEmpty()) { //如果包名存在
-            val resolveInfo = resolveInfos[0]
-            val componentName = ComponentName(resolveInfo.activityInfo.packageName, resolveInfo.activityInfo.name)//组装包名和类名
-            intent.component = componentName//设置给Intent
-            intent//根据包名类型打开Activity
-        } else {
-            null
-        }
-    }
 
 }

@@ -48,7 +48,7 @@ object UtilKApp : BaseUtilK() {
      */
     @JvmStatic
     fun restartApp(isKillProcess: Boolean, isValid: Boolean = true, context: Context = _context) {
-        val intent: Intent = UtilKIntentWrapper.getLauncherActivity(context, UtilKContext.getPackageName(context)) ?: run {
+        val intent: Intent = UtilKIntentWrapper.getLauncherForPackageOfQuery(context, UtilKContext.getPackageName(context)) ?: run {
             Log.e(TAG, "didn't exist launcher activity.");return
         }
         intent.addFlags(CIntent.FLAG_ACTIVITY_CLEAR_TOP or CIntent.FLAG_ACTIVITY_CLEAR_TASK)

@@ -8,11 +8,14 @@ import android.view.Display
 import android.view.View
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
+import androidx.annotation.RequiresPermission
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.view.cons.CWindow
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.lintk.optin.OptInApiUse_BaseApplication
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.utilk.android.content.UtilKIntentWrapper
 import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
@@ -105,6 +108,8 @@ object UtilKActivity {
      * @return String?
      */
     @JvmStatic
+    @AManifestKRequire(CPermission.QUERY_ALL_PACKAGES)
+    @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
     fun getLauncherActivityName(context: Context, strPackageName: String): String {
         if (UtilKString.hasSpace(strPackageName) || strPackageName.isEmpty()) return ""
         val resolveInfos = UtilKPackageManager.queryIntentActivities(context, UtilKIntentWrapper.getMainLauncher(strPackageName, null), 0)
