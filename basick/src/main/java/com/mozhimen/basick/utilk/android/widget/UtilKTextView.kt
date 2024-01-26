@@ -4,11 +4,14 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import android.view.Gravity
 import android.widget.TextView
 import androidx.annotation.IntRange
 import androidx.core.content.ContextCompat
+import com.mozhimen.basick.elemk.android.view.annors.AGravity
+import com.mozhimen.basick.elemk.android.view.cons.CGravity
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.text.UtilKInputFilter
@@ -64,6 +67,12 @@ fun TextView.applyLengthFilter(max: Int) {
     UtilKTextView.applyLengthFilter(this, max)
 }
 
+fun TextView.applyCompoundDrawable(drawable: Drawable, @AGravity gravity: Int, boundsSize: Int = 0) {
+    UtilKTextView.applyCompoundDrawable(this, drawable, gravity, boundsSize)
+}
+
+//////////////////////////////////////////////////////////////////////////////////////
+
 object UtilKTextView {
     @JvmStatic
     fun get(
@@ -96,6 +105,26 @@ object UtilKTextView {
     }
 
     ////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun applyCompoundDrawable(textView: TextView, drawable: Drawable, @AGravity gravity: Int, boundsSize: Int = 0) {
+        if (boundsSize <= 0) {
+            when (gravity) {
+                CGravity.START, CGravity.LEFT -> textView.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
+                CGravity.TOP -> textView.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
+                CGravity.END, CGravity.RIGHT -> textView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null)
+                else -> textView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, drawable)
+            }
+        } else {
+            drawable.setBounds(0, 0, boundsSize, boundsSize)
+            when (gravity) {
+                CGravity.START, CGravity.LEFT -> textView.setCompoundDrawables(drawable, null, null, null)
+                CGravity.TOP -> textView.setCompoundDrawables(null, drawable, null, null)
+                CGravity.END, CGravity.RIGHT -> textView.setCompoundDrawables(null, null, drawable, null)
+                else -> textView.setCompoundDrawables(null, null, null, drawable)
+            }
+        }
+    }
 
     @JvmStatic
     fun applySingleLine(textView: TextView) {

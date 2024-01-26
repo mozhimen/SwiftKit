@@ -96,6 +96,7 @@ api project(path: ':SwiftKit:basick')
 include ':SwiftKit'
 project(':SwiftKit').projectDir = new File("C:\\Users\\${System.getenv().get("USERNAME")}\\Documents\\GitHub\\SwiftKit")
 include ':SwiftKit:basick'
+include ':SwiftKit:uicorek'
 ```
 
 ## 5.2三方库JitPack依赖

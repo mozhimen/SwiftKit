@@ -129,6 +129,12 @@ object UtilKScreen : BaseUtilK() {
     fun getOrientation(): Int =
         UtilKConfiguration.getOrientation()
 
+//    /**
+//     * 获取屏幕方向(更加推荐用这种方式)
+//     */
+//    @JvmStatic
+//    fun getOrientation():Int =
+
 
     /**
      * 获取方向
