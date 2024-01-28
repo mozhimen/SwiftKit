@@ -110,18 +110,26 @@ object UtilKTextView {
     fun applyCompoundDrawable(textView: TextView, drawable: Drawable, @AGravity gravity: Int, boundsSize: Int = 0) {
         if (boundsSize <= 0) {
             when (gravity) {
-                CGravity.START, CGravity.LEFT -> textView.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
-                CGravity.TOP -> textView.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
-                CGravity.END, CGravity.RIGHT -> textView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null)
-                else -> textView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, drawable)
+                CGravity.START, CGravity.LEFT ->
+                    textView.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
+                CGravity.TOP ->
+                    textView.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
+                CGravity.END, CGravity.RIGHT ->
+                    textView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null)
+                else ->
+                    textView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, drawable)
             }
         } else {
             drawable.setBounds(0, 0, boundsSize, boundsSize)
             when (gravity) {
-                CGravity.START, CGravity.LEFT -> textView.setCompoundDrawables(drawable, null, null, null)
-                CGravity.TOP -> textView.setCompoundDrawables(null, drawable, null, null)
-                CGravity.END, CGravity.RIGHT -> textView.setCompoundDrawables(null, null, drawable, null)
-                else -> textView.setCompoundDrawables(null, null, null, drawable)
+                CGravity.START, CGravity.LEFT ->
+                    textView.setCompoundDrawables(drawable, null, null, null)
+                CGravity.TOP ->
+                    textView.setCompoundDrawables(null, drawable, null, null)
+                CGravity.END, CGravity.RIGHT ->
+                    textView.setCompoundDrawables(null, null, drawable, null)
+                else ->
+                    textView.setCompoundDrawables(null, null, null, drawable)
             }
         }
     }

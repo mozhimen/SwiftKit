@@ -160,6 +160,20 @@ object UtilKScreen : BaseUtilK() {
         UtilKConfiguration.isOrientationLandscape()
 
     /**
+     * 是否为竖屏(更为准确)
+     */
+    @JvmStatic
+    fun isOrientationPortrait(context: Context): Boolean =
+        UtilKDisplay.isOrientationPortrait(context)
+
+    /**
+     *
+     */
+    @JvmStatic
+    fun isOrientationLandscape(context: Context): Boolean =
+        UtilKDisplay.isOrientationLandscape(context)
+
+    /**
      * 是否全屏
      */
     @JvmStatic

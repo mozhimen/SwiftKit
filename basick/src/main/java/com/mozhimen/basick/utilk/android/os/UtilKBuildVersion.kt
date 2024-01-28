@@ -335,15 +335,15 @@ object UtilKBuildVersion {
         isBeforeVersion(CVersCode.V_30_11_R)
 
     @JvmStatic
-    fun isBeforeV_31_11_S(): Boolean =
+    fun isBeforeV_31_12_S(): Boolean =
         isBeforeVersion(CVersCode.V_31_12_S)
 
     @JvmStatic
-    fun isBeforeV_32_11_S_V2(): Boolean =
+    fun isBeforeV_32_12_S_V2(): Boolean =
         isBeforeVersion(CVersCode.V_32_12_S_V2)
 
     @JvmStatic
-    fun isBeforeV_33_11_TIRAMISU(): Boolean =
+    fun isBeforeV_33_13_TIRAMISU(): Boolean =
         isBeforeVersion(CVersCode.V_33_13_TIRAMISU)
 
 }
