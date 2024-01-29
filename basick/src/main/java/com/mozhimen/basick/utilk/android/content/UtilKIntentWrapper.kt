@@ -216,7 +216,7 @@ object UtilKIntentWrapper {
      */
     @JvmStatic
     fun getApplicationDetailsSettings(context: Context): Intent =
-        Intent(CSettings.ACTION_APPLICATION_DETAILS_SETTINGS, UtilKUri.getPackageUri2(context))
+        Intent(CSettings.ACTION_APPLICATION_DETAILS_SETTINGS, UtilKUri.getPackageUriOfParts(context))
 
     /**
      * 管理APP下载

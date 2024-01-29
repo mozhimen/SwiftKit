@@ -35,7 +35,7 @@ object UtilKScreen : BaseUtilK() {
      */
     @JvmStatic
     fun getDensityDpiOfConfiguration(): Int =
-        UtilKConfiguration.getDensityDpi()
+        UtilKConfiguration.getSysDensityDpi()
 
     /////////////////////////////////////////////////////////////////////
 
@@ -119,21 +119,21 @@ object UtilKScreen : BaseUtilK() {
      */
     @JvmStatic
     fun getWidthDp(): Int =
-        UtilKConfiguration.getScreenWidthDp()
+        UtilKConfiguration.getSysScreenWidthDp()
 
     /**
      * 获取dp高
      */
     @JvmStatic
     fun getHeightDp(): Int =
-        UtilKConfiguration.getScreenHeightDp()
+        UtilKConfiguration.getSysScreenHeightDp()
 
     /**
      * 获取屏幕方向
      */
     @JvmStatic
     fun getOrientationOfConfiguration(): Int =
-        UtilKConfiguration.getOrientation()
+        UtilKConfiguration.getSysOrientation()
 
     /**
      * 获取屏幕方向(更加推荐用这种方式)
@@ -159,11 +159,11 @@ object UtilKScreen : BaseUtilK() {
      */
     @JvmStatic
     fun isOrientationPortraitOfConfiguration(): Boolean =
-        UtilKConfiguration.isOrientationPortrait()
+        UtilKConfiguration.isSysOrientationPortrait()
 
     @JvmStatic
     fun isOrientationLandscapeOfConfiguration(): Boolean =
-        UtilKConfiguration.isOrientationLandscape()
+        UtilKConfiguration.isSysOrientationLandscape()
 
     /**
      * 是否为竖屏(更为准确)

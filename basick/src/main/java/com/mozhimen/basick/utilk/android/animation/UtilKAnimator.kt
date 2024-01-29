@@ -18,7 +18,7 @@ object UtilKAnimator {
      * @return Long
      */
     @JvmStatic
-    fun getAnimatorDuration(animator: Animator): Long {
+    fun getDuration(animator: Animator): Long {
         var duration: Long
         if (animator is AnimatorSet) {
             duration = animator.duration

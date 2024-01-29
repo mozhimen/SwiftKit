@@ -63,7 +63,7 @@ object UtilKUri : BaseUtilK() {
      * 获取PackageUri
      */
     @JvmStatic
-    fun getPackageUri2(context: Context): Uri =
+    fun getPackageUriOfParts(context: Context): Uri =
         Uri.fromParts("package", UtilKContext.getPackageName(context), null)
 
     /////////////////////////////////////////////////////////////////////////////

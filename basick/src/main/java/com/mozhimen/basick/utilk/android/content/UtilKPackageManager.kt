@@ -57,7 +57,11 @@ object UtilKPackageManager {
 
     @JvmStatic
     fun getApplicationInfo(context: Context, strPackageName: String): ApplicationInfo =
-        get(context).getApplicationInfo(strPackageName, CPackageInfo.INSTALL_LOCATION_AUTO)
+        getApplicationInfo(context, strPackageName, CPackageInfo.INSTALL_LOCATION_AUTO)
+
+    @JvmStatic
+    fun getApplicationInfo(context: Context, strPackageName: String, flags: Int): ApplicationInfo =
+        get(context).getApplicationInfo(strPackageName, flags)
 
     /**
      * 得到应用名
@@ -139,70 +143,6 @@ object UtilKPackageManager {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
-     * 获取所有安装程序包名
-     */
-    @JvmStatic
-    fun getInstalledPackages(context: Context, hasSystemPackages: Boolean = false): List<PackageInfo> {
-        var installedPackages = getInstalledPackages(context).toMutableList()
-        if (installedPackages.isEmpty()) {
-            installedPackages = getInstalledPackagesForce(context).toMutableList()
-        }
-        if (!hasSystemPackages) {
-            val iterator = installedPackages.iterator()
-            while (iterator.hasNext()) {
-                val next = iterator.next()
-                if (UtilKApplicationInfo.isSystemApp(next.applicationInfo))
-                    iterator.remove()
-            }
-        }
-        return installedPackages
-    }
-
-    /**
-     * 强制获取软件包列表
-     * @return 获取查询到的应用列表
-     */
-    @JvmStatic
-    fun getInstalledPackagesForce(context: Context): List<PackageInfo> {
-        val installedPackages = mutableListOf<PackageInfo>()
-        val packageManager = get(context)
-        for (uid in CProcess.SYSTEM_UID..CProcess.LAST_APPLICATION_UID) {
-            val packagesForUid = try {
-                packageManager.getPackagesForUid(uid)
-            } catch (e: Exception) {
-                null
-            }
-            packagesForUid?.forEach { strPackageName ->
-                val packageInfo = try {
-                    packageManager.getPackageInfo(strPackageName, 0)
-                } catch (e: Exception) {
-                    null
-                }
-                packageInfo?.let {
-                    installedPackages.add(packageInfo)
-                }
-            }
-        }
-        return installedPackages
-    }
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * 是否有前置
-     */
-    @JvmStatic
-    fun hasFrontCamera(context: Context): Boolean =
-        hasSystemFeature(context, CPackageManager.FEATURE_CAMERA_FRONT)
-
-    /**
-     * 是否有后置
-     */
-    @JvmStatic
-    fun hasBackCamera(context: Context): Boolean =
-        hasSystemFeature(context, CPackageManager.FEATURE_CAMERA)
-
-    /**
      * 是否有配置
      */
     @JvmStatic
@@ -210,47 +150,6 @@ object UtilKPackageManager {
         get(context).hasSystemFeature(featureName)
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * 系统的下载组件是否可用
-     */
-    fun isDownloadComponentEnabled(context: Context): Boolean {
-        try {
-            val setting = getApplicationEnabledSetting(context, CStrPackage.COM_ANDROID_PROVIDERS_DOWNLOADS)
-            if (setting == CPackageManager.COMPONENT_ENABLED_STATE_DISABLED || setting == CPackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER || setting == CPackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED)
-                return false
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return false
-        }
-        return true
-    }
-
-    @JvmStatic
-    fun isPackageInstalled(context: Context, strPackageName: String): Boolean {
-        return try {
-            get(context).getApplicationInfo(strPackageName, 0).enabled
-        } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
-            false
-        }
-    }
-
-    /**
-     * 是否有匹配的包名
-     */
-    @JvmStatic
-    fun hasPackageOfQuery(context: Context, strPackageName: String): Boolean =
-        queryIntentActivities(context, UtilKIntentWrapper.getMainLauncher(strPackageName), 0).isNotEmpty()
-
-    @JvmStatic
-    fun hasPackage(context: Context, strPackageName: String): Boolean =
-        try {
-            get(context).getPackageInfo(strPackageName, CPackageManager.GET_ACTIVITIES)
-            true
-        } catch (e: NameNotFoundException) {
-            false
-        }
 
     /**
      * 是否有包安装权限

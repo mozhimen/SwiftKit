@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
 import com.mozhimen.basick.elemk.android.content.cons.CConfiguration
-import com.mozhimen.basick.utilk.android.telephony.UtilKTelephonyManager
 
 
 /**
@@ -15,106 +14,96 @@ import com.mozhimen.basick.utilk.android.telephony.UtilKTelephonyManager
  * @Version 1.0
  */
 object UtilKConfiguration {
-    @JvmStatic
-    fun get(context: Context):Configuration=
-        UtilKResource.getConfiguration(context)
-    /**
-     * 获取自定义Configuration
-     */
-    @JvmStatic
-    fun get(resources: Resources): Configuration =
-        UtilKResource.getConfiguration(resources)
-
     /**
      * 获取系统Configuration
      */
     @JvmStatic
-    fun get(): Configuration =
-        UtilKResource.getSystemConfiguration()
+    fun getSys(): Configuration =
+        UtilKResources.getSysConfiguration()
 
     @JvmStatic
-    fun getUiMode(): Int =
-        get().uiMode
+    fun getSysUiMode(): Int =
+        getSys().uiMode
 
     @JvmStatic
-    fun getScreenLayout(): Int =
-        get().screenLayout
+    fun getSysScreenLayout(): Int =
+        getSys().screenLayout
 
     /**
      * 获取密度dp
      */
     @JvmStatic
-    fun getDensityDpi(): Int =
-        get().densityDpi
+    fun getSysDensityDpi(): Int =
+        getSys().densityDpi
 
     /**
      * 获取dp宽
      */
     @JvmStatic
-    fun getScreenWidthDp(): Int =
-        get().screenWidthDp
+    fun getSysScreenWidthDp(): Int =
+        getSys().screenWidthDp
 
     /**
      * 获取dp高
      */
     @JvmStatic
-    fun getScreenHeightDp(): Int =
-        get().screenHeightDp
+    fun getSysScreenHeightDp(): Int =
+        getSys().screenHeightDp
 
     /**
      * 获取屏幕方向
      */
     @JvmStatic
-    fun getOrientation(): Int =
-        get().orientation
+    fun getSysOrientation(): Int =
+        getSys().orientation
 
     @JvmStatic
-    fun getOrientation(resources: Resources): Int =
-        get(resources).orientation
-
-    @JvmStatic
-    fun getUiModeAndNightMask(): Int =
-            getUiMode() and CConfiguration.UiMode.NIGHT_MASK
-
-    ///////////////////////////////////////////////////////////////////
-
-    /**
-     * 是否为竖屏
-     */
-    @JvmStatic
-    fun isOrientationPortrait(): Boolean =
-        getOrientation() == CConfiguration.Orientation.PORTRAIT
-
-    @JvmStatic
-    fun isOrientationLandscape(): Boolean =
-        getOrientation() == CConfiguration.Orientation.LANDSCAPE
-
-    @JvmStatic
-    fun isOrientationPortrait(resources: Resources): Boolean =
-        getOrientation(resources) == CConfiguration.Orientation.PORTRAIT
-
-    @JvmStatic
-    fun isOrientationLandscape(resources: Resources): Boolean =
-        getOrientation(resources) == CConfiguration.Orientation.LANDSCAPE
+    fun getSysUiModeAndNightMask(): Int =
+            getSysUiMode() and CConfiguration.UiMode.NIGHT_MASK
 
     /**
      * 检测系统是否是浅色主题
      */
     @JvmStatic
-    fun isLightMode(): Boolean =
-        getUiModeAndNightMask() == CConfiguration.UiMode.NIGHT_NO
+    fun isSysLightMode(): Boolean =
+        getSysUiModeAndNightMask() == CConfiguration.UiMode.NIGHT_NO
 
     @JvmStatic
-    fun isDarkMode(): Boolean =
-        getUiModeAndNightMask() == CConfiguration.UiMode.NIGHT_YES
+    fun isSysDarkMode(): Boolean =
+        getSysUiModeAndNightMask() == CConfiguration.UiMode.NIGHT_YES
 
     /**
-     * 是否是平板
+     * 是否为竖屏
      */
     @JvmStatic
-    fun isPad(context: Context): Boolean =
-        if (UtilKTelephonyManager.hasTelephone(context)) {        //如果能打电话那可能是平板或手机，再根据配置判断
-            //能打电话可能是手机也可能是平板
-            (getScreenLayout() and CConfiguration.ScreenLayout.SIZE_MASK >= CConfiguration.ScreenLayout.SIZE_LARGE)
-        } else true //不能打电话一定是平板
+    fun isSysOrientationPortrait(): Boolean =
+        getSysOrientation() == CConfiguration.Orientation.PORTRAIT
+
+    @JvmStatic
+    fun isSysOrientationLandscape(): Boolean =
+        getSysOrientation() == CConfiguration.Orientation.LANDSCAPE
+
+    ////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun getApp(context: Context):Configuration=
+        UtilKResources.getAppConfiguration(context)
+    /**
+     * 获取自定义Configuration
+     */
+    @JvmStatic
+    fun getApp(resources: Resources): Configuration =
+        UtilKResources.getConfiguration(resources)
+
+    @JvmStatic
+    fun getAppOrientation(resources: Resources): Int =
+        getApp(resources).orientation
+
+    @JvmStatic
+    fun isAppOrientationPortrait(resources: Resources): Boolean =
+        getAppOrientation(resources) == CConfiguration.Orientation.PORTRAIT
+
+    @JvmStatic
+    fun isAppOrientationLandscape(resources: Resources): Boolean =
+        getAppOrientation(resources) == CConfiguration.Orientation.LANDSCAPE
 }

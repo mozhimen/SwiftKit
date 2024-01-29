@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.android.content
 
 import android.content.Context
+import android.os.Build
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CEnvironment
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
@@ -18,9 +19,6 @@ import java.io.File
  * @Version 1.0
  */
 object UtilKContextDir {
-    @JvmStatic
-    fun getDir(context: Context, name: String, mode: Int): File =
-        context.getDir(name, mode)
 
     /**
      * 无需申请权限
@@ -51,10 +49,12 @@ object UtilKContextDir {
         fun getObbDirs(context: Context): Array<File>? =
             context.obbDirs
 
+        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         @JvmStatic
         fun getCodeCacheDir(context: Context): File =
             context.codeCacheDir
 
+        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         @JvmStatic
         fun getNoBackupFilesDir(context: Context): File =
             context.noBackupFilesDir

@@ -5,6 +5,7 @@ import android.content.res.Resources.Theme
 import android.content.res.TypedArray
 import android.util.TypedValue
 import androidx.annotation.StyleableRes
+import com.mozhimen.basick.elemk.cons.CPackage
 
 /**
  * @ClassName UtilKTheme
@@ -25,7 +26,7 @@ object UtilKTheme {
      */
     @JvmStatic
     fun isFullScreen(context: Context): Boolean =
-        obtainStyledAttributes(context, intArrayOf(android.R.attr.windowFullscreen)).use { it.getBoolean(0, false) }
+        obtainStyledAttributes(context, intArrayOf(CPackage.ANDROID_R_ATTR_WINDOWFULLSCREEN)).use { it.getBoolean(0, false) }
 
     ////////////////////////////////////////////////////////////////////
 

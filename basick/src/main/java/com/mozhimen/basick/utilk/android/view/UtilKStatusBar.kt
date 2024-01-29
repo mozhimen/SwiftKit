@@ -14,7 +14,7 @@ import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.elemk.android.view.ColorfulStatusBar
 import com.mozhimen.basick.elemk.cons.CPackage
-import com.mozhimen.basick.utilk.android.content.UtilKResource
+import com.mozhimen.basick.utilk.android.content.UtilKResources
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 
 /**
@@ -32,7 +32,7 @@ object UtilKStatusBar : BaseUtilK() {
     @SuppressLint("InternalInsetResource", "DiscouragedApi")
     @JvmStatic
     fun getHeight(): Int {
-        val dimensionId = UtilKResource.getIdentifier("status_bar_height", "dimen", "android")
+        val dimensionId = UtilKResources.getSysIdentifier("status_bar_height", "dimen", "android")
         return if (dimensionId != 0) UtilKRes.getDimensionPixelSize(dimensionId) else 0
     }
 

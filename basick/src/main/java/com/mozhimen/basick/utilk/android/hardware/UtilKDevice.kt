@@ -1,11 +1,15 @@
 package com.mozhimen.basick.utilk.android.hardware
 
+import android.content.Context
+import android.hardware.usb.UsbDevice
 import android.os.Build
 import android.os.Environment
 import android.text.TextUtils
 import androidx.annotation.RequiresPermission
+import com.mozhimen.basick.elemk.android.content.cons.CConfiguration
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.android.content.UtilKConfiguration
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.os.UtilKEnvironment
@@ -15,6 +19,7 @@ import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.utilk.java.io.UtilKRandomAccessFile
 import com.mozhimen.basick.utilk.java.io.UtilKReader
 import com.mozhimen.basick.utilk.android.os.UtilKSystemProperties
+import com.mozhimen.basick.utilk.android.telephony.UtilKTelephonyManager
 
 /**
  * @ClassName UtilKDevice
@@ -125,6 +130,16 @@ object UtilKDevice : BaseUtilK() {
     ///////////////////////////////////////////////////////////////////////////////
 
     /**
+     * 是否是平板
+     */
+    @JvmStatic
+    fun isPad(context: Context): Boolean =
+        if (UtilKTelephonyManager.hasTelephone(context)) {        //如果能打电话那可能是平板或手机，再根据配置判断
+            //能打电话可能是手机也可能是平板
+            (UtilKConfiguration.getSysScreenLayout() and CConfiguration.ScreenLayout.SIZE_MASK >= CConfiguration.ScreenLayout.SIZE_LARGE)
+        } else true //不能打电话一定是平板
+
+    /**
      * 是否是折叠机型
      * 1.官方没有给我们提供api的
      * 2.只能去检测针对的机型
@@ -160,8 +175,14 @@ object UtilKDevice : BaseUtilK() {
      * 设备是否有USB外设
      */
     @JvmStatic
-    fun hasPid(vendorId: Int, productId: Int): Boolean =
-        UtilKUsbManager.hasPid(_context, vendorId, productId)
+    fun hasPid(context: Context, vendorId: Int, productId: Int): Boolean {
+        val devices: Iterator<UsbDevice> = UtilKUsbDevice.get(context).iterator()
+        while (devices.hasNext()) {
+            val usbDevice: UsbDevice = devices.next()
+            if (usbDevice.vendorId == vendorId && usbDevice.productId == productId) return true
+        }
+        return false
+    }
 
     /**
      * 是否有外部存储

@@ -14,13 +14,15 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
  */
 object UtilKNotificationManager {
     @JvmStatic
+    fun get(context: Context): NotificationManager =
+        UtilKContext.getNotificationManager(context)
+
+    /////////////////////////////////////////////////////////////////////////////
+    
+    @JvmStatic
     fun createNotificationChannel(notificationManager: NotificationManager, channelId: String, channelName: String, importance: Int) {
         if (UtilKBuildVersion.isAfterV_26_8_O()) {// 在 Android 8.0 及更高版本上，需要在系统中注册应用的通知渠道
             notificationManager.createNotificationChannel(UtilKNotificationChannel.get(channelId, channelName, importance))
         }
     }
-
-    @JvmStatic
-    fun get(context: Context): NotificationManager =
-        UtilKContext.getNotificationManager(context)
 }

@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.res.Configuration
 import android.util.DisplayMetrics
 import com.mozhimen.basick.utilk.android.content.UtilKConfiguration
-import com.mozhimen.basick.utilk.android.content.UtilKResource
+import com.mozhimen.basick.utilk.android.content.UtilKResources
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.UtilKDisplayMetrics
 import java.util.Locale
@@ -27,13 +27,13 @@ object UtilKLocale {
      */
     @JvmStatic
     fun applyLanguage(locale: Locale, context: Context) {
-        val configuration: Configuration = UtilKConfiguration.get(context)
+        val configuration: Configuration = UtilKConfiguration.getApp(context)
         val displayMetrics: DisplayMetrics = UtilKDisplayMetrics.get(context)
         if (UtilKBuildVersion.isAfterV_17_42_J1()) {
             configuration.setLocale(locale)
         } else {
             configuration.locale = locale
         }
-        UtilKResource.updateConfiguration(context, configuration, displayMetrics)
+        UtilKResources.updateConfiguration(context, configuration, displayMetrics)
     }
 }

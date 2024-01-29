@@ -4,8 +4,6 @@ import android.content.Context
 import android.net.NetworkInfo
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.net.cons.CConnectivityManager
-import com.mozhimen.basick.elemk.android.net.cons.ENetType
-import com.mozhimen.basick.elemk.android.telephony.CTelephonyManager
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 
@@ -19,7 +17,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 object UtilKActiveNetworkInfo {
     @JvmStatic
     fun get(context: Context): NetworkInfo? =
-        UtilKNetworkInfo.getActiveNetworkInfo(context)
+        UtilKNetworkInfo.getOfActive(context)
 
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)

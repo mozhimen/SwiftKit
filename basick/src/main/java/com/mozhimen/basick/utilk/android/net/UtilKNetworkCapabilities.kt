@@ -1,6 +1,8 @@
 package com.mozhimen.basick.utilk.android.net
 
 import android.net.NetworkCapabilities
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.net.cons.CNetworkCapabilities
 import com.mozhimen.basick.elemk.android.net.cons.ENetType
 
@@ -11,10 +13,12 @@ import com.mozhimen.basick.elemk.android.net.cons.ENetType
  * @Date 2023/9/27 11:56
  * @Version 1.0
  */
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 fun NetworkCapabilities.networkCapabilities2netType(): ENetType =
     UtilKNetworkCapabilities.networkCapabilities2netType(this)
 
 object UtilKNetworkCapabilities {
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @JvmStatic
     fun networkCapabilities2netType(capabilities: NetworkCapabilities): ENetType =
         if (!capabilities.hasCapability(CNetworkCapabilities.NET_CAPABILITY_VALIDATED)) {

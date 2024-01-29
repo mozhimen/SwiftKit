@@ -41,5 +41,4 @@ object UtilKContextCompat {
     @JvmStatic
     fun checkSelfPermission(context: Context, permission: String): Int =
         ContextCompat.checkSelfPermission(context, permission)
-
 }

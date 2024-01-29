@@ -26,7 +26,7 @@ object UtilKDialog : BaseUtilK() {
     @JvmStatic
     @RequiresApi(CVersCode.V_28_9_P)
     @SuppressLint("PrivateApi", "DiscouragedPrivateApi", "SoonBlockedPrivateApi")
-    fun closeAt28() {
+    fun hideAt28() {
         try {
 //            val constructor = "android.content.pm.PackageParser\$Package".strPackage2clazz().getDeclaredConstructor(String::class.java)
 //            constructor.isAccessible = true

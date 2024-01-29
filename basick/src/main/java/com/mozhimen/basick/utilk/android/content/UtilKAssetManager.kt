@@ -15,7 +15,7 @@ import java.io.InputStream
 object UtilKAssetManager {
     @JvmStatic
     fun getForRes(context: Context): AssetManager =
-        UtilKResource.getAssets(context)
+        UtilKResources.getAppAssets(context)
 
     @JvmStatic
     fun getForContext(context: Context): AssetManager =
@@ -24,16 +24,16 @@ object UtilKAssetManager {
     /////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun openFd(strAssetName: String, context: Context): AssetFileDescriptor =
+    fun openFd(context: Context, strAssetName: String): AssetFileDescriptor =
         getForContext(context).openFd(strAssetName)
 
     @JvmStatic
-    fun open(strAssetName: String, context: Context): InputStream =
+    fun open(context: Context, strAssetName: String): InputStream =
         getForContext(context).open(strAssetName)
 
     /////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun list(strAssetName: String, context: Context): Array<String>? =
+    fun list(context: Context,strAssetName: String): Array<String>? =
         getForRes(context).list(strAssetName)
 }

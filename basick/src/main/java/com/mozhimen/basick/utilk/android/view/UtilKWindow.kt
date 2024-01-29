@@ -9,6 +9,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
+import com.mozhimen.basick.elemk.android.view.cons.CWindow
 import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 
@@ -52,6 +53,14 @@ object UtilKWindow : BaseUtilK() {
     @JvmStatic
     fun <V : View> getContentView(window: Window): V =
         window.findViewById(CPackage.ANDROID_R_ID_CONTENT)
+
+    @JvmStatic
+    fun <V : View> getContentViewOfWindow(activity: Activity): V =
+        getContentViewOfWindow(get(activity))
+
+    @JvmStatic
+    fun <V : View> getContentViewOfWindow(window: Window): V =
+        window.findViewById(CWindow.ID_ANDROID_CONTENT)
 
     @JvmStatic
     fun getAttributes(activity: Activity): WindowManager.LayoutParams =

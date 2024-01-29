@@ -147,7 +147,7 @@ object UtilKActivity {
      */
     @JvmStatic
     fun getViewDrawHeight(activity: Activity): Int =
-        UtilKWindow.get(activity).findViewById<View>(CWindow.ID_ANDROID_CONTENT).top
+        UtilKWindow.getContentViewOfWindow<View>(activity).top
 
     //////////////////////////////////////////////////////////////////////////////////////////
 

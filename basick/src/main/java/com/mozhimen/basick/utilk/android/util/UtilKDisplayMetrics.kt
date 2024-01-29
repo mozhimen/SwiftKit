@@ -4,10 +4,9 @@ import android.content.Context
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import androidx.annotation.FloatRange
-import androidx.annotation.FontRes
 import com.mozhimen.basick.elemk.android.util.cons.CDisplayMetrics
 import com.mozhimen.basick.elemk.android.util.cons.CTypedValue
-import com.mozhimen.basick.utilk.android.content.UtilKResource
+import com.mozhimen.basick.utilk.android.content.UtilKResources
 import com.mozhimen.basick.utilk.android.view.UtilKDisplay
 
 /**
@@ -86,11 +85,11 @@ object UtilKDisplayMetrics {
     //region # get function
     @JvmStatic
     fun get(context: Context) =
-        UtilKResource.getDisplayMetrics(context)
+        UtilKResources.getAppDisplayMetrics(context)
 
     @JvmStatic
     fun getOfSystem(): DisplayMetrics =
-        UtilKResource.getSystemDisplayMetrics()
+        UtilKResources.getSysDisplayMetrics()
 
     @JvmStatic
     fun getOfDefault(context: Context): DisplayMetrics {

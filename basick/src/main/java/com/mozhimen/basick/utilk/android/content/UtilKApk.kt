@@ -3,10 +3,8 @@ package com.mozhimen.basick.utilk.android.content
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.graphics.drawable.Drawable
-import com.mozhimen.basick.elemk.android.content.cons.CPackageManager
 import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-
 
 /**
  * @ClassName UtilKApk
@@ -74,7 +72,7 @@ object UtilKApk : BaseUtilK() {
      * 得到图标信息2
      */
     @JvmStatic
-    fun getApplicationIcon2(strPathNameApk: String): Drawable? =
+    fun getApplicationIconOfLoad(strPathNameApk: String): Drawable? =
         getApplicationInfo(strPathNameApk)?.let {
             it.apply {
                 sourceDir = strPathNameApk

@@ -5,6 +5,7 @@ import android.content.Context
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.os.UtilKProcess
 import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.bases.IUtilK
 
 /**
  * @ClassName UtilKRunningAppProcessInfo
@@ -13,15 +14,15 @@ import com.mozhimen.basick.utilk.android.util.et
  * @Date 2023/10/28 23:20
  * @Version 1.0
  */
-object UtilKRunningAppProcessInfo {
+object UtilKRunningAppProcessInfo : IUtilK {
     @JvmStatic
-    fun get(context: Context):List<RunningAppProcessInfo> =
-        UtilKActivityManager.get(context).runningAppProcesses
+    fun get(context: Context): List<RunningAppProcessInfo> =
+        UtilKActivityManager.getRunningAppProcesses(context)
 
     @JvmStatic
     fun getCurrentProcessName(context: Context): String? {
         try {
-            val runningAppProcessInfos = UtilKActivityManager.getRunningAppProcesses(context)
+            val runningAppProcessInfos = get(context)
             if (runningAppProcessInfos.isEmpty()) return null
             for (runningAppProcessInfo in runningAppProcessInfos) {
                 if (runningAppProcessInfo.pid == UtilKProcess.getMyPid() && runningAppProcessInfo.processName != null)
@@ -29,7 +30,7 @@ object UtilKRunningAppProcessInfo {
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(UtilKProcess.TAG)
+            e.message?.et(TAG)
         }
         return null
     }

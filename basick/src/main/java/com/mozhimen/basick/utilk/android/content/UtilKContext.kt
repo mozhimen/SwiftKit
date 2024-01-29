@@ -34,6 +34,7 @@ import androidx.annotation.StringRes
 import com.mozhimen.basick.elemk.android.content.cons.CContext
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import java.io.File
 
 
 /**
@@ -71,33 +72,37 @@ object UtilKContext {
     ////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
+    fun getSystemService(context: Context, name: String): Any =
+        context.getSystemService(name)
+
+    @JvmStatic
     fun getDownloadManager(context: Context): DownloadManager =
-        context.getSystemService(CContext.DOWNLOAD_SERVICE) as DownloadManager
+        getSystemService(context,CContext.DOWNLOAD_SERVICE) as DownloadManager
 
     @JvmStatic
     fun getLocationManager(context: Context): LocationManager =
-        context.getSystemService(CContext.LOCATION_SERVICE) as LocationManager
+        getSystemService(context,CContext.LOCATION_SERVICE) as LocationManager
 
     @JvmStatic
     fun getVibrator(context: Context): Vibrator =
-        context.getSystemService(CContext.VIBRATOR_SERVICE) as Vibrator
+        getSystemService(context,CContext.VIBRATOR_SERVICE) as Vibrator
 
     @RequiresApi(CVersCode.V_31_12_S)
     @JvmStatic
     fun getVibratorManager(context: Context): VibratorManager =
-        context.getSystemService(CContext.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+        getSystemService(context,CContext.VIBRATOR_MANAGER_SERVICE) as VibratorManager
 
     @JvmStatic
     fun getWindowManager(context: Context): WindowManager =
-        context.getSystemService(CContext.WINDOW_SERVICE) as WindowManager
+        getSystemService(context,CContext.WINDOW_SERVICE) as WindowManager
 
     @JvmStatic
     fun getInputMethodManager(context: Context): InputMethodManager =
-        context.getSystemService(CContext.INPUT_METHOD_SERVICE) as InputMethodManager
+        getSystemService(context,CContext.INPUT_METHOD_SERVICE) as InputMethodManager
 
     @JvmStatic
     fun getTelephonyManager(context: Context): TelephonyManager =
-        context.getSystemService(CContext.TELEPHONY_SERVICE) as TelephonyManager
+        getSystemService(context,CContext.TELEPHONY_SERVICE) as TelephonyManager
 
     @JvmStatic
     fun getWifiManager(context: Context): WifiManager =
@@ -105,31 +110,31 @@ object UtilKContext {
 
     @JvmStatic
     fun getAudioManager(context: Context): AudioManager =
-        context.getSystemService(CContext.AUDIO_SERVICE) as AudioManager
+        getSystemService(context,CContext.AUDIO_SERVICE) as AudioManager
 
     @JvmStatic
     fun getConnectivityManager(context: Context): ConnectivityManager =
-        context.getSystemService(CContext.CONNECTIVITY_SERVICE) as ConnectivityManager
+        getSystemService(context,CContext.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     @JvmStatic
     fun getDisplayManager(context: Context): DisplayManager =
-        context.getSystemService(CContext.DISPLAY_SERVICE) as DisplayManager
+        getSystemService(context,CContext.DISPLAY_SERVICE) as DisplayManager
 
     @JvmStatic
     fun getActivityManager(context: Context) =
-        context.getSystemService(CContext.ACTIVITY_SERVICE) as ActivityManager
+        getSystemService(context,CContext.ACTIVITY_SERVICE) as ActivityManager
 
     @JvmStatic
     fun getLayoutInflater(context: Context) =
-        context.getSystemService(CContext.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        getSystemService(context,CContext.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     @JvmStatic
     fun getUsbManager(context: Context): UsbManager =
-        context.getSystemService(CContext.USB_SERVICE) as UsbManager
+        getSystemService(context,CContext.USB_SERVICE) as UsbManager
 
     @JvmStatic
     fun getNotificationManager(context: Context): NotificationManager =
-        context.getSystemService(CContext.NOTIFICATION_SERVICE) as NotificationManager
+        getSystemService(context,CContext.NOTIFICATION_SERVICE) as NotificationManager
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -168,6 +173,10 @@ object UtilKContext {
     @JvmStatic
     fun getTheme(context: Context): Theme =
         context.theme
+
+    @JvmStatic
+    fun getDir(context: Context, name: String, mode: Int): File =
+        context.getDir(name, mode)
 
     ////////////////////////////////////////////////////////////////////////
 

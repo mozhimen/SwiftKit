@@ -26,12 +26,16 @@ object UtilKApplicationInfo : IUtilK {
     fun getOfPackageInfo(context: Context): ApplicationInfo? =
         UtilKPackageInfo.getApplicationInfo(context)
 
+    @JvmStatic
+    fun getOfPackageName(context: Context, strPackageName: String, flags: Int): ApplicationInfo =
+        UtilKPackageManager.getApplicationInfo(context, strPackageName, flags)
+
     /**
      * 得到包名
      */
     @JvmStatic
-    fun getPackageName(context: Context): String? =
-        get(context).packageName
+    fun getPackageName(context: Context): String =
+        getPackageName(get(context))
 
     /**
      * 得到包名
@@ -53,7 +57,7 @@ object UtilKApplicationInfo : IUtilK {
         get(context).labelRes
 
     @JvmStatic
-    fun getApplicationLabel(context: Context): String =
+    fun getLabelResStr(context: Context): String =
         getLabelRes(context).let { UtilKRes.getString(it) }
 
     @JvmStatic
@@ -123,4 +127,14 @@ object UtilKApplicationInfo : IUtilK {
     @JvmStatic
     fun isUserApp(applicationInfo: ApplicationInfo): Boolean =
         !isSystemApp(applicationInfo) && !isSystemUpdateApp(applicationInfo)
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun enabled(context: Context, strPackageName: String, flags: Int): Boolean =
+        enabled(getOfPackageName(context, strPackageName, flags))
+
+    @JvmStatic
+    fun enabled(applicationInfo: ApplicationInfo): Boolean =
+        applicationInfo.enabled
 }

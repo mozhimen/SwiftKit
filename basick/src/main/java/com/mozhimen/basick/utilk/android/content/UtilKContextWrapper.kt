@@ -22,6 +22,6 @@ object UtilKContextWrapper {
         if (UtilKBuildVersion.isAfterV_23_6_M()) {
             UtilKContext.getColor(context, resId)
         } else {
-            UtilKResource.getColor(context, resId)
+            UtilKResources.getAppColor(context, resId)
         }
 }

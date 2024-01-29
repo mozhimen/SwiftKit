@@ -101,6 +101,12 @@ object UtilKPackageInfo : BaseUtilK() {
             0
         }
 
-    /////////////////////////////////////////////////////////////////////////
-
+    @JvmStatic
+    fun hasPackage(context: Context, strPackageName: String): Boolean =
+        try {
+            get(context, strPackageName, CPackageManager.GET_ACTIVITIES)
+            true
+        } catch (e: PackageManager.NameNotFoundException) {
+            false
+        }
 }

@@ -10,6 +10,7 @@ import android.os.ParcelFileDescriptor
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.provider.cons.CMediaStore
 import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.bases.IUtilK
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -20,7 +21,7 @@ import java.io.OutputStream
  * @Date 2023/7/31 18:12
  * @Version 1.0
  */
-object UtilKContentResolver : BaseUtilK() {
+object UtilKContentResolver : IUtilK {
     @JvmStatic
     fun get(context: Context): ContentResolver =
         UtilKContext.getContentResolver(context)
@@ -62,10 +63,5 @@ object UtilKContentResolver : BaseUtilK() {
     @JvmStatic
     fun delete(context: Context, @RequiresPermission.Write uri: Uri, where: String?, selectionArgs: Array<String>?) {
         get(context).delete(uri, where, selectionArgs)
-    }
-
-    @JvmStatic
-    fun deleteImageFile(strFilePathName: String) {
-        delete(_context, CMediaStore.Images.Media.EXTERNAL_CONTENT_URI, "${CMediaStore.Images.Media.DATA}='${strFilePathName}'", null)
     }
 }

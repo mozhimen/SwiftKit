@@ -4,6 +4,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInstaller
+import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
@@ -29,16 +30,19 @@ import java.io.OutputStream
  * @Version 1.0
  */
 object UtilKPackageInstaller : BaseUtilK() {
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     fun get(context: Context): PackageInstaller =
         UtilKPackageManager.getPackageInstaller(context)
 
     /////////////////////////////////////////////////////////////////
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @JvmStatic
     fun createSession(packageInstaller: PackageInstaller, sessionParams: PackageInstaller.SessionParams): Int {
         return packageInstaller.createSession(sessionParams)
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @JvmStatic
     fun openSession(packageInstaller: PackageInstaller, sessionId: Int):PackageInstaller.Session{
         return packageInstaller.openSession(sessionId)
@@ -65,10 +69,12 @@ object UtilKPackageInstaller : BaseUtilK() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @JvmStatic
     fun copyBaseApk(packageInstaller: PackageInstaller, sessionId: Int, strFilePathNameApk: String): Boolean =
         copyBaseApk(packageInstaller, sessionId, File(strFilePathNameApk))
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @JvmStatic
     fun copyBaseApk(packageInstaller: PackageInstaller, sessionId: Int, fileApk: File): Boolean {
         var outputStream: OutputStream? = null

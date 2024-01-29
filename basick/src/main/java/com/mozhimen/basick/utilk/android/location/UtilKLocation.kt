@@ -9,7 +9,6 @@ import com.mozhimen.basick.elemk.android.location.commons.ILocationListener
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
-import com.mozhimen.basick.utilk.android.provider.UtilKSettings
 import com.mozhimen.basick.utilk.android.provider.UtilKSettingsSecure
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.util.it
@@ -28,13 +27,13 @@ object UtilKLocation : BaseUtilK() {
     @SuppressLint("MissingPermission")
     fun get(minTimeMs: Long, minDistanceM: Float): Location? {
         if (!hasPermission()) return null
-        return getForGps() ?: getForNetwork(minTimeMs, minDistanceM) ?: getLastLocation()
+        return getOfGps() ?: getOfNetwork(minTimeMs, minDistanceM) ?: getLastLocation()
     }
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_FINE_LOCATION, CPermission.ACCESS_COARSE_LOCATION])
     @AManifestKRequire(CPermission.ACCESS_FINE_LOCATION, CPermission.ACCESS_COARSE_LOCATION)
-    fun getForGps(): Location? =
+    fun getOfGps(): Location? =
         (if (UtilKLocationManager.isProviderEnabledGps(_context))
             UtilKLocationManager.getLastKnownLocationGps(_context)
         else null).also { "getForGps is null ${it == null}".it(TAG) }
@@ -47,7 +46,7 @@ object UtilKLocation : BaseUtilK() {
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_FINE_LOCATION, CPermission.ACCESS_COARSE_LOCATION])
     @AManifestKRequire(CPermission.ACCESS_FINE_LOCATION, CPermission.ACCESS_COARSE_LOCATION)
-    fun getForNetwork(minTimeMs: Long, minDistanceM: Float, listener: LocationListener = object : ILocationListener {}): Location? {
+    fun getOfNetwork(minTimeMs: Long, minDistanceM: Float, listener: LocationListener = object : ILocationListener {}): Location? {
         if (!UtilKLocationManager.isProviderEnabledNetwork(_context)) return null
         UtilKLocationManager.requestLocationUpdatesNetwork(_context, minTimeMs, minDistanceM, listener)
         return UtilKLocationManager.getLastKnownLocationNetwork(_context).also { "getForNetwork is null ${it == null}".it(TAG) }

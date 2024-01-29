@@ -19,24 +19,15 @@ import kotlin.system.exitProcess
  * @Version 1.0
  */
 object UtilKApp : BaseUtilK() {
-    /**
-     * isSystemApp
-     */
     @JvmStatic
     @Throws(IllegalArgumentException::class)
     fun isSystemApp(context: Context): Boolean =
         UtilKApplicationInfo.isSystemApp(context)
 
-    /**
-     * isSystemUpdateApp
-     */
     @JvmStatic
     fun isSystemUpdateApp(context: Context): Boolean =
         UtilKApplicationInfo.isSystemUpdateApp(context)
 
-    /**
-     * isUserApp
-     */
     @JvmStatic
     fun isUserApp(context: Context): Boolean =
         UtilKApplicationInfo.isUserApp(context)

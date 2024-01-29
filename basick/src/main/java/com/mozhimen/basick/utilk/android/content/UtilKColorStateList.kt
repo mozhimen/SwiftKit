@@ -12,7 +12,7 @@ import androidx.annotation.ColorInt
  */
 object UtilKColorStateList {
     @JvmStatic
-    fun get(@ColorInt intColorPressed: Int, @ColorInt intColorNormal: Int): ColorStateList {
+    fun get(@ColorInt intColorNormal: Int, @ColorInt intColorPressed: Int): ColorStateList {
         val states = arrayOfNulls<IntArray>(2)//状态
         states[0] = intArrayOf(android.R.attr.state_pressed)//按下
         states[1] = intArrayOf()//默认

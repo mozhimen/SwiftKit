@@ -6,7 +6,6 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.Point
 import android.graphics.Rect
-import android.util.Log
 import android.view.Display
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +13,10 @@ import com.mozhimen.basick.elemk.android.view.cons.CGravity
 import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.elemk.android.view.cons.CView
 import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
-import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.lintk.optin.OptInApiUse_BaseApplication
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.content.UtilKRes
-import com.mozhimen.basick.utilk.android.content.UtilKResource
+import com.mozhimen.basick.utilk.android.content.UtilKResources
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -47,7 +45,7 @@ object UtilKNavigationBar : BaseUtilK() {
             val child = decorView.getChildAt(i)
             if (child.id == CView.NO_ID || !child.isShown) continue
             try {
-                val resourceEntryName = UtilKResource.getResourceEntryName(context, child.id)
+                val resourceEntryName = UtilKResources.getAppResourceEntryName(context, child.id)
                 if (_navigationBarNames.containsKey(resourceEntryName.lowercase(Locale.getDefault()))) {
                     rect[child.left, child.top, child.right] = child.bottom
                     return
@@ -79,7 +77,7 @@ object UtilKNavigationBar : BaseUtilK() {
     @SuppressLint("DiscouragedApi", "InternalInsetResource")
     @JvmStatic
     fun getHeight(): Int {
-        val dimensionId = UtilKResource.getIdentifier("navigation_bar_height", "dimen", "android")
+        val dimensionId = UtilKResources.getSysIdentifier("navigation_bar_height", "dimen", "android")
         return if (dimensionId != 0) UtilKRes.getDimensionPixelSize(dimensionId) else 0
     }
 

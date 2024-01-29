@@ -20,7 +20,7 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
-import com.mozhimen.basick.utilk.android.content.UtilKResource
+import com.mozhimen.basick.utilk.android.content.UtilKResources
 import com.mozhimen.basick.utilk.android.media.UtilKMediaScannerConnection
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.dt
@@ -319,9 +319,9 @@ object UtilKBitmapFormat : BaseUtilK() {
 
     @JvmStatic
     fun bitmapAny2drawable(sourceBitmap: Bitmap): Drawable =
-        sourceBitmap.toDrawable(UtilKResource.getSystemResources())
+        sourceBitmap.toDrawable(UtilKResources.getSys())
 
     @JvmStatic
     fun bitmapAny2bitmapDrawable(sourceBitmap: Bitmap): BitmapDrawable =
-        BitmapDrawable(UtilKResource.getAppResources(_context), sourceBitmap)
+        BitmapDrawable(UtilKResources.getApp(_context), sourceBitmap)
 }

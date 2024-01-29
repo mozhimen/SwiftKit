@@ -30,7 +30,7 @@ internal object AdaptKSystemBarHelper {
         isThemeDark: Boolean
     ) {
         if (isThemeCustom) UtilKStatusBarIcon.applyIcon(activity, isThemeDark)
-        else UtilKStatusBarIcon.applyIcon(activity, UtilKConfiguration.isDarkMode())
+        else UtilKStatusBarIcon.applyIcon(activity, UtilKConfiguration.isSysDarkMode())
     }
 
     @JvmStatic

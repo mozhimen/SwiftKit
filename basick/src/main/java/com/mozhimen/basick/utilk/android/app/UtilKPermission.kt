@@ -63,11 +63,6 @@ object UtilKPermission : BaseUtilK() {
             UtilKEnvironment.isExternalStorageManager()
         else hasPermissions(arrayOf(CPermission.READ_EXTERNAL_STORAGE, CPermission.WRITE_EXTERNAL_STORAGE))
 
-    @JvmStatic
-    fun hasOverlay(): Boolean =
-        if (UtilKBuildVersion.isAfterV_23_6_M()) hasOverlay2()
-        else true
-
     /**
      * 是否有Overlay的权限
      * @return Boolean
@@ -77,7 +72,7 @@ object UtilKPermission : BaseUtilK() {
     @RequiresPermission(CPermission.SYSTEM_ALERT_WINDOW)
     @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
     @ADescription(CSettings.ACTION_MANAGE_OVERLAY_PERMISSION)
-    fun hasOverlay2(): Boolean =
+    fun hasOverlay(): Boolean =
         CVersCode.V_23_6_M.isBeforeVersion() || UtilKSettings.canDrawOverlays(_context)
 
     /**

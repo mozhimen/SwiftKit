@@ -33,40 +33,6 @@ object UtilKActivityManager {
     ////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun getAvailMem(context: Context): Long =
-            getAvailMem(getMemoryInfo(context))
-
-    @JvmStatic
-    fun getAvailMem(memoryInfo: MemoryInfo): Long =
-            memoryInfo.availMem
-
-    @JvmStatic
-    fun getAvailMemSizeStr(context: Context): String =
-            getAvailMemSizeStr(getMemoryInfo(context))
-
-    @JvmStatic
-    fun getAvailMemSizeStr(memoryInfo: MemoryInfo): String =
-            getAvailMem(memoryInfo).formatFileSize()
-
-    ////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun getTotalMen(context: Context): Long =
-            getTotalMen(getMemoryInfo(context))
-
-    @JvmStatic
-    fun getTotalMen(memoryInfo: MemoryInfo): Long =
-            memoryInfo.totalMem
-
-    @JvmStatic
-    fun getTotalMenSizeStr(context: Context): String =
-            getTotalMenSizeStr(getMemoryInfo(context))
-
-    @JvmStatic
-    fun getTotalMenSizeStr(memoryInfo: MemoryInfo): String =
-            getTotalMen(memoryInfo).formatFileSize()
-
-    @JvmStatic
     fun getRunningAppProcesses(context: Context): List<ActivityManager.RunningAppProcessInfo> =
             get(context).runningAppProcesses
 }

@@ -20,21 +20,7 @@ object UtilKUsbManager {
         UtilKContext.getUsbManager(context)
 
     @JvmStatic
-    fun getDeviceList(context: Context): Collection<UsbDevice> =
-        get(context).deviceList.values
+    fun getDeviceList(context: Context): HashMap<String, UsbDevice> =
+        get(context).deviceList
 
-    /////////////////////////////////////////////////////////////////////
-
-    /**
-     * 设备是否有USB外设
-     */
-    @JvmStatic
-    fun hasPid(context: Context, vendorId: Int, productId: Int): Boolean {
-        val devices: Iterator<UsbDevice> = getDeviceList(context).iterator()
-        while (devices.hasNext()) {
-            val usbDevice: UsbDevice = devices.next()
-            if (usbDevice.vendorId == vendorId && usbDevice.productId == productId) return true
-        }
-        return false
-    }
 }
