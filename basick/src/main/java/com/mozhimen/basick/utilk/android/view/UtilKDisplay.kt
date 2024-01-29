@@ -25,6 +25,14 @@ object UtilKDisplay {
     fun get(activity: Activity): Display =
         UtilKActivity.getDisplay(activity)
 
+    /**
+     * 获取旋转
+     */
+    @JvmStatic
+    @RequiresApi(CVersCode.V_30_11_R)
+    fun getRotation(activity: Activity): Int =
+        get(activity).rotation
+
     ///////////////////////////////////////////////////////////
 
     @JvmStatic
@@ -50,63 +58,42 @@ object UtilKDisplay {
     }
 
     @JvmStatic
+    fun getDefaultSize(context: Context): Point {
+        val size = Point()
+        getDefaultSize(context, size)
+        return size
+    }
+
+    @JvmStatic
+    fun getDefaultSizeX(context: Context): Int =
+        getDefaultSize(context).x
+
+    @JvmStatic
+    fun getDefaultSizeY(context: Context): Int =
+        getDefaultSize(context).y
+
+    @JvmStatic
     fun getDefaultRealSize(context: Context, size: Point) {
         getDefault(context).getRealSize(size)
     }
 
-    /**
-     * 获取旋转
-     */
+    //获取旋转
     @JvmStatic
     fun getDefaultRotation(context: Context): Int =
         getDefault(context).rotation
 
-    /**
-     * 获取旋转
-     */
     @JvmStatic
-    @RequiresApi(CVersCode.V_30_11_R)
-    fun getRotation(activity: Activity): Int =
-        get(activity).rotation
-
-    @JvmStatic
-    fun getOrientation(context: Context): Int =
+    fun getDefaultOrientation(context: Context): Int =
         when (getDefaultRotation(context)) {
-            CSurface.ROTATION_90, CSurface.ROTATION_180, CSurface.ROTATION_270 -> CActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-            else -> CSurface.ROTATION_0
+            CSurface.ROTATION_90, CSurface.ROTATION_270 -> CActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            else -> CActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
 
     @JvmStatic
-    fun isOrientationPortrait(context: Context): Boolean =
-        getOrientation(context) == CActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    fun isOrientationPortraitOfDefault(context: Context): Boolean =
+        getDefaultOrientation(context) == CActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
     @JvmStatic
-    fun isOrientationLandscape(context: Context): Boolean =
-        !isOrientationPortrait(context)
-
-//    @JvmStatic
-//    fun getOrientation(context: Context): Int {
-//        val rotation: Int = getDefaultRotation(context)
-//        var orientation = CActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-//        orientation = if (rotation == CSurface.ROTATION_0 || rotation == CSurface.ROTATION_180) {
-//            // 设备的自然方向是纵向
-//            if (rotation == CSurface.ROTATION_0) {
-//                // 屏幕的实际方向也是纵向
-//                CActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-//            } else {
-//                // 屏幕的实际方向是横向
-//                CActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-//            }
-//        } else {
-//            // 设备的自然方向是横向
-//            if (rotation == CSurface.ROTATION_90 || rotation == CSurface.ROTATION_270) {
-//                // 屏幕的实际方向也是横向
-//                CActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-//            } else {
-//                // 屏幕的实际方向是纵向
-//                CActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-//            }
-//        }
-//        return orientation
-//    }
+    fun isOrientationLandscapeOfDefault(context: Context): Boolean =
+        !isOrientationPortraitOfDefault(context)
 }

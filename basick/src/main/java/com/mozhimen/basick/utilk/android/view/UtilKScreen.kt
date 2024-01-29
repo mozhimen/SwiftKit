@@ -27,15 +27,17 @@ object UtilKScreen : BaseUtilK() {
      * 获取屏幕密度dp
      */
     @JvmStatic
-    fun getDensityDpi(): Int =
+    fun getDensityDpiOfDisplayMetrics(): Int =
         UtilKDisplayMetrics.getDensityDpi()
 
     /**
      * 获取屏幕密度dp
      */
     @JvmStatic
-    fun getDensityDpi1(): Int =
+    fun getDensityDpiOfConfiguration(): Int =
         UtilKConfiguration.getDensityDpi()
+
+    /////////////////////////////////////////////////////////////////////
 
     /**
      * 获取屏幕密度
@@ -43,6 +45,8 @@ object UtilKScreen : BaseUtilK() {
     @JvmStatic
     fun getDensity(): Float =
         UtilKDisplayMetrics.getDensity()
+
+    /////////////////////////////////////////////////////////////////////
 
     /**
      * 获取屏幕宽度
@@ -53,18 +57,20 @@ object UtilKScreen : BaseUtilK() {
         UtilKDisplayMetrics.getWidthPixels()
 
     /**
-     * 获取屏幕高度 2的和1的区别是是否考虑状态栏等, 2是减去状态栏的高度, 即为当前的
-     */
-    @JvmStatic
-    fun getHeightOfDisplay(): Int =
-        UtilKDisplayMetrics.getHeightPixels()
-
-    /**
      * 获取屏幕宽度
      */
     @JvmStatic
     fun getWidthOfDefaultDisplay(): Int =
         UtilKDisplayMetrics.getOfDefaultWidthPixels(_context)
+
+    /////////////////////////////////////////////////////////////////////
+
+    /**
+     * 获取屏幕高度 2的和1的区别是是否考虑状态栏等, 2是减去状态栏的高度, 即为当前的
+     */
+    @JvmStatic
+    fun getHeightOfDisplay(): Int =
+        UtilKDisplayMetrics.getHeightPixels()
 
     /**
      * 获取屏幕高度 2的和1的区别是是否考虑状态栏等, 2是减去状态栏的高度, 即为当前的
@@ -79,9 +85,9 @@ object UtilKScreen : BaseUtilK() {
     @JvmStatic
     fun getWidthOfWindow(): Int =
         if (UtilKBuildVersion.isAfterV_30_11_R())
-            UtilKWindowManager.getBoundsWidth(_context)
+            UtilKWindowMetrics.getCurrentBoundsWidth(_context)
         else
-            UtilKWindowManager.getSizeX(_context)
+            UtilKDisplay.getDefaultSizeX(_context)
 
     /**
      * 获取像素高
@@ -89,9 +95,9 @@ object UtilKScreen : BaseUtilK() {
     @JvmStatic
     fun getHeightOfWindow(): Int =
         if (UtilKBuildVersion.isAfterV_30_11_R())
-            UtilKWindowManager.getBoundsHeight(_context)
+            UtilKWindowMetrics.getCurrentBoundsHeight(_context)
         else
-            UtilKWindowManager.getSizeY(_context)
+            UtilKDisplay.getDefaultSizeY(_context)
 
     /**
      * 获取屏幕尺寸
@@ -126,15 +132,15 @@ object UtilKScreen : BaseUtilK() {
      * 获取屏幕方向
      */
     @JvmStatic
-    fun getOrientation(): Int =
+    fun getOrientationOfConfiguration(): Int =
         UtilKConfiguration.getOrientation()
 
-//    /**
-//     * 获取屏幕方向(更加推荐用这种方式)
-//     */
-//    @JvmStatic
-//    fun getOrientation():Int =
-
+    /**
+     * 获取屏幕方向(更加推荐用这种方式)
+     */
+    @JvmStatic
+    fun getOrientationOfDisplay(context: Context):Int =
+        UtilKDisplay.getDefaultOrientation(context)
 
     /**
      * 获取方向
@@ -152,26 +158,23 @@ object UtilKScreen : BaseUtilK() {
      * 是否为竖屏
      */
     @JvmStatic
-    fun isOrientationPortrait(): Boolean =
+    fun isOrientationPortraitOfConfiguration(): Boolean =
         UtilKConfiguration.isOrientationPortrait()
 
     @JvmStatic
-    fun isOrientationLandscape(): Boolean =
+    fun isOrientationLandscapeOfConfiguration(): Boolean =
         UtilKConfiguration.isOrientationLandscape()
 
     /**
      * 是否为竖屏(更为准确)
      */
     @JvmStatic
-    fun isOrientationPortrait(context: Context): Boolean =
-        UtilKDisplay.isOrientationPortrait(context)
+    fun isOrientationPortraitOfDisplay(context: Context): Boolean =
+        UtilKDisplay.isOrientationPortraitOfDefault(context)
 
-    /**
-     *
-     */
     @JvmStatic
-    fun isOrientationLandscape(context: Context): Boolean =
-        UtilKDisplay.isOrientationLandscape(context)
+    fun isOrientationLandscapeOfDisplay(context: Context): Boolean =
+        UtilKDisplay.isOrientationLandscapeOfDefault(context)
 
     /**
      * 是否全屏

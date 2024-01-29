@@ -36,6 +36,10 @@ android {
 dependencies {
     implementation project(':basick')
     implementation project(':uicorek')
+    implementation project(':AUICoreKit:layoutk_blur')
+    implementation project(':AUICoreKit:layoutk')
+    implementation project(':AUICoreKit:recyclerk')
+    implementation project(':AUICoreKit:vhk')
 
     //test
     testImplementation 'junit:junit:4.13.2'

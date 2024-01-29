@@ -11,7 +11,7 @@ import com.mozhimen.app.databinding.ItemDemoListBinding
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVBVM
 import com.mozhimen.uicorek.adaptk.systembar.annors.AAdaptKSystemBarProperty
 import com.mozhimen.uicorek.adaptk.systembar.cons.CProperty
-import com.mozhimen.uicorek.adapterk.quick.AdapterKQuickRecyclerStuffedVB
+import com.mozhimen.uicorek.recyclerk.quick.AdapterKQuickRecyclerStuffedVB
 import com.mozhimen.uicorek.adaptk.systembar.initAdaptKSystemBar
 import kotlin.math.abs
 
@@ -19,9 +19,11 @@ import kotlin.math.abs
 class DemoActivity : BaseActivityVBVM<ActivityDemoBinding, DemoViewModel>() {
     private var _scrollY = 0
     private var _alpha = 0
+
     override fun initFlag() {
         initAdaptKSystemBar()
     }
+
     override fun initView(savedInstanceState: Bundle?) {
         val list = arrayListOf(
             Astro("白羊座", "晴天", 90),

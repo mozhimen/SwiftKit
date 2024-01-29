@@ -1,32 +1,25 @@
 package com.mozhimen.basicktest.utilk.java
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Environment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.hjq.permissions.Permission
-import com.hjq.permissions.XXPermissions
-import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
-import com.mozhimen.basick.elemk.commons.I_Listener
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basicktest.BR
-import com.mozhimen.basick.utilk.java.io.UtilKFile
-import com.mozhimen.basicktest.R
-import com.mozhimen.basicktest.databinding.ActivityUtilkFileBinding
-import com.mozhimen.basicktest.databinding.ItemUtilkFileLogBinding
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.android.content.UtilKApplicationInfo
-import com.mozhimen.basick.utilk.android.content.UtilKContextDir
 import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import com.mozhimen.basick.utilk.kotlin.UtilKStringFormat
 import com.mozhimen.basick.utilk.kotlin.createFile
 import com.mozhimen.basick.utilk.kotlin.createFolder
-import com.mozhimen.uicorek.adapterk.quick.AdapterKQuickRecyclerVB
+import com.mozhimen.basicktest.BR
+import com.mozhimen.basicktest.R
+import com.mozhimen.basicktest.databinding.ActivityUtilkFileBinding
+import com.mozhimen.basicktest.databinding.ItemUtilkFileLogBinding
+import com.mozhimen.manifestk.xxpermissions.XXPermissionsRequestUtil
+import com.mozhimen.uicorek.recyclerk.quick.AdapterKQuickRecyclerVB
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -39,26 +32,8 @@ class UtilKFileActivity : BaseActivityVB<ActivityUtilkFileBinding>() {
         UtilKFileLogBean(0, "start file process >>>>>")
     )
 
-    //申请读写权限
-    fun requestReadWritePermission(context: Context, onGranted: I_Listener, onDenied: I_Listener) {
-        if (UtilKApplicationInfo.getTargetSdkVersion(context)!! >= CVersCode.V_30_11_R) {
-            XXPermissions.with(context) // 适配分区存储应该这样写
-                //.permission(Permission.Group.STORAGE)
-                // 不适配分区存储应该这样写
-                .permission(Permission.MANAGE_EXTERNAL_STORAGE)
-//            .interceptor(PermissionInterceptor())
-                .request { _, allGranted -> if (allGranted) onGranted.invoke() else onDenied.invoke() }
-        } else /*if (UtilKApplicationInfo.getTargetSdkVersion(this)!! >= CVersCode.V_23_6_M)*/
-            XXPermissions.with(context) // 适配分区存储应该这样写
-                //.permission(Permission.Group.STORAGE)
-                // 不适配分区存储应该这样写
-                .permission(Permission.WRITE_EXTERNAL_STORAGE, Permission.READ_EXTERNAL_STORAGE)
-//            .interceptor(PermissionInterceptor())
-                .request { _, allGranted -> if (allGranted) onGranted.invoke() else onDenied.invoke() }
-    }
-
     override fun initData(savedInstanceState: Bundle?) {
-        requestReadWritePermission(this, onGranted = {
+        XXPermissionsRequestUtil.requestReadWritePermission(this, onGranted = {
             ManifestKPermission.requestPermissions(this) {
                 if (it) {
                     vb.utilkFileRecycler.layoutManager = LinearLayoutManager(this)

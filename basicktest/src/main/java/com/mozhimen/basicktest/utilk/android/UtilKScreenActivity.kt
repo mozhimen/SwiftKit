@@ -20,11 +20,15 @@ import com.mozhimen.uicorek.adaptk.systembar.cons.CProperty
 class UtilKScreenActivity : BaseActivityVB<ActivityUtilkScreenBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
-        Log.d(TAG, "initData: getScreenWidthDp ${UtilKScreen.getWidthDp()}")
-        Log.d(TAG, "initData: getScreenHeightDp ${UtilKScreen.getHeightDp()}")
-        Log.d(TAG, "initData: getScreenWidth ${UtilKScreen.getWidthOfWindow()}")
-        Log.d(TAG, "initData: getScreenHeight ${UtilKScreen.getHeightOfWindow()}")
-        Log.d(TAG, "initData: getScreenWidth2 ${UtilKScreen.getWidthOfDisplay()}")
-        Log.d(TAG, "initData: getScreenHeight2 ${UtilKScreen.getHeightOfDisplay()}")
+        Log.d(TAG, "initData: getWidthDp ${UtilKScreen.getWidthDp()}")
+        Log.d(TAG, "initData: getHeightDp ${UtilKScreen.getHeightDp()}")
+        Log.d(TAG, "initData: getWidthOfDisplay ${UtilKScreen.getWidthOfDisplay()}")
+        Log.d(TAG, "initData: getHeightOfDisplay ${UtilKScreen.getHeightOfDisplay()}")
+        Log.d(TAG, "initData: getWidthOfDefaultDisplay ${UtilKScreen.getWidthOfDefaultDisplay()}")
+        Log.d(TAG, "initData: getHeightOfDefaultDisplay ${UtilKScreen.getHeightOfDefaultDisplay()}")
+        Log.d(TAG, "initData: getWidthOfWindow ${UtilKScreen.getWidthOfWindow()}")
+        Log.d(TAG, "initData: getHeightOfWindow ${UtilKScreen.getHeightOfWindow()}")
+        Log.d(TAG, "initData: isOrientationPortraitOfConfiguration ${UtilKScreen.isOrientationPortraitOfConfiguration()}")
+        Log.d(TAG, "initData: isOrientationPortraitOfDisplay ${UtilKScreen.isOrientationPortraitOfDisplay(this)}")
     }
 }

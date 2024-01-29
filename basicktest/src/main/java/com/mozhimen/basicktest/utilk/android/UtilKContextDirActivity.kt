@@ -56,7 +56,7 @@ class UtilKContextDirActivity : BaseActivityVB<ActivityUtilkContextDirBinding>()
         UtilKContextDir.External.getFilesNotificationsDir(this)?.absolutePath?.i()///storage/emulated/0/Android/data/com.mozhimen.basicktest/files/Notifications
         UtilKContextDir.External.getFilesPicturesDir(this)?.absolutePath?.i()///storage/emulated/0/Android/data/com.mozhimen.basicktest/files/Pictures
         UtilKContextDir.External.getFilesRingtonesDir(this)?.absolutePath?.i()///storage/emulated/0/Android/data/com.mozhimen.basicktest/files/Podcasts
-        if (UtilKBuildVersion.isAfterV_31_11_S()) {
+        if (UtilKBuildVersion.isAfterV_31_12_S()) {
             UtilKContextDir.External.getFilesRecordingsDir(this)?.absolutePath?.i()
         }
         if (UtilKBuildVersion.isAfterV_29_10_Q()) {

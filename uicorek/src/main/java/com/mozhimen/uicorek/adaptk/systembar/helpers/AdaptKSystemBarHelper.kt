@@ -41,9 +41,9 @@ internal object AdaptKSystemBarHelper {
         isTitleBarHide: Boolean,
         isActionBarHide: Boolean
     ) {
+        if (isTitleBarHide) UtilKSystemBar.hideTitleBar(activity)
         if (isStatusBarHide) UtilKSystemBar.hideStatusBar(activity)
         if (isNavigationBarHide) UtilKSystemBar.hideNavigationBar(activity)
-        if (isTitleBarHide) UtilKSystemBar.hideTitleBar(activity)
         if (isActionBarHide) UtilKSystemBar.hideActionBar(activity)
     }
 

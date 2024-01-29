@@ -1,10 +1,13 @@
 package com.mozhimen.basick.utilk.android.view
 
 import android.app.Activity
+import android.os.Build
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.ColorInt
+import androidx.annotation.RequiresApi
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
 import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -108,11 +111,13 @@ object UtilKWindow : BaseUtilK() {
     }
 
     @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
     fun applyStatusBarColor(activity: Activity, @ColorInt intColor: Int) {
         get(activity).statusBarColor = intColor
     }
 
     @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
     fun applyNavigationBarColor(activity: Activity, @ColorInt intColor: Int) {
         get(activity).navigationBarColor = intColor
     }
