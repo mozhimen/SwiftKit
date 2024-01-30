@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.android.hardware
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.hardware.usb.UsbDevice
 import android.os.Build
@@ -7,9 +8,12 @@ import android.os.Environment
 import android.text.TextUtils
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.cons.CConfiguration
+import com.mozhimen.basick.elemk.android.os.cons.CBuild
+import com.mozhimen.basick.elemk.cons.CStrPackage
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKConfiguration
+import com.mozhimen.basick.utilk.android.os.UtilKBuild
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.os.UtilKEnvironment
@@ -19,6 +23,7 @@ import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.utilk.java.io.UtilKRandomAccessFile
 import com.mozhimen.basick.utilk.java.io.UtilKReader
 import com.mozhimen.basick.utilk.android.os.UtilKSystemProperties
+import com.mozhimen.basick.utilk.android.os.UtilKSystemPropertiesWrapper
 import com.mozhimen.basick.utilk.android.telephony.UtilKTelephonyManager
 
 /**
@@ -58,21 +63,27 @@ object UtilKDevice : BaseUtilK() {
      */
     @JvmStatic
     fun getRomVersion(): String =
-        UtilKSystemProperties.getRomVersion()
+        UtilKSystemPropertiesWrapper.getRomVersion()
 
     /**
      * 设备硬件版本
      */
     @JvmStatic
     fun getHardwareVersion(): String =
-        UtilKSystemProperties.getHwVersion()
+        UtilKSystemPropertiesWrapper.getHwVersion()
 
     /**
      * 序列号
      */
+    @SuppressLint("HardwareIds")
     @JvmStatic
-    fun getSerialNumber(): String =
-        UtilKSystemProperties.getSerialNumber()
+    fun getSerialNumber(): String = if (UtilKBuildVersion.isAfterV_29_10_Q()) {
+        CBuild.UNKNOWN
+    } else if (UtilKBuildVersion.isAfterV_26_8_O()) {
+        UtilKBuild.getSerial()
+    } else {
+        UtilKSystemProperties.getStr(CStrPackage.RO_SERIALNO, CBuild.UNKNOWN)
+    }
 
     /**
      * 短序列号

@@ -28,7 +28,7 @@ object UtilKScreen : BaseUtilK() {
      */
     @JvmStatic
     fun getDensityDpiOfDisplayMetrics(): Int =
-        UtilKDisplayMetrics.getDensityDpi()
+        UtilKDisplayMetrics.getSysDensityDpi()
 
     /**
      * 获取屏幕密度dp
@@ -44,7 +44,7 @@ object UtilKScreen : BaseUtilK() {
      */
     @JvmStatic
     fun getDensity(): Float =
-        UtilKDisplayMetrics.getDensity()
+        UtilKDisplayMetrics.getSysDensity()
 
     /////////////////////////////////////////////////////////////////////
 
@@ -54,14 +54,14 @@ object UtilKScreen : BaseUtilK() {
     @JvmStatic
     @ADescription("getCurrentWidth")
     fun getWidthOfDisplay(): Int =
-        UtilKDisplayMetrics.getWidthPixels()
+        UtilKDisplayMetrics.getSysWidthPixels()
 
     /**
      * 获取屏幕宽度
      */
     @JvmStatic
     fun getWidthOfDefaultDisplay(): Int =
-        UtilKDisplayMetrics.getOfDefaultWidthPixels(_context)
+        UtilKDisplayMetrics.getDefWidthPixels(_context)
 
     /////////////////////////////////////////////////////////////////////
 
@@ -70,14 +70,14 @@ object UtilKScreen : BaseUtilK() {
      */
     @JvmStatic
     fun getHeightOfDisplay(): Int =
-        UtilKDisplayMetrics.getHeightPixels()
+        UtilKDisplayMetrics.getSysHeightPixels()
 
     /**
      * 获取屏幕高度 2的和1的区别是是否考虑状态栏等, 2是减去状态栏的高度, 即为当前的
      */
     @JvmStatic
     fun getHeightOfDefaultDisplay(): Int =
-        UtilKDisplayMetrics.getOfDefaultHeightPixels(_context)
+        UtilKDisplayMetrics.getDefHeightPixels(_context)
 
     /**
      * 获取像素宽
@@ -104,8 +104,8 @@ object UtilKScreen : BaseUtilK() {
      */
     @JvmStatic
     fun getSize(): Float {
-        val xdpi = UtilKDisplayMetrics.getXdpi()
-        val ydpi = UtilKDisplayMetrics.getYdpi()
+        val xdpi = UtilKDisplayMetrics.getSysXdpi()
+        val ydpi = UtilKDisplayMetrics.getSysYdpi()
         val width = getWidthOfDisplay()
         val height = getHeightOfDisplay()
         //计算屏幕的物理尺寸

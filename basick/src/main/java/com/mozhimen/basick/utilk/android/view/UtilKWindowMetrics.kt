@@ -19,7 +19,6 @@ object UtilKWindowMetrics {
     fun getCurrent(context: Context): WindowMetrics =
         UtilKWindowManager.getCurrentWindowMetrics(context)
 
-
     @RequiresApi(CVersCode.V_30_11_R)
     @JvmStatic
     fun getCurrentBounds(context: Context): Rect =

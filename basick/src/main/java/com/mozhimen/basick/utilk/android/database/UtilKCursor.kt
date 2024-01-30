@@ -27,7 +27,7 @@ object UtilKCursor {
         cursor.getString(getColumnIndex(cursor, key))
 
     @JvmStatic
-    fun getColumnValueByType(cursor: Cursor, index: Int, clazz: Class<*>): Any? =
+    fun getColumnValueOfType(cursor: Cursor, index: Int, clazz: Class<*>): Any? =
         when (clazz) {
             java.lang.String::class.java -> cursor.getString(index)
             java.lang.Long::class.java -> cursor.getLong(index)
@@ -44,6 +44,6 @@ object UtilKCursor {
     inline fun <reified T> getColumnValue(cursor: Cursor, columnName: String): T? {
         val index = getColumnIndex(cursor, columnName)
         if (index == -1) return null
-        return getColumnValueByType(cursor, index, T::class.java) as T?
+        return getColumnValueOfType(cursor, index, T::class.java) as T?
     }
 }

@@ -4,12 +4,13 @@ import android.content.Context
 import android.net.Uri
 import android.util.Log
 import androidx.annotation.RequiresApi
-import com.mozhimen.basick.elemk.android.media.cons.CMediaFormat
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.provider.cons.CMediaStore
+import com.mozhimen.basick.elemk.android.provider.cons.COpenableColumns
+import com.mozhimen.basick.utilk.android.database.getColumnString
+import com.mozhimen.basick.utilk.android.provider.UtilKMediaStore
+import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.bases.IUtilK
-import com.mozhimen.basick.utilk.java.io.createFile
 import com.mozhimen.basick.utilk.java.io.file2strFilePath
 import com.mozhimen.basick.utilk.kotlin.getStrFileExtension
 import com.mozhimen.basick.utilk.kotlin.getStrFileName
@@ -24,7 +25,53 @@ import java.io.File
  * @Date 2023/12/19
  * @Version 1.0
  */
+fun Uri.getMediaColumns(selection: String? = null, selectionArgs: Array<String>? = null): String? =
+    UtilKContentResolverWrapper.getMediaColumns(this, selection, selectionArgs)
+
 object UtilKContentResolverWrapper : BaseUtilK() {
+    @JvmStatic
+    fun getOpenableColumns(uri: Uri, projection: Array<String>? = null, selection: String? = null, selectionArgs: Array<String>? = null): String? {
+        try {
+            val cursor = UtilKContentResolver.query(_context, uri, projection, selection, selectionArgs, null)
+            cursor?.use {
+                if (cursor.moveToFirst()) {
+                    val index = cursor.getColumnIndex(COpenableColumns.DISPLAY_NAME)
+                    if (index == -1) return null
+                    val data = cursor.getColumnString(COpenableColumns.DISPLAY_NAME)
+                    if (data != "null")
+                        return data
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            e.message?.et(TAG)
+        }
+        return null
+    }
+
+    /**
+     * api 24?
+     */
+    @JvmStatic
+    fun getMediaColumns(uri: Uri, selection: String? = null, selectionArgs: Array<String>? = null): String? {
+        try {
+            val cursor = UtilKContentResolver.query(_context, uri, arrayOf(CMediaStore.MediaColumns.DATA), selection, selectionArgs, null)
+            cursor?.use {
+                if (cursor.moveToFirst()) {
+                    val index = cursor.getColumnIndex(CMediaStore.MediaColumns.DATA)
+                    if (index == -1) return null
+                    val data = cursor.getColumnString(CMediaStore.MediaColumns.DATA)
+                    if (data != "null")
+                        return data
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            e.message?.et(TAG)
+        }
+        return null
+    }
+
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
     fun insertImageAfter29(context: Context, file: File): Uri? =

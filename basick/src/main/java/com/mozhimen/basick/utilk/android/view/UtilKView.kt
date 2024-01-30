@@ -19,7 +19,7 @@ import com.mozhimen.basick.lintk.optin.OptInApiUse_BaseApplication
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.android.util.UtilKLogSupport
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.kotlin.UtilKAny
@@ -191,12 +191,12 @@ object UtilKView : BaseUtilK() {
     @JvmStatic
     fun getBitmapForViewBackground(view: View, scaledRatio: Float, fullScreen: Boolean, cutoutX: Int, cutoutY: Int): Bitmap? {
         if (view.width <= 0 || view.height <= 0) {
-            UtilKLogSupport.e("getViewBitmap  >>  宽或者高为空")
+            UtilKLogWrapper.e("getViewBitmap  >>  宽或者高为空")
             return null
         }
         val statusBarHeight = UtilKStatusBar.getHeight(false)
         var tempBitmap: Bitmap
-        UtilKLogSupport.i("getViewBitmap 模糊原始图像分辨率 [" + view.width + " x " + view.height + "]")
+        UtilKLogWrapper.i("getViewBitmap 模糊原始图像分辨率 [" + view.width + " x " + view.height + "]")
         tempBitmap = try {
             Bitmap.createBitmap((view.width * scaledRatio).toInt(), (view.height * scaledRatio).toInt(), Bitmap.Config.ARGB_8888)
         } catch (error: OutOfMemoryError) {
@@ -222,7 +222,7 @@ object UtilKView : BaseUtilK() {
             }
         }
         view.draw(canvas)
-        UtilKLogSupport.i("getViewBitmap 模糊缩放图像分辨率 [" + tempBitmap.width + " x " + tempBitmap.height + "]")
+        UtilKLogWrapper.i("getViewBitmap 模糊缩放图像分辨率 [" + tempBitmap.width + " x " + tempBitmap.height + "]")
         if (cutoutX > 0 || cutoutY > 0) {
             try {
                 val cutLeft = (cutoutX * scaledRatio).toInt()

@@ -3,6 +3,8 @@ package com.mozhimen.basick.utilk.androidx.lifecycle
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.utilk.android.os.UtilKLooper
+import com.mozhimen.basick.utilk.java.lang.UtilKThread
+import com.mozhimen.basick.utilk.kotlinx.coroutines.UtilKCoroutineScope
 import kotlinx.coroutines.CoroutineScope
 
 /**
@@ -35,23 +37,23 @@ fun LifecycleOwner.runOnBackThread(block: I_Listener) {
 object UtilKLifecycle {
     @JvmStatic
     fun runOnMainScope(lifecycleOwner: LifecycleOwner, block: suspend CoroutineScope.() -> Unit) {
-        UtilKLooper.runOnMainScope(lifecycleOwner, block)
+        UtilKCoroutineScope.runOnMainScope(lifecycleOwner, block)
     }
 
     @JvmStatic
     fun runOnBackScope(lifecycleOwner: LifecycleOwner, block: suspend CoroutineScope.() -> Unit) {
-        UtilKLooper.runOnBackScope(lifecycleOwner, block)
+        UtilKCoroutineScope.runOnBackScope(lifecycleOwner, block)
     }
 
     ////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun runOnMainThread(lifecycleOwner: LifecycleOwner, block: I_Listener) {
-        UtilKLooper.runOnMainThread(lifecycleOwner, block)
+        UtilKThread.runOnMainThread(lifecycleOwner, block)
     }
 
     @JvmStatic
     fun runOnBackThread(lifecycleOwner: LifecycleOwner, block: I_Listener) {
-        UtilKLooper.runOnBackThread(lifecycleOwner, block)
+        UtilKThread.runOnBackThread(lifecycleOwner, block)
     }
 }

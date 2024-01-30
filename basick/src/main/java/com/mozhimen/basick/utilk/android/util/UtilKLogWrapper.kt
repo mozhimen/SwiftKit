@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  * @Date 2022/11/19 13:53
  * @Version 1.0
  */
-object UtilKLogSupport : BaseUtilK() {
+object UtilKLogWrapper : BaseUtilK() {
 
     private val _isOpenLog = AtomicBoolean(true)
     private val _isSupportLongLog = AtomicBoolean(true)

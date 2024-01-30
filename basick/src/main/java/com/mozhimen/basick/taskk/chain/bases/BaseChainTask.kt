@@ -8,7 +8,7 @@ import com.mozhimen.basick.taskk.chain.commons.IChainTask
 import com.mozhimen.basick.taskk.chain.helpers.ChainRuntime
 import com.mozhimen.basick.taskk.chain.helpers.ChainImpl
 import com.mozhimen.basick.taskk.chain.helpers.ChainTaskComparator
-import com.mozhimen.basick.utilk.java.lang.UtilKCurrentThread
+import com.mozhimen.basick.utilk.java.lang.UtilKThread
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -198,7 +198,7 @@ abstract class BaseChainTask @JvmOverloads constructor(
     private fun toRunning() {
         state = AChainState.RUNNING
         ChainRuntime.setTaskStateInfo(this)
-        ChainRuntime.setThreadName(this, UtilKCurrentThread.getName())
+        ChainRuntime.setThreadName(this, UtilKThread.getCurrentName())
         for (listener in _chainkListeners) {
             listener.onRunning(this)
         }

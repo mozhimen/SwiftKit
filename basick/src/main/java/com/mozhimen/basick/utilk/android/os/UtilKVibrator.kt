@@ -27,7 +27,8 @@ object UtilKVibrator {
 
     @JvmStatic
     fun vibrate(context: Context, milliseconds: Long) {
-        if (hasVibrator(context)) get(context).vibrate(milliseconds)
+        if (hasVibrator(context))
+            get(context).vibrate(milliseconds)
     }
 
     /**
@@ -35,7 +36,8 @@ object UtilKVibrator {
      * long pattern[] = {1000, 20000, 10000, 10000, 30000};
      */
     fun vibrate(context: Context, pattern: LongArray, repeat: Int) {
-        if (hasVibrator(context)) get(context).vibrate(pattern, repeat)
+        if (hasVibrator(context))
+            get(context).vibrate(pattern, repeat)
     }
 
     fun cancel(context: Context) {

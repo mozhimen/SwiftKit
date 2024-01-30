@@ -10,14 +10,14 @@ import com.mozhimen.basick.elemk.android.content.cons.CContentResolver
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.provider.cons.CMediaStore
 import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
+import com.mozhimen.basick.utilk.android.content.UtilKContentResolverWrapper
 import com.mozhimen.basick.utilk.android.content.withAppendedId
 import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapFactory
 import com.mozhimen.basick.utilk.android.graphics.UtilKImageDecoder
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.provider.UtilKDocumentsContract
 import com.mozhimen.basick.utilk.android.provider.UtilKMediaStore
-import com.mozhimen.basick.utilk.android.provider.UtilKOpenableColumns
-import com.mozhimen.basick.utilk.android.provider.getMediaColumns
+import com.mozhimen.basick.utilk.android.content.getMediaColumns
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.utilk.android.webkit.UtilKMimeTypeMap
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -86,7 +86,7 @@ object UtilKUriFormat : BaseUtilK() {
             CContentResolver.SCHEME_FILE -> uri.path
             CContentResolver.SCHEME_CONTENT -> {
                 //把文件保存到沙盒
-                val strFileName = UtilKOpenableColumns.getOpenableColumns(uri) ?: run {
+                val strFileName = UtilKContentResolverWrapper.getOpenableColumns(uri) ?: run {
                     "${UtilKFile.getStrFileNameForStrNowDate()}.${UtilKMimeTypeMap.getExtensionFromMimeType(_context, uri)}"
                 }
                 val strFilePathName = "${UtilKStrPath.Absolute.Internal.getCache().getStrFolderPath()}uri/$strFileName"

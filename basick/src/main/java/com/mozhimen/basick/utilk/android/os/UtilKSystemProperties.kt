@@ -2,7 +2,6 @@ package com.mozhimen.basick.utilk.android.os
 
 import android.annotation.SuppressLint
 import android.util.Log
-import com.mozhimen.basick.elemk.android.os.cons.CBuild
 import com.mozhimen.basick.elemk.cons.CStrPackage
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -21,7 +20,7 @@ object UtilKSystemProperties : BaseUtilK() {
 
     @SuppressLint("PrivateApi")
     @JvmStatic
-    fun getStr2(strPackage: String, defaultValue: String = ""): String {
+    fun getStrStr(strPackage: String, defaultValue: String = ""): String {
         try {
             val clazz = CStrPackage.ANDROID_OS_SYSTEMPROPERTIES.strPackage2clazz()
             val methodGet: Method = clazz.getMethod("get", String::class.java, String::class.java)
@@ -53,7 +52,7 @@ object UtilKSystemProperties : BaseUtilK() {
      */
     @JvmStatic
     @SuppressLint("PrivateApi")
-    fun getBool(strPackage: String, defaultValue: Boolean): Boolean =
+    fun getStrOfBool(strPackage: String, defaultValue: Boolean): Boolean =
         try {
             val clazz = CStrPackage.ANDROID_OS_SYSTEMPROPERTIES.strPackage2clazz()
             val methodGet: Method = clazz.getMethod("get", String::class.java)
@@ -65,82 +64,6 @@ object UtilKSystemProperties : BaseUtilK() {
             defaultValue
         }
 
-    /**
-     * 设备Rom版本
-     */
-    @JvmStatic
-    fun getRomVersion(): String =
-        getStr(CStrPackage.RO_PRODUCT_ROM_VERSION, CBuild.UNKNOWN)
-
-    /**
-     * 设备硬件版本
-     */
-    @JvmStatic
-    fun getHwVersion(): String =
-        getStr(CStrPackage.RO_PRODUCT_HW_VERSION, CBuild.UNKNOWN)
-
-    /**
-     * 序列号
-     */
-    @SuppressLint("HardwareIds")
-    @JvmStatic
-    fun getSerialNumber(): String = if (UtilKBuildVersion.isAfterV_29_10_Q()) {
-        CBuild.UNKNOWN
-    } else if (UtilKBuildVersion.isAfterV_26_8_O()) {
-        UtilKBuild.getSerial()
-    } else {
-        getStr(CStrPackage.RO_SERIALNO, CBuild.UNKNOWN)
-    }
-
-    ///////////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    @SuppressLint("PrivateApi")
-    fun isMIUIAfter6(): Boolean {
-        return try {
-            val clazz = CStrPackage.ANDROID_OS_SYSTEMPROPERTIES.strPackage2clazz()
-            val methodGet: Method = clazz.getMethod("get", String::class.java)
-            var value = methodGet.invoke(null, CStrPackage.RO_MIUI_UI_VERSION_NAME) as String
-            value = value.replace("[vV]".toRegex(), "")
-            val version = value.toInt()
-            version >= 6
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-            false
-        }
-    }
-
-    /**
-     * colorOS是否大于3
-     */
-    @JvmStatic
-    @SuppressLint("PrivateApi")
-    fun isColorOSAfter3(): Boolean {
-        return try {
-            val clazz = CStrPackage.ANDROID_OS_SYSTEMPROPERTIES.strPackage2clazz()
-            val methodGet = clazz.getMethod("get", String::class.java)
-            var value = methodGet.invoke(null, CStrPackage.RO_BUILD_VERSION_OPPOROM) as String
-            value = value.replace("[vV]".toRegex(), "")
-            value = value.substring(0, 1)
-            val version = value.toInt()
-            version >= 3
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-            false
-        }
-    }
-
-    ///////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * 是否自启动
-     */
-    @JvmStatic
-    fun isAutoRun(): Boolean =
-        getBool(CStrPackage.PERSIST_SENSEPASS_AUTORUN, false)
-
     ///////////////////////////////////////////////////////////////////////////////////
 
     /**
@@ -148,7 +71,7 @@ object UtilKSystemProperties : BaseUtilK() {
      */
     @JvmStatic
     @SuppressLint("PrivateApi")
-    fun apply(key: String, value: String) {
+    fun setStrStr(key: String, value: String) {
         try {
             val clazz = CStrPackage.ANDROID_OS_SYSTEMPROPERTIES.strPackage2clazz()
             val methodSet: Method = clazz.getMethod("set", String::class.java, String::class.java)
@@ -157,13 +80,5 @@ object UtilKSystemProperties : BaseUtilK() {
             Log.e(TAG, "apply Exception ${e.message}")
             e.printStackTrace()
         }
-    }
-
-    /**
-     * 重启
-     */
-    @JvmStatic
-    fun applyReboot() {
-        apply(CStrPackage.SYS_POWERED, "reboot")
     }
 }

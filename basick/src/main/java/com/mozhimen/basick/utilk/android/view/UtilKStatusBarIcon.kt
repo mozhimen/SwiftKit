@@ -12,6 +12,7 @@ import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.os.UtilKRom
 import com.mozhimen.basick.utilk.java.lang.UtilKReflect
 import com.mozhimen.basick.utilk.android.os.UtilKSystemProperties
+import com.mozhimen.basick.utilk.android.os.UtilKSystemPropertiesWrapper
 import com.mozhimen.basick.utilk.kotlin.strPackage2clazz
 
 /**
@@ -46,7 +47,7 @@ object UtilKStatusBarIcon : BaseUtilK() {
     fun applyIcon_MiuiUi(activity: Activity, isThemeDark: Boolean) {
         if (UtilKBuildVersion.isAfterV_23_6_M()) {
             applyIcon_CommonUi(activity, isThemeDark)
-        } else if (UtilKSystemProperties.isMIUIAfter6()) {
+        } else if (UtilKSystemPropertiesWrapper.isMIUIAfter6()) {
             applyIcon_MiuiUi_After6(activity, isThemeDark)
         } else "setIcon_MiuiUi: don't support this miui version".et(TAG)
     }
