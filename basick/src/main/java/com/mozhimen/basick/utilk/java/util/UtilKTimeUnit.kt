@@ -14,7 +14,7 @@ fun Long.second2millis(): Long =
     UtilKTimeUnit.second2millis(this)
 
 fun Long.second2millis2(): Long =
-    UtilKTimeUnit.second2millis2(this)
+    UtilKTimeUnit.second2millisOfCus(this)
 
 fun Long.minute2millis(): Long =
     UtilKTimeUnit.minute2millis(this)
@@ -28,7 +28,7 @@ object UtilKTimeUnit {
         TimeUnit.SECONDS.toMillis(second)
 
     @JvmStatic
-    fun second2millis2(second: Long): Long =
+    fun second2millisOfCus(second: Long): Long =
         second * 1000L
 
     @JvmStatic

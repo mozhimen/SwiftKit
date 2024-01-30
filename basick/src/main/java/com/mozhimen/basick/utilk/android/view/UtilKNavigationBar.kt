@@ -91,22 +91,18 @@ object UtilKNavigationBar : BaseUtilK() {
     fun getHeight(view: View): Int {
         val activity: Activity? = UtilKActivity.getByView(view)
         if (activity != null) {
-            val defaultDisplay = UtilKDisplay.getDef(activity)
-            val size = Point()
-            UtilKDisplay.getDefSize(activity, size)
-            val usableHeight = size.y
-            if (UtilKBuildVersion.isAfterV_17_42_J1()) {
-                UtilKDisplay.getDefRealSize(activity, size) // getRealMetrics is only available with API 17 and +
+            val usableHeight: Int = UtilKDisplay.getDefSizeY(activity)
+            val realHeight: Int = if (UtilKBuildVersion.isAfterV_17_42_J1()) {
+                UtilKDisplay.getDefRealSizeY(activity) // getRealMetrics is only available with API 17 and +
             } else {
                 try {
-                    size.x = (Display::class.java.getMethod("getRawWidth").invoke(defaultDisplay) as Int)
-                    size.y = (Display::class.java.getMethod("getRawHeight").invoke(defaultDisplay) as Int)
+                    UtilKDisplay.getDefRawHeight(activity)
                 } catch (e: Exception) {
                     e.printStackTrace()
                     "getHeight: error ${e.message}".et(TAG)
+                    usableHeight
                 }
             }
-            val realHeight = size.y
             return if (realHeight > usableHeight) realHeight - usableHeight else 0
         }
         return 0

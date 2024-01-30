@@ -2,7 +2,7 @@ package com.mozhimen.basick.lintk.annors
 
 /**
  * @ClassName Description
- * @Description TODO
+ * @Description 描述
  * @Author mozhimen / Kolin Zhao
  * @Date 2023/1/4 23:05
  * @Version 1.0

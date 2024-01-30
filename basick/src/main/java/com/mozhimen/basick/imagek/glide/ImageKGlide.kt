@@ -79,8 +79,10 @@ object ImageKGlide : BaseUtilK() {
      * 是否是竖图
      */
     @JvmStatic
-    suspend fun isImageVertical(res: Any?): Boolean =
-        !isImageHorizontal(res)
+    suspend fun isImageVertical(res: Any?): Boolean {
+        val imageSize = getImageWidthAndHeight(res)
+        return imageSize.first < imageSize.second
+    }
 
     //////////////////////////////////////////////////////////////////////////////////
 

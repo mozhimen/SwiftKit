@@ -18,7 +18,7 @@ import kotlinx.coroutines.withContext
  */
 object UtilKThread {
     @JvmStatic
-    fun getCurrent(): Thread =
+    fun getCur(): Thread =
         Thread.currentThread()
 
     @JvmStatic
@@ -28,12 +28,12 @@ object UtilKThread {
     /////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun getCurrentName(): String =
-        getCurrent().name
+    fun getCurName(): String =
+        getCur().name
 
     @JvmStatic
-    fun getCurrentStackTrace(): Array<StackTraceElement> =
-        getCurrent().stackTrace
+    fun getCurStackTrace(): Array<StackTraceElement> =
+        getCur().stackTrace
 
     /////////////////////////////////////////////////////////
 
@@ -42,7 +42,7 @@ object UtilKThread {
      */
     @JvmStatic
     fun isMainThread(): Boolean =
-        getMain() == getCurrent()
+        getMain() == getCur()
 
     ////////////////////////////////////////////////////////////////////////////
 

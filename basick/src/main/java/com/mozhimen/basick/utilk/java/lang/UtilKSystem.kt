@@ -16,10 +16,6 @@ object UtilKSystem {
         System.getProperty(key)
 
     @JvmStatic
-    fun getPropertyLineSeparator(): String? =
-        getProperty(CStrPackage.LINE_SEPARATOR)
-
-    @JvmStatic
     fun gc() {
         System.gc()
     }

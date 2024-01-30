@@ -5,6 +5,8 @@ import android.graphics.Rect
 import android.view.WindowMetrics
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import kotlin.math.max
+import kotlin.math.min
 
 /**
  * @ClassName UtilKWindowMetrics
@@ -33,4 +35,12 @@ object UtilKWindowMetrics {
     @JvmStatic
     fun getCurBoundsHeight(context: Context): Int =
         getCurBounds(context).height()
+
+    @RequiresApi(CVersCode.V_30_11_R)
+    @JvmStatic
+    fun getCurBoundsRatio(context: Context): Float {
+        val max: Float = max(getCurBoundsWidth(context), getCurBoundsHeight(context)).toFloat()
+        val min: Float = min(getCurBoundsWidth(context), getCurBoundsHeight(context)).toFloat()
+        return max / min
+    }
 }

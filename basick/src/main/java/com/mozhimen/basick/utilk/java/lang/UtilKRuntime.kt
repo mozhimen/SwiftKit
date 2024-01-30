@@ -315,10 +315,10 @@ object UtilKRuntime : BaseUtilK() {
             dataOutputStream = DataOutputStream(outputStream)
             for (command in commands) {
                 dataOutputStream.write(command.toByteArray())
-                dataOutputStream.writeBytes(UtilKSystem.getPropertyLineSeparator())
+                dataOutputStream.writeBytes(UtilKSystemWrapper.getPropertyLineSeparator())
                 dataOutputStream.flush()
             }
-            dataOutputStream.writeBytes("exit${UtilKSystem.getPropertyLineSeparator()}")
+            dataOutputStream.writeBytes("exit${UtilKSystemWrapper.getPropertyLineSeparator()}")
             dataOutputStream.flush()
             result = process.waitFor()
 
@@ -334,12 +334,12 @@ object UtilKRuntime : BaseUtilK() {
                 if (inputBufferedReader.readLine().also { strLine = it } != null) {
                     inputStringBuilder.append(strLine)
                     while (inputBufferedReader.readLine().also { strLine = it } != null)
-                        inputStringBuilder.append(UtilKSystem.getPropertyLineSeparator()).append(strLine)
+                        inputStringBuilder.append(UtilKSystemWrapper.getPropertyLineSeparator()).append(strLine)
                 }
                 if (errorBufferedReader.readLine().also { strLine = it } != null) {
                     errorStringBuilder.append(strLine)
                     while (errorBufferedReader.readLine().also { strLine = it } != null)
-                        errorStringBuilder.append(UtilKSystem.getPropertyLineSeparator()).append(strLine)
+                        errorStringBuilder.append(UtilKSystemWrapper.getPropertyLineSeparator()).append(strLine)
                 }
             }
         } catch (e: Exception) {

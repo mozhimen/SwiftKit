@@ -43,7 +43,3 @@ object UtilKRxJava {
             .observeOn(schedulers)
             .subscribe { c -> listener.invoke(c) }
 }
-
-//    interface UtilKIRxJavaListener {
-//        fun onNext(count: Long)
-//    }

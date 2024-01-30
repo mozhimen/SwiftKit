@@ -70,7 +70,7 @@ object UtilKStackTraceElement : IUtilK {
 
     @JvmStatic
     fun getCurrentStackTraces(clazz: Class<*>): StackTraceElement? {
-        val stackTrace = UtilKThread.getCurrentStackTrace()
+        val stackTrace = UtilKThread.getCurStackTrace()
         var stackOffset = getStackTracesOffset(stackTrace, clazz)
         if (stackOffset == -1) {
             stackOffset = getStackTracesOffset(stackTrace, Logger::class.java)

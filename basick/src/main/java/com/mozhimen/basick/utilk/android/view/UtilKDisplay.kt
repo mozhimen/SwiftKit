@@ -9,7 +9,10 @@ import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.content.cons.CActivityInfo
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.view.cons.CSurface
+import com.mozhimen.basick.lintk.annors.AUsableApi
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
+import kotlin.math.max
+import kotlin.math.min
 
 /**
  * @ClassName UtilKDisplay
@@ -22,22 +25,22 @@ object UtilKDisplay {
 
     @RequiresApi(CVersCode.V_30_11_R)
     @JvmStatic
-    fun get(activity: Activity): Display =
+    fun getApp(activity: Activity): Display =
         UtilKActivity.getDisplay(activity)
-
-    /**
-     * 获取旋转
-     */
-    @JvmStatic
-    @RequiresApi(CVersCode.V_30_11_R)
-    fun getRotation(activity: Activity): Int =
-        get(activity).rotation
-
-    ///////////////////////////////////////////////////////////
 
     @JvmStatic
     fun getDef(context: Context): Display =
         UtilKWindowManager.getDefaultDisplay(context)
+
+    ///////////////////////////////////////////////////////////
+
+    //获取旋转
+    @JvmStatic
+    @RequiresApi(CVersCode.V_30_11_R)
+    fun getAppRotation(activity: Activity): Int =
+        getApp(activity).rotation
+
+    ///////////////////////////////////////////////////////////
 
     @JvmStatic
     fun getDefMetrics(context: Context, displayMetrics: DisplayMetrics) {
@@ -51,6 +54,13 @@ object UtilKDisplay {
     @JvmStatic
     fun getDefHeight(context: Context): Int =
         getDef(context).height
+
+    @JvmStatic
+    fun getDefRatio(context: Context): Float {
+        val max = max(getDefWidth(context), getDefHeight(context)).toFloat()
+        val min = min(getDefWidth(context), getDefHeight(context)).toFloat()
+        return max / min
+    }
 
     @JvmStatic
     fun getDefSize(context: Context, size: Point) {
@@ -73,9 +83,52 @@ object UtilKDisplay {
         getDefSize(context).y
 
     @JvmStatic
+    fun getDefSizeRatio(context: Context): Float {
+        val max: Float = max(getDefSizeX(context), getDefSizeY(context)).toFloat()
+        val min: Float = min(getDefSizeX(context), getDefSizeY(context)).toFloat()
+        return max / min
+    }
+
+    @JvmStatic
     fun getDefRealSize(context: Context, size: Point) {
         getDef(context).getRealSize(size)
     }
+
+    @JvmStatic
+    fun getDefRealSize(context: Context): Point {
+        val size = Point()
+        getDefRealSize(context, size)
+        return size
+    }
+
+    @JvmStatic
+    fun getDefRealSizeX(context: Context): Int =
+        getDefRealSize(context).x
+
+    @JvmStatic
+    fun getDefRealSizeY(context: Context): Int =
+        getDefRealSize(context).y
+
+    @JvmStatic
+    fun getDefRealSizeRatio(context: Context): Float {
+        val max: Float = max(getDefRealSizeX(context), getDefRealSizeY(context)).toFloat()
+        val min: Float = min(getDefRealSizeX(context), getDefRealSizeY(context)).toFloat()
+        return max / min
+    }
+
+    @JvmStatic
+    @AUsableApi(CVersCode.V_17_42_J1)
+    @Deprecated("Deprecated in V_17_42_J1")
+    fun getDefRawWidth(context: Context): Int =
+        (Display::class.java.getMethod("getRawWidth").invoke(getDef(context)) as Int)
+
+    @JvmStatic
+    @AUsableApi(CVersCode.V_17_42_J1)
+    @Deprecated("Deprecated in V_17_42_J1")
+    fun getDefRawHeight(context: Context): Int =
+        (Display::class.java.getMethod("getRawHeight").invoke(getDef(context)) as Int)
+
+    ///////////////////////////////////////////////////////////
 
     //获取旋转
     @JvmStatic
@@ -88,6 +141,8 @@ object UtilKDisplay {
             CSurface.ROTATION_90, CSurface.ROTATION_270 -> CActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
             else -> CActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
+
+    ///////////////////////////////////////////////////////////
 
     @JvmStatic
     fun isDefOrientationPortrait(context: Context): Boolean =

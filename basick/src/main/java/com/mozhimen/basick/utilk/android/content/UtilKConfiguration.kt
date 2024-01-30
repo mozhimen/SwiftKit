@@ -22,6 +22,12 @@ object UtilKConfiguration {
         UtilKResources.getSysConfiguration()
 
     @JvmStatic
+    fun getApp(context: Context):Configuration=
+        UtilKResources.getAppConfiguration(context)
+
+    //////////////////////////////////////////////////////////////////
+
+    @JvmStatic
     fun getSysUiMode(): Int =
         getSys().uiMode
 
@@ -85,9 +91,6 @@ object UtilKConfiguration {
 
     ////////////////////////////////////////////////////////////////////
 
-    @JvmStatic
-    fun getApp(context: Context):Configuration=
-        UtilKResources.getAppConfiguration(context)
     /**
      * 获取自定义Configuration
      */

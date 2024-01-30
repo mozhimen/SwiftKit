@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.android.view
 import android.content.Context
 import android.util.DisplayMetrics
 import android.view.Display
+import com.mozhimen.basick.utilk.android.util.UtilKDisplayMetrics
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.IUtilK
 
@@ -22,10 +23,8 @@ object UtilKVirtualBar : IUtilK {
      */
     @JvmStatic
     fun getHeight(context: Context): Int {
-        val displayMetrics = DisplayMetrics()
         try {
-            Display::class.java.getMethod("getRealMetrics", DisplayMetrics::class.java).invoke(UtilKDisplay.getDef(context), displayMetrics)
-            return displayMetrics.heightPixels - UtilKDisplay.getDefWidth(context)
+            return UtilKDisplayMetrics.getRealHeightPixels(context) - UtilKDisplay.getDefHeight(context)
         } catch (e: Exception) {
             e.printStackTrace()
             "getHeight Exception ${e.message}".et(TAG)
