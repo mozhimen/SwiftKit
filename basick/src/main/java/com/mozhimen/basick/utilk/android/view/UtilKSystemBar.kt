@@ -41,7 +41,7 @@ object UtilKSystemBar {
 
     @JvmStatic
     fun applyFitsSystemWindows(activity: Activity) {
-        UtilKContentView.applyFitsSystemWindows(activity)
+        UtilKDecorView.applyFitsSystemWindows(activity)
     }
 
     @JvmStatic

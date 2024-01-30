@@ -78,20 +78,6 @@ object UtilKWindow : BaseUtilK() {
     fun getAttributesFlags(window: Window): Int =
         getAttributes(window).flags
 
-    ///////////////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun isFlagStatusBarTranslucent(activity: Activity): Boolean =
-        getAttributesFlags(activity) and CWinMgr.Lpf.TRANSLUCENT_STATUS != 0
-
-    @JvmStatic
-    fun isFlagFullScreen(activity: Activity): Boolean =
-        getAttributesFlags(activity) and CWinMgr.Lpf.FULLSCREEN != 0
-
-    @JvmStatic
-    fun isFullScreen(activity: Activity): Boolean =
-        isFlagFullScreen(activity) || !UtilKNavigationBar.isVisible(activity) || !UtilKStatusBar.isVisible(activity)
-
     //////////////////////////////////////////////////////////////////
 
     @JvmStatic

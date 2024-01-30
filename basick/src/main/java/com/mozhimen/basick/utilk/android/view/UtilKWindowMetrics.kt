@@ -16,21 +16,21 @@ import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 object UtilKWindowMetrics {
     @JvmStatic
     @RequiresApi(CVersCode.V_30_11_R)
-    fun getCurrent(context: Context): WindowMetrics =
+    fun getCur(context: Context): WindowMetrics =
         UtilKWindowManager.getCurrentWindowMetrics(context)
 
     @RequiresApi(CVersCode.V_30_11_R)
     @JvmStatic
-    fun getCurrentBounds(context: Context): Rect =
-        getCurrent(context).bounds
+    fun getCurBounds(context: Context): Rect =
+        getCur(context).bounds
 
     @RequiresApi(CVersCode.V_30_11_R)
     @JvmStatic
-    fun getCurrentBoundsWidth(context: Context): Int =
-        getCurrentBounds(context).width()
+    fun getCurBoundsWidth(context: Context): Int =
+        getCurBounds(context).width()
 
     @RequiresApi(CVersCode.V_30_11_R)
     @JvmStatic
-    fun getCurrentBoundsHeight(context: Context): Int =
-        getCurrentBounds(context).height()
+    fun getCurBoundsHeight(context: Context): Int =
+        getCurBounds(context).height()
 }

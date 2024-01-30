@@ -2,7 +2,6 @@ package com.mozhimen.basick.utilk.android.widget
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.text.TextUtils
@@ -15,7 +14,6 @@ import com.mozhimen.basick.elemk.android.view.cons.CGravity
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.text.UtilKInputFilter
-import com.mozhimen.basick.utilk.kotlin.ifOrElse
 import com.mozhimen.basick.utilk.kotlin.obj2stringTrim
 import com.mozhimen.basick.utilk.kotlin.whether
 
@@ -27,10 +25,10 @@ import com.mozhimen.basick.utilk.kotlin.whether
  * @Version 1.0
  */
 
-val TextView.value: String get() = UtilKTextView.getValue(this)
+val TextView.value: String get() = UtilKTextView.gainValue(this)
 
-fun TextView.getValueIfNotEmpty(invoke: IA_Listener<String>/*(value: String) -> Unit*/) {
-    UtilKTextView.getValueIfNotEmpty(this, invoke)
+fun TextView.gainValueIfNotEmpty(invoke: IA_Listener<String>/*(value: String) -> Unit*/) {
+    UtilKTextView.gainValueIfNotEmpty(this, invoke)
 }
 
 //////////////////////////////////////////////////////////////////////////////////////
@@ -95,12 +93,12 @@ object UtilKTextView {
     }
 
     @JvmStatic
-    fun getValue(textView: TextView): String =
+    fun gainValue(textView: TextView): String =
         textView.text.obj2stringTrim()
 
     @JvmStatic
-    fun getValueIfNotEmpty(textView: TextView, invoke: IA_Listener<String>/*(value: String) -> Unit*/) {
-        val value = getValue(textView)
+    fun gainValueIfNotEmpty(textView: TextView, invoke: IA_Listener<String>/*(value: String) -> Unit*/) {
+        val value = gainValue(textView)
         if (value.isNotEmpty()) invoke.invoke(value)
     }
 

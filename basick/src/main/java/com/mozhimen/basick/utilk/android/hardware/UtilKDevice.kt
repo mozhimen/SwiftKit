@@ -13,6 +13,7 @@ import com.mozhimen.basick.elemk.cons.CStrPackage
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKConfiguration
+import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.android.os.UtilKBuild
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -157,11 +158,11 @@ object UtilKDevice : BaseUtilK() {
      */
     fun isFoldable(): Boolean {
         return if (TextUtils.equals(Build.BRAND, "samsung") && TextUtils.equals(Build.DEVICE, "Galaxy Z Fo1d2")) {
-            UtilKScreen.getWidthOfWindow() != 1768
+            UtilKScreen.getWidth() != 1768
         } else if (TextUtils.equals(Build.BRAND, "huawei") && TextUtils.equals(Build.DEVICE, "MateX")) {
-            UtilKScreen.getWidthOfWindow() != 2200
+            UtilKScreen.getWidth() != 2200
         } else if (TextUtils.equals(Build.BRAND, "google") && TextUtils.equals(Build.DEVICE, "generic_x86")) {
-            UtilKScreen.getWidthOfWindow() != 2200
+            UtilKScreen.getWidth() != 2200
         } else {
             true
         }
@@ -172,8 +173,16 @@ object UtilKDevice : BaseUtilK() {
         UtilKCamera.hasFrontCamera(_context)
 
     @JvmStatic
+    fun hasFrontCameraOfPackage(): Boolean =
+        UtilKPackage.hasFrontCamera(_context)
+
+    @JvmStatic
     fun hasBackCamera(): Boolean =
         UtilKCamera.hasBackCamera(_context)
+
+    @JvmStatic
+    fun hasBackCameraOfPackage(): Boolean =
+        UtilKPackage.hasBackCamera(_context)
 
     /**
      * 设备是否有sd卡

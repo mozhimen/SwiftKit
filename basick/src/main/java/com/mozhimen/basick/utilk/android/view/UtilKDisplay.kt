@@ -36,64 +36,64 @@ object UtilKDisplay {
     ///////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun getDefault(context: Context): Display =
+    fun getDef(context: Context): Display =
         UtilKWindowManager.getDefaultDisplay(context)
 
     @JvmStatic
-    fun getDefaultMetrics(context: Context, displayMetrics: DisplayMetrics) {
-        getDefault(context).getMetrics(displayMetrics)
+    fun getDefMetrics(context: Context, displayMetrics: DisplayMetrics) {
+        getDef(context).getMetrics(displayMetrics)
     }
 
     @JvmStatic
-    fun getDefaultWidth(context: Context): Int =
-        getDefault(context).width
+    fun getDefWidth(context: Context): Int =
+        getDef(context).width
 
     @JvmStatic
-    fun getDefaultHeight(context: Context): Int =
-        getDefault(context).height
+    fun getDefHeight(context: Context): Int =
+        getDef(context).height
 
     @JvmStatic
-    fun getDefaultSize(context: Context, size: Point) {
-        getDefault(context).getSize(size)
+    fun getDefSize(context: Context, size: Point) {
+        getDef(context).getSize(size)
     }
 
     @JvmStatic
-    fun getDefaultSize(context: Context): Point {
+    fun getDefSize(context: Context): Point {
         val size = Point()
-        getDefaultSize(context, size)
+        getDefSize(context, size)
         return size
     }
 
     @JvmStatic
-    fun getDefaultSizeX(context: Context): Int =
-        getDefaultSize(context).x
+    fun getDefSizeX(context: Context): Int =
+        getDefSize(context).x
 
     @JvmStatic
-    fun getDefaultSizeY(context: Context): Int =
-        getDefaultSize(context).y
+    fun getDefSizeY(context: Context): Int =
+        getDefSize(context).y
 
     @JvmStatic
-    fun getDefaultRealSize(context: Context, size: Point) {
-        getDefault(context).getRealSize(size)
+    fun getDefRealSize(context: Context, size: Point) {
+        getDef(context).getRealSize(size)
     }
 
     //获取旋转
     @JvmStatic
-    fun getDefaultRotation(context: Context): Int =
-        getDefault(context).rotation
+    fun getDefRotation(context: Context): Int =
+        getDef(context).rotation
 
     @JvmStatic
-    fun getDefaultOrientation(context: Context): Int =
-        when (getDefaultRotation(context)) {
+    fun getDefOrientation(context: Context): Int =
+        when (getDefRotation(context)) {
             CSurface.ROTATION_90, CSurface.ROTATION_270 -> CActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
             else -> CActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
 
     @JvmStatic
-    fun isOrientationPortraitOfDefault(context: Context): Boolean =
-        getDefaultOrientation(context) == CActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    fun isDefOrientationPortrait(context: Context): Boolean =
+        getDefOrientation(context) == CActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
     @JvmStatic
-    fun isOrientationLandscapeOfDefault(context: Context): Boolean =
-        !isOrientationPortraitOfDefault(context)
+    fun isDefOrientationLandscape(context: Context): Boolean =
+        !isDefOrientationPortrait(context)
 }

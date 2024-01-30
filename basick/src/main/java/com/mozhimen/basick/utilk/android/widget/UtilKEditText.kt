@@ -29,7 +29,7 @@ import kotlinx.coroutines.flow.onEach
  * @Date 2022/11/6 0:28
  * @Version 1.0
  */
-val EditText.value: String get() = UtilKEditText.getValue(this)
+val EditText.value: String get() = UtilKEditText.gainValue(this)
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -77,7 +77,7 @@ object UtilKEditText {
      * 获取text
      */
     @JvmStatic
-    fun getValue(editText: EditText): String =
+    fun gainValue(editText: EditText): String =
         editText.text.obj2stringTrim()
 
     //////////////////////////////////////////////////////////////////////////////////////////////

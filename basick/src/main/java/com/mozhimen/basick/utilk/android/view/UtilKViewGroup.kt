@@ -17,8 +17,8 @@ import java.util.Deque
  * @Date 2022/2/22 22:30
  * @Version 1.0
  */
-fun ViewGroup.findViewByInflate(@LayoutRes layoutId: Int): View =
-    UtilKViewGroup.findViewByInflate(this, layoutId)
+fun ViewGroup.findViewOfInflate(@LayoutRes layoutId: Int): View =
+    UtilKViewGroup.findViewOfInflate(this, layoutId)
 
 object UtilKViewGroup {
 
@@ -60,7 +60,7 @@ object UtilKViewGroup {
     //////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun findViewByInflate(viewGroup: ViewGroup, @LayoutRes layoutId: Int): View =
+    fun findViewOfInflate(viewGroup: ViewGroup, @LayoutRes layoutId: Int): View =
         LayoutInflater.from(viewGroup.context).inflate(layoutId, viewGroup, false)
 
     /**

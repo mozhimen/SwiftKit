@@ -24,8 +24,8 @@ object UtilKVirtualBar : IUtilK {
     fun getHeight(context: Context): Int {
         val displayMetrics = DisplayMetrics()
         try {
-            Display::class.java.getMethod("getRealMetrics", DisplayMetrics::class.java).invoke(UtilKDisplay.getDefault(context), displayMetrics)
-            return displayMetrics.heightPixels - UtilKDisplay.getDefaultWidth(context)
+            Display::class.java.getMethod("getRealMetrics", DisplayMetrics::class.java).invoke(UtilKDisplay.getDef(context), displayMetrics)
+            return displayMetrics.heightPixels - UtilKDisplay.getDefWidth(context)
         } catch (e: Exception) {
             e.printStackTrace()
             "getHeight Exception ${e.message}".et(TAG)

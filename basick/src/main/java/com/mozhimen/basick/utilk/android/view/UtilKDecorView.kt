@@ -10,6 +10,7 @@ import com.mozhimen.basick.elemk.android.view.cons.CView
 import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 import com.mozhimen.basick.utilk.android.util.dt
+import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import kotlin.math.abs
 
@@ -113,6 +114,21 @@ object UtilKDecorView : BaseUtilK() {
     }
 
     ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 采用谷歌原生状态栏文字颜色的方法进行设置,携带 [CView.SystemUiFlag.LAYOUT_FULLSCREEN] 这个flag那么默认界面会变成全屏模式,
+     * 需要在根布局中设置FitSystemWindows属性为true, 所以添加Process方法中加入如下的代码
+     * 或者在xml中添加android:fitSystemWindows="true"
+     * 华为,OPPO机型在StatusUtil.setLightStatusBar后布局被顶到状态栏上去了
+     *
+     * 延迟加载不然getChild0为空
+     */
+    @JvmStatic
+    fun applyFitsSystemWindows(activity: Activity) {
+        get(activity).post {
+            UtilKContentView.getChild0(activity)?.applyFitSystemWindow() ?: "setFitsSystemWindows contentView is null".et(TAG)
+        }
+    }
 
     @JvmStatic
     fun applySystemUiVisibility(activity: Activity, visibility: Int) {

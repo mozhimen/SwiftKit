@@ -2,12 +2,10 @@ package com.mozhimen.basick.utilk.android.util
 
 import android.content.Context
 import android.util.DisplayMetrics
-import android.util.TypedValue
-import androidx.annotation.FloatRange
-import com.mozhimen.basick.elemk.android.util.cons.CDisplayMetrics
-import com.mozhimen.basick.elemk.android.util.cons.CTypedValue
 import com.mozhimen.basick.utilk.android.content.UtilKResources
 import com.mozhimen.basick.utilk.android.view.UtilKDisplay
+import com.mozhimen.basick.utilk.android.view.UtilKScreen
+import kotlin.math.sqrt
 
 /**
  * @ClassName UtilKDisplayMetrics
@@ -31,7 +29,7 @@ object UtilKDisplayMetrics {
     @JvmStatic
     fun getDef(context: Context): DisplayMetrics {
         val displayMetrics = DisplayMetrics()
-        UtilKDisplay.getDefaultMetrics(context, displayMetrics)
+        UtilKDisplay.getDefMetrics(context, displayMetrics)
         return displayMetrics
     }
 
@@ -77,7 +75,23 @@ object UtilKDisplayMetrics {
     fun getSysScaledDensity(): Float =
         getSys().scaledDensity
 
+    /**
+     * 获取屏幕尺寸
+     */
+    @JvmStatic
+    fun getSysSize(): Float {
+        val xdpi = getSysXdpi()
+        val ydpi = getSysYdpi()
+        val width = getSysWidthPixels()
+        val height = getSysHeightPixels()
+        //计算屏幕的物理尺寸
+        val widthPhy = (width / xdpi) * (width / xdpi)
+        val heightPhy = (height / ydpi) * (height / ydpi)
+        return sqrt(widthPhy + heightPhy)
+    }
+
     //////////////////////////////////////////////////////////////////////
+
 
     @JvmStatic
     fun getDefWidthPixels(context: Context): Int =

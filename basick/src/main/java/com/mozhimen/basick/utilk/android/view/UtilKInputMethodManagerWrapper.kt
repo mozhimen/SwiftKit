@@ -5,12 +5,10 @@ import android.content.Context
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.view.cons.CKeyEvent
-import com.mozhimen.basick.lintk.optin.OptInApiDeprecated_Official_AfterV_31_11_S
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
@@ -27,7 +25,7 @@ import java.lang.reflect.Field
  * @Date 2022/1/15 20:01
  * @Version 1.0
  */
-object UtilKInputManager : BaseUtilK() {
+object UtilKInputMethodManagerWrapper : BaseUtilK() {
     /**
      * 是否显示
      */

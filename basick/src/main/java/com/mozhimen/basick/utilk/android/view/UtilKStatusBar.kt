@@ -14,6 +14,7 @@ import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.elemk.android.view.ColorfulStatusBar
 import com.mozhimen.basick.elemk.cons.CPackage
+import com.mozhimen.basick.lintk.optin.OptInApiUse_BaseApplication
 import com.mozhimen.basick.utilk.android.content.UtilKResources
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 
@@ -59,7 +60,7 @@ object UtilKStatusBar : BaseUtilK() {
      */
     @JvmStatic
     fun getHeight(isCheckFullScreen: Boolean = true): Int {
-        if (isCheckFullScreen && UtilKScreen.isFullScreen()) return 0
+        if (isCheckFullScreen && UtilKScreen.isFullScreenOfTheme()) return 0
         return getHeight()
     }
 
@@ -70,6 +71,7 @@ object UtilKStatusBar : BaseUtilK() {
      * @param context Context
      * @return Boolean
      */
+    @OptInApiUse_BaseApplication
     @JvmStatic
     fun isVisible(context: Context): Boolean {
         return isVisible(UtilKActivity.getByContext(context, true) ?: return true)
@@ -80,12 +82,12 @@ object UtilKStatusBar : BaseUtilK() {
      */
     @JvmStatic
     fun isVisible(activity: Activity): Boolean =
-        !UtilKWindow.isFlagFullScreen(activity)
+        !UtilKWindowParams.isFlagFullScreen(activity)
 
     @JvmStatic
     fun isTranslucent(activity: Activity): Boolean {//检查主题中是否有透明的状态栏
         var isStatusBarAvailable: Boolean = activity.obtainStyledAttributes(intArrayOf(CPackage.ANDROID_R_ATTR_WINDOWTRANSLUCENTSTATUS)).use { it.getBoolean(0,false) }
-        if (UtilKWindow.isFlagStatusBarTranslucent(activity)) isStatusBarAvailable = true
+        if (UtilKWindowParams.isFlagStatusBarTranslucent(activity)) isStatusBarAvailable = true
         return isStatusBarAvailable
     }
 
