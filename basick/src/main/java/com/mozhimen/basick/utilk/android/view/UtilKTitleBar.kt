@@ -1,8 +1,10 @@
 package com.mozhimen.basick.utilk.android.view
 
 import android.app.Activity
+import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.basick.elemk.android.view.cons.CWindow
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
+import com.mozhimen.basick.utilk.androidx.appcompat.UtilKAppCompatActivity
 import kotlin.math.abs
 
 /**
@@ -25,6 +27,9 @@ object UtilKTitleBar {
 
     @JvmStatic
     fun hide(activity: Activity) {
-        UtilKActivity.requestWindowFeature(activity, CWindow.Feature.NO_TITLE)
+        if (activity is AppCompatActivity) {
+            UtilKAppCompatActivity.supportRequestWindowFeature(activity, CWindow.FEATURE_NO_TITLE)   //继承AppCompatActivity中使用
+        } else
+            UtilKActivity.requestWindowFeature(activity, CWindow.Feature.NO_TITLE)
     }
 }

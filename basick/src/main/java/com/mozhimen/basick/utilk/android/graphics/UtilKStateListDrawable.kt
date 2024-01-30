@@ -6,6 +6,7 @@ import android.os.Build
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKRes
@@ -25,7 +26,7 @@ object UtilKStateListDrawable {
             addState(intArrayOf(-android.R.attr.state_pressed), drawableNormal)
         }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(CVersCode.V_21_5_L)
     @JvmStatic
     fun get(@DrawableRes drawableNormalResId: Int, @DrawableRes drawablePressedResId: Int): StateListDrawable? {
         val drawableNormal = UtilKRes.getDrawable(drawableNormalResId)

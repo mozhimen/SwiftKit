@@ -49,12 +49,12 @@ object UtilKContextDir {
         fun getObbDirs(context: Context): Array<File>? =
             context.obbDirs
 
-        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+        @RequiresApi(CVersCode.V_21_5_L)
         @JvmStatic
         fun getCodeCacheDir(context: Context): File =
             context.codeCacheDir
 
-        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+        @RequiresApi(CVersCode.V_21_5_L)
         @JvmStatic
         fun getNoBackupFilesDir(context: Context): File =
             context.noBackupFilesDir

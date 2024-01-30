@@ -10,6 +10,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.IntegerRes
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 
@@ -56,7 +57,7 @@ object UtilKRes : BaseUtilK() {
 
     /////////////////////////////////////////////////////////////////////
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(CVersCode.V_21_5_L)
     @JvmStatic
     fun getDrawable(@DrawableRes resId: Int): Drawable? =
         UtilKContext.getDrawable(_context, resId)

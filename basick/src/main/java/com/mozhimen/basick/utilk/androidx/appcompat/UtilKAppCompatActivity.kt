@@ -29,4 +29,9 @@ object UtilKAppCompatActivity {
     fun runOnMainThread(appCompatActivity: AppCompatActivity, block: I_Listener) {
         UtilKLifecycle.runOnMainThread(appCompatActivity, block)
     }
+
+    @JvmStatic
+    fun supportRequestWindowFeature(appCompatActivity: AppCompatActivity, featureId: Int){
+        appCompatActivity.supportRequestWindowFeature(featureId)
+    }
 }
