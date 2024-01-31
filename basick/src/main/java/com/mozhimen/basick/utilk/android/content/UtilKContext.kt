@@ -247,8 +247,6 @@ object UtilKContext {
     fun getDrawable(context: Context, @DrawableRes intResDrawable: Int): Drawable? =
         context.getDrawable(intResDrawable)
 
-
-
     ////////////////////////////////////////////////////////////////////////
 
     @JvmStatic

@@ -28,8 +28,8 @@ object UtilKStateListDrawable {
     @RequiresApi(CVersCode.V_21_5_L)
     @JvmStatic
     fun get(@DrawableRes intResDrawableNormal: Int, @DrawableRes intResDrawablePressed: Int): StateListDrawable? {
-        val drawableNormal = UtilKRes.getDrawable(intResDrawableNormal)
-        val drawablePressed = UtilKRes.getDrawable(intResDrawablePressed)
+        val drawableNormal = UtilKRes.getDrawable_ofContext(intResDrawableNormal)
+        val drawablePressed = UtilKRes.getDrawable_ofContext(intResDrawablePressed)
         return if (drawableNormal != null && drawablePressed != null) get(drawableNormal, drawablePressed) else null
     }
 

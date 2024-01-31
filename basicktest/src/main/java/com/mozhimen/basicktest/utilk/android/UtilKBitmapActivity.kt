@@ -36,7 +36,7 @@ class UtilKBitmapActivity : BaseActivityVB<ActivityUtilkBitmapBinding>() {
             }
         }
 
-        val bitmap = UtilKRes.getDrawable(R.mipmap.utilk_img)!!.drawable2bitmap()
+        val bitmap = UtilKRes.getDrawable_ofContext(R.mipmap.utilk_img)!!.drawable2bitmap()
         vb.utilkBitmapSeekbarBmpZoom.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
 

@@ -21,12 +21,12 @@ object UtilKContextCompat {
         ContextCompat.getColor(context, intResColor)
 
     @JvmStatic
-    fun getDrawable(context: Context, @DrawableRes intResDrawable: Int): Drawable? =
-        ContextCompat.getDrawable(context, intResDrawable)
-
-    @JvmStatic
     fun getColorStateList(context: Context, @ColorRes intResColor: Int): ColorStateList? =
         ContextCompat.getColorStateList(context, intResColor)
+
+    @JvmStatic
+    fun getDrawable(context: Context, @DrawableRes intResDrawable: Int): Drawable? =
+        ContextCompat.getDrawable(context, intResDrawable)
 
     ///////////////////////////////////////////////////////////////////////////////////////
 

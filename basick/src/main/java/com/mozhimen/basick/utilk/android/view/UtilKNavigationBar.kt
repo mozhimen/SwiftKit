@@ -4,9 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.graphics.Color
-import android.graphics.Point
 import android.graphics.Rect
-import android.view.Display
 import android.view.View
 import android.view.ViewGroup
 import com.mozhimen.basick.elemk.android.view.cons.CGravity
@@ -78,7 +76,7 @@ object UtilKNavigationBar : BaseUtilK() {
     @JvmStatic
     fun getHeight(): Int {
         val dimensionId = UtilKResources.getSysIdentifier("navigation_bar_height", "dimen", "android")
-        return if (dimensionId != 0) UtilKRes.getDimensionPixelSize(dimensionId) else 0
+        return if (dimensionId != 0) UtilKRes.getDimensionPixelSize_ofResources(dimensionId) else 0
     }
 
     /**
