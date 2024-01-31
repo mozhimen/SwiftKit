@@ -13,5 +13,5 @@ import com.mozhimen.basick.elemk.commons.I_Listener
 data class MBlock(
     val name: String,
     val block: I_Listener,
-    val resId: Int = 0
+    val intResAny: Int = 0
 )

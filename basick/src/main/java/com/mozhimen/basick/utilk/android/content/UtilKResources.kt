@@ -6,16 +6,22 @@ import android.content.res.AssetManager
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.content.res.TypedArray
+import android.content.res.XmlResourceParser
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.DisplayMetrics
+import androidx.annotation.AnimRes
 import androidx.annotation.AnyRes
 import androidx.annotation.ArrayRes
+import androidx.annotation.BoolRes
 import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.IntegerRes
+import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
 import androidx.annotation.StyleableRes
+import androidx.annotation.XmlRes
 
 /**
  * @ClassName UtilKResource
@@ -29,6 +35,12 @@ object UtilKResources {
     @JvmStatic
     fun getSys(): Resources =
         Resources.getSystem()
+
+    @JvmStatic
+    fun getApp(context: Context): Resources =
+        UtilKContext.getResources(context)
+
+    ////////////////////////////////////////////////////////////////////////////
 
     //获取系统Configuration
     @JvmStatic
@@ -47,10 +59,6 @@ object UtilKResources {
     ////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun getApp(context: Context): Resources =
-        UtilKContext.getResources(context)
-
-    @JvmStatic
     fun getAppConfiguration(context: Context): Configuration =
         getConfiguration(getApp(context))
 
@@ -59,41 +67,64 @@ object UtilKResources {
         getDisplayMetrics(getApp(context))
 
     @JvmStatic
-    fun getAppColor(context: Context, @ColorRes resId: Int): Int =
-        getApp(context).getColor(resId)
-
-    @JvmStatic
-    @SuppressLint("UseCompatLoadingForDrawables")
-    fun getAppDrawable(context: Context, @DrawableRes resId: Int): Drawable =
-        getApp(context).getDrawable(resId)// ResourcesCompat.getDrawable()
-
-    @JvmStatic
     fun getAppAssets(context: Context): AssetManager =
         getApp(context).assets
 
     @JvmStatic
-    fun getAppResourceEntryName(context: Context, @AnyRes resId: Int): String =
-        getApp(context).getResourceEntryName(resId)
+    fun getAppResourceEntryName(context: Context, @AnyRes intResAny: Int): String =
+        getApp(context).getResourceEntryName(intResAny)
+
+    ////////////////////////////////////////////////////////////////////////////
+    @JvmStatic
+    fun getAppString(context: Context, @StringRes intResStr: Int): String =
+        getApp(context).getString(intResStr)
 
     @JvmStatic
-    fun getAppDimensionPixelOffset(context: Context, @DimenRes resId: Int): Int =
-        getApp(context).getDimensionPixelOffset(resId)
+    fun getAppString(context: Context, @StringRes intResStr: Int, vararg formatArgs: Any): String =
+        getApp(context).getString(intResStr, formatArgs)
 
     @JvmStatic
-    fun getAppDimensionPixelSize(context: Context, @DimenRes resId: Int): Int =
-        getApp(context).getDimensionPixelSize(resId)
+    fun getAppStringArray(context: Context, @ArrayRes intResArray: Int): Array<String> =
+        getApp(context).getStringArray(intResArray)
 
     @JvmStatic
-    fun getAppDimension(context: Context, @DimenRes resId: Int): Float =
-        getApp(context).getDimension(resId)
+    fun getAppColor(context: Context, @ColorRes intResColor: Int): Int =
+        getApp(context).getColor(intResColor)
 
     @JvmStatic
-    fun getAppStringArray(context: Context, @ArrayRes resId: Int): Array<String> =
-        getApp(context).getStringArray(resId)
+    @SuppressLint("UseCompatLoadingForDrawables")
+    fun getAppDrawable(context: Context, @DrawableRes intResDrawable: Int): Drawable =
+        getApp(context).getDrawable(intResDrawable)// ResourcesCompat.getDrawable()
 
     @JvmStatic
-    fun getAppInteger(context: Context, @IntegerRes resId: Int): Int =
-        getApp(context).getInteger(resId)
+    fun getAppDimensionPixelOffset(context: Context, @DimenRes intResDimen: Int): Int =
+        getApp(context).getDimensionPixelOffset(intResDimen)
+
+    @JvmStatic
+    fun getAppDimensionPixelSize(context: Context, @DimenRes intResDimen: Int): Int =
+        getApp(context).getDimensionPixelSize(intResDimen)
+
+    @JvmStatic
+    fun getAppDimension(context: Context, @DimenRes intResDimen: Int): Float =
+        getApp(context).getDimension(intResDimen)
+
+    @JvmStatic
+    fun getAppInteger(context: Context, @IntegerRes intResInt: Int): Int =
+        getApp(context).getInteger(intResInt)
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun getAppLayout(context: Context, @LayoutRes intResLayout: Int): XmlResourceParser =
+        getApp(context).getLayout(intResLayout)
+
+    @JvmStatic
+    fun getAppAnimation(context: Context, @AnimRes intResAnim: Int): XmlResourceParser =
+        getApp(context).getAnimation(intResAnim)
+
+    @JvmStatic
+    fun getAppXml(context: Context, @BoolRes intResBool: Int): Boolean =
+        getApp(context).getBoolean(intResBool)
 
     ////////////////////////////////////////////////////////////////////////////
 
@@ -108,8 +139,8 @@ object UtilKResources {
     ////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun obtainAttributes(context: Context, set: AttributeSet, @StyleableRes attrs: IntArray): TypedArray =
-        getApp(context).obtainAttributes(set, attrs)
+    fun obtainAttributes(context: Context, set: AttributeSet, @StyleableRes intArrayStyleable: IntArray): TypedArray =
+        getApp(context).obtainAttributes(set, intArrayStyleable)
 
     @JvmStatic
     fun updateConfiguration(context: Context, configuration: Configuration, displayMetrics: DisplayMetrics) {

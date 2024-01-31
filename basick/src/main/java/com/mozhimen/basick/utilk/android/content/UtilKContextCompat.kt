@@ -1,14 +1,12 @@
 package com.mozhimen.basick.utilk.android.content
 
 import android.content.Context
-import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import com.mozhimen.basick.elemk.android.content.cons.CPackageManager
-import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 
 /**
  * @ClassName UtilKContextCompat
@@ -19,16 +17,16 @@ import com.mozhimen.basick.manifestk.permission.ManifestKPermission
  */
 object UtilKContextCompat {
     @JvmStatic
-    fun getColor(context: Context, @ColorRes resId: Int): Int =
-        ContextCompat.getColor(context, resId)
+    fun getColor(context: Context, @ColorRes intResColor: Int): Int =
+        ContextCompat.getColor(context, intResColor)
 
     @JvmStatic
-    fun getColorStateList(context: Context, @ColorRes resId: Int): ColorStateList? =
-        ContextCompat.getColorStateList(context, resId)
+    fun getDrawable(context: Context, @DrawableRes intResDrawable: Int): Drawable? =
+        ContextCompat.getDrawable(context, intResDrawable)
 
     @JvmStatic
-    fun getDrawable(context: Context, @DrawableRes drawableId: Int): Drawable? =
-        ContextCompat.getDrawable(context, drawableId)
+    fun getColorStateList(context: Context, @ColorRes intResColor: Int): ColorStateList? =
+        ContextCompat.getColorStateList(context, intResColor)
 
     ///////////////////////////////////////////////////////////////////////////////////////
 

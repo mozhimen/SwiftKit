@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.Resources.Theme
 import android.content.res.TypedArray
 import android.util.TypedValue
+import androidx.annotation.AnyRes
 import androidx.annotation.StyleableRes
 import com.mozhimen.basick.elemk.cons.CPackage
 
@@ -31,8 +32,8 @@ object UtilKTheme {
     ////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun resolveAttribute(context: Context, resId: Int, outValue: TypedValue, resolveRefs: Boolean) =
-        get(context).resolveAttribute(resId, outValue, resolveRefs)
+    fun resolveAttribute(context: Context,@AnyRes intResAny: Int, outValue: TypedValue, resolveRefs: Boolean) =
+        get(context).resolveAttribute(intResAny, outValue, resolveRefs)
 
     @JvmStatic
     fun obtainStyledAttributes(context: Context, @StyleableRes attrs: IntArray): TypedArray =

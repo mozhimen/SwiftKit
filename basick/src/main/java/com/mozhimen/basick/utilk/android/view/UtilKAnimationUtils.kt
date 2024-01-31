@@ -13,7 +13,7 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
  */
 object UtilKAnimationUtils : BaseUtilK() {
     @JvmStatic
-    fun loadAnimation(@AnimRes id: Int) {
-        AnimationUtils.loadAnimation(_context, id)
+    fun loadAnimation(@AnimRes intResAnim: Int) {
+        AnimationUtils.loadAnimation(_context, intResAnim)
     }
 }

@@ -24,11 +24,6 @@ include ':basick'
 include ':basicktest'
 include ':uicorek'
 include ':uicorektest'
-//JUtilKit
-include ":JUtilKit"
-project(':JUtilKit').projectDir = new File("D:\\WorkSpace\\GitHub\\JUtilKit")
-include ':JUtilKit:utilk_android'
-include ':JUtilKit:utilk_java'
 //test
 //ANavigateKit_Navigation
 include ":ANavigateKit_Navigation"

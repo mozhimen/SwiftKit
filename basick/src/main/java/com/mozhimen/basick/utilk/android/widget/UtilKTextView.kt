@@ -79,7 +79,7 @@ object UtilKTextView {
         ems: Int = 10,
         truncateAt: TextUtils.TruncateAt? = TextUtils.TruncateAt.END,
         gravity: Int? = Gravity.CENTER,
-        colorResId: Int? = android.R.color.black,
+        intResColor: Int? = android.R.color.black,
         textSize: Float? = 16f
     ): TextView {
         val textView = TextView(context)
@@ -87,7 +87,7 @@ object UtilKTextView {
         if (ems > 0) textView.setEms(ems)//设置最多显示多少个字
         truncateAt?.let { textView.ellipsize = it }//设置省略号在尾部
         gravity?.let { textView.gravity = it }
-        colorResId?.let { textView.setTextColor(ContextCompat.getColor(context, it)) }
+        intResColor?.let { textView.setTextColor(ContextCompat.getColor(context, it)) }
         textSize?.let { textView.textSize = it }
         return textView
     }

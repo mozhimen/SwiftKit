@@ -2,7 +2,6 @@ package com.mozhimen.basick.utilk.android.graphics
 
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.StateListDrawable
-import android.os.Build
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
@@ -28,9 +27,9 @@ object UtilKStateListDrawable {
 
     @RequiresApi(CVersCode.V_21_5_L)
     @JvmStatic
-    fun get(@DrawableRes drawableNormalResId: Int, @DrawableRes drawablePressedResId: Int): StateListDrawable? {
-        val drawableNormal = UtilKRes.getDrawable(drawableNormalResId)
-        val drawablePressed = UtilKRes.getDrawable(drawablePressedResId)
+    fun get(@DrawableRes intResDrawableNormal: Int, @DrawableRes intResDrawablePressed: Int): StateListDrawable? {
+        val drawableNormal = UtilKRes.getDrawable(intResDrawableNormal)
+        val drawablePressed = UtilKRes.getDrawable(intResDrawablePressed)
         return if (drawableNormal != null && drawablePressed != null) get(drawableNormal, drawablePressed) else null
     }
 

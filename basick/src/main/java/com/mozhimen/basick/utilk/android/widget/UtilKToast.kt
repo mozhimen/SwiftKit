@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.android.widget
 import android.app.Activity
 import android.content.Context
 import android.widget.Toast
+import androidx.annotation.StringRes
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.os.UtilKHandler
 import com.mozhimen.basick.utilk.android.app.isFinishingOrDestroyed
@@ -49,8 +50,8 @@ fun Context.showToastOnMain(msg: String, duration: Int = Toast.LENGTH_SHORT) {
     UtilKToast.showToastOnMain(msg, duration)
 }
 
-fun Context.showToastOnMain(id: Int, duration: Int = Toast.LENGTH_SHORT) {
-    UtilKToast.showToastOnMain(getString(id), duration)
+fun Context.showToastOnMain(@StringRes intResStr: Int, duration: Int = Toast.LENGTH_SHORT) {
+    UtilKToast.showToastOnMain(getString(intResStr), duration)
 }
 
 ////////////////////////////////////////////////////////////////
@@ -78,13 +79,13 @@ object UtilKToast : BaseUtilK() {
      * 用法2: R.string.app_name.showToast(context)
      */
     @JvmStatic
-    fun showToast(msgId: Int, duration: Int = Toast.LENGTH_SHORT, context: Context = _context) {
+    fun showToast(@StringRes intResStr: Int, duration: Int = Toast.LENGTH_SHORT, context: Context = _context) {
         if (context is Activity) {
             if (!context.isFinishingOrDestroyed()) {
-                makeToast(context, msgId, duration)
+                makeToast(context, intResStr, duration)
             }
         } else {
-            makeToast(context, msgId, duration)
+            makeToast(context, intResStr, duration)
         }
     }
 
@@ -108,11 +109,11 @@ object UtilKToast : BaseUtilK() {
      * 用法2: R.string.app_name.showToastOnMain(context)
      */
     @JvmStatic
-    fun showToastOnMain(msgId: Int, duration: Int = Toast.LENGTH_SHORT) {
+    fun showToastOnMain(@StringRes intResStr: Int, duration: Int = Toast.LENGTH_SHORT) {
         if (UtilKLooper.isMainLooper()) {
-            showToast(msgId, duration)
+            showToast(intResStr, duration)
         } else {
-            UtilKHandler.postOnMain { showToast(msgId, duration) }
+            UtilKHandler.postOnMain { showToast(intResStr, duration) }
         }
     }
 
@@ -124,7 +125,7 @@ object UtilKToast : BaseUtilK() {
     }
 
     @JvmStatic
-    fun makeToast(context: Context, msgId: Int, duration: Int) {
-        Toast.makeText(context, msgId, duration).show()
+    fun makeToast(context: Context, @StringRes intResStr: Int, duration: Int) {
+        Toast.makeText(context, intResStr, duration).show()
     }
 }

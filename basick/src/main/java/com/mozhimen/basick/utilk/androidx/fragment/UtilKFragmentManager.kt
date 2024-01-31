@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.mozhimen.basick.elemk.commons.IA_BListener
-import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.utilk.bases.IUtilK
 
 /**
@@ -19,8 +17,8 @@ import com.mozhimen.basick.utilk.bases.IUtilK
  * @Date 2022/10/22 22:19
  * @Version 1.0
  */
-fun FragmentActivity.findFragmentById(@IdRes id: Int): Fragment? =
-    UtilKFragmentManager.findFragmentById(this, id)
+fun FragmentActivity.findFragmentById(@IdRes intResId: Int): Fragment? =
+    UtilKFragmentManager.findFragmentById(this, intResId)
 
 fun FragmentActivity.findFragmentByTag(tag: String): Fragment? =
     UtilKFragmentManager.findFragmentByTag(this, tag)
@@ -28,8 +26,8 @@ fun FragmentActivity.findFragmentByTag(tag: String): Fragment? =
 fun FragmentActivity.beginTransaction(): FragmentTransaction =
     UtilKFragmentManager.beginTransaction(this)
 
-fun FragmentActivity.getVisibleFragment(id: Int): Fragment? =
-    UtilKFragmentManager.getVisibleFragment(this, id)
+fun FragmentActivity.getVisibleFragment(@IdRes intResId: Int): Fragment? =
+    UtilKFragmentManager.getVisibleFragment(this, intResId)
 
 fun Fragment.beginTransaction(): FragmentTransaction =
     UtilKFragmentManager.beginTransaction(this)
@@ -50,8 +48,8 @@ object UtilKFragmentManager : IUtilK {
         get(fragmentActivity).findFragmentByTag(tag)
 
     @JvmStatic
-    fun findFragmentById(fragmentActivity: FragmentActivity, @IdRes id: Int): Fragment? =
-        get(fragmentActivity).findFragmentById(id)
+    fun findFragmentById(fragmentActivity: FragmentActivity, @IdRes intResId: Int): Fragment? =
+        get(fragmentActivity).findFragmentById(intResId)
 
     @JvmStatic
     fun beginTransaction(fragmentActivity: FragmentActivity): FragmentTransaction =
@@ -65,8 +63,8 @@ object UtilKFragmentManager : IUtilK {
 
     @SuppressLint("RestrictedApi")
     @JvmStatic
-    fun getVisibleFragment(fragmentActivity: FragmentActivity, id: Int): Fragment? =
-        get(fragmentActivity).findFragmentById(id)
+    fun getVisibleFragment(fragmentActivity: FragmentActivity,@IdRes intResId: Int): Fragment? =
+        get(fragmentActivity).findFragmentById(intResId)
 
     /**
      * 可以通过在 AndroidManifest.xml 中配置 <activity> 的 android:screenOrientation 属性，将 Activity 的方向固定，可以避免因屏幕旋转导致的重建，同时也不会回调 onConfigurationChanged。但是该属性在 多窗口系统 下会失效。

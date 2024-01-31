@@ -47,7 +47,7 @@ object UtilKScreen : BaseUtilK() {
             UtilKDisplay.getDefSizeX(_context)
 
     @JvmStatic
-    @ADescription("getCurrentWidth")
+    @ADescription("getCurrentWidth","getWidthOfDisplay")
     fun getWidth_ofSysMetrics(): Int =
         UtilKDisplayMetrics.getSysWidthPixels()
 

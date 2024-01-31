@@ -39,8 +39,8 @@ class UtilKContextDirActivity : BaseActivityVB<ActivityUtilkContextDirBinding>()
         UtilKContextDir.Internal.getObbDirs(this)?.asList()?.joinToString { it.absolutePath }?.i()///storage/emulated/0/Android/obb/com.mozhimen.basicktest
         UtilKContextDir.Internal.getCodeCacheDir(this).absolutePath.i()///data/user/0/com.mozhimen.basicktest/code_cache
         UtilKContextDir.Internal.getNoBackupFilesDir(this).absolutePath.i()///data/user/0/com.mozhimen.basicktest/no_backup
-        UtilKContextDir.Internal.getPackageCodePath(this).i()///data/app/com.mozhimen.basicktest-2/base.apk
-        UtilKContextDir.Internal.getPackageResourcePath(this).i()///data/app/com.mozhimen.basicktest-2/base.apk
+        UtilKContextDir.Internal.getPackageCodeDir(this).i()///data/app/com.mozhimen.basicktest-2/base.apk
+        UtilKContextDir.Internal.getPackageResourceDir(this).i()///data/app/com.mozhimen.basicktest-2/base.apk
 
         UtilKContextDir.External.getCacheDir(this)?.absolutePath?.i()///storage/emulated/0/Android/data/com.mozhimen.basicktest/cache
         UtilKContextDir.External.getFilesRootDir(this)?.absolutePath?.i()///storage/emulated/0/Android/data/com.mozhimen.basicktest/files

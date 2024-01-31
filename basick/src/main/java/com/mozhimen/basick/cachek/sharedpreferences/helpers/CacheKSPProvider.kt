@@ -8,6 +8,7 @@ import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.postk.crypto.PostKCryptoAES
 import com.mozhimen.basick.postk.crypto.mos.MCryptoAESConfig
+import com.mozhimen.basick.utilk.android.content.UtilKContext
 import java.lang.IllegalArgumentException
 
 /**
@@ -19,7 +20,7 @@ import java.lang.IllegalArgumentException
  */
 class CacheKSPProvider(spName: String) : ICacheKProvider, BaseUtilK() {
 
-    private val _sharedPreferences: SharedPreferences by lazy { _context.getSharedPreferences(spName, Context.MODE_PRIVATE) }
+    private val _sharedPreferences: SharedPreferences by lazy { UtilKContext.getSharedPreferences(_context, spName, Context.MODE_PRIVATE) }
 
     /////////////////////////////////////////////////////////////////////
 
