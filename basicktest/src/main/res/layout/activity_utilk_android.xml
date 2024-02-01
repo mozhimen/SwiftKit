@@ -41,6 +41,12 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/BasicKStyle_Btn"
+            android:onClick="goUtilKGraphics"
+            android:text="goUtilKGraphics"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/BasicKStyle_Btn"
             android:onClick="goUtilKInput"
             android:text="goUtilKInput"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

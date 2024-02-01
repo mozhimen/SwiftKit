@@ -15,6 +15,7 @@ import com.mozhimen.basick.imagek.glide.commons.ICustomTarget
 import com.mozhimen.basick.imagek.glide.impls.BlurTransformation
 import com.mozhimen.basick.imagek.glide.impls.RoundedBorderTransformation
 import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.kotlinx.coroutines.safeResume
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
@@ -31,9 +32,16 @@ suspend fun String.isImageHorizontal(): Boolean =
 suspend fun String.isImageVertical(): Boolean =
     ImageKGlide.isImageVertical(this)
 
+//////////////////////////////////////////////////////////////////
+
 fun ImageView.loadImageGlide(res: Any) {
     ImageKGlide.loadImageGlide(this, res)
 }
+
+fun ImageView.loadImageRoundedCornerGlide(res: Any, radius: Int) {
+    ImageKGlide.loadImageRoundedCornerGlide(this, res, radius)
+}
+
 fun ImageView.loadImageComplexGlide(
     res: Any, placeholder: Int, error: Int
 ) {
@@ -54,12 +62,12 @@ object ImageKGlide : BaseUtilK() {
         Glide.with(_context).asBitmap().load(res).into(object : ICustomTarget<Bitmap>() {
             override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                 Log.d(TAG, "onResourceReady: res $res resource width ${resource.width} height ${resource.height}")
-                coroutine.resume(resource.width to resource.height)
+                coroutine.safeResume(resource.width to resource.height)
             }
 
             override fun onLoadFailed(errorDrawable: Drawable?) {
                 Log.d(TAG, "onLoadFailed: resource width 0 height 0")
-                coroutine.resume(0 to 0)
+                coroutine.safeResume(0 to 0)
             }
         })
     }
@@ -186,7 +194,8 @@ object ImageKGlide : BaseUtilK() {
         Glide.with(imageView).load(res)
             .transition(DrawableTransitionOptions.withCrossFade())
             .transform(CenterCrop(), RoundedCorners(cornerRadius))
-            .placeholder(placeholder).error(error)
+            .placeholder(placeholder)
+            .error(error)
             .into(imageView)
     }
 
@@ -197,7 +206,7 @@ object ImageKGlide : BaseUtilK() {
         cornerRadius: Int
     ) {
         Glide.with(imageView).load(res)
-            .transition(DrawableTransitionOptions.withCrossFade())
+//            .transition(DrawableTransitionOptions.withCrossFade())
             .transform(CenterCrop(), RoundedCorners(cornerRadius))
             .into(imageView)
     }

@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.android.graphics
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import androidx.annotation.ColorInt
 
 /**
  * @ClassName UtilKColorDrawable
@@ -12,6 +13,10 @@ import android.graphics.drawable.Drawable
  * @Version 1.0
  */
 object UtilKColorDrawable {
+    @JvmStatic
+    fun get(@ColorInt intColor: Int): ColorDrawable =
+        ColorDrawable(intColor)
+
     /**
      * 是否正常的drawable
      */

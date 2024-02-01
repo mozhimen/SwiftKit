@@ -160,7 +160,7 @@ object AdaptKSystemBar : BaseUtilK() {
 //                } else {
 //                    if (statusBarAnnor.isFontIconDark) statusBarAnnor.bgColorLight else statusBarAnnor.bgColorDark
 //                }
-//                UtilKStatusBar.setStatusBarColor(activity, UtilKRes.getColor(statusBarColor))
+//                UtilKStatusBar.setStatusBarColor(activity, UtilKRes.gainColor(statusBarColor))
 //                UtilKStatusBarFontIcon.setStatusBarFontIcon(activity, if (statusBarAnnor.isFollowSystem) UtilKUiMode.isOSLightMode() else statusBarAnnor.isFontIconDark)//设置状态栏文字和Icon是否为深色
 //            }
 //    }

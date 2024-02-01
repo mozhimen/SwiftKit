@@ -34,6 +34,10 @@ class UtilKAndroidActivity : BaseActivityVB<ActivityUtilkAndroidBinding>() {
         startContext<UtilKContextDirActivity>()
     }
 
+    fun goUtilKGraphics(view: View) {
+        startContext<UtilKGraphicsActivity>()
+    }
+
     fun goUtilKInput(view: View) {
         startContext<UtilKInputActivity>()
     }
