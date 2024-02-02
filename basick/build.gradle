@@ -136,9 +136,9 @@ dependencies {
     //load image
 
     //glide
-    api 'com.github.bumptech.glide:glide:4.12.0'//图片加载库
-    api "com.github.bumptech.glide:okhttp3-integration:4.12.0"
-    kapt 'com.github.bumptech.glide:compiler:4.12.0'
+    api 'com.github.bumptech.glide:glide:4.16.0'//图片加载库
+    api "com.github.bumptech.glide:okhttp3-integration:4.16.0"
+    kapt 'com.github.bumptech.glide:compiler:4.16.0'
 
     //////////////////////////////////////////////////////////////////
     //firebase

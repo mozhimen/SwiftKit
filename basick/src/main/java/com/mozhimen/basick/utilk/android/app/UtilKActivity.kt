@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.ContextWrapper
+import android.util.Log
 import android.view.Display
 import android.view.View
 import android.view.WindowManager
@@ -22,6 +23,7 @@ import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.view.UtilKContentView
 import com.mozhimen.basick.utilk.android.view.UtilKWindow
+import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.kotlin.UtilKClazz
 import com.mozhimen.basick.utilk.kotlin.UtilKString
 
@@ -33,19 +35,19 @@ import com.mozhimen.basick.utilk.kotlin.UtilKString
  * @Version 1.0
  */
 fun <A : Annotation> Activity.getAnnotation(annotationClazz: Class<A>): A? =
-        UtilKActivity.getAnnotation(this, annotationClazz)
+    UtilKActivity.getAnnotation(this, annotationClazz)
 
 fun <V : View> Activity.getContentView(): V =
-        UtilKActivity.getContentView(this)
+    UtilKActivity.getContentView(this)
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
 fun Activity.isFinishingOrDestroyed(): Boolean =
-        UtilKActivity.isFinishingOrDestroyed(this)
+    UtilKActivity.isFinishingOrDestroyed(this)
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-object UtilKActivity {
+object UtilKActivity : IUtilK {
     /**
      * 判断context是否是Activity 这里注意一定要再Application中加入StackK并初始化
      * @param context Context
@@ -78,7 +80,7 @@ object UtilKActivity {
     @OptInApiUse_BaseApplication
     @JvmStatic
     fun getByView(view: View): Activity? =
-            getByContext(view.context)
+        getByContext(view.context)
 
     /**
      * 寻找Activity从Obj
@@ -120,24 +122,24 @@ object UtilKActivity {
 
     @JvmStatic
     fun <A : Annotation> getAnnotation(activity: Activity, annotationClazz: Class<A>): A? =
-            UtilKClazz.getAnnotation(activity.javaClass, annotationClazz)
+        UtilKClazz.getAnnotation(activity.javaClass, annotationClazz)
 
     @JvmStatic
     fun getCurrentFocus(activity: Activity): View? =
-            activity.currentFocus
+        activity.currentFocus
 
     @RequiresApi(CVersCode.V_30_11_R)
     @JvmStatic
     fun getDisplay(activity: Activity): Display =
-            activity.display!!
+        activity.display!!
 
     @JvmStatic
     fun getWindowManager(activity: Activity): WindowManager =
-            activity.windowManager
+        activity.windowManager
 
     @JvmStatic
     fun <V : View> getContentView(activity: Activity): V =
-            UtilKContentView.get(activity)
+        UtilKContentView.get(activity)
 
     /**
      * 获取View绘制区域TOP高度
@@ -153,7 +155,7 @@ object UtilKActivity {
 
     @JvmStatic
     fun isFinishingOrDestroyed(activity: Activity): Boolean =
-            isFinishing(activity) || isDestroyed(activity)
+        (isFinishing(activity) || isDestroyed(activity)).also { Log.d(TAG, "isFinishingOrDestroyed: activity $activity $it") }
 
     /**
      * 判断Activity是否被销毁
@@ -169,13 +171,13 @@ object UtilKActivity {
 
     @JvmStatic
     fun isFinishing(activity: Activity): Boolean =
-            activity.isFinishing
+        activity.isFinishing.also { Log.d(TAG, "isFinishing: activity $activity $it") }
 
     @JvmStatic
     fun isDestroyed(activity: Activity): Boolean =
-            if (UtilKBuildVersion.isAfterV_17_42_J1())
-                activity.isDestroyed || isFinishing(activity)
-            else isFinishing(activity)
+        (if (UtilKBuildVersion.isAfterV_17_42_J1())
+            activity.isDestroyed || isFinishing(activity)
+        else isFinishing(activity)).also { Log.d(TAG, "isDestroyed: activity $activity $it") }
 
     //////////////////////////////////////////////////////////////////////////////////////////
 

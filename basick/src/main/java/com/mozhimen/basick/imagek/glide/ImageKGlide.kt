@@ -1,5 +1,7 @@
 package com.mozhimen.basick.imagek.glide
 
+import android.app.Activity
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.util.Log
@@ -11,13 +13,15 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.transition.Transition
+import com.mozhimen.basick.elemk.commons.I_AListener
+import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.imagek.glide.commons.ICustomTarget
 import com.mozhimen.basick.imagek.glide.impls.BlurTransformation
 import com.mozhimen.basick.imagek.glide.impls.RoundedBorderTransformation
-import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.android.app.isFinishingOrDestroyed
+import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.kotlinx.coroutines.safeResume
 import kotlinx.coroutines.suspendCancellableCoroutine
-import kotlin.coroutines.resume
 
 /**
  * @ClassName ImageKGlide
@@ -26,11 +30,11 @@ import kotlin.coroutines.resume
  * @Date 2023/6/10 16:53
  * @Version 1.0
  */
-suspend fun String.isImageHorizontal(): Boolean =
-    ImageKGlide.isImageHorizontal(this)
+suspend fun String.isImageHorizontal(context: Context?): Boolean =
+    ImageKGlide.isImageHorizontal(this, context)
 
-suspend fun String.isImageVertical(): Boolean =
-    ImageKGlide.isImageVertical(this)
+suspend fun String.isImageVertical(context: Context?): Boolean =
+    ImageKGlide.isImageVertical(this, context)
 
 //////////////////////////////////////////////////////////////////
 
@@ -55,20 +59,25 @@ fun ImageView.loadImageComplexGlide(
         imports = ["com.mozhimen.imagek.coil.ImageKCoil"]
     )
 )
-object ImageKGlide : BaseUtilK() {
+object ImageKGlide : IUtilK {
 
     @JvmStatic
-    suspend fun getImageWidthAndHeight(res: Any?): Pair<Int, Int> = suspendCancellableCoroutine { coroutine ->
-        Glide.with(_context).asBitmap().load(res).into(object : ICustomTarget<Bitmap>() {
-            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                Log.d(TAG, "onResourceReady: res $res resource width ${resource.width} height ${resource.height}")
-                coroutine.safeResume(resource.width to resource.height)
-            }
+    suspend fun getImageWidthAndHeight(res: Any?, context: Context?): Pair<Int, Int> = suspendCancellableCoroutine { coroutine ->
+        contractImageGlide(context, {
+            Glide.with(context!!).asBitmap().load(res).into(object : ICustomTarget<Bitmap>() {
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    Log.d(TAG, "onResourceReady: res $res resource width ${resource.width} height ${resource.height}")
+                    coroutine.safeResume(resource.width to resource.height)
+                }
 
-            override fun onLoadFailed(errorDrawable: Drawable?) {
-                Log.d(TAG, "onLoadFailed: resource width 0 height 0")
-                coroutine.safeResume(0 to 0)
-            }
+                override fun onLoadFailed(errorDrawable: Drawable?) {
+                    Log.d(TAG, "onLoadFailed: resource width 0 height 0")
+                    coroutine.safeResume(0 to 0)
+                }
+            })
+        }, {
+            Log.d(TAG, "onLoadFailed: onError of glide")
+            coroutine.safeResume(0 to 0)
         })
     }
 
@@ -78,8 +87,8 @@ object ImageKGlide : BaseUtilK() {
      * 是否是横图
      */
     @JvmStatic
-    suspend fun isImageHorizontal(res: Any?): Boolean {
-        val imageSize = getImageWidthAndHeight(res)
+    suspend fun isImageHorizontal(res: Any?, context: Context?): Boolean {
+        val imageSize = getImageWidthAndHeight(res, context)
         return imageSize.first > imageSize.second
     }
 
@@ -87,8 +96,8 @@ object ImageKGlide : BaseUtilK() {
      * 是否是竖图
      */
     @JvmStatic
-    suspend fun isImageVertical(res: Any?): Boolean {
-        val imageSize = getImageWidthAndHeight(res)
+    suspend fun isImageVertical(res: Any?, context: Context?): Boolean {
+        val imageSize = getImageWidthAndHeight(res, context)
         return imageSize.first < imageSize.second
     }
 
@@ -96,36 +105,41 @@ object ImageKGlide : BaseUtilK() {
 
     @JvmStatic
     @WorkerThread
-    fun obj2Bitmap(obj: Any, placeholder: Int, width: Int, height: Int): Bitmap {
-        return Glide.with(_context).asBitmap().load(obj)
-            .centerCrop()
-            .placeholder(placeholder)
-            .error(placeholder)
-            .into(width, height)
-            .get()
+    fun obj2Bitmap(obj: Any, context: Context?, placeholder: Int, width: Int, height: Int): Bitmap? {
+        return contractImageGlideRes(context) {
+            Glide.with(context!!).asBitmap().load(obj)
+                .centerCrop()
+                .placeholder(placeholder)
+                .error(placeholder)
+                .into(width, height)
+                .get()
+        }
     }
 
     @JvmStatic
     @WorkerThread
-    fun obj2Bitmap(obj: Any, placeholder: Int, width: Int, height: Int, cornerRadius: Int): Bitmap {
-        return Glide.with(_context).asBitmap().load(obj)
-            .centerCrop()
-            .transform(RoundedCorners(cornerRadius))
-            .placeholder(placeholder)
-            .error(placeholder)
-            .into(width, height)
-            .get()
+    fun obj2Bitmap(obj: Any, context: Context?, placeholder: Int, width: Int, height: Int, cornerRadius: Int): Bitmap? {
+        return contractImageGlideRes(context) {
+            Glide.with(context!!).asBitmap().load(obj)
+                .centerCrop()
+                .transform(RoundedCorners(cornerRadius))
+                .placeholder(placeholder)
+                .error(placeholder)
+                .into(width, height)
+                .get()
+        }
     }
 
     //////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun loadImageGlide(
-        imageView: ImageView,
-        res: Any?
+        imageView: ImageView, res: Any?
     ) {
-        Glide.with(imageView).load(res)
-            .into(imageView)
+        contractImageGlide(imageView.context, {
+            Glide.with(imageView).load(res)
+                .into(imageView)
+        })
     }
 
     @JvmStatic
@@ -135,11 +149,13 @@ object ImageKGlide : BaseUtilK() {
         placeholder: Int,
         error: Int
     ) {
-        Glide.with(imageView).load(res)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .error(error)
-            .placeholder(placeholder)
-            .into(imageView)
+        contractImageGlide(imageView.context, {
+            Glide.with(imageView).load(res)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .error(error)
+                .placeholder(placeholder)
+                .into(imageView)
+        })
     }
 
     /**
@@ -152,12 +168,14 @@ object ImageKGlide : BaseUtilK() {
         placeholder: Int,
         error: Int
     ) {
-        Glide.with(imageView).load(res)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .transform(CircleCrop())
-            .placeholder(placeholder)
-            .error(error)
-            .into(imageView)
+        contractImageGlide(imageView.context, {
+            Glide.with(imageView).load(res)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .transform(CircleCrop())
+                .placeholder(placeholder)
+                .error(error)
+                .into(imageView)
+        })
     }
 
     /**
@@ -172,12 +190,14 @@ object ImageKGlide : BaseUtilK() {
         borderWidth: Float,
         borderColor: Int
     ) {
-        Glide.with(imageView).load(res)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .transform(RoundedBorderTransformation(borderWidth, borderColor))
-            .placeholder(placeholder)
-            .error(error)
-            .into(imageView)
+        contractImageGlide(imageView.context,{
+            Glide.with(imageView).load(res)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .transform(RoundedBorderTransformation(borderWidth, borderColor))
+                .placeholder(placeholder)
+                .error(error)
+                .into(imageView)
+        })
     }
 
     /**
@@ -191,12 +211,14 @@ object ImageKGlide : BaseUtilK() {
         error: Int,
         cornerRadius: Int
     ) {
-        Glide.with(imageView).load(res)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .transform(CenterCrop(), RoundedCorners(cornerRadius))
-            .placeholder(placeholder)
-            .error(error)
-            .into(imageView)
+        contractImageGlide(imageView.context,{
+            Glide.with(imageView).load(res)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .transform(CenterCrop(), RoundedCorners(cornerRadius))
+                .placeholder(placeholder)
+                .error(error)
+                .into(imageView)
+        })
     }
 
     @JvmStatic
@@ -205,10 +227,12 @@ object ImageKGlide : BaseUtilK() {
         res: Any?,
         cornerRadius: Int
     ) {
-        Glide.with(imageView).load(res)
+        contractImageGlide(imageView.context,{
+            Glide.with(imageView).load(res)
 //            .transition(DrawableTransitionOptions.withCrossFade())
-            .transform(CenterCrop(), RoundedCorners(cornerRadius))
-            .into(imageView)
+                .transform(CenterCrop(), RoundedCorners(cornerRadius))
+                .into(imageView)
+        })
     }
 
     @JvmStatic
@@ -220,13 +244,15 @@ object ImageKGlide : BaseUtilK() {
         radius: Int = BlurTransformation.BLUR_MAX_RADIUS,
         sampling: Int = BlurTransformation.BLUR_DEFAULT_DOWN_SAMPLING
     ) {
-        Glide.with(imageView)
-            .load(res)
-            .placeholder(placeholder)
-            .error(error)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .transform(BlurTransformation(radius, sampling))
-            .into(imageView)
+        contractImageGlide(imageView.context,{
+            Glide.with(imageView)
+                .load(res)
+                .placeholder(placeholder)
+                .error(error)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .transform(BlurTransformation(radius, sampling))
+                .into(imageView)
+        })
     }
 
     @JvmStatic
@@ -237,11 +263,39 @@ object ImageKGlide : BaseUtilK() {
         radius: Int = BlurTransformation.BLUR_MAX_RADIUS,
         sampling: Int = BlurTransformation.BLUR_DEFAULT_DOWN_SAMPLING
     ) {
-        Glide.with(imageView)
-            .load(res)
-            .placeholder(placeholder)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .transform(BlurTransformation(radius, sampling))
-            .into(imageView)
+        contractImageGlide(imageView.context,{
+            Glide.with(imageView)
+                .load(res)
+                .placeholder(placeholder)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .transform(BlurTransformation(radius, sampling))
+                .into(imageView)
+        })
+    }
+
+    @JvmStatic
+    fun contractImageGlide(context: Context?, onContinue: I_Listener, onError: I_Listener? = null) {
+        if (context != null /*&& context is Activity && !context.isFinishingOrDestroyed()*/) {
+            try {
+                onContinue.invoke()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                onError?.invoke()
+            }
+        } else {
+            onError?.invoke()
+        }
+    }
+
+    @JvmStatic
+    fun <T> contractImageGlideRes(context: Context?, onContinue: I_AListener<T>): T? {
+        if (context != null /*&& context is Activity && !context.isFinishingOrDestroyed()*/) {
+            try {
+                return onContinue.invoke()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        return null
     }
 }

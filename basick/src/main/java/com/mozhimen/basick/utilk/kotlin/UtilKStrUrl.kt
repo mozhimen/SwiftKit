@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.kotlin
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import androidx.annotation.RequiresPermission
@@ -35,14 +36,14 @@ fun String.strUrl2bitmapAny(): Bitmap =
 @RequiresPermission(CPermission.INTERNET)
 @AManifestKRequire(CPermission.INTERNET)
 @WorkerThread
-fun String.strUrl2bitmapOfGlide(placeholder: Int, width: Int, height: Int): Bitmap =
-    UtilKStrUrl.strUrl2bitmapOfGlide(this, placeholder, width, height)
+fun String.strUrl2bitmapOfGlide(context: Context?, placeholder: Int, width: Int, height: Int): Bitmap? =
+    UtilKStrUrl.strUrl2bitmapOfGlide(this, context, placeholder, width, height)
 
 @RequiresPermission(CPermission.INTERNET)
 @AManifestKRequire(CPermission.INTERNET)
 @WorkerThread
-fun String.strUrl2bitmapOfGlide(placeholder: Int, width: Int, height: Int, cornerRadius: Int): Bitmap =
-    UtilKStrUrl.strUrl2bitmapOfGlide(this, placeholder, width, height, cornerRadius)
+fun String.strUrl2bitmapOfGlide(context: Context?, placeholder: Int, width: Int, height: Int, cornerRadius: Int): Bitmap? =
+    UtilKStrUrl.strUrl2bitmapOfGlide(this, context, placeholder, width, height, cornerRadius)
 
 @RequiresPermission(CPermission.INTERNET)
 @AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE, CPermission.INTERNET)
@@ -74,15 +75,15 @@ object UtilKStrUrl : BaseUtilK() {
     @RequiresPermission(CPermission.INTERNET)
     @AManifestKRequire(CPermission.INTERNET)
     @WorkerThread
-    fun strUrl2bitmapOfGlide(strUrl: String, placeholder: Int, width: Int, height: Int): Bitmap =
-        ImageKGlide.obj2Bitmap(strUrl, placeholder, width, height)
+    fun strUrl2bitmapOfGlide(strUrl: String, context: Context?, placeholder: Int, width: Int, height: Int): Bitmap? =
+        ImageKGlide.obj2Bitmap(strUrl, context, placeholder, width, height)
 
     @JvmStatic
     @RequiresPermission(CPermission.INTERNET)
     @AManifestKRequire(CPermission.INTERNET)
     @WorkerThread
-    fun strUrl2bitmapOfGlide(strUrl: String, placeholder: Int, width: Int, height: Int, cornerRadius: Int): Bitmap =
-        ImageKGlide.obj2Bitmap(strUrl, placeholder, width, height, cornerRadius)
+    fun strUrl2bitmapOfGlide(strUrl: String, context: Context?, placeholder: Int, width: Int, height: Int, cornerRadius: Int): Bitmap? =
+        ImageKGlide.obj2Bitmap(strUrl, context, placeholder, width, height, cornerRadius)
 
     /////////////////////////////////////////////////////////////////////////
 

@@ -159,7 +159,7 @@ object UtilKScreen : BaseUtilK() {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
-    //是否为竖屏
+    //是否为竖屏(系统配置)
     @JvmStatic
     fun isOrientationPortrait_ofSysConfig(): Boolean =
         UtilKConfiguration.isSysOrientationPortrait()
@@ -169,6 +169,7 @@ object UtilKScreen : BaseUtilK() {
     fun isOrientationPortrait_ofDefDisplay(context: Context): Boolean =
         UtilKDisplay.isDefOrientationPortrait(context)
 
+    //是否为竖屏(通过宽高的方式)
     @JvmStatic
     fun isOrientationPortrait_ofSysMetrics(): Boolean =
         UtilKDisplayMetrics.isSysOrientationPortrait()
