@@ -14,6 +14,18 @@ package com.mozhimen.basick.manifestk.cons
  * @Version 1.0
  */
 object CUseFeature {
-    const val CAMERA = "android.hardware.camera"
-    const val CAMERA_AUTOFOCUS = "android.hardware.camera.autofocus"
+    /**
+     *     <uses-feature
+     *         android:name="android.hardware.camera"
+     *         android:required="true" />
+     */
+    const val HARDWARE_CAMERA = "android.hardware.camera"
+
+    /**
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+     *
+     */
+    const val HARDWARE_CAMERA_AUTOFOCUS = "android.hardware.camera.autofocus"
+
+    const val HARDWARE_CAMERA_ANY = "android.hardware.camera.any"
 }
