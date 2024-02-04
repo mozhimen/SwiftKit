@@ -15,7 +15,7 @@ import com.mozhimen.basick.elemk.android.view.cons.CView
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.elemk.cons.CPackage
-import com.mozhimen.basick.lintk.optin.OptInApiUse_BaseApplication
+import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
@@ -495,7 +495,7 @@ object UtilKView : BaseUtilK() {
     /**
      * 从父布局删除View
      */
-    @OptInApiUse_BaseApplication
+    @OApiUse_BaseApplication
     @JvmStatic
     fun removeViewFromParent(view: View): View {
         val viewParent: ViewParent = view.parent

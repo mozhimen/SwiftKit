@@ -12,7 +12,9 @@ import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.provider.cons.CMediaStore
 import com.mozhimen.basick.elemk.android.provider.cons.CSettings
 import com.mozhimen.basick.elemk.cons.CStrPackage
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.lintk.optins.permission.OPermission_MANAGE_EXTERNAL_STORAGE
+import com.mozhimen.basick.lintk.optins.permission.OPermission_QUERY_ALL_PACKAGES
+import com.mozhimen.basick.lintk.optins.permission.OPermission_REQUEST_INSTALL_PACKAGES
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.net.UtilKUri
@@ -117,7 +119,7 @@ object UtilKIntentWrapper {
      * 获取启动App的Intent
      */
     @JvmStatic
-    @AManifestKRequire(CPermission.QUERY_ALL_PACKAGES)
+    @OPermission_QUERY_ALL_PACKAGES
     @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
     fun getLauncherForPackageOfQuery(context: Context, strPackageName: String): Intent? {
         val strLauncherActivityName: String = UtilKActivity.getLauncherActivityName(context, strPackageName)
@@ -130,7 +132,7 @@ object UtilKIntentWrapper {
         UtilKPackageManager.getLaunchIntentForPackage(context, strPackageName)
 
     @JvmStatic
-    @AManifestKRequire(CPermission.QUERY_ALL_PACKAGES)
+    @OPermission_QUERY_ALL_PACKAGES
     @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
     fun getLauncherForPackageOfComponent(context: Context, strPackageName: String): Intent? {
         val intent = getMainLauncher(strPackageName)
@@ -155,7 +157,7 @@ object UtilKIntentWrapper {
      */
     @JvmStatic
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
-    @AManifestKRequire(CPermission.REQUEST_INSTALL_PACKAGES)
+    @OPermission_REQUEST_INSTALL_PACKAGES
     fun getInstall(apkUri: Uri): Intent {
         val intent = Intent(CIntent.ACTION_VIEW)
         if (UtilKBuildVersion.isAfterV_24_7_N()) //判断安卓系统是否大于7.0  大于7.0使用以下方法
@@ -169,7 +171,7 @@ object UtilKIntentWrapper {
      */
     @JvmStatic
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
-    @AManifestKRequire(CPermission.REQUEST_INSTALL_PACKAGES)
+    @OPermission_REQUEST_INSTALL_PACKAGES
     fun getInstall(strFilePathName: String): Intent? =
         UtilKStrFile.strFilePath2uri(strFilePathName)?.let { getInstall(it) }
 
@@ -178,7 +180,7 @@ object UtilKIntentWrapper {
      */
     @JvmStatic
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
-    @AManifestKRequire(CPermission.REQUEST_INSTALL_PACKAGES)
+    @OPermission_REQUEST_INSTALL_PACKAGES
     fun getInstall(fileApk: File): Intent? =
         fileApk.file2uri()?.let { getInstall(it) }
 
@@ -251,7 +253,7 @@ object UtilKIntentWrapper {
     @RequiresApi(CVersCode.V_30_11_R)
     @JvmStatic
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
-    @AManifestKRequire(CPermission.MANAGE_EXTERNAL_STORAGE)
+    @OPermission_MANAGE_EXTERNAL_STORAGE
     fun getManageAppAllFilesAccessPermission(context: Context): Intent =
         Intent(CSettings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, UtilKUri.getPackageUri(context))
 

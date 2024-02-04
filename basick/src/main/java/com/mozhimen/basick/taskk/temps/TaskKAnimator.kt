@@ -10,8 +10,8 @@ import com.mozhimen.basick.animk.builder.AnimKBuilder
 import com.mozhimen.basick.animk.builder.commons.IAnimatorUpdateListener
 import com.mozhimen.basick.animk.builder.temps.AnimatorAlphaType
 import com.mozhimen.basick.animk.builder.temps.AnimatorColorRecyclerType
-import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
-import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
+import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
 import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
 import com.mozhimen.basick.utilk.android.animation.UtilKAnimator
 import com.mozhimen.basick.utilk.android.view.UtilKAnim
@@ -24,8 +24,8 @@ import java.util.concurrent.ConcurrentHashMap
  * @Date 2022/11/20 22:34
  * @Version 1.0
  */
-@OptInApiCall_BindLifecycle
-@OptInApiInit_ByLazy
+@OApiCall_BindLifecycle
+@OApiInit_ByLazy
 class TaskKAnimator : BaseWakeBefDestroyTaskK() {
     private val _viewAnimMap: ConcurrentHashMap<View, Animator> = ConcurrentHashMap()
 

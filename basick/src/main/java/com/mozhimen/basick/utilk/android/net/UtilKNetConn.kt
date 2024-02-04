@@ -10,7 +10,9 @@ import com.mozhimen.basick.elemk.android.net.cons.CNetType
 import com.mozhimen.basick.elemk.android.net.cons.ENetType
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.telephony.CTelephonyManager
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_FINE_LOCATION
+import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_NETWORK_STATE
+import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_WIFI_STATE
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.dt
@@ -28,11 +30,6 @@ import com.mozhimen.basick.utilk.kotlin.equalsIgnoreCase
 fun ENetType.eNetType2strNetType(): String =
     UtilKNetConn.eNetType2strNetType(this)
 
-@AManifestKRequire(
-    CPermission.ACCESS_NETWORK_STATE,
-    CPermission.ACCESS_WIFI_STATE,
-    CPermission.INTERNET
-)
 object UtilKNetConn : BaseUtilK() {
 
     /**
@@ -40,7 +37,8 @@ object UtilKNetConn : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
-    @AManifestKRequire(CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION)
+    @OPermission_ACCESS_WIFI_STATE
+    @OPermission_ACCESS_FINE_LOCATION
     fun getWifiStrength(): Int =
         UtilKWifiInfo.getRssiAbs(_context) ?: 0
 
@@ -81,7 +79,7 @@ object UtilKNetConn : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
+    @OPermission_ACCESS_NETWORK_STATE
     fun getConnectionType(): Int =
         UtilKActiveNetworkInfo.getType(_context) ?: -1
 
@@ -92,7 +90,7 @@ object UtilKNetConn : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
+    @OPermission_ACCESS_NETWORK_STATE
     fun isNetConnected(): Boolean {
         UtilKConnectivityManager.getAllNetworkInfo(_context).forEach {
             if (it.isConnected) return true
@@ -105,7 +103,7 @@ object UtilKNetConn : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
+    @OPermission_ACCESS_NETWORK_STATE
     fun isNetAvailable(): Boolean =
         UtilKActiveNetworkInfo.isAvailable(_context) ?: false//UtilKConnectivityManager.getActiveNetworkInfo(_context)?.isAvailable ?: false
 
@@ -114,7 +112,7 @@ object UtilKNetConn : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
+    @OPermission_ACCESS_NETWORK_STATE
     fun isWifiConnected(): Boolean =
         UtilKActiveNetworkInfo.isWifiConnected(_context)
 
@@ -123,7 +121,7 @@ object UtilKNetConn : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
+    @OPermission_ACCESS_NETWORK_STATE
     fun isMobileConnected(): Boolean =
         UtilKActiveNetworkInfo.isMobileConnected(_context)
 
@@ -145,7 +143,7 @@ object UtilKNetConn : BaseUtilK() {
 
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
+    @OPermission_ACCESS_NETWORK_STATE
     @RequiresApi(CVersCode.V_21_5_L)
     fun registerNetworkCallback(request: NetworkRequest, networkCallback: ConnectivityManager.NetworkCallback) {
         UtilKConnectivityManager.registerNetworkCallback(_context, request, networkCallback)
@@ -162,7 +160,7 @@ object UtilKNetConn : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
+    @OPermission_ACCESS_NETWORK_STATE
     fun printActiveNetworkInfo() {
         val activeNetworkInfo = UtilKConnectivityManager.getActiveNetworkInfo(_context)
         if (activeNetworkInfo != null) {

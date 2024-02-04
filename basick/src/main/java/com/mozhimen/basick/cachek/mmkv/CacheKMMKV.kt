@@ -3,7 +3,7 @@ package com.mozhimen.basick.cachek.mmkv
 import android.content.Context
 import com.mozhimen.basick.cachek.commons.ICacheK
 import com.mozhimen.basick.cachek.mmkv.helpers.CacheKMMKVProvider
-import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
+import com.mozhimen.basick.lintk.optins.OApiInit_InApplication
 import com.tencent.mmkv.MMKV
 import java.util.concurrent.ConcurrentHashMap
 
@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap
  * @Date 2023/9/27 16:40
  * @Version 1.0
  */
-@OptInApiInit_InApplication
+@OApiInit_InApplication
 class CacheKMMKV : ICacheK<CacheKMMKVProvider> {
     companion object {
         @JvmStatic

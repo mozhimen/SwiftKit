@@ -10,7 +10,7 @@ import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
 import com.mozhimen.basick.elemk.commons.IAB_Listener
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.elemk.cons.CCons
-import com.mozhimen.basick.lintk.optin.OptInApiUse_BaseApplication
+import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 
@@ -65,7 +65,7 @@ object UtilKViewTreeObserver {
         }
     }
 
-    @OptInApiUse_BaseApplication
+    @OApiUse_BaseApplication
     @JvmStatic
     fun observerInputChangeByView(view: View): ViewTreeObserver.OnGlobalLayoutListener? {
         return observerInputChange(UtilKActivity.getByContext(view.context, true) ?: return null,

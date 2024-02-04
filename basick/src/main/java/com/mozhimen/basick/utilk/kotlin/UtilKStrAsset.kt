@@ -2,8 +2,6 @@ package com.mozhimen.basick.utilk.kotlin
 
 import android.graphics.Bitmap
 import com.mozhimen.basick.elemk.commons.IAB_Listener
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.manifestk.cons.CApplication
 import com.mozhimen.basick.utilk.android.content.UtilKAssetManager
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.inputStream2bitmapAny
@@ -56,7 +54,6 @@ fun String.strAssetName2bitmap(): Bitmap? =
 
 ///////////////////////////////////////////////////////////////////
 
-@AManifestKRequire(CApplication.REQUEST_LEGACY_EXTERNAL_STORAGE)
 object UtilKStrAsset : BaseUtilK() {
     @JvmStatic
     fun getStrAssetName(strAssetName: String): String =

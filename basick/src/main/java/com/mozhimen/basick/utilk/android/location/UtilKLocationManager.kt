@@ -7,11 +7,11 @@ import android.location.LocationManager
 import android.os.Looper
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.location.cons.CLocationManager
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_COARSE_LOCATION
+import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_FINE_LOCATION
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.util.dt
-import com.mozhimen.basick.utilk.android.util.it
 import com.mozhimen.basick.utilk.bases.IUtilK
 
 
@@ -29,19 +29,22 @@ object UtilKLocationManager : IUtilK {
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
-    @AManifestKRequire(CPermission.ACCESS_FINE_LOCATION, CPermission.ACCESS_COARSE_LOCATION)
+    @OPermission_ACCESS_COARSE_LOCATION
+    @OPermission_ACCESS_FINE_LOCATION
     fun getLastKnownLocation(context: Context, provider: String): Location? =
         get(context).getLastKnownLocation(provider)
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
-    @AManifestKRequire(CPermission.ACCESS_FINE_LOCATION, CPermission.ACCESS_COARSE_LOCATION)
+    @OPermission_ACCESS_COARSE_LOCATION
+    @OPermission_ACCESS_FINE_LOCATION
     fun getLastKnownLocationGps(context: Context): Location? =
         getLastKnownLocation(context, CLocationManager.GPS_PROVIDER)
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
-    @AManifestKRequire(CPermission.ACCESS_FINE_LOCATION, CPermission.ACCESS_COARSE_LOCATION)
+    @OPermission_ACCESS_COARSE_LOCATION
+    @OPermission_ACCESS_FINE_LOCATION
     fun getLastKnownLocationNetwork(context: Context): Location? =
         getLastKnownLocation(context, CLocationManager.NETWORK_PROVIDER)
 
@@ -67,28 +70,32 @@ object UtilKLocationManager : IUtilK {
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
-    @AManifestKRequire(CPermission.ACCESS_FINE_LOCATION, CPermission.ACCESS_COARSE_LOCATION)
+    @OPermission_ACCESS_COARSE_LOCATION
+    @OPermission_ACCESS_FINE_LOCATION
     fun requestLocationUpdates(context: Context, provider: String, minTimeMs: Long, minDistanceM: Float, listener: LocationListener) {
         get(context).requestLocationUpdates(provider, minTimeMs, minDistanceM, listener)
     }
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
-    @AManifestKRequire(CPermission.ACCESS_FINE_LOCATION, CPermission.ACCESS_COARSE_LOCATION)
+    @OPermission_ACCESS_COARSE_LOCATION
+    @OPermission_ACCESS_FINE_LOCATION
     fun requestLocationUpdates(context: Context, provider: String, minTimeMs: Long, minDistanceM: Float, listener: LocationListener, looper: Looper) {
         get(context).requestLocationUpdates(provider, minTimeMs, minDistanceM, listener, looper)
     }
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
-    @AManifestKRequire(CPermission.ACCESS_FINE_LOCATION, CPermission.ACCESS_COARSE_LOCATION)
+    @OPermission_ACCESS_COARSE_LOCATION
+    @OPermission_ACCESS_FINE_LOCATION
     fun requestLocationUpdatesNetwork(context: Context, minTimeMs: Long, minDistanceM: Float, listener: LocationListener) {
         requestLocationUpdates(context, CLocationManager.NETWORK_PROVIDER, minTimeMs, minDistanceM, listener)
     }
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
-    @AManifestKRequire(CPermission.ACCESS_FINE_LOCATION, CPermission.ACCESS_COARSE_LOCATION)
+    @OPermission_ACCESS_COARSE_LOCATION
+    @OPermission_ACCESS_FINE_LOCATION
     fun requestLocationUpdatesNetwork(context: Context, minTimeMs: Long, minDistanceM: Float, listener: LocationListener, looper: Looper) {
         requestLocationUpdates(context, CLocationManager.NETWORK_PROVIDER, minTimeMs, minDistanceM, listener, looper)
     }

@@ -7,7 +7,7 @@ import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.provider.cons.CSettings
 import com.mozhimen.basick.lintk.annors.ADescription
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.lintk.optins.permission.OPermission_SYSTEM_ALERT_WINDOW
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.IUtilK
 
@@ -24,7 +24,7 @@ object UtilKSettings : IUtilK {
     @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.SYSTEM_ALERT_WINDOW)
-    @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
+    @OPermission_SYSTEM_ALERT_WINDOW
     @ADescription(CSettings.ACTION_MANAGE_OVERLAY_PERMISSION)
     fun canDrawOverlays(context: Context): Boolean =
         Settings.canDrawOverlays(context)

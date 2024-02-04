@@ -10,7 +10,10 @@ import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.cons.CConfiguration
 import com.mozhimen.basick.elemk.android.os.cons.CBuild
 import com.mozhimen.basick.elemk.cons.CStrPackage
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_EXTERNAL_STORAGE
+import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_PHONE_STATE
+import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_PRIVILEGED_PHONE_STATE
+import com.mozhimen.basick.lintk.optins.permission.OPermission_WRITE_EXTERNAL_STORAGE
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKConfiguration
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
@@ -34,12 +37,13 @@ import com.mozhimen.basick.utilk.android.telephony.UtilKTelephonyManager
  * @Date 2022/1/15 19:40
  * @Version 1.0
  */
-@AManifestKRequire(CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE)
+@OPermission_READ_PHONE_STATE
+@OPermission_READ_PRIVILEGED_PHONE_STATE
 object UtilKDevice : BaseUtilK() {
 
     @JvmStatic
     @RequiresPermission(CPermission.READ_PHONE_STATE)
-    @AManifestKRequire(CPermission.READ_PHONE_STATE)
+    @OPermission_READ_PHONE_STATE
     fun getImei(): String =
         if (UtilKBuildVersion.isAfterV_23_6_M()) {
             UtilKImei.getImei(_context)
@@ -207,6 +211,8 @@ object UtilKDevice : BaseUtilK() {
     /**
      * 是否有外部存储
      */
+    @OPermission_WRITE_EXTERNAL_STORAGE
+    @OPermission_READ_EXTERNAL_STORAGE
     @JvmStatic
     fun hasExternalStorage(): Boolean =
         UtilKEnvironment.isExternalStorageMounted()

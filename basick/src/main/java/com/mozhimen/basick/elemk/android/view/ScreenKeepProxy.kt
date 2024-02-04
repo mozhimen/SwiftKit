@@ -3,8 +3,8 @@ package com.mozhimen.basick.elemk.android.view
 import android.app.Activity
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
-import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
-import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
+import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
 
@@ -15,8 +15,8 @@ import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
  * @Date 2023/9/11 17:43
  * @Version 1.0
  */
-@OptInApiInit_ByLazy
-@OptInApiCall_BindLifecycle
+@OApiInit_ByLazy
+@OApiCall_BindLifecycle
 class ScreenKeepProxy<A>(private val _activity: A) : BaseWakeBefDestroyLifecycleObserver() where A : Activity, A : LifecycleOwner {
 
     init {

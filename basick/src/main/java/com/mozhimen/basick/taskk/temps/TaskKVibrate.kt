@@ -2,9 +2,9 @@ package com.mozhimen.basick.taskk.temps
 
 import android.os.Vibrator
 import androidx.annotation.RequiresPermission
-import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
-import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
+import com.mozhimen.basick.lintk.optins.permission.OPermission_VIBRATE
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
 import com.mozhimen.basick.utilk.android.os.UtilKVibrator
@@ -16,9 +16,9 @@ import com.mozhimen.basick.utilk.android.os.UtilKVibrator
  * @Date 2022/2/27 18:28
  * @Version 1.0
  */
-@OptInApiCall_BindLifecycle
-@OptInApiInit_ByLazy
-@AManifestKRequire(CPermission.VIBRATE)
+@OApiCall_BindLifecycle
+@OApiInit_ByLazy
+@OPermission_VIBRATE
 class TaskKVibrate : BaseWakeBefDestroyTaskK() {
 
     private var _vibrator: Vibrator? = null
@@ -28,7 +28,7 @@ class TaskKVibrate : BaseWakeBefDestroyTaskK() {
      * @param duration Long
      */
     @RequiresPermission(CPermission.VIBRATE)
-    @AManifestKRequire(CPermission.VIBRATE)
+    @OPermission_VIBRATE
     fun start(duration: Long = 200L) {
         if (isActive()) return
         if (_vibrator == null) {
@@ -45,7 +45,7 @@ class TaskKVibrate : BaseWakeBefDestroyTaskK() {
      * 停止
      */
     @RequiresPermission(CPermission.VIBRATE)
-    @AManifestKRequire(CPermission.VIBRATE)
+    @OPermission_VIBRATE
     override fun cancel() {
         if (!isActive()) return
         _vibrator?.cancel()

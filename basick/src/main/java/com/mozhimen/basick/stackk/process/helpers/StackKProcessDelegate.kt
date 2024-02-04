@@ -4,10 +4,10 @@ import android.app.Activity
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
+import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
-import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
-import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
+import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optins.OApiInit_InApplication
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.stackk.commons.IStackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
@@ -20,16 +20,16 @@ import java.lang.ref.WeakReference
  * @Date 2023/6/11 14:34
  * @Version 1.0
  */
-@OptInApiInit_InApplication
+@OApiInit_InApplication
 internal class StackKProcessDelegate : IStackK {
-    @OptIn(OptInApiInit_ByLazy::class, OptInApiCall_BindLifecycle::class)
+    @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
     private val _applicationLifecycleProxy by lazy { ApplicationLifecycleProxy() }
     private val _frontBackListeners = ArrayList<IStackKListener>()
     private var _isFront = true
 
     /////////////////////////////////////////////////////////////////////////
 
-    @OptIn(OptInApiInit_ByLazy::class, OptInApiCall_BindLifecycle::class)
+    @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
     override fun init() {
         _applicationLifecycleProxy.bindLifecycle(ProcessLifecycleOwner.get())
     }
@@ -84,8 +84,8 @@ internal class StackKProcessDelegate : IStackK {
 
     /////////////////////////////////////////////////////////////////////////
 
-    @OptInApiCall_BindLifecycle
-    @OptInApiInit_ByLazy
+    @OApiCall_BindLifecycle
+    @OApiInit_ByLazy
     private inner class ApplicationLifecycleProxy : BaseWakeBefDestroyLifecycleObserver() {
 
         /**

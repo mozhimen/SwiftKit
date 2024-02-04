@@ -4,13 +4,12 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInstaller
-import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.app.cons.CPendingIntent
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.lintk.optins.permission.OPermission_INSTALL_PACKAGES
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -18,8 +17,6 @@ import com.mozhimen.basick.utilk.java.io.file2fileInputStream
 import com.mozhimen.basick.utilk.java.io.flushClose
 import com.mozhimen.basick.utilk.java.io.inputStream2outputStream
 import java.io.File
-import java.io.FileInputStream
-import java.io.IOException
 import java.io.OutputStream
 
 /**
@@ -53,7 +50,7 @@ object UtilKPackageInstaller : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
-    @AManifestKRequire(CPermission.INSTALL_PACKAGES)
+    @OPermission_INSTALL_PACKAGES
     @RequiresApi(CVersCode.V_21_5_L)
     fun commitSession(packageInstaller: PackageInstaller, sessionId: Int, receiverClazz: Class<*>) {
         var session: PackageInstaller.Session? = null

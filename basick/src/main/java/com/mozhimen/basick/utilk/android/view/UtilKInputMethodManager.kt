@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.IBinder
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import com.mozhimen.basick.lintk.optin.OptInApiDeprecated_Official_AfterV_31_11_S
+import com.mozhimen.basick.lintk.optins.OApiDeprecated_Official_AfterV_31_11_S
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 
 /**
@@ -76,7 +76,7 @@ object UtilKInputMethodManager {
         get(context).toggleSoftInput(showFlags, hideFlags)
     }
 
-    @OptInApiDeprecated_Official_AfterV_31_11_S
+    @OApiDeprecated_Official_AfterV_31_11_S
     @JvmStatic
     fun toggleSoftInput(context: Context) {
         toggleSoftInput(context, 0, 0)

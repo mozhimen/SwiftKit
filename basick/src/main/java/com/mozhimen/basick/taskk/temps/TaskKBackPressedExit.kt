@@ -1,13 +1,11 @@
 package com.mozhimen.basick.taskk.temps
 
 import com.mozhimen.basick.elemk.commons.I_Listener
-import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
-import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
+import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
 import com.mozhimen.basick.utilk.android.content.UtilKApp
-import com.mozhimen.basick.utilk.android.widget.UtilKToast.showToast
 import com.mozhimen.basick.utilk.android.widget.showToast
-import com.mozhimen.basick.utilk.kotlin.ifNotEmpty
 
 /**
  * @ClassName TaskKExitApp
@@ -16,8 +14,8 @@ import com.mozhimen.basick.utilk.kotlin.ifNotEmpty
  * @Date 2023/9/26 16:57
  * @Version 1.0
  */
-@OptInApiCall_BindLifecycle
-@OptInApiInit_ByLazy
+@OApiCall_BindLifecycle
+@OApiInit_ByLazy
 class TaskKBackPressedExit : BaseWakeBefDestroyTaskK() {
     private var _exitWaitTime = 2000L//退出App判断时间
     private var _firstClickTime = 0L//用来记录第一次点击的时间

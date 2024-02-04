@@ -1,15 +1,15 @@
 package com.mozhimen.basick.taskk.temps
 
-import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
+import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.basick.elemk.commons.ISuspend_Listener
-import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
 import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
 import com.mozhimen.basick.utilk.android.util.et
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-@OptInApiCall_BindLifecycle
-@OptInApiInit_ByLazy
+@OApiCall_BindLifecycle
+@OApiInit_ByLazy
 open class TaskKPollInfinite : BaseWakeBefDestroyTaskK() {
     private var _pollingScope: CoroutineScope? = null
 

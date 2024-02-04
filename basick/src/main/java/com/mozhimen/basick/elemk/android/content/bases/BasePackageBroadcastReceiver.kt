@@ -6,7 +6,7 @@ import android.content.Intent
 import android.util.Log
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
-import com.mozhimen.basick.lintk.optin.OptInApiTarget_AtV_25_71_N1
+import com.mozhimen.basick.lintk.optins.OApiTarget_AtV_25_71_N1
 import com.mozhimen.basick.utilk.android.content.UtilKApp
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 
@@ -37,7 +37,7 @@ android:exported="true">
  * @Date 2022/6/13 12:04
  * @Version 1.0
  */
-@OptInApiTarget_AtV_25_71_N1
+@OApiTarget_AtV_25_71_N1
 @TargetApi(CVersCode.V_25_71_N1)
 open class BasePackageBroadcastReceiver : BaseBroadcastReceiver() {
 

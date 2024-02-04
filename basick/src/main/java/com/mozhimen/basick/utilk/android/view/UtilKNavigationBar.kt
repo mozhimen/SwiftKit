@@ -11,7 +11,7 @@ import com.mozhimen.basick.elemk.android.view.cons.CGravity
 import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.elemk.android.view.cons.CView
 import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
-import com.mozhimen.basick.lintk.optin.OptInApiUse_BaseApplication
+import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.content.UtilKResources
@@ -32,7 +32,7 @@ object UtilKNavigationBar : BaseUtilK() {
      * 方法参考
      * https://juejin.im/post/5bb5c4e75188255c72285b54
      */
-    @OptInApiUse_BaseApplication
+    @OApiUse_BaseApplication
     @JvmStatic
     fun getBounds(rect: Rect, context: Context) {
         val activity = UtilKActivity.getByContext(context, true)
@@ -84,7 +84,7 @@ object UtilKNavigationBar : BaseUtilK() {
      * @param view View 目标View
      * @return Int 如果存在NavigationBar则返回高度，否则0
      */
-    @OptInApiUse_BaseApplication
+    @OApiUse_BaseApplication
     @JvmStatic
     fun getHeight(view: View): Int {
         val activity: Activity? = UtilKActivity.getByView(view)

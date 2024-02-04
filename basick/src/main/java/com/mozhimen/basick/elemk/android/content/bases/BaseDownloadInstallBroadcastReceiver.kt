@@ -1,11 +1,11 @@
 package com.mozhimen.basick.elemk.android.content.bases
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import com.mozhimen.basick.elemk.android.app.cons.CDownloadManager
-import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_INSTALL_SESSIONS
+import com.mozhimen.basick.lintk.optins.permission.OPermission_REPLACE_EXISTING_PACKAGE
+import com.mozhimen.basick.lintk.optins.permission.OPermission_REQUEST_INSTALL_PACKAGES
 import com.mozhimen.basick.utilk.android.content.UtilKAppInstall
 
 
@@ -37,7 +37,9 @@ android:exported="true">
  * @Date 2022/6/13 12:04
  * @Version 1.0
  */
-@AManifestKRequire(/*CPermission.INSTALL_PACKAGES,*/ CPermission.REQUEST_INSTALL_PACKAGES, CPermission.READ_INSTALL_SESSIONS, CPermission.REPLACE_EXISTING_PACKAGE)
+@OPermission_REQUEST_INSTALL_PACKAGES
+@OPermission_READ_INSTALL_SESSIONS
+@OPermission_REPLACE_EXISTING_PACKAGE
 open class BaseDownloadInstallBroadcastReceiver(private val _strPathNameApk: String) : BaseBroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {

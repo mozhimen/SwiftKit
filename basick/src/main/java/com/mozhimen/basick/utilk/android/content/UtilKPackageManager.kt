@@ -9,7 +9,6 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageInstaller
 import android.content.pm.PackageManager
-import android.content.pm.PackageManager.NameNotFoundException
 import android.content.pm.PackageManager.PackageInfoFlags
 import android.content.pm.PermissionGroupInfo
 import android.content.pm.PermissionInfo
@@ -20,11 +19,9 @@ import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.cons.CPackageInfo
 import com.mozhimen.basick.elemk.android.content.cons.CPackageManager
-import com.mozhimen.basick.elemk.android.os.cons.CProcess
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
-import com.mozhimen.basick.elemk.cons.CStrPackage
 import com.mozhimen.basick.lintk.annors.ADescription
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.lintk.optins.permission.OPermission_REQUEST_INSTALL_PACKAGES
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 
@@ -158,7 +155,7 @@ object UtilKPackageManager {
     @RequiresApi(CVersCode.V_26_8_O)
     @TargetApi(CVersCode.V_26_8_O)
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
-    @AManifestKRequire(CPermission.REQUEST_INSTALL_PACKAGES)
+    @OPermission_REQUEST_INSTALL_PACKAGES
     @ADescription(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
     fun canRequestPackageInstalls(context: Context): Boolean =
         get(context).canRequestPackageInstalls()

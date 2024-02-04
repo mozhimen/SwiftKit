@@ -2,8 +2,8 @@ package com.mozhimen.basick.elemk.androidx.lifecycle.bases
 
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.elemk.androidx.lifecycle.commons.IDefaultLifecycleObserver
-import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
-import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
+import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
 
 
@@ -14,8 +14,8 @@ import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
  * @Date 2023/2/24 17:47
  * @Version 1.0
  */
-@OptInApiCall_BindLifecycle
-@OptInApiInit_ByLazy
+@OApiCall_BindLifecycle
+@OApiInit_ByLazy
 open class BaseWakeBefPauseLifecycleObserver : IDefaultLifecycleObserver {
     override fun bindLifecycle(owner: LifecycleOwner) {
         owner.runOnMainThread {

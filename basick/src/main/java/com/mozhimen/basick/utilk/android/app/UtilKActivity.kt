@@ -12,10 +12,9 @@ import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
-import com.mozhimen.basick.elemk.android.view.cons.CWindow
-import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
-import com.mozhimen.basick.lintk.optin.OptInApiUse_BaseApplication
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.lintk.optins.OApiInit_InApplication
+import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
+import com.mozhimen.basick.lintk.optins.permission.OPermission_QUERY_ALL_PACKAGES
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.utilk.android.content.UtilKIntentWrapper
@@ -54,8 +53,8 @@ object UtilKActivity : IUtilK {
      * @param returnTopIfNull Boolean
      * @return Activity?
      */
-    @OptIn(OptInApiInit_InApplication::class)
-    @OptInApiUse_BaseApplication
+    @OptIn(OApiInit_InApplication::class)
+    @OApiUse_BaseApplication
     @JvmStatic
     fun getByContext(context: Context, returnTopIfNull: Boolean = false): Activity? {
         var tempContext = context
@@ -77,7 +76,7 @@ object UtilKActivity : IUtilK {
      * @param view View
      * @return Activity?
      */
-    @OptInApiUse_BaseApplication
+    @OApiUse_BaseApplication
     @JvmStatic
     fun getByView(view: View): Activity? =
         getByContext(view.context)
@@ -88,8 +87,8 @@ object UtilKActivity : IUtilK {
      * @param returnTopIfNull Boolean
      * @return Activity?
      */
-    @OptInApiUse_BaseApplication
-    @OptIn(OptInApiInit_InApplication::class)
+    @OApiUse_BaseApplication
+    @OptIn(OApiInit_InApplication::class)
     @JvmStatic
     fun getByObj(obj: Any, returnTopIfNull: Boolean = false): Activity? {
         var activity: Activity? = null
@@ -110,7 +109,7 @@ object UtilKActivity : IUtilK {
      * @return String?
      */
     @JvmStatic
-    @AManifestKRequire(CPermission.QUERY_ALL_PACKAGES)
+    @OPermission_QUERY_ALL_PACKAGES
     @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
     fun getLauncherActivityName(context: Context, strPackageName: String): String {
         if (UtilKString.hasSpace(strPackageName) || strPackageName.isEmpty()) return ""
@@ -162,7 +161,7 @@ object UtilKActivity : IUtilK {
      * @param context Context
      * @return Boolean
      */
-    @OptInApiUse_BaseApplication
+    @OApiUse_BaseApplication
     @JvmStatic
     fun isDestroyed(context: Context): Boolean {
         val activity: Activity? = getByContext(context)

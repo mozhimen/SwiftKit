@@ -1,8 +1,8 @@
 package com.mozhimen.basick.taskk.temps
 
 import android.os.CountDownTimer
-import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
-import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
+import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
 import com.mozhimen.basick.taskk.bases.BaseWakeBefPauseTaskK
 
 /**
@@ -22,8 +22,8 @@ open class TaskKCountDownCallback : ITaskKCountDownListener {
     override fun onFinish() {}
 }
 
-@OptInApiCall_BindLifecycle
-@OptInApiInit_ByLazy
+@OApiCall_BindLifecycle
+@OApiInit_ByLazy
 class TaskKCountDown : BaseWakeBefPauseTaskK() {
 
     private var _taskKCountDownListener: ITaskKCountDownListener? = null

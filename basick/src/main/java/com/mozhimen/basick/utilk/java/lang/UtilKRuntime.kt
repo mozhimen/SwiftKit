@@ -6,8 +6,8 @@ import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.cons.CPath
 import com.mozhimen.basick.elemk.kotlin.text.cons.CCharsets
 import com.mozhimen.basick.elemk.mos.MResultISS
-import com.mozhimen.basick.lintk.optin.OptInDeviceRoot
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.lintk.optins.ODeviceRoot
+import com.mozhimen.basick.lintk.optins.permission.OPermission_INSTALL_PACKAGES
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
@@ -82,9 +82,9 @@ object UtilKRuntime : BaseUtilK() {
 
     @JvmStatic
     @Throws(Exception::class)
-    @OptInDeviceRoot
+    @ODeviceRoot
+    @OPermission_INSTALL_PACKAGES
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
-    @AManifestKRequire(CPermission.INSTALL_PACKAGES)
     fun execSuInstall(strPathNameApk: String): Boolean {
         require(strPathNameApk.isNotEmpty()) { "$TAG please check apk file path" }
 
@@ -122,7 +122,7 @@ object UtilKRuntime : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
-    @AManifestKRequire(CPermission.INSTALL_PACKAGES)
+    @OPermission_INSTALL_PACKAGES
     fun execInstallBefore28(strPathNameApk: String): Boolean {
         val command: Array<String> =
             if (UtilKBuildVersion.isAfterV_24_7_N())
@@ -153,7 +153,7 @@ object UtilKRuntime : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
-    @AManifestKRequire(CPermission.INSTALL_PACKAGES)
+    @OPermission_INSTALL_PACKAGES
     fun execInstallBefore282(strPathNameApk: String): Boolean {
         val command =
             if (UtilKBuildVersion.isAfterV_24_7_N())

@@ -6,8 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Parcelable
 import com.mozhimen.basick.elemk.commons.IExtension_Listener
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.manifestk.cons.CIntentFilter
+import com.mozhimen.basick.lintk.optins.intent_filter.OIntentFilter_ACTION_VIEW_CATEGORY_DEFAULT_BROWSABLE
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 
 /**
@@ -23,6 +22,7 @@ fun Intent.createChooser(title: CharSequence): Intent =
 fun Intent.isIntentAvailable(context: Context): Boolean =
     UtilKIntent.isIntentAvailable(this, context)
 
+@OIntentFilter_ACTION_VIEW_CATEGORY_DEFAULT_BROWSABLE
 fun Intent.getQueryParameter(key: String): String? =
     UtilKIntent.getQueryParameter(this, key)
 
@@ -38,7 +38,7 @@ object UtilKIntent {
         Intent(context, T::class.java).apply(block)
 
     @JvmStatic
-    @AManifestKRequire(CIntentFilter.ACTION_VIEW_CATEGORY_DEFAULT_BROWSABLE)
+    @OIntentFilter_ACTION_VIEW_CATEGORY_DEFAULT_BROWSABLE
     fun getQueryParameter(intent: Intent, key: String): String? =
         intent.data?.getQueryParameter(key)
 

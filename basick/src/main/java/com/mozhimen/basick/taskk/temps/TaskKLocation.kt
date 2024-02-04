@@ -3,9 +3,10 @@ package com.mozhimen.basick.taskk.temps
 import android.util.Log
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.commons.ISuspendAA_Listener
-import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
-import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
+import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_COARSE_LOCATION
+import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_FINE_LOCATION
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.location.UtilKLocation
 import kotlinx.coroutines.Dispatchers
@@ -18,8 +19,8 @@ import kotlinx.coroutines.Dispatchers
  * @Date 2023/8/15 16:29
  * @Version 1.0
  */
-@OptInApiInit_ByLazy
-@OptInApiCall_BindLifecycle
+@OApiInit_ByLazy
+@OApiCall_BindLifecycle
 class TaskKLocation : TaskKPollInfinite() {
 
     @Volatile
@@ -41,7 +42,8 @@ class TaskKLocation : TaskKPollInfinite() {
      * @param task
      */
     @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
-    @AManifestKRequire(CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION)
+    @OPermission_ACCESS_FINE_LOCATION
+    @OPermission_ACCESS_COARSE_LOCATION
     fun startLocationTask(intervalMillis: Long, minTimeMs: Long = 2000, minDistanceM: Float = 5f, task: ISuspendAA_Listener<Double>? = null) {
         if (!UtilKLocation.hasPermission()) {
             Log.w(TAG, "startLocationTask: dont hasPermission")

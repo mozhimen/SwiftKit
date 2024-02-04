@@ -6,8 +6,8 @@ import android.view.OrientationEventListener
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.elemk.android.hardware.cons.CSensorManager
 import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
-import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
-import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
+import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
 
 
@@ -18,8 +18,8 @@ import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
  * @Date 2024/1/30 16:54
  * @Version 1.0
  */
-@OptInApiInit_ByLazy
-@OptInApiCall_BindLifecycle
+@OApiInit_ByLazy
+@OApiCall_BindLifecycle
 class ScreenOrientationOfSensorProxy<A>(private val _activity: A) : BaseWakeBefDestroyLifecycleObserver() where A : Activity, A : LifecycleOwner {
     companion object {
         private val SENSOR_ANGLE = 10

@@ -1,12 +1,12 @@
 package com.mozhimen.basick.utilk.android.app
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.lintk.optins.permission.OPermission_MANAGE_EXTERNAL_STORAGE
+import com.mozhimen.basick.lintk.optins.permission.OPermission_REQUEST_INSTALL_PACKAGES
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKIntentWrapper
 import com.mozhimen.basick.utilk.android.content.createChooser
@@ -44,7 +44,7 @@ object UtilKLaunchActivity {
      * 安装 if sdk >= 24 add provider
      */
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
-    @AManifestKRequire(CPermission.REQUEST_INSTALL_PACKAGES)
+    @OPermission_REQUEST_INSTALL_PACKAGES
     @JvmStatic
     fun startInstall(context: Context, strPathNameApk: String) {
         context.startContext(
@@ -59,7 +59,7 @@ object UtilKLaunchActivity {
      * 安装 if sdk >= 24 add provider
      */
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
-    @AManifestKRequire(CPermission.REQUEST_INSTALL_PACKAGES)
+    @OPermission_REQUEST_INSTALL_PACKAGES
     @JvmStatic
     fun startInstall(context: Context, fileApk: File) {
         context.startContext(UtilKIntentWrapper.getInstall(fileApk) ?: return)
@@ -69,7 +69,7 @@ object UtilKLaunchActivity {
      * 安装 if sdk >= 24 add provider
      */
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
-    @AManifestKRequire(CPermission.REQUEST_INSTALL_PACKAGES)
+    @OPermission_REQUEST_INSTALL_PACKAGES
     @JvmStatic
     fun startInstall(context: Context, apkUri: Uri) {
         context.startContext(UtilKIntentWrapper.getInstall(apkUri))
@@ -115,7 +115,7 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
-    @AManifestKRequire(CPermission.MANAGE_EXTERNAL_STORAGE)
+    @OPermission_MANAGE_EXTERNAL_STORAGE
     fun startManageAllFilesAccess(context: Context) {
         if (UtilKBuildVersion.isAfterV_30_11_R()) {
             //if (!Environment.isExternalStorageManager()) {// 没文件管理权限时申请权限
@@ -142,7 +142,7 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
-    @AManifestKRequire(CPermission.MANAGE_EXTERNAL_STORAGE)
+    @OPermission_MANAGE_EXTERNAL_STORAGE
     fun startManageAllFilesAccess2(context: Context) {
         if (UtilKBuildVersion.isAfterV_30_11_R()) {
             //if (!Environment.isExternalStorageManager()) {// 没文件管理权限时申请权限

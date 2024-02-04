@@ -1,4 +1,4 @@
-package com.mozhimen.basick.lintk.optin
+package com.mozhimen.basick.lintk.optins
 
 /**
  * @ClassName AOptLazyInit
@@ -34,5 +34,5 @@ package com.mozhimen.basick.lintk.optin
  * ```
  * @constructor Create empty A lint k opt in_api multi dex_in application
  */
-@RequiresOptIn("The api need write multiDex in application, gradle < dexOptions > and < defaultConfig >.", RequiresOptIn.Level.WARNING)
-annotation class OptInApiMultiDex_InApplication
+@RequiresOptIn("The api need write multiDex in application, gradle < dexOptions > and < defaultConfig >. 需要在gradle中声明分包的API", RequiresOptIn.Level.WARNING)
+annotation class OApiMultiDex_InApplication

@@ -3,8 +3,7 @@ package com.mozhimen.basick.utilk.android.app
 import android.annotation.SuppressLint
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.lintk.optins.permission.OPermission_SYSTEM_ALERT_WINDOW
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.kotlin.strPackage2clazz
@@ -17,7 +16,7 @@ import com.mozhimen.basick.utilk.kotlin.strPackage2clazz
  * @Date 2023/1/11 12:31
  * @Version 1.0
  */
-@AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
+@OPermission_SYSTEM_ALERT_WINDOW
 object UtilKDialog : BaseUtilK() {
 
     /**

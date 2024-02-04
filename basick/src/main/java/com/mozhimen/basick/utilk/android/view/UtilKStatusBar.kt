@@ -14,7 +14,7 @@ import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.elemk.android.view.ColorfulStatusBar
 import com.mozhimen.basick.elemk.cons.CPackage
-import com.mozhimen.basick.lintk.optin.OptInApiUse_BaseApplication
+import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
 import com.mozhimen.basick.utilk.android.content.UtilKResources
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 
@@ -71,7 +71,7 @@ object UtilKStatusBar : BaseUtilK() {
      * @param context Context
      * @return Boolean
      */
-    @OptInApiUse_BaseApplication
+    @OApiUse_BaseApplication
     @JvmStatic
     fun isVisible(context: Context): Boolean {
         return isVisible(UtilKActivity.getByContext(context, true) ?: return true)

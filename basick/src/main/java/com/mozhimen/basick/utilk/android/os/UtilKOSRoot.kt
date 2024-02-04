@@ -1,10 +1,8 @@
 package com.mozhimen.basick.utilk.android.os
 
-import android.os.Build
 import android.util.Log
 import com.mozhimen.basick.elemk.cons.CPath
-import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_EXTERNAL_STORAGE
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
@@ -20,7 +18,7 @@ import java.io.File
  * @Date 2023/1/6 18:04
  * @Version 1.0
  */
-@AManifestKRequire(CPermission.READ_EXTERNAL_STORAGE)
+@OPermission_READ_EXTERNAL_STORAGE
 object UtilKOSRoot : IUtilK {
 
     /**

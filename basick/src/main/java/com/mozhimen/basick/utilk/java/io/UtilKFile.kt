@@ -2,8 +2,7 @@ package com.mozhimen.basick.utilk.java.io
 
 import android.util.Log
 import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.manifestk.cons.CApplication
+import com.mozhimen.basick.lintk.optins.application.OApplication_REQUEST_LEGACY_EXTERNAL_STORAGE
 import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.util.UtilKDate
@@ -76,7 +75,7 @@ fun File.deleteFolder(): Boolean =
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-@AManifestKRequire(CApplication.REQUEST_LEGACY_EXTERNAL_STORAGE)
+@OApplication_REQUEST_LEGACY_EXTERNAL_STORAGE
 object UtilKFile : BaseUtilK() {
 
     //region # file

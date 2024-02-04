@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.NetworkInfo
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.net.cons.CConnectivityManager
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_NETWORK_STATE
 import com.mozhimen.basick.manifestk.cons.CPermission
 
 /**
@@ -21,7 +21,7 @@ object UtilKActiveNetworkInfo {
 
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
+    @OPermission_ACCESS_NETWORK_STATE
     fun getType(context: Context): Int? =
         get(context)?.let { UtilKNetworkInfo.getType(it) }
 
@@ -36,7 +36,7 @@ object UtilKActiveNetworkInfo {
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
+    @OPermission_ACCESS_NETWORK_STATE
     fun isWifiConnected(context: Context): Boolean {
         val activeNetworkInfo = get(context)
         return activeNetworkInfo != null
@@ -49,7 +49,7 @@ object UtilKActiveNetworkInfo {
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    @AManifestKRequire(CPermission.ACCESS_NETWORK_STATE)
+    @OPermission_ACCESS_NETWORK_STATE
     fun isMobileConnected(context: Context): Boolean {
         val activeNetworkInfo = get(context)
         return activeNetworkInfo != null

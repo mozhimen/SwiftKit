@@ -3,9 +3,8 @@ package com.mozhimen.basick.elemk.android.content.bases
 import android.content.Context
 import android.content.Intent
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
-import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.elemk.io.reactivex.commons.IObserver
+import com.mozhimen.basick.lintk.optins.permission.OPermission_RECEIVE_BOOT_COMPLETED
 import com.mozhimen.basick.utilk.io.reactivex.UtilKTransformer
 import com.mozhimen.basick.utilk.android.content.startContext
 import io.reactivex.Observable
@@ -35,7 +34,7 @@ android:exported="true">
  * @Date 2022/6/13 11:55
  * @Version 1.0
  */
-@AManifestKRequire(CPermission.RECEIVE_BOOT_COMPLETED)
+@OPermission_RECEIVE_BOOT_COMPLETED
 open class BaseBootBroadcastReceiver(private val clazz: Class<*>, private val _delayTime: Long = 0L) : BaseBroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {

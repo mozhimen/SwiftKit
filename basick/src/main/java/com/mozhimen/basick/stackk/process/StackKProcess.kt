@@ -1,6 +1,6 @@
 package com.mozhimen.basick.stackk.process
 
-import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
+import com.mozhimen.basick.lintk.optins.OApiInit_InApplication
 import com.mozhimen.basick.stackk.commons.IStackK
 import com.mozhimen.basick.stackk.process.helpers.StackKProcessDelegate
 
@@ -11,7 +11,7 @@ import com.mozhimen.basick.stackk.process.helpers.StackKProcessDelegate
  * @Date 2023/6/11 14:32
  * @Version 1.0
  */
-@OptInApiInit_InApplication
+@OApiInit_InApplication
 class StackKProcess private constructor() : IStackK by StackKProcessDelegate() {
     companion object {
         @JvmStatic

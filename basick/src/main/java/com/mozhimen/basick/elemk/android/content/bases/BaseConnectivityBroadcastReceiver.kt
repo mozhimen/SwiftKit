@@ -3,13 +3,13 @@ package com.mozhimen.basick.elemk.android.content.bases
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.commons.IBroadcastReceiver
 import com.mozhimen.basick.elemk.android.net.cons.CConnectivityManager
 import com.mozhimen.basick.elemk.commons.IConnectionListener
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.android.net.cons.ENetType
+import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_NETWORK_STATE
+import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_WIFI_STATE
+import com.mozhimen.basick.lintk.optins.permission.OPermission_INTERNET
 import com.mozhimen.basick.utilk.android.net.UtilKNetConn
 import com.mozhimen.basick.utilk.android.util.wt
 
@@ -40,11 +40,9 @@ android:exported="true">
  * @Date 2023/2/13 15:18
  * @Version 1.0
  */
-@AManifestKRequire(
-    CPermission.ACCESS_NETWORK_STATE,
-    CPermission.ACCESS_WIFI_STATE,
-    CPermission.INTERNET
-)
+@OPermission_INTERNET
+@OPermission_ACCESS_WIFI_STATE
+@OPermission_ACCESS_NETWORK_STATE
 open class BaseConnectivityBroadcastReceiver : BaseBroadcastReceiver(), IBroadcastReceiver {
     companion object {
         @JvmStatic

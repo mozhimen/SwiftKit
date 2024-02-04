@@ -2,9 +2,9 @@ package com.mozhimen.basick.elemk.android.os
 
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.elemk.android.os.bases.BaseWeakRefMainHandler
-import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
+import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.basick.elemk.androidx.lifecycle.commons.IDefaultLifecycleObserver
-import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
 import com.mozhimen.basick.utilk.android.os.removeAllCbsAndMsgs
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
 
@@ -15,7 +15,7 @@ import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
  * @Date 2022/6/12 11:34
  * @Version 1.0
  */
-@OptIn(OptInApiInit_ByLazy::class, OptInApiCall_BindLifecycle::class)
+@OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
 class WakeBefPauseLifecycleHandler<O : LifecycleOwner>(private val _lifecycleOwner: O) : BaseWeakRefMainHandler<O>(_lifecycleOwner), IDefaultLifecycleObserver {
 
     init {

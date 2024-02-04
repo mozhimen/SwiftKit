@@ -3,7 +3,7 @@ package com.mozhimen.basick.elemk.android.content.bases
 import android.content.Context
 import android.content.Intent
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
-import com.mozhimen.basick.lintk.optin.OptInApiCall_RegisterDynamic
+import com.mozhimen.basick.lintk.optins.OApiCall_RegisterDynamic
 import com.mozhimen.basick.utilk.bases.IUtilK
 
 /**
@@ -51,7 +51,7 @@ interface ITimeReceiverListener : IUtilK {
     fun onTimeChanged() {}
 }
 
-@OptInApiCall_RegisterDynamic
+@OApiCall_RegisterDynamic
 open class BaseTimeBroadcastReceiver(private val _listener: ITimeReceiverListener) : BaseBroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {

@@ -21,7 +21,8 @@
 // * @Date 2022/12/16 14:11
 // * @Version 1.0
 // */
-//@AManifestKRequire(CMetaData.DESIGN_WIDTH_IN_DP, CMetaData.DESIGN_WIDTH_IN_DP)
+//@OMetaData_DESIGN_WIDTH_IN_DP
+//@OMetaData_DESIGN_HEIGHT_IN_DP
 //@ALintKOptIn_ApiInit_InApplication
 //@ALintKOptIn_ApiDeclare_InManifest
 //class AdaptKAutoSize : IUtilK {

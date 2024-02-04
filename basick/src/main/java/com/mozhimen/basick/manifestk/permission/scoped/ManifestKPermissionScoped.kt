@@ -1,10 +1,12 @@
 package com.mozhimen.basick.manifestk.permission.scoped
 
 import androidx.fragment.app.FragmentActivity
-import com.mozhimen.basick.lintk.optin.OptInApiDeprecated_Official_AfterV_30_11_R
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.manifestk.cons.CApplication
-import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.lintk.optins.OApiDeprecated_Official_AfterV_30_11_R
+import com.mozhimen.basick.lintk.optins.application.OApplication_PRESERVE_LEGACY_EXTERNAL_STORAGE
+import com.mozhimen.basick.lintk.optins.application.OApplication_REQUEST_LEGACY_EXTERNAL_STORAGE
+import com.mozhimen.basick.lintk.optins.permission.OPermission_MANAGE_EXTERNAL_STORAGE
+import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_EXTERNAL_STORAGE
+import com.mozhimen.basick.lintk.optins.permission.OPermission_WRITE_EXTERNAL_STORAGE
 import com.mozhimen.basick.manifestk.permission.scoped.cons.CManifestKPermissionScoped
 import com.mozhimen.basick.manifestk.permission.scoped.helpers.IManifestKPermissionScopedListener
 import com.mozhimen.basick.manifestk.permission.scoped.helpers.InvisibleProxyFragmentScoped
@@ -18,14 +20,12 @@ import com.mozhimen.basick.utilk.bases.IUtilK
  * @Version 1.0
  */
 @Deprecated("OptInApiDeprecated_Official_AfterV_30_11_R")
-@OptInApiDeprecated_Official_AfterV_30_11_R
-@AManifestKRequire(
-    CPermission.WRITE_EXTERNAL_STORAGE,
-    CPermission.READ_EXTERNAL_STORAGE,
-    CPermission.MANAGE_EXTERNAL_STORAGE,
-    CApplication.REQUEST_LEGACY_EXTERNAL_STORAGE,
-    CApplication.PRESERVE_LEGACY_EXTERNAL_STORAGE
-)
+@OApiDeprecated_Official_AfterV_30_11_R
+@OPermission_WRITE_EXTERNAL_STORAGE
+@OPermission_READ_EXTERNAL_STORAGE
+@OPermission_MANAGE_EXTERNAL_STORAGE
+@OApplication_REQUEST_LEGACY_EXTERNAL_STORAGE
+@OApplication_PRESERVE_LEGACY_EXTERNAL_STORAGE
 object ManifestKPermissionScoped : IUtilK {
 
     @JvmStatic

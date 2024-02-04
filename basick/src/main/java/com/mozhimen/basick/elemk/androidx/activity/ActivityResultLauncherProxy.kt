@@ -2,9 +2,9 @@ package com.mozhimen.basick.elemk.androidx.activity
 
 import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
+import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
-import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
 
 /**
  * @ClassName ResultLauncherProxy
@@ -13,8 +13,8 @@ import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
  * @Date 2023/4/16 22:40
  * @Version 1.0
  */
-@OptInApiCall_BindLifecycle
-@OptInApiInit_ByLazy
+@OApiCall_BindLifecycle
+@OApiInit_ByLazy
 class ActivityResultLauncherProxy<T>() : BaseWakeBefDestroyLifecycleObserver() {
     private var _activityResultLauncher: ActivityResultLauncher<T>? = null
 

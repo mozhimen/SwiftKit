@@ -2,7 +2,6 @@ package com.mozhimen.basick.utilk.android.app
 
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
-import android.os.Build
 import android.provider.Settings
 import android.text.TextUtils
 import androidx.annotation.RequiresApi
@@ -10,7 +9,9 @@ import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.provider.cons.CSettings
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.lintk.optins.permission.OPermission_MANAGE_EXTERNAL_STORAGE
+import com.mozhimen.basick.lintk.optins.permission.OPermission_REQUEST_INSTALL_PACKAGES
+import com.mozhimen.basick.lintk.optins.permission.OPermission_SYSTEM_ALERT_WINDOW
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
 import com.mozhimen.basick.utilk.android.content.UtilKContextCompat
@@ -70,7 +71,7 @@ object UtilKPermission : BaseUtilK() {
     @SuppressLint("NewApi")
     @JvmStatic
     @RequiresPermission(CPermission.SYSTEM_ALERT_WINDOW)
-    @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
+    @OPermission_SYSTEM_ALERT_WINDOW
     @ADescription(CSettings.ACTION_MANAGE_OVERLAY_PERMISSION)
     fun hasOverlay(): Boolean =
         CVersCode.V_23_6_M.isBeforeVersion() || UtilKSettings.canDrawOverlays(_context)
@@ -82,7 +83,7 @@ object UtilKPermission : BaseUtilK() {
     @JvmStatic
     @RequiresApi(CVersCode.V_30_11_R)
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
-    @AManifestKRequire(CPermission.MANAGE_EXTERNAL_STORAGE)
+    @OPermission_MANAGE_EXTERNAL_STORAGE
     @ADescription(CSettings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
     fun hasExternalStorage(): Boolean =
         UtilKEnvironment.isExternalStorageManager()
@@ -93,7 +94,7 @@ object UtilKPermission : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
-    @AManifestKRequire(CPermission.REQUEST_INSTALL_PACKAGES)
+    @OPermission_REQUEST_INSTALL_PACKAGES
     fun hasPackageInstalls(): Boolean =
         if (UtilKBuildVersion.isAfterV_26_8_O()) hasPackageInstallsAfter26()
         else true
@@ -106,7 +107,7 @@ object UtilKPermission : BaseUtilK() {
     @RequiresApi(CVersCode.V_26_8_O)
     @TargetApi(CVersCode.V_26_8_O)
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
-    @AManifestKRequire(CPermission.REQUEST_INSTALL_PACKAGES)
+    @OPermission_REQUEST_INSTALL_PACKAGES
     @ADescription(CSettings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
     fun hasPackageInstallsAfter26(): Boolean =
         UtilKPackageManager.canRequestPackageInstalls(_context).also { "hasPackageInstallsAfter26: $it".dt(TAG) }

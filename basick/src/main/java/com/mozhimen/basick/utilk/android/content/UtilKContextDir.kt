@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CEnvironment
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_EXTERNAL_STORAGE
+import com.mozhimen.basick.lintk.optins.permission.OPermission_WRITE_EXTERNAL_STORAGE
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.kotlin.strFilePath2file
 import java.io.File
@@ -82,7 +82,8 @@ object UtilKContextDir {
      * 读写需要申请权限
      * 外部程序可以访问。卸载应用可能会删除。
      */
-    @AManifestKRequire(CPermission.READ_EXTERNAL_STORAGE, CPermission.WRITE_EXTERNAL_STORAGE)
+    @OPermission_READ_EXTERNAL_STORAGE
+    @OPermission_WRITE_EXTERNAL_STORAGE
     object External {
 
         @JvmStatic

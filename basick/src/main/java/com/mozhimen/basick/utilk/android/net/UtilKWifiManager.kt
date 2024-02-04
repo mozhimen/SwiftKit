@@ -6,7 +6,8 @@ import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
 import androidx.annotation.RequiresPermission
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_FINE_LOCATION
+import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_WIFI_STATE
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 
@@ -17,7 +18,8 @@ import com.mozhimen.basick.utilk.android.content.UtilKContext
  * @Date 2023/3/20 22:12
  * @Version 1.0
  */
-@AManifestKRequire(CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION)
+@OPermission_ACCESS_WIFI_STATE
+@OPermission_ACCESS_FINE_LOCATION
 object UtilKWifiManager {
     @JvmStatic
     fun get(context: Context): WifiManager =
@@ -27,19 +29,22 @@ object UtilKWifiManager {
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
-    @AManifestKRequire(CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION)
+    @OPermission_ACCESS_WIFI_STATE
+    @OPermission_ACCESS_FINE_LOCATION
     fun getScanResults(context: Context): List<ScanResult> =
         get(context).scanResults
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
-    @AManifestKRequire(CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION)
+    @OPermission_ACCESS_WIFI_STATE
+    @OPermission_ACCESS_FINE_LOCATION
     fun getConnectionInfo(context: Context): WifiInfo? =
         get(context).connectionInfo
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
-    @AManifestKRequire(CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION)
+    @OPermission_ACCESS_WIFI_STATE
+    @OPermission_ACCESS_FINE_LOCATION
     fun getConfiguredNetworks(context: Context): List<WifiConfiguration>? =
         get(context).configuredNetworks
 
