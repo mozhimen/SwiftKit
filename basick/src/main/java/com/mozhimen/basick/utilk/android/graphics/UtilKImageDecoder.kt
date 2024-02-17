@@ -27,7 +27,10 @@ object UtilKImageDecoder {
     @JvmStatic
     @RequiresApi(CVersCode.V_28_9_P)
     fun decodeBitmap(src: Source): Bitmap =
-        ImageDecoder.decodeBitmap(src)
+        ImageDecoder.decodeBitmap(src) { decoder, _, _ ->
+            decoder.allocator = ImageDecoder.ALLOCATOR_SOFTWARE
+            decoder.isMutableRequired = true
+        }
 
     @JvmStatic
     @RequiresApi(CVersCode.V_28_9_P)

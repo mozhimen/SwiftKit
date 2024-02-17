@@ -13,7 +13,7 @@ import kotlin.math.sin
  * @Date 2023/3/10 16:55
  * @Version 1.0
  */
-object UtilKTriangle {
+object UtilKMathTriangle {
     /**
      * 计算临边对斜边的角度
      * @param adjacent Double 临边

@@ -22,6 +22,7 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.java.io.file2uri
 import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import com.mozhimen.basick.utilk.kotlin.UtilKString
+import com.mozhimen.basick.utilk.kotlin.strFilePath2uri
 import com.mozhimen.basick.utilk.kotlin.strUri2uri
 import java.io.File
 
@@ -57,11 +58,15 @@ object UtilKIntentWrapper {
     fun getPick(): Intent =
         Intent(CIntent.ACTION_PICK)
 
+    @JvmStatic
+    fun getPickImage(): Intent =
+        Intent(CIntent.ACTION_PICK).apply { type = CMediaFormat.MIMETYPE_IMAGE_ALL }
+
     /**
      * 选择系统图像
      */
     @JvmStatic
-    fun getPickImage(): Intent =
+    fun getPickUriImage(): Intent =
         getPick().apply { setDataAndType(CMediaStore.Images.Media.EXTERNAL_CONTENT_URI, CMediaFormat.MIMETYPE_IMAGE_ALL) }
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -280,5 +285,19 @@ object UtilKIntentWrapper {
     @JvmStatic
     fun getImageCapture(): Intent =
         Intent(CMediaStore.ACTION_IMAGE_CAPTURE)
+
+    @JvmStatic
+    fun getImageCaptureOutput(strFilePathName: String): Intent? =
+        strFilePathName.strFilePath2uri()?.let { getImageCaptureOutput(it) }
+
+    @JvmStatic
+    fun getImageCaptureOutput(file: File): Intent? =
+        file.file2uri()?.let { getImageCaptureOutput(it) }
+
+    @JvmStatic
+    fun getImageCaptureOutput(uri: Uri): Intent =
+        getImageCapture().apply {
+            putExtra(CMediaStore.EXTRA_OUTPUT, uri)
+        }
 
 }

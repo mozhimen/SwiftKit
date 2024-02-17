@@ -22,6 +22,7 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
  * @Version 1.0
  */
 object UtilKViewTreeObserver {
+
     /**
      * Register soft input changed listener.
      */
@@ -110,12 +111,3 @@ object UtilKViewTreeObserver {
         return onGlobalLayoutListener
     }
 }
-
-//interface IUtilKKeyboardChangeListener {
-//    fun onChange(keyboardBounds: Rect, isVisible: Boolean)
-//}
-//interface IUtilKKeyboardChangeListener2 {
-//    fun onChange(height: Int)
-//}
-//typealias IUtilKKeyboardChangeListener = IAB_Listener<Rect, Boolean>
-//typealias IUtilKKeyboardChangeListener2 = IA_Listener<Int>

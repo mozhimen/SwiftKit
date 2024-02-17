@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk
 
 import com.mozhimen.basick.utilk.kotlin.printlog
-import com.mozhimen.basick.utilk.kotlin.math.UtilKTriangle
+import com.mozhimen.basick.utilk.kotlin.math.UtilKMathTriangle
 import org.junit.Test
 
 
@@ -15,7 +15,7 @@ import org.junit.Test
 class TestUtilKTriangle {
     @Test
     fun calculate(){
-        UtilKTriangle.getOppositeLength(6.0,30.0).printlog()
-        UtilKTriangle.getAdjacentLength(6.0,60.0).printlog()
+        UtilKMathTriangle.getOppositeLength(6.0,30.0).printlog()
+        UtilKMathTriangle.getAdjacentLength(6.0,60.0).printlog()
     }
 }

@@ -15,7 +15,7 @@ import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
  * @Date 2023/6/10 18:57
  * @Version 1.0
  */
-open class BaseLifecycleService : BaseService(), LifecycleOwner {
+class BaseLifecycleService : BaseService(), LifecycleOwner {
 
     private val _serviceLifecycleDispatcher = ServiceLifecycleDispatcher(this)
 

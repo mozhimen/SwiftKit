@@ -12,7 +12,7 @@ import kotlin.math.sqrt
  * @Date 2023/3/13 11:12
  * @Version 1.0
  */
-object UtilKQuadrant {
+object UtilKMathQuadrant {
 
     /**
      * 计算临边对斜边的角度在象限中
@@ -29,22 +29,22 @@ object UtilKQuadrant {
             pointF.y == centerPointF.y && pointF.x < centerPointF.x -> 270f
 
             pointF.x > centerPointF.x && pointF.y > centerPointF.y ->
-                UtilKTriangle.angleCos(abs(pointF.y - centerPointF.y), sqrt(abs(pointF.x - centerPointF.x) * abs(pointF.x - centerPointF.x) + abs(pointF.y - centerPointF.y) * abs(pointF.y - centerPointF.y)))
+                UtilKMathTriangle.angleCos(abs(pointF.y - centerPointF.y), sqrt(abs(pointF.x - centerPointF.x) * abs(pointF.x - centerPointF.x) + abs(pointF.y - centerPointF.y) * abs(pointF.y - centerPointF.y)))
 
             pointF.x > centerPointF.x && pointF.y < centerPointF.y ->
-                90f + UtilKTriangle.angleCos(
+                90f + UtilKMathTriangle.angleCos(
                         abs(pointF.x - centerPointF.x),
                         sqrt(abs(pointF.x - centerPointF.x) * abs(pointF.x - centerPointF.x) + abs(pointF.y - centerPointF.y) * abs(pointF.y - centerPointF.y))
                 )
 
             pointF.x < centerPointF.x && pointF.y < centerPointF.y ->
-                180f + UtilKTriangle.angleCos(
+                180f + UtilKMathTriangle.angleCos(
                         abs(pointF.y - centerPointF.y),
                         sqrt(abs(pointF.x - centerPointF.x) * abs(pointF.x - centerPointF.x) + abs(pointF.y - centerPointF.y) * abs(pointF.y - centerPointF.y))
                 )
 
             pointF.x < centerPointF.x && pointF.y > centerPointF.y ->
-                270f + UtilKTriangle.angleCos(
+                270f + UtilKMathTriangle.angleCos(
                         abs(pointF.x - centerPointF.x),
                         sqrt(abs(pointF.x - centerPointF.x) * abs(pointF.x - centerPointF.x) + abs(pointF.y - centerPointF.y) * abs(pointF.y - centerPointF.y))
                 )
@@ -68,16 +68,16 @@ object UtilKQuadrant {
             pointF.y == 0f && pointF.x < 0f -> 270f
 
             pointF.x > 0f && pointF.y > 0f ->
-                UtilKTriangle.angleCos(abs(pointF.y), sqrt(abs(pointF.x) * abs(pointF.x) + abs(pointF.y) * abs(pointF.y)))
+                UtilKMathTriangle.angleCos(abs(pointF.y), sqrt(abs(pointF.x) * abs(pointF.x) + abs(pointF.y) * abs(pointF.y)))
 
             pointF.x > 0f && pointF.y < 0f ->
-                90f + UtilKTriangle.angleCos(abs(pointF.x), sqrt(abs(pointF.x) * abs(pointF.x) + abs(pointF.y) * abs(pointF.y)))
+                90f + UtilKMathTriangle.angleCos(abs(pointF.x), sqrt(abs(pointF.x) * abs(pointF.x) + abs(pointF.y) * abs(pointF.y)))
 
             pointF.x < 0f && pointF.y < 0f ->
-                180f + UtilKTriangle.angleCos(abs(pointF.y), sqrt(abs(pointF.x) * abs(pointF.x) + abs(pointF.y) * abs(pointF.y)))
+                180f + UtilKMathTriangle.angleCos(abs(pointF.y), sqrt(abs(pointF.x) * abs(pointF.x) + abs(pointF.y) * abs(pointF.y)))
 
             pointF.x < 0f && pointF.y > 0f ->
-                270f + UtilKTriangle.angleCos(abs(pointF.x), sqrt(abs(pointF.x) * abs(pointF.x) + abs(pointF.y) * abs(pointF.y)))
+                270f + UtilKMathTriangle.angleCos(abs(pointF.x), sqrt(abs(pointF.x) * abs(pointF.x) + abs(pointF.y) * abs(pointF.y)))
 
             else -> 0f
         }

@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.android.view
 
 import android.view.MotionEvent
 import com.mozhimen.basick.elemk.android.view.cons.CMotionEvent
-import com.mozhimen.basick.utilk.kotlin.math.UtilKPoint
+import com.mozhimen.basick.utilk.kotlin.math.UtilKMathPoint
 
 /**
  * @ClassName UtilKGesture
@@ -36,7 +36,7 @@ object UtilKMotionEvent {
     @JvmStatic
     fun distance(motionEvent: MotionEvent): Float =
         if (motionEvent.pointerCount >= 2)
-            UtilKPoint.distance(motionEvent.getX(0), motionEvent.getY(0), motionEvent.getX(1), motionEvent.getY(1))
+            UtilKMathPoint.distance(motionEvent.getX(0), motionEvent.getY(0), motionEvent.getX(1), motionEvent.getY(1))
         else 0f
 
     //////////////////////////////////////////////////////////////////

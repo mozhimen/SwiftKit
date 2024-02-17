@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.provider.Settings
 import android.text.TextUtils
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.lintk.annors.ADescription
@@ -54,7 +55,7 @@ object UtilKPermission : BaseUtilK() {
 
     @JvmStatic
     fun hasPermission(permission: String): Boolean =
-        UtilKContextCompat.isSelfPermissionGranted(_context, permission)
+        UtilKContextCompat.isSelfPermissionGranted(_context, permission).also { Log.d(TAG, "hasPermission: permission $permission is $it") }
 
     /////////////////////////////////////////////////////////////////////////
 

@@ -11,7 +11,7 @@ import kotlin.math.sin
  * @Date 2023/4/23 20:54
  * @Version 1.0
  */
-object UtilKBall {
+object UtilKMathBall {
 
     /**
      * 距离

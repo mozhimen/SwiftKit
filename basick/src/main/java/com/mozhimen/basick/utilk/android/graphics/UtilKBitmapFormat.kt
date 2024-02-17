@@ -59,7 +59,7 @@ fun Bitmap.bitmapAny2fileImage(strFilePathName: String, compressFormat: Compress
 fun Bitmap.bitmapAny2file(strFilePathNameDest: String, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
     UtilKBitmapFormat.bitmapAny2file(this, strFilePathNameDest, compressFormat, quality)
 
-fun Bitmap.bitmapAny2file(fileDest: File, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 10): File? =
+fun Bitmap.bitmapAny2file(fileDest: File, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
     UtilKBitmapFormat.bitmapAny2file(this, fileDest, compressFormat, quality)
 
 fun Bitmap.bitmapJpeg2fileJpeg(strFilePathNameDest: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =

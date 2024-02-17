@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk
 
 import com.mozhimen.basick.utilk.kotlin.printlog
-import com.mozhimen.basick.utilk.kotlin.math.UtilKBall
+import com.mozhimen.basick.utilk.kotlin.math.UtilKMathBall
 import org.junit.Test
 
 /**
@@ -14,6 +14,6 @@ import org.junit.Test
 class TestUtilKBall {
     @Test
     fun distance() {
-        UtilKBall.distance(31.250101, 0.0,31.150101, 0.0).printlog()
+        UtilKMathBall.distance(31.250101, 0.0,31.150101, 0.0).printlog()
     }
 }

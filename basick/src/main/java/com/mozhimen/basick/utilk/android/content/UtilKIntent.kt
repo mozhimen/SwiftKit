@@ -5,9 +5,11 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Parcelable
+import android.util.Log
 import com.mozhimen.basick.elemk.commons.IExtension_Listener
 import com.mozhimen.basick.lintk.optins.intent_filter.OIntentFilter_ACTION_VIEW_CATEGORY_DEFAULT_BROWSABLE
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import com.mozhimen.basick.utilk.bases.IUtilK
 
 /**
  * @ClassName UtilKIntent
@@ -26,7 +28,7 @@ fun Intent.isIntentAvailable(context: Context): Boolean =
 fun Intent.getQueryParameter(key: String): String? =
     UtilKIntent.getQueryParameter(this, key)
 
-object UtilKIntent {
+object UtilKIntent : IUtilK {
     @JvmStatic
     fun get(context: Context, clazz: Class<*>): Intent =
         Intent(context, clazz)
@@ -58,7 +60,7 @@ object UtilKIntent {
      */
     @JvmStatic
     fun isIntentAvailable(intent: Intent, context: Context): Boolean =
-        resolveActivity(intent, context) != null
+        (resolveActivity(intent, context) != null).also { Log.d(TAG, "isIntentAvailable: $it") }
 
     ///////////////////////////////////////////////////////////////////////////////////////
 
