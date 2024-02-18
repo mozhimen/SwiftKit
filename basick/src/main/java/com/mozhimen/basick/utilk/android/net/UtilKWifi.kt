@@ -4,6 +4,7 @@ import android.net.wifi.WifiInfo
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.net.cons.CWifiManager
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_FINE_LOCATION
+import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_NETWORK_STATE
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_WIFI_STATE
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
@@ -14,8 +15,9 @@ import com.mozhimen.basick.utilk.kotlin.text.replaceRegexDoubleQuote
 object UtilKWifi : BaseUtilK() {
 
     @JvmStatic
-    @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
+    @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION,CPermission.ACCESS_NETWORK_STATE])
     @OPermission_ACCESS_WIFI_STATE
+    @OPermission_ACCESS_NETWORK_STATE
     @OPermission_ACCESS_FINE_LOCATION
     fun getIpAddress(): String {
         var ipAddress = 0

@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.java.net
 
-import com.mozhimen.basick.utilk.android.net.UtilKNetConn
 import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.bases.IUtilK
 import java.net.Inet6Address
 import java.net.InetAddress
 import java.net.NetworkInterface
@@ -15,14 +15,12 @@ import java.util.Enumeration
  * @Date 2023/9/27 11:34
  * @Version 1.0
  */
-object UtilKNetworkInterface {
+object UtilKNetworkInterface : IUtilK {
     @JvmStatic
     fun getNetworkInterfaces(): Enumeration<NetworkInterface> =
         NetworkInterface.getNetworkInterfaces()
 
-    /**
-     * 获取网路IP
-     */
+    //获取网路IP
     @JvmStatic
     fun getStrIP(): String? {
         try {
@@ -41,7 +39,7 @@ object UtilKNetworkInterface {
             }
         } catch (e: SocketException) {
             e.printStackTrace()
-            "getStrIP SocketException ${e.message}".et(UtilKNetConn.TAG)
+            "getStrIP SocketException ${e.message}".et(TAG)
         }
         return null
     }

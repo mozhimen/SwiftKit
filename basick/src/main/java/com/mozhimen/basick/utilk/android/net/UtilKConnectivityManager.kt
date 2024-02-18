@@ -9,13 +9,10 @@ import android.net.NetworkInfo
 import android.net.NetworkRequest
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
-import com.mozhimen.basick.elemk.android.net.cons.CConnectivityManager
-import com.mozhimen.basick.elemk.android.net.cons.CNetworkCapabilities
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_NETWORK_STATE
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContext
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 
 /**
  * @ClassName UtilKConnManager
@@ -55,50 +52,21 @@ object UtilKConnectivityManager {
     fun getActiveNetwork(context: Context): Network? =
         get(context).activeNetwork
 
-    @RequiresApi(CVersCode.V_21_5_L)
     @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @OPermission_ACCESS_NETWORK_STATE
     fun getNetworkCapabilities(context: Context, network: Network): NetworkCapabilities? =
         get(context).getNetworkCapabilities(network)
 
     ////////////////////////////////////////////////////////////////////
 
     @JvmStatic
+    @RequiresApi(CVersCode.V_24_7_N)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    @OPermission_ACCESS_NETWORK_STATE
-    fun isNetworkConnected(context: Context): Boolean =
-        if (UtilKBuildVersion.isAfterV_23_6_M())
-            isNetworkConnectedAfter23(context)
-        else isNetworkConnectedBefore23(context)
-
-    @JvmStatic
-    @RequiresApi(CVersCode.V_23_6_M)
-    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    @OPermission_ACCESS_NETWORK_STATE
-    fun isNetworkConnectedAfter23(context: Context): Boolean {
-        val networkCapabilities = getNetworkCapabilities(context, getActiveNetwork(context) ?: return false) ?: return false
-        return when {
-            networkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_WIFI) -> true
-            networkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_CELLULAR) -> true
-            networkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_ETHERNET) -> true
-            else -> false
-        }
+    fun registerDefaultNetworkCallback(context: Context, networkCallback: NetworkCallback) {
+        get(context).registerDefaultNetworkCallback(networkCallback)
     }
-
-    @JvmStatic
-    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    @OPermission_ACCESS_NETWORK_STATE
-    fun isNetworkConnectedBefore23(context: Context): Boolean {
-        return getActiveNetworkInfo(context)?.let {
-            when (it.type) {
-                CConnectivityManager.TYPE_WIFI -> true
-                CConnectivityManager.TYPE_MOBILE -> true
-                CConnectivityManager.TYPE_ETHERNET -> true
-                else -> false
-            }
-        } ?: false
-    }
-
-    ////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)

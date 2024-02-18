@@ -10,7 +10,7 @@ import com.mozhimen.basick.elemk.android.net.cons.ENetType
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_NETWORK_STATE
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_WIFI_STATE
 import com.mozhimen.basick.lintk.optins.permission.OPermission_INTERNET
-import com.mozhimen.basick.utilk.android.net.UtilKNetConn
+import com.mozhimen.basick.utilk.android.net.UtilKNet
 import com.mozhimen.basick.utilk.android.util.wt
 
 
@@ -58,7 +58,7 @@ open class BaseConnectivityBroadcastReceiver : BaseBroadcastReceiver(), IBroadca
 
     override fun onReceive(context: Context?, intent: Intent) {
         if (CConnectivityManager.CONNECTIVITY_ACTION != intent.action) return
-        _netType = UtilKNetConn.getNetType().also { "onReceive: eNetKType $it".wt(TAG) }
+        _netType = UtilKNet.getActiveNetType().also { "onReceive: eNetKType $it".wt(TAG) }
         notifyListeners(_netType)
     }
 
