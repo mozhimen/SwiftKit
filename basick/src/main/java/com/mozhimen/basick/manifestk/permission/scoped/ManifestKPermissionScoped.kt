@@ -19,7 +19,7 @@ import com.mozhimen.basick.utilk.bases.IUtilK
  * @Date 2023/12/10 0:16
  * @Version 1.0
  */
-@Deprecated("OptInApiDeprecated_Official_AfterV_30_11_R")
+@Deprecated("OApiDeprecated_Official_AfterV_30_11_R")
 @OApiDeprecated_Official_AfterV_30_11_R
 @OPermission_WRITE_EXTERNAL_STORAGE
 @OPermission_READ_EXTERNAL_STORAGE

@@ -4,7 +4,7 @@ import android.util.Log
 import com.mozhimen.basick.elemk.android.content.bases.BaseTimeBroadcastReceiver
 import com.mozhimen.basick.elemk.android.content.bases.ITimeReceiverListener
 import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
-import com.mozhimen.basick.lintk.optin.OptInApiCall_RegisterDynamic
+import com.mozhimen.basick.lintk.optins.OApiCall_RegisterDynamic
 import com.mozhimen.basick.utilk.java.util.UtilKDate
 
 
@@ -15,7 +15,7 @@ import com.mozhimen.basick.utilk.java.util.UtilKDate
  * @Date 2023/1/10 14:17
  * @Version 1.0
  */
-@OptInApiCall_RegisterDynamic
+@OApiCall_RegisterDynamic
 class ElemKTimeReceiver : BaseTimeBroadcastReceiver(
     object : ITimeReceiverListener {
         override fun onTimeTick() {

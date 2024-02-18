@@ -2,6 +2,7 @@
 apply from: 'config.gradle'
 buildscript {
     repositories {
+        mavenLocal()
         gradlePluginPortal()
         maven { url 'https://maven.aliyun.com/repository/central' }
         maven { url 'https://maven.aliyun.com/repository/google' }

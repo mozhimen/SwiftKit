@@ -2,8 +2,8 @@
 //
 //import android.app.Activity
 //import android.util.Log
-//import com.mozhimen.basick.lintk.optin.ALintKOptIn_ApiDeclare_InManifest
-//import com.mozhimen.basick.lintk.optin.ALintKOptIn_ApiInit_InApplication
+//import com.mozhimen.basick.lintk.optin.ALintKO_ApiDeclare_InManifest
+//import com.mozhimen.basick.lintk.optin.ALintKO_ApiInit_InApplication
 //import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 //import com.mozhimen.basick.manifestk.cons.CMetaData
 //import com.mozhimen.basick.utilk.android.view.UtilKScreen
@@ -23,8 +23,8 @@
 // */
 //@OMetaData_DESIGN_WIDTH_IN_DP
 //@OMetaData_DESIGN_HEIGHT_IN_DP
-//@ALintKOptIn_ApiInit_InApplication
-//@ALintKOptIn_ApiDeclare_InManifest
+//@ALintKO_ApiInit_InApplication
+//@ALintKO_ApiDeclare_InManifest
 //class AdaptKAutoSize : IUtilK {
 //    companion object {
 //        @JvmStatic

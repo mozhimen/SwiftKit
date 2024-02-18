@@ -3,9 +3,9 @@ package com.mozhimen.basicktest.elemk.android
 import android.os.Bundle
 import android.widget.TextView
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
-import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
+import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.basick.elemk.android.view.DragAndDropProxy
-import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
 import com.mozhimen.basick.utilk.android.view.UtilKViewDrag
 import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityElemkGestureBinding
@@ -19,10 +19,10 @@ import com.mozhimen.basicktest.databinding.ActivityElemkGestureBinding
  * @Version 1.0
  */
 class ElemKGestureActivity : BaseActivityVB<ActivityElemkGestureBinding>() {
-    @OptIn(OptInApiInit_ByLazy::class, OptInApiCall_BindLifecycle::class)
+    @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
     private val _dragAndDropProxy by lazy { DragAndDropProxy() }
 
-    @OptIn(OptInApiInit_ByLazy::class, OptInApiCall_BindLifecycle::class)
+    @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
     override fun initView(savedInstanceState: Bundle?) {
         _dragAndDropProxy.bindLifecycle(this)
         _dragAndDropProxy.dragAndDrop(vb.elemkGestureTxt1, vb.elemkGestureTxt2) { source, dest ->

@@ -11,6 +11,10 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import androidx.annotation.RequiresApi
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.elemk.android.view.HapticOnTouchCallback
+import com.mozhimen.basick.elemk.android.view.cons.CHapticFeedbackConstants
 import com.mozhimen.basick.elemk.android.view.cons.CView
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.elemk.commons.I_Listener
@@ -48,6 +52,10 @@ fun View.isGone(): Boolean =
     UtilKView.isGone(this)
 
 //////////////////////////////////////////////////////////////////////////////
+
+fun View.applyPadding(padding: Int) {
+    UtilKView.applyPadding(this, padding)
+}
 
 fun View.applyPadding(paddingHorizontal: Int, paddingVertical: Int) {
     UtilKView.applyPadding(this, paddingHorizontal, paddingVertical)
@@ -108,6 +116,10 @@ fun View.applyFitSystemWindow() {
 
 //////////////////////////////////////////////////////////////////////////////
 
+fun View.applyHapticOnTouchListener() {
+    UtilKView.applyHapticOnTouchListener(this)
+}
+
 fun View.applyDebounceClickListener(thresholdMillis: Long = 500, block: IA_Listener<View>) {
     UtilKView.applyDebounceClickListener(this, block, thresholdMillis)
 }
@@ -119,6 +131,8 @@ fun View.applyDebounceClickListener(scope: CoroutineScope, thresholdMillis: Long
 fun View.applySuspendDebounceClickListener(scope: CoroutineScope, thresholdMillis: Long = 500, block: suspend CoroutineScope.(View) -> Unit) {
     UtilKView.applySuspendDebounceClickListener(this, scope, block, thresholdMillis)
 }
+
+//////////////////////////////////////////////////////////////////////////////
 
 object UtilKView : BaseUtilK() {
 
@@ -315,6 +329,21 @@ object UtilKView : BaseUtilK() {
     //////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
+    fun applyHapticOnTouchListener(view: View) {
+        view.setOnTouchListener(HapticOnTouchCallback())
+    }
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_30_11_R)
+    fun applyPerformHapticFeedback(view: View, isSuccessful: Boolean) {
+        if (isSuccessful) {
+            view.performHapticFeedback(CHapticFeedbackConstants.CONFIRM)
+        } else {
+            view.performHapticFeedback(CHapticFeedbackConstants.REJECT)
+        }
+    }
+
+    @JvmStatic
     fun applyDebounceClickListener(view: View, block: IA_Listener<View>, thresholdMillis: Long = 500) {
         view.setTag(DEBOUNCE_THRESHOLD_MILLIS, thresholdMillis)
         view.setOnClickListener {
@@ -393,6 +422,11 @@ object UtilKView : BaseUtilK() {
                 }
             }
         })
+    }
+
+    @JvmStatic
+    fun applyPadding(view: View, padding: Int) {
+        view.setPadding(padding, padding, padding, padding)
     }
 
     /**
@@ -497,7 +531,7 @@ object UtilKView : BaseUtilK() {
      */
     @OApiUse_BaseApplication
     @JvmStatic
-    fun removeViewFromParent(view: View): View {
+    fun removeViewForParent(view: View): View {
         val viewParent: ViewParent = view.parent
         if (viewParent is ViewGroup && !UtilKActivity.isDestroyed(view.context)) viewParent.removeView(viewParent)
         return view

@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
-import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
+import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.basick.elemk.android.app.bases.BaseServiceResCallback
 import com.mozhimen.basick.elemk.android.app.ServiceProxy
-import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
 import com.mozhimen.basicktest.databinding.ActivityElemkServiceBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 class ElemKServiceActivity : BaseActivityVB<ActivityElemkServiceBinding>() {
 
-    @OptIn(OptInApiInit_ByLazy::class, OptInApiCall_BindLifecycle::class)
+    @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
     private val _serviceProxy: ServiceProxy<ElemKServiceActivity> by lazy { ServiceProxy(this, ElemKService::class.java, _resListener) }
 
     private var _resListener: BaseServiceResCallback = object : BaseServiceResCallback() {
@@ -26,7 +26,7 @@ class ElemKServiceActivity : BaseActivityVB<ActivityElemkServiceBinding>() {
         }
     }
 
-    @OptIn(OptInApiInit_ByLazy::class, OptInApiCall_BindLifecycle::class)
+    @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
     override fun initView(savedInstanceState: Bundle?) {
         _serviceProxy.bindLifecycle(this)
         lifecycleScope.launch(Dispatchers.Main) {

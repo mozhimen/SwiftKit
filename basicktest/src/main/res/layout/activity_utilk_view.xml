@@ -21,5 +21,11 @@
             style="@style/BasicKStyle_Btn"
             android:text="按钮点击消抖(协程)"
             tools:ignore="HardcodedText" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/utilk_view_btn_haptic_feedback"
+            style="@style/BasicKStyle_Btn"
+            android:text="按钮反馈"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 </layout>
