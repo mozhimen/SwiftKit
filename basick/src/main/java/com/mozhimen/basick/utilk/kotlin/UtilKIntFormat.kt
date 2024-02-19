@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.kotlin
 
+import android.text.format.Formatter
 import com.mozhimen.basick.elemk.android.graphics.cons.CImageFormat
 import com.mozhimen.basick.elemk.android.os.cons.CBuild
 import com.mozhimen.basick.elemk.android.util.annors.ALogPriority
@@ -14,6 +15,9 @@ import com.mozhimen.basick.utilk.java.lang.UtilKCharacter
  */
 fun Int.int2boolean(): Boolean =
     UtilKIntFormat.int2boolean(this)
+
+fun Int.intIp2strIp(): String =
+    UtilKIntFormat.intIp2strIp(this)
 
 fun Int.intAscii2int(): Int =
     UtilKIntFormat.intAscii2int(this)
@@ -34,6 +38,10 @@ object UtilKIntFormat {
     @JvmStatic
     fun int2boolean(int: Int) =
         int == 1
+
+    @JvmStatic
+    fun intIp2strIp(intIp: Int): String =
+        Formatter.formatIpAddress(intIp)
 
     /**
      * ASCII转整型

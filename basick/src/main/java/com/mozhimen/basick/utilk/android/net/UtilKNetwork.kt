@@ -23,11 +23,4 @@ object UtilKNetwork {
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     fun getActive(context: Context): Network? =
         UtilKConnectivityManager.getActiveNetwork(context)
-
-    @JvmStatic
-    @RequiresApi(CVersCode.V_23_6_M)
-    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    @OPermission_ACCESS_NETWORK_STATE
-    fun getActiveNetworkCapabilities(context: Context): NetworkCapabilities? =
-        getActive(context)?.let { UtilKConnectivityManager.getNetworkCapabilities(context, it) }
 }

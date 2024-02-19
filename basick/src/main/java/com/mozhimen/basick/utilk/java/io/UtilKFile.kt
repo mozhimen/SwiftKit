@@ -75,7 +75,6 @@ fun File.deleteFolder(): Boolean =
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-@OApplication_REQUEST_LEGACY_EXTERNAL_STORAGE
 object UtilKFile : BaseUtilK() {
 
     //region # file

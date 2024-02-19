@@ -27,18 +27,20 @@ object UtilKConnectivityManager {
     fun get(context: Context): ConnectivityManager =
         UtilKContext.getConnectivityManager(context)
 
-    /**
-     * 获取可获得的网络信息
-     */
+    @JvmStatic
+    @OPermission_ACCESS_NETWORK_STATE
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    fun getNetworkInfo(context: Context, networkType: Int): NetworkInfo? =
+        get(context).getNetworkInfo(networkType)
+
+    //获取可获得的网络信息
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
     fun getActiveNetworkInfo(context: Context): NetworkInfo? =
         get(context).activeNetworkInfo
 
-    /**
-     * 获取所有网络信息
-     */
+    //获取所有网络信息
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE

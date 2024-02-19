@@ -16,7 +16,7 @@ tools:targetApi="m" />
  * @Version 1.0
  */
 object CApplication {
-    const val USES_CLEAR_TEXT_TRAFFIC_TRUE = "android:usesCleartextTraffic=\"true\""
+    const val USES_CLEAR_TEXT_TRAFFIC = "android:usesCleartextTraffic=\"true\""
     const val REQUEST_LEGACY_EXTERNAL_STORAGE = "android:requestLegacyExternalStorage=\"true\""
     const val PRESERVE_LEGACY_EXTERNAL_STORAGE = "android:preserveLegacyExternalStorage=\"true\""
 }

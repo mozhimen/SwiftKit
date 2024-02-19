@@ -11,6 +11,6 @@ import com.mozhimen.basick.elemk.android.net.cons.ENetType
  * @Version 1.0
  */
 interface IConnectionListener {
-    fun onDisconnect()
-    fun onConnect(type: ENetType)
+    fun onDisconnect(){}
+    fun onConnect(types: Set<ENetType>){}
 }

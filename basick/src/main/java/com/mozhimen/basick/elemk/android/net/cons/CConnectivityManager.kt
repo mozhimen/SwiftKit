@@ -25,5 +25,7 @@ object CConnectivityManager {
     const val TYPE_WIFI = ConnectivityManager.TYPE_WIFI
     const val TYPE_WIMAX = ConnectivityManager.TYPE_WIMAX
 
+    //////////////////////////////////////////////////////////////
+
     const val CONNECTIVITY_ACTION = ConnectivityManager.CONNECTIVITY_ACTION
 }

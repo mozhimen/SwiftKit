@@ -18,8 +18,8 @@ import com.mozhimen.basick.manifestk.cons.CPermission
  * @Version 1.0
  */
 @RequiresApi(CVersCode.V_21_5_L)
-fun NetworkCapabilities.networkCapabilities2netType(): ENetType =
-    UtilKNetworkCapabilities.networkCapabilities2netType(this)
+fun NetworkCapabilities.networkCapabilities2netTypes(): Set<ENetType> =
+    UtilKNetworkCapabilities.networkCapabilities2netTypes(this)
 
 object UtilKNetworkCapabilities {
     @JvmStatic
@@ -27,14 +27,19 @@ object UtilKNetworkCapabilities {
     @OPermission_ACCESS_NETWORK_STATE
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     fun getActive(context: Context): NetworkCapabilities? =
-        UtilKNetwork.getActiveNetworkCapabilities(context)
+        UtilKActiveNetwork.getActiveNetworkCapabilities(context)
+
+    ////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
+    fun isAvailable(networkCapabilities: NetworkCapabilities): Boolean =
+        networkCapabilities.hasCapability(CNetworkCapabilities.NET_CAPABILITY_INTERNET)
 
     @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
-    @OPermission_ACCESS_NETWORK_STATE
-    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun activeNetworkCapabilities2netType(context: Context): ENetType? =
-        getActive(context)?.let { networkCapabilities2netType(it) }
+    fun isConnected(networkCapabilities: NetworkCapabilities): Boolean =
+        networkCapabilities.hasCapability(CNetworkCapabilities.NET_CAPABILITY_VALIDATED)
 
     ////////////////////////////////////////////////////////////////////
 
@@ -42,14 +47,59 @@ object UtilKNetworkCapabilities {
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
-    fun isActiveConnected(context: Context): Boolean {
-        val networkCapabilities = getActive(context) ?: return false
+    fun isActiveAvailable(context: Context): Boolean =
+        getActive(context)?.let { isAvailable(it) } ?: false
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_23_6_M)
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @OPermission_ACCESS_NETWORK_STATE
+    fun isActiveConnected(context: Context): Boolean =
+        getActive(context)?.let { isConnected(it) } ?: false
+
+    ////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_23_6_M)
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @OPermission_ACCESS_NETWORK_STATE
+    fun isActiveAny(context: Context): Boolean {
+        val activeNetworkCapabilities = getActive(context) ?: return false
         return when {
-            networkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_WIFI) -> true
-            networkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_CELLULAR) -> true
-            networkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_ETHERNET) -> true
+            activeNetworkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_CELLULAR) -> true
+            activeNetworkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_ETHERNET) -> true
+            activeNetworkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_WIFI) -> true
+            activeNetworkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_WIFI_AWARE) -> true
+            activeNetworkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_VPN) -> true
             else -> false
         }
+    }
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_23_6_M)
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @OPermission_ACCESS_NETWORK_STATE
+    fun isActiveMobile(context: Context): Boolean {
+        val networkCapabilities = getActive(context) ?: return false
+        return networkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_CELLULAR)
+    }
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_23_6_M)
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @OPermission_ACCESS_NETWORK_STATE
+    fun isActiveEthernet(context: Context): Boolean {
+        val networkCapabilities = getActive(context) ?: return false
+        return networkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_ETHERNET)
+    }
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_26_8_O)
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @OPermission_ACCESS_NETWORK_STATE
+    fun isActiveWifi(context: Context): Boolean {
+        val networkCapabilities = getActive(context) ?: return false
+        return (networkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_WIFI) || networkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_WIFI_AWARE))
     }
 
     @JvmStatic
@@ -59,43 +109,103 @@ object UtilKNetworkCapabilities {
     fun isActiveVpn(context: Context): Boolean {
         val networkCapabilities = getActive(context) ?: return false
         return networkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_VPN)
-                && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 
-    @JvmStatic
-    @RequiresApi(CVersCode.V_26_8_O)
-    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    @OPermission_ACCESS_NETWORK_STATE
-    fun isActiveWifi(context: Context): Boolean {
-        val networkCapabilities = getActive(context) ?: return false
-        return (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || networkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_WIFI_AWARE))
-                && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-    }
+    ////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
-    fun isActiveMobile(context: Context): Boolean {
-        val networkCapabilities = getActive(context) ?: return false
-        return (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))
-                && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-    }
+    fun isActiveMobileAvailable(context: Context) =
+        isActiveMobile(context) && isActiveAvailable(context)
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_23_6_M)
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @OPermission_ACCESS_NETWORK_STATE
+    fun isActiveEthernetAvailable(context: Context) =
+        isActiveEthernet(context) && isActiveAvailable(context)
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_26_8_O)
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @OPermission_ACCESS_NETWORK_STATE
+    fun isActiveWifiAvailable(context: Context) =
+        isActiveWifi(context) && isActiveAvailable(context)
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_23_6_M)
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @OPermission_ACCESS_NETWORK_STATE
+    fun isActiveVpnAvailable(context: Context) =
+        isActiveVpn(context) && isActiveAvailable(context)
 
     ///////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
+    @RequiresApi(CVersCode.V_23_6_M)
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @OPermission_ACCESS_NETWORK_STATE
+    fun isActiveMobileConnected(context: Context) =
+        isActiveMobile(context) && isActiveConnected(context)
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_23_6_M)
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @OPermission_ACCESS_NETWORK_STATE
+    fun isActiveEthernetConnected(context: Context) =
+        isActiveEthernet(context) && isActiveConnected(context)
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_26_8_O)
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @OPermission_ACCESS_NETWORK_STATE
+    fun isActiveWifiConnected(context: Context) =
+        isActiveWifi(context) && isActiveConnected(context)
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_23_6_M)
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    @OPermission_ACCESS_NETWORK_STATE
+    fun isActiveVpnConnected(context: Context) =
+        isActiveVpn(context) && isActiveConnected(context)
+
+    ///////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_23_6_M)
+    @OPermission_ACCESS_NETWORK_STATE
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    fun activeNetworkCapabilities2netTypes(context: Context): Set<ENetType> =
+        getActive(context)?.let { networkCapabilities2netTypes(it) } ?: setOf(ENetType.NONE)
+
+    @JvmStatic
     @RequiresApi(CVersCode.V_21_5_L)
-    fun networkCapabilities2netType(capabilities: NetworkCapabilities): ENetType =
-        if (!capabilities.hasCapability(CNetworkCapabilities.NET_CAPABILITY_VALIDATED)) {
-            ENetType.NONE
+    fun networkCapabilities2netTypes(capabilities: NetworkCapabilities): Set<ENetType> {
+        if (!isAvailable(capabilities)) {
+            return setOf(ENetType.NONE)
         } else {
-            if (capabilities.hasTransport(CNetworkCapabilities.TRANSPORT_WIFI) || capabilities.hasTransport(CNetworkCapabilities.TRANSPORT_WIFI_AWARE)) {
-                ENetType.WIFI// 使用WI-FI
-            } else if (capabilities.hasTransport(CNetworkCapabilities.TRANSPORT_CELLULAR) || capabilities.hasTransport(CNetworkCapabilities.TRANSPORT_ETHERNET)) {
-                ENetType.MOBILE// 使用蜂窝网络
-            } else {
-                ENetType.UNKNOWN// 未知网络，包括蓝牙、VPN、LoWPAN
+            val netTypes = mutableSetOf<ENetType>()
+            if (capabilities.hasTransport(CNetworkCapabilities.TRANSPORT_VPN)) {
+                netTypes.add(ENetType.VPN)
             }
+            if (capabilities.hasTransport(CNetworkCapabilities.TRANSPORT_WIFI) || capabilities.hasTransport(CNetworkCapabilities.TRANSPORT_WIFI_AWARE)) {
+                netTypes.add(ENetType.WIFI)// 使用WI-FI
+            }
+            if (capabilities.hasTransport(CNetworkCapabilities.TRANSPORT_ETHERNET)) {
+                netTypes.add(ENetType.ETHERNET)
+            }
+            if (capabilities.hasTransport(CNetworkCapabilities.TRANSPORT_CELLULAR)) {
+                netTypes.add(ENetType.MOBILE)// 使用蜂窝网络
+            }
+            if (capabilities.hasTransport(CNetworkCapabilities.TRANSPORT_BLUETOOTH)
+                || capabilities.hasTransport(CNetworkCapabilities.TRANSPORT_LOWPAN)
+                || capabilities.hasTransport(CNetworkCapabilities.TRANSPORT_USB)
+            ) {
+                netTypes.add(ENetType.UNKNOWN) // 未知网络，包括蓝牙、VPN、LoWPAN
+            }
+            return netTypes
         }
+    }
 }

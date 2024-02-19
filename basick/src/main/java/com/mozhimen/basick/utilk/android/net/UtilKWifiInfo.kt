@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.android.net
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.net.wifi.WifiInfo
 import androidx.annotation.RequiresApi
@@ -9,6 +10,7 @@ import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_FINE_LOCAT
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_WIFI_STATE
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import com.mozhimen.basick.utilk.kotlin.intIp2strIp
 
 /**
  * @ClassName UtilKWifiInfo
@@ -62,8 +64,8 @@ object UtilKWifiInfo {
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
     @OPermission_ACCESS_WIFI_STATE
     @OPermission_ACCESS_FINE_LOCATION
-    fun getRssiAbs(context: Context): Int? =
-        getRssi(context)?.let { kotlin.math.abs(it) }
+    fun getRssiAbs(context: Context): Int =
+        getRssi(context)?.let { kotlin.math.abs(it) } ?: 0
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
@@ -71,6 +73,21 @@ object UtilKWifiInfo {
     @OPermission_ACCESS_FINE_LOCATION
     fun getIpAddress(context: Context): Int? =
         get(context)?.ipAddress
+
+    @JvmStatic
+    @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
+    @OPermission_ACCESS_WIFI_STATE
+    @OPermission_ACCESS_FINE_LOCATION
+    fun getStrIp(context: Context): String? =
+        getIpAddress(context)?.intIp2strIp()
+
+    @SuppressLint("HardwareIds")
+    @JvmStatic
+    @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
+    @OPermission_ACCESS_WIFI_STATE
+    @OPermission_ACCESS_FINE_LOCATION
+    fun getMacAddress(context: Context): String? =
+        get(context)?.macAddress
 
     /////////////////////////////////////////////////////////////////////////////
 
