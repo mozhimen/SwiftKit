@@ -1,11 +1,14 @@
 package com.mozhimen.basicktest.utilk.java
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Environment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.lintk.optins.permission.OPermission_MANAGE_EXTERNAL_STORAGE
+import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_EXTERNAL_STORAGE
+import com.mozhimen.basick.lintk.optins.permission.OPermission_WRITE_EXTERNAL_STORAGE
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
@@ -24,7 +27,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-@AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE)
 @APermissionCheck(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE)
 class UtilKFileActivity : BaseActivityVB<ActivityUtilkFileBinding>() {
     private lateinit var _adapterKRecycler: AdapterKQuickRecyclerVB<UtilKFileLogBean, ItemUtilkFileLogBinding>
@@ -32,6 +34,8 @@ class UtilKFileActivity : BaseActivityVB<ActivityUtilkFileBinding>() {
         UtilKFileLogBean(0, "start file process >>>>>")
     )
 
+    @OptIn(OPermission_WRITE_EXTERNAL_STORAGE::class, OPermission_READ_EXTERNAL_STORAGE::class, OPermission_MANAGE_EXTERNAL_STORAGE::class)
+    @SuppressLint("MissingPermission")
     override fun initData(savedInstanceState: Bundle?) {
         XXPermissionsRequestUtil.requestReadWritePermission(this, onGranted = {
             ManifestKPermission.requestPermissions(this) {

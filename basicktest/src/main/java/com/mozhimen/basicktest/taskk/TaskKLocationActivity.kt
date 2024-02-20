@@ -5,6 +5,8 @@ import android.os.Bundle
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
 import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
+import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_COARSE_LOCATION
+import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_FINE_LOCATION
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.taskk.temps.TaskKLocation
@@ -16,7 +18,7 @@ class TaskKLocationActivity : BaseActivityVB<ActivityTaskkLocationBinding>() {
     private val _taskKLocation by lazy { TaskKLocation().apply { bindLifecycle(this@TaskKLocationActivity) } }
 
     @SuppressLint("MissingPermission", "SetTextI18n")
-    @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
+    @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class, OPermission_ACCESS_FINE_LOCATION::class, OPermission_ACCESS_COARSE_LOCATION::class)
     override fun initView(savedInstanceState: Bundle?) {
         if (UtilKPermission.hasPermissions(arrayOf(CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION)))
             _taskKLocation.startLocationTask(1000) { a1, a2 ->

@@ -6,29 +6,29 @@ import android.hardware.usb.UsbDevice
 import android.os.Build
 import android.os.Environment
 import android.text.TextUtils
+import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.cons.CConfiguration
 import com.mozhimen.basick.elemk.android.os.cons.CBuild
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.cons.CStrPackage
-import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_EXTERNAL_STORAGE
 import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_PHONE_STATE
 import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_PRIVILEGED_PHONE_STATE
-import com.mozhimen.basick.lintk.optins.permission.OPermission_WRITE_EXTERNAL_STORAGE
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKConfiguration
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.android.os.UtilKBuild
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.os.UtilKEnvironment
 import com.mozhimen.basick.utilk.android.os.UtilKStatFs
-import com.mozhimen.basick.utilk.android.telephony.UtilKImei
-import com.mozhimen.basick.utilk.android.view.UtilKScreen
-import com.mozhimen.basick.utilk.java.io.UtilKRandomAccessFile
-import com.mozhimen.basick.utilk.java.io.UtilKReader
 import com.mozhimen.basick.utilk.android.os.UtilKSystemProperties
 import com.mozhimen.basick.utilk.android.os.UtilKSystemPropertiesWrapper
+import com.mozhimen.basick.utilk.android.telephony.UtilKImei
 import com.mozhimen.basick.utilk.android.telephony.UtilKTelephonyManager
+import com.mozhimen.basick.utilk.android.view.UtilKScreen
+import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.java.io.UtilKRandomAccessFile
+import com.mozhimen.basick.utilk.java.io.UtilKReader
 
 /**
  * @ClassName UtilKDevice
@@ -37,13 +37,14 @@ import com.mozhimen.basick.utilk.android.telephony.UtilKTelephonyManager
  * @Date 2022/1/15 19:40
  * @Version 1.0
  */
-@OPermission_READ_PHONE_STATE
-@OPermission_READ_PRIVILEGED_PHONE_STATE
+
 object UtilKDevice : BaseUtilK() {
 
     @JvmStatic
-    @RequiresPermission(CPermission.READ_PHONE_STATE)
+    @RequiresApi(CVersCode.V_23_6_M)
     @OPermission_READ_PHONE_STATE
+    @OPermission_READ_PRIVILEGED_PHONE_STATE
+    @RequiresPermission(allOf = [CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE])
     fun getImei(): String =
         if (UtilKBuildVersion.isAfterV_23_6_M()) {
             UtilKImei.getImei(_context)
@@ -82,6 +83,9 @@ object UtilKDevice : BaseUtilK() {
      */
     @SuppressLint("HardwareIds")
     @JvmStatic
+    @OPermission_READ_PHONE_STATE
+    @OPermission_READ_PRIVILEGED_PHONE_STATE
+    @RequiresPermission(allOf = [CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE])
     fun getSerialNumber(): String = if (UtilKBuildVersion.isAfterV_29_10_Q()) {
         CBuild.UNKNOWN
     } else if (UtilKBuildVersion.isAfterV_26_8_O()) {
@@ -94,6 +98,9 @@ object UtilKDevice : BaseUtilK() {
      * 短序列号
      */
     @JvmStatic
+    @OPermission_READ_PHONE_STATE
+    @OPermission_READ_PRIVILEGED_PHONE_STATE
+    @RequiresPermission(allOf = [CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE])
     fun getSerialNumberShort(): String {
         var serial = getSerialNumber()
         if (!TextUtils.isEmpty(serial) && serial.length > 14)
@@ -211,8 +218,6 @@ object UtilKDevice : BaseUtilK() {
     /**
      * 是否有外部存储
      */
-    @OPermission_WRITE_EXTERNAL_STORAGE
-    @OPermission_READ_EXTERNAL_STORAGE
     @JvmStatic
     fun hasExternalStorage(): Boolean =
         UtilKEnvironment.isExternalStorageMounted()

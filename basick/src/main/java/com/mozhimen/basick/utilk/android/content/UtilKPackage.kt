@@ -3,10 +3,12 @@ package com.mozhimen.basick.utilk.android.content
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.cons.CPackageManager
 import com.mozhimen.basick.elemk.android.os.cons.CProcess
 import com.mozhimen.basick.elemk.cons.CStrPackage
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import com.mozhimen.basick.lintk.optins.permission.OPermission_QUERY_ALL_PACKAGES
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.UtilKStrClazz
 import java.util.Arrays
@@ -35,12 +37,14 @@ object UtilKPackage : BaseUtilK() {
 
     @JvmStatic
     fun getRequestedPermissionsStr(): String =
-        Arrays.toString(UtilKPackageInfo.getRequestedPermissions(_context))
+        UtilKPackageInfo.getRequestedPermissions(_context).contentToString()
 
     /**
      * 获取所有安装程序包名
      */
     @JvmStatic
+    @OPermission_QUERY_ALL_PACKAGES
+    @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
     fun getInstalledPackages(context: Context, hasSystemPackages: Boolean = false): List<PackageInfo> {
         var installedPackages = UtilKPackageManager.getInstalledPackages(context).toMutableList()
         if (installedPackages.isEmpty()) {
@@ -104,6 +108,7 @@ object UtilKPackage : BaseUtilK() {
     /**
      * 系统的下载组件是否可用
      */
+    @JvmStatic
     fun isDownloadComponentEnabled(context: Context): Boolean {
         try {
             val setting = UtilKPackageManager.getApplicationEnabledSetting(context, CStrPackage.COM_ANDROID_PROVIDERS_DOWNLOADS)
@@ -117,6 +122,8 @@ object UtilKPackage : BaseUtilK() {
     }
 
     @JvmStatic
+    @OPermission_QUERY_ALL_PACKAGES
+    @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
     fun hasPackageOfQuery(context: Context, strPackageName: String): Boolean =
         UtilKPackageManager.queryIntentActivities(context, UtilKIntentWrapper.getMainLauncher(strPackageName), 0).isNotEmpty()
 

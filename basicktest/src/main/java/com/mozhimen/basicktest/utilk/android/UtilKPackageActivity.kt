@@ -1,6 +1,7 @@
 package com.mozhimen.basicktest.utilk.android
 
 import androidx.appcompat.app.AppCompatActivity
+import com.mozhimen.basick.lintk.optins.permission.OPermission_QUERY_ALL_PACKAGES
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.android.widget.showToast
 
@@ -17,6 +18,7 @@ class UtilKPackageActivity : AppCompatActivity() {
         private const val TAG = "UtilKPackageActivity>>>>>"
     }
 
+    @OptIn(OPermission_QUERY_ALL_PACKAGES::class)
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
         android.util.Log.d(TAG, "onCreate: isPackageInstalled ${UtilKPackage.isPackageInstalled(this,STR_PACKAGE_NAME)}")

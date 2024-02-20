@@ -39,6 +39,9 @@ object UtilKIntent : IUtilK {
     inline fun <reified T> get(context: Context, block: IExtension_Listener<Intent>): Intent =
         Intent(context, T::class.java).apply(block)
 
+    /**
+     * http://com.xxx.xxx?id=?
+     */
     @JvmStatic
     @OIntentFilter_ACTION_VIEW_CATEGORY_DEFAULT_BROWSABLE
     fun getQueryParameter(intent: Intent, key: String): String? =

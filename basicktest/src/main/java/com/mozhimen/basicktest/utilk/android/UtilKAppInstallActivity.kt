@@ -2,6 +2,7 @@ package com.mozhimen.basicktest.utilk.android
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.mozhimen.basick.lintk.optins.permission.OPermission_INSTALL_PACKAGES
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.utilk.android.content.UtilKAppInstall
@@ -17,6 +18,7 @@ import com.mozhimen.basick.utilk.kotlin.isFileExist
  * @Version 1.0
  */
 class UtilKAppInstallActivity : AppCompatActivity() {
+    @OptIn(OPermission_INSTALL_PACKAGES::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val path = "${UtilKStrPath.Absolute.Internal.getCache()}/lelejoy.apk"

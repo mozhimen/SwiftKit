@@ -121,8 +121,8 @@ object UtilKRuntime : BaseUtilK() {
      * 静默安装适配 SDK28 之前的安装方法
      */
     @JvmStatic
-    @RequiresPermission(CPermission.INSTALL_PACKAGES)
     @OPermission_INSTALL_PACKAGES
+    @RequiresPermission(CPermission.INSTALL_PACKAGES)
     fun execInstallBefore28(strPathNameApk: String): Boolean {
         val command: Array<String> =
             if (UtilKBuildVersion.isAfterV_24_7_N())
@@ -152,8 +152,8 @@ object UtilKRuntime : BaseUtilK() {
      * @param strPathNameApk String 绝对路径
      */
     @JvmStatic
-    @RequiresPermission(CPermission.INSTALL_PACKAGES)
     @OPermission_INSTALL_PACKAGES
+    @RequiresPermission(CPermission.INSTALL_PACKAGES)
     fun execInstallBefore282(strPathNameApk: String): Boolean {
         val command =
             if (UtilKBuildVersion.isAfterV_24_7_N())
@@ -211,6 +211,8 @@ object UtilKRuntime : BaseUtilK() {
         }
     }
 
+    //////////////////////////////////////////////////////////////////////////////////
+
     /**
      * 发射命令
      * @param command String
@@ -266,9 +268,6 @@ object UtilKRuntime : BaseUtilK() {
 
     /**
      * 执行单条shell命令
-     * @param command String
-     * @param isRoot Boolean
-     * @return UtilKShellCmd?
      */
     @JvmStatic
     fun execSuOrSh(command: String, isRoot: Boolean, isNeedResultMsg: Boolean = true): MResultISS =
@@ -276,9 +275,6 @@ object UtilKRuntime : BaseUtilK() {
 
     /**
      * 执行多条shell命令
-     * @param commands List<String>
-     * @param isRoot Boolean
-     * @return UtilKShellCmd?
      */
     @JvmStatic
     fun execSuOrSh(commands: List<String>, isRoot: Boolean, isNeedResultMsg: Boolean = true): MResultISS =
@@ -286,10 +282,6 @@ object UtilKRuntime : BaseUtilK() {
 
     /**
      * 执行shell命令核心方法
-     * @param commands
-     * @param isRoot
-     * @param isNeedResultMsg
-     * @return
      */
     @JvmStatic
     fun execSuOrSh(commands: Array<String>, isRoot: Boolean, isNeedResultMsg: Boolean = true): MResultISS {

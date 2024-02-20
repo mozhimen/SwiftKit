@@ -9,6 +9,7 @@ import com.mozhimen.basick.elemk.android.net.cons.CConnectivityManager
 import com.mozhimen.basick.elemk.commons.IConnectionListener
 import com.mozhimen.basick.elemk.android.net.cons.ENetType
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_NETWORK_STATE
+import com.mozhimen.basick.lintk.optins.permission.OPermission_INTERNET
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.net.UtilKNet
 import com.mozhimen.basick.utilk.android.util.wt
@@ -20,7 +21,6 @@ import com.mozhimen.basick.utilk.android.util.wt
 
  * 权限:
 CPermission.ACCESS_NETWORK_STATE,
-CPermission.ACCESS_WIFI_STATE,
 CPermission.INTERNET
 
  * 继承:
@@ -41,11 +41,17 @@ android:exported="true">
  * @Version 1.0
  */
 @OPermission_ACCESS_NETWORK_STATE
-open class BaseConnectivityBroadcastReceiver : BaseBroadcastReceiver(), IBroadcastReceiver {
+@OPermission_INTERNET
+open class BaseConnectivityBroadcastReceiver : BaseBroadcastReceiver, IBroadcastReceiver {
     companion object {
         @JvmStatic
         val instance = INSTANCE.holder
     }
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    @RequiresPermission(allOf = [CPermission.ACCESS_NETWORK_STATE, CPermission.INTERNET])
+    constructor() : super()
 
     ///////////////////////////////////////////////////////////////////////////
 

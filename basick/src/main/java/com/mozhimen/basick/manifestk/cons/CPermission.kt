@@ -19,6 +19,7 @@ import com.mozhimen.basick.elemk.android.os.cons.CVersCode
  */
 object CPermission {
     //region # protect permission
+    //从 Android 10 开始，应用必须具有 READ_PRIVILEGED_PHONE_STATE 特许权限才能访问设备的不可重置标识符（包含 IMEI 和序列号）。而普通应用无法申请该权限
     const val READ_PRIVILEGED_PHONE_STATE = "android.permission.READ_PRIVILEGED_PHONE_STATE"
     const val REPLACE_EXISTING_PACKAGE = "android.permission.REPLACE_EXISTING_PACKAGE"
     const val READ_INSTALL_SESSIONS = "android.permission.READ_INSTALL_SESSIONS"

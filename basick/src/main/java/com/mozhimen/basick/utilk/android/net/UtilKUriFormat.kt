@@ -116,7 +116,6 @@ object UtilKUriFormat : BaseUtilK() {
     }
 
     @JvmStatic
-    @RequiresApi(CVersCode.V_19_44_K)
     fun uri2strFilePathNameAfter19(uri: Uri): String? {
         if (uri.scheme == CContentResolver.SCHEME_FILE)
             return uri.path

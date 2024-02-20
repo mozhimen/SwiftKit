@@ -8,6 +8,6 @@ package com.mozhimen.basick.manifestk.annors
  * @Version 1.0
  */
 @Retention(AnnotationRetention.BINARY)
-annotation class AManifestKRequire(
+internal annotation class AManifestKRequire(
     vararg val permission: String//需要持有的权限
 )

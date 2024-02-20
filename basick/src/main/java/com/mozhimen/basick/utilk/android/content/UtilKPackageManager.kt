@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.android.content
 
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.content.ComponentName
 import android.content.Context
@@ -21,6 +22,7 @@ import com.mozhimen.basick.elemk.android.content.cons.CPackageInfo
 import com.mozhimen.basick.elemk.android.content.cons.CPackageManager
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.lintk.annors.ADescription
+import com.mozhimen.basick.lintk.optins.permission.OPermission_QUERY_ALL_PACKAGES
 import com.mozhimen.basick.lintk.optins.permission.OPermission_REQUEST_INSTALL_PACKAGES
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
@@ -89,19 +91,30 @@ object UtilKPackageManager {
      * 查询所有的符合Intent的Activities
      */
     @JvmStatic
+    @OPermission_QUERY_ALL_PACKAGES
+    @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
+    @SuppressLint("QueryPermissionsNeeded")
     fun queryIntentActivities(context: Context, intent: Intent, flags: Int): List<ResolveInfo> =
         get(context).queryIntentActivities(intent, flags)
 
     @JvmStatic
+    @OPermission_QUERY_ALL_PACKAGES
+    @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
+    @SuppressLint("QueryPermissionsNeeded")
     fun getInstalledPackages(context: Context, flags: Int): List<PackageInfo> =
         get(context).getInstalledPackages(flags)
 
-
+    @JvmStatic
     @RequiresApi(CVersCode.V_33_13_TIRAMISU)
+    @OPermission_QUERY_ALL_PACKAGES
+    @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
+    @SuppressLint("QueryPermissionsNeeded")
     fun getInstalledPackages(context: Context, flags: PackageInfoFlags): List<PackageInfo> =
         get(context).getInstalledPackages(flags)
 
     @JvmStatic
+    @OPermission_QUERY_ALL_PACKAGES
+    @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
     fun getInstalledPackages(context: Context): List<PackageInfo> {
         val flags = CPackageManager.GET_ACTIVITIES or CPackageManager.GET_SERVICES
         val packageInfos: List<PackageInfo> = if (UtilKBuildVersion.isAfterV_33_13_TIRAMISU()) {
@@ -114,6 +127,8 @@ object UtilKPackageManager {
 
 
     @JvmStatic
+    @OPermission_QUERY_ALL_PACKAGES
+    @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
     fun getInstalledPackagesActivities(context: Context): List<PackageInfo> =
         getInstalledPackages(context, CPackageManager.GET_ACTIVITIES)
 
@@ -152,11 +167,9 @@ object UtilKPackageManager {
      * 是否有包安装权限
      */
     @JvmStatic
-    @RequiresApi(CVersCode.V_26_8_O)
-    @TargetApi(CVersCode.V_26_8_O)
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     @OPermission_REQUEST_INSTALL_PACKAGES
     @ADescription(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
     fun canRequestPackageInstalls(context: Context): Boolean =
-        get(context).canRequestPackageInstalls()
+        if (UtilKBuildVersion.isAfterV_26_8_O()) get(context).canRequestPackageInstalls() else true
 }

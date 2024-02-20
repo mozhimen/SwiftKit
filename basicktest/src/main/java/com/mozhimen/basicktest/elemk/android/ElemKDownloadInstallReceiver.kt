@@ -1,8 +1,9 @@
 package com.mozhimen.basicktest.elemk.android
 
 import com.mozhimen.basick.elemk.android.content.bases.BaseDownloadInstallBroadcastReceiver
-import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_INSTALL_SESSIONS
+import com.mozhimen.basick.lintk.optins.permission.OPermission_REPLACE_EXISTING_PACKAGE
+import com.mozhimen.basick.lintk.optins.permission.OPermission_REQUEST_INSTALL_PACKAGES
 
 
 /**
@@ -12,5 +13,5 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
  * @Date 2023/1/6 12:46
  * @Version 1.0
  */
-@AManifestKRequire(CPermission.INSTALL_PACKAGES, CPermission.REQUEST_INSTALL_PACKAGES, CPermission.READ_INSTALL_SESSIONS, CPermission.REPLACE_EXISTING_PACKAGE)
+@OptIn(OPermission_REQUEST_INSTALL_PACKAGES::class, OPermission_READ_INSTALL_SESSIONS::class, OPermission_REPLACE_EXISTING_PACKAGE::class)
 class ElemKDownloadInstallReceiver : BaseDownloadInstallBroadcastReceiver("")

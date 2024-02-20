@@ -4,9 +4,12 @@ import android.annotation.TargetApi
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.lintk.optins.OApiTarget_AtV_25_71_N1
+import com.mozhimen.basick.lintk.optins.permission.OPermission_QUERY_ALL_PACKAGES
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKApp
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 
@@ -39,8 +42,13 @@ android:exported="true">
  */
 @OApiTarget_AtV_25_71_N1
 @TargetApi(CVersCode.V_25_71_N1)
-open class BasePackageBroadcastReceiver : BaseBroadcastReceiver() {
+@OPermission_QUERY_ALL_PACKAGES
+open class BasePackageBroadcastReceiver : BaseBroadcastReceiver {
 
+    @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
+    constructor() : super()
+
+    @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
     override fun onReceive(context: Context, intent: Intent) {
         val strPackageName = intent.dataString
         when (intent.action) {

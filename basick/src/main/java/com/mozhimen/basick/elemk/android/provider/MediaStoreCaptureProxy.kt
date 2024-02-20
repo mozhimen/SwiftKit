@@ -1,16 +1,17 @@
 package com.mozhimen.basick.elemk.android.provider
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
-import android.provider.MediaStore
+import androidx.annotation.RequiresPermission
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.elemk.android.content.cons.CPackageManager
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.provider.cons.CMediaStore
+import com.mozhimen.basick.lintk.optins.permission.OPermission_QUERY_ALL_PACKAGES
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.content.UtilKIntentWrapper
 import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
@@ -49,6 +50,9 @@ class MediaStoreCaptureProxy {
         _captureStrategy = strategy
     }
 
+    @OPermission_QUERY_ALL_PACKAGES
+    @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
+    @SuppressLint("QueryPermissionsNeeded")
     fun dispatchCaptureIntent(context: Context, requestCode: Int) {
         val intent = UtilKIntentWrapper.getImageCapture()
 

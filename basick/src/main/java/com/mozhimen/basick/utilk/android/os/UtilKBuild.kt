@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CBuild
 import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_PRIVILEGED_PHONE_STATE
 import com.mozhimen.basick.utilk.kotlin.joinArray2str
 import com.mozhimen.basick.utilk.java.util.longDate2strDate
 
@@ -16,11 +17,12 @@ import com.mozhimen.basick.utilk.java.util.longDate2strDate
  * @Date 2022/5/29 19:56
  * @Version 1.0
  */
+
 object UtilKBuild {
 
-    @SuppressLint("HardwareIds")
     @JvmStatic
-    @RequiresApi(CVersCode.V_26_8_O)
+    @OPermission_READ_PRIVILEGED_PHONE_STATE
+    @SuppressLint("HardwareIds")
     fun getSerial(): String =
         Build.SERIAL
 

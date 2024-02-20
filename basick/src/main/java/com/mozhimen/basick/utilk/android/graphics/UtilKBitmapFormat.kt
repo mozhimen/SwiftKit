@@ -51,8 +51,6 @@ fun Bitmap.bitmapAny2strBase64(compressFormat: CompressFormat = CompressFormat.J
     UtilKBitmapFormat.bitmapAny2strBase64(this,compressFormat, quality, flags)
 
 @RequiresApi(CVersCode.V_29_10_Q)
-@RequiresPermission(CPermission.WRITE_EXTERNAL_STORAGE)
-@OPermission_WRITE_EXTERNAL_STORAGE
 fun Bitmap.bitmapAny2fileImage(strFilePathName: String, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
     UtilKBitmapFormat.bitmapAny2fileImage(this, strFilePathName, compressFormat, quality)
 
@@ -117,8 +115,6 @@ object UtilKBitmapFormat : BaseUtilK() {
 
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
-    @RequiresPermission(CPermission.WRITE_EXTERNAL_STORAGE)
-    @OPermission_WRITE_EXTERNAL_STORAGE
     fun bitmapAny2fileImage(sourceBitmap: Bitmap, strFilePathName: String, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? {
         var outputStream: OutputStream? = null
         val fileDest = strFilePathName.createFile()

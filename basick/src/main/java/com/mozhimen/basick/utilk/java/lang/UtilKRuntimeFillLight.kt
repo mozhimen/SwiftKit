@@ -1,6 +1,9 @@
 package com.mozhimen.basick.utilk.java.lang
 
+import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.cons.CCmd
+import com.mozhimen.basick.lintk.optins.permission.OPermission_FLASHLIGHT
+import com.mozhimen.basick.manifestk.cons.CPermission
 
 
 /**
@@ -16,6 +19,8 @@ object UtilKRuntimeFillLight {
      * 开补光灯
      */
     @JvmStatic
+    @OPermission_FLASHLIGHT
+    @RequiresPermission(CPermission.FLASHLIGHT)
     fun open() {
         UtilKRuntime.execShC(CCmd.FILL_LIGHT_OPEN)
     }
@@ -24,6 +29,8 @@ object UtilKRuntimeFillLight {
      * 关补光灯
      */
     @JvmStatic
+    @OPermission_FLASHLIGHT
+    @RequiresPermission(CPermission.FLASHLIGHT)
     fun close() {
         UtilKRuntime.execShC(CCmd.FILL_LIGHT_CLOSE)
     }

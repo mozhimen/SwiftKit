@@ -82,8 +82,6 @@ object UtilKContextDir {
      * 读写需要申请权限
      * 外部程序可以访问。卸载应用可能会删除。
      */
-    @OPermission_READ_EXTERNAL_STORAGE
-    @OPermission_WRITE_EXTERNAL_STORAGE
     object External {
 
         @JvmStatic

@@ -24,6 +24,8 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
  * @Version 1.0
  */
 object UtilKLocation : BaseUtilK() {
+    @OPermission_ACCESS_COARSE_LOCATION
+    @OPermission_ACCESS_FINE_LOCATION
     @JvmStatic
     @SuppressLint("MissingPermission")
     fun get(minTimeMs: Long, minDistanceM: Float): Location? {
@@ -72,6 +74,8 @@ object UtilKLocation : BaseUtilK() {
         return lastLocation.also { "getLastLocation is null ${it == null}".it(TAG) }
     }
 
+    @OPermission_ACCESS_FINE_LOCATION
+    @OPermission_ACCESS_COARSE_LOCATION
     @JvmStatic
     fun get_Longitude_Latitude(minTimeMs: Long = 2000, minDistanceM: Float = 5f): Pair<Double, Double>? =
         get(minTimeMs, minDistanceM)?.let { it.longitude to it.latitude }

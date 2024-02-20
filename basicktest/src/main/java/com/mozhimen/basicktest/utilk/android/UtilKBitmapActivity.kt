@@ -6,9 +6,7 @@ import android.util.Log
 import android.widget.SeekBar
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
-import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.lintk.optins.permission.OPermission_INTERNET
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapDeal
 import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapFormat
@@ -22,9 +20,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-@AManifestKRequire(CPermission.INTERNET)
-@APermissionCheck(CPermission.INTERNET)
 class UtilKBitmapActivity : BaseActivityVB<ActivityUtilkBitmapBinding>() {
+    @OptIn(OPermission_INTERNET::class)
     override fun initView(savedInstanceState: Bundle?) {
         lifecycleScope.launch(Dispatchers.Main) {
             val bitmap: Bitmap?

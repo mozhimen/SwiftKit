@@ -5,7 +5,6 @@ import android.hardware.Camera
 import android.hardware.Camera.CameraInfo
 import com.mozhimen.basick.elemk.android.hardware.cons.CCamera
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
-import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 
 /**

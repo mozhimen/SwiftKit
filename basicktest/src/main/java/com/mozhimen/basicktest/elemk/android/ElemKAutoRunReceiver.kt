@@ -1,8 +1,7 @@
 package com.mozhimen.basicktest.elemk.android
 
 import com.mozhimen.basick.elemk.android.content.bases.BaseBootBroadcastReceiver
-import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.lintk.optins.permission.OPermission_RECEIVE_BOOT_COMPLETED
 import com.mozhimen.basicktest.BasicKActivity
 
 /**
@@ -12,5 +11,5 @@ import com.mozhimen.basicktest.BasicKActivity
  * @Date 2022/9/26 18:53
  * @Version 1.0
  */
-@AManifestKRequire(CPermission.RECEIVE_BOOT_COMPLETED)
+@OptIn(OPermission_RECEIVE_BOOT_COMPLETED::class)
 class ElemKAutoRunReceiver : BaseBootBroadcastReceiver(BasicKActivity::class.java, 5000)

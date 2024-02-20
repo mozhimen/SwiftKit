@@ -11,5 +11,5 @@ import com.mozhimen.basick.manifestk.cons.CPermission
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.MANAGE_EXTERNAL_STORAGE)
-@RequiresOptIn("The api is must add this permission to yout AndroidManifest.xml or dynamic call requestPermission. 需要声明此权限到你的AndroidManifest.xml或动态申请权限", RequiresOptIn.Level.WARNING)
+@RequiresOptIn("The api is must add this permission to yout AndroidManifest.xml or dynamic call requestPermission. 需要声明此权限到你的AndroidManifest.xml或动态申请权限", RequiresOptIn.Level.ERROR)
 annotation class OPermission_MANAGE_EXTERNAL_STORAGE

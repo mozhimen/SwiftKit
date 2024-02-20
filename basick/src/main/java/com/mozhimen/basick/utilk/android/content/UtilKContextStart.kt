@@ -3,8 +3,11 @@ package com.mozhimen.basick.utilk.android.content
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.elemk.commons.IExtension_Listener
+import com.mozhimen.basick.lintk.optins.permission.OPermission_QUERY_ALL_PACKAGES
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 
 /**
@@ -107,6 +110,8 @@ object UtilKContextStart : BaseUtilK() {
     /////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
+    @OPermission_QUERY_ALL_PACKAGES
+    @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
     fun startContextByPackageName(context: Context, strPackageName: String): Boolean {
         val intent = UtilKIntentWrapper.getLauncherForPackageOfComponent(context, strPackageName) ?: return false
         context.startContext(intent)
