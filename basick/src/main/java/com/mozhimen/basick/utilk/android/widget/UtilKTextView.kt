@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.android.widget
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Typeface
@@ -9,6 +10,7 @@ import android.view.Gravity
 import android.widget.TextView
 import androidx.annotation.IntRange
 import androidx.core.content.ContextCompat
+import com.mozhimen.basick.elemk.android.graphics.cons.CTypeface
 import com.mozhimen.basick.elemk.android.view.annors.AGravity
 import com.mozhimen.basick.elemk.android.view.cons.CGravity
 import com.mozhimen.basick.elemk.commons.IA_Listener
@@ -69,6 +71,9 @@ fun TextView.applyCompoundDrawable(drawable: Drawable, @AGravity gravity: Int, b
     UtilKTextView.applyCompoundDrawable(this, drawable, gravity, boundsSize)
 }
 
+fun TextView.applyPrintLog(str: String) {
+    UtilKTextView.applyPrintLog(this, str)
+}
 //////////////////////////////////////////////////////////////////////////////////////
 
 object UtilKTextView {
@@ -110,10 +115,13 @@ object UtilKTextView {
             when (gravity) {
                 CGravity.START, CGravity.LEFT ->
                     textView.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
+
                 CGravity.TOP ->
                     textView.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
+
                 CGravity.END, CGravity.RIGHT ->
                     textView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null)
+
                 else ->
                     textView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, drawable)
             }
@@ -122,10 +130,13 @@ object UtilKTextView {
             when (gravity) {
                 CGravity.START, CGravity.LEFT ->
                     textView.setCompoundDrawables(drawable, null, null, null)
+
                 CGravity.TOP ->
                     textView.setCompoundDrawables(null, drawable, null, null)
+
                 CGravity.END, CGravity.RIGHT ->
                     textView.setCompoundDrawables(null, null, drawable, null)
+
                 else ->
                     textView.setCompoundDrawables(null, null, null, drawable)
             }
@@ -181,6 +192,19 @@ object UtilKTextView {
     fun applyLengthFilter(textView: TextView, max: Int) {
         if (max > 0) {
             textView.filters = arrayOf(UtilKInputFilter.getLengthFilter(max))
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    @SuppressLint("SetTextI18n")
+    @JvmStatic
+    fun applyPrintLog(textView: TextView, log: String) {
+        textView.text = textView.getText().toString() + log + "\n"
+        //let text view to move to the last line.
+        val offset = textView.lineCount * textView.lineHeight
+        if (offset > textView.height) {
+            textView.scrollTo(0, offset - textView.height)
         }
     }
 }

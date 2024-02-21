@@ -31,4 +31,5 @@ object CContext {
     const val DOWNLOAD_SERVICE = Context.DOWNLOAD_SERVICE
     const val NOTIFICATION_SERVICE = Context.NOTIFICATION_SERVICE
     const val UI_MODE_SERVICE = Context.UI_MODE_SERVICE
+    const val CLIPBOARD_SERVICE = Context.CLIPBOARD_SERVICE
 }
