@@ -6,6 +6,7 @@ import android.app.DownloadManager
 import android.app.NotificationManager
 import android.app.UiModeManager
 import android.content.AttributionSource
+import android.content.ClipboardManager
 import android.content.ContentResolver
 import android.content.Context
 import android.content.SharedPreferences
@@ -220,6 +221,10 @@ object UtilKContext {
     @JvmStatic
     fun getNotificationManager(context: Context): NotificationManager =
         getSystemService(context, CContext.NOTIFICATION_SERVICE) as NotificationManager
+
+    @JvmStatic
+    fun getClipboardManager(context: Context): ClipboardManager =
+        getSystemService(context, CContext.CLIPBOARD_SERVICE) as ClipboardManager
 
     ////////////////////////////////////////////////////////////////////////
 

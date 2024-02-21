@@ -37,14 +37,14 @@ fun String.strAssetName2strFilePathName(strFilePathNameDest: String): String =
 fun String.strAssetName2bytes(): ByteArray =
     UtilKStrAsset.strAssetName2bytes(this)
 
-fun String.strAssetName2str(): String? =
-    UtilKStrAsset.strAssetName2str(this)
+fun String.strAssetName2strOfReadMultiLines(): String? =
+    UtilKStrAsset.strAssetName2strOfReadMultiLines(this)
 
-fun String.strAssetName2str2(): String? =
-    UtilKStrAsset.strAssetName2str2(this)
+fun String.strAssetName2strOfBytes(): String? =
+    UtilKStrAsset.strAssetName2strOfBytes(this)
 
-fun String.strAssetName2str3(): String? =
-    UtilKStrAsset.strAssetName2str3(this)
+fun String.strAssetName2strOfStream(): String? =
+    UtilKStrAsset.strAssetName2strOfStream(this)
 
 fun String.strAssetName2file(strFilePathNameDest: String, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
     UtilKStrAsset.strAssetName2file(this, strFilePathNameDest, isAppend, bufferSize, block)
@@ -92,7 +92,7 @@ object UtilKStrAsset : BaseUtilK() {
      * 文件转String:分析json文件,从资产文件加载内容:license,获取txt文本文件内容等
      */
     @JvmStatic
-    fun strAssetName2str(strAssetName: String): String? =
+    fun strAssetName2strOfReadMultiLines(strAssetName: String): String? =
         if (!isAssetExists(strAssetName)) null
         else UtilKAssetManager.open(_context, strAssetName).inputStream2strOfReadMultiLines()
 
@@ -100,7 +100,7 @@ object UtilKStrAsset : BaseUtilK() {
      * 获取文本文件内容: txt 最快的方法
      */
     @JvmStatic
-    fun strAssetName2str2(strAssetName: String): String? =
+    fun strAssetName2strOfBytes(strAssetName: String): String? =
         if (!isAssetExists(strAssetName)) null
         else strAssetName2bytes(strAssetName).bytes2str()
 
@@ -108,7 +108,7 @@ object UtilKStrAsset : BaseUtilK() {
      * 通过路径加载Assets中的文本内容
      */
     @JvmStatic
-    fun strAssetName2str3(strAssetName: String): String? =
+    fun strAssetName2strOfStream(strAssetName: String): String? =
         if (!isAssetExists(strAssetName)) null
         else UtilKAssetManager.open(_context, strAssetName).inputStream2strOfBytes()
 

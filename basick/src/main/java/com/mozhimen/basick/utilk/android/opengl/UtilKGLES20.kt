@@ -54,8 +54,8 @@ object UtilKGLES20 : BaseUtilK() {
 
     @JvmStatic
     fun createGlProgramByRes(vert: String, frag: String): Int? {
-        val vertexSource = UtilKStrAsset.strAssetName2str3(vert)
-        val fragmentSource = UtilKStrAsset.strAssetName2str3(frag)
+        val vertexSource = UtilKStrAsset.strAssetName2strOfStream(vert)
+        val fragmentSource = UtilKStrAsset.strAssetName2strOfStream(frag)
         if (vertexSource != null && fragmentSource != null)
             createGlProgram(vertexSource, fragmentSource)
         return null
