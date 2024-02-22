@@ -47,9 +47,13 @@ object UtilKScreen : BaseUtilK() {
             UtilKDisplay.getDefSizeX(_context)
 
     @JvmStatic
-    @ADescription("getCurrentWidth","getWidthOfDisplay")
+    @ADescription("getCurrentWidth", "getWidthOfDisplay")
     fun getWidth_ofSysMetrics(): Int =
         UtilKDisplayMetrics.getSysWidthPixels()
+
+    @JvmStatic
+    fun getWidth_ofAppMetrics(): Int =
+        UtilKDisplayMetrics.getAppWidthPixels(_context)
 
     @JvmStatic
     fun getWidth_ofDefMetrics(): Int =
@@ -87,6 +91,10 @@ object UtilKScreen : BaseUtilK() {
     @JvmStatic
     fun getHeight_ofSysMetrics(): Int =
         UtilKDisplayMetrics.getSysHeightPixels()
+
+    @JvmStatic
+    fun getHeight_ofAppMetrics(): Int =
+        UtilKDisplayMetrics.getAppHeightPixels(_context)
 
     /**
      * 获取屏幕高度 2的和1的区别是是否考虑状态栏等, 2是减去状态栏的高度, 即为当前的

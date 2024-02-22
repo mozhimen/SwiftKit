@@ -45,6 +45,26 @@ object UtilKDisplayMetrics {
 
     //////////////////////////////////////////////////////////////////////
 
+    //region # app
+
+    @JvmStatic
+    fun getAppWidthPixels(context: Context): Int =
+        getApp(context).widthPixels
+
+    @JvmStatic
+    fun getAppHeightPixels(context: Context): Int =
+        getApp(context).heightPixels
+
+    /**
+     * 获取密度
+     */
+    @JvmStatic
+    fun getAppDensity(context: Context): Float =
+        getApp(context).density
+    //endregion
+
+    //////////////////////////////////////////////////////////////////////
+
     //region # sys
     /**
      * 获取密度dp

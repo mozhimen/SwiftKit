@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.android.util
 
+import android.content.Context
 import android.util.TypedValue
 import androidx.annotation.FloatRange
 import com.mozhimen.basick.elemk.android.util.cons.CDisplayMetrics
@@ -42,13 +43,13 @@ val Float.px2dp: Float
     get() = px2dp()
 
 fun Float.px2dp(): Float =
-    UtilKDisplayMetricsWrapper.px2dp(this)
+    UtilKDisplayMetricsWrapper.px2dp_ofDpi(this)
 
 val Int.px2dp: Float
     get() = px2dp()
 
 fun Int.px2dp(): Float =
-    UtilKDisplayMetricsWrapper.px2dp(this.toFloat())
+    UtilKDisplayMetricsWrapper.px2dp_ofDpi(this.toFloat())
 
 val Float.px2sp: Float
     get() = px2sp()
@@ -83,11 +84,15 @@ object UtilKDisplayMetricsWrapper {
         TypedValue.applyDimension(CTypedValue.COMPLEX_UNIT_DIP, dp, UtilKDisplayMetrics.getSys())
 
     @JvmStatic
-    fun dp2px2(@FloatRange(from = 0.0) dp: Float): Float =
+    fun dp2px_ofSysDensity(@FloatRange(from = 0.0) dp: Float): Float =
         dp * UtilKDisplayMetrics.getSysDensity()
 
     @JvmStatic
-    fun dp2px3(@FloatRange(from = 0.0) dp: Float): Float =
+    fun dp2px_ofAppDensity(context: Context, @FloatRange(from = 0.0) dp: Float): Float =
+        dp * UtilKDisplayMetrics.getAppDensity(context) + 0.5f
+
+    @JvmStatic
+    fun dp2px_ofDpi(@FloatRange(from = 0.0) dp: Float): Float =
         dp * (UtilKDisplayMetrics.getSysXdpi() / CDisplayMetrics.DENSITY_DEFAULT)
 
     @JvmStatic
@@ -97,11 +102,11 @@ object UtilKDisplayMetricsWrapper {
     /////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun px2dp(@FloatRange(from = 0.0) px: Float): Float =
+    fun px2dp_ofDpi(@FloatRange(from = 0.0) px: Float): Float =
         px / (UtilKDisplayMetrics.getSysDensityDpi() / CDisplayMetrics.DENSITY_DEFAULT)
 
     @JvmStatic
-    fun px2dp2(@FloatRange(from = 0.0) px: Float): Float =
+    fun px2dp_ofDensity(@FloatRange(from = 0.0) px: Float): Float =
         px / UtilKDisplayMetrics.getSysDensity()
 
     @JvmStatic
@@ -115,6 +120,6 @@ object UtilKDisplayMetricsWrapper {
         TypedValue.applyDimension(CTypedValue.COMPLEX_UNIT_SP, sp, UtilKDisplayMetrics.getSys())
 
     @JvmStatic
-    fun sp2px2(@FloatRange(from = 0.0) sp: Float): Float =
+    fun sp2px_ofDensity(@FloatRange(from = 0.0) sp: Float): Float =
         sp * UtilKDisplayMetrics.getSysScaledDensity()
 }
