@@ -17,6 +17,12 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/BasicKStyle_Btn"
+            android:onClick="goUtilKMd5"
+            android:text="goUtilKMd5"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/BasicKStyle_Btn"
             android:onClick="goUtilKGenerateNo"
             android:text="goUtilKGenerateNo"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

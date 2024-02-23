@@ -14,6 +14,10 @@ class UtilKKotlinActivity : BaseActivityVB<ActivityUtilkKotlinBinding>() {
         startContext<UtilKVerifyUrlActivity>()
     }
 
+    fun goUtilKMd5(view: View) {
+        startContext<UtilKMd5Activity>()
+    }
+
     fun goUtilKGenerateNo(view: View) {
         startContext<UtilKGenerateNoActivity>()
     }

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mozhimen.basicktest">
 
-    <uses-permission android:name="android.permission.INSTALL_PACKAGES"
+    <uses-permission
+        android:name="android.permission.INSTALL_PACKAGES"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
@@ -13,8 +14,7 @@
     <uses-permission android:name="android.permission.REPLACE_EXISTING_PACKAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!--//测试-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- //测试 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -27,6 +27,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit">
+        <activity
+            android:name=".utilk.kotlin.UtilKMathActivity"
+            android:exported="false" />
+        <activity
+            android:name=".utilk.kotlin.UtilKMd5Activity"
+            android:exported="false" />
+
         <receiver
             android:name=".utilk.android.InstallKReceiver"
             android:enabled="true"
@@ -113,13 +120,11 @@
 
                 <data android:scheme="package" />
             </intent-filter>
-        </receiver>
-        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+        </receiver> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- imagek -->
         <activity
             android:name=".imagek.ImageKActivity"
-            android:exported="false" />
-        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- manifestk -->
         <activity
             android:name=".manifestk.ManifestKActivity"
@@ -134,25 +139,24 @@
         <activity
             android:name=".postk.PostKLiveDataEventBusActivity"
             android:exported="false" />
-
         <activity
             android:name=".postk.PostKLinkActivity"
             android:exported="true">
             <intent-filter>
-                <!--必有项-->
+
+                <!-- 必有项 -->
                 <action android:name="android.intent.action.VIEW" />
-                <!--表示该页面可以被隐式调用，必须加上该项-->
+                <!-- 表示该页面可以被隐式调用，必须加上该项 -->
                 <category android:name="android.intent.category.DEFAULT" />
-                <!--BROWSABLE指定该Activity能被浏览器安全调用-->
+                <!-- BROWSABLE指定该Activity能被浏览器安全调用 -->
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!--协议部分-->
-                <!--声明自定义scheme，类似于http, https-->
+                <!-- 协议部分 -->
+                <!-- 声明自定义scheme，类似于http, https -->
                 <data
                     android:host="com.mozhimen.basick"
                     android:scheme="basick" />
             </intent-filter>
-        </activity>
-        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+        </activity> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- stackk -->
         <activity
             android:name=".stackk.StackKActivity"

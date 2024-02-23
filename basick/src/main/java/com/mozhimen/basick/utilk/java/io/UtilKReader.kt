@@ -53,8 +53,8 @@ object UtilKReader : BaseUtilK() {
             else BufferedReader(inputStreamReader, readSize)
             var line = ""
             while (bufferedReader.readLine()?.also { line = it } != null)
-                stringBuilder.append(line).append("\n")
-            return stringBuilder.toString().replaceAfterLast("\n", "")
+                stringBuilder.append(line)/*.append("\n")*/
+            return stringBuilder.toString()/*.replaceAfterLast("\n", "")*/
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
