@@ -16,7 +16,34 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 object UtilKClipboardManagerWrapper : BaseUtilK() {
 
     /**
+     * 问题: 获取剪切板为空,高版本兼容
+     * 导致问题: ClipboardManager.getPrimaryClip()==null 直接倒是获取剪切板未空
+     *
+     * 解决方案:
+     * 获取焦点后再处理剪切板逻辑
+     */
+
+    /**
      * 获取剪贴板的文本
+     *
+     *
+     * 1:监听焦点变化再获取剪切板数据
+     *     @Override
+     *     public void onWindowFocusChanged(boolean hasFocus) {
+     *         super.onWindowFocusChanged(hasFocus);
+     *         if (hasFocus) {
+     *             //获取剪切板文字逻辑写到这里。
+     *         }
+     *     }
+     *
+     *
+     * 2:重写 onResume() 方法然后延时获取剪切板
+     *
+     *   protected void onResume() {
+     *     super.onResume();
+     *     //延时获取
+     * }
+     *
      */
     @JvmStatic
     fun getText(): String? {
