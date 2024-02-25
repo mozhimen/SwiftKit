@@ -16,10 +16,6 @@ android {
         manifestPlaceholders = [fileProviderAuthoritiesSuffix: ".fileProvider"]
         buildConfigField("String", "FILE_PROVIDER_AUTHORITIES_SUFFIX", "\"${manifestPlaceholders['fileProviderAuthoritiesSuffix']}\"")
 
-        //renderscript
-        renderscriptTargetApi 18
-        renderscriptSupportModeEnabled true
-
         //test
         testOptions {
             unitTests.returnDefaultValues = true
@@ -73,6 +69,7 @@ dependencies {
     api 'androidx.fragment:fragment-ktx:1.6.2'
     api 'androidx.activity:activity-ktx:1.7.2'
     api 'androidx.documentfile:documentfile:1.0.1'
+    api 'androidx.exifinterface:exifinterface:1.3.6'
 
     //////////////////////////////////////////////////////////////////
     //multidex
@@ -112,13 +109,12 @@ dependencies {
     //////////////////////////////////////////////////////////////////
     //room cachek
     api 'androidx.room:room-runtime:2.5.2'
+
     kapt 'androidx.room:room-compiler:2.5.2'
 
     //datastore
     api "androidx.datastore:datastore-preferences:1.0.0"
     api "androidx.datastore:datastore:1.0.0"
-
-    api 'com.tencent:mmkv:1.2.10'
 
     //////////////////////////////////////////////////////////////////
     //serialize
@@ -134,20 +130,8 @@ dependencies {
     //implementation 'org. jetbrains.kotlinx: kotlinx-serialization-json:1.3.2'
 
     //////////////////////////////////////////////////////////////////
-    //load image
-
-    //glide
-    api 'com.github.bumptech.glide:glide:4.16.0'//图片加载库
-    api "com.github.bumptech.glide:okhttp3-integration:4.16.0"
-    kapt 'com.github.bumptech.glide:compiler:4.16.0'
-
-    //////////////////////////////////////////////////////////////////
     //firebase
 //    api 'com.google.firebase:firebase-crashlytics-buildtools:2.9.2'
-
-    //////////////////////////////////////////////////////////////////
-    //net
-    api 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
 
     //////////////////////////////////////////////////////////////////
     //test

@@ -6,7 +6,6 @@ ext {
             minSdk               : 24,
             targetSdk            : 33,
             versionCode          : 3,
-            renderscriptTargetApi: 18,
             versionName          : "0.0.3",
             multiDexEnabled      : true
     ]

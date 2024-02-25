@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.android.graphics
 
 import android.graphics.Bitmap
-import android.media.ExifInterface
+import androidx.exifinterface.media.ExifInterface
 import com.mozhimen.basick.elemk.android.media.cons.CExifInterface
 import java.io.IOException
 

@@ -120,11 +120,8 @@
 
                 <data android:scheme="package" />
             </intent-filter>
-        </receiver> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
-        <!-- imagek -->
-        <activity
-            android:name=".imagek.ImageKActivity"
-            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+        </receiver>
+        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- manifestk -->
         <activity
             android:name=".manifestk.ManifestKActivity"

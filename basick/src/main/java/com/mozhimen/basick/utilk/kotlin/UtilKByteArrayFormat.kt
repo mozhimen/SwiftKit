@@ -8,13 +8,13 @@ import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
 import com.mozhimen.basick.utilk.java.io.writeBytes2fileOutputStream
 import com.mozhimen.basick.utilk.java.security.UtilKMd5
-import okhttp3.internal.and
 import java.io.ByteArrayInputStream
 import java.io.File
 import java.io.ObjectInputStream
 import java.math.BigInteger
 import java.nio.charset.Charset
 import java.security.NoSuchAlgorithmException
+import kotlin.experimental.and
 
 /**
  * @ClassName UtilKByteArrayFormat
@@ -146,7 +146,7 @@ object UtilKByteArrayFormat : IUtilK {
         val stringBuilder = StringBuilder()
         if (bytes.isEmpty()) return ""
         for (i in bytes.indices) {
-            val v: Int = bytes[i] and 0xFF
+            val v: Int = ((bytes[i] and 0xFF.toByte()).toInt())
             val hv = Integer.toHexString(v)
             if (hv.length < 2)
                 stringBuilder.append(0)
