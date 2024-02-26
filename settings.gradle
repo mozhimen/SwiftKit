@@ -25,7 +25,10 @@ include ':basick'
 include ':basicktest'
 include ':uicorek'
 include ':uicorektest'
-//test
+//AImageKit
+include ":AImageKit"
+project(':AImageKit').projectDir = new File("D:\\WorkSpace\\GitHub\\AImageKit")
+include ':AImageKit:imagek_blur'
 //ANavigateKit_Navigation
 include ":ANavigateKit_Navigation"
 project(':ANavigateKit_Navigation').projectDir = new File("D:\\WorkSpace\\GitHub\\ANavigateKit_Navigation")
