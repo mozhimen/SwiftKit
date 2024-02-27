@@ -13,7 +13,10 @@ fun <T> Iterable<T>.containsBy(predicate: IA_BListener<T, Boolean>): Boolean =
     UtilKIterable.containsBy(this, predicate)
 
 fun <T> Iterable<T>.getIndexFirst(predicate: IA_BListener<T, Boolean>): Int? =
-        UtilKIterable.getIndexFirst(this, predicate)
+    UtilKIterable.getIndexFirst(this, predicate)
+
+fun <T> Iterable<T>.indexOf(predicate: (T) -> Boolean): List<Int> =
+    UtilKIterable.indexOf(this, predicate)
 
 fun <T, I> Iterable<T>.joinT2list(predicate: IA_BListener<T, I>): List<I> =
     UtilKIterable.joinT2list(this, predicate)
@@ -41,6 +44,16 @@ object UtilKIterable {
     fun <T> getIndexFirst(iterable: Iterable<T>, predicate: IA_BListener<T, Boolean>): Int? {
         val index = iterable.indexOf(iterable.find(predicate))
         return if (index == -1) null else index
+    }
+
+    @JvmStatic
+    inline fun <T> indexOf(iterable: Iterable<T>, predicate: (T) -> Boolean): List<Int> {
+        val indexes = mutableListOf<Int>()
+        for ((index, item) in iterable.withIndex()) {
+            if (predicate(item))
+                indexes.add(index)//return index
+        }
+        return indexes
     }
 
     /**

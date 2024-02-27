@@ -6,7 +6,9 @@ import androidx.annotation.CallSuper
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
-import com.mozhimen.basick.utilk.androidx.lifecycle.handleLifecycleEventDestroyed
+import com.mozhimen.basick.utilk.androidx.lifecycle.handleLifecycleEventOnCreate
+import com.mozhimen.basick.utilk.androidx.lifecycle.handleLifecycleEventOnDestroy
+import com.mozhimen.basick.utilk.androidx.lifecycle.handleLifecycleEventOnStart
 
 /**
  * @ClassName BaseService
@@ -28,18 +30,18 @@ open class BaseLifecycleService2 : BaseService(), LifecycleOwner {
     @CallSuper
     override fun onCreate() {
         super.onCreate()
-        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
+        lifecycleRegistry.handleLifecycleEventOnCreate()
     }
 
     @CallSuper
     override fun onBind(intent: Intent): IBinder {
-        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START)
+        lifecycleRegistry.handleLifecycleEventOnStart()
         return binder
     }
 
     @CallSuper
     override fun onDestroy() {
-        lifecycleRegistry.handleLifecycleEventDestroyed()
+        lifecycleRegistry.handleLifecycleEventOnDestroy()
         super.onDestroy()
     }
 
