@@ -89,7 +89,7 @@ object UtilKFileFormat : BaseUtilK() {
     @ADescription(CIntent.FLAG_GRANT_READ_URI_PERMISSION.toString(), CIntent.FLAG_GRANT_WRITE_URI_PERMISSION.toString())
     fun file2uri(file: File): Uri? {
         if (!UtilKFile.isFileExist(file)) {
-            Log.e(TAG, "file2Uri: file isFileExist false")
+            Log.e(TAG, "file2Uri: file ${file.absolutePath} isFileExist false")
             return null
         }
         return if (UtilKBuildVersion.isAfterV_24_7_N()) {

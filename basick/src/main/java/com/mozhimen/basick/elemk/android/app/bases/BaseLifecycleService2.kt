@@ -6,6 +6,7 @@ import androidx.annotation.CallSuper
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
+import com.mozhimen.basick.utilk.androidx.lifecycle.handleLifecycleEventDestroyed
 
 /**
  * @ClassName BaseService
@@ -38,7 +39,7 @@ open class BaseLifecycleService2 : BaseService(), LifecycleOwner {
 
     @CallSuper
     override fun onDestroy() {
-        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+        lifecycleRegistry.handleLifecycleEventDestroyed()
         super.onDestroy()
     }
 
