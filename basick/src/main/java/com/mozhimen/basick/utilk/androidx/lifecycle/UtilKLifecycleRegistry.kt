@@ -37,37 +37,27 @@ fun LifecycleRegistry.handleLifecycleEventOnDestroy() {
 object UtilKLifecycleRegistry {
     @JvmStatic
     fun handleLifecycleEventOnCreate(lifecycleRegistry: LifecycleRegistry) {
-        if (lifecycleRegistry.currentState != Lifecycle.State.CREATED) {
-            lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
-        }
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
     }
 
     @JvmStatic
     fun handleLifecycleEventOnStart(lifecycleRegistry: LifecycleRegistry) {
-        if (lifecycleRegistry.currentState != Lifecycle.State.STARTED) {
-            lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START)
-        }
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START)
     }
 
     @JvmStatic
     fun handleLifecycleEventOnResume(lifecycleRegistry: LifecycleRegistry) {
-        if (lifecycleRegistry.currentState != Lifecycle.State.RESUMED) {
-            lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
-        }
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
     }
 
     @JvmStatic
     fun handleLifecycleEventOnPause(lifecycleRegistry: LifecycleRegistry) {
-        if (lifecycleRegistry.currentState != Lifecycle.State.STARTED) {
-            lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-        }
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     }
 
     @JvmStatic
     fun handleLifecycleEventOnStop(lifecycleRegistry: LifecycleRegistry) {
-        if (lifecycleRegistry.currentState != Lifecycle.State.CREATED) {
-            lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
-        }
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
     }
 
     @JvmStatic
