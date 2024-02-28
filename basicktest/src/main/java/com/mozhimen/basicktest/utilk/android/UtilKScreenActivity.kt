@@ -5,8 +5,8 @@ import android.util.Log
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basicktest.databinding.ActivityUtilkScreenBinding
-import com.mozhimen.uicorek.adaptk.systembar.annors.AAdaptKSystemBarProperty
-import com.mozhimen.uicorek.adaptk.systembar.cons.CProperty
+import com.mozhimen.adaptk.systembar.annors.AAdaptKSystemBarProperty
+import com.mozhimen.adaptk.systembar.cons.CProperty
 
 
 /**

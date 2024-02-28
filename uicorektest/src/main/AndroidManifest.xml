@@ -26,14 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
-        <!-- adaptk -->
-        <activity
-            android:name=".adaptk.AdaptKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".adaptk.AdaptKSystemBarActivity"
-            android:exported="false" />
     </application>
 
 </manifest>

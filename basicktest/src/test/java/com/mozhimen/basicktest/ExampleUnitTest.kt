@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest
 
 import com.mozhimen.basick.utilk.kotlin.getStrByte
-import com.mozhimen.uicorek.adaptk.systembar.cons.CPropertyOr
+import com.mozhimen.adaptk.systembar.cons.CPropertyOr
 import com.mozhimen.basick.utilk.kotlin.printlog
 import com.mozhimen.basick.utilk.kotlin.printlogEach
 import org.junit.Test

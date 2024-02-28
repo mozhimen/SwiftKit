@@ -43,10 +43,6 @@ dependencies {
     api 'androidx.constraintlayout:constraintlayout:2.1.4'
     api 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
-
-    //adaptk
-    //api 'me.jessyan:autosize:1.2.1'
-
     //test
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
