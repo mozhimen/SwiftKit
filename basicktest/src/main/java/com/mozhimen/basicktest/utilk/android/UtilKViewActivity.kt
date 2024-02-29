@@ -6,6 +6,8 @@ import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
 import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
 import com.mozhimen.basick.utilk.android.util.dt
+import com.mozhimen.basick.utilk.android.view.UtilKDecorView
+import com.mozhimen.basick.utilk.android.view.UtilKViewGroup
 import com.mozhimen.basick.utilk.android.view.applyDebounceClickListener
 import com.mozhimen.basick.utilk.android.view.applyHapticOnTouchListener
 import com.mozhimen.basick.utilk.android.view.applySuspendDebounceClickListener
@@ -32,6 +34,10 @@ class UtilKViewActivity : BaseActivityVB<ActivityUtilkViewBinding>() {
             setOnClickListener {
                 Log.d(TAG, "initView: setOnClickListener")
             }
+        }
+
+        vb.utilkViewBtnGetAllViews.setOnClickListener {
+            Log.d(TAG, "initView: ${UtilKViewGroup.getAllChildViews(UtilKDecorView.getAsViewGroup(this)).map { it.javaClass.name + "\n" }}")
         }
     }
 }

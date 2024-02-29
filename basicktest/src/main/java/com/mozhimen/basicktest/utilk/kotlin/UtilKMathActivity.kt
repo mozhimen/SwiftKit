@@ -1,11 +1,7 @@
 package com.mozhimen.basicktest.utilk.kotlin
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.mozhimen.basicktest.R
 
 class UtilKMathActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

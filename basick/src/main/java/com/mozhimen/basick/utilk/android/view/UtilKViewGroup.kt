@@ -17,8 +17,8 @@ import java.util.Deque
  * @Date 2022/2/22 22:30
  * @Version 1.0
  */
-fun ViewGroup.findViewOfInflate(@LayoutRes layoutId: Int): View =
-    UtilKViewGroup.findViewOfInflate(this, layoutId)
+fun ViewGroup.getViewOfInflate(@LayoutRes layoutId: Int): View =
+    UtilKViewGroup.getViewOfInflate(this, layoutId)
 
 object UtilKViewGroup {
 
@@ -38,29 +38,8 @@ object UtilKViewGroup {
         return child
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * 判断child是否发生了滚动
-     */
     @JvmStatic
-    fun isChildScrolled(child: View): Boolean {
-        if (child is AdapterView<*>) {
-            if (child.firstVisiblePosition != 0 || child.firstVisiblePosition == 0 && child.getChildAt(0) != null && child.getChildAt(0).top < 0)
-                return true
-        } else if (child.scrollY > 0)
-            return true
-        if (child is RecyclerView) {
-            val firstPosition = child.getChildAdapterPosition(child.getChildAt(0))
-            return firstPosition != 0 || !child.isScroll2top()
-        }
-        return false
-    }
-
-    //////////////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun findViewOfInflate(viewGroup: ViewGroup, @LayoutRes layoutId: Int): View =
+    fun getViewOfInflate(viewGroup: ViewGroup, @LayoutRes layoutId: Int): View =
         LayoutInflater.from(viewGroup.context).inflate(layoutId, viewGroup, false)
 
     /**
@@ -70,7 +49,7 @@ object UtilKViewGroup {
      * @return T?
      */
     @JvmStatic
-    fun <T> findTypeChildView(viewGroup: ViewGroup, clazz: Class<T>): T? {
+    fun <T> getChildViewForType(viewGroup: ViewGroup, clazz: Class<T>): T? {
         val viewDeque: Deque<View> = ArrayDeque()
         viewDeque.add(viewGroup)
         while (!viewDeque.isEmpty()) {
@@ -87,5 +66,43 @@ object UtilKViewGroup {
             }
         }
         return null
+    }
+
+    @JvmStatic
+    fun getAllChildViews(viewGroup: ViewGroup): List<View> {
+        val viewDeque: Deque<View> = ArrayDeque()
+        viewDeque.add(viewGroup)
+        val views = mutableListOf<View>()
+        while (!viewDeque.isEmpty()) {
+            val node = viewDeque.removeFirst()
+            if (node is ViewGroup) {
+                var i = 0
+                val count = node.childCount
+                while (i < count) {
+                    viewDeque.add(node.getChildAt(i))
+                    i++
+                }
+            } else views.add(node)
+        }
+        return views
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 判断child是否发生了滚动
+     */
+    @JvmStatic
+    fun isChildScrolled(viewGroup: ViewGroup): Boolean {
+        if (viewGroup is AdapterView<*>) {
+            if (viewGroup.firstVisiblePosition != 0 || viewGroup.firstVisiblePosition == 0 && viewGroup.getChildAt(0) != null && viewGroup.getChildAt(0).top < 0)
+                return true
+        } else if (viewGroup.scrollY > 0)
+            return true
+        if (viewGroup is RecyclerView) {
+            val firstPosition = viewGroup.getChildAdapterPosition(viewGroup.getChildAt(0))
+            return firstPosition != 0 || !viewGroup.isScroll2top()
+        }
+        return false
     }
 }

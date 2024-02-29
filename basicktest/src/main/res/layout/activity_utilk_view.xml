@@ -27,5 +27,11 @@
             style="@style/BasicKStyle_Btn"
             android:text="按钮反馈"
             tools:ignore="HardcodedText" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/utilk_view_btn_get_all_views"
+            style="@style/BasicKStyle_Btn"
+            android:text="获取所有的view"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 </layout>

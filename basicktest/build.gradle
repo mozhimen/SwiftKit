@@ -45,9 +45,6 @@ dependencies {
     implementation project(':AUICoreKit:recyclerk')
     implementation project(':ANavigateKit_Navigation:navigatek_navigation')
     implementation project(':AManifestKit_XXPermissions:manifestk_xxpermissions')
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.10.0'
-    implementation 'androidx.activity:activity:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     //test
