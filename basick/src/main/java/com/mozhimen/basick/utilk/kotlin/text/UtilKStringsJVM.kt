@@ -12,17 +12,23 @@ import com.mozhimen.basick.elemk.cons.CMsg
 fun String.replaceDot(): String =
     UtilKStringsJVM.replaceDot(this)
 
-fun String.replaceLineBreakStr(): String =
-    UtilKStringsJVM.replaceLineBreakStr(this)
+fun String.removeLineBreakStr(): String =
+    UtilKStringsJVM.removeLineBreakStr(this)
 
-fun String.replaceLineBreak(): String =
-    UtilKStringsJVM.replaceLineBreak(this)
+fun String.removeLineBreak(): String =
+    UtilKStringsJVM.removeLineBreak(this)
 
-fun String.substringEndSeparator(): String =
-    UtilKStringsJVM.substringEndSeparator(this)
+fun String.removeEndLineBreak(): String =
+    UtilKStringsJVM.removeEndLineBreak(this)
 
-fun String.substringStartSeparator(): String =
-    UtilKStringsJVM.substringStartSeparator(this)
+fun String.removeStartLineBreak(): String =
+    UtilKStringsJVM.removeStartLineBreak(this)
+
+fun String.removeEndSeparator(): String =
+    UtilKStringsJVM.removeEndSeparator(this)
+
+fun String.removeStartSeparator(): String =
+    UtilKStringsJVM.removeStartSeparator(this)
 
 fun String.complementStart0(): String =
     UtilKStringsJVM.complementStart0(this)
@@ -38,19 +44,27 @@ object UtilKStringsJVM {
         str.replace(",", ".")
 
     @JvmStatic
-    fun replaceLineBreakStr(str: String): String =
+    fun removeLineBreakStr(str: String): String =
         str.replace(CMsg.LINE_BREAK_STR, "")
 
     @JvmStatic
-    fun replaceLineBreak(str: String): String =
+    fun removeLineBreak(str: String): String =
         str.replace(CMsg.LINE_BREAK, "")
 
     @JvmStatic
-    fun substringEndSeparator(str: String): String =
+    fun removeEndLineBreak(str: String): String =
+        if (str.endsWith(CMsg.LINE_BREAK)) str.substring(0, str.length - 1) else str
+
+    @JvmStatic
+    fun removeStartLineBreak(str: String): String =
+        if (str.startsWith(CMsg.LINE_BREAK)) str.substring(1) else str
+
+    @JvmStatic
+    fun removeEndSeparator(str: String): String =
         if (str.endsWith("/")) str.substring(0, str.length - 1) else str
 
     @JvmStatic
-    fun substringStartSeparator(str: String): String =
+    fun removeStartSeparator(str: String): String =
         if (str.startsWith("/")) str.substring(1) else str
 
     @JvmStatic
