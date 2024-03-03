@@ -7,11 +7,11 @@ import com.mozhimen.basick.elemk.androidx.appcompat.bases.official.BaseActivity
 import com.mozhimen.basick.elemk.androidx.appcompat.commons.IActivity
 import com.mozhimen.basick.utilk.androidx.databinding.UtilKViewDataBinding
 
-abstract class BaseActivityVB<VB : ViewDataBinding> : BaseActivity(), IActivity {
+abstract class BaseActivityVDB<VDB : ViewDataBinding> : BaseActivity(), IActivity {
 
-    protected val vb: VB by lazy(mode = LazyThreadSafetyMode.NONE) {
-        UtilKViewDataBinding.get<VB>(this::class.java, layoutInflater/*, 0*/).apply {
-            lifecycleOwner = this@BaseActivityVB
+    protected val vdb: VDB by lazy(mode = LazyThreadSafetyMode.NONE) {
+        UtilKViewDataBinding.get<VDB>(this::class.java, layoutInflater/*, 0*/).apply {
+            lifecycleOwner = this@BaseActivityVDB
         }
     }
 
@@ -31,7 +31,7 @@ abstract class BaseActivityVB<VB : ViewDataBinding> : BaseActivity(), IActivity 
 
     @CallSuper
     override fun onDestroy() {
-        vb.unbind()
+        vdb.unbind()
         super.onDestroy()
     }
 
@@ -39,7 +39,7 @@ abstract class BaseActivityVB<VB : ViewDataBinding> : BaseActivity(), IActivity 
 
     @CallSuper
     override fun initLayout() {
-        setContentView(vb.root)
+        setContentView(vdb.root)
     }
 
     @CallSuper

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
-    <!--App-->
+    <style name="ThemeK_Material3DayNoAction" parent="Theme.Material3.DayNight.NoActionBar" />
+
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
     <style name="ThemeK_MaterialDayNoActionBridge" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge" />
@@ -19,11 +19,17 @@
 
     <style name="ThemeK_WidgetAppAction" parent="Widget.AppCompat.ActionBar" />
 
+    <style name="ThemeK_WidgetAppLightPopupOverflow" parent="Widget.AppCompat.Light.PopupMenu.Overflow" />
+
+    <!--修改toolbar弹出框的位置-->
+    <style name="ThemeK_WidgetAppLightPopupOverflow.DisOverlap" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+        <!--false表示弹出框位置位于toolbar下面-->
+        <item name="overlapAnchor">false</item>
+    </style>
+
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
     <style name="ThemeK_AppLightDarkAction" parent="Theme.AppCompat.Light.DarkActionBar" />
-
-    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
     <style name="ThemeK_AppLightNoAction" parent="Theme.AppCompat.Light.NoActionBar" />
 
@@ -42,9 +48,9 @@
 
     <style name="ThemeK_AppLightNoAction.Transparent">
         <!-- 设置状态栏背景色为透明 -->
-        <item name="android:statusBarColor">@color/cok_transparent</item>
+        <!--        <item name="android:statusBarColor">@color/cok_transparent</item>-->
         <!-- 设置导航栏背景色为透明 -->
-        <item name="android:navigationBarColor">@color/cok_transparent</item>
+        <!--        <item name="android:navigationBarColor">@color/cok_transparent</item>-->
         <!-- 设置状态栏文字色为深色, true为深色, false为白色 -->
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <!-- 设置导航栏文字色为深色, true为深色, false为白色 -->
@@ -56,18 +62,16 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:statusBarColor">@color/cok_transparent</item>
-        <item name="android:navigationBarColor">@color/cok_transparent</item>
+        <!--        <item name="android:statusBarColor">@color/cok_transparent</item>-->
+        <!--        <item name="android:navigationBarColor">@color/cok_transparent</item>-->
         <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">shortEdges</item>
     </style>
+
+    <style name="ThemeK_AppLightDialog" parent="@style/Theme.AppCompat.Light.Dialog" />
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
     <style name="ThemeK_AppDayNoAction" parent="Theme.AppCompat.DayNight.NoActionBar" />
-
-    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
-
-    <style name="ThemeK_AppLightDialog" parent="@style/Theme.AppCompat.Light.Dialog" />
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
     <!--ThemeK_Dialog-->

@@ -1,4 +1,4 @@
-package com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding
+package com.mozhimen.basick.elemk.androidx.appcompat.bases.viewbinding
 
 import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
@@ -8,13 +8,13 @@ import com.mozhimen.basick.elemk.androidx.databinding.commons.IViewDataBinding
 import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKViewModel
 
 /**
- * @ClassName BaseBarActivityVBVM
- * @Description TODO
- * @Author Mozhimen / Kolin Zhao
- * @Date 2023/12/24 15:40
+ * @ClassName BaseActivity
+ * @Description
+ * @Author Kolin Zhao / Mozhimen
+ * @Date 2022/1/25 18:47
  * @Version 1.0
  */
-abstract class BaseBarActivityVBVM<VB : ViewDataBinding, VM : ViewModel> : BaseBarActivityVB<VB>, IViewDataBinding<VB> {
+abstract class BaseActivityVBVM<VB : ViewDataBinding, VM : ViewModel> : BaseActivityVB<VB>, IViewDataBinding<VB> {
 
     protected var _factory: ViewModelProvider.Factory?
 

@@ -13,11 +13,11 @@ import com.mozhimen.basick.utilk.androidx.databinding.UtilKViewDataBinding
  * @Date 2023/12/24 15:26
  * @Version 1.0
  */
-abstract class BaseBarActivityVB<VB : ViewDataBinding> : BaseBarActivity() {
+abstract class BaseBarActivityVDB<VDB : ViewDataBinding> : BaseBarActivity() {
 
-    protected val vb: VB by lazy(mode = LazyThreadSafetyMode.NONE) {
-        UtilKViewDataBinding.get<VB>(this::class.java, layoutInflater/*, 0*/).apply {
-            lifecycleOwner = this@BaseBarActivityVB
+    protected val vdb: VDB by lazy(mode = LazyThreadSafetyMode.NONE) {
+        UtilKViewDataBinding.get<VDB>(this::class.java, layoutInflater/*, 0*/).apply {
+            lifecycleOwner = this@BaseBarActivityVDB
         }
     }
 
@@ -37,14 +37,14 @@ abstract class BaseBarActivityVB<VB : ViewDataBinding> : BaseBarActivity() {
 
     @CallSuper
     override fun onDestroy() {
-        vb.unbind()
+        vdb.unbind()
         super.onDestroy()
     }
 
     ///////////////////////////////////////////////////////////////
 
     override fun initLayout() {
-        setContentView(vb.root)
+        setContentView(vdb.root)
         super.initLayout()
     }
 

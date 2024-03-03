@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="DialogK_Style_BtnCancel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:backgroundTint">@color/cok_blue_e8f3ff</item>
+        <item name="android:textColor">@color/cok_blue_0876e4</item>
+        <item name="android:textSize">16sp</item>
+        <item name="cornerRadius">4dp</item>
+    </style>
+
+    <style name="DialogK_Style_BtnSure" parent="DialogK_Style_BtnCancel">
+        <item name="android:backgroundTint">@color/cok_blue_287ff1</item>
+        <item name="android:textColor">@color/cok_blue_e8f3ff</item>
+    </style>
+</resources>

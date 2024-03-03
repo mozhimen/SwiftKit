@@ -1,8 +1,6 @@
 package com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding
 
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.view.KeyEvent
 import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseSaveStateActivity
@@ -16,11 +14,11 @@ import com.mozhimen.basick.utilk.androidx.databinding.UtilKViewDataBinding
  * @Date 2023/9/26 15:00
  * @Version 1.0
  */
-abstract class BaseSaveStateActivityVB<VB : ViewDataBinding> : BaseSaveStateActivity(), IActivity {
+abstract class BaseSaveStateActivityVDB<VDB : ViewDataBinding> : BaseSaveStateActivity(), IActivity {
 
-    protected val vb: VB by lazy(mode = LazyThreadSafetyMode.NONE) {
-        UtilKViewDataBinding.get<VB>(this::class.java, layoutInflater/*, 0*/).apply {
-            lifecycleOwner = this@BaseSaveStateActivityVB
+    protected val vdb: VDB by lazy(mode = LazyThreadSafetyMode.NONE) {
+        UtilKViewDataBinding.get<VDB>(this::class.java, layoutInflater/*, 0*/).apply {
+            lifecycleOwner = this@BaseSaveStateActivityVDB
         }
     }
 
@@ -40,7 +38,7 @@ abstract class BaseSaveStateActivityVB<VB : ViewDataBinding> : BaseSaveStateActi
 
     @CallSuper
     override fun onDestroy() {
-        vb.unbind()
+        vdb.unbind()
         super.onDestroy()
     }
 
@@ -48,7 +46,7 @@ abstract class BaseSaveStateActivityVB<VB : ViewDataBinding> : BaseSaveStateActi
 
     @CallSuper
     override fun initLayout() {
-        setContentView(vb.root)
+        setContentView(vdb.root)
     }
 
     @CallSuper

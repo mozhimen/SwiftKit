@@ -1,4 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="StyleK_Progress_Horizontal" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">5dp</item>
+        <item name="android:max">100</item>
+    </style>
 
+    <style name="StyleK_Progress_Horizontal.Indeterminate">
+        <item name="android:indeterminate">true</item>
+<!--        <item name="android:indeterminateTint">@color/cok_blue_0177fd</item>-->
+    </style>
+
+    <!--////////////////////////////////////////////////////////////////-->
+
+    <style name="StyleK_Progress" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:layout_width">42dp</item>
+        <item name="android:layout_height">42dp</item>
+        <item name="android:max">100</item>
+    </style>
+
+    <style name="StyleK_Progress.Indeterminate">
+        <item name="android:indeterminate">true</item>
+<!--        <item name="android:indeterminateTint">@color/cok_blue_0177fd</item>-->
+    </style>
+
+    <!--////////////////////////////////////////////////////////////////-->
+
+    <style name="StyleK_ToolBar">
+        <item name="titleTextColor">@color/cok_white</item>
+        <item name="actionMenuTextColor">@color/cok_white</item>
+        <item name="colorControlNormal">@color/cok_white</item>
+        <item name="textAllCaps">false</item>
+        <item name="actionOverflowMenuStyle">@style/ThemeK_WidgetAppLightPopupOverflow.DisOverlap</item>
+    </style>
 </resources>

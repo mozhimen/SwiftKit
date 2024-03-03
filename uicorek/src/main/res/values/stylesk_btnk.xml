@@ -6,7 +6,7 @@
 
     <style name="StyleK_MaterialBtn" parent="StyleK_Btn">
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:backgroundTint">@color/cok_blue_e8f3ff</item>
+<!--        <item name="android:backgroundTint">@color/cok_blue_e8f3ff</item>-->
         <item name="android:textColor">@color/cok_blue_287ff1</item>
         <item name="android:shadowColor">@color/cok_blue_287ff1</item>
         <item name="android:textSize">16sp</item>
@@ -21,7 +21,7 @@
         <item name="android:layout_height">@dimen/dp_040</item>
         <item name="android:paddingStart">@dimen/dp_010</item>
         <item name="android:paddingEnd">@dimen/dp_010</item>
-        <item name="android:stateListAnimator">@null</item>
+<!--        <item name="android:stateListAnimator">@null</item>-->
         <item name="android:ellipsize">end</item>
         <item name="android:textAllCaps">false</item>
     </style>

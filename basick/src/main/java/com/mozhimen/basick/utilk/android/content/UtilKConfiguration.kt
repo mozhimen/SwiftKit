@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
 import com.mozhimen.basick.elemk.android.content.cons.CConfiguration
+import com.mozhimen.basick.elemk.androidx.appcompat.cons.CAppCompatDelegate
 
 
 /**
@@ -22,7 +23,7 @@ object UtilKConfiguration {
         UtilKResources.getSysConfiguration()
 
     @JvmStatic
-    fun getApp(context: Context):Configuration=
+    fun getApp(context: Context): Configuration =
         UtilKResources.getAppConfiguration(context)
 
     //////////////////////////////////////////////////////////////////
@@ -65,7 +66,7 @@ object UtilKConfiguration {
 
     @JvmStatic
     fun getSysUiModeAndNightMask(): Int =
-            getSysUiMode() and CConfiguration.UiMode.NIGHT_MASK
+        getSysUiMode() and CConfiguration.UiMode.NIGHT_MASK
 
     /**
      * 检测系统是否是浅色主题
@@ -109,4 +110,22 @@ object UtilKConfiguration {
     @JvmStatic
     fun isAppOrientationLandscape(resources: Resources): Boolean =
         getAppOrientation(resources) == CConfiguration.Orientation.LANDSCAPE
+
+    ////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun getAppUiMode(resources: Resources): Int =
+        getApp(resources).uiMode
+
+    @JvmStatic
+    fun getAppUiMode(context: Context): Int =
+        getApp(context).uiMode
+
+    @JvmStatic
+    fun isLightMode(context: Context): Boolean =
+        !isNightMode(context)
+
+    @JvmStatic
+    fun isNightMode(context: Context): Boolean =
+        getAppUiMode(context) and Configuration.UI_MODE_NIGHT_MASK == CConfiguration.UiMode.NIGHT_YES
 }

@@ -20,6 +20,8 @@ object CConfiguration {
         const val TYPE_CAR = Configuration.UI_MODE_TYPE_CAR
         const val TYPE_TELEVISION = Configuration.UI_MODE_TYPE_TELEVISION
         const val TYPE_APPLIANCE = Configuration.UI_MODE_TYPE_APPLIANCE
+
+        @RequiresApi(CVersCode.V_20_44W_KW)
         const val TYPE_WATCH = Configuration.UI_MODE_TYPE_WATCH
 
         @RequiresApi(CVersCode.V_26_8_O)

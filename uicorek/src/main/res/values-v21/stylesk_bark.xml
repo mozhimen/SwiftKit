@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="StyleK_Progress_Horizontal.Indeterminate">
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateTint">@color/cok_blue_0177fd</item>
+    </style>
+
+    <!--////////////////////////////////////////////////////////////////-->
+
+    <style name="StyleK_Progress.Indeterminate">
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateTint">@color/cok_blue_0177fd</item>
+    </style>
+</resources>

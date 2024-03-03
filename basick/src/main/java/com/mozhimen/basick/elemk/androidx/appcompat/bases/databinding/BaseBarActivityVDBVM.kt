@@ -8,13 +8,13 @@ import com.mozhimen.basick.elemk.androidx.databinding.commons.IViewDataBinding
 import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKViewModel
 
 /**
- * @ClassName BaseActivity
- * @Description
- * @Author Kolin Zhao / Mozhimen
- * @Date 2022/1/25 18:47
+ * @ClassName BaseBarActivityVBVM
+ * @Description TODO
+ * @Author Mozhimen / Kolin Zhao
+ * @Date 2023/12/24 15:40
  * @Version 1.0
  */
-abstract class BaseActivityVBVM<VB : ViewDataBinding, VM : ViewModel> : BaseActivityVB<VB>, IViewDataBinding<VB> {
+abstract class BaseBarActivityVDBVM<VDB : ViewDataBinding, VM : ViewModel> : BaseBarActivityVDB<VDB>, IViewDataBinding<VDB> {
 
     protected var _factory: ViewModelProvider.Factory?
 
@@ -38,6 +38,6 @@ abstract class BaseActivityVBVM<VB : ViewDataBinding, VM : ViewModel> : BaseActi
     override fun initLayout() {
         super.initLayout()
         vm = UtilKViewModel.get(this, _factory/*, 1*/)
-        bindViewVM(vb)
+        bindViewVM(vdb)
     }
 }

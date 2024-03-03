@@ -19,39 +19,38 @@ object UtilKAppCompatDelegate {
 
     /**
      * 检测是否是浅色主题
-     * @return Boolean
      */
     @JvmStatic
     fun isLightMode(): Boolean =
         getDefaultNightMode() == CAppCompatDelegate.MODE_NIGHT_NO
 
     @JvmStatic
-    fun isDarkMode(): Boolean =
+    fun isNightMode(): Boolean =
         getDefaultNightMode() == CAppCompatDelegate.MODE_NIGHT_YES
 
     ////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun applyDefaultNightMode(mode: Int) {
+    fun setDefaultNightMode(mode: Int) {
         AppCompatDelegate.setDefaultNightMode(mode)
     }
 
     @JvmStatic
     fun applyLightMode() {
         if (isLightMode()) return
-        applyDefaultNightMode(CAppCompatDelegate.MODE_NIGHT_NO)
+        setDefaultNightMode(CAppCompatDelegate.MODE_NIGHT_NO)
     }
 
     @JvmStatic
-    fun applyDarkMode() {
-        if (isDarkMode()) return
-        applyDefaultNightMode(CAppCompatDelegate.MODE_NIGHT_YES)
+    fun applyNightMode() {
+        if (isNightMode()) return
+        setDefaultNightMode(CAppCompatDelegate.MODE_NIGHT_YES)
     }
 
     @JvmStatic
-    fun toggleMode() {
+    fun toggleUiMode() {
         if (isLightMode())
-            applyDarkMode()
+            applyNightMode()
         else applyLightMode()
     }
 }
