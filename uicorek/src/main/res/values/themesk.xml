@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <!--实现BottomSheetDialog圆角效果-->
+    <style name="ThemeK_DesignLightBottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/ThemeK_WightDesignBottomSheetModel</item>
+    </style>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
     <style name="ThemeK_Material3DayNoAction" parent="Theme.Material3.DayNight.NoActionBar" />
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
@@ -16,6 +23,10 @@
     <style name="ThemeK_OverlayAppDarkAction" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <style name="ThemeK_WightDesignBottomSheetModel" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
 
     <style name="ThemeK_WidgetAppAction" parent="Widget.AppCompat.ActionBar" />
 
