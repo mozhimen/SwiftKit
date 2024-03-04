@@ -5,6 +5,7 @@ plugins {
 }
 
 android {
+    namespace = 'com.mozhimen.basick'
     compileSdk 33
 
     defaultConfig {
