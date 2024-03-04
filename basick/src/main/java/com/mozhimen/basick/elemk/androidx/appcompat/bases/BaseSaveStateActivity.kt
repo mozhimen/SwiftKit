@@ -3,7 +3,6 @@ package com.mozhimen.basick.elemk.androidx.appcompat.bases
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.KeyEvent
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.official.BaseActivity
 
 /**
  * @ClassName BaseSaveStateActivityVB

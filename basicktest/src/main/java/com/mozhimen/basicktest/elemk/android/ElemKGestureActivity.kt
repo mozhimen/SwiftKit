@@ -2,7 +2,7 @@ package com.mozhimen.basicktest.elemk.android
 
 import android.os.Bundle
 import android.widget.TextView
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.basick.elemk.android.view.DragAndDropProxy
 import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
@@ -18,26 +18,26 @@ import com.mozhimen.basicktest.databinding.ActivityElemkGestureBinding
  * @Date 2023/2/5 21:46
  * @Version 1.0
  */
-class ElemKGestureActivity : BaseActivityVB<ActivityElemkGestureBinding>() {
+class ElemKGestureActivity : BaseActivityVDB<ActivityElemkGestureBinding>() {
     @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
     private val _dragAndDropProxy by lazy { DragAndDropProxy() }
 
     @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
     override fun initView(savedInstanceState: Bundle?) {
         _dragAndDropProxy.bindLifecycle(this)
-        _dragAndDropProxy.dragAndDrop(vb.elemkGestureTxt1, vb.elemkGestureTxt2) { source, dest ->
+        _dragAndDropProxy.dragAndDrop(vdb.elemkGestureTxt1, vdb.elemkGestureTxt2) { source, dest ->
             (dest as TextView).text = (source as TextView).text.toString()
         }
 
         //for example
-//        vb.elemkGestureTxt1.setOnLongClickListener { view ->
-//            view.startDrag(null, View.DragShadowBuilder(view), vb.elemkGestureTxt1, 0)
+//        vdb.elemkGestureTxt1.setOnLongClickListener { view ->
+//            view.startDrag(null, View.DragShadowBuilder(view), vdb.elemkGestureTxt1, 0)
 //            //震动反馈
 //            //v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING)
 //            true
 //        }
 //
-//        vb.elemkGestureTxt2.setOnDragListener { v, event -> //v 永远是设置该监听的view，这里即fl_blue
+//        vdb.elemkGestureTxt2.setOnDragListener { v, event -> //v 永远是设置该监听的view，这里即fl_blue
 //            when (event.action) {
 //                DragEvent.ACTION_DRAG_STARTED -> {
 //                    Log.i(TAG, "开始拖拽")

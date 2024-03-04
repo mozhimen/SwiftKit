@@ -2,7 +2,7 @@ package com.mozhimen.basicktest.utilk.android
 
 import android.os.Bundle
 import android.util.Log
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basicktest.databinding.ActivityUtilkScreenBinding
 //import com.mozhimen.adaptk.systembar.annors.AAdaptKSystemBarProperty
@@ -17,7 +17,7 @@ import com.mozhimen.basicktest.databinding.ActivityUtilkScreenBinding
  * @Version 1.0
  */
 //@AAdaptKSystemBarProperty(CProperty.IMMERSED_HARD_STICKY)
-class UtilKScreenActivity : BaseActivityVB<ActivityUtilkScreenBinding>() {
+class UtilKScreenActivity : BaseActivityVDB<ActivityUtilkScreenBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
         Log.d(TAG, "initData: 获取屏幕宽度")

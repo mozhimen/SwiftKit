@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest.utilk.javax
 
 import android.os.Bundle
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basick.postk.crypto.PostKCryptoAES
 import com.mozhimen.basick.postk.crypto.mos.MCryptoAESConfig
 import com.mozhimen.basicktest.databinding.ActivityUtilkEncryptBinding
@@ -14,20 +14,20 @@ import com.mozhimen.basicktest.databinding.ActivityUtilkEncryptBinding
  * @Date 2022/12/9 10:41
  * @Version 1.0
  */
-class UtilKEncryptActivity : BaseActivityVB<ActivityUtilkEncryptBinding>() {
+class UtilKEncryptActivity : BaseActivityVDB<ActivityUtilkEncryptBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         val content = "Lovelive9."
         var pwd = ""
         var res = ""
-        vb.utilkEncryptTxt1.text = content
-        vb.utilkEncryptBtnEncrypt.setOnClickListener {
+        vdb.utilkEncryptTxt1.text = content
+        vdb.utilkEncryptBtnEncrypt.setOnClickListener {
             pwd = PostKCryptoAES.with(MCryptoAESConfig(secretKey = "saaierForTodoKey", ivString = "ihaierForTodo_Iv")).encryptWithBase64(content)
-            vb.utilkEncryptTxt2.text = pwd
+            vdb.utilkEncryptTxt2.text = pwd
         }
-        vb.utilkEncryptBtnDecrypt.setOnClickListener {
+        vdb.utilkEncryptBtnDecrypt.setOnClickListener {
             res = PostKCryptoAES.with(MCryptoAESConfig(secretKey = "saaierForTodoKey", ivString = "ihaierForTodo_Iv")).decryptWithBase64(pwd)
-            vb.utilkEncryptTxt3.text = res
+            vdb.utilkEncryptTxt3.text = res
         }
     }
 }

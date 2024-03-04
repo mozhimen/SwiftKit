@@ -1,4 +1,4 @@
-package com.mozhimen.basick.elemk.androidx.fragment.bases
+package com.mozhimen.basick.elemk.androidx.fragment.bases.databinding
 
 import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
@@ -16,7 +16,7 @@ import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKViewModel
  * @Date 2023/2/17 13:06
  * @Version 1.0
  */
-abstract class BaseDialogFragmentVBVMSelf<VB : ViewDataBinding, VM : BaseViewModel> : BaseDialogFragmentVB<VB>, IActivity, IViewDataBinding<VB> {
+abstract class BaseDialogFragmentVDBVM<VB : ViewDataBinding, VM : BaseViewModel> : BaseDialogFragmentVDB<VB>, IActivity, IViewDataBinding<VB> {
 
     protected var _factory: ViewModelProvider.Factory?
 
@@ -39,7 +39,7 @@ abstract class BaseDialogFragmentVBVMSelf<VB : ViewDataBinding, VM : BaseViewMod
     @CallSuper
     override fun initLayout() {
         super.initLayout()
-        vm = UtilKViewModel.get(this, _factory/*, 1*/)
-        bindViewVM(vb)
+        vm = UtilKViewModel.get(this.requireActivity(), _factory/*, 1*/)
+        bindViewVM(vdb)
     }
 }

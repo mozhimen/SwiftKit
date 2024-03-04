@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import com.mozhimen.basick.elemk.android.content.bases.BaseBroadcastReceiverProxy
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
 import com.mozhimen.basick.lintk.optins.OApiCall_RegisterDynamic
@@ -18,7 +18,7 @@ import com.mozhimen.basicktest.databinding.ActivityElemkReceiverBinding
  * @Date 2023/1/10 14:42
  * @Version 1.0
  */
-class ElemKReceiverActivity : BaseActivityVB<ActivityElemkReceiverBinding>() {
+class ElemKReceiverActivity : BaseActivityVDB<ActivityElemkReceiverBinding>() {
     @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class, OApiCall_RegisterDynamic::class)
     private val _receiverProxy: BaseBroadcastReceiverProxy<ElemKReceiverActivity> by lazy {
         BaseBroadcastReceiverProxy(

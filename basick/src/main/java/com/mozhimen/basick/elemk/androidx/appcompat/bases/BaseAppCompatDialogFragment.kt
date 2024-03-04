@@ -1,4 +1,4 @@
-package com.mozhimen.basick.elemk.androidx.appcompat.bases.official
+package com.mozhimen.basick.elemk.androidx.appcompat.bases
 
 import android.content.Context
 import android.os.Bundle

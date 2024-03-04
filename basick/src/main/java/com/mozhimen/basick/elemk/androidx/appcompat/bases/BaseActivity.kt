@@ -1,4 +1,4 @@
-package com.mozhimen.basick.elemk.androidx.appcompat.bases.official
+package com.mozhimen.basick.elemk.androidx.appcompat.bases
 
 import android.os.Bundle
 import android.os.PersistableBundle

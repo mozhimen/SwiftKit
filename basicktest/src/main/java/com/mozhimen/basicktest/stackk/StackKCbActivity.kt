@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
 import android.util.Log
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basick.lintk.optins.OApiInit_InApplication
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.stackk.commons.IStackKListener
@@ -12,14 +12,14 @@ import com.mozhimen.basick.utilk.android.widget.showToast
 import com.mozhimen.basicktest.databinding.ActivityStackkCbBinding
 import java.lang.ref.WeakReference
 
-class StackKCbActivity : BaseActivityVB<ActivityStackkCbBinding>(), IStackKListener {
+class StackKCbActivity : BaseActivityVDB<ActivityStackkCbBinding>(), IStackKListener {
 
     @OptIn(OApiInit_InApplication::class)
     @SuppressLint("SetTextI18n")
     override fun initView(savedInstanceState: Bundle?) {
         val stackTopActivity = StackKCb.instance.getStackTopActivity()
         val stackCount = StackKCb.instance.getStackCount()
-        vb.stackkCbTitle.text = "StackTop: ${stackTopActivity?.javaClass?.simpleName ?: "Null"}, StackCount: $stackCount"
+        vdb.stackkCbTitle.text = "StackTop: ${stackTopActivity?.javaClass?.simpleName ?: "Null"}, StackCount: $stackCount"
 
         StackKCb.instance.addFrontBackListener(this)
     }

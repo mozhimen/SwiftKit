@@ -1,20 +1,26 @@
-package com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding
+package com.mozhimen.basick.elemk.androidx.fragment.bases.databinding
 
 import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.mozhimen.basick.elemk.androidx.appcompat.commons.IActivity
 import com.mozhimen.basick.elemk.androidx.databinding.commons.IViewDataBinding
+import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseViewModel
 import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKViewModel
 
 /**
- * @ClassName BaseSaveStateActivityVBVM
- * @Description TODO
- * @Author Mozhimen & Kolin Zhao
- * @Date 2023/9/26 15:18
+ * @ClassName BaseFragmentVBVM
+ * @Description class BaseDemoFragment : BaseFragment<FragmentBasekFragmentBinding, BaseDemoViewModel>() {
+ * override fun assignVM() {vdb.vm = vm}
+ * override fun initView() {}}
+ *
+ * 这里的VM是和Activity共享的VM,私有可以通过代理的方式引入
+ *
+ * @Author mozhimen / Kolin Zhao
+ * @Date 2022/2/27 13:02
  * @Version 1.0
  */
-abstract class BaseSaveStateActivityVBVM<VB : ViewDataBinding, VM : ViewModel> : BaseSaveStateActivityVDB<VB>, IViewDataBinding<VB> {
+abstract class BaseFragmentVDBVMSelf<VB : ViewDataBinding, VM : BaseViewModel> : BaseFragmentVDB<VB>, IActivity, IViewDataBinding<VB> {
 
     protected var _factory: ViewModelProvider.Factory?
 
@@ -24,7 +30,7 @@ abstract class BaseSaveStateActivityVBVM<VB : ViewDataBinding, VM : ViewModel> :
      */
     constructor() : this(null)
 
-    constructor(factory: ViewModelProvider.Factory?){
+    constructor(factory: ViewModelProvider.Factory?) : super(){
         _factory = factory
     }
 

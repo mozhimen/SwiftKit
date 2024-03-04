@@ -14,7 +14,7 @@ import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKViewModel
  * @Date 2022/1/25 18:47
  * @Version 1.0
  */
-abstract class BaseActivityVBVM<VB : ViewDataBinding, VM : ViewModel> : BaseActivityVB<VB>, IViewDataBinding<VB> {
+abstract class BaseActivityVBVM<VB : ViewDataBinding, VM : ViewModel> : BaseActivityVDB<VB>, IViewDataBinding<VB> {
 
     protected var _factory: ViewModelProvider.Factory?
 

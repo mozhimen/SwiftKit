@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.os.Environment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basick.lintk.optins.permission.OPermission_MANAGE_EXTERNAL_STORAGE
 import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_EXTERNAL_STORAGE
 import com.mozhimen.basick.lintk.optins.permission.OPermission_WRITE_EXTERNAL_STORAGE
@@ -28,7 +28,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @APermissionCheck(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE)
-class UtilKFileActivity : BaseActivityVB<ActivityUtilkFileBinding>() {
+class UtilKFileActivity : BaseActivityVDB<ActivityUtilkFileBinding>() {
     private lateinit var _adapterKRecycler: AdapterKQuickRecyclerVB<UtilKFileLogBean, ItemUtilkFileLogBinding>
     private val _logs = arrayListOf(
         UtilKFileLogBean(0, "start file process >>>>>")
@@ -40,9 +40,9 @@ class UtilKFileActivity : BaseActivityVB<ActivityUtilkFileBinding>() {
         XXPermissionsRequestUtil.requestReadWritePermission(this, onGranted = {
             ManifestKPermission.requestPermissions(this) {
                 if (it) {
-                    vb.utilkFileRecycler.layoutManager = LinearLayoutManager(this)
+                    vdb.utilkFileRecycler.layoutManager = LinearLayoutManager(this)
                     _adapterKRecycler = AdapterKQuickRecyclerVB<UtilKFileLogBean, ItemUtilkFileLogBinding>(_logs, R.layout.item_utilk_file_log, BR.item_utilk_file_log)
-                    vb.utilkFileRecycler.adapter = _adapterKRecycler
+                    vdb.utilkFileRecycler.adapter = _adapterKRecycler
 
                     super.initData(savedInstanceState)
                 }

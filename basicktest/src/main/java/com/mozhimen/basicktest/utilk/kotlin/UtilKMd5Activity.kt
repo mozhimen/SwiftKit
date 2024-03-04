@@ -3,7 +3,7 @@ package com.mozhimen.basicktest.utilk.kotlin
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basick.utilk.java.io.UtilKFileFormat
 import com.mozhimen.basick.utilk.java.io.isFileExist
 import com.mozhimen.basick.utilk.java.util.UtilKDate
@@ -12,9 +12,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
 
-class UtilKMd5Activity : BaseActivityVB<ActivityUtilkMd5Binding>() {
+class UtilKMd5Activity : BaseActivityVDB<ActivityUtilkMd5Binding>() {
     override fun initView(savedInstanceState: Bundle?) {
-        vb.utilkMd5Btn.setOnClickListener {
+        vdb.utilkMd5Btn.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 Log.d(TAG, "initView: ${UtilKDate.getNowDate()}")
                 val time = System.currentTimeMillis()

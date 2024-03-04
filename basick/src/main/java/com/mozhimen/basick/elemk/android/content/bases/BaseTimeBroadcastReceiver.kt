@@ -23,7 +23,7 @@ Log.v("ElemKTimeReceiver>>>>>", "onTimeTick: long ${UtilKDate.getNowLong()} stri
 )
 
  * 动态注册:
-class ElemKReceiverActivity : BaseActivityVB<ActivityElemkReceiverBinding>() {
+class ElemKReceiverActivity : BaseActivityVDB<ActivityElemkReceiverBinding>() {
 private lateinit var _receiverProxy: ReceiverProxy<ElemKReceiverActivity>
 
 override fun initData(savedInstanceState: Bundle?) {

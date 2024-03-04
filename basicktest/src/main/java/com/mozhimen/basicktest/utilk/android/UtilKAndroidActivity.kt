@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest.utilk.android
 
 import android.view.View
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basick.utilk.android.content.startContext
 import com.mozhimen.basick.utilk.android.view.UtilKView
 import com.mozhimen.basicktest.databinding.ActivityUtilkAndroidBinding
@@ -13,7 +13,7 @@ import com.mozhimen.basicktest.databinding.ActivityUtilkAndroidBinding
  * @Date 2023/4/17 17:24
  * @Version 1.0
  */
-class UtilKAndroidActivity : BaseActivityVB<ActivityUtilkAndroidBinding>() {
+class UtilKAndroidActivity : BaseActivityVDB<ActivityUtilkAndroidBinding>() {
     fun goUtilKApk(view: View) {
         startContext<UtilKApkActivity>()
     }

@@ -1,24 +1,21 @@
-package com.mozhimen.basick.elemk.androidx.fragment.bases
+package com.mozhimen.basick.elemk.androidx.fragment.bases.databinding
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import com.mozhimen.basick.elemk.androidx.appcompat.commons.IActivity
 import com.mozhimen.basick.elemk.androidx.appcompat.commons.IFragment
+import com.mozhimen.basick.elemk.androidx.fragment.bases.BaseFragment
 import com.mozhimen.basick.utilk.androidx.databinding.UtilKViewDataBinding
 import com.mozhimen.basick.utilk.androidx.fragment.UtilKFragment
-import com.mozhimen.basick.utilk.bases.IUtilK
 
-open class BaseFragmentVB<VB : ViewDataBinding> : BaseFragment(), IActivity, IFragment {
+open class BaseFragmentVDB<VDB : ViewDataBinding> : BaseFragment(), IActivity, IFragment {
 
-    private var _vb: VB? = null
-    protected val vb get() = _vb!!
+    private var _vdb: VDB? = null
+    protected val vdb get() = _vdb!!
 
     //////////////////////////////////////////////////////////////////////////////
 
@@ -29,10 +26,10 @@ open class BaseFragmentVB<VB : ViewDataBinding> : BaseFragment(), IActivity, IFr
     //@warn 如果子类可以继承, 这里子类的VB一定要放置在第一个
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         inflateView(container)
-        _vb = UtilKViewDataBinding.get<VB>(this::class.java, inflater, container/*, 0*/).apply {
+        _vdb = UtilKViewDataBinding.get<VDB>(this::class.java, inflater, container/*, 0*/).apply {
             lifecycleOwner = viewLifecycleOwner
         }
-        return vb.root
+        return vdb.root
     }
 
     /**
@@ -40,8 +37,8 @@ open class BaseFragmentVB<VB : ViewDataBinding> : BaseFragment(), IActivity, IFr
      */
     @CallSuper
     override fun onDestroyView() {
-        vb.unbind()
-        _vb = null
+        vdb.unbind()
+        _vdb = null
         super.onDestroyView()
     }
 

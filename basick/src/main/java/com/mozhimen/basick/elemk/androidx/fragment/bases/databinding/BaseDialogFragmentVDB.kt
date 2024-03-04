@@ -1,26 +1,22 @@
-package com.mozhimen.basick.elemk.androidx.fragment.bases
+package com.mozhimen.basick.elemk.androidx.fragment.bases.databinding
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModelProvider
 import com.mozhimen.basick.elemk.androidx.appcompat.commons.IActivity
 import com.mozhimen.basick.elemk.androidx.appcompat.commons.IFragment
+import com.mozhimen.basick.elemk.androidx.fragment.bases.BaseDialogFragment
 import com.mozhimen.basick.utilk.androidx.databinding.UtilKViewDataBinding
-import com.mozhimen.basick.utilk.bases.IUtilK
 
-open class BaseDialogFragmentVB<VB : ViewDataBinding>(
+open class BaseDialogFragmentVDB<VDB : ViewDataBinding>(
     /*protected open var _factory: ViewModelProvider.Factory? = null*/
 ) : BaseDialogFragment(), IActivity, IFragment {
 
-    private var _vb: VB? = null
-    protected val vb get() = _vb!!
+    private var _vdb: VDB? = null
+    protected val vdb get() = _vdb!!
 
     //////////////////////////////////////////////////////////////////////////////
 
@@ -30,10 +26,10 @@ open class BaseDialogFragmentVB<VB : ViewDataBinding>(
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         inflateView(container)
-        _vb = UtilKViewDataBinding.get<VB>(this::class.java, inflater, container/*, 0*/).apply {
+        _vdb = UtilKViewDataBinding.get<VDB>(this::class.java, inflater, container/*, 0*/).apply {
             lifecycleOwner = viewLifecycleOwner
         }
-        return vb.root
+        return vdb.root
     }
 
     /**
@@ -41,8 +37,8 @@ open class BaseDialogFragmentVB<VB : ViewDataBinding>(
      */
     @CallSuper
     override fun onDestroyView() {
-        vb.unbind()
-        _vb = null
+        vdb.unbind()
+        _vdb = null
         super.onDestroyView()
     }
 

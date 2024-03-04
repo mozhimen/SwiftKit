@@ -3,7 +3,7 @@ package com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding
 import android.os.Bundle
 import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.official.BaseActivity
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivity
 import com.mozhimen.basick.elemk.androidx.appcompat.commons.IActivity
 import com.mozhimen.basick.utilk.androidx.databinding.UtilKViewDataBinding
 

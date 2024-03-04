@@ -3,7 +3,7 @@ package com.mozhimen.basicktest.elemk.android
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.basick.elemk.android.app.bases.BaseServiceResCallback
 import com.mozhimen.basick.elemk.android.app.ServiceProxy
@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class ElemKServiceActivity : BaseActivityVB<ActivityElemkServiceBinding>() {
+class ElemKServiceActivity : BaseActivityVDB<ActivityElemkServiceBinding>() {
 
     @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
     private val _serviceProxy: ServiceProxy<ElemKServiceActivity> by lazy { ServiceProxy(this, ElemKService::class.java, _resListener) }
@@ -21,7 +21,7 @@ class ElemKServiceActivity : BaseActivityVB<ActivityElemkServiceBinding>() {
     private var _resListener: BaseServiceResCallback = object : BaseServiceResCallback() {
         override fun onResString(resString: String?) {
             runOnUiThread {
-                vb.elemkServiceTxt.text = resString ?: "loss"
+                vdb.elemkServiceTxt.text = resString ?: "loss"
             }
         }
     }

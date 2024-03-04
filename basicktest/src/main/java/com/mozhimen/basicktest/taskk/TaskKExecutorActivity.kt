@@ -3,7 +3,7 @@ package com.mozhimen.basicktest.taskk
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.java.lang.UtilKThread
@@ -17,12 +17,12 @@ import kotlinx.coroutines.launch
  * @Date 2021/9/14 20:05
  * @Version 1.0
  */
-class TaskKExecutorActivity : BaseActivityVB<ActivityTaskkExecutorBinding>() {
+class TaskKExecutorActivity : BaseActivityVDB<ActivityTaskkExecutorBinding>() {
 
     private var _isPaused = false
 
     override fun initView(savedInstanceState: Bundle?) {
-        vb.taskkExecutorBtnOrder.setOnClickListener {
+        vdb.taskkExecutorBtnOrder.setOnClickListener {
             for (priority in 0..10) {
                 TaskKExecutor.execute(TAG, priority) {
                     try {
@@ -35,7 +35,7 @@ class TaskKExecutorActivity : BaseActivityVB<ActivityTaskkExecutorBinding>() {
             }
         }
 
-        vb.taskkExecutorBtnAllTask.setOnClickListener {
+        vdb.taskkExecutorBtnAllTask.setOnClickListener {
             if (_isPaused) {
                 TaskKExecutor.resume()
             } else {
@@ -44,7 +44,7 @@ class TaskKExecutorActivity : BaseActivityVB<ActivityTaskkExecutorBinding>() {
             _isPaused = !_isPaused
         }
 
-        vb.taskkExecutorBtnAsync.setOnClickListener {
+        vdb.taskkExecutorBtnAsync.setOnClickListener {
             TaskKExecutor.execute(TAG, runnable = object : TaskKExecutor.ExecutorKCallable<String>() {
                 override fun onBackground(): String {
                     Log.e(TAG, "onBackground: 当前线程: ${UtilKThread.getCur()}")

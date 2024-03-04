@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basicktest.BR
 import com.mozhimen.basicktest.R
@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @APermissionCheck(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE)
-class UtilKAssetActivity : BaseActivityVB<ActivityUtilkAssetBinding>() {
+class UtilKAssetActivity : BaseActivityVDB<ActivityUtilkAssetBinding>() {
     private lateinit var _adapterKRecycler: AdapterKQuickRecyclerVB<UtilKFileActivity.UtilKFileLogBean, ItemUtilkFileLogBinding>
     private val _logs = arrayListOf(
         UtilKFileActivity.UtilKFileLogBean(0, "start asset file process >>>>>")
@@ -29,13 +29,13 @@ class UtilKAssetActivity : BaseActivityVB<ActivityUtilkAssetBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         ManifestKPermission.requestPermissions(this) {
             if (it) {
-                vb.utilkAssetRecycler.layoutManager = LinearLayoutManager(this)
+                vdb.utilkAssetRecycler.layoutManager = LinearLayoutManager(this)
                 _adapterKRecycler = AdapterKQuickRecyclerVB<UtilKFileActivity.UtilKFileLogBean, ItemUtilkFileLogBinding>(
                     _logs,
                     R.layout.item_utilk_file_log,
                     BR.item_utilk_file_log
                 )
-                vb.utilkAssetRecycler.adapter = _adapterKRecycler
+                vdb.utilkAssetRecycler.adapter = _adapterKRecycler
 
                 super.initData(savedInstanceState)
             }

@@ -1,6 +1,6 @@
 package com.mozhimen.basicktest.utilk.android
 
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
@@ -18,7 +18,7 @@ import com.mozhimen.basicktest.databinding.ActivityUtilkContextDirBinding
  * @Version 1.0
  */
 @APermissionCheck(CPermission.READ_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE)
-class UtilKContextDirActivity : BaseActivityVB<ActivityUtilkContextDirBinding>() {
+class UtilKContextDirActivity : BaseActivityVDB<ActivityUtilkContextDirBinding>() {
     override fun initData(savedInstanceState: android.os.Bundle?) {
         ManifestKPermission.requestPermissions(this) {
             if (it) {

@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest
 
 import android.view.View
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basick.utilk.android.content.startContext
 import com.mozhimen.basicktest.animk.AnimKActivity
 import com.mozhimen.basicktest.cachek.CacheKActivity
@@ -13,7 +13,7 @@ import com.mozhimen.basicktest.manifestk.ManifestKActivity
 import com.mozhimen.basicktest.postk.PostKActivity
 import com.mozhimen.basicktest.taskk.TaskKActivity
 
-class BasicKActivity : BaseActivityVB<ActivityBasickBinding>() {
+class BasicKActivity : BaseActivityVDB<ActivityBasickBinding>() {
     fun goAnimK(view: View) {
         startContext<AnimKActivity>()
     }

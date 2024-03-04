@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest.animk
 
 import android.os.Bundle
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basicktest.databinding.ActivityAnimkBinding
 
 /**
@@ -11,7 +11,7 @@ import com.mozhimen.basicktest.databinding.ActivityAnimkBinding
  * @Date 2022/11/19 23:14
  * @Version 1.0
  */
-class AnimKActivity : BaseActivityVB<ActivityAnimkBinding>() {
+class AnimKActivity : BaseActivityVDB<ActivityAnimkBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
 //        animk.animkFormat.animationFormat.kind.build
 //        ----.-------------.IAnimation-----.

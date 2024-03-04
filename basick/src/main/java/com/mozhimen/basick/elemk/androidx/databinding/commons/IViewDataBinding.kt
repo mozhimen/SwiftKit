@@ -9,9 +9,9 @@ import androidx.databinding.ViewDataBinding
  * @Date 2022/10/22 23:58
  * @Version 1.0
  */
-interface IViewDataBinding<VB : ViewDataBinding> {
+interface IViewDataBinding<VDB : ViewDataBinding> {
     /**
-     * vb.vm=vm
+     * vdb.vm=vm
      */
-    fun bindViewVM(vb: VB)
+    fun bindViewVM(vdb: VDB)
 }

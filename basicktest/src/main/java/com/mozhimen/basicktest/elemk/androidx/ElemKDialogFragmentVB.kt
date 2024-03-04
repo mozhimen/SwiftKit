@@ -9,7 +9,7 @@ class ElemKDialogFragmentVB : BaseDialogFragmentVB<FragmentElemkDialogFragmentVb
     private val vm: ElemKViewModel by viewModels(ownerProducer = { requireActivity() })
 
     override fun initView(savedInstanceState: Bundle?) {
-        vb.elemkFragmentVbvmBtn.setOnClickListener {
+        vdb.elemkFragmentVbvmBtn.setOnClickListener {
             vm.addNum()
         }
     }

@@ -1,6 +1,6 @@
 package com.mozhimen.basicktest.postk
 
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basicktest.databinding.ActivityPostkLinkBinding
 import android.content.Intent
 import android.util.Log
@@ -12,7 +12,7 @@ import android.util.Log
  * @Date 2023/11/17 10:38
  * @Version 1.0
  */
-class PostKLinkActivity : BaseActivityVB<ActivityPostkLinkBinding>() {
+class PostKLinkActivity : BaseActivityVDB<ActivityPostkLinkBinding>() {
     override fun initData(savedInstanceState: android.os.Bundle?) {
         super.initData(savedInstanceState)
         val action = intent.getAction()

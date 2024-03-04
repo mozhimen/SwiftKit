@@ -13,6 +13,6 @@ class ElemKVBVMActivity : BaseActivityVBVM<ActivityElemkVbvmBinding, ElemKViewMo
     }
 
     override fun bindViewVM(vb: ActivityElemkVbvmBinding) {
-        vb.elemkVbvm = vm
+        vdb.elemkVbvm = vm
     }
 }

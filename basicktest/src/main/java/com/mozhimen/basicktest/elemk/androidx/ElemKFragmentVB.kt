@@ -9,7 +9,7 @@ class ElemKFragmentVB : BaseFragmentVB<FragmentElemkFragmentVbBinding>() {
     private val vm: ElemKViewModel by viewModels(ownerProducer = { requireActivity() })
 
     override fun initView(savedInstanceState: Bundle?) {
-        vb.elemkFragmentVbBtn.setOnClickListener {
+        vdb.elemkFragmentVbBtn.setOnClickListener {
             vm.addNum()
         }
     }

@@ -15,7 +15,7 @@ class ElemKGestureFragment : BaseFragmentVB<FragmentElemkGestureBinding>() {
     @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
     override fun initView(savedInstanceState: Bundle?) {
         _dragAndDropProxy.bindLifecycle(this)
-        _dragAndDropProxy.dragAndDrop(vb.elemkGestureFragmentTxt1, vb.elemkGestureFragmentTxt2) { source, dest ->
+        _dragAndDropProxy.dragAndDrop(vdb.elemkGestureFragmentTxt1, vdb.elemkGestureFragmentTxt2) { source, dest ->
             (dest as TextView).text = (source as TextView).text.toString()
         }
     }

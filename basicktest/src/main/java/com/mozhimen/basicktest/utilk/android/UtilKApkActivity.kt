@@ -2,7 +2,7 @@ package com.mozhimen.basicktest.utilk.android
 
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basick.utilk.android.content.UtilKApk
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.kotlin.UtilKStrAsset
@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
  * @Date 2023/4/18 13:44
  * @Version 1.0
  */
-class UtilKApkActivity : BaseActivityVB<ActivityUtilkApkBinding>() {
+class UtilKApkActivity : BaseActivityVDB<ActivityUtilkApkBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         lifecycleScope.launch(Dispatchers.IO) {
             val strPathNameApk = UtilKStrPath.Absolute.Internal.getCache() + "/temp/${UtilKFile.getStrFileNameForStrNowDate()}.apk"

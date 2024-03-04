@@ -7,12 +7,12 @@ import com.mozhimen.basicktest.databinding.FragmentElemkFragmentVbvmBinding
 class ElemKFragmentVBVM : BaseFragmentVBVM<FragmentElemkFragmentVbvmBinding, ElemKViewModel>() {
 
     override fun bindViewVM(vb: FragmentElemkFragmentVbvmBinding) {
-        vb.vm = vm
+        vdb.vm = vm
     }
 
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
-        vb.elemkFragmentVbvmBtn.setOnClickListener {
+        vdb.elemkFragmentVbvmBtn.setOnClickListener {
             vm.addNum()
         }
     }
