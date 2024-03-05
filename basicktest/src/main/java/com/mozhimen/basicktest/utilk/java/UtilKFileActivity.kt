@@ -22,7 +22,7 @@ import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityUtilkFileBinding
 import com.mozhimen.basicktest.databinding.ItemUtilkFileLogBinding
 import com.mozhimen.manifestk.xxpermissions.XXPermissionsRequestUtil
-import com.mozhimen.uicorek.recyclerk.quick.AdapterKQuickRecyclerVB
+import com.mozhimen.xmlk.recyclerk.quick.AdapterKQuickRecyclerVB
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

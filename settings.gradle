@@ -22,8 +22,8 @@ dependencyResolutionManagement {
 rootProject.name = "SwiftKit"
 include ':basick'
 include ':basicktest'
-include ':uicorek'
-include ':uicorektest'
+include ':xmlk'
+include ':xmlktest'
 //AImageKit
 include ":AImageKit"
 project(':AImageKit').projectDir = new File("D:\\WorkSpace\\GitHub\\AImageKit")
@@ -32,15 +32,17 @@ include ':AImageKit:imagek_blur'
 include ":ANavigateKit_Navigation"
 project(':ANavigateKit_Navigation').projectDir = new File("D:\\WorkSpace\\GitHub\\ANavigateKit_Navigation")
 include ':ANavigateKit_Navigation:navigatek_navigation'
-//AUICoreKit
-include ":AUICoreKit"
-project(':AUICoreKit').projectDir = new File("D:\\WorkSpace\\GitHub\\AUICoreKit")
-include ':AUICoreKit:recyclerk'
-include ':AUICoreKit:vhk'
-include ':AUICoreKit:layoutk_blur'
-include ':AUICoreKit:layoutk'
+//AXmlKit
+include ":AXmlKit"
+project(':AXmlKit').projectDir = new File("D:\\WorkSpace\\GitHub\\AXmlKit")
+include ':AXmlKit:recyclerk'
+include ':AXmlKit:vhk'
+include ':AXmlKit:layoutk_blur'
+include ':AXmlKit:layoutk'
 //AManifestKit_XXPermissions
 include ":AManifestKit_XXPermissions"
 project(':AManifestKit_XXPermissions').projectDir = new File("D:\\WorkSpace\\GitHub\\AManifestKit_XXPermissions")
 include ':AManifestKit_XXPermissions:manifestk_xxpermissions'
 include ':AManifestKit_XXPermissions:library'
+include ':composek'
+include ':composektest'

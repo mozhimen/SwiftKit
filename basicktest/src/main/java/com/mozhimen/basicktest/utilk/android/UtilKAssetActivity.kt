@@ -14,7 +14,7 @@ import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.utilk.kotlin.UtilKStrAsset
 import com.mozhimen.basicktest.utilk.java.UtilKFileActivity
-import com.mozhimen.uicorek.recyclerk.quick.AdapterKQuickRecyclerVB
+import com.mozhimen.xmlk.recyclerk.quick.AdapterKQuickRecyclerVB
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

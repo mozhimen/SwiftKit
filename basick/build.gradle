@@ -15,6 +15,7 @@ android {
 
         //fileProvider
         manifestPlaceholders = [fileProviderAuthoritiesSuffix: ".fileProvider"]
+        buildFeatures.buildConfig = true
         buildConfigField("String", "FILE_PROVIDER_AUTHORITIES_SUFFIX", "\"${manifestPlaceholders['fileProviderAuthoritiesSuffix']}\"")
 
         //test

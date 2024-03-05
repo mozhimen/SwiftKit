@@ -41,8 +41,8 @@ android {
 
 dependencies {
     implementation project(':basick')
-    implementation project(':uicorek')
-    implementation project(':AUICoreKit:recyclerk')
+    implementation project(':xmlk')
+    implementation project(':AXmlKit:recyclerk')
     implementation project(':ANavigateKit_Navigation:navigatek_navigation')
     implementation project(':AManifestKit_XXPermissions:manifestk_xxpermissions')
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'

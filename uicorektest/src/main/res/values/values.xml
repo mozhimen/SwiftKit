@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-
-    <style name="UicoreKStyle_Btn" parent="StyleK_MaterialBtn">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginHorizontal" tools:targetApi="o">20dp</item>
-    </style>
-
-</resources>
