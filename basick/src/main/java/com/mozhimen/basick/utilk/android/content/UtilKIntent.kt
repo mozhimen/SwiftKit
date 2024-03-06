@@ -9,7 +9,7 @@ import android.util.Log
 import com.mozhimen.basick.elemk.commons.IExtension_Listener
 import com.mozhimen.basick.lintk.optins.intent_filter.OIntentFilter_ACTION_VIEW_CATEGORY_DEFAULT_BROWSABLE
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
  * @ClassName UtilKIntent

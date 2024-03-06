@@ -2,7 +2,6 @@ package com.mozhimen.basick.utilk.android.telephony
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.os.Build
 import android.telephony.TelephonyManager
 import android.text.TextUtils
 import androidx.annotation.RequiresApi
@@ -12,7 +11,7 @@ import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.util.it
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.kotlin.strPackage2clazz
 import java.lang.reflect.Method
 

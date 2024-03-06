@@ -1,11 +1,9 @@
 package com.mozhimen.basick.utilk.android.view
 
 import android.content.Context
-import android.util.DisplayMetrics
-import android.view.Display
 import com.mozhimen.basick.utilk.android.util.UtilKDisplayMetrics
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
  * @ClassName UtilKVirtualBar

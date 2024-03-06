@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.ImageFormat
 import android.graphics.Rect
 import android.graphics.YuvImage
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.nio.ByteBuffer

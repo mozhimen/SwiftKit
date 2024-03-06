@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.java.io
 
 import android.text.TextUtils
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 import java.io.InputStream
 
 /**

@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace "com.mozhimen.xmlktest"
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.mozhimen.xmlktest"

@@ -22,7 +22,7 @@ import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.view.UtilKContentView
 import com.mozhimen.basick.utilk.android.view.UtilKWindow
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.kotlin.UtilKClazz
 import com.mozhimen.basick.utilk.kotlin.UtilKString
 

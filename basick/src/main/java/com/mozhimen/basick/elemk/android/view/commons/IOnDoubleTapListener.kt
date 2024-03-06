@@ -3,7 +3,7 @@ package com.mozhimen.basick.elemk.android.view.commons
 import android.view.GestureDetector
 import android.view.MotionEvent
 import com.mozhimen.basick.utilk.android.util.dt
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
  * @ClassName IOnDoubleTapListener

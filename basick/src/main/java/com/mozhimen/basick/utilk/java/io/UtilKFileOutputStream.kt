@@ -1,15 +1,9 @@
 package com.mozhimen.basick.utilk.java.io
 
-import android.os.FileUtils
-import androidx.annotation.RequiresApi
-import com.mozhimen.basick.elemk.android.os.cons.CVersCode
-import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.kotlin.appendStrLineBreak
 import com.mozhimen.basick.utilk.kotlin.str2bytes
-import java.io.File
 import java.io.FileOutputStream
-import java.io.InputStream
 
 /**
  * @ClassName UtilKFileOutputStream

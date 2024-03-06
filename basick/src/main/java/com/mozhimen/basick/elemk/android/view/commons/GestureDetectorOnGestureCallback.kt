@@ -17,9 +17,9 @@ open class GestureDetectorOnGestureCallback : GestureDetector.OnGestureListener 
 
     override fun onSingleTapUp(e: MotionEvent): Boolean = false
 
-    override fun onScroll(e1: MotionEvent, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean = false
+    override fun onScroll(e1: MotionEvent?, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean = false
 
     override fun onLongPress(e: MotionEvent) {}
 
-    override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean = false
+    override fun onFling(e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean = false
 }

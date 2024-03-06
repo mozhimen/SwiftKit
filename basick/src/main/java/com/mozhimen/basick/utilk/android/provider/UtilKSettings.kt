@@ -2,15 +2,13 @@ package com.mozhimen.basick.utilk.android.provider
 
 import android.content.Context
 import android.provider.Settings
-import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
-import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.provider.cons.CSettings
 import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.lintk.optins.permission.OPermission_SYSTEM_ALERT_WINDOW
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 
 /**

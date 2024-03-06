@@ -2,8 +2,7 @@ package com.mozhimen.basick.utilk.java.lang
 
 import android.util.Log
 import com.mozhimen.basick.elemk.java.lang.bases.BaseGeneric
-import com.mozhimen.basick.utilk.bases.IUtilK
-import com.mozhimen.basick.utilk.kotlin.printlog
+import com.mozhimen.basick.utilk.commons.IUtilK
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 

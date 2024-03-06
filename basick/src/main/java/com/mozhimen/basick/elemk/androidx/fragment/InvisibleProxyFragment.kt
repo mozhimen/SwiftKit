@@ -6,8 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.mozhimen.basick.elemk.android.app.cons.CActivity
 import com.mozhimen.basick.elemk.commons.IA_Listener
-import com.mozhimen.basick.elemk.commons.I_Listener
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 class InvisibleProxyFragment : Fragment(), IUtilK {
     companion object {

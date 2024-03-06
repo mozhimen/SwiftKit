@@ -4,7 +4,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Interpolator
 import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
 import com.mozhimen.basick.utilk.android.content.UtilKRes
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
  * @ClassName IBaseAnimKBuilder

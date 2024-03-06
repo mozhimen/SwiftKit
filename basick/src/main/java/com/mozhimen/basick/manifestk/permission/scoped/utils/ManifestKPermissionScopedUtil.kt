@@ -11,7 +11,7 @@ import com.mozhimen.basick.elemk.android.provider.cons.CDocumentsContract
 import com.mozhimen.basick.manifestk.permission.scoped.cons.CManifestKPermissionScoped
 import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.kotlin.containStr
 import com.mozhimen.basick.utilk.kotlin.strUri2uri
 import com.mozhimen.basick.utilk.kotlin.text.removeEndSeparator

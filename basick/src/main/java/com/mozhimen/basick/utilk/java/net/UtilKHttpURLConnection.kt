@@ -2,11 +2,10 @@ package com.mozhimen.basick.utilk.java.net
 
 import android.util.Log
 import androidx.annotation.WorkerThread
-import com.mozhimen.basick.elemk.java.net.cons.CHttpURLConnection
 import com.mozhimen.basick.elemk.javax.net.bases.BaseHostnameVerifier
 import com.mozhimen.basick.lintk.optins.application.OApplication_USES_CLEAR_TEXT_TRAFFIC
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
 import com.mozhimen.basick.utilk.java.io.flushClose

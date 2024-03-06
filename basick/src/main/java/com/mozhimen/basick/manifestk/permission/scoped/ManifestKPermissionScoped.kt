@@ -10,7 +10,7 @@ import com.mozhimen.basick.lintk.optins.permission.OPermission_WRITE_EXTERNAL_ST
 import com.mozhimen.basick.manifestk.permission.scoped.cons.CManifestKPermissionScoped
 import com.mozhimen.basick.manifestk.permission.scoped.helpers.IManifestKPermissionScopedListener
 import com.mozhimen.basick.manifestk.permission.scoped.helpers.InvisibleProxyFragmentScoped
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
  * @ClassName ManifestKPermissionScope

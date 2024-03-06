@@ -9,8 +9,7 @@ import com.mozhimen.basick.taskk.chain.helpers.ChainRuntime.getTaskRuntimeInfo
 import com.mozhimen.basick.elemk.cons.CMsg
 import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.android.util.wt
-import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
  * @ClassName TaskKRuntimeListener

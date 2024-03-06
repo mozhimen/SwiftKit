@@ -1,20 +1,15 @@
 package com.mozhimen.basick.utilk.kotlin
 
-import android.animation.Animator
-import android.graphics.drawable.Drawable
 import android.util.SparseArray
 import android.util.SparseBooleanArray
 import android.util.SparseIntArray
 import android.util.SparseLongArray
-import android.view.animation.Animation
 import androidx.collection.LongSparseArray
 import androidx.collection.SimpleArrayMap
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.java.lang.UtilKReflect
-import java.io.ByteArrayOutputStream
-import java.io.ObjectOutputStream
 import java.lang.reflect.Array
 
 

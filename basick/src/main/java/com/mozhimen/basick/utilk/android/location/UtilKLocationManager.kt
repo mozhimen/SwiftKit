@@ -12,7 +12,7 @@ import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_FINE_LOCAT
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.util.dt
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 
 /**

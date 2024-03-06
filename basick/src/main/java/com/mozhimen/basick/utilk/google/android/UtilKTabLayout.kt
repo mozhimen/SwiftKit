@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk.google.android
 
-import android.graphics.Color
 import android.graphics.Typeface
 import android.view.Gravity
 import android.view.View
@@ -9,7 +8,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.Tab
 import com.mozhimen.basick.elemk.google.android.commons.IOnTabSelectedListener
 import com.mozhimen.basick.utilk.android.view.applyLayoutParamsMatch
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
  * @ClassName UtilKTabLayout

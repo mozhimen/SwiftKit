@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.org.json
 
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.google.gson.UtilKGson
 import org.json.JSONArray
 import org.json.JSONException
@@ -20,7 +20,7 @@ fun JSONArray.jSONArray2strList(): ArrayList<String?>? =
 fun <T> JSONArray.jSONArray2tList(clazz: Class<T>): ArrayList<T?>? =
     UtilKJSONArrayFormat.jSONArray2tList(this, clazz)
 
-object UtilKJSONArrayFormat:IUtilK {
+object UtilKJSONArrayFormat: IUtilK {
 
     @JvmStatic
     fun jSONArray2strList(jsonArray: JSONArray): ArrayList<String?>? {

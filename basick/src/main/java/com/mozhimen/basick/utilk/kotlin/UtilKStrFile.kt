@@ -6,7 +6,7 @@ import android.net.Uri
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.elemk.android.media.cons.CMediaFormat
 import com.mozhimen.basick.lintk.annors.ADescription
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.createFile
 import com.mozhimen.basick.utilk.java.io.createFolder

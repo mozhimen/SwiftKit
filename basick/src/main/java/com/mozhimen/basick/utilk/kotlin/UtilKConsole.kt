@@ -1,7 +1,6 @@
 package com.mozhimen.basick.utilk.kotlin
 
-import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
  * @ClassName UtilKConsole

@@ -1,7 +1,7 @@
 package com.mozhimen.xmlk.commons
 
 import android.util.AttributeSet
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
  * @ClassName IXmlK

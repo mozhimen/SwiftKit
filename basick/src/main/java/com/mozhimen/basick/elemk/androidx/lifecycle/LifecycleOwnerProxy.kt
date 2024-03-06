@@ -11,7 +11,7 @@ import com.mozhimen.basick.utilk.androidx.lifecycle.handleLifecycleEventOnPause
 import com.mozhimen.basick.utilk.androidx.lifecycle.handleLifecycleEventOnResume
 import com.mozhimen.basick.utilk.androidx.lifecycle.handleLifecycleEventOnStart
 import com.mozhimen.basick.utilk.androidx.lifecycle.handleLifecycleEventOnStop
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
  * @ClassName LifecycleOwnerProxy

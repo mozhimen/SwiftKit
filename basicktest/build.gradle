@@ -5,7 +5,8 @@ plugins {
 }
 
 android {
-    compileSdk 33
+    namespace "com.mozhimen.basicktest"
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.mozhimen.basicktest"

@@ -11,7 +11,7 @@ import android.view.View.OnTouchListener
 import com.mozhimen.basick.elemk.android.view.commons.IOnClickListener
 import com.mozhimen.basick.elemk.android.view.commons.IOnScaleListener
 import com.mozhimen.basick.utilk.android.util.dt
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
  * @ClassName CameraKXGestureDetector

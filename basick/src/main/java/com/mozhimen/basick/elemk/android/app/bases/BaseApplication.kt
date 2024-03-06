@@ -5,7 +5,7 @@ import androidx.multidex.MultiDexApplication
 import com.mozhimen.basick.lintk.optins.OApiInit_InApplication
 import com.mozhimen.basick.lintk.optins.OApiMultiDex_InApplication
 import com.mozhimen.basick.stackk.cb.StackKCb
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
  * @ClassName BaseApplication

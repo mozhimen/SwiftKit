@@ -2,10 +2,9 @@ package com.mozhimen.basick.utilk.android.app
 
 import android.app.ActivityManager.RunningAppProcessInfo
 import android.content.Context
-import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.os.UtilKProcess
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
  * @ClassName UtilKRunningAppProcessInfo

@@ -1,7 +1,7 @@
 package com.mozhimen.basick.elemk.androidx.lifecycle.bases
 
 import androidx.lifecycle.ViewModel
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
  * @ClassName BaseViewModel

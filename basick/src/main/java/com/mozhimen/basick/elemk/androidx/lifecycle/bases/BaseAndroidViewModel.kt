@@ -3,7 +3,7 @@ package com.mozhimen.basick.elemk.androidx.lifecycle.bases
 import android.app.Application
 import android.content.Context
 import androidx.lifecycle.AndroidViewModel
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
  * @ClassName BaseAndroidViewModel

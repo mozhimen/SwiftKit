@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.bases
 
 import com.mozhimen.basick.utilk.android.app.UtilKApplicationReflect
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 
 /**

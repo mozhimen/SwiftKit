@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.annotation.CallSuper
 import androidx.fragment.app.DialogFragment
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
  * @ClassName BaseDialogFragment

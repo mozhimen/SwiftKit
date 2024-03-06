@@ -2,7 +2,7 @@ package com.mozhimen.basick.elemk.javax.net.bases
 
 import android.annotation.SuppressLint
 import android.util.Log
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLSession
 
@@ -13,7 +13,7 @@ import javax.net.ssl.SSLSession
  * @Date 2023/10/28 16:34
  * @Version 1.0
  */
-class BaseHostnameVerifier: HostnameVerifier ,IUtilK{
+class BaseHostnameVerifier: HostnameVerifier , IUtilK {
     @SuppressLint("BadHostnameVerifier")
     override fun verify(hostname: String, session: SSLSession): Boolean {
         Log.d(TAG, "verify: WARNING: Hostname is not matched for cert.")

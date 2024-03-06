@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.java.util
 
 import android.util.Log
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.file2fileInputStream
 import com.mozhimen.basick.utilk.java.io.flushClose

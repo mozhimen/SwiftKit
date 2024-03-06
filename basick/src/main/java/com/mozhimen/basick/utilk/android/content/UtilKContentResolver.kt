@@ -8,9 +8,7 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.ParcelFileDescriptor
 import androidx.annotation.RequiresPermission
-import com.mozhimen.basick.elemk.android.provider.cons.CMediaStore
-import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 import java.io.InputStream
 import java.io.OutputStream
 

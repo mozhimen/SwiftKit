@@ -4,7 +4,7 @@ import android.util.Log
 import com.mozhimen.basick.elemk.cons.CPath
 import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_EXTERNAL_STORAGE
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.lang.UtilKRuntime
 import com.mozhimen.basick.utilk.kotlin.strFilePath2file

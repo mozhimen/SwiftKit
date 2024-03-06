@@ -7,7 +7,7 @@ import android.graphics.drawable.Drawable
 import android.util.Log
 import androidx.annotation.IdRes
 import com.mozhimen.basick.elemk.android.content.cons.CApplicationInfo
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
  * @ClassName UtilKApplicationInfo

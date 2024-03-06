@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.kotlin
 
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 import java.io.PrintWriter
 import java.io.StringWriter
 

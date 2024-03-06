@@ -1,9 +1,8 @@
 package com.mozhimen.basick.utilk.javax.net
 
 import com.mozhimen.basick.elemk.javax.net.bases.BaseX509TrustManager
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 import java.security.SecureRandom
-import javax.net.SocketFactory
 import javax.net.ssl.SSLContext
 import javax.net.ssl.SSLSocketFactory
 import javax.net.ssl.TrustManager

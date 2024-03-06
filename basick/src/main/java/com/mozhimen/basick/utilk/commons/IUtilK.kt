@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.bases
+package com.mozhimen.basick.utilk.commons
 
 /**
  * @ClassName IUtilK

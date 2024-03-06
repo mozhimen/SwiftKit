@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.lintk.optins.OApiCall_RegisterDynamic
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
  * @ClassName BaseTimeBroadcastReceiver

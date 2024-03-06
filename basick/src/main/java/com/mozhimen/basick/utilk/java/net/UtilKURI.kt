@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.java.net
 
 import com.mozhimen.basick.elemk.java.net.cons.CURI
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 import java.net.URI
 import java.net.URISyntaxException
 

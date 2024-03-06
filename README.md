@@ -75,7 +75,7 @@ include ':SwiftKit'
 - 设置项目地址
 
 ```
-project(':SwiftKit').projectDir = new File("C:\\Users\\${System.getenv().get("USERNAME")}\\Documents\\GitHub\\SwiftKit")
+project(':SwiftKit').projectDir = new File("D:\\WorkSpace\\GitHub\\SwiftKit")
 ```
 
 - 引入模块
@@ -95,7 +95,7 @@ api project(path: ':SwiftKit:basick')
 ```
 //SwiftKit
 include ':SwiftKit'
-project(':SwiftKit').projectDir = new File("C:\\Users\\${System.getenv().get("USERNAME")}\\Documents\\GitHub\\SwiftKit")
+project(':SwiftKit').projectDir = new File("D:\\WorkSpace\\GitHub\\SwiftKit")
 include ':SwiftKit:basick'
 include ':SwiftKit:xmlk'
 ```

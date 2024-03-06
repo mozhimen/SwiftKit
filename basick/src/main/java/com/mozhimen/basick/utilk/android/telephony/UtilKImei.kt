@@ -13,7 +13,7 @@ import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.os.UtilKSystemProperties
 import com.mozhimen.basick.utilk.android.util.it
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 import java.lang.reflect.Method
 
 

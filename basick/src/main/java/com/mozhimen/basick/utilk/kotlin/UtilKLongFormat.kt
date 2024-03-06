@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.kotlin
 
 import com.mozhimen.basick.utilk.java.text.UtilKDecimalFormat
 import android.util.Log
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.kotlin.text.replaceDot
 import java.util.Locale
 

@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.java.net
 
 import android.util.Log
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.kotlin.intIp2strIp
 import java.net.Inet6Address
 import java.net.InetAddress

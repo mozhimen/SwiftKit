@@ -13,7 +13,7 @@ import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.manifestk.permission.scoped.cons.CManifestKPermissionScoped
 import com.mozhimen.basick.manifestk.permission.scoped.utils.ManifestKPermissionScopedUtil
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.kotlin.strUri2uri
 
 /**
