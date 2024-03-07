@@ -5,11 +5,6 @@ import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivi
 import com.mozhimen.basick.utilk.android.content.startContext
 import com.mozhimen.basicktest.databinding.ActivityElemkBinding
 import com.mozhimen.basicktest.elemk.android.ElemKAndroidActivity
-import com.mozhimen.basicktest.elemk.androidx.ElemKVBVMActivity
-import com.mozhimen.basicktest.elemk.android.ElemKGestureActivity
-import com.mozhimen.basicktest.elemk.android.ElemKGestureFlingActivity
-import com.mozhimen.basicktest.elemk.android.ElemKReceiverActivity
-import com.mozhimen.basicktest.elemk.android.ElemKServiceActivity
 import com.mozhimen.basicktest.elemk.androidx.ElemKAndroidXActivity
 
 /**

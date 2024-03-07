@@ -89,9 +89,6 @@
             android:name=".elemk.androidx.ElemKVBVMActivity"
             android:exported="false" />
         <activity
-            android:name=".elemk.android.ElemKServiceActivity"
-            android:exported="false" />
-        <activity
             android:name=".elemk.android.ElemKReceiverActivity"
             android:exported="false" />
         <activity

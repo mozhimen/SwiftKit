@@ -28,11 +28,5 @@
             android:text="goElemKReceiver"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/BasicKStyle_Btn"
-            android:onClick="goElemKService"
-            android:text="goElemKService"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
-
     </LinearLayout>
 </layout>

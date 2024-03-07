@@ -28,6 +28,8 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures.compose = true
+    composeOptions.kotlinCompilerExtensionVersion = "1.5.10"
 }
 
 dependencies {
@@ -52,6 +54,7 @@ dependencies {
     debugApi 'androidx.compose.ui:ui-tooling'
     debugApi 'androidx.compose.ui:ui-test-manifest'
 
+    androidTestApi platform('androidx.compose:compose-bom:2024.02.01')
     androidTestApi 'androidx.compose.ui:ui-test-junit4'
     androidTestApi 'com.kaspersky.android-components:kaspresso-compose-support:1.5.3'
 

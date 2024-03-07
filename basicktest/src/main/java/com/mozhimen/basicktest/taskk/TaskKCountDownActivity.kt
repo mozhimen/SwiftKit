@@ -5,14 +5,14 @@ import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivi
 import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
 import com.mozhimen.basick.taskk.temps.ITaskKCountDownListener
-import com.mozhimen.basick.taskk.temps.TaskKCountDown
+import com.mozhimen.basick.taskk.temps.TaskKCountDownBefPause
 import com.mozhimen.basicktest.databinding.ActivityTaskkCountDownBinding
 import kotlin.math.roundToInt
 
 class TaskKCountDownActivity : BaseActivityVDB<ActivityTaskkCountDownBinding>() {
 
     @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
-    private val _taskKCountDown: TaskKCountDown by lazy { TaskKCountDown().apply { bindLifecycle(this@TaskKCountDownActivity) } }
+    private val _taskKCountDown: TaskKCountDownBefPause by lazy { TaskKCountDownBefPause().apply { bindLifecycle(this@TaskKCountDownActivity) } }
 
     @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
     override fun initView(savedInstanceState: Bundle?) {

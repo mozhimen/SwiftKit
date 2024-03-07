@@ -22,7 +22,4 @@ class ElemKAndroidActivity : BaseActivityVDB<ActivityElemkAndroidBinding>() {
         startContext<ElemKReceiverActivity>()
     }
 
-    fun goElemKService(view: View) {
-        startContext<ElemKServiceActivity>()
-    }
 }

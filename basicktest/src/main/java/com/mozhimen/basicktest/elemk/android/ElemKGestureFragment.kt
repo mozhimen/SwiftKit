@@ -3,12 +3,12 @@ package com.mozhimen.basicktest.elemk.android
 import android.os.Bundle
 import android.widget.TextView
 import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
-import com.mozhimen.basick.elemk.androidx.fragment.bases.BaseFragmentVB
 import com.mozhimen.basick.elemk.android.view.DragAndDropProxy
+import com.mozhimen.basick.elemk.androidx.fragment.bases.databinding.BaseFragmentVDB
 import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
 import com.mozhimen.basicktest.databinding.FragmentElemkGestureBinding
 
-class ElemKGestureFragment : BaseFragmentVB<FragmentElemkGestureBinding>() {
+class ElemKGestureFragment : BaseFragmentVDB<FragmentElemkGestureBinding>() {
     @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
     private val _dragAndDropProxy by lazy { DragAndDropProxy() }
 
