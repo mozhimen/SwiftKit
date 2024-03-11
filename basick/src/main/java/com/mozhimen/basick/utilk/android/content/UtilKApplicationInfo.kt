@@ -58,7 +58,7 @@ object UtilKApplicationInfo : IUtilK {
 
     @JvmStatic
     fun getLabelResStr(context: Context): String =
-        getLabelRes(context).let { UtilKRes.getString_ofContext(it) }
+        getLabelRes(context).let { UtilKRes.getString_ofContext(context, it) }
 
     @JvmStatic
     fun getFlags(context: Context): Int? =
