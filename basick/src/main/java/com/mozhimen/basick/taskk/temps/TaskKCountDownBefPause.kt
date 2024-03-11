@@ -17,7 +17,7 @@ interface ITaskKCountDownListener {
     fun onFinish()
 }
 
-open class TaskKCountDownCallback : ITaskKCountDownListener {
+open class BaseTaskKCountDownCallback : ITaskKCountDownListener {
     override fun onTick(millisUntilFinished: Long) {}
     override fun onFinish() {}
 }
