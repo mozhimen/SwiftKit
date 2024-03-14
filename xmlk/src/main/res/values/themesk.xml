@@ -24,6 +24,8 @@
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
+    <style name="ThemeK_WidgetAppLightDropSpinner" parent="Widget.AppCompat.Light.DropDownItem.Spinner" />
+
     <style name="ThemeK_WidgetMaterialBtnOutlined" parent="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
     <style name="ThemeK_WightDesignBottomSheetModel" parent="Widget.Design.BottomSheet.Modal">
