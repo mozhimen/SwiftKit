@@ -30,33 +30,33 @@ class LifecycleOwnerProxy : LifecycleOwner, IUtilK {
 
     ///////////////////////////////////////////////////////////////////////
 
-    fun onCreate() {
-        Log.d(TAG, "onCreate: ")
+    fun onCreate(name: String) {
+        Log.v(TAG, "onCreate:  $name")
         lifecycleRegistry.handleLifecycleEventOnCreate()
     }
 
-    fun onStart() {
-        Log.d(TAG, "onStart: ")
+    fun onStart(name: String) {
+        Log.v(TAG, "onStart:   $name")
         lifecycleRegistry.handleLifecycleEventOnStart()
     }
 
-    fun onResume() {
-        Log.d(TAG, "onResume: ")
+    fun onResume(name: String) {
+        Log.v(TAG, "onResume:  $name")
         lifecycleRegistry.handleLifecycleEventOnResume()
     }
 
-    fun onPause() {
-        Log.d(TAG, "onPause: ")
+    fun onPause(name: String) {
+        Log.v(TAG, "onPause:   $name")
         lifecycleRegistry.handleLifecycleEventOnPause()
     }
 
-    fun onStop() {
-        Log.d(TAG, "onStop: ")
+    fun onStop(name: String) {
+        Log.v(TAG, "onStop:    $name")
         lifecycleRegistry.handleLifecycleEventOnStop()
     }
 
-    fun onDestroy() {
-        Log.d(TAG, "onDestroy: ")
+    fun onDestroy(name: String) {
+        Log.v(TAG, "onDestroy: $name")
         lifecycleRegistry.handleLifecycleEventOnDestroy()
     }
 

@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.android.view
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import android.widget.AdapterView
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.utilk.androidx.recyclerview.isScroll2top
+import com.mozhimen.basick.utilk.commons.IUtilK
 import java.util.ArrayDeque
 import java.util.Deque
 
@@ -20,7 +22,12 @@ import java.util.Deque
 fun ViewGroup.getViewOfInflate(@LayoutRes layoutId: Int): View =
     UtilKViewGroup.getViewOfInflate(this, layoutId)
 
-object UtilKViewGroup {
+fun ViewGroup.applyAddViewMatchParent(view: View) {
+    UtilKViewGroup.applyAddViewMatchParent(this, view)
+}
+
+
+object UtilKViewGroup : IUtilK {
 
     /**
      * 查找可以滚动的child
@@ -104,5 +111,16 @@ object UtilKViewGroup {
             return firstPosition != 0 || !viewGroup.isScroll2top()
         }
         return false
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun applyAddViewMatchParent(viewGroup: ViewGroup, view: View) {
+        if (view.parent == null) {
+            viewGroup.addView(view, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+        } else {
+            Log.e(TAG, "applyAddViewMatchParent: ")
+        }
     }
 }
