@@ -7,17 +7,14 @@ import android.graphics.*
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.IntRange
 import androidx.annotation.RequiresApi
-import androidx.annotation.RequiresPermission
 import androidx.core.graphics.drawable.toDrawable
 import com.mozhimen.basick.elemk.android.media.cons.CMediaFormat
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.provider.cons.CMediaStore
 import com.mozhimen.basick.elemk.android.util.cons.CBase64
-import com.mozhimen.basick.lintk.optins.permission.OPermission_WRITE_EXTERNAL_STORAGE
-import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
 import com.mozhimen.basick.utilk.android.content.UtilKResources
@@ -183,7 +180,7 @@ object UtilKBitmapFormat : BaseUtilK() {
             if (UtilKPermission.hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE))
                 sourceBitmap.bitmapAny2fileImage(strFilePathNameDest, CompressFormat.JPEG, quality)
             else {
-                Log.d(TAG, "bitmapJpeg2fileJpeg: dont has permission")
+                UtilKLogWrapper.dt(TAG, "bitmapJpeg2fileJpeg: dont has permission")
                 null
             }
         } else bitmapAny2fileJpeg(sourceBitmap, strFilePathNameDest, quality)

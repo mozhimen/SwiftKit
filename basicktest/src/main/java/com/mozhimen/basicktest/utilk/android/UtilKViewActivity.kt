@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest.utilk.android
 
 import android.os.Bundle
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
@@ -32,12 +32,12 @@ class UtilKViewActivity : BaseActivityVDB<ActivityUtilkViewBinding>() {
         vdb.utilkViewBtnHapticFeedback.apply {
             applyHapticOnTouchListener()
             setOnClickListener {
-                Log.d(TAG, "initView: setOnClickListener")
+                UtilKLogWrapper.dt(TAG, "initView: setOnClickListener")
             }
         }
 
         vdb.utilkViewBtnGetAllViews.setOnClickListener {
-            Log.d(TAG, "initView: ${UtilKViewGroup.getAllChildViews(UtilKDecorView.getAsViewGroup(this)).map { it.javaClass.name + "\n" }}")
+            UtilKLogWrapper.dt(TAG, "initView: ${UtilKViewGroup.getChildViews(UtilKDecorView.getAsViewGroup(this)).map { it.javaClass.name + "\n" }}")
         }
     }
 }

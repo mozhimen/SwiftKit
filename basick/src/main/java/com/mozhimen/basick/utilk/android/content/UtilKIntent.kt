@@ -4,10 +4,11 @@ import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Parcelable
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.elemk.commons.IExtension_Listener
-import com.mozhimen.basick.lintk.optins.intent_filter.OIntentFilter_ACTION_VIEW_CATEGORY_DEFAULT_BROWSABLE
+import com.mozhimen.basick.lintk.optins.permission.OPermission_QUERY_ALL_PACKAGES
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.commons.IUtilK
 
@@ -21,54 +22,69 @@ import com.mozhimen.basick.utilk.commons.IUtilK
 fun Intent.createChooser(title: CharSequence): Intent =
     UtilKIntent.createChooser(this, title)
 
+@OPermission_QUERY_ALL_PACKAGES
 fun Intent.isIntentAvailable(context: Context): Boolean =
     UtilKIntent.isIntentAvailable(this, context)
 
-@OIntentFilter_ACTION_VIEW_CATEGORY_DEFAULT_BROWSABLE
-fun Intent.getQueryParameter(key: String): String? =
-    UtilKIntent.getQueryParameter(this, key)
-
 object UtilKIntent : IUtilK {
+    @JvmStatic
+    fun get(): Intent =
+        Intent()
+
+    @JvmStatic
+    fun get(intent: Intent): Intent =
+        Intent(intent)
+
+    @JvmStatic
+    fun get(action: String): Intent =
+        Intent(action)
+
+    @JvmStatic
+    fun get(action: String, uri: Uri?): Intent =
+        Intent(action, uri)
+
     @JvmStatic
     fun get(context: Context, clazz: Class<*>): Intent =
         Intent(context, clazz)
 
+    @JvmStatic
     inline fun <reified T> get(context: Context): Intent =
-        Intent(context, T::class.java)
+        get(context, T::class.java)
 
+    @JvmStatic
     inline fun <reified T> get(context: Context, block: IExtension_Listener<Intent>): Intent =
-        Intent(context, T::class.java).apply(block)
-
-    /**
-     * http://com.xxx.xxx?id=?
-     */
-    @JvmStatic
-    @OIntentFilter_ACTION_VIEW_CATEGORY_DEFAULT_BROWSABLE
-    fun getQueryParameter(intent: Intent, key: String): String? =
-        intent.data?.getQueryParameter(key)
+        get(context, T::class.java).apply(block)
 
     @JvmStatic
-    fun <T> getParcelableArrayListExtra(intent: Intent, name: String, clazz: Class<T>): ArrayList<T>? {
-        return if (UtilKBuildVersion.isAfterV_33_13_TIRAMISU()) {
+    fun get(action: String, uri: Uri, context: Context, clazz: Class<*>): Intent =
+        Intent(action, uri, context, clazz)
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun getData(intent: Intent): Uri? =
+        intent.data
+
+    @JvmStatic
+    fun getParcelableArrayListExtra(intent: Intent, name: String, clazz: Class<*>): ArrayList<*>? =
+        if (UtilKBuildVersion.isAfterV_33_13_TIRAMISU())
             intent.getParcelableArrayListExtra(name, clazz)
-        } else {
-            intent.getParcelableArrayListExtra<Parcelable>(name) as? ArrayList<T>?
-        }
-    }
+        else
+            intent.getParcelableArrayListExtra<Parcelable>(name)
 
     ///////////////////////////////////////////////////////////////////////////////////////
 
-    /**
-     * 要启动的intent是否可用
-     */
+    //要启动的intent是否可用
     @JvmStatic
+    @OPermission_QUERY_ALL_PACKAGES
     fun isIntentAvailable(intent: Intent, context: Context): Boolean =
-        (resolveActivity(intent, context) != null).also { Log.d(TAG, "isIntentAvailable: $it") }
+        (resolveActivity(intent, context) != null).also { UtilKLogWrapper.dt(TAG, "isIntentAvailable: $it") }
 
     ///////////////////////////////////////////////////////////////////////////////////////
 
-    @SuppressLint("QueryPermissionsNeeded")
     @JvmStatic
+    @OPermission_QUERY_ALL_PACKAGES
+    @SuppressLint("QueryPermissionsNeeded")
     fun resolveActivity(intent: Intent, context: Context): ComponentName? =
         intent.resolveActivity(UtilKPackageManager.get(context))
 

@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.java.net
 
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.kotlin.intIp2strIp
@@ -41,7 +41,7 @@ object UtilKNetworkInterface : IUtilK {
             }
         } catch (e: SocketException) {
             e.printStackTrace()
-            "getStrIpAddress_ofMobile SocketException ${e.message}".et(TAG)
+            "getStrIp SocketException ${e.message}".et(TAG)
         }
         return null
     }
@@ -58,13 +58,13 @@ object UtilKNetworkInterface : IUtilK {
                     inetAddress = inetAddresses.nextElement() as InetAddress
                     if (inetAddress !is Inet6Address && !inetAddress.isLoopbackAddress && inetAddress.hostAddress != "127.0.0.1") {
                         val ip: String = inetAddress.hashCode().intIp2strIp()
-                        Log.i(TAG, "Found new IP: " + ip + " at " + networkInterface.name)
+                        UtilKLogWrapper.it(TAG, "Found new IP: " + ip + " at " + networkInterface.name)
                     }
                 }
             }
         } catch (e: SocketException) {
             e.printStackTrace()
-            "getStrIpAddress_ofMobile SocketException ${e.message}".et(TAG)
+            "printStrIp SocketException ${e.message}".et(TAG)
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.mozhimen.basick.elemk.androidx.fragment
 
 import android.content.Intent
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.mozhimen.basick.elemk.android.app.cons.CActivity
@@ -47,7 +47,7 @@ class InvisibleProxyFragment : Fragment(), IUtilK {
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.d(TAG, "onActivityResult: requestCode $requestCode, resultCode $resultCode")
+        UtilKLogWrapper.dt(TAG, "onActivityResult: requestCode $requestCode, resultCode $resultCode")
         if (resultCode == CActivity.RESULT_OK) {
             when (requestCode) {
                 REQUEST_CODE_PROXY -> {

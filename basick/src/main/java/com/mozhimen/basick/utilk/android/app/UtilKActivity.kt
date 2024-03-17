@@ -1,30 +1,12 @@
 package com.mozhimen.basick.utilk.android.app
 
 import android.app.Activity
-import android.app.Dialog
-import android.content.Context
-import android.content.ContextWrapper
-import android.util.Log
 import android.view.Display
 import android.view.View
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
-import androidx.annotation.RequiresPermission
-import androidx.fragment.app.Fragment
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
-import com.mozhimen.basick.lintk.optins.OApiInit_InApplication
-import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
-import com.mozhimen.basick.lintk.optins.permission.OPermission_QUERY_ALL_PACKAGES
-import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.stackk.cb.StackKCb
-import com.mozhimen.basick.utilk.android.content.UtilKIntentWrapper
-import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.android.view.UtilKContentView
-import com.mozhimen.basick.utilk.android.view.UtilKWindow
 import com.mozhimen.basick.utilk.commons.IUtilK
-import com.mozhimen.basick.utilk.kotlin.UtilKClazz
-import com.mozhimen.basick.utilk.kotlin.UtilKString
 
 /**
  * @ClassName UtilKActivity
@@ -33,102 +15,14 @@ import com.mozhimen.basick.utilk.kotlin.UtilKString
  * @Date 2022/6/13 13:44
  * @Version 1.0
  */
-fun <A : Annotation> Activity.getAnnotation(annotationClazz: Class<A>): A? =
-    UtilKActivity.getAnnotation(this, annotationClazz)
-
-fun <V : View> Activity.getContentView(): V =
-    UtilKActivity.getContentView(this)
-
-//////////////////////////////////////////////////////////////////////////////////////////
-
-fun Activity.isFinishingOrDestroyed(): Boolean =
-    UtilKActivity.isFinishingOrDestroyed(this)
-
-//////////////////////////////////////////////////////////////////////////////////////////
-
 object UtilKActivity : IUtilK {
-    /**
-     * 判断context是否是Activity 这里注意一定要再Application中加入StackK并初始化
-     * @param context Context
-     * @param returnTopIfNull Boolean
-     * @return Activity?
-     */
-    @OptIn(OApiInit_InApplication::class)
-    @OApiUse_BaseApplication
-    @JvmStatic
-    fun getByContext(context: Context, returnTopIfNull: Boolean = false): Activity? {
-        var tempContext = context
-        if (tempContext is Activity) return tempContext
-        var tryCount = 0
-        while (tempContext is ContextWrapper) {
-            if (tempContext is Activity) return tempContext
-            if (tryCount > 20) {
-                break
-            }
-            tempContext = tempContext.baseContext
-            tryCount++
-        }
-        return if (returnTopIfNull) StackKCb.instance.getStackTopActivity() else null
-    }
-
-    /**
-     * 根据View获取Activity
-     * @param view View
-     * @return Activity?
-     */
-    @OApiUse_BaseApplication
-    @JvmStatic
-    fun getByView(view: View): Activity? =
-        getByContext(view.context)
-
-    /**
-     * 寻找Activity从Obj
-     * @param obj Any
-     * @param returnTopIfNull Boolean
-     * @return Activity?
-     */
-    @OApiUse_BaseApplication
-    @OptIn(OApiInit_InApplication::class)
-    @JvmStatic
-    fun getByObj(obj: Any, returnTopIfNull: Boolean = false): Activity? {
-        var activity: Activity? = null
-        when (obj) {
-            is Context -> activity = getByContext(obj, true)
-            is Fragment -> activity = obj.activity
-            is Dialog -> activity = getByContext(obj.context, true)
-        }
-        if (activity == null && returnTopIfNull) {
-            activity = StackKCb.instance.getStackTopActivity()
-        }
-        return activity
-    }
-
-    /**
-     * 获取启动Activity
-     * @param strPackageName String
-     * @return String?
-     */
-    @JvmStatic
-    @OPermission_QUERY_ALL_PACKAGES
-    @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
-    fun getLauncherActivityName(context: Context, strPackageName: String): String {
-        if (UtilKString.hasSpace(strPackageName) || strPackageName.isEmpty()) return ""
-        val resolveInfos = UtilKPackageManager.queryIntentActivities(context, UtilKIntentWrapper.getMainLauncher(strPackageName, null), 0)
-        return if (resolveInfos.isEmpty()) "" else resolveInfos[0].activityInfo.name
-    }
-
-    /////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun <A : Annotation> getAnnotation(activity: Activity, annotationClazz: Class<A>): A? =
-        UtilKClazz.getAnnotation(activity.javaClass, annotationClazz)
 
     @JvmStatic
     fun getCurrentFocus(activity: Activity): View? =
         activity.currentFocus
 
-    @RequiresApi(CVersCode.V_30_11_R)
     @JvmStatic
+    @RequiresApi(CVersCode.V_30_11_R)
     fun getDisplay(activity: Activity): Display =
         activity.display!!
 
@@ -136,47 +30,15 @@ object UtilKActivity : IUtilK {
     fun getWindowManager(activity: Activity): WindowManager =
         activity.windowManager
 
-    @JvmStatic
-    fun <V : View> getContentView(activity: Activity): V =
-        UtilKContentView.get(activity)
-
-    /**
-     * 获取View绘制区域TOP高度
-     * 注: 在Activity的回调方法onWindowFocusChanged()执行后,才能得到预期结果
-     * @param activity Activity
-     * @return Int
-     */
-    @JvmStatic
-    fun getViewDrawHeight(activity: Activity): Int =
-        UtilKWindow.getContentViewOfWindow<View>(activity).top
-
     //////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun isFinishingOrDestroyed(activity: Activity): Boolean =
-        (isFinishing(activity) || isDestroyed(activity)).also { Log.d(TAG, "isFinishingOrDestroyed: activity $activity $it") }
-
-    /**
-     * 判断Activity是否被销毁
-     * @param context Context
-     * @return Boolean
-     */
-    @OApiUse_BaseApplication
-    @JvmStatic
-    fun isDestroyed(context: Context): Boolean {
-        val activity: Activity? = getByContext(context)
-        return if (activity != null) isDestroyed(activity) else true
-    }
-
-    @JvmStatic
     fun isFinishing(activity: Activity): Boolean =
-        activity.isFinishing.also { Log.d(TAG, "isFinishing: activity $activity $it") }
+        activity.isFinishing
 
     @JvmStatic
     fun isDestroyed(activity: Activity): Boolean =
-        (if (UtilKBuildVersion.isAfterV_17_42_J1())
-            activity.isDestroyed || isFinishing(activity)
-        else isFinishing(activity)).also { Log.d(TAG, "isDestroyed: activity $activity $it") }
+        activity.isDestroyed
 
     //////////////////////////////////////////////////////////////////////////////////////////
 

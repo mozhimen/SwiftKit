@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import androidx.annotation.LayoutRes
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.view.HapticOnTouchCallback
@@ -21,9 +22,9 @@ import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.android.app.UtilKActivity
+import com.mozhimen.basick.utilk.android.app.UtilKActivityWrapper
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
+import com.mozhimen.basick.utilk.android.util.UtilKLongLogWrapper
 import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.kotlin.UtilKAny
@@ -42,6 +43,11 @@ import kotlinx.coroutines.flow.onEach
  * @Date 2022/2/27 16:50
  * @Version 1.0
  */
+fun ViewGroup.get_ofInflate(@LayoutRes layoutId: Int): View =
+    UtilKView.get_ofInflate(this, layoutId)
+
+//////////////////////////////////////////////////////////////////////////////
+
 fun View.isVisible(): Boolean =
     UtilKView.isVisible(this)
 
@@ -135,7 +141,11 @@ fun View.applySuspendDebounceClickListener(scope: CoroutineScope, thresholdMilli
 //////////////////////////////////////////////////////////////////////////////
 
 object UtilKView : BaseUtilK() {
+    @JvmStatic
+    fun get_ofInflate(viewGroup: ViewGroup, @LayoutRes layoutId: Int): View =
+        LayoutInflater.from(viewGroup.context).inflate(layoutId, viewGroup, false)
 
+    //////////////////////////////////////////////////////////////////////////
     @JvmStatic
     fun getLongTag(view: View, key: Int, defaultValue: Long): Long =
         if (view.getTag(key) != null) view.getTag(key) as Long else defaultValue
@@ -205,12 +215,12 @@ object UtilKView : BaseUtilK() {
     @JvmStatic
     fun getBitmapForViewBackground(view: View, scaledRatio: Float, fullScreen: Boolean, cutoutX: Int, cutoutY: Int): Bitmap? {
         if (view.width <= 0 || view.height <= 0) {
-            UtilKLogWrapper.e("getViewBitmap  >>  宽或者高为空")
+            UtilKLongLogWrapper.e("getViewBitmap  >>  宽或者高为空")
             return null
         }
         val statusBarHeight = UtilKStatusBar.getHeight(false)
         var tempBitmap: Bitmap
-        UtilKLogWrapper.i("getViewBitmap 模糊原始图像分辨率 [" + view.width + " x " + view.height + "]")
+        UtilKLongLogWrapper.i("getViewBitmap 模糊原始图像分辨率 [" + view.width + " x " + view.height + "]")
         tempBitmap = try {
             Bitmap.createBitmap((view.width * scaledRatio).toInt(), (view.height * scaledRatio).toInt(), Bitmap.Config.ARGB_8888)
         } catch (error: OutOfMemoryError) {
@@ -236,7 +246,7 @@ object UtilKView : BaseUtilK() {
             }
         }
         view.draw(canvas)
-        UtilKLogWrapper.i("getViewBitmap 模糊缩放图像分辨率 [" + tempBitmap.width + " x " + tempBitmap.height + "]")
+        UtilKLongLogWrapper.i("getViewBitmap 模糊缩放图像分辨率 [" + tempBitmap.width + " x " + tempBitmap.height + "]")
         if (cutoutX > 0 || cutoutY > 0) {
             try {
                 val cutLeft = (cutoutX * scaledRatio).toInt()
@@ -533,7 +543,7 @@ object UtilKView : BaseUtilK() {
     @JvmStatic
     fun removeViewForParent(view: View): View {
         val viewParent: ViewParent = view.parent
-        if (viewParent is ViewGroup && !UtilKActivity.isDestroyed(view.context)) viewParent.removeView(viewParent)
+        if (viewParent is ViewGroup && !UtilKActivityWrapper.isFinishingOrDestroyed(view.context)) viewParent.removeView(viewParent)
         return view
     }
 }

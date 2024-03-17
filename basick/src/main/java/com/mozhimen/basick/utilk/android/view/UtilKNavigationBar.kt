@@ -13,6 +13,7 @@ import com.mozhimen.basick.elemk.android.view.cons.CView
 import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
 import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
+import com.mozhimen.basick.utilk.android.app.UtilKActivityWrapper
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.content.UtilKResources
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
@@ -35,8 +36,8 @@ object UtilKNavigationBar : BaseUtilK() {
     @OApiUse_BaseApplication
     @JvmStatic
     fun getBounds(rect: Rect, context: Context) {
-        val activity = UtilKActivity.getByContext(context, true)
-        if (activity == null || UtilKActivity.isDestroyed(activity)) return
+        val activity = UtilKActivityWrapper.get(context, true)
+        if (activity == null || UtilKActivityWrapper.isFinishingOrDestroyed(activity)) return
         val decorView = UtilKDecorView.get(activity) as ViewGroup
         val childCount = decorView.childCount
         for (i in childCount - 1 downTo 0) {
@@ -87,7 +88,7 @@ object UtilKNavigationBar : BaseUtilK() {
     @OApiUse_BaseApplication
     @JvmStatic
     fun getHeight(view: View): Int {
-        val activity: Activity? = UtilKActivity.getByView(view)
+        val activity: Activity? = UtilKActivityWrapper.get(view)
         if (activity != null) {
             val usableHeight: Int = UtilKDisplay.getDefSizeY(activity)
             val realHeight: Int = if (UtilKBuildVersion.isAfterV_17_42_J1()) {

@@ -3,7 +3,7 @@ package com.mozhimen.basicktest.stackk
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basick.lintk.optins.OApiInit_InApplication
 import com.mozhimen.basick.stackk.cb.StackKCb
@@ -32,6 +32,6 @@ class StackKCbActivity : BaseActivityVDB<ActivityStackkCbBinding>(), IStackKList
 
     override fun onChanged(isFront: Boolean, activityRef: WeakReference<Activity>?) {
         "App is At Front ?: $isFront".showToast()
-        Log.d(TAG, "App is At Front ?: $isFront")
+        UtilKLogWrapper.dt(TAG, "App is At Front ?: $isFront")
     }
 }

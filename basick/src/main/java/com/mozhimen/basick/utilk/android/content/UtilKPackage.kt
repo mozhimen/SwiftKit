@@ -11,7 +11,6 @@ import com.mozhimen.basick.lintk.optins.permission.OPermission_QUERY_ALL_PACKAGE
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.UtilKStrClazz
-import java.util.Arrays
 
 
 /**
@@ -125,7 +124,7 @@ object UtilKPackage : BaseUtilK() {
     @OPermission_QUERY_ALL_PACKAGES
     @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
     fun hasPackageOfQuery(context: Context, strPackageName: String): Boolean =
-        UtilKPackageManager.queryIntentActivities(context, UtilKIntentWrapper.getMainLauncher(strPackageName), 0).isNotEmpty()
+        UtilKPackageManager.queryIntentActivities(context, UtilKIntentWrapper.getMainLauncher_ofPackage(strPackageName), 0).isNotEmpty()
 
     @JvmStatic
     fun hasPackage(context: Context, strPackageName: String): Boolean =

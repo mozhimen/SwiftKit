@@ -1,8 +1,7 @@
 package com.mozhimen.basick.utilk.java.io
 
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
-import com.mozhimen.basick.lintk.optins.application.OApplication_REQUEST_LEGACY_EXTERNAL_STORAGE
 import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.util.UtilKDate
@@ -10,6 +9,8 @@ import com.mozhimen.basick.utilk.java.util.UtilKZipOutputStream
 import com.mozhimen.basick.utilk.java.util.longDate2strDate
 import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import java.io.File
+import java.io.IOException
+import java.nio.channels.FileChannel
 import java.util.Locale
 import java.util.Vector
 
@@ -193,6 +194,27 @@ object UtilKFile : BaseUtilK() {
         if (!isFileExist(fileSource)) null
         else fileSource.file2fileInputStream().inputStream2file(fileDest, isAppend)
 
+    @JvmStatic
+    fun copyFile_ofFileChannel(fileSource: File, fileDest: File, isAppend: Boolean = false): File? =
+        if (!isFileExist(fileSource)) null
+        else {
+            var channelSource: FileChannel? = null
+            var channelDest: FileChannel? = null
+            try {
+                // 使用文件通道进行文件复制
+                channelSource = fileSource.file2fileInputStream().channel
+                channelDest = fileDest.file2fileOutputStream(isAppend).channel
+                channelDest.transferFrom(channelSource, 0, channelSource.size())
+                fileDest
+            } catch (e: IOException) {
+                e.printStackTrace()
+                null
+            } finally {
+                channelSource?.close()
+                channelDest?.close()
+            }
+        }
+
     /**
      * 压缩文件
      */
@@ -256,7 +278,7 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun createFolder(folder: File): File {
-        if (!isFolderExist(folder)) folder.mkdirs().also { Log.d(TAG, "createFolder: create path ${folder.absolutePath} $it") }
+        if (!isFolderExist(folder)) folder.mkdirs().also { UtilKLogWrapper.dt(TAG, "createFolder: create path ${folder.absolutePath} $it") }
         return folder
     }
 
@@ -276,7 +298,7 @@ object UtilKFile : BaseUtilK() {
                     deleteFile(file)
             }
         }
-        return true.also { Log.d(TAG, "deleteFolder: success") }
+        return true.also { UtilKLogWrapper.dt(TAG, "deleteFolder: success") }
     }
     //endregion
 }

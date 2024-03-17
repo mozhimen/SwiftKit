@@ -17,7 +17,7 @@ object UtilKApk : BaseUtilK() {
 
     @JvmStatic
     fun getPackageArchiveInfoOfActivities(strPathNameApk: String): PackageInfo? =
-        UtilKPackageArchiveInfo.getOfActivities(_context, strPathNameApk)
+        UtilKPackageArchiveInfo.getActivities(_context, strPathNameApk)
 
     @JvmStatic
     fun getApplicationInfo(strPathNameApk: String): ApplicationInfo? =

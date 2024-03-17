@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest.utilk.android
 
 import android.os.Bundle
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
@@ -63,7 +63,7 @@ class UtilKAssetActivity : BaseActivityVDB<ActivityUtilkAssetBinding>() {
 
     private suspend fun addLog(log: String) {
         withContext(Dispatchers.Main) {
-            Log.d(TAG, "addLog: log $log")
+            UtilKLogWrapper.dt(TAG, "addLog: log $log")
             _logs.add(UtilKFileActivity.UtilKFileLogBean(_logs.size, "$log..."))
             _adapterKRecycler.refreshDatas(_logs)
         }

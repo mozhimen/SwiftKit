@@ -54,6 +54,8 @@ inline fun <reified T : Activity> Activity.startActivityForResult(requestCode: I
     UtilKContextStart.startActivityForResult<T>(this, requestCode, block)
 }
 
+/////////////////////////////////////////////////////////////////////////////////
+
 object UtilKContextStart : BaseUtilK() {
     @JvmStatic
     fun startContext(context: Context, intent: Intent) {
@@ -113,13 +115,13 @@ object UtilKContextStart : BaseUtilK() {
     @OPermission_QUERY_ALL_PACKAGES
     @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
     fun startContextByPackageName(context: Context, strPackageName: String): Boolean {
-        val intent = UtilKIntentWrapper.getLauncherForPackageOfComponent(context, strPackageName) ?: return false
+        val intent = UtilKIntentWrapper.getMainLauncher_ofComponent(context, strPackageName) ?: return false
         context.startContext(intent)
         return true
     }
 
     @JvmStatic
     fun startContextByPackageName(context: Context, strPackageName: String, strActivityName: String) {
-        context.startContext(UtilKIntentWrapper.getLauncherForPackageOfComponent(strPackageName, strActivityName))
+        context.startContext(UtilKIntentWrapper.getComponent(strPackageName, strActivityName))
     }
 }

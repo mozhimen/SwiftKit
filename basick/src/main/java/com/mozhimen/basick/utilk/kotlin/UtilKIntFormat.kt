@@ -3,7 +3,7 @@ package com.mozhimen.basick.utilk.kotlin
 import android.text.format.Formatter
 import com.mozhimen.basick.elemk.android.graphics.cons.CImageFormat
 import com.mozhimen.basick.elemk.android.os.cons.CBuild
-import com.mozhimen.basick.elemk.android.util.annors.ALogPriority
+import com.mozhimen.basick.elemk.android.util.annors.ALog
 import com.mozhimen.basick.utilk.java.lang.UtilKCharacter
 
 /**
@@ -86,7 +86,7 @@ object UtilKIntFormat {
         }
 
     @JvmStatic
-    fun intLogPriority2strLogSimple(@ALogPriority priority: Int): String =
+    fun intLogPriority2strLogSimple(@ALog priority: Int): String =
         when (priority) {
             2 -> "V"
             3 -> "D"
@@ -98,7 +98,7 @@ object UtilKIntFormat {
         }
 
     @JvmStatic
-    fun intLogPriority2strLog(@ALogPriority priority: Int): String =
+    fun intLogPriority2strLog(@ALog priority: Int): String =
         when (priority) {
             2 -> "VERBOSE"
             3 -> "DEBUG"

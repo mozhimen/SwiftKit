@@ -2,7 +2,7 @@ package com.mozhimen.basick.taskk.executor
 
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.IntRange
 import com.mozhimen.basick.taskk.executor.commons.ITaskKExecutor
 import com.mozhimen.basick.elemk.java.lang.PriorityRunnable
@@ -70,7 +70,7 @@ object TaskKExecutor : ITaskKExecutor, BaseUtilK() {
             override fun afterExecute(r: Runnable?, t: Throwable?) {
                 //监控线程池耗时任务,线程创建数量,正在运行的数量
                 val runnable = r as PriorityRunnable
-                Log.v(TAG, "afterExecute: the task ${runnable.name} is finished, priority ${runnable.priority}")
+                UtilKLogWrapper.vt(TAG, "afterExecute: the task ${runnable.name} is finished, priority ${runnable.priority}")
             }
         }
     }
@@ -102,7 +102,7 @@ object TaskKExecutor : ITaskKExecutor, BaseUtilK() {
         _reentrantLock.lock()
         try {
             _isPaused = true
-            Log.w(TAG, "executork is paused")
+            UtilKLogWrapper.wt(TAG, "executork is paused")
         } finally {
             _reentrantLock.unlock()
         }
@@ -114,7 +114,7 @@ object TaskKExecutor : ITaskKExecutor, BaseUtilK() {
         try {
             _isPaused = false
             _pauseCondition.signalAll()
-            Log.w(TAG, "executork is resumed")
+            UtilKLogWrapper.wt(TAG, "executork is resumed")
         } finally {
             _reentrantLock.unlock()
         }
@@ -127,7 +127,7 @@ object TaskKExecutor : ITaskKExecutor, BaseUtilK() {
             if (!_threadPoolExecutor.isShutdown) {
                 _threadPoolExecutor.shutdown()
             }
-            Log.w(TAG, "executork is shutdown")
+            UtilKLogWrapper.wt(TAG, "executork is shutdown")
         } finally {
             _reentrantLock.unlock()
         }

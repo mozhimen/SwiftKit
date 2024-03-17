@@ -1,15 +1,10 @@
 package com.mozhimen.basick.utilk.android.view
 
 import android.app.Activity
-import android.graphics.Rect
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import com.mozhimen.basick.elemk.android.view.cons.CView
-import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import kotlin.math.abs
 
 /**
  * @ClassName UtilKContentView
@@ -21,46 +16,40 @@ import kotlin.math.abs
 object UtilKContentView : BaseUtilK() {
 
     @JvmStatic
-    fun <V : View> get(activity: Activity): V =
-        get(activity.window)
+    fun <V : View> getPac(window: Window): V =
+        UtilKWindow.getContentView_ofPackage(window)
 
     @JvmStatic
-    fun <V : View> get(window: Window): V =
-        UtilKWindow.getContentView(window)
+    fun <V : View> getPac(activity: Activity): V =
+        getPac(activity.window)
 
     @JvmStatic
-    fun getAsViewGroup(activity: Activity): ViewGroup =
-        get(activity.window)
+    fun <V : View> getWin(window: Window): V =
+        UtilKWindow.getContentView_ofWindow(window)
 
     @JvmStatic
-    fun getAsViewGroup(window: Window): ViewGroup =
-        get(window)
+    fun <V : View> getWin(activity: Activity): V =
+        getWin(activity.window)
+
+    @JvmStatic
+    fun getPacAsViewGroup(activity: Activity): ViewGroup =
+        getPac(activity.window)
+
+    @JvmStatic
+    fun getPacAsViewGroup(window: Window): ViewGroup =
+        getPac(window)
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun getTag(window: Window, tag: Int): Any? =
-        get<View>(window).getTag(tag)
+    fun getPacTag(window: Window, tag: Int): Any? =
+        getPac<View>(window).getTag(tag)
 
     @JvmStatic
-    fun getChild0(activity: Activity): View? =
-        getChild0(activity.window)
+    fun getPacChild0(window: Window): View? =
+        getPacAsViewGroup(window).getChildAt(0)
 
     @JvmStatic
-    fun getChild0(window: Window): View? =
-        getAsViewGroup(window).getChildAt(0)
-
-    @JvmStatic
-    fun getInvisibleHeight(activity: Activity): Int =
-        getInvisibleHeight(UtilKWindow.get(activity))
-
-    @JvmStatic
-    fun getInvisibleHeight(window: Window): Int {
-        val contentView = get<View>(window)
-        val outRect = Rect()
-        UtilKView.getWindowVisibleDisplayFrame(contentView, outRect)
-        Log.d(TAG, "getInvisibleHeight: " + (contentView.bottom - outRect.bottom))
-        val delta = abs(contentView.bottom - outRect.bottom)
-        return if (delta <= UtilKStatusBar.getHeight() + UtilKNavigationBar.getHeight()) 0 else delta
-    }
+    fun getPacChild0(activity: Activity): View? =
+        getPacChild0(activity.window)
 }

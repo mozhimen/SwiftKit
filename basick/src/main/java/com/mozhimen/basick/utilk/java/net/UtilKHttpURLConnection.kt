@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.java.net
 
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.WorkerThread
 import com.mozhimen.basick.elemk.javax.net.bases.BaseHostnameVerifier
 import com.mozhimen.basick.lintk.optins.application.OApplication_USES_CLEAR_TEXT_TRAFFIC
@@ -66,14 +66,14 @@ object UtilKHttpURLConnection : IUtilK {
         val strUrl = "https://whois.pconline.com.cn/ipJson.jsp?json=true"
         try {
             val result = requestGet(strUrl, null, 30000, 30000)
-            Log.d(TAG, "getStrIP result：$result")
+            UtilKLogWrapper.dt(TAG, "getStrIP result：$result")
             val jsonObject = JSONObject(result)
             ipAddress = jsonObject.getString("ip")
         } catch (e: Exception) {
             e.printStackTrace()
-            Log.e(TAG, "getStrIP 获取IP地址时出现异常, 异常信息是：$e")
+            UtilKLogWrapper.et(TAG, "getStrIP 获取IP地址时出现异常, 异常信息是：$e")
         }
-        return ipAddress.also { Log.d(TAG, "getStrIP $ipAddress") }
+        return ipAddress.also { UtilKLogWrapper.dt(TAG, "getStrIP $ipAddress") }
     }
 
     @JvmStatic

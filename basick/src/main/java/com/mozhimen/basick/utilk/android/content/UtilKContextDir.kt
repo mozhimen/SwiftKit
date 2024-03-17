@@ -4,8 +4,6 @@ import android.content.Context
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CEnvironment
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
-import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_EXTERNAL_STORAGE
-import com.mozhimen.basick.lintk.optins.permission.OPermission_WRITE_EXTERNAL_STORAGE
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.kotlin.strFilePath2file
 import java.io.File
@@ -38,7 +36,7 @@ object UtilKContextDir {
         @JvmStatic
         fun getDataDir(context: Context): File =
             if (UtilKBuildVersion.isAfterV_24_7_N()) UtilKContext.getDataDir(context)
-            else UtilKApplicationInfo.getOfPackageInfo(context)!!.dataDir.strFilePath2file()
+            else UtilKApplicationInfo.getPackInfo(context)!!.dataDir.strFilePath2file()
 
         @JvmStatic
         fun getObbDir(context: Context): File =

@@ -3,7 +3,7 @@ package com.mozhimen.basick.elemk.android.content.bases
 import android.annotation.TargetApi
 import android.content.Context
 import android.content.Intent
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
@@ -53,20 +53,20 @@ open class BasePackageBroadcastReceiver : BaseBroadcastReceiver {
         val strPackageName = intent.dataString
         when (intent.action) {
             CIntent.ACTION_PACKAGE_REPLACED -> {
-                Log.w(TAG, "onReceiveInstall: update one apk, restart program soon strPackageName $strPackageName // package:${UtilKContext.getPackageName(context)}")
+                UtilKLogWrapper.wt(TAG, "onReceiveInstall: update one apk, restart program soon strPackageName $strPackageName // package:${UtilKContext.getPackageName(context)}")
                 if (strPackageName == "package:${UtilKContext.getPackageName(context)}") {
                     UtilKApp.restartApp(isKillProcess = true, context = context)
                 } else {
-                    Log.w(TAG, "onReceiveInstall: strPackageName is different")
+                    UtilKLogWrapper.wt(TAG, "onReceiveInstall: strPackageName is different")
                 }
             }
 
             CIntent.ACTION_PACKAGE_ADDED -> {
-                Log.w(TAG, "onReceiveInstall: install one apk $strPackageName")
+                UtilKLogWrapper.wt(TAG, "onReceiveInstall: install one apk $strPackageName")
             }
 
             CIntent.ACTION_PACKAGE_REMOVED -> {
-                Log.w(TAG, "onReceiveInstall: uninstall one apk $strPackageName")
+                UtilKLogWrapper.wt(TAG, "onReceiveInstall: uninstall one apk $strPackageName")
             }
         }
     }

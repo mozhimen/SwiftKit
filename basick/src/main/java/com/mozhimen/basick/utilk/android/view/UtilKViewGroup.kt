@@ -1,11 +1,9 @@
 package com.mozhimen.basick.utilk.android.view
 
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.utilk.androidx.recyclerview.isScroll2top
 import com.mozhimen.basick.utilk.commons.IUtilK
@@ -19,13 +17,9 @@ import java.util.Deque
  * @Date 2022/2/22 22:30
  * @Version 1.0
  */
-fun ViewGroup.getViewOfInflate(@LayoutRes layoutId: Int): View =
-    UtilKViewGroup.getViewOfInflate(this, layoutId)
-
-fun ViewGroup.applyAddViewMatchParent(view: View) {
-    UtilKViewGroup.applyAddViewMatchParent(this, view)
+fun ViewGroup.addViewMatchParent(view: View) {
+    UtilKViewGroup.addViewMatchParent(this, view)
 }
-
 
 object UtilKViewGroup : IUtilK {
 
@@ -33,7 +27,7 @@ object UtilKViewGroup : IUtilK {
      * 查找可以滚动的child
      */
     @JvmStatic
-    fun getChildScrollable(viewGroup: ViewGroup): View {
+    fun getChildView_ofScrollable(viewGroup: ViewGroup): View {
         var child = viewGroup.getChildAt(1)
         if (child is RecyclerView || child is AdapterView<*>)
             return child
@@ -45,9 +39,6 @@ object UtilKViewGroup : IUtilK {
         return child
     }
 
-    @JvmStatic
-    fun getViewOfInflate(viewGroup: ViewGroup, @LayoutRes layoutId: Int): View =
-        LayoutInflater.from(viewGroup.context).inflate(layoutId, viewGroup, false)
 
     /**
      * 获取指定类型的子View
@@ -56,7 +47,7 @@ object UtilKViewGroup : IUtilK {
      * @return T?
      */
     @JvmStatic
-    fun <T> getChildViewForType(viewGroup: ViewGroup, clazz: Class<T>): T? {
+    fun <T> getChildView_ofType(viewGroup: ViewGroup, clazz: Class<T>): T? {
         val viewDeque: Deque<View> = ArrayDeque()
         viewDeque.add(viewGroup)
         while (!viewDeque.isEmpty()) {
@@ -76,7 +67,7 @@ object UtilKViewGroup : IUtilK {
     }
 
     @JvmStatic
-    fun getAllChildViews(viewGroup: ViewGroup): List<View> {
+    fun getChildViews(viewGroup: ViewGroup): List<View> {
         val viewDeque: Deque<View> = ArrayDeque()
         viewDeque.add(viewGroup)
         val views = mutableListOf<View>()
@@ -100,7 +91,7 @@ object UtilKViewGroup : IUtilK {
      * 判断child是否发生了滚动
      */
     @JvmStatic
-    fun isChildScrolled(viewGroup: ViewGroup): Boolean {
+    fun isChildViewScrolled(viewGroup: ViewGroup): Boolean {
         if (viewGroup is AdapterView<*>) {
             if (viewGroup.firstVisiblePosition != 0 || viewGroup.firstVisiblePosition == 0 && viewGroup.getChildAt(0) != null && viewGroup.getChildAt(0).top < 0)
                 return true
@@ -116,11 +107,11 @@ object UtilKViewGroup : IUtilK {
     //////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun applyAddViewMatchParent(viewGroup: ViewGroup, view: View) {
+    fun addViewMatchParent(viewGroup: ViewGroup, view: View) {
         if (view.parent == null) {
             viewGroup.addView(view, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
         } else {
-            Log.e(TAG, "applyAddViewMatchParent: ")
+            Log.e(TAG, "addViewMatchParent: ")
         }
     }
 }

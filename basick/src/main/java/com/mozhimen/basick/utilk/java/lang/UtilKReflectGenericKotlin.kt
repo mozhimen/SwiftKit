@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.java.lang
 
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.elemk.java.lang.bases.BaseGeneric
 import com.mozhimen.basick.utilk.commons.IUtilK
 import java.lang.reflect.ParameterizedType
@@ -62,7 +62,7 @@ object UtilKReflectGenericKotlin : IUtilK {
                 if (this.isNotEmpty()) {
                     for (clz in this) {
                         if (tClazz.isAssignableFrom(clz)){
-                            Log.v(TAG, "getParentGenericTypeByT: clz $clz")
+                            UtilKLogWrapper.vt(TAG, "getParentGenericTypeByT: clz $clz")
                             return clz
                         }
                     }

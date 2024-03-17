@@ -1,7 +1,7 @@
 package com.mozhimen.basick.elemk.android.view
 
 import android.app.Activity
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import android.view.OrientationEventListener
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.elemk.android.hardware.cons.CSensorManager
@@ -57,10 +57,10 @@ class ScreenOrientationOfSensorProxy<A>(private val _activity: A) : BaseWakeBefD
 
     private fun startObserveScreen() {
         disableOrientationListener()
-        Log.d(TAG, "startObserveScreen: ")
+        UtilKLogWrapper.dt(TAG, "startObserveScreen: ")
         _orientationEventListener = object : OrientationEventListener(_activity, CSensorManager.SENSOR_DELAY_NORMAL) {
             override fun onOrientationChanged(orientation: Int) {
-//                    Log.v(TAG, "startObserveScreen: onOrientationChanged " + orientation);
+//                    UtilKLog.vt(TAG, "startObserveScreen: onOrientationChanged " + orientation);
                 if (orientation == ORIENTATION_UNKNOWN) return  //手机平放时，检测不到有效的角度
                 _screenOrientationChangedListener?.onDegreeChanged(orientation)
 
@@ -76,16 +76,16 @@ class ScreenOrientationOfSensorProxy<A>(private val _activity: A) : BaseWakeBefD
             }
         }
         if (_orientationEventListener!!.canDetectOrientation()) {
-            Log.v(TAG, "startObserveScreen: Can detect orientation")
+            UtilKLogWrapper.vt(TAG, "startObserveScreen: Can detect orientation")
             _orientationEventListener!!.enable()
         } else {
-            Log.v(TAG, "startObserveScreen: Cannot detect orientation")
+            UtilKLogWrapper.vt(TAG, "startObserveScreen: Cannot detect orientation")
             disableOrientationListener()
         }
     }
 
     private fun disableOrientationListener() {
-        Log.d(TAG, "disableOrientationListener: ")
+        UtilKLogWrapper.dt(TAG, "disableOrientationListener: ")
         if (_orientationEventListener != null) {
             _orientationEventListener!!.disable()
             _orientationEventListener = null

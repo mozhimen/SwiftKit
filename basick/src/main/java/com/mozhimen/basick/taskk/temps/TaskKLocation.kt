@@ -1,6 +1,6 @@
 package com.mozhimen.basick.taskk.temps
 
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.commons.ISuspendAA_Listener
 import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
@@ -46,12 +46,12 @@ class TaskKLocation : TaskKPollInfinite() {
     @OPermission_ACCESS_COARSE_LOCATION
     fun startLocationTask(intervalMillis: Long, minTimeMs: Long = 2000, minDistanceM: Float = 5f, task: ISuspendAA_Listener<Double>? = null) {
         if (!UtilKLocation.hasPermission()) {
-            Log.w(TAG, "startLocationTask: dont hasPermission")
+            UtilKLogWrapper.wt(TAG, "startLocationTask: dont hasPermission")
             return
         }
         start(intervalMillis, Dispatchers.Main) {
             val location = UtilKLocation.get_Longitude_Latitude(minTimeMs, minDistanceM)
-            Log.d(TAG, "startLocationTask: location ${location?.first} ${location?.second}")
+            UtilKLogWrapper.dt(TAG, "startLocationTask: location ${location?.first} ${location?.second}")
             location?.let {
                 _longitude = location.first
                 _latitude = location.second

@@ -3,7 +3,7 @@ package com.mozhimen.basick.utilk.android.content
 import android.content.Context
 import android.content.Intent
 import android.os.Process
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.lintk.optins.permission.OPermission_QUERY_ALL_PACKAGES
@@ -44,8 +44,8 @@ object UtilKApp : BaseUtilK() {
     @OPermission_QUERY_ALL_PACKAGES
     @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
     fun restartApp(isKillProcess: Boolean, isValid: Boolean = true, context: Context = _context) {
-        val intent: Intent = UtilKIntentWrapper.getLauncherForPackageOfQuery(context, UtilKContext.getPackageName(context)) ?: run {
-            Log.e(TAG, "didn't exist launcher activity.");return
+        val intent: Intent = UtilKIntentWrapper.getMainLauncher_ofPackageManger(context, UtilKContext.getPackageName(context)) ?: run {
+            UtilKLogWrapper.et(TAG, "didn't exist launcher activity.");return
         }
         intent.addFlags(CIntent.FLAG_ACTIVITY_CLEAR_TOP or CIntent.FLAG_ACTIVITY_CLEAR_TASK)
         context.startContext(intent)

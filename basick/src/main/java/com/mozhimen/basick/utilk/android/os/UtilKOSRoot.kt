@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.android.os
 
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.elemk.cons.CPath
 import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_EXTERNAL_STORAGE
 import com.mozhimen.basick.utilk.android.util.et
@@ -33,7 +33,7 @@ object UtilKOSRoot : IUtilK {
                 e.printStackTrace()
                 e.message?.et(TAG)
                 false
-            }.also { Log.d(TAG, "isRoot: $it") }
+            }.also { UtilKLogWrapper.dt(TAG, "isRoot: $it") }
 
     /**
      * 是否存在su命令，并且有执行权限
@@ -51,9 +51,9 @@ object UtilKOSRoot : IUtilK {
         for (path in strFilePaths) {
             file = path.strFilePath2file()
             if (UtilKFile.isFileExist(file) && file.canExecute())
-                return true.also { Log.d(TAG, "isSuAvailable: $it") }
+                return true.also { UtilKLogWrapper.dt(TAG, "isSuAvailable: $it") }
         }
-        return false.also { Log.d(TAG, "isSuAvailable: $it") }
+        return false.also { UtilKLogWrapper.dt(TAG, "isSuAvailable: $it") }
     }
 
     /**
@@ -72,9 +72,9 @@ object UtilKOSRoot : IUtilK {
         for (path in strFilePaths) {
             file = path.strFilePath2file()
             if (file.exists() && file.canExecute())
-                return true.also { Log.d(TAG, "isBusyboxAvailable: $it") }
+                return true.also { UtilKLogWrapper.dt(TAG, "isBusyboxAvailable: $it") }
         }
-        return false.also { Log.d(TAG, "isBusyboxAvailable: $it") }
+        return false.also { UtilKLogWrapper.dt(TAG, "isBusyboxAvailable: $it") }
     }
 
     /**
@@ -90,12 +90,12 @@ object UtilKOSRoot : IUtilK {
      */
     @JvmStatic
     fun hasSuperuserApk(): Boolean =
-            UtilKFile.isFileExist(File("/system/app/Superuser.apk")).also { Log.d(TAG, "hasSuperuserApk: $it") }
+            UtilKFile.isFileExist(File("/system/app/Superuser.apk")).also { UtilKLogWrapper.dt(TAG, "hasSuperuserApk: $it") }
 
     /**
      * 系统是否是非官方发布版
      */
     @JvmStatic
     fun isSystemBeta(): Boolean =
-            UtilKBuild.getTags() != null && UtilKBuild.getTags()!!.contains("test-keys").also { Log.d(TAG, "isSystemBeta: $it") }
+            UtilKBuild.getTags() != null && UtilKBuild.getTags()!!.contains("test-keys").also { UtilKLogWrapper.dt(TAG, "isSystemBeta: $it") }
 }

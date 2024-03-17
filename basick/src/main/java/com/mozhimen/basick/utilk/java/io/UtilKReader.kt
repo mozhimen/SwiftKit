@@ -93,7 +93,7 @@ object UtilKReader : BaseUtilK() {
             val strLine: String = bufferedReader.readLine() // 读取mem info第一行，系统总内存大小
             val strs: Array<String> = strLine.split("\\s+".toRegex()).toTypedArray()
             /*for (num in strs)
-                Log.e(strLine, num + "\t")*/
+                UtilKLog.et(strLine, num + "\t")*/
             val memorySize: Long = (Integer.valueOf(strs[1]).toInt() * 1024).toLong() // 获得系统总内存，单位是KB，乘以1024转换为Byte
             return memorySize.formatFileSize() // Byte转换为KB或者MB，内存大小规格化
         } catch (e: IOException) {

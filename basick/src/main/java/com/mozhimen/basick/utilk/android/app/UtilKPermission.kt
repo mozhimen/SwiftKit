@@ -1,14 +1,10 @@
 package com.mozhimen.basick.utilk.android.app
 
-import android.annotation.SuppressLint
-import android.annotation.TargetApi
 import android.provider.Settings
 import android.text.TextUtils
-import android.util.Log
-import androidx.annotation.RequiresApi
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.lintk.annors.ADescription
-import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.provider.cons.CSettings
 import com.mozhimen.basick.lintk.optins.permission.OPermission_MANAGE_EXTERNAL_STORAGE
 import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_EXTERNAL_STORAGE
@@ -22,7 +18,6 @@ import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.os.UtilKEnvironment
-import com.mozhimen.basick.utilk.android.os.isBeforeVersion
 import com.mozhimen.basick.utilk.android.provider.UtilKSettings
 import com.mozhimen.basick.utilk.android.provider.UtilKSettingsSecure
 import com.mozhimen.basick.utilk.android.util.dt
@@ -56,7 +51,7 @@ object UtilKPermission : BaseUtilK() {
 
     @JvmStatic
     fun hasPermission(permission: String): Boolean =
-        UtilKContextCompat.isSelfPermissionGranted(_context, permission).also { Log.d(TAG, "hasPermission: permission $permission is $it") }
+        UtilKContextCompat.isSelfPermissionGranted(_context, permission).also { UtilKLogWrapper.dt(TAG, "hasPermission: permission $permission is $it") }
 
     /////////////////////////////////////////////////////////////////////////
 

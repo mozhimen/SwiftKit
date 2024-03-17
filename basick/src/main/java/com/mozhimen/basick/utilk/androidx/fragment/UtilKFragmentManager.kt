@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.androidx.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -77,7 +77,7 @@ object UtilKFragmentManager : IUtilK {
         map.forEach {
             if (it.value != null) {
                 get(fragmentActivity).putFragment(outState, it.key, it.value!!)
-                Log.d(TAG, "onSaveInstanceState: putFragment ${it.key} ${it.value}")
+                UtilKLogWrapper.dt(TAG, "onSaveInstanceState: putFragment ${it.key} ${it.value}")
             }
         }
     }
@@ -89,6 +89,6 @@ object UtilKFragmentManager : IUtilK {
         fragmentName.forEach {
             map[it] = get(fragmentActivity).getFragment(outState, it)
         }
-        return map.also { Log.d(TAG, "onRestoreInstanceState: getFragment $it") }
+        return map.also { UtilKLogWrapper.dt(TAG, "onRestoreInstanceState: getFragment $it") }
     }
 }

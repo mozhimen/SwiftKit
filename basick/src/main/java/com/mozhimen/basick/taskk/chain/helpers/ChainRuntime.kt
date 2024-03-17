@@ -1,7 +1,7 @@
 package com.mozhimen.basick.taskk.chain.helpers
 
 import android.text.TextUtils
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.BuildConfig
 import com.mozhimen.basick.elemk.android.os.bases.BaseWeakRefMainHandler
 import com.mozhimen.basick.taskk.chain.bases.BaseChainTask
@@ -205,7 +205,7 @@ internal object ChainRuntime : BaseUtilK(), IChainRuntime {
                     builder.append(iterator.next().id)
                     builder.append("--> ")
                 }
-                Log.e(TAG, "innerTraversalDependencyTreeAndInit builder $builder")
+                UtilKLogWrapper.et(TAG, "innerTraversalDependencyTreeAndInit builder $builder")
             }
             innerTraversalDependencyTreeAndInit(behindTask, traversalVisitor)
             traversalVisitor.remove(behindTask)

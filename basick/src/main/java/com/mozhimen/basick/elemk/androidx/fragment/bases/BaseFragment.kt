@@ -2,7 +2,7 @@ package com.mozhimen.basick.elemk.androidx.fragment.bases
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.utilk.commons.IUtilK
@@ -17,51 +17,51 @@ import com.mozhimen.basick.utilk.commons.IUtilK
 open class BaseFragment : Fragment(), IUtilK {
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Log.v(TAG, "onAttach")
+        UtilKLogWrapper.vt(TAG, "onAttach")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.v(TAG, "onCreate")
+        UtilKLogWrapper.vt(TAG, "onCreate")
     }
 
     override fun onStart() {
         super.onStart()
-        Log.v(TAG, "onStart")
+        UtilKLogWrapper.vt(TAG, "onStart")
     }
 
     override fun onResume() {
         super.onResume()
-        Log.v(TAG, "onResume")
+        UtilKLogWrapper.vt(TAG, "onResume")
     }
 
     override fun onPause() {
-        Log.v(TAG, "onPause")
+        UtilKLogWrapper.vt(TAG, "onPause")
         super.onPause()
     }
 
     override fun onStop() {
-        Log.v(TAG, "onStop")
+        UtilKLogWrapper.vt(TAG, "onStop")
         super.onStop()
     }
 
     override fun onDestroyView() {
-        Log.d(TAG, "onDestroyView: ")
+        UtilKLogWrapper.dt(TAG, "onDestroyView: ")
         super.onDestroyView()
     }
 
     override fun onDestroy() {
-        Log.v(TAG, "onDestroy")
+        UtilKLogWrapper.vt(TAG, "onDestroy")
         super.onDestroy()
     }
 
     override fun onDetach() {
-        Log.v(TAG, "onDetach")
+        UtilKLogWrapper.vt(TAG, "onDetach")
         super.onDetach()
     }
 
     @CallSuper
     override fun onHiddenChanged(hidden: Boolean) {
-        Log.v(TAG, "onHiddenChanged: hidden $hidden")
+        UtilKLogWrapper.vt(TAG, "onHiddenChanged: hidden $hidden")
     }
 }

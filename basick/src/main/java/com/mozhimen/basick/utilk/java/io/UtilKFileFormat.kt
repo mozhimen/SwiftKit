@@ -3,7 +3,7 @@ package com.mozhimen.basick.utilk.java.io
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.utilk.android.content.UtilKContentResolverWrapper
@@ -77,7 +77,7 @@ object UtilKFileFormat : BaseUtilK() {
     @JvmStatic
     fun file2uriImage(file: File): Uri? {
         if (!UtilKFile.isFileExist(file)) {
-            Log.e(TAG, "file2imageUri: file isFileExist false")
+            UtilKLogWrapper.et(TAG, "file2imageUri: file isFileExist false")
             return null
         }
         return if (UtilKBuildVersion.isAfterV_29_10_Q()) {
@@ -89,11 +89,11 @@ object UtilKFileFormat : BaseUtilK() {
     @ADescription(CIntent.FLAG_GRANT_READ_URI_PERMISSION.toString(), CIntent.FLAG_GRANT_WRITE_URI_PERMISSION.toString())
     fun file2uri(file: File): Uri? {
         if (!UtilKFile.isFileExist(file)) {
-            Log.e(TAG, "file2Uri: file ${file.absolutePath} isFileExist false")
+            UtilKLogWrapper.et(TAG, "file2Uri: file ${file.absolutePath} isFileExist false")
             return null
         }
         return if (UtilKBuildVersion.isAfterV_24_7_N()) {
-            val authority = "${UtilKPackage.getPackageName()}.fileProvider".also { Log.d(TAG, "file2Uri: authority $it") }
+            val authority = "${UtilKPackage.getPackageName()}.fileProvider".also { UtilKLogWrapper.dt(TAG, "file2Uri: authority $it") }
             UtilKFileProvider.getUriForFile(_context, authority, file).also {
                 UtilKContext.grantUriPermission(_context, it, CIntent.FLAG_GRANT_READ_URI_PERMISSION)
             }

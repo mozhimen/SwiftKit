@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.elemk.android.content.cons.CPackageInfo
 import com.mozhimen.basick.elemk.android.content.cons.CPackageManager
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
@@ -24,7 +24,7 @@ fun PackageInfo.getVersionCode(): Int =
 object UtilKPackageInfo : BaseUtilK() {
     @JvmStatic
     fun get(context: Context): PackageInfo? =
-        getOfInstallLocationAuto(context)
+        get_ofInstallLocationAuto(context)
 
     @JvmStatic
     fun get(context: Context, flags: Int): PackageInfo? =
@@ -35,11 +35,11 @@ object UtilKPackageInfo : BaseUtilK() {
         UtilKPackageManager.getPackageInfo(context, strPackageName, flags)
 
     @JvmStatic
-    fun getOfInstallLocationAuto(context: Context): PackageInfo? =
+    fun get_ofInstallLocationAuto(context: Context): PackageInfo? =
         get(context, CPackageInfo.INSTALL_LOCATION_AUTO)
 
     @JvmStatic
-    fun getOfGetConfigurations(context: Context): PackageInfo? =
+    fun get_ofGetConfigurations(context: Context): PackageInfo? =
         get(context, CPackageManager.GET_CONFIGURATIONS)
 
     @JvmStatic
@@ -77,7 +77,7 @@ object UtilKPackageInfo : BaseUtilK() {
             packageInfo.versionName ?: ""
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
-            Log.e(TAG, "getVersionName: NameNotFoundException ${e.message}")
+            UtilKLogWrapper.et(TAG, "getVersionName: NameNotFoundException ${e.message}")
             ""
         }
 
@@ -97,7 +97,7 @@ object UtilKPackageInfo : BaseUtilK() {
             else packageInfo.versionCode
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
-            Log.e(TAG, "getVersionCode: NameNotFoundException ${e.message}")
+            UtilKLogWrapper.et(TAG, "getVersionCode: NameNotFoundException ${e.message}")
             0
         }
 

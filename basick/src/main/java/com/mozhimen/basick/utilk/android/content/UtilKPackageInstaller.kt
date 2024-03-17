@@ -4,7 +4,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInstaller
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.app.cons.CPendingIntent
@@ -57,10 +57,10 @@ object UtilKPackageInstaller : BaseUtilK() {
         try {
             session = openSession(packageInstaller,sessionId)
             session.commit(PendingIntent.getBroadcast(_context, 1, Intent(_context, receiverClazz), CPendingIntent.FLAG_UPDATE_CURRENT).intentSender)
-            Log.d(TAG, "commitSession begin")
+            UtilKLogWrapper.dt(TAG, "commitSession begin")
         } catch (e: Exception) {
             e.printStackTrace()
-            Log.e(TAG, "commitSession: Exception ${e.message}")
+            UtilKLogWrapper.et(TAG, "commitSession: Exception ${e.message}")
         } finally {
             session?.close()
         }

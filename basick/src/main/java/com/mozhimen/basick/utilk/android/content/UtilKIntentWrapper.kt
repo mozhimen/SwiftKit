@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk.android.content
 
-import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -17,7 +16,7 @@ import com.mozhimen.basick.lintk.optins.permission.OPermission_MANAGE_EXTERNAL_S
 import com.mozhimen.basick.lintk.optins.permission.OPermission_QUERY_ALL_PACKAGES
 import com.mozhimen.basick.lintk.optins.permission.OPermission_REQUEST_INSTALL_PACKAGES
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.android.app.UtilKActivity
+import com.mozhimen.basick.utilk.android.app.UtilKActivityInfo
 import com.mozhimen.basick.utilk.android.net.UtilKUri
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.java.io.file2uri
@@ -40,108 +39,128 @@ object UtilKIntentWrapper {
     //CIntent
     ///////////////////////////////////////////////////////////////////////////////////////
 
-    /**
-     * 分享文字
-     */
     @JvmStatic
-    fun getShareText(str: String): Intent =
-        Intent(CIntent.ACTION_SEND).apply {
-            putExtra(CIntent.EXTRA_TEXT, str)
+    fun getSend(): Intent =
+        UtilKIntent.get(CIntent.ACTION_SEND)
+
+    //分享文字
+    @JvmStatic
+    fun getSendText(str: String): Intent =
+        getSend().apply {
             type = CMediaFormat.MIMETYPE_TEXT_PLAIN
+            putExtra(CIntent.EXTRA_TEXT, str)
+        }
+
+    @JvmStatic
+    fun getSendImage(uriImage: Uri): Intent =
+        getSend().apply {
+            type = CMediaFormat.MIMETYPE_IMAGE_ALL
+            putExtra(CIntent.EXTRA_STREAM, uriImage)
+        }
+
+    @JvmStatic
+    fun getSendFileApk(uriApk: Uri):Intent{
+        val intent = getSend()
+        if (UtilKBuildVersion.isAfterV_24_7_N()) //判断安卓系统是否大于7.0  大于7.0使用以下方法
+            intent.addFlags(CIntent.FLAG_GRANT_READ_URI_PERMISSION) //增加读写权限//添加这一句表示对目标应用临时授权该Uri所代表的文件
+        intent.setDataAndType(uriApk, "application/vnd.android.package-archive")
+        return intent
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+
+    //选择系统文件
+    @JvmStatic
+    fun getPick(): Intent =
+        UtilKIntent.get(CIntent.ACTION_PICK)
+
+    @JvmStatic
+    fun getPickImage(): Intent =
+        getPick().apply {
+            type = CMediaFormat.MIMETYPE_IMAGE_ALL
+        }
+
+    //选择系统图像
+    @JvmStatic
+    fun getPickUriImage(): Intent =
+        getPick().apply {
+            setDataAndType(CMediaStore.Images.Media.EXTERNAL_CONTENT_URI, CMediaFormat.MIMETYPE_IMAGE_ALL)
         }
 
     ///////////////////////////////////////////////////////////////////////////////////////
 
-    /**
-     * 选择系统文件
-     */
     @JvmStatic
-    fun getPick(): Intent =
-        Intent(CIntent.ACTION_PICK)
+    fun getGetContent(): Intent =
+        UtilKIntent.get(CIntent.ACTION_GET_CONTENT)
 
     @JvmStatic
-    fun getPickImage(): Intent =
-        Intent(CIntent.ACTION_PICK).apply { type = CMediaFormat.MIMETYPE_IMAGE_ALL }
+    fun getGetContentAudio(): Intent =
+        getGetContent().apply {
+            type = CMediaFormat.MIMETYPE_AUDIO_ALL
+        }
 
-    /**
-     * 选择系统图像
-     */
     @JvmStatic
-    fun getPickUriImage(): Intent =
-        getPick().apply { setDataAndType(CMediaStore.Images.Media.EXTERNAL_CONTENT_URI, CMediaFormat.MIMETYPE_IMAGE_ALL) }
+    fun getGetContentVideo(): Intent =
+        getGetContent().apply {
+            type = CMediaFormat.MIMETYPE_VIDEO_ALL
+        }
+
+    @JvmStatic
+    fun getGetContentAudioVideo(): Intent =
+        getGetContent().apply {
+            type = "${CMediaFormat.MIMETYPE_AUDIO_ALL};${CMediaFormat.MIMETYPE_VIDEO_ALL}"
+        }
 
     ///////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun getContent(): Intent =
-        Intent(CIntent.ACTION_GET_CONTENT)
+    fun getMain(): Intent =
+        UtilKIntent.get(CIntent.ACTION_MAIN)
 
     @JvmStatic
-    fun getContentAudio(): Intent =
-        getContent().apply { type = CMediaFormat.MIMETYPE_AUDIO_ALL }
+    fun getMain(uri: Uri?): Intent =
+        UtilKIntent.get(CIntent.ACTION_MAIN, uri)
 
+    //获取mainLauncher
     @JvmStatic
-    fun getContentVideo(): Intent =
-        getContent().apply { type = CMediaFormat.MIMETYPE_VIDEO_ALL }
-
-    @JvmStatic
-    fun getContentAudioVideo(): Intent =
-        getContent().apply { type = "${CMediaFormat.MIMETYPE_AUDIO_ALL};${CMediaFormat.MIMETYPE_VIDEO_ALL}" }
-
-    ///////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * 获取mainLauncher
-     */
-    @JvmStatic
-    fun getMainLauncher(strPackageName: String, strActivityName: String): Intent =
-        Intent(CIntent.ACTION_MAIN).apply {
+    fun getMainLauncher_ofClazz(strPackageName: String, strActivityName: String): Intent =
+        getMain().apply {
             addCategory(CIntent.CATEGORY_LAUNCHER)
             setClassName(strPackageName, strActivityName)
         }
 
-    /**
-     * 获取mainLauncher
-     */
+    //获取mainLauncher
     @JvmStatic
-    fun getMainLauncher(strPackageName: String, uri: Uri? = null): Intent =
-        Intent(CIntent.ACTION_MAIN, uri).apply {
+    fun getMainLauncher_ofPackage(strPackageName: String): Intent =
+        getMain().apply {
+            addCategory(CIntent.CATEGORY_LAUNCHER)
+            setPackage(strPackageName)
+//            addFlags(CIntent.FLAG_ACTIVITY_NEW_TASK)
+        }
+
+    //获取mainLauncher
+    @JvmStatic
+    fun getMainLauncher_ofPackage(strPackageName: String, uri: Uri?): Intent =
+        getMain(uri).apply {
             addCategory(CIntent.CATEGORY_LAUNCHER)
             setPackage(strPackageName)
         }
 
-    /**
-     * 获取mainLauncher
-     */
-    @JvmStatic
-    fun getMainLauncher(strPackageName: String): Intent =
-        Intent(CIntent.ACTION_MAIN).apply {
-            addCategory(CIntent.CATEGORY_LAUNCHER)
-            setPackage(strPackageName)
-            addFlags(CIntent.FLAG_ACTIVITY_NEW_TASK)
-        }
-
-    /**
-     * 获取启动App的Intent
-     */
+    //获取启动App的Intent
     @JvmStatic
     @OPermission_QUERY_ALL_PACKAGES
     @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
-    fun getLauncherForPackageOfQuery(context: Context, strPackageName: String): Intent? {
-        val strLauncherActivityName: String = UtilKActivity.getLauncherActivityName(context, strPackageName)
-        if (UtilKString.hasSpace(strLauncherActivityName) || strLauncherActivityName.isEmpty()) return getLauncherForPackage(context, strPackageName)
-        return getMainLauncher(strPackageName, strLauncherActivityName)
+    fun getMainLauncher_ofPackageManger(context: Context, strPackageName: String): Intent? {
+        val strLauncherActivityName: String = UtilKActivityInfo.getMainLauncherName(context, strPackageName)
+        if (UtilKString.hasSpace(strLauncherActivityName) || strLauncherActivityName.isEmpty()) return UtilKPackageManager.getLaunchIntentForPackage(context, strPackageName)
+        return getMainLauncher_ofClazz(strPackageName, strLauncherActivityName)
     }
 
     @JvmStatic
-    fun getLauncherForPackage(context: Context, strPackageName: String): Intent? =
-        UtilKPackageManager.getLaunchIntentForPackage(context, strPackageName)
-
-    @JvmStatic
     @OPermission_QUERY_ALL_PACKAGES
     @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
-    fun getLauncherForPackageOfComponent(context: Context, strPackageName: String): Intent? {
-        val intent = getMainLauncher(strPackageName)
+    fun getMainLauncher_ofComponent(context: Context, strPackageName: String): Intent? {
+        val intent = getMainLauncher_ofPackage(strPackageName)
         val resolveInfos = UtilKPackageManager.queryIntentActivities(context, intent, 0) //查询要启动的Activity
         return if (resolveInfos.isNotEmpty()) { //如果包名存在
             val resolveInfo = resolveInfos[0]
@@ -150,13 +169,27 @@ object UtilKIntentWrapper {
         } else null
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////
+
     @JvmStatic
-    fun getLauncherForPackageOfComponent(strPackageName: String, strActivityName: String): Intent =
-        Intent().apply {
+    fun getComponent(strPackageName: String, strActivityName: String): Intent =
+        UtilKIntent.get().apply {
             component = ComponentName(strPackageName, "$strPackageName.$strActivityName")
         }
 
     ///////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun getView(): Intent =
+        UtilKIntent.get(CIntent.ACTION_VIEW)
+
+    @JvmStatic
+    fun getView(uri: Uri): Intent =
+        UtilKIntent.get(CIntent.ACTION_VIEW, uri)
+
+    @JvmStatic
+    fun getViewStrUrl(strUrl: String): Intent =
+        getView(Uri.parse(strUrl))
 
     /**
      * 获取安装app的intent
@@ -164,11 +197,11 @@ object UtilKIntentWrapper {
     @JvmStatic
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     @OPermission_REQUEST_INSTALL_PACKAGES
-    fun getInstall(apkUri: Uri): Intent {
-        val intent = Intent(CIntent.ACTION_VIEW)
+    fun getViewInstall(uriApk: Uri): Intent {
+        val intent = getView()
         if (UtilKBuildVersion.isAfterV_24_7_N()) //判断安卓系统是否大于7.0  大于7.0使用以下方法
             intent.addFlags(CIntent.FLAG_GRANT_READ_URI_PERMISSION) //增加读写权限//添加这一句表示对目标应用临时授权该Uri所代表的文件
-        intent.setDataAndType(apkUri, "application/vnd.android.package-archive")
+        intent.setDataAndType(uriApk, "application/vnd.android.package-archive")
         return intent
     }
 
@@ -178,8 +211,8 @@ object UtilKIntentWrapper {
     @JvmStatic
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     @OPermission_REQUEST_INSTALL_PACKAGES
-    fun getInstall(strFilePathName: String): Intent? =
-        UtilKStrFile.strFilePath2uri(strFilePathName)?.let { getInstall(it) }
+    fun getViewInstall(strFilePathName: String): Intent? =
+        UtilKStrFile.strFilePath2uri(strFilePathName)?.let { getViewInstall(it) }
 
     /**
      * 获取安装app的intent
@@ -187,18 +220,8 @@ object UtilKIntentWrapper {
     @JvmStatic
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     @OPermission_REQUEST_INSTALL_PACKAGES
-    fun getInstall(fileApk: File): Intent? =
-        fileApk.file2uri()?.let { getInstall(it) }
-
-    ///////////////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun getUri(uri: Uri): Intent =
-        Intent(CIntent.ACTION_VIEW, uri)
-
-    @JvmStatic
-    fun getStrUrl(strUrl: String): Intent =
-        getUri(Uri.parse(strUrl))
+    fun getViewInstall(fileApk: File): Intent? =
+        fileApk.file2uri()?.let { getViewInstall(it) }
 
     ///////////////////////////////////////////////////////////////////////////////////////
     //CSettings
@@ -210,27 +233,27 @@ object UtilKIntentWrapper {
      */
     @JvmStatic
     fun getLocationSourceSettings(): Intent =
-        Intent(CSettings.ACTION_LOCATION_SOURCE_SETTINGS)
+        UtilKIntent.get(CSettings.ACTION_LOCATION_SOURCE_SETTINGS)
 
     /**
      * 获取设置无障碍
      */
     @JvmStatic
     fun getAccessibilitySettings(): Intent =
-        Intent(CSettings.ACTION_ACCESSIBILITY_SETTINGS)
+        UtilKIntent.get(CSettings.ACTION_ACCESSIBILITY_SETTINGS)
 
     /**
      * 管理APP设置
      */
     @JvmStatic
     fun getApplicationDetailsSettings(context: Context): Intent =
-        Intent(CSettings.ACTION_APPLICATION_DETAILS_SETTINGS, UtilKUri.getPackageUriOfParts(context))
+        UtilKIntent.get(CSettings.ACTION_APPLICATION_DETAILS_SETTINGS, UtilKUri.getPackageUriOfParts(context))
 
     /**
      * 管理APP下载
      */
     fun getApplicationDetailsSettingsDownloads(context: Context): Intent =
-        Intent(CSettings.ACTION_APPLICATION_DETAILS_SETTINGS, "package:${CStrPackage.COM_ANDROID_PROVIDERS_DOWNLOADS}".strUri2uri())
+        UtilKIntent.get(CSettings.ACTION_APPLICATION_DETAILS_SETTINGS, "package:${CStrPackage.COM_ANDROID_PROVIDERS_DOWNLOADS}".strUri2uri())
 
     /**
      * 管理通知
@@ -238,7 +261,7 @@ object UtilKIntentWrapper {
     @RequiresApi(CVersCode.V_26_8_O)
     @JvmStatic
     fun getAppNotificationSettings(context: Context): Intent =
-        Intent(CSettings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
+        UtilKIntent.get(CSettings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
             putExtra(CSettings.EXTRA_APP_PACKAGE, context.packageName)
         }
 
@@ -247,7 +270,7 @@ object UtilKIntentWrapper {
      */
     @RequiresApi(CVersCode.V_26_8_O)
     @JvmStatic
-    private fun startNotificationSetting2(context: Context): Intent =
+    fun getAppNotificationSettings_ofUid(context: Context): Intent =
         getAppNotificationSettings(context).apply {
             putExtra("app_package", context.packageName)
             putExtra("app_uid", context.applicationInfo.uid)
@@ -261,7 +284,7 @@ object UtilKIntentWrapper {
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
     @OPermission_MANAGE_EXTERNAL_STORAGE
     fun getManageAppAllFilesAccessPermission(context: Context): Intent =
-        Intent(CSettings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, UtilKUri.getPackageUri(context))
+        UtilKIntent.get(CSettings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, UtilKUri.getPackageUri(context))
 
     /**
      * 获取管理悬浮窗
@@ -269,7 +292,7 @@ object UtilKIntentWrapper {
     @RequiresApi(CVersCode.V_23_6_M)
     @JvmStatic
     fun getManageOverlayPermission(context: Context): Intent =
-        Intent(CSettings.ACTION_MANAGE_OVERLAY_PERMISSION, UtilKUri.getPackageUri(context))
+        UtilKIntent.get(CSettings.ACTION_MANAGE_OVERLAY_PERMISSION, UtilKUri.getPackageUri(context))
 
     /**
      * 获取管理安装
@@ -277,7 +300,7 @@ object UtilKIntentWrapper {
     @RequiresApi(CVersCode.V_26_8_O)
     @JvmStatic
     fun getManageUnknownAppSources(context: Context): Intent =
-        Intent(CSettings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, UtilKUri.getPackageUri(context))
+        UtilKIntent.get(CSettings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, UtilKUri.getPackageUri(context))
 
     ///////////////////////////////////////////////////////////////////////////////////////
     //MediaStore
@@ -285,7 +308,13 @@ object UtilKIntentWrapper {
 
     @JvmStatic
     fun getImageCapture(): Intent =
-        Intent(CMediaStore.ACTION_IMAGE_CAPTURE)
+        UtilKIntent.get(CMediaStore.ACTION_IMAGE_CAPTURE)
+
+    @JvmStatic
+    fun getImageCaptureOutput(uri: Uri): Intent =
+        getImageCapture().apply {
+            putExtra(CMediaStore.EXTRA_OUTPUT, uri)
+        }
 
     @JvmStatic
     fun getImageCaptureOutput(strFilePathName: String): Intent? =
@@ -294,11 +323,4 @@ object UtilKIntentWrapper {
     @JvmStatic
     fun getImageCaptureOutput(file: File): Intent? =
         file.file2uri()?.let { getImageCaptureOutput(it) }
-
-    @JvmStatic
-    fun getImageCaptureOutput(uri: Uri): Intent =
-        getImageCapture().apply {
-            putExtra(CMediaStore.EXTRA_OUTPUT, uri)
-        }
-
 }

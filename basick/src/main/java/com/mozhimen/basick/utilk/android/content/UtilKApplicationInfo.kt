@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.IdRes
 import com.mozhimen.basick.elemk.android.content.cons.CApplicationInfo
 import com.mozhimen.basick.utilk.commons.IUtilK
@@ -19,23 +19,23 @@ import com.mozhimen.basick.utilk.commons.IUtilK
 object UtilKApplicationInfo : IUtilK {
 
     @JvmStatic
-    fun get(context: Context): ApplicationInfo =
+    fun getContext(context: Context): ApplicationInfo =
         UtilKContext.getApplicationInfo(context)
 
     @JvmStatic
-    fun getOfPackageInfo(context: Context): ApplicationInfo? =
+    fun getPackInfo(context: Context): ApplicationInfo? =
         UtilKPackageInfo.getApplicationInfo(context)
 
     @JvmStatic
-    fun getOfPackageName(context: Context, strPackageName: String, flags: Int): ApplicationInfo =
+    fun getPackMgr(context: Context, strPackageName: String, flags: Int): ApplicationInfo =
         UtilKPackageManager.getApplicationInfo(context, strPackageName, flags)
 
-    /**
-     * 得到包名
-     */
+    //////////////////////////////////////////////////////////////////////
+
+    //得到包名
     @JvmStatic
     fun getPackageName(context: Context): String =
-        getPackageName(get(context))
+        getPackageName(getContext(context))
 
     /**
      * 得到包名
@@ -49,12 +49,12 @@ object UtilKApplicationInfo : IUtilK {
      */
     @JvmStatic
     fun getTargetSdkVersion(context: Context): Int =
-        get(context).targetSdkVersion
+        getContext(context).targetSdkVersion
 
     @JvmStatic
     @IdRes
     fun getLabelRes(context: Context): Int =
-        get(context).labelRes
+        getContext(context).labelRes
 
     @JvmStatic
     fun getLabelResStr(context: Context): String =
@@ -62,7 +62,7 @@ object UtilKApplicationInfo : IUtilK {
 
     @JvmStatic
     fun getFlags(context: Context): Int? =
-        getOfPackageInfo(context)?.let { getFlags(it) }
+        getPackInfo(context)?.let { getFlags(it) }
 
     @JvmStatic
     fun getFlags(applicationInfo: ApplicationInfo): Int =
@@ -70,7 +70,7 @@ object UtilKApplicationInfo : IUtilK {
 
     @JvmStatic
     fun getIcon(context: Context): Int =
-        getIcon(get(context))
+        getIcon(getContext(context))
 
     @JvmStatic
     fun getIcon(applicationInfo: ApplicationInfo): Int =
@@ -83,7 +83,7 @@ object UtilKApplicationInfo : IUtilK {
      */
     @JvmStatic
     fun loadIcon(context: Context, packageManager: PackageManager): Drawable? =
-        loadIcon(getOfPackageInfo(context), packageManager)
+        loadIcon(getPackInfo(context), packageManager)
 
     /**
      * 和这个方法一样[UtilKPackageManager.getApplicationIcon]
@@ -96,19 +96,19 @@ object UtilKApplicationInfo : IUtilK {
 
     @JvmStatic
     fun isSystemApp(context: Context): Boolean =
-        getOfPackageInfo(context)?.let { isSystemApp(it) } ?: false.also { Log.d(TAG, "isSystemApp: getApplicationInfo fail") }
+        getPackInfo(context)?.let { isSystemApp(it) } ?: false.also { UtilKLogWrapper.dt(TAG, "isSystemApp: getApplicationInfo fail") }
 
     @JvmStatic
     fun isSystemUpdateApp(context: Context): Boolean =
-        getOfPackageInfo(context)?.let { isSystemUpdateApp(it) } ?: false.also { Log.d(TAG, "isSystemUpdateApp: getApplicationInfo fail") }
+        getPackInfo(context)?.let { isSystemUpdateApp(it) } ?: false.also { UtilKLogWrapper.dt(TAG, "isSystemUpdateApp: getApplicationInfo fail") }
 
     @JvmStatic
     fun isSystemOrSystemUpdateApp(context: Context): Boolean =
-        getOfPackageInfo(context)?.let { isSystemOrSystemUpdateApp(it) } ?: false.also { Log.d(TAG, "isSystemOrSystemUpdateApp: getApplicationInfo fail") }
+        getPackInfo(context)?.let { isSystemOrSystemUpdateApp(it) } ?: false.also { UtilKLogWrapper.dt(TAG, "isSystemOrSystemUpdateApp: getApplicationInfo fail") }
 
     @JvmStatic
     fun isUserApp(context: Context): Boolean =
-        getOfPackageInfo(context)?.let { isUserApp(it) } ?: false.also { Log.d(TAG, "isUserApp: getApplicationInfo fail") }
+        getPackInfo(context)?.let { isUserApp(it) } ?: false.also { UtilKLogWrapper.dt(TAG, "isUserApp: getApplicationInfo fail") }
 
     ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -132,7 +132,7 @@ object UtilKApplicationInfo : IUtilK {
 
     @JvmStatic
     fun enabled(context: Context, strPackageName: String, flags: Int): Boolean =
-        enabled(getOfPackageName(context, strPackageName, flags))
+        enabled(getPackMgr(context, strPackageName, flags))
 
     @JvmStatic
     fun enabled(applicationInfo: ApplicationInfo): Boolean =

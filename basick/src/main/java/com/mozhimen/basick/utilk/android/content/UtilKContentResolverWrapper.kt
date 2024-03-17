@@ -2,13 +2,12 @@ package com.mozhimen.basick.utilk.android.content
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.provider.cons.CMediaStore
 import com.mozhimen.basick.elemk.android.provider.cons.COpenableColumns
 import com.mozhimen.basick.utilk.android.database.getColumnString
-import com.mozhimen.basick.utilk.android.provider.UtilKMediaStore
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.file2strFilePath
@@ -81,15 +80,15 @@ object UtilKContentResolverWrapper : BaseUtilK() {
     @RequiresApi(CVersCode.V_29_10_Q)
     fun insertImageAfter29(context: Context, strFilePathName: String): Uri? {
         val strFilePath = strFilePathName.getStrFileParentPath() ?: run {
-            Log.w(TAG, "insertImageAfter29: strFilePath get fail")
+            UtilKLogWrapper.wt(TAG, "insertImageAfter29: strFilePath get fail")
             return null
         }
         val strFileName = strFilePathName.getStrFileName() ?: run {
-            Log.w(TAG, "insertImageAfter29: strFileName get fail")
+            UtilKLogWrapper.wt(TAG, "insertImageAfter29: strFileName get fail")
             return null
         }
         val strFileExtension = strFilePathName.getStrFileExtension() ?: run {
-            Log.w(TAG, "insertImageAfter29: strFileExtension get fail")
+            UtilKLogWrapper.wt(TAG, "insertImageAfter29: strFileExtension get fail")
             return null
         }
         val strMineType = strFileExtension.strFileExtension2strMineTypeImage()

@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.kotlin.text
 
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.MainThread
 import com.mozhimen.basick.utilk.android.widget.showToast
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -53,7 +53,7 @@ object UtilKMatchStrUrl : BaseUtilK() {
     @JvmStatic
     @MainThread
     fun checkStrUrl(url: String): Boolean {
-        Log.d(TAG, "isUrlValid: url $url")
+        UtilKLogWrapper.dt(TAG, "isUrlValid: url $url")
         if (url.isEmpty()) {
             "输入为空".showToast()
             return false

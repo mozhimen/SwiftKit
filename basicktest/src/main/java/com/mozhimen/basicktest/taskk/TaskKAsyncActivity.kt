@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest.taskk
 
 import android.os.Bundle
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
@@ -21,7 +21,7 @@ class TaskKAsyncActivity : BaseActivityVDB<ActivityTaskkAsyncBinding>() {
                 _taskKAsync.execute {
                     val time = System.currentTimeMillis()
                     delay((1000..3000).random().toLong())
-                    Log.d(TAG, "initData: 线程${i}执行结束, 执行时间:${System.currentTimeMillis() - time}")
+                    UtilKLogWrapper.dt(TAG, "initData: 线程${i}执行结束, 执行时间:${System.currentTimeMillis() - time}")
                 }
             }
         }

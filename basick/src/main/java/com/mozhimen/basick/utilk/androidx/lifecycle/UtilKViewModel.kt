@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.androidx.lifecycle
 
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
@@ -25,5 +25,5 @@ object UtilKViewModel: IUtilK {
             } ?: run {
                 ViewModelProvider(owner)[vmClazz as Class<VM>]
             }
-        } ?: throw Exception("inflate vm fail!")).also { Log.d(TAG, "get: $it") }
+        } ?: throw Exception("inflate vm fail!")).also { UtilKLogWrapper.dt(TAG, "get: $it") }
 }

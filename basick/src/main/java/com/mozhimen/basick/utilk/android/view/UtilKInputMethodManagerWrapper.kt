@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.android.view
 
 import android.app.Activity
 import android.content.Context
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
@@ -128,7 +128,7 @@ object UtilKInputMethodManagerWrapper : BaseUtilK() {
      */
     @JvmStatic
     fun hide(activity: Activity) {
-        if (((UtilKWindow.getPeekDecorView(activity) != null || UtilKInputMethodManager.isActive(activity)) && UtilKActivity.getCurrentFocus(activity) != null) && isShow(activity))
+        if (((UtilKPeekDecorView.get(activity) != null || UtilKInputMethodManager.isActive(activity)) && UtilKActivity.getCurrentFocus(activity) != null) && isShow(activity))
             hide(UtilKActivity.getCurrentFocus(activity)!!)
     }
 
@@ -148,7 +148,7 @@ object UtilKInputMethodManagerWrapper : BaseUtilK() {
      */
     @JvmStatic
     fun hideByClickOther() {
-        Log.d(TAG, "hideByClickOther: Please refer to the following code.")
+        UtilKLogWrapper.dt(TAG, "hideByClickOther: Please refer to the following code.")
         //kotlin
         /*override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
             if (event?.action == MotionEvent.ACTION_DOWN) {
@@ -231,14 +231,14 @@ object UtilKInputMethodManagerWrapper : BaseUtilK() {
                         val mParent = fieldMParent.get(mNextServedView)
                         if (mParent != null) {
                             fieldMParent.set(mParent, null)
-                            Log.d(TAG, "fixInputMethodLeak: $tag set view mNextServedView: mParent null in inputMethodManager")
+                            UtilKLogWrapper.dt(TAG, "fixInputMethodLeak: $tag set view mNextServedView: mParent null in inputMethodManager")
                         }
 //                            val mParent1Field = UtilKReflect.getField(mParentObj, "mParent")
 //                            if (!mParent1Field.isAccessible) mParent1Field.isAccessible = true
 //                            val mParent1Obj = mParent1Field.get(mParentObj)
 //                            if (mParent1Obj != null) {
 //                                mParent1Field.set(mParent1Obj, null)
-//                                Log.d(TAG, "fixInputMethodLeak: $tag set view mNextServedView: mParent null in inputMethodManager")
+//                                UtilKLog.dt(TAG, "fixInputMethodLeak: $tag set view mNextServedView: mParent null in inputMethodManager")
 //                            }
                     }
                 }
@@ -529,7 +529,7 @@ object UtilKInputMethodManagerWrapper : BaseUtilK() {
 //            fieldObj = field.get(inputMethodManager)
 //            if (fieldObj != null && fieldObj is ViewParent) {
 //                field.set(inputMethodManager, null)
-//                Log.d(TAG, "fixInputMethodLeak: $tag set view mCurRootView null in inputMethodManager")
+//                UtilKLog.dt(TAG, "fixInputMethodLeak: $tag set view mCurRootView null in inputMethodManager")
 //            }
 //        } catch (e: Exception) {
 //            e.printStackTrace()
@@ -588,7 +588,7 @@ object UtilKInputMethodManagerWrapper : BaseUtilK() {
 //                if (fieldObj is View) {
 //                    if (fieldObj.context == context) {                        //注意需要判断View关联的Context是不是当前Activity，否则有可能造成正常的输入框输入失效
 //                        leakField.set(inputMethodManager, null)
-//                        Log.d(TAG, "fixInputMethodLeak: $tag set view $leakView null in inputMethodManager")
+//                        UtilKLog.dt(TAG, "fixInputMethodLeak: $tag set view $leakView null in inputMethodManager")
 //                    } else {
 //                        break
 //                    }

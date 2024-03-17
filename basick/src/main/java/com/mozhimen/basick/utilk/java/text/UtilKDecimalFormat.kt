@@ -2,7 +2,6 @@ package com.mozhimen.basick.utilk.java.text
 
 import com.mozhimen.basick.utilk.kotlin.text.complementStart0
 import com.mozhimen.basick.utilk.kotlin.text.replaceDot
-import com.mozhimen.basick.utilk.kotlin.text.replaceRegexLineBreak
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -80,7 +79,7 @@ object UtilKDecimalFormat {
         DecimalFormat(pattern, DecimalFormatSymbols(locale))
 
     @JvmStatic
-    fun getOf(bit: Int): DecimalFormat {
+    fun get(bit: Int): DecimalFormat {
         var pattern = "#."
         repeat(bit) {
             pattern += "0"
@@ -89,7 +88,7 @@ object UtilKDecimalFormat {
     }
 
     @JvmStatic
-    fun getOf(bit: Int, locale: Locale): DecimalFormat {
+    fun get(bit: Int, locale: Locale): DecimalFormat {
         var pattern = "#."
         repeat(bit) {
             pattern += "0"
@@ -98,23 +97,23 @@ object UtilKDecimalFormat {
     }
 
     @JvmStatic
-    fun getOf(bit: Int, roundingMode: RoundingMode): DecimalFormat =
-        getOf(bit).apply { this.roundingMode = roundingMode }
+    fun get(bit: Int, roundingMode: RoundingMode): DecimalFormat =
+        get(bit).apply { this.roundingMode = roundingMode }
 
     //////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun getStrDecimal(obj: Any, bit: Int): String =
-        getOf(bit).format(obj).replaceDot().complementStart0()
+        get(bit).format(obj).replaceDot().complementStart0()
 
     @JvmStatic
     fun getStrDecimal(obj: Any, bit: Int, locale: Locale): String =
-        getOf(bit, locale).format(obj).replaceDot().complementStart0()
+        get(bit, locale).format(obj).replaceDot().complementStart0()
 
 
     @JvmStatic
     fun getStrDecimal(obj: Any, bit: Int, roundingMode: RoundingMode): String =
-        getOf(bit, roundingMode).format(obj).replaceDot().complementStart0()
+        get(bit, roundingMode).format(obj).replaceDot().complementStart0()
 
     //////////////////////////////////////////////////////////////////////
 

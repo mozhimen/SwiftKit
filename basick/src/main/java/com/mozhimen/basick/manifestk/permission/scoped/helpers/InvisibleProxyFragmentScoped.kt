@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
@@ -64,7 +64,7 @@ class InvisibleProxyFragmentScoped : Fragment(), IUtilK {
 
     fun request(listener: IManifestKPermissionScopedListener) {
         _listener = listener
-        Log.d(TAG, "request: _strFilePath $_strFilePath")
+        UtilKLogWrapper.dt(TAG, "request: _strFilePath $_strFilePath")
         if (ManifestKPermissionScopedUtil.isPermissionStrFilePathProtectedGranted(requireActivity(), _strFilePath)) {
             _listener?.invoke(true)
         } else {

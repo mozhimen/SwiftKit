@@ -1,7 +1,7 @@
 package com.mozhimen.basick.stackk.process.helpers
 
 import android.app.Activity
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
@@ -93,7 +93,7 @@ internal class StackKProcessDelegate : IStackK {
          * @param owner LifecycleOwner
          */
         override fun onCreate(owner: LifecycleOwner) {
-            Log.d(TAG, "onCreate")
+            UtilKLogWrapper.dt(TAG, "onCreate")
         }
 
         /**
@@ -101,7 +101,7 @@ internal class StackKProcessDelegate : IStackK {
          * @param owner LifecycleOwner
          */
         override fun onStart(owner: LifecycleOwner) {
-            Log.d(TAG, "onStart")
+            UtilKLogWrapper.dt(TAG, "onStart")
             if (getLaunchCount() > 0 && !_isFront && owner is Activity) {
                 onFrontBackChanged(true.also { _isFront = true }, owner)
             }
@@ -112,7 +112,7 @@ internal class StackKProcessDelegate : IStackK {
          * @param owner LifecycleOwner
          */
         override fun onResume(owner: LifecycleOwner) {
-            Log.d(TAG, "onResume")
+            UtilKLogWrapper.dt(TAG, "onResume")
         }
 
         /**
@@ -120,7 +120,7 @@ internal class StackKProcessDelegate : IStackK {
          * @param owner LifecycleOwner
          */
         override fun onPause(owner: LifecycleOwner) {
-            Log.d(TAG, "onPause")
+            UtilKLogWrapper.dt(TAG, "onPause")
         }
 
         /**
@@ -128,7 +128,7 @@ internal class StackKProcessDelegate : IStackK {
          * @param owner LifecycleOwner
          */
         override fun onStop(owner: LifecycleOwner) {
-            Log.d(TAG, "onStop")
+            UtilKLogWrapper.dt(TAG, "onStop")
             if (getLaunchCount() <= 0 && _isFront && owner is Activity) {
                 onFrontBackChanged(false.also { _isFront = false }, owner)
             }
@@ -139,7 +139,7 @@ internal class StackKProcessDelegate : IStackK {
          * @param owner LifecycleOwner
          */
         override fun onDestroy(owner: LifecycleOwner) {
-            Log.d(TAG, "onDestroy")
+            UtilKLogWrapper.dt(TAG, "onDestroy")
             super.onDestroy(owner)
         }
 

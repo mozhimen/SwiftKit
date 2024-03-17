@@ -34,9 +34,9 @@ object UtilKDeviceId : IUtilK {
         var imei = ""
         if (!UtilKPermission.hasPermission(CPermission.READ_PHONE_STATE))//Android 6.0 以后需要获取动态权限  检查权限
             return imei
-        imei = UtilKDeviceId.getOfSys(context)// 1. 尝试通过系统api获取imei
+        imei = UtilKDeviceId.get_ofSys(context)// 1. 尝试通过系统api获取imei
         if (TextUtils.isEmpty(imei))
-            imei = UtilKDeviceId.getOfReflect(context)
+            imei = UtilKDeviceId.get_ofReflect(context)
         return imei
     }
 
@@ -50,9 +50,9 @@ object UtilKDeviceId : IUtilK {
     fun get(context: Context, slotId: Int): String {
         var imei: String
         // 1. 尝试通过系统api获取imei
-        imei = getOfSys(context, slotId)
+        imei = get_ofSys(context, slotId)
         if (TextUtils.isEmpty(imei))
-            imei = getOfReflect(context, slotId)
+            imei = get_ofReflect(context, slotId)
         return imei
     }
 
@@ -65,7 +65,7 @@ object UtilKDeviceId : IUtilK {
     @JvmStatic
     @SuppressLint("HardwareIds")
     @RequiresApi(CVersCode.V_23_6_M)
-    fun getOfSys(context: Context, slotId: Int): String =
+    fun get_ofSys(context: Context, slotId: Int): String =
         try {
             UtilKTelephonyManager.getDeviceId(context, slotId)
         } catch (e: Exception) {
@@ -77,7 +77,7 @@ object UtilKDeviceId : IUtilK {
     @JvmStatic
     @SuppressLint("HardwareIds")
     @RequiresApi(CVersCode.V_23_6_M)
-    fun getOfSys(context: Context): String =
+    fun get_ofSys(context: Context): String =
         try {
             UtilKTelephonyManager.getDeviceId(context)
         } catch (e: Exception) {
@@ -94,7 +94,7 @@ object UtilKDeviceId : IUtilK {
      */
     @SuppressLint("DiscouragedPrivateApi")
     @JvmStatic
-    fun getOfReflect(context: Context): String {
+    fun get_ofReflect(context: Context): String {
         try {
             val telephonyManager = UtilKTelephonyManager.get(context)
             return if (UtilKBuildVersion.isAfterV_21_5_L()) {
@@ -124,7 +124,7 @@ object UtilKDeviceId : IUtilK {
      * @param slotId  slotId为卡槽Id，它的值为 0、1；
      */
     @JvmStatic
-    fun getOfReflect(context: Context, slotId: Int): String {
+    fun get_ofReflect(context: Context, slotId: Int): String {
         try {
             val telephonyManager = UtilKTelephonyManager.get(context)
             val methodGetDeviceId: Method = telephonyManager.javaClass.getMethod("getDeviceId", Int::class.javaPrimitiveType)

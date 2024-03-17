@@ -1,7 +1,6 @@
 package com.mozhimen.basick.utilk.android.view
 
 import android.app.Activity
-import android.os.Build
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -21,7 +20,7 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
  * @Version 1.0
  */
 fun <V : View> Window.getContentView(): V =
-    UtilKWindow.getContentView(this)
+    UtilKWindow.getContentView_ofPackage(this)
 
 object UtilKWindow : BaseUtilK() {
 
@@ -47,19 +46,19 @@ object UtilKWindow : BaseUtilK() {
         window.peekDecorView()
 
     @JvmStatic
-    fun <V : View> getContentView(activity: Activity): V =
-        getContentView(get(activity))
+    fun <V : View> getContentView_ofPackage(activity: Activity): V =
+        getContentView_ofPackage(get(activity))
 
     @JvmStatic
-    fun <V : View> getContentView(window: Window): V =
+    fun <V : View> getContentView_ofPackage(window: Window): V =
         window.findViewById(CPackage.ANDROID_R_ID_CONTENT)
 
     @JvmStatic
-    fun <V : View> getContentViewOfWindow(activity: Activity): V =
-        getContentViewOfWindow(get(activity))
+    fun <V : View> getContentView_ofWindow(activity: Activity): V =
+        getContentView_ofWindow(get(activity))
 
     @JvmStatic
-    fun <V : View> getContentViewOfWindow(window: Window): V =
+    fun <V : View> getContentView_ofWindow(window: Window): V =
         window.findViewById(CWindow.ID_ANDROID_CONTENT)
 
     @JvmStatic

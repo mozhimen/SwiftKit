@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.java.util
 
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.file2fileInputStream
@@ -32,7 +32,7 @@ object UtilKZipOutputStream : IUtilK {
                 val listFiles = fileSource.getFolderFiles()
                 if (listFiles.isEmpty()) {
                     val stringBuilder = StringBuilder().apply { append(fileName).append("/") }
-                    zipOutputStream.putNextEntry(ZipEntry(stringBuilder.toString().also { Log.d(TAG, "compress: stringBuilder $stringBuilder") }))
+                    zipOutputStream.putNextEntry(ZipEntry(stringBuilder.toString().also { UtilKLogWrapper.dt(TAG, "compress: stringBuilder $stringBuilder") }))
                 } else
                     for (file in listFiles) {
                         val stringBuilder = StringBuilder().apply { append(fileName).append("/").append(file.name) }

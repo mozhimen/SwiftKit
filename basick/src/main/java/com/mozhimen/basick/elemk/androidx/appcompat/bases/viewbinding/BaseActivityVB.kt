@@ -1,5 +1,6 @@
 package com.mozhimen.basick.elemk.androidx.appcompat.bases.viewbinding
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.annotation.CallSuper
 import androidx.viewbinding.ViewBinding

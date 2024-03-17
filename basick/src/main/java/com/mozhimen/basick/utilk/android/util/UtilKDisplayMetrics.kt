@@ -2,7 +2,6 @@ package com.mozhimen.basick.utilk.android.util
 
 import android.content.Context
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.Display
 import com.mozhimen.basick.utilk.android.content.UtilKResources
 import com.mozhimen.basick.utilk.android.view.UtilKDisplay

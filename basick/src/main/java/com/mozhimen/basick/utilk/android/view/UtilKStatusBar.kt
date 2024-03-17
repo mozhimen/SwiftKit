@@ -15,6 +15,7 @@ import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.elemk.android.view.ColorfulStatusBar
 import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
+import com.mozhimen.basick.utilk.android.app.UtilKActivityWrapper
 import com.mozhimen.basick.utilk.android.content.UtilKResources
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 
@@ -74,7 +75,7 @@ object UtilKStatusBar : BaseUtilK() {
     @OApiUse_BaseApplication
     @JvmStatic
     fun isVisible(context: Context): Boolean {
-        return isVisible(UtilKActivity.getByContext(context, true) ?: return true)
+        return isVisible(UtilKActivityWrapper.get(context, true) ?: return true)
     }
 
     /**
@@ -103,7 +104,7 @@ object UtilKStatusBar : BaseUtilK() {
         if (UtilKBuildVersion.isAfterV_21_5_L()) {//21//5.0以上状态栏透明
             UtilKWindow.clearFlags(activity, CWinMgr.Lpf.TRANSLUCENT_STATUS)//清除透明状态栏
             //UtilKDecorView.setSystemUiVisibility(activity, CView.SystemUiFlag.LAYOUT_FULLSCREEN or CView.SystemUiFlag.LAYOUT_STABLE)
-            //Log.d(TAG, "setTranslucent: ${(UtilKDecorView.getWindowSystemUiVisibility(activity) or CView.SystemUiFlag.LAYOUT_FULLSCREEN) == CView.SystemUiFlag.LAYOUT_FULLSCREEN}")
+            //UtilKLog.dt(TAG, "setTranslucent: ${(UtilKDecorView.getWindowSystemUiVisibility(activity) or CView.SystemUiFlag.LAYOUT_FULLSCREEN) == CView.SystemUiFlag.LAYOUT_FULLSCREEN}")
             UtilKWindow.addFlags(activity, CWinMgr.Lpf.DRAWS_SYSTEM_BAR_BACKGROUNDS)//设置状态栏颜色必须添加
             UtilKWindow.applyStatusBarColor(activity, Color.TRANSPARENT)//设置透明
         } else if (UtilKBuildVersion.isAfterV_19_44_K()) {//19

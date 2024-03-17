@@ -12,7 +12,7 @@ import com.mozhimen.basick.elemk.android.opengl.annors.AMatrixType
  */
 object UtilKMatrix {
     @JvmStatic
-    fun getOf(matrix: FloatArray, @AMatrixType type: Int, widthImage: Int, heightImage: Int, widthView: Int, heightView: Int) {
+    fun get_of(matrix: FloatArray, @AMatrixType type: Int, widthImage: Int, heightImage: Int, widthView: Int, heightView: Int) {
         if (heightImage > 0 && widthImage > 0 && widthView > 0 && heightView > 0) {
             val projection = FloatArray(16)
             val camera = FloatArray(16)
@@ -44,7 +44,7 @@ object UtilKMatrix {
     }
 
     @JvmStatic
-    fun getOfShow(matrix: FloatArray, widthImage: Int, heightImage: Int, widthView: Int, heightView: Int) {
+    fun get_ofShow(matrix: FloatArray, widthImage: Int, heightImage: Int, widthView: Int, heightView: Int) {
         if (heightImage > 0 && widthImage > 0 && widthView > 0 && heightView > 0) {
             val sWhView = widthView.toFloat() / heightView
             val sWhImg = widthImage.toFloat() / heightImage

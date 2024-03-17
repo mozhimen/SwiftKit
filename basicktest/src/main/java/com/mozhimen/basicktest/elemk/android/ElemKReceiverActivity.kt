@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest.elemk.android
 
 import android.os.Bundle
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.elemk.android.content.bases.BaseBroadcastReceiverProxy
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
@@ -34,7 +34,7 @@ class ElemKReceiverActivity : BaseActivityVDB<ActivityElemkReceiverBinding>() {
 
     @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
     override fun initView(savedInstanceState: Bundle?) {
-        Log.d(TAG, "initView: start")
+        UtilKLogWrapper.dt(TAG, "initView: start")
         _receiverProxy.bindLifecycle(this)
     }
 }

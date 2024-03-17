@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.java.util
 
 import android.annotation.SuppressLint
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import java.lang.Exception
@@ -132,7 +132,7 @@ object UtilKDate : BaseUtilK() {
     @JvmStatic
     fun strDate2date(strDate: String, formatDate: String, locale: Locale = Locale.CHINA): Date {
         return getSdf(formatDate, locale).parse(strDate) ?: kotlin.run {
-            Log.e(TAG, "str2Date Exception time format fail!")
+            UtilKLogWrapper.et(TAG, "str2Date Exception time format fail!")
             throw Exception("time format fail!")
         }
     }

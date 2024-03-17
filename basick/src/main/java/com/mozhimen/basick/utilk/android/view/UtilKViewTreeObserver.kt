@@ -11,7 +11,7 @@ import com.mozhimen.basick.elemk.commons.IAB_Listener
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.elemk.cons.CCons
 import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
-import com.mozhimen.basick.utilk.android.app.UtilKActivity
+import com.mozhimen.basick.utilk.android.app.UtilKActivityWrapper
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 
 /**
@@ -38,7 +38,7 @@ object UtilKViewTreeObserver {
     fun registerInputChangeListener(window: Window, listener: IA_Listener<Int>) {
         if (UtilKWindow.getAttributesFlags(window) and CWinMgr.Lpf.LAYOUT_NO_LIMITS != 0)
             window.clearFlags(CWinMgr.Lpf.LAYOUT_NO_LIMITS)
-        val contentView = UtilKContentView.get<FrameLayout>(window)
+        val contentView = UtilKContentView.getPac<FrameLayout>(window)
         val decorViewInvisibleHeightPre = intArrayOf(UtilKDecorView.getInvisibleHeight(window))
         val onGlobalLayoutListener = ViewTreeObserver.OnGlobalLayoutListener {
             val height = UtilKDecorView.getInvisibleHeight(window)
@@ -56,7 +56,7 @@ object UtilKViewTreeObserver {
      */
     @JvmStatic
     fun unregisterInputChangeListener(window: Window) {
-        val contentView = UtilKContentView.get<View>(window)
+        val contentView = UtilKContentView.getPac<View>(window)
         val tag = contentView.getTag(CCons.UTILK_INPUT_CHANGE_TAG_ON_GLOBAL_LAYOUT_LISTENER)
         if (tag is ViewTreeObserver.OnGlobalLayoutListener) {
             if (UtilKBuildVersion.isAfterV_16_41_J()) {
@@ -69,7 +69,7 @@ object UtilKViewTreeObserver {
     @OApiUse_BaseApplication
     @JvmStatic
     fun observerInputChangeByView(view: View): ViewTreeObserver.OnGlobalLayoutListener? {
-        return observerInputChange(UtilKActivity.getByContext(view.context, true) ?: return null,
+        return observerInputChange(UtilKActivityWrapper.get(view.context, true) ?: return null,
             object : IAB_Listener<Rect, Boolean> {
                 private val _location = intArrayOf(0, 0)
                 override fun invoke(keyboardBounds: Rect, isVisible: Boolean) {

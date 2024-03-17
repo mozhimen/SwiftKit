@@ -30,9 +30,10 @@ object UtilKDecorView : BaseUtilK() {
     fun get(window: Window): View =
         UtilKWindow.getDecorView(window)
 
+    @Suppress(CSuppress.UNCHECKED_CAST)
     @JvmStatic
-    fun getContentView(activity: Activity): View? =
-        get(activity).findViewById(CPackage.ANDROID_R_ID_CONTENT)
+    fun <V : View> getAs(window: Window): V =
+        get(window) as V
 
     @JvmStatic
     fun getAsViewGroup(activity: Activity): ViewGroup =
@@ -42,10 +43,11 @@ object UtilKDecorView : BaseUtilK() {
     fun getAsViewGroup(window: Window): ViewGroup =
         getAs(window)
 
-    @Suppress(CSuppress.UNCHECKED_CAST)
+    ///////////////////////////////////////////////////////////////////////////
+
     @JvmStatic
-    fun <V : View> getAs(window: Window): V =
-        get(window) as V
+    fun getContentView(activity: Activity): View? =
+        get(activity).findViewById(CPackage.ANDROID_R_ID_CONTENT)
 
     ///////////////////////////////////////////////////////////////////////////
 
@@ -67,7 +69,13 @@ object UtilKDecorView : BaseUtilK() {
 
     @JvmStatic
     fun getWindowSystemUiVisibility(window: Window): Int =
-        get(window).windowSystemUiVisibility
+        getWindowSystemUiVisibility(get(window))
+
+    @JvmStatic
+    fun getWindowSystemUiVisibility(decorView: View): Int =
+        decorView.windowSystemUiVisibility
+
+    ///////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun getWindowVisibleDisplayFrame(activity: Activity, rect: Rect) {
@@ -126,7 +134,7 @@ object UtilKDecorView : BaseUtilK() {
     @JvmStatic
     fun applyFitsSystemWindows(activity: Activity) {
         get(activity).post {
-            UtilKContentView.getChild0(activity)?.applyFitSystemWindow() ?: "setFitsSystemWindows contentView is null".et(TAG)
+            UtilKContentView.getPacChild0(activity)?.applyFitSystemWindow() ?: "setFitsSystemWindows contentView is null".et(TAG)
         }
     }
 

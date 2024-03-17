@@ -1,154 +1,138 @@
 package com.mozhimen.basick.utilk.android.util
 
-import com.mozhimen.basick.elemk.android.util.cons.CLogPriority
-import com.mozhimen.basick.elemk.cons.CCons
+import android.util.Log
+import com.mozhimen.basick.BuildConfig
+import com.mozhimen.basick.elemk.android.util.cons.CLog
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.lang.UtilKStackTraceElement
-import com.mozhimen.basick.utilk.kotlin.obj2str
 import java.util.concurrent.atomic.AtomicBoolean
 
-/**
- * @ClassName UtilKLogLong
- * @Description TODO
- * @Author mozhimen / Kolin Zhao
- * @Date 2022/11/19 13:53
- * @Version 1.0
- */
+fun String.v() {
+    UtilKLogWrapper.v(this)
+}
+
+fun String.vt(tag: String) {
+    UtilKLogWrapper.vt(tag, this)
+}
+
+fun String.d() {
+    UtilKLogWrapper.d(this)
+}
+
+fun String.dt(tag: String) {
+    UtilKLogWrapper.dt(tag, this)
+}
+
+fun String.i() {
+    UtilKLogWrapper.i(this)
+}
+
+fun String.it(tag: String) {
+    UtilKLogWrapper.it(tag, this)
+}
+
+fun String.w() {
+    UtilKLogWrapper.w(this)
+}
+
+fun String.wt(tag: String) {
+    UtilKLogWrapper.wt(tag, this)
+}
+
+fun String.e() {
+    UtilKLogWrapper.e(this)
+}
+
+fun String.et(tag: String) {
+    UtilKLogWrapper.et(tag, this)
+}
+
 object UtilKLogWrapper : BaseUtilK() {
 
-    private val _isOpenLog = AtomicBoolean(true)
-    private val _isSupportLongLog = AtomicBoolean(true)
+    private val _isLogEnable = AtomicBoolean(BuildConfig.DEBUG)
 
     @JvmStatic
-    fun applySupportLongLog(isSupportLongLog: Boolean) {
-        _isSupportLongLog.set(isSupportLongLog)
+    fun setLogEnable(enable: Boolean) {
+        _isLogEnable.set(enable)
     }
 
     @JvmStatic
-    fun applyOpenLog(isOpenLog: Boolean) {
-        _isOpenLog.set(isOpenLog)
-    }
-
-    ///////////////////////////////////////////////////////////////////
+    fun getLogEnable(): Boolean =
+        _isLogEnable.get()
 
     @JvmStatic
-    fun isSupportLongLog(): Boolean =
-        _isSupportLongLog.get()
-
-    @JvmStatic
-    fun isOpenLog(): Boolean =
-        _isOpenLog.get()
-
-    ///////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    private fun getLogCat(vararg msg: Any): String =
-        UtilKStackTraceElement.getStackTracesInfo(parseContents(*msg))
-
-    ///////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun v(vararg msg: Any) {
-        vt(TAG, *msg)
+    fun v(msg: String) {
+        log(CLog.VERBOSE, TAG, msg)
     }
 
     @JvmStatic
-    fun vt(tag: String, vararg msg: Any) {
-        log(CLogPriority.V, tag, *msg)
+    fun d(msg: String) {
+        log(CLog.DEBUG, TAG, msg)
     }
 
     @JvmStatic
-    fun d(vararg msg: Any) {
-        dt(TAG, *msg)
+    fun i(msg: String) {
+        log(CLog.INFO, TAG, msg)
     }
 
     @JvmStatic
-    fun dt(tag: String, vararg msg: Any) {
-        log(CLogPriority.D, tag, *msg)
+    fun w(msg: String) {
+        log(CLog.WARN, TAG, msg)
     }
 
     @JvmStatic
-    fun i(vararg msg: Any) {
-        it(TAG, msg)
+    fun e(msg: String) {
+        log(CLog.ERROR, TAG, msg)
     }
 
     @JvmStatic
-    fun it(tag: String, vararg msg: Any) {
-        log(CLogPriority.I, tag, *msg)
+    fun vt(tag: String, msg: String) {
+        log(CLog.VERBOSE, tag, msg)
     }
 
     @JvmStatic
-    fun w(vararg msg: Any) {
-        wt(TAG, *msg)
+    fun dt(tag: String, msg: String) {
+        log(CLog.DEBUG, tag, msg)
     }
 
     @JvmStatic
-    fun wt(tag: String, vararg msg: Any) {
-        log(CLogPriority.W, tag, *msg)
+    fun it(tag: String, msg: String) {
+        log(CLog.INFO, tag, msg)
     }
 
     @JvmStatic
-    fun e(vararg msg: Any) {
-        et(TAG, *msg)
+    fun wt(tag: String, msg: String) {
+        log(CLog.WARN, tag, msg)
     }
 
     @JvmStatic
-    fun et(tag: String, vararg msg: Any) {
-        log(CLogPriority.E, tag, *msg)
+    fun et(tag: String, msg: String) {
+        log(CLog.ERROR, tag, msg)
     }
 
     @JvmStatic
-    private fun log(level: Int, tag: String, vararg msg: Any) {
-        if (!isOpenLog()) return
-        if (isSupportLongLog()) {
-            try {
-                var logCat = getLogCat(*msg)
-                val length = logCat.length.toLong()
-                if (length <= CCons.UTILK_LOG_PRO_MAX_LOG_MSG_LENGTH) {
-                    log(level, tag, logCat)
-                } else {
-                    while (logCat.length > CCons.UTILK_LOG_PRO_MAX_LOG_MSG_LENGTH) {
-                        val logContent = logCat.substring(0, CCons.UTILK_LOG_PRO_MAX_LOG_MSG_LENGTH)
-                        logCat = logCat.replace(logContent, "")
-                        log(level, tag, logCat)
-                    }
-                    log(level, tag, logCat)
+    fun log(level: Int, tag: String, msg: String) {
+        if (!getLogEnable()) return
+        Log.println(level, tag, msg)
+    }
+
+    @JvmStatic
+    fun longLog(level: Int, tag: String, msg: String) {
+        if (!getLogEnable()) return
+        val segmentSize = 1024
+        val logLength = msg.length
+        if (logLength < segmentSize) {
+            log(level, tag, msg)
+        } else {
+            var startIndex = 0
+            while (startIndex < logLength) {
+                var endIndex = startIndex + segmentSize
+                if (endIndex > logLength) {
+                    endIndex = logLength
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                e.message?.et(TAG)
-            }
-        } else
-            log(level, tag, getLogCat(*msg))
-    }
-
-    @JvmStatic
-    private fun log(level: Int, tag: String, msg: String) {
-        if (!isOpenLog()) return
-        UtilKLog.log(level, tag, msg)
-    }
-
-    @JvmStatic
-    private fun parseContents(vararg objs: Any): String {
-        val stringBuilder = StringBuilder()
-        if (objs.isNotEmpty()) {
-            if (objs.size > 1) {
-                stringBuilder.append(" {  ")
-            }
-            for ((index, obj) in objs.withIndex()) {
-                stringBuilder.append("params【")
-                    .append(index)
-                    .append("】")
-                    .append(" = ")
-                    .append(obj.obj2str())
-                if (index < objs.size - 1) {
-                    stringBuilder.append(" , ")
-                }
-            }
-            if (objs.size > 1) {
-                stringBuilder.append("  }")
+                val printMessage = msg.subSequence(startIndex, endIndex)
+                log(level, tag, printMessage.toString())
+                startIndex = endIndex
             }
         }
-        return stringBuilder.toString()
     }
 }

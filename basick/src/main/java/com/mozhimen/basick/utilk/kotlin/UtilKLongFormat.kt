@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.kotlin
 
 import com.mozhimen.basick.utilk.java.text.UtilKDecimalFormat
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.kotlin.text.replaceDot
 import java.util.Locale
@@ -29,7 +29,7 @@ object UtilKLongFormat : IUtilK {
 
     @JvmStatic
     fun longFileSize2strFileSize(fileSize: Long, suffix: String = "B", bit: Int = 2, locale: Locale): String {
-        val decimalFormat = UtilKDecimalFormat.getOf(bit, locale)
+        val decimalFormat = UtilKDecimalFormat.get(bit, locale)
         return (if (fileSize <= 0) "0B"
         else if (fileSize < 1024)
             "${fileSize}B"
@@ -38,7 +38,7 @@ object UtilKLongFormat : IUtilK {
         else if (fileSize < 1073741824)
             decimalFormat.format(fileSize.toDouble() / 1048576.0) + "M" + suffix
         else
-            decimalFormat.format(fileSize.toDouble() / 1073741824.0) + "G" + suffix).replaceDot().also { Log.d(TAG, "longFileSize2strFileSize: $it") }
+            decimalFormat.format(fileSize.toDouble() / 1073741824.0) + "G" + suffix).replaceDot().also { UtilKLogWrapper.dt(TAG, "longFileSize2strFileSize: $it") }
     }
 
     @JvmStatic

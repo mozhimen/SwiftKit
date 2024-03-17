@@ -3,7 +3,7 @@ package com.mozhimen.basicktest.postk
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basicktest.databinding.ActivityPostkLinkBinding
 import android.content.Intent
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 
 /**
  * @ClassName PostKLinkActivity
@@ -21,14 +21,14 @@ class PostKLinkActivity : BaseActivityVDB<ActivityPostkLinkBinding>() {
             if (data != null) {
                 val name = data.getQueryParameter("type")
                 val age = data.getQueryParameter("id")
-                Log.d(TAG, "getQueryParameter type=" + name + "id=" + age)
+                UtilKLogWrapper.dt(TAG, "getQueryParameter type=" + name + "id=" + age)
             }
         }
         intent.getStringExtra("type")?.also {
-            Log.d(TAG, "initData: type $it")
+            UtilKLogWrapper.dt(TAG, "initData: type $it")
         }
         intent.getStringExtra("id")?.also {
-            Log.d(TAG, "initData: id $it")
+            UtilKLogWrapper.dt(TAG, "initData: id $it")
         }
     }
 }

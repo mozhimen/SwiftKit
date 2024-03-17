@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.android.opengl
 
 import android.opengl.GLES20
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.BuildConfig
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.UtilKStrAsset
@@ -113,7 +113,7 @@ object UtilKGLES20 : BaseUtilK() {
     @JvmStatic
     fun glError(code: Int, index: Any) {
         if (BuildConfig.DEBUG && code != 0) {
-            Log.e(TAG, "glError: $code: $index")
+            UtilKLogWrapper.et(TAG, "glError: $code: $index")
         }
     }
 }

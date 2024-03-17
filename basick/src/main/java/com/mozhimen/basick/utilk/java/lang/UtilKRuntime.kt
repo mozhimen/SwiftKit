@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.java.lang
 
 import android.text.TextUtils
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.cons.CPath
 import com.mozhimen.basick.elemk.kotlin.text.cons.CCharsets
@@ -72,7 +72,7 @@ object UtilKRuntime : BaseUtilK() {
             return inputStream.inputStream2strOfReadSingleLine(readSize = 1024)
         } catch (e: Exception) {
             e.printStackTrace()
-            Log.e(TAG, "getProp Unable to read prop strPackage $strPackage msg ${e.message}")
+            UtilKLogWrapper.et(TAG, "getProp Unable to read prop strPackage $strPackage msg ${e.message}")
         } finally {
             inputStream?.close()
             process?.destroy()
@@ -198,11 +198,11 @@ object UtilKRuntime : BaseUtilK() {
             inputStream = process.inputStream
             inputStreamReader = InputStreamReader(inputStream)
             inputBufferedReader = BufferedReader(inputStreamReader)
-            (inputBufferedReader.readLine() != null).also { Log.d(TAG, "isWhichAvailable: $it") }
+            (inputBufferedReader.readLine() != null).also { UtilKLogWrapper.dt(TAG, "isWhichAvailable: $it") }
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)
-            false.also { Log.d(TAG, "isWhichAvailable: $it") }
+            false.also { UtilKLogWrapper.dt(TAG, "isWhichAvailable: $it") }
         } finally {
             inputBufferedReader?.close()
             inputStreamReader?.close()
@@ -335,7 +335,7 @@ object UtilKRuntime : BaseUtilK() {
                 }
             }
         } catch (e: Exception) {
-            Log.e(TAG, "execSuOrSh: Exception ${e.message}")
+            UtilKLogWrapper.et(TAG, "execSuOrSh: Exception ${e.message}")
             e.printStackTrace()
         } finally {
             errorBufferedReader?.close()

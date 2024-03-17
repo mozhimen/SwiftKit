@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest.taskk
 
 import android.os.Bundle
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
@@ -47,13 +47,13 @@ class TaskKExecutorActivity : BaseActivityVDB<ActivityTaskkExecutorBinding>() {
         vdb.taskkExecutorBtnAsync.setOnClickListener {
             TaskKExecutor.execute(TAG, runnable = object : TaskKExecutor.ExecutorKCallable<String>() {
                 override fun onBackground(): String {
-                    Log.e(TAG, "onBackground: 当前线程: ${UtilKThread.getCur()}")
+                    UtilKLogWrapper.et(TAG, "onBackground: 当前线程: ${UtilKThread.getCur()}")
                     return "我是异步任务的结果"
                 }
 
                 override fun onCompleted(t: String?) {
-                    Log.e(TAG, "onCompleted: 当前线程是: ${UtilKThread.getCurName()}")
-                    Log.e(TAG, "onCompleted: 任务结果是: $t")
+                    UtilKLogWrapper.et(TAG, "onCompleted: 当前线程是: ${UtilKThread.getCurName()}")
+                    UtilKLogWrapper.et(TAG, "onCompleted: 任务结果是: $t")
                 }
             })
         }

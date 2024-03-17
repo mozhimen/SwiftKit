@@ -5,7 +5,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
 import android.os.FileUtils
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.commons.IAB_Listener
@@ -27,6 +27,7 @@ import java.io.OutputStream
 import java.nio.charset.Charset
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
+
 
 /**
  * @ClassName UtilKInputStreamFormat
@@ -293,9 +294,9 @@ object UtilKInputStreamFormat : IUtilK {
     fun inputStream2file(inputStream: InputStream, fileDest: File, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? {
         UtilKFile.createFile(fileDest)
         /*//        val fileInputStream = file.file2fileInputStream()
-        //        Log.d(TAG, "inputStream2file: inputStream ${inputStream.available()}")
+        //        UtilKLog.dt(TAG, "inputStream2file: inputStream ${inputStream.available()}")
         //        if (isInputStreamSame(inputStream, fileInputStream)) {//相似内容就直接返回地址
-        //            Log.d(TAG, "assetCopyFile: the two files is same")
+        //            UtilKLog.dt(TAG, "assetCopyFile: the two files is same")
         //            return file//"the two files is same, don't need overwrite"
         //        }*/
         try {
@@ -336,7 +337,7 @@ object UtilKInputStreamFormat : IUtilK {
         UtilKFile.createFile(fileDest)
         /*//        val fileInputStream = file.file2fileInputStream()
         //        if (isInputStreamSame(inputStream, fileInputStream)) {//相似内容就直接返回地址
-        //            Log.d(UtilKFile.TAG, "assetCopyFile: the two files is same")
+        //            UtilKLog.dt(UtilKFile.TAG, "assetCopyFile: the two files is same")
         //            return file//"the two files is same, don't need overwrite"
         //        }*/
         try {
@@ -360,12 +361,12 @@ object UtilKInputStreamFormat : IUtilK {
             var readCount: Int
             var offset = 0
             var percent: Float
-            Log.d(TAG, "inputStream2outputStream: totalCount $totalCount")
+            UtilKLogWrapper.dt(TAG, "inputStream2outputStream: totalCount $totalCount")
             while (inputStream.read(bytes).also { readCount = it } != -1) {
                 offset += readCount
                 outputStream.write(bytes, 0, readCount)
                 percent = (offset.toFloat() / totalCount.toFloat()).normalize(0f, 1f)
-                //Log.d(TAG, "inputStream2outputStream: offset $offset total $totalCount percent $percent")
+                //UtilKLog.dt(TAG, "inputStream2outputStream: offset $offset total $totalCount percent $percent")
                 block?.invoke(readCount, percent)
             }
         } catch (e: Exception) {

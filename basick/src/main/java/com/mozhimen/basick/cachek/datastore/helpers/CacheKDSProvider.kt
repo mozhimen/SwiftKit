@@ -199,7 +199,7 @@ class CacheKDSProvider(dsName: String) : ICacheKProvider, BaseUtilK() {
 //        .catch { exception ->
 //            // datastore.data throws an IOException when an error is encountered when reading data
 //            if (exception is IOException) {
-//                Log.e(TAG，" Error reading preferences.", exception)
+//                UtilKLog.et(TAG，" Error reading preferences.", exception)
 //                emit(emptyPreferences())
 //            } else {
 //                throw exception

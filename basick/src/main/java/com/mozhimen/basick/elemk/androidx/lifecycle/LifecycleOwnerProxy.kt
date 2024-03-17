@@ -1,6 +1,6 @@
 package com.mozhimen.basick.elemk.androidx.lifecycle
 
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
@@ -30,33 +30,33 @@ class LifecycleOwnerProxy : LifecycleOwner, IUtilK {
 
     ///////////////////////////////////////////////////////////////////////
 
-    fun onCreate(name: String) {
-        Log.v(TAG, "onCreate:  $name")
+    fun onCreate() {
+        UtilKLogWrapper.dt(TAG, "onCreate: ")
         lifecycleRegistry.handleLifecycleEventOnCreate()
     }
 
-    fun onStart(name: String) {
-        Log.v(TAG, "onStart:   $name")
+    fun onStart() {
+        UtilKLogWrapper.dt(TAG, "onStart: ")
         lifecycleRegistry.handleLifecycleEventOnStart()
     }
 
-    fun onResume(name: String) {
-        Log.v(TAG, "onResume:  $name")
+    fun onResume() {
+        UtilKLogWrapper.dt(TAG, "onResume: ")
         lifecycleRegistry.handleLifecycleEventOnResume()
     }
 
-    fun onPause(name: String) {
-        Log.v(TAG, "onPause:   $name")
+    fun onPause() {
+        UtilKLogWrapper.dt(TAG, "onPause: ")
         lifecycleRegistry.handleLifecycleEventOnPause()
     }
 
-    fun onStop(name: String) {
-        Log.v(TAG, "onStop:    $name")
+    fun onStop() {
+        UtilKLogWrapper.dt(TAG, "onStop: ")
         lifecycleRegistry.handleLifecycleEventOnStop()
     }
 
-    fun onDestroy(name: String) {
-        Log.v(TAG, "onDestroy: $name")
+    fun onDestroy() {
+        UtilKLogWrapper.dt(TAG, "onDestroy: ")
         lifecycleRegistry.handleLifecycleEventOnDestroy()
     }
 

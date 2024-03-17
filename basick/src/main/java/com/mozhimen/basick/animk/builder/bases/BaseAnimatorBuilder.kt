@@ -1,6 +1,6 @@
 package com.mozhimen.basick.animk.builder.bases
 
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import android.util.SparseArray
 import android.view.animation.Interpolator
 import com.mozhimen.basick.animk.builder.commons.IAnimatorType
@@ -45,6 +45,6 @@ open class BaseAnimatorBuilder<T> : BaseAnimKBuilder() {
     private fun appendConfigs(type: IAnimatorType) {
         _types.delete((type as BasePropertyType<*>).getKey())//同类型的只能作用一个
         _types.append(type.getKey(), type)
-        Log.d(TAG, "appendConfigs: $_types")
+        UtilKLogWrapper.dt(TAG, "appendConfigs: $_types")
     }
 }

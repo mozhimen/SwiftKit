@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.androidx.recyclerview
 
 import android.graphics.Rect
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -320,7 +320,7 @@ object UtilKRecyclerView : IUtilK {
                 }
 
                 in lastRowFirstPosition until itemCount /*(itemCount - spanCount) until itemCount*/ -> {// 判断是否为最后一行，最后一行单独添加底部的间距
-                    Log.d(TAG, "equilibriumAssignmentOfGridLayoutManager: itemPosition $itemPosition")
+                    UtilKLogWrapper.dt(TAG, "equilibriumAssignmentOfGridLayoutManager: itemPosition $itemPosition")
                     outRect.bottom = gapOuter
                     outRect.top = gapInner
                 }

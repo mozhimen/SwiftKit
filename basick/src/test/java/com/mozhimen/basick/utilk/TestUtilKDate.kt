@@ -1,8 +1,5 @@
 package com.mozhimen.basick.utilk
 
-import com.mozhimen.basick.utilk.android.util.println
-import com.mozhimen.basick.utilk.java.util.UtilKDate
-import com.mozhimen.basick.utilk.kotlin.printlog
 import org.junit.Test
 
 class TestUtilKDate {

@@ -1,6 +1,6 @@
 package com.mozhimen.basicktest.elemk.android
 
-import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.elemk.android.content.bases.BaseTimeBroadcastReceiver
 import com.mozhimen.basick.elemk.android.content.bases.ITimeReceiverListener
 import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
@@ -19,7 +19,7 @@ import com.mozhimen.basick.utilk.java.util.UtilKDate
 class ElemKTimeReceiver : BaseTimeBroadcastReceiver(
     object : ITimeReceiverListener {
         override fun onTimeTick() {
-            Log.v("ElemKTimeReceiver>>>>>", "onTimeTick: long ${UtilKDate.getNowLong()} string ${UtilKDate.getNowStr(CDateFormat.HH_mm)}")
+            UtilKLogWrapper.vt("ElemKTimeReceiver>>>>>", "onTimeTick: long ${UtilKDate.getNowLong()} string ${UtilKDate.getNowStr(CDateFormat.HH_mm)}")
         }
     }
 )

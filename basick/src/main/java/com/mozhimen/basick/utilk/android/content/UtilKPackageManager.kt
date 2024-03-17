@@ -1,7 +1,6 @@
 package com.mozhimen.basick.utilk.android.content
 
 import android.annotation.SuppressLint
-import android.annotation.TargetApi
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -78,7 +77,7 @@ object UtilKPackageManager {
      */
     @JvmStatic
     fun getApplicationIcon(context: Context): Drawable? =
-        UtilKApplicationInfo.getOfPackageInfo(context)?.let { get(context).getApplicationIcon(it) }
+        UtilKApplicationInfo.getPackInfo(context)?.let { get(context).getApplicationIcon(it) }
 
     /**
      * 得到图标
@@ -171,5 +170,7 @@ object UtilKPackageManager {
     @OPermission_REQUEST_INSTALL_PACKAGES
     @ADescription(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
     fun canRequestPackageInstalls(context: Context): Boolean =
-        if (UtilKBuildVersion.isAfterV_26_8_O()) get(context).canRequestPackageInstalls() else true
+        if (UtilKBuildVersion.isAfterV_26_8_O())
+            get(context).canRequestPackageInstalls()
+        else true
 }
