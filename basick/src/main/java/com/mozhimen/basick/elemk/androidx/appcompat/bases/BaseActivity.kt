@@ -15,31 +15,31 @@ import com.mozhimen.basick.utilk.commons.IUtilK
 open class BaseActivity : AppCompatActivity(), IUtilK {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        UtilKLogWrapper.vt(TAG, "onCreate: ")
+        UtilKLogWrapper.v(TAG, "onCreate: ")
     }
 
     override fun onStart() {
         super.onStart()
-        UtilKLogWrapper.vt(TAG, "onStart: ")
+        UtilKLogWrapper.v(TAG, "onStart: ")
     }
 
     override fun onResume() {
         super.onResume()
-        UtilKLogWrapper.vt(TAG, "onResume: ")
+        UtilKLogWrapper.v(TAG, "onResume: ")
     }
 
     override fun onPause() {
-        UtilKLogWrapper.vt(TAG, "onPause: ")
+        UtilKLogWrapper.v(TAG, "onPause: ")
         super.onPause()
     }
 
     override fun onStop() {
-        UtilKLogWrapper.vt(TAG, "onStop: ")
+        UtilKLogWrapper.v(TAG, "onStop: ")
         super.onStop()
     }
 
     override fun onDestroy() {
-        UtilKLogWrapper.vt(TAG, "onDestroy: ")
+        UtilKLogWrapper.v(TAG, "onDestroy: ")
         super.onDestroy()
     }
 }

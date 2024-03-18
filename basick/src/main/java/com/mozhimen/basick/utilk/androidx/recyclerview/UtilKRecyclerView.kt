@@ -320,7 +320,7 @@ object UtilKRecyclerView : IUtilK {
                 }
 
                 in lastRowFirstPosition until itemCount /*(itemCount - spanCount) until itemCount*/ -> {// 判断是否为最后一行，最后一行单独添加底部的间距
-                    UtilKLogWrapper.dt(TAG, "equilibriumAssignmentOfGridLayoutManager: itemPosition $itemPosition")
+                    UtilKLogWrapper.d(TAG, "equilibriumAssignmentOfGridLayoutManager: itemPosition $itemPosition")
                     outRect.bottom = gapOuter
                     outRect.top = gapInner
                 }

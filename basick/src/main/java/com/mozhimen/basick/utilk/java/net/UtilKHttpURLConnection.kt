@@ -4,7 +4,7 @@ import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.WorkerThread
 import com.mozhimen.basick.elemk.javax.net.bases.BaseHostnameVerifier
 import com.mozhimen.basick.lintk.optins.application.OApplication_USES_CLEAR_TEXT_TRAFFIC
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
@@ -66,14 +66,14 @@ object UtilKHttpURLConnection : IUtilK {
         val strUrl = "https://whois.pconline.com.cn/ipJson.jsp?json=true"
         try {
             val result = requestGet(strUrl, null, 30000, 30000)
-            UtilKLogWrapper.dt(TAG, "getStrIP result：$result")
+            UtilKLogWrapper.d(TAG, "getStrIP result：$result")
             val jsonObject = JSONObject(result)
             ipAddress = jsonObject.getString("ip")
         } catch (e: Exception) {
             e.printStackTrace()
-            UtilKLogWrapper.et(TAG, "getStrIP 获取IP地址时出现异常, 异常信息是：$e")
+            UtilKLogWrapper.e(TAG, "getStrIP 获取IP地址时出现异常, 异常信息是：$e")
         }
-        return ipAddress.also { UtilKLogWrapper.dt(TAG, "getStrIP $ipAddress") }
+        return ipAddress.also { UtilKLogWrapper.d(TAG, "getStrIP $ipAddress") }
     }
 
     @JvmStatic
@@ -101,7 +101,7 @@ object UtilKHttpURLConnection : IUtilK {
             return fileDest
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(UtilKStrUrl.TAG)
+            e.message?.e(UtilKStrUrl.TAG)
         } finally {
             inputStream?.close()
             httpURLConnection?.disconnect()

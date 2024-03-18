@@ -44,13 +44,13 @@ class UtilKBitmapActivity : BaseActivityVDB<ActivityUtilkBitmapBinding>() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 val progress = seekBar!!.progress
                 val ratio: Float = 1 + progress / 100f
-                UtilKLogWrapper.it(TAG, "onStopTrackingTouch: ratio $ratio")
-                UtilKLogWrapper.it(TAG, "onStopTrackingTouch: bmp w ${bitmap.width} h ${bitmap.height}")
+                UtilKLogWrapper.i(TAG, "onStopTrackingTouch: ratio $ratio")
+                UtilKLogWrapper.i(TAG, "onStopTrackingTouch: bmp w ${bitmap.width} h ${bitmap.height}")
                 val zoomBmp = UtilKBitmapDeal.applyBitmapAnyZoom(bitmap, ratio)
-                UtilKLogWrapper.it(TAG, "onStopTrackingTouch: zoomBmp w ${zoomBmp.width} h ${zoomBmp.height}")
+                UtilKLogWrapper.i(TAG, "onStopTrackingTouch: zoomBmp w ${zoomBmp.width} h ${zoomBmp.height}")
                 val scaleBmp = zoomBmp.applyBitmapAnyScaleRatio(bitmap.width.toFloat(), bitmap.height.toFloat())
-                UtilKLogWrapper.it(TAG, "onStopTrackingTouch: scaleBmp w ${scaleBmp.width} h ${scaleBmp.height}")
-                UtilKLogWrapper.it(TAG, "onStopTrackingTouch: --->")
+                UtilKLogWrapper.i(TAG, "onStopTrackingTouch: scaleBmp w ${scaleBmp.width} h ${scaleBmp.height}")
+                UtilKLogWrapper.i(TAG, "onStopTrackingTouch: --->")
                 vdb.utilkBitmapImgBmpZoom.setImageBitmap(scaleBmp)
             }
         })
@@ -67,7 +67,7 @@ class UtilKBitmapActivity : BaseActivityVDB<ActivityUtilkBitmapBinding>() {
                 var ratio: Float = 5 * progress / 100f
                 if (ratio < 1) ratio = 1f
                 val scaleBmp = bitmap.applyBitmapAnyScaleRatio(bitmap.width.toFloat() / ratio, bitmap.height.toFloat() / ratio)
-                UtilKLogWrapper.it(TAG, "onStopTrackingTouch: scaleBmp w ${scaleBmp.width} h ${scaleBmp.height}")
+                UtilKLogWrapper.i(TAG, "onStopTrackingTouch: scaleBmp w ${scaleBmp.width} h ${scaleBmp.height}")
                 vdb.utilkBitmapImgBmpScale.setImageBitmap(scaleBmp)
             }
         })

@@ -3,7 +3,7 @@ package com.mozhimen.basick.utilk.android.os
 import android.annotation.SuppressLint
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.elemk.cons.CStrPackage
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.strPackage2clazz
 
@@ -27,7 +27,7 @@ object UtilKSystemProperties : BaseUtilK() {
             return methodGet.invoke(clazz, strPackage, defaultValue) as String
         } catch (e: Exception) { /**/
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         }
         return ""
     }
@@ -42,7 +42,7 @@ object UtilKSystemProperties : BaseUtilK() {
             val methodGet: Method = clazz.getMethod("get", String::class.java)
             (methodGet.invoke(clazz, strPackage) as String).ifEmpty { defaultValue }
         } catch (e: Exception) {
-            UtilKLogWrapper.et(TAG, "get Exception ${e.message}")
+            UtilKLogWrapper.e(TAG, "get Exception ${e.message}")
             e.printStackTrace()
             defaultValue
         }
@@ -59,7 +59,7 @@ object UtilKSystemProperties : BaseUtilK() {
             val str = methodGet.invoke(clazz, strPackage) as String
             if (str.isNotEmpty()) java.lang.Boolean.parseBoolean(str) else defaultValue
         } catch (e: Exception) {
-            UtilKLogWrapper.et(TAG, "getSystemProperties Exception ${e.message}")
+            UtilKLogWrapper.e(TAG, "getSystemProperties Exception ${e.message}")
             e.printStackTrace()
             defaultValue
         }
@@ -77,7 +77,7 @@ object UtilKSystemProperties : BaseUtilK() {
             val methodSet: Method = clazz.getMethod("set", String::class.java, String::class.java)
             methodSet.invoke(clazz, key, value)
         } catch (e: Exception) {
-            UtilKLogWrapper.et(TAG, "apply Exception ${e.message}")
+            UtilKLogWrapper.e(TAG, "apply Exception ${e.message}")
             e.printStackTrace()
         }
     }

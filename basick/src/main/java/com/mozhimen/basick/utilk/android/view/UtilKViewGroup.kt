@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.utilk.androidx.recyclerview.isScroll2top
 import com.mozhimen.basick.utilk.commons.IUtilK
@@ -17,11 +18,19 @@ import java.util.Deque
  * @Date 2022/2/22 22:30
  * @Version 1.0
  */
+fun ViewGroup.getView_ofInflate(@LayoutRes layoutId: Int): View =
+    UtilKView.get_ofInflate(this, layoutId)
+
 fun ViewGroup.addViewMatchParent(view: View) {
     UtilKViewGroup.addViewMatchParent(this, view)
 }
 
 object UtilKViewGroup : IUtilK {
+
+    fun getView_ofInflate(viewGroup: ViewGroup, @LayoutRes intResLayout: Int): View =
+        UtilKView.get_ofInflate(viewGroup, intResLayout)
+
+    //////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 查找可以滚动的child

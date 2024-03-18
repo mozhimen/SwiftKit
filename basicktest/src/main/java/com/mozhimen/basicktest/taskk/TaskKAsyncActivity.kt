@@ -21,7 +21,7 @@ class TaskKAsyncActivity : BaseActivityVDB<ActivityTaskkAsyncBinding>() {
                 _taskKAsync.execute {
                     val time = System.currentTimeMillis()
                     delay((1000..3000).random().toLong())
-                    UtilKLogWrapper.dt(TAG, "initData: 线程${i}执行结束, 执行时间:${System.currentTimeMillis() - time}")
+                    UtilKLogWrapper.d(TAG, "initData: 线程${i}执行结束, 执行时间:${System.currentTimeMillis() - time}")
                 }
             }
         }

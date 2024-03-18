@@ -9,6 +9,7 @@ import android.widget.FrameLayout
 import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
 import com.mozhimen.basick.elemk.commons.IAB_Listener
 import com.mozhimen.basick.elemk.commons.IA_Listener
+import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.elemk.cons.CCons
 import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
 import com.mozhimen.basick.utilk.android.app.UtilKActivityWrapper
@@ -21,7 +22,30 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
  * @Date 2023/10/29 0:15
  * @Version 1.0
  */
+fun View.addAndRemoveOnGlobalLayoutListener(invoke: I_Listener) {
+    UtilKViewTreeObserver.addAndRemoveOnGlobalLayoutListener(this, invoke)
+}
+
+////////////////////////////////////////////////////////////////////////
+
 object UtilKViewTreeObserver {
+    @JvmStatic
+    fun get(view: View): ViewTreeObserver? =
+        UtilKView.getViewTreeObserver(view)
+
+    ////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun addAndRemoveOnGlobalLayoutListener(view: View, invoke: I_Listener) {
+        get(view)?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                if (view.viewTreeObserver != null) {
+                    view.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    invoke.invoke()
+                }
+            }
+        })
+    }
 
     /**
      * Register soft input changed listener.
@@ -69,7 +93,7 @@ object UtilKViewTreeObserver {
     @OApiUse_BaseApplication
     @JvmStatic
     fun observerInputChangeByView(view: View): ViewTreeObserver.OnGlobalLayoutListener? {
-        return observerInputChange(UtilKActivityWrapper.get(view.context, true) ?: return null,
+        return observerInputChange(UtilKActivityWrapper.get_ofContext(view.context, true) ?: return null,
             object : IAB_Listener<Rect, Boolean> {
                 private val _location = intArrayOf(0, 0)
                 override fun invoke(keyboardBounds: Rect, isVisible: Boolean) {

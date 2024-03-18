@@ -16,7 +16,7 @@ import javax.net.ssl.SSLSession
 class BaseHostnameVerifier: HostnameVerifier , IUtilK {
     @SuppressLint("BadHostnameVerifier")
     override fun verify(hostname: String, session: SSLSession): Boolean {
-        UtilKLogWrapper.dt(TAG, "verify: WARNING: Hostname is not matched for cert.")
+        UtilKLogWrapper.d(TAG, "verify: WARNING: Hostname is not matched for cert.")
         return true
     }
 }

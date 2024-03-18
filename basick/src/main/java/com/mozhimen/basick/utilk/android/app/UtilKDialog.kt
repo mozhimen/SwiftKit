@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.kotlin.strPackage2clazz
 
 
@@ -38,7 +38,7 @@ object UtilKDialog : BaseUtilK() {
             fieldMHiddenApiWarningShown.setBoolean(activityThread, true)
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         }
     }
 }

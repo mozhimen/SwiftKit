@@ -9,8 +9,8 @@ import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.android.util.it
+import com.mozhimen.basick.utilk.android.util.e
+import com.mozhimen.basick.utilk.android.util.i
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.kotlin.strPackage2clazz
 import java.lang.reflect.Method
@@ -70,7 +70,7 @@ object UtilKDeviceId : IUtilK {
             UtilKTelephonyManager.getDeviceId(context, slotId)
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.it(TAG)
+            e.message?.i(TAG)
             ""
         }
 
@@ -82,7 +82,7 @@ object UtilKDeviceId : IUtilK {
             UtilKTelephonyManager.getDeviceId(context)
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
             ""
         }
 
@@ -114,7 +114,7 @@ object UtilKDeviceId : IUtilK {
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         }
         return ""
     }
@@ -131,7 +131,7 @@ object UtilKDeviceId : IUtilK {
             return methodGetDeviceId.invoke(telephonyManager, slotId)?.toString() ?: ""
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         }
         return ""
     }

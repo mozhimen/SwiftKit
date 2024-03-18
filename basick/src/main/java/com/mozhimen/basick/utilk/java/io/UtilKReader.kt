@@ -3,7 +3,7 @@ package com.mozhimen.basick.utilk.java.io
 import com.mozhimen.basick.elemk.cons.CPath
 import com.mozhimen.basick.utilk.android.os.UtilKProcess
 import com.mozhimen.basick.utilk.android.text.formatFileSize
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.strFilePath2file
 import java.io.BufferedReader
@@ -75,7 +75,7 @@ object UtilKReader : BaseUtilK() {
             return bufferedReader.readLine().trim { it <= ' ' }
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         } finally {
             bufferedReader?.close()
             fileReader?.close()
@@ -93,12 +93,12 @@ object UtilKReader : BaseUtilK() {
             val strLine: String = bufferedReader.readLine() // 读取mem info第一行，系统总内存大小
             val strs: Array<String> = strLine.split("\\s+".toRegex()).toTypedArray()
             /*for (num in strs)
-                UtilKLog.et(strLine, num + "\t")*/
+                UtilKLogWrapper.e(strLine, num + "\t")*/
             val memorySize: Long = (Integer.valueOf(strs[1]).toInt() * 1024).toLong() // 获得系统总内存，单位是KB，乘以1024转换为Byte
             return memorySize.formatFileSize() // Byte转换为KB或者MB，内存大小规格化
         } catch (e: IOException) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         } finally {
             bufferedReader?.close()
             fileReader?.close()

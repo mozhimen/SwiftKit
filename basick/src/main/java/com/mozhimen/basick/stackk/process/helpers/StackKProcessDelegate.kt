@@ -93,7 +93,7 @@ internal class StackKProcessDelegate : IStackK {
          * @param owner LifecycleOwner
          */
         override fun onCreate(owner: LifecycleOwner) {
-            UtilKLogWrapper.dt(TAG, "onCreate")
+            UtilKLogWrapper.d(TAG, "onCreate")
         }
 
         /**
@@ -101,7 +101,7 @@ internal class StackKProcessDelegate : IStackK {
          * @param owner LifecycleOwner
          */
         override fun onStart(owner: LifecycleOwner) {
-            UtilKLogWrapper.dt(TAG, "onStart")
+            UtilKLogWrapper.d(TAG, "onStart")
             if (getLaunchCount() > 0 && !_isFront && owner is Activity) {
                 onFrontBackChanged(true.also { _isFront = true }, owner)
             }
@@ -112,7 +112,7 @@ internal class StackKProcessDelegate : IStackK {
          * @param owner LifecycleOwner
          */
         override fun onResume(owner: LifecycleOwner) {
-            UtilKLogWrapper.dt(TAG, "onResume")
+            UtilKLogWrapper.d(TAG, "onResume")
         }
 
         /**
@@ -120,7 +120,7 @@ internal class StackKProcessDelegate : IStackK {
          * @param owner LifecycleOwner
          */
         override fun onPause(owner: LifecycleOwner) {
-            UtilKLogWrapper.dt(TAG, "onPause")
+            UtilKLogWrapper.d(TAG, "onPause")
         }
 
         /**
@@ -128,7 +128,7 @@ internal class StackKProcessDelegate : IStackK {
          * @param owner LifecycleOwner
          */
         override fun onStop(owner: LifecycleOwner) {
-            UtilKLogWrapper.dt(TAG, "onStop")
+            UtilKLogWrapper.d(TAG, "onStop")
             if (getLaunchCount() <= 0 && _isFront && owner is Activity) {
                 onFrontBackChanged(false.also { _isFront = false }, owner)
             }
@@ -139,7 +139,7 @@ internal class StackKProcessDelegate : IStackK {
          * @param owner LifecycleOwner
          */
         override fun onDestroy(owner: LifecycleOwner) {
-            UtilKLogWrapper.dt(TAG, "onDestroy")
+            UtilKLogWrapper.d(TAG, "onDestroy")
             super.onDestroy(owner)
         }
 

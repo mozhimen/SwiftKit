@@ -11,7 +11,7 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.app.getAnnotation
-import com.mozhimen.basick.utilk.android.util.wt
+import com.mozhimen.basick.utilk.android.util.w
 import com.mozhimen.basick.utilk.android.widget.showToastOnMain
 
 /**
@@ -102,7 +102,7 @@ object ManifestKPermission : BaseUtilK() {
     ////////////////////////////////////////////////////////////////////////////////////////
 
     private fun printDeniedPermissions(deniedList: List<String>) {
-        "printDeniedPermissions $deniedList".wt(TAG)
+        "printDeniedPermissions $deniedList".w(TAG)
         if (deniedList.isNotEmpty())
             "请在设置中打开${deniedList.joinToString()}权限".showToastOnMain()
     }

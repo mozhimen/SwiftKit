@@ -64,7 +64,7 @@ class InvisibleProxyFragmentScoped : Fragment(), IUtilK {
 
     fun request(listener: IManifestKPermissionScopedListener) {
         _listener = listener
-        UtilKLogWrapper.dt(TAG, "request: _strFilePath $_strFilePath")
+        UtilKLogWrapper.d(TAG, "request: _strFilePath $_strFilePath")
         if (ManifestKPermissionScopedUtil.isPermissionStrFilePathProtectedGranted(requireActivity(), _strFilePath)) {
             _listener?.invoke(true)
         } else {

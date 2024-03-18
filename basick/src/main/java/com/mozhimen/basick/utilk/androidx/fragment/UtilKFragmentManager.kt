@@ -77,7 +77,7 @@ object UtilKFragmentManager : IUtilK {
         map.forEach {
             if (it.value != null) {
                 get(fragmentActivity).putFragment(outState, it.key, it.value!!)
-                UtilKLogWrapper.dt(TAG, "onSaveInstanceState: putFragment ${it.key} ${it.value}")
+                UtilKLogWrapper.d(TAG, "onSaveInstanceState: putFragment ${it.key} ${it.value}")
             }
         }
     }
@@ -89,6 +89,6 @@ object UtilKFragmentManager : IUtilK {
         fragmentName.forEach {
             map[it] = get(fragmentActivity).getFragment(outState, it)
         }
-        return map.also { UtilKLogWrapper.dt(TAG, "onRestoreInstanceState: getFragment $it") }
+        return map.also { UtilKLogWrapper.d(TAG, "onRestoreInstanceState: getFragment $it") }
     }
 }

@@ -9,12 +9,12 @@ import com.mozhimen.basick.elemk.android.os.cons.CBuild
  * @Date 2023/10/11 17:40
  * @Version 1.0
  */
-fun Exception.getStrMessageForException(): String =
-    UtilKException.getStrMessageForException(this)
+fun Exception.getStrMessage(): String =
+    UtilKException.getStrMessage(this)
 
 object UtilKException {
     @JvmStatic
-    fun getStrMessageForException(exception: Exception): String {
+    fun getStrMessage(exception: Exception): String {
         val message = exception.message
         if (message.isNullOrEmpty()) {
             return CBuild.UNKNOWN

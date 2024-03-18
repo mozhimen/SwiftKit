@@ -78,7 +78,7 @@ object UtilKIntent : IUtilK {
     @JvmStatic
     @OPermission_QUERY_ALL_PACKAGES
     fun isIntentAvailable(intent: Intent, context: Context): Boolean =
-        (resolveActivity(intent, context) != null).also { UtilKLogWrapper.dt(TAG, "isIntentAvailable: $it") }
+        (resolveActivity(intent, context) != null).also { UtilKLogWrapper.d(TAG, "isIntentAvailable: $it") }
 
     ///////////////////////////////////////////////////////////////////////////////////////
 

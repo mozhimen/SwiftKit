@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.org.json
 
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.google.gson.UtilKGson
 import org.json.JSONArray
@@ -31,7 +31,7 @@ object UtilKJSONArrayFormat: IUtilK {
                 arrayList.add(obj)
             } catch (e: JSONException) {
                 e.printStackTrace()
-                e.message?.et(TAG)
+                e.message?.e(TAG)
                 return null
             }
         }
@@ -52,7 +52,7 @@ object UtilKJSONArrayFormat: IUtilK {
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
             return null
         }
         return arrayList

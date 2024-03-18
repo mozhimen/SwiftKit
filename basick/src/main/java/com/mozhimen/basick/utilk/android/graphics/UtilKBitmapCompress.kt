@@ -3,7 +3,7 @@ package com.mozhimen.basick.utilk.android.graphics
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
-import com.mozhimen.basick.utilk.android.util.vt
+import com.mozhimen.basick.utilk.android.util.v
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.bytes2bitmapAny
 import com.mozhimen.basick.utilk.kotlin.getStrFileExtension
@@ -65,7 +65,7 @@ object UtilKBitmapCompress : BaseUtilK() {
     @JvmStatic
     fun compressStrBitmapPathSampleSize(bitmapPathName: String, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap? {
         val options = BitmapFactory.Options()
-        options.inSampleSize = (100f / quality.toFloat()).roundToInt().also { "compressSampleSize: inSampleSize $it".vt(TAG) }
+        options.inSampleSize = (100f / quality.toFloat()).roundToInt().also { "compressSampleSize: inSampleSize $it".v(TAG) }
         return bitmapPathName.strFilePath2bitmapAny(options)?.also { printBitmapInfo(it, null, quality) }
     }
 
@@ -74,7 +74,7 @@ object UtilKBitmapCompress : BaseUtilK() {
      */
     @JvmStatic
     fun compressBitmapAnyMatrix(sourceBitmap: Bitmap, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap {
-        val ratio: Float = sqrt(quality.toFloat() / 100f).also { "compressMatrix: ratio $it".vt(TAG) }//这里很好理解, 我们是对面的比例, 开方才是边的缩小比例
+        val ratio: Float = sqrt(quality.toFloat() / 100f).also { "compressMatrix: ratio $it".v(TAG) }//这里很好理解, 我们是对面的比例, 开方才是边的缩小比例
         return sourceBitmap.applyBitmapAnyScaleRatio(ratio).also { printBitmapInfo(it, null, quality) }
     }
 
@@ -100,7 +100,7 @@ object UtilKBitmapCompress : BaseUtilK() {
      */
     @JvmStatic
     fun compressBitmapAnyScaled(sourceBitmap: Bitmap, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap {
-        val ratio: Float = sqrt(quality.toFloat() / 100f).also { "compressScaledBitmap: ratio $it".vt(TAG) }//这里很好理解, 我们是对面的比例, 开方才是边的缩小比例
+        val ratio: Float = sqrt(quality.toFloat() / 100f).also { "compressScaledBitmap: ratio $it".v(TAG) }//这里很好理解, 我们是对面的比例, 开方才是边的缩小比例
         return sourceBitmap.applyBitmapAnyResize((sourceBitmap.width * ratio).toInt(), (sourceBitmap.height * ratio).toInt()).also { printBitmapInfo(it, null, quality) }
     }
 
@@ -109,6 +109,6 @@ object UtilKBitmapCompress : BaseUtilK() {
      */
     @JvmStatic
     private fun printBitmapInfo(bitmap: Bitmap, bytes: ByteArray?, quality: Int) {
-        "compress after bitmap size: ${bitmap.getSizeOfM()}MB width: ${bitmap.width} height: ${bitmap.height} bytes.length: ${bytes?.let { it.size / 1024 } ?: 0}KB quality: $quality".vt(TAG)
+        "compress after bitmap size: ${bitmap.getSizeOfM()}MB width: ${bitmap.width} height: ${bitmap.height} bytes.length: ${bytes?.let { it.size / 1024 } ?: 0}KB quality: $quality".v(TAG)
     }
 }

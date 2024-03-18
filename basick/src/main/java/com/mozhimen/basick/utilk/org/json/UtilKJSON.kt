@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.org.json
 
 import android.text.TextUtils
 import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import org.json.JSONArray
 import org.json.JSONException
@@ -33,7 +33,7 @@ object UtilKJSON : BaseUtilK() {
             jSONObject.getJSONArray(name)
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
             null
         }
 
@@ -46,7 +46,7 @@ object UtilKJSON : BaseUtilK() {
             jSONObject.getJSONObject(name)
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
             null
         }
 
@@ -60,7 +60,7 @@ object UtilKJSON : BaseUtilK() {
             jSONObject[name] as? T?
         } catch (e: JSONException) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
             null
         }
 
@@ -73,7 +73,7 @@ object UtilKJSON : BaseUtilK() {
             jSONArray.getJSONObject(index)
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
             null
         }
 
@@ -107,7 +107,7 @@ object UtilKJSON : BaseUtilK() {
             } else message = strJson
         } catch (e: JSONException) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
             message = strJson
         }
         return message
@@ -153,7 +153,7 @@ object UtilKJSON : BaseUtilK() {
             jSONObject.put(name, obj)
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         }
     }
 }

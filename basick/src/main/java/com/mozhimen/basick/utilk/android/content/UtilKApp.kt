@@ -45,7 +45,7 @@ object UtilKApp : BaseUtilK() {
     @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
     fun restartApp(isKillProcess: Boolean, isValid: Boolean = true, context: Context = _context) {
         val intent: Intent = UtilKIntentWrapper.getMainLauncher_ofPackageManger(context, UtilKContext.getPackageName(context)) ?: run {
-            UtilKLogWrapper.et(TAG, "didn't exist launcher activity.");return
+            UtilKLogWrapper.e(TAG, "didn't exist launcher activity.");return
         }
         intent.addFlags(CIntent.FLAG_ACTIVITY_CLEAR_TOP or CIntent.FLAG_ACTIVITY_CLEAR_TASK)
         context.startContext(intent)

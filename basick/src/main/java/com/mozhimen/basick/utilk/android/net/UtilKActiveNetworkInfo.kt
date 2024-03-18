@@ -10,7 +10,7 @@ import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.telephony.CTelephonyManager
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_NETWORK_STATE
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.android.util.dt
+import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.kotlin.equalsIgnoreCase
 
@@ -208,7 +208,7 @@ object UtilKActiveNetworkInfo : IUtilK {
     @OPermission_ACCESS_NETWORK_STATE
     fun printActiveNetworkInfo(context: Context) {
         val activeNetworkInfo = getActive(context) ?: return
-        ("printActiveNetworkInfo isAvailable " + activeNetworkInfo.isAvailable + " isConnected " + activeNetworkInfo.isConnected + " networkInfo " + activeNetworkInfo.toString()).dt(TAG)
-        ("printActiveNetworkInfo subtypeName " + activeNetworkInfo.subtypeName + " typeName " + activeNetworkInfo.typeName + " extraInfo " + activeNetworkInfo.extraInfo).dt(TAG)
+        ("printActiveNetworkInfo isAvailable " + activeNetworkInfo.isAvailable + " isConnected " + activeNetworkInfo.isConnected + " networkInfo " + activeNetworkInfo.toString()).d(TAG)
+        ("printActiveNetworkInfo subtypeName " + activeNetworkInfo.subtypeName + " typeName " + activeNetworkInfo.typeName + " extraInfo " + activeNetworkInfo.extraInfo).d(TAG)
     }
 }

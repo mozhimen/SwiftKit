@@ -21,14 +21,14 @@ class PostKLinkActivity : BaseActivityVDB<ActivityPostkLinkBinding>() {
             if (data != null) {
                 val name = data.getQueryParameter("type")
                 val age = data.getQueryParameter("id")
-                UtilKLogWrapper.dt(TAG, "getQueryParameter type=" + name + "id=" + age)
+                UtilKLogWrapper.d(TAG, "getQueryParameter type=" + name + "id=" + age)
             }
         }
         intent.getStringExtra("type")?.also {
-            UtilKLogWrapper.dt(TAG, "initData: type $it")
+            UtilKLogWrapper.d(TAG, "initData: type $it")
         }
         intent.getStringExtra("id")?.also {
-            UtilKLogWrapper.dt(TAG, "initData: id $it")
+            UtilKLogWrapper.d(TAG, "initData: id $it")
         }
     }
 }

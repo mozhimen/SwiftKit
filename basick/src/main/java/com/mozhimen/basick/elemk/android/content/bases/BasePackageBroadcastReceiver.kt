@@ -53,20 +53,20 @@ open class BasePackageBroadcastReceiver : BaseBroadcastReceiver {
         val strPackageName = intent.dataString
         when (intent.action) {
             CIntent.ACTION_PACKAGE_REPLACED -> {
-                UtilKLogWrapper.wt(TAG, "onReceiveInstall: update one apk, restart program soon strPackageName $strPackageName // package:${UtilKContext.getPackageName(context)}")
+                UtilKLogWrapper.w(TAG, "onReceiveInstall: update one apk, restart program soon strPackageName $strPackageName // package:${UtilKContext.getPackageName(context)}")
                 if (strPackageName == "package:${UtilKContext.getPackageName(context)}") {
                     UtilKApp.restartApp(isKillProcess = true, context = context)
                 } else {
-                    UtilKLogWrapper.wt(TAG, "onReceiveInstall: strPackageName is different")
+                    UtilKLogWrapper.w(TAG, "onReceiveInstall: strPackageName is different")
                 }
             }
 
             CIntent.ACTION_PACKAGE_ADDED -> {
-                UtilKLogWrapper.wt(TAG, "onReceiveInstall: install one apk $strPackageName")
+                UtilKLogWrapper.w(TAG, "onReceiveInstall: install one apk $strPackageName")
             }
 
             CIntent.ACTION_PACKAGE_REMOVED -> {
-                UtilKLogWrapper.wt(TAG, "onReceiveInstall: uninstall one apk $strPackageName")
+                UtilKLogWrapper.w(TAG, "onReceiveInstall: uninstall one apk $strPackageName")
             }
         }
     }

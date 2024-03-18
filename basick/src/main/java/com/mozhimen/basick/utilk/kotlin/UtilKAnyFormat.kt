@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable
 import android.view.MotionEvent
 import android.view.animation.Animation
 import androidx.annotation.ColorInt
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.android.view.motionEvent2str
 import com.mozhimen.basick.utilk.google.gson.UtilKGson
 import com.mozhimen.basick.utilk.java.io.byteArrayOutputStream2bytes
@@ -99,7 +99,7 @@ object UtilKAnyFormat {
             return byteArrayOutputStream.byteArrayOutputStream2bytes()
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(UtilKAny.TAG)
+            e.message?.e(UtilKAny.TAG)
         } finally {
             byteArrayOutputStream?.flushClose()
             objectOutputStream?.flushClose()

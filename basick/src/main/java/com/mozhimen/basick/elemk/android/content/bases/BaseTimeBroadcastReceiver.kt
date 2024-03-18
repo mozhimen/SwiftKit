@@ -17,7 +17,7 @@ import com.mozhimen.basick.utilk.commons.IUtilK
 class ElemKTimeReceiver : BaseTimeReceiver(
 object : ITimeReceiverListener {
 override fun onTimeTick() {
-UtilKLog.vt("ElemKTimeReceiver>>>>>", "onTimeTick: long ${UtilKDate.getNowLong()} string ${UtilKDate.getNowString()}")
+UtilKLogWrapper.v("ElemKTimeReceiver>>>>>", "onTimeTick: long ${UtilKDate.getNowLong()} string ${UtilKDate.getNowString()}")
 }
 }
 )
@@ -27,7 +27,7 @@ class ElemKReceiverActivity : BaseActivityVDB<ActivityElemkReceiverBinding>() {
 private lateinit var _receiverProxy: ReceiverProxy<ElemKReceiverActivity>
 
 override fun initData(savedInstanceState: Bundle?) {
-UtilKLog.dt(TAG, "initData: start")
+UtilKLogWrapper.d(TAG, "initData: start")
 _receiverProxy = ReceiverProxy(
 this,
 arrayOf(

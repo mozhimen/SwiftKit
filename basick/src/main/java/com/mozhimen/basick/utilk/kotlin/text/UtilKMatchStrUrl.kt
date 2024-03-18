@@ -53,7 +53,7 @@ object UtilKMatchStrUrl : BaseUtilK() {
     @JvmStatic
     @MainThread
     fun checkStrUrl(url: String): Boolean {
-        UtilKLogWrapper.dt(TAG, "isUrlValid: url $url")
+        UtilKLogWrapper.d(TAG, "isUrlValid: url $url")
         if (url.isEmpty()) {
             "输入为空".showToast()
             return false

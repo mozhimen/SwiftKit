@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.java.io
 
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
-import com.mozhimen.basick.utilk.android.util.dt
+import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.util.UtilKDate
 import com.mozhimen.basick.utilk.java.util.UtilKZipOutputStream
@@ -165,8 +165,8 @@ object UtilKFile : BaseUtilK() {
         file.parent?.let { UtilKStrFile.createFolder(it) } ?: throw Exception("don't have parent folder")
 
         if (!isFileExist(file)) {
-            file.createNewFile().also { "createFile: file ${file.absolutePath} $it".dt(TAG) }
-        } else "createFile: file is exits".dt(TAG)
+            file.createNewFile().also { "createFile: file ${file.absolutePath} $it".d(TAG) }
+        } else "createFile: file is exits".d(TAG)
         return file
     }
 
@@ -176,7 +176,7 @@ object UtilKFile : BaseUtilK() {
     @JvmStatic
     fun deleteFile(file: File): Boolean =
         if (!isFileExist(file)) false
-        else file.delete().also { "deleteFile: file ${file.absolutePath} success".dt(TAG) }
+        else file.delete().also { "deleteFile: file ${file.absolutePath} success".d(TAG) }
 
     /**
      * 批量删除
@@ -278,7 +278,7 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun createFolder(folder: File): File {
-        if (!isFolderExist(folder)) folder.mkdirs().also { UtilKLogWrapper.dt(TAG, "createFolder: create path ${folder.absolutePath} $it") }
+        if (!isFolderExist(folder)) folder.mkdirs().also { UtilKLogWrapper.d(TAG, "createFolder: create path ${folder.absolutePath} $it") }
         return folder
     }
 
@@ -298,7 +298,7 @@ object UtilKFile : BaseUtilK() {
                     deleteFile(file)
             }
         }
-        return true.also { UtilKLogWrapper.dt(TAG, "deleteFolder: success") }
+        return true.also { UtilKLogWrapper.d(TAG, "deleteFolder: success") }
     }
     //endregion
 }

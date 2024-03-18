@@ -63,7 +63,7 @@ class UtilKAssetActivity : BaseActivityVDB<ActivityUtilkAssetBinding>() {
 
     private suspend fun addLog(log: String) {
         withContext(Dispatchers.Main) {
-            UtilKLogWrapper.dt(TAG, "addLog: log $log")
+            UtilKLogWrapper.d(TAG, "addLog: log $log")
             _logs.add(UtilKFileActivity.UtilKFileLogBean(_logs.size, "$log..."))
             _adapterKRecycler.refreshDatas(_logs)
         }

@@ -9,7 +9,7 @@ import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.commons.IAB_Listener
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.java.security.UtilKMd5
 import com.mozhimen.basick.utilk.kotlin.bytes2str
@@ -262,7 +262,7 @@ object UtilKInputStreamFormat : IUtilK {
             return inputStringBuilder.toString()
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         } finally {
             inputStream.close()
         }
@@ -294,9 +294,9 @@ object UtilKInputStreamFormat : IUtilK {
     fun inputStream2file(inputStream: InputStream, fileDest: File, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? {
         UtilKFile.createFile(fileDest)
         /*//        val fileInputStream = file.file2fileInputStream()
-        //        UtilKLog.dt(TAG, "inputStream2file: inputStream ${inputStream.available()}")
+        //        UtilKLogWrapper.d(TAG, "inputStream2file: inputStream ${inputStream.available()}")
         //        if (isInputStreamSame(inputStream, fileInputStream)) {//相似内容就直接返回地址
-        //            UtilKLog.dt(TAG, "assetCopyFile: the two files is same")
+        //            UtilKLogWrapper.d(TAG, "assetCopyFile: the two files is same")
         //            return file//"the two files is same, don't need overwrite"
         //        }*/
         try {
@@ -304,7 +304,7 @@ object UtilKInputStreamFormat : IUtilK {
             return fileDest
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         }
         return null
     }
@@ -321,7 +321,7 @@ object UtilKInputStreamFormat : IUtilK {
             return fileDest
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         }
         return null
     }
@@ -337,7 +337,7 @@ object UtilKInputStreamFormat : IUtilK {
         UtilKFile.createFile(fileDest)
         /*//        val fileInputStream = file.file2fileInputStream()
         //        if (isInputStreamSame(inputStream, fileInputStream)) {//相似内容就直接返回地址
-        //            UtilKLog.dt(UtilKFile.TAG, "assetCopyFile: the two files is same")
+        //            UtilKLogWrapper.d(UtilKFile.TAG, "assetCopyFile: the two files is same")
         //            return file//"the two files is same, don't need overwrite"
         //        }*/
         try {
@@ -345,7 +345,7 @@ object UtilKInputStreamFormat : IUtilK {
             return fileDest
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         }
         return null
     }
@@ -361,12 +361,12 @@ object UtilKInputStreamFormat : IUtilK {
             var readCount: Int
             var offset = 0
             var percent: Float
-            UtilKLogWrapper.dt(TAG, "inputStream2outputStream: totalCount $totalCount")
+            UtilKLogWrapper.d(TAG, "inputStream2outputStream: totalCount $totalCount")
             while (inputStream.read(bytes).also { readCount = it } != -1) {
                 offset += readCount
                 outputStream.write(bytes, 0, readCount)
                 percent = (offset.toFloat() / totalCount.toFloat()).normalize(0f, 1f)
-                //UtilKLog.dt(TAG, "inputStream2outputStream: offset $offset total $totalCount percent $percent")
+                //UtilKLogWrapper.d(TAG, "inputStream2outputStream: offset $offset total $totalCount percent $percent")
                 block?.invoke(readCount, percent)
             }
         } catch (e: Exception) {

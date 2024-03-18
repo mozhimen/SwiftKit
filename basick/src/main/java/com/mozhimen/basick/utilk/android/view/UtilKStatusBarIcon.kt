@@ -8,7 +8,7 @@ import com.mozhimen.basick.elemk.android.view.cons.CView
 import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.android.os.UtilKRom
 import com.mozhimen.basick.utilk.java.lang.UtilKReflect
 import com.mozhimen.basick.utilk.android.os.UtilKSystemProperties
@@ -49,7 +49,7 @@ object UtilKStatusBarIcon : BaseUtilK() {
             applyIcon_CommonUi(activity, isThemeDark)
         } else if (UtilKSystemPropertiesWrapper.isMIUIAfter6()) {
             applyIcon_MiuiUi_After6(activity, isThemeDark)
-        } else "setIcon_MiuiUi: don't support this miui version".et(TAG)
+        } else "setIcon_MiuiUi: don't support this miui version".e(TAG)
     }
 
     @JvmStatic
@@ -63,7 +63,7 @@ object UtilKStatusBarIcon : BaseUtilK() {
             extraFlagMethod.invoke(window, if (isDark) EXTRA_FLAG_STATUS_BAR_DARK_MODE_OBJ else 0, EXTRA_FLAG_STATUS_BAR_DARK_MODE_OBJ)
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         }
     }
 
@@ -103,7 +103,7 @@ object UtilKStatusBarIcon : BaseUtilK() {
             UtilKWindow.applyAttributes(window, layoutParams)
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         }
     }
 

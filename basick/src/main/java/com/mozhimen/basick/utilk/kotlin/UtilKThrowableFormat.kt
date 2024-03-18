@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.kotlin
 
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.commons.IUtilK
 import java.io.PrintWriter
 import java.io.StringWriter
@@ -46,7 +46,7 @@ object UtilKThrowable : IUtilK {
             return stringWriter.toString()
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         } finally {
             printWriter.flush()
             printWriter.close()

@@ -7,7 +7,7 @@ import android.util.SparseLongArray
 import androidx.collection.LongSparseArray
 import androidx.collection.SimpleArrayMap
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.java.lang.UtilKReflect
 import java.lang.reflect.Array
@@ -106,10 +106,10 @@ object UtilKAny : IUtilK {
             if (clazz.isPrimitive) return true
         } catch (e: IllegalAccessException) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         } catch (e: NoSuchFieldException) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         }
         return false
     }

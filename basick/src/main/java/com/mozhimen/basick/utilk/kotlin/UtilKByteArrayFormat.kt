@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.kotlin
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
@@ -74,7 +74,7 @@ object UtilKByteArrayFormat : IUtilK {
             return objectInputStream.readObject()
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         } finally {
             byteArrayInputStream?.close()
             objectInputStream?.close()

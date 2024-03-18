@@ -77,7 +77,7 @@ object UtilKPackageInfo : BaseUtilK() {
             packageInfo.versionName ?: ""
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
-            UtilKLogWrapper.et(TAG, "getVersionName: NameNotFoundException ${e.message}")
+            UtilKLogWrapper.e(TAG, "getVersionName: NameNotFoundException ${e.message}")
             ""
         }
 
@@ -97,7 +97,7 @@ object UtilKPackageInfo : BaseUtilK() {
             else packageInfo.versionCode
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
-            UtilKLogWrapper.et(TAG, "getVersionCode: NameNotFoundException ${e.message}")
+            UtilKLogWrapper.e(TAG, "getVersionCode: NameNotFoundException ${e.message}")
             0
         }
 

@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.android.view
 
 import android.content.Context
 import com.mozhimen.basick.utilk.android.util.UtilKDisplayMetrics
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
@@ -25,7 +25,7 @@ object UtilKVirtualBar : IUtilK {
             return UtilKDisplayMetrics.getRealHeightPixels(context) - UtilKDisplay.getDefHeight(context)
         } catch (e: Exception) {
             e.printStackTrace()
-            "getHeight Exception ${e.message}".et(TAG)
+            "getHeight Exception ${e.message}".e(TAG)
         }
         return 0
     }

@@ -5,7 +5,7 @@ import android.app.Application
 import com.mozhimen.basick.utilk.android.app.UtilKApplication
 import com.mozhimen.basick.utilk.android.app.UtilKApplicationReflect
 import com.mozhimen.basick.utilk.android.app.UtilKRunningAppProcessInfo
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKReader
 import java.lang.reflect.Method
@@ -65,7 +65,7 @@ object UtilKStrProcess : BaseUtilK() {
             return methodGetProcessName.invoke(activityThread) as? String?
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         }
         return null
     }
@@ -84,7 +84,7 @@ object UtilKStrProcess : BaseUtilK() {
                 return invoke
         } catch (e: Throwable) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         }
         return null
     }

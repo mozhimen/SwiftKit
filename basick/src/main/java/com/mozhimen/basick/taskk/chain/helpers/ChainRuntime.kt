@@ -205,7 +205,7 @@ internal object ChainRuntime : BaseUtilK(), IChainRuntime {
                     builder.append(iterator.next().id)
                     builder.append("--> ")
                 }
-                UtilKLogWrapper.et(TAG, "innerTraversalDependencyTreeAndInit builder $builder")
+                UtilKLogWrapper.e(TAG, "innerTraversalDependencyTreeAndInit builder $builder")
             }
             innerTraversalDependencyTreeAndInit(behindTask, traversalVisitor)
             traversalVisitor.remove(behindTask)

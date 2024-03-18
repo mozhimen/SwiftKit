@@ -47,7 +47,7 @@ class InvisibleProxyFragment : Fragment(), IUtilK {
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        UtilKLogWrapper.dt(TAG, "onActivityResult: requestCode $requestCode, resultCode $resultCode")
+        UtilKLogWrapper.d(TAG, "onActivityResult: requestCode $requestCode, resultCode $resultCode")
         if (resultCode == CActivity.RESULT_OK) {
             when (requestCode) {
                 REQUEST_CODE_PROXY -> {

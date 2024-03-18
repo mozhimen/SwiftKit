@@ -4,60 +4,72 @@ import android.util.Log
 import com.mozhimen.basick.BuildConfig
 import com.mozhimen.basick.elemk.android.util.cons.CLog
 import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.kotlin.getStrMessage
+import java.lang.Exception
 import java.util.concurrent.atomic.AtomicBoolean
 
 fun String.v() {
     UtilKLogWrapper.v(this)
 }
 
-fun String.vt(tag: String) {
-    UtilKLogWrapper.vt(tag, this)
+fun String.v(tag: String) {
+    UtilKLogWrapper.v(tag, this)
 }
 
 fun String.d() {
     UtilKLogWrapper.d(this)
 }
 
-fun String.dt(tag: String) {
-    UtilKLogWrapper.dt(tag, this)
+fun String.d(tag: String) {
+    UtilKLogWrapper.d(tag, this)
 }
 
 fun String.i() {
     UtilKLogWrapper.i(this)
 }
 
-fun String.it(tag: String) {
-    UtilKLogWrapper.it(tag, this)
+fun String.i(tag: String) {
+    UtilKLogWrapper.i(tag, this)
 }
 
 fun String.w() {
     UtilKLogWrapper.w(this)
 }
 
-fun String.wt(tag: String) {
-    UtilKLogWrapper.wt(tag, this)
+fun String.w(tag: String) {
+    UtilKLogWrapper.w(tag, this)
 }
 
 fun String.e() {
     UtilKLogWrapper.e(this)
 }
 
-fun String.et(tag: String) {
-    UtilKLogWrapper.et(tag, this)
+fun String.e(tag: String) {
+    UtilKLogWrapper.e(tag, this)
 }
+
+///////////////////////////////////////////////////////////////////////////
+
+fun String.log(level: Int, tag: String) {
+    UtilKLogWrapper.log(level, tag, this)
+}
+
+///////////////////////////////////////////////////////////////////////////
 
 object UtilKLogWrapper : BaseUtilK() {
 
     private val _isLogEnable = AtomicBoolean(BuildConfig.DEBUG)
 
     @JvmStatic
-    fun setLogEnable(enable: Boolean) {
+    fun isLogEnable(enable: Boolean) {
         _isLogEnable.set(enable)
     }
 
     @JvmStatic
-    fun getLogEnable(): Boolean =
+    fun isLogEnable(): Boolean =
         _isLogEnable.get()
+
+    /////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun v(msg: String) {
@@ -85,39 +97,55 @@ object UtilKLogWrapper : BaseUtilK() {
     }
 
     @JvmStatic
-    fun vt(tag: String, msg: String) {
+    fun e(exception: Exception) {
+        log(CLog.ERROR, TAG, exception.message ?: "")
+    }
+
+    /////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun v(tag: String, msg: String) {
         log(CLog.VERBOSE, tag, msg)
     }
 
     @JvmStatic
-    fun dt(tag: String, msg: String) {
+    fun d(tag: String, msg: String) {
         log(CLog.DEBUG, tag, msg)
     }
 
     @JvmStatic
-    fun it(tag: String, msg: String) {
+    fun i(tag: String, msg: String) {
         log(CLog.INFO, tag, msg)
     }
 
     @JvmStatic
-    fun wt(tag: String, msg: String) {
+    fun w(tag: String, msg: String) {
         log(CLog.WARN, tag, msg)
     }
 
     @JvmStatic
-    fun et(tag: String, msg: String) {
+    fun e(tag: String, msg: String) {
         log(CLog.ERROR, tag, msg)
     }
 
     @JvmStatic
+    fun e(tag: String, msg: String, exception: Exception) {
+        log(CLog.ERROR, tag, msg + " " + exception.getStrMessage())
+    }
+
+    /////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
     fun log(level: Int, tag: String, msg: String) {
-        if (!getLogEnable()) return
+        if (!isLogEnable()) return
         Log.println(level, tag, msg)
     }
 
+    /////////////////////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun longLog(level: Int, tag: String, msg: String) {
-        if (!getLogEnable()) return
+        if (!isLogEnable()) return
         val segmentSize = 1024
         val logLength = msg.length
         if (logLength < segmentSize) {

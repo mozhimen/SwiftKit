@@ -20,10 +20,10 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.os.UtilKEnvironment
 import com.mozhimen.basick.utilk.android.provider.UtilKSettings
 import com.mozhimen.basick.utilk.android.provider.UtilKSettingsSecure
-import com.mozhimen.basick.utilk.android.util.dt
-import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.android.util.it
-import com.mozhimen.basick.utilk.android.util.vt
+import com.mozhimen.basick.utilk.android.util.d
+import com.mozhimen.basick.utilk.android.util.e
+import com.mozhimen.basick.utilk.android.util.i
+import com.mozhimen.basick.utilk.android.util.v
 
 /**
  * @ClassName UtilKPermission
@@ -51,7 +51,7 @@ object UtilKPermission : BaseUtilK() {
 
     @JvmStatic
     fun hasPermission(permission: String): Boolean =
-        UtilKContextCompat.isSelfPermissionGranted(_context, permission).also { UtilKLogWrapper.dt(TAG, "hasPermission: permission $permission is $it") }
+        UtilKContextCompat.isSelfPermissionGranted(_context, permission).also { UtilKLogWrapper.d(TAG, "hasPermission: permission $permission is $it") }
 
     /////////////////////////////////////////////////////////////////////////
 
@@ -106,26 +106,26 @@ object UtilKPermission : BaseUtilK() {
         val strService = "${UtilKPackage.getPackageName()}/${serviceClazz.canonicalName}"
         try {
             permissionEnable = UtilKSettingsSecure.getInt(UtilKContentResolver.get(_context), CSettings.Secure.ACCESSIBILITY_ENABLED)
-            "hasAccessibility permissionEnable $permissionEnable".dt(TAG)
+            "hasAccessibility permissionEnable $permissionEnable".d(TAG)
         } catch (e: Settings.SettingNotFoundException) {
             e.printStackTrace()
-            "hasAccessibility error finding setting, default accessibility to not found ${e.message}".et(TAG)
+            "hasAccessibility error finding setting, default accessibility to not found ${e.message}".e(TAG)
         }
         val stringColonSplitter = TextUtils.SimpleStringSplitter(':')
         if (permissionEnable == 1) {
-            "hasAccessibility accessibility is enabled".dt(TAG)
+            "hasAccessibility accessibility is enabled".d(TAG)
             UtilKSettingsSecure.getString(UtilKContentResolver.get(_context), CSettings.Secure.ENABLED_ACCESSIBILITY_SERVICES)?.let {
                 stringColonSplitter.setString(it)
                 while (stringColonSplitter.hasNext()) {
                     val accessibilityService = stringColonSplitter.next()
-                    "isSettingAccessibilityPermissionEnable accessibilityService $accessibilityService - service $strService".vt(TAG)
+                    "isSettingAccessibilityPermissionEnable accessibilityService $accessibilityService - service $strService".v(TAG)
                     if (accessibilityService.equals(strService, ignoreCase = true)) {
-                        "hasAccessibility we've found the correct setting - accessibility is switched on!".it(TAG)
+                        "hasAccessibility we've found the correct setting - accessibility is switched on!".i(TAG)
                         return true
                     }
                 }
             }
-        } else "hasAccessibility accessibility is disabled".et(TAG)
+        } else "hasAccessibility accessibility is disabled".e(TAG)
         return false
     }
 }

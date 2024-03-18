@@ -16,14 +16,14 @@ class UtilKMd5Activity : BaseActivityVDB<ActivityUtilkMd5Binding>() {
     override fun initView(savedInstanceState: Bundle?) {
         vdb.utilkMd5Btn.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
-                UtilKLogWrapper.dt(TAG, "initView: ${UtilKDate.getNowDate()}")
+                UtilKLogWrapper.d(TAG, "initView: ${UtilKDate.getNowDate()}")
                 val time = System.currentTimeMillis()
                 val file = File(cacheDir.absolutePath + "/lelejoy_Descenders_1.5_com.noodlecake.descenders_aligned_signed_isNeedObb_false.apk")
                 if (file.isFileExist()) {
-                    UtilKLogWrapper.dt(TAG, "initView: ${UtilKFileFormat.file2strMd5(file)}")
+                    UtilKLogWrapper.d(TAG, "initView: ${UtilKFileFormat.file2strMd5(file)}")
                 }
-                UtilKLogWrapper.dt(TAG, "initView: ${UtilKDate.getNowDate()}")
-                UtilKLogWrapper.dt(TAG, "initView: cost ${(System.currentTimeMillis() - time).toFloat() / 60000f}m")
+                UtilKLogWrapper.d(TAG, "initView: ${UtilKDate.getNowDate()}")
+                UtilKLogWrapper.d(TAG, "initView: cost ${(System.currentTimeMillis() - time).toFloat() / 60000f}m")
             }
         }
     }

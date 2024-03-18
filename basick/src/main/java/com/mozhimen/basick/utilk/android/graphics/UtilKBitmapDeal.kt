@@ -5,7 +5,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
 import androidx.annotation.IntRange
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.kotlin.strFilePath2bitmapAny
 import java.io.OutputStream
 import java.lang.Integer.min
@@ -182,7 +182,7 @@ object UtilKBitmapDeal : BaseUtilK() {
             strFilePathName.strFilePath2bitmapAny(options)
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
             null
         }
 

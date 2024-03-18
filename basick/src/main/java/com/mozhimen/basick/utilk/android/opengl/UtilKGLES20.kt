@@ -113,7 +113,7 @@ object UtilKGLES20 : BaseUtilK() {
     @JvmStatic
     fun glError(code: Int, index: Any) {
         if (BuildConfig.DEBUG && code != 0) {
-            UtilKLogWrapper.et(TAG, "glError: $code: $index")
+            UtilKLogWrapper.e(TAG, "glError: $code: $index")
         }
     }
 }

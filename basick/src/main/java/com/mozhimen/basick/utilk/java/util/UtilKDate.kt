@@ -132,7 +132,7 @@ object UtilKDate : BaseUtilK() {
     @JvmStatic
     fun strDate2date(strDate: String, formatDate: String, locale: Locale = Locale.CHINA): Date {
         return getSdf(formatDate, locale).parse(strDate) ?: kotlin.run {
-            UtilKLogWrapper.et(TAG, "str2Date Exception time format fail!")
+            UtilKLogWrapper.e(TAG, "str2Date Exception time format fail!")
             throw Exception("time format fail!")
         }
     }

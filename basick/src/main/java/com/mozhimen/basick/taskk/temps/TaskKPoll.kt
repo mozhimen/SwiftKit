@@ -5,7 +5,7 @@ import com.mozhimen.basick.elemk.commons.ISuspendA_Listener
 import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
 import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import kotlinx.coroutines.*
 
 @OApiCall_BindLifecycle
@@ -34,7 +34,7 @@ class TaskKPoll : BaseWakeBefDestroyTaskK() {
                 } catch (e: Exception) {
                     if (e is CancellationException) return@launch
                     e.printStackTrace()
-                    e.message?.et(TAG)
+                    e.message?.e(TAG)
                 }
                 _time--
                 delay(intervalMillis)

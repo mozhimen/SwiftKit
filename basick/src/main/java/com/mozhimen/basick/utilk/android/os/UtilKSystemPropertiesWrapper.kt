@@ -3,7 +3,7 @@ package com.mozhimen.basick.utilk.android.os
 import android.annotation.SuppressLint
 import com.mozhimen.basick.elemk.android.os.cons.CBuild
 import com.mozhimen.basick.elemk.cons.CStrPackage
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.kotlin.strPackage2clazz
 import java.lang.reflect.Method
 
@@ -48,7 +48,7 @@ object UtilKSystemPropertiesWrapper {
             version >= 6
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(UtilKSystemProperties.TAG)
+            e.message?.e(UtilKSystemProperties.TAG)
             false
         }
     }
@@ -69,7 +69,7 @@ object UtilKSystemPropertiesWrapper {
             version >= 3
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
-            e.message?.et(UtilKSystemProperties.TAG)
+            e.message?.e(UtilKSystemProperties.TAG)
             false
         }
     }

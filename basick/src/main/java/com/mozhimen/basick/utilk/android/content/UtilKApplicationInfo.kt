@@ -96,19 +96,19 @@ object UtilKApplicationInfo : IUtilK {
 
     @JvmStatic
     fun isSystemApp(context: Context): Boolean =
-        getPackInfo(context)?.let { isSystemApp(it) } ?: false.also { UtilKLogWrapper.dt(TAG, "isSystemApp: getApplicationInfo fail") }
+        getPackInfo(context)?.let { isSystemApp(it) } ?: false.also { UtilKLogWrapper.d(TAG, "isSystemApp: getApplicationInfo fail") }
 
     @JvmStatic
     fun isSystemUpdateApp(context: Context): Boolean =
-        getPackInfo(context)?.let { isSystemUpdateApp(it) } ?: false.also { UtilKLogWrapper.dt(TAG, "isSystemUpdateApp: getApplicationInfo fail") }
+        getPackInfo(context)?.let { isSystemUpdateApp(it) } ?: false.also { UtilKLogWrapper.d(TAG, "isSystemUpdateApp: getApplicationInfo fail") }
 
     @JvmStatic
     fun isSystemOrSystemUpdateApp(context: Context): Boolean =
-        getPackInfo(context)?.let { isSystemOrSystemUpdateApp(it) } ?: false.also { UtilKLogWrapper.dt(TAG, "isSystemOrSystemUpdateApp: getApplicationInfo fail") }
+        getPackInfo(context)?.let { isSystemOrSystemUpdateApp(it) } ?: false.also { UtilKLogWrapper.d(TAG, "isSystemOrSystemUpdateApp: getApplicationInfo fail") }
 
     @JvmStatic
     fun isUserApp(context: Context): Boolean =
-        getPackInfo(context)?.let { isUserApp(it) } ?: false.also { UtilKLogWrapper.dt(TAG, "isUserApp: getApplicationInfo fail") }
+        getPackInfo(context)?.let { isUserApp(it) } ?: false.also { UtilKLogWrapper.d(TAG, "isUserApp: getApplicationInfo fail") }
 
     ////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -119,7 +119,7 @@ object UtilKCharacterStyle {
      * 去掉下划线
      * val clickableSpan = object : ClickableSpan() {
      *             override fun onClick(widget: View) {
-     *                 UtilKLog.dt(TAG, "onClick: ")
+     *                 UtilKLogWrapper.d(TAG, "onClick: ")
      *             }
      *
      *             override fun updateDrawState(ds: TextPaint) {

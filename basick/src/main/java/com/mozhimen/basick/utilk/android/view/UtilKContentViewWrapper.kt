@@ -24,7 +24,7 @@ object UtilKContentViewWrapper {
         val contentView = UtilKContentView.getPac<View>(window)
         val outRect = Rect()
         UtilKView.getWindowVisibleDisplayFrame(contentView, outRect)
-        UtilKLogWrapper.dt(UtilKContentView.TAG, "getInvisibleHeight: " + (contentView.bottom - outRect.bottom))
+        UtilKLogWrapper.d(UtilKContentView.TAG, "getInvisibleHeight: " + (contentView.bottom - outRect.bottom))
         val delta = abs(contentView.bottom - outRect.bottom)
         return if (delta <= UtilKStatusBar.getHeight() + UtilKNavigationBar.getHeight()) 0 else delta
     }

@@ -5,7 +5,7 @@ import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
-import com.mozhimen.basick.utilk.android.util.dt
+import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.android.view.UtilKDecorView
 import com.mozhimen.basick.utilk.android.view.UtilKViewGroup
 import com.mozhimen.basick.utilk.android.view.applyDebounceClickListener
@@ -20,24 +20,24 @@ class UtilKViewActivity : BaseActivityVDB<ActivityUtilkViewBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         vdb.utilkViewBtnDebounce.applyDebounceClickListener(lifecycleScope) {
-            "点击${System.currentTimeMillis().longDate2strDate(CDateFormat.yyyyMMddHHmmss)}".dt(TAG)
+            "点击${System.currentTimeMillis().longDate2strDate(CDateFormat.yyyyMMddHHmmss)}".d(TAG)
         }
 
         vdb.utilkViewBtnDebounceSuspend.applySuspendDebounceClickListener(lifecycleScope) {
-            "点击${System.currentTimeMillis().longDate2strDate(CDateFormat.yyyyMMddHHmmss)}".dt(TAG)
+            "点击${System.currentTimeMillis().longDate2strDate(CDateFormat.yyyyMMddHHmmss)}".d(TAG)
             delay(2000)
-            "延迟${System.currentTimeMillis().longDate2strDate(CDateFormat.yyyyMMddHHmmss)}".dt(TAG)
+            "延迟${System.currentTimeMillis().longDate2strDate(CDateFormat.yyyyMMddHHmmss)}".d(TAG)
         }
 
         vdb.utilkViewBtnHapticFeedback.apply {
             applyHapticOnTouchListener()
             setOnClickListener {
-                UtilKLogWrapper.dt(TAG, "initView: setOnClickListener")
+                UtilKLogWrapper.d(TAG, "initView: setOnClickListener")
             }
         }
 
         vdb.utilkViewBtnGetAllViews.setOnClickListener {
-            UtilKLogWrapper.dt(TAG, "initView: ${UtilKViewGroup.getChildViews(UtilKDecorView.getAsViewGroup(this)).map { it.javaClass.name + "\n" }}")
+            UtilKLogWrapper.d(TAG, "initView: ${UtilKViewGroup.getChildViews(UtilKDecorView.getAsViewGroup(this)).map { it.javaClass.name + "\n" }}")
         }
     }
 }

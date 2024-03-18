@@ -46,12 +46,12 @@ class TaskKLocation : TaskKPollInfinite() {
     @OPermission_ACCESS_COARSE_LOCATION
     fun startLocationTask(intervalMillis: Long, minTimeMs: Long = 2000, minDistanceM: Float = 5f, task: ISuspendAA_Listener<Double>? = null) {
         if (!UtilKLocation.hasPermission()) {
-            UtilKLogWrapper.wt(TAG, "startLocationTask: dont hasPermission")
+            UtilKLogWrapper.w(TAG, "startLocationTask: dont hasPermission")
             return
         }
         start(intervalMillis, Dispatchers.Main) {
             val location = UtilKLocation.get_Longitude_Latitude(minTimeMs, minDistanceM)
-            UtilKLogWrapper.dt(TAG, "startLocationTask: location ${location?.first} ${location?.second}")
+            UtilKLogWrapper.d(TAG, "startLocationTask: location ${location?.first} ${location?.second}")
             location?.let {
                 _longitude = location.first
                 _latitude = location.second

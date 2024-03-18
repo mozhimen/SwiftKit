@@ -25,5 +25,5 @@ object UtilKViewModel: IUtilK {
             } ?: run {
                 ViewModelProvider(owner)[vmClazz as Class<VM>]
             }
-        } ?: throw Exception("inflate vm fail!")).also { UtilKLogWrapper.dt(TAG, "get: $it") }
+        } ?: throw Exception("inflate vm fail!")).also { UtilKLogWrapper.d(TAG, "get: $it") }
 }

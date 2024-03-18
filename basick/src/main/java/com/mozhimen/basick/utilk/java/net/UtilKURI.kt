@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.java.net
 
 import com.mozhimen.basick.elemk.java.net.cons.CURI
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.commons.IUtilK
 import java.net.URI
 import java.net.URISyntaxException
@@ -29,7 +29,7 @@ object UtilKURI : IUtilK {
             uRI = URI(strUrl)
         } catch (e: URISyntaxException) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
             return false
         }
         if (uRI.host == null) {

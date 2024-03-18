@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.basick.lintk.optins.permission.OPermission_QUERY_ALL_PACKAGES
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.android.widget.showToast
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 
 /**
  * @ClassName UtilKPackageActivity
@@ -21,10 +22,10 @@ class UtilKPackageActivity : AppCompatActivity() {
     @OptIn(OPermission_QUERY_ALL_PACKAGES::class)
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
-        android.util.UtilKLog.dt(TAG, "onCreate: isPackageInstalled ${UtilKPackage.isPackageInstalled(this,STR_PACKAGE_NAME)}")
-        android.util.UtilKLog.dt(TAG, "onCreate: hasPackageOfQuery ${UtilKPackage.hasPackageOfQuery(this,STR_PACKAGE_NAME)}")
-        android.util.UtilKLog.dt(TAG, "onCreate: hasPackage ${UtilKPackage.hasPackage(this,STR_PACKAGE_NAME)}")
-        android.util.UtilKLog.dt(TAG, "onCreate: hasPackageOfClazz ${UtilKPackage.hasPackageOfClazz("$STR_PACKAGE_NAME.MainActivity")}")
+        UtilKLogWrapper.d(TAG, "onCreate: isPackageInstalled ${UtilKPackage.isPackageInstalled(this,STR_PACKAGE_NAME)}")
+        UtilKLogWrapper.d(TAG, "onCreate: hasPackageOfQuery ${UtilKPackage.hasPackageOfQuery(this,STR_PACKAGE_NAME)}")
+        UtilKLogWrapper.d(TAG, "onCreate: hasPackage ${UtilKPackage.hasPackage(this,STR_PACKAGE_NAME)}")
+        UtilKLogWrapper.d(TAG, "onCreate: hasPackageOfClazz ${UtilKPackage.hasPackageOfClazz("$STR_PACKAGE_NAME.MainActivity")}")
         "${UtilKPackage.isPackageInstalled(this,STR_PACKAGE_NAME)} ${UtilKPackage.hasPackageOfQuery(this,STR_PACKAGE_NAME)} ${UtilKPackage.hasPackage(this,STR_PACKAGE_NAME)} ${UtilKPackage.hasPackageOfClazz("$STR_PACKAGE_NAME.MainActivity")}".showToast()
     }
 }

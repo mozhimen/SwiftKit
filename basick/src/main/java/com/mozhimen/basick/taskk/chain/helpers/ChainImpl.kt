@@ -7,8 +7,8 @@ import com.mozhimen.basick.taskk.chain.annors.AChainState
 import com.mozhimen.basick.taskk.chain.commons.IChainListener
 import com.mozhimen.basick.taskk.chain.helpers.ChainRuntime.getTaskRuntimeInfo
 import com.mozhimen.basick.elemk.cons.CMsg
-import com.mozhimen.basick.utilk.android.util.dt
-import com.mozhimen.basick.utilk.android.util.wt
+import com.mozhimen.basick.utilk.android.util.d
+import com.mozhimen.basick.utilk.android.util.w
 import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
@@ -20,11 +20,11 @@ import com.mozhimen.basick.utilk.commons.IUtilK
  */
 class ChainImpl : IChainListener, IUtilK {
     override fun onStart(node: BaseChainTask) {
-        if (BuildConfig.DEBUG) "ITaskKRuntimeListener id ${node.id} method -- onStart --".dt(TAG)
+        if (BuildConfig.DEBUG) "ITaskKRuntimeListener id ${node.id} method -- onStart --".d(TAG)
     }
 
     override fun onRunning(node: BaseChainTask) {
-        if (BuildConfig.DEBUG) "ITaskKRuntimeListener id ${node.id} method -- onRunning --".dt(TAG)
+        if (BuildConfig.DEBUG) "ITaskKRuntimeListener id ${node.id} method -- onRunning --".d(TAG)
     }
 
     override fun onFinished(node: BaseChainTask) {
@@ -72,7 +72,7 @@ class ChainImpl : IChainListener, IUtilK {
 
         //////////////////////////////////////////////////////////////////////////////////
 
-        if (BuildConfig.DEBUG) "logTaskKRuntimeInfo builder $builder".wt(TAG)
+        if (BuildConfig.DEBUG) "logTaskKRuntimeInfo builder $builder".w(TAG)
     }
 
     private fun appendTaskDependenciesInfo(node: BaseChainTask): String {

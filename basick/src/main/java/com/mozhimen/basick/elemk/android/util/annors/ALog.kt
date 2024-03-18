@@ -4,7 +4,7 @@ import androidx.annotation.IntDef
 import com.mozhimen.basick.elemk.android.util.cons.CLog
 
 /**
- * @ClassName ALogPriority
+ * @ClassName ALog
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
  * @Date 2021/12/20 16:59

@@ -6,7 +6,7 @@ import com.mozhimen.basick.cachek.room.mos.MCacheKRM
 import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.bytes2obj
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.kotlin.UtilKT
 
 /**
@@ -18,7 +18,7 @@ import com.mozhimen.basick.utilk.kotlin.UtilKT
  */
 object CacheKRM : BaseUtilK(), ICacheKProvider {
     override fun <T> putObj(key: String, obj: T) {
-        val cache = MCacheKRM(key, UtilKT.t2bytes(obj) ?: run { "serialize fail!".et(TAG);return })
+        val cache = MCacheKRM(key, UtilKT.t2bytes(obj) ?: run { "serialize fail!".e(TAG);return })
         CacheKRMDatabase.get().cacheKDao.saveCache(cache)
     }
 

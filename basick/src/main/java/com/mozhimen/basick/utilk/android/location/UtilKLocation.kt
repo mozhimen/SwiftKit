@@ -11,8 +11,8 @@ import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_FINE_LOCAT
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.provider.UtilKSettingsSecure
-import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.android.util.it
+import com.mozhimen.basick.utilk.android.util.e
+import com.mozhimen.basick.utilk.android.util.i
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 
 
@@ -40,7 +40,7 @@ object UtilKLocation : BaseUtilK() {
     fun get_ofGps(): Location? =
         (if (UtilKLocationManager.isProviderEnabledGps(_context))
             UtilKLocationManager.getLastKnownLocationGps(_context)
-        else null).also { "getForGps is null ${it == null}".it(TAG) }
+        else null).also { "getForGps is null ${it == null}".i(TAG) }
 
     /**
      * Get for network
@@ -54,7 +54,7 @@ object UtilKLocation : BaseUtilK() {
     fun get_ofNetwork(minTimeMs: Long, minDistanceM: Float, listener: LocationListener = object : ILocationListener {}): Location? {
         if (!UtilKLocationManager.isProviderEnabledNetwork(_context)) return null
         UtilKLocationManager.requestLocationUpdatesNetwork(_context, minTimeMs, minDistanceM, listener)
-        return UtilKLocationManager.getLastKnownLocationNetwork(_context).also { "getForNetwork is null ${it == null}".it(TAG) }
+        return UtilKLocationManager.getLastKnownLocationNetwork(_context).also { "getForNetwork is null ${it == null}".i(TAG) }
     }
 
     @JvmStatic
@@ -71,7 +71,7 @@ object UtilKLocation : BaseUtilK() {
             else if (lastLocation.accuracy < location.accuracy)
                 lastLocation = location// Found best last known location: %s", l);
         }
-        return lastLocation.also { "getLastLocation is null ${it == null}".it(TAG) }
+        return lastLocation.also { "getLastLocation is null ${it == null}".i(TAG) }
     }
 
     @OPermission_ACCESS_FINE_LOCATION
@@ -85,8 +85,8 @@ object UtilKLocation : BaseUtilK() {
     @JvmStatic
     fun hasPermission(): Boolean =
         if (!UtilKPermission.hasPermissions(arrayOf(CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION))) {
-            false.also { "get: permission denied".et(TAG) }
+            false.also { "get: permission denied".e(TAG) }
         } else if (!UtilKSettingsSecure.isLocationEnabled(_context)) {
-            false.also { "get: system setting location off".et(TAG) }
+            false.also { "get: system setting location off".e(TAG) }
         } else true
 }

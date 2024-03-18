@@ -9,8 +9,8 @@ import android.view.Window
 import com.mozhimen.basick.elemk.android.view.cons.CView
 import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
-import com.mozhimen.basick.utilk.android.util.dt
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.d
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import kotlin.math.abs
 
@@ -102,7 +102,7 @@ object UtilKDecorView : BaseUtilK() {
         val rect = Rect()
         getWindowVisibleDisplayFrame(decorView, rect)
         val delta = abs(decorView.bottom - rect.bottom)
-        return (if (delta <= UtilKNavigationBar.getHeight() + UtilKStatusBar.getHeight()) 0 else delta).also { ("getInvisibleHeight: " + (decorView.bottom - rect.bottom)).dt(TAG) }
+        return (if (delta <= UtilKNavigationBar.getHeight() + UtilKStatusBar.getHeight()) 0 else delta).also { ("getInvisibleHeight: " + (decorView.bottom - rect.bottom)).d(TAG) }
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -134,7 +134,7 @@ object UtilKDecorView : BaseUtilK() {
     @JvmStatic
     fun applyFitsSystemWindows(activity: Activity) {
         get(activity).post {
-            UtilKContentView.getPacChild0(activity)?.applyFitSystemWindow() ?: "setFitsSystemWindows contentView is null".et(TAG)
+            UtilKContentView.getPacChildAt0(activity)?.applyFitSystemWindow() ?: "setFitsSystemWindows contentView is null".e(TAG)
         }
     }
 

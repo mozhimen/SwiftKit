@@ -25,8 +25,8 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKActivityWrapper
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.UtilKLongLogWrapper
-import com.mozhimen.basick.utilk.android.util.dt
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.d
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.kotlin.UtilKAny
 import com.mozhimen.basick.utilk.kotlin.strColor2intColor
 import com.mozhimen.basick.utilk.kotlinx.coroutines.getViewClickFlow
@@ -43,10 +43,6 @@ import kotlinx.coroutines.flow.onEach
  * @Date 2022/2/27 16:50
  * @Version 1.0
  */
-fun ViewGroup.get_ofInflate(@LayoutRes layoutId: Int): View =
-    UtilKView.get_ofInflate(this, layoutId)
-
-//////////////////////////////////////////////////////////////////////////////
 
 fun View.isVisible(): Boolean =
     UtilKView.isVisible(this)
@@ -112,10 +108,6 @@ fun View.applyRequestFocus() {
     UtilKView.applyRequestFocus(this)
 }
 
-fun View.applyOnGlobalLayoutObserver(invoke: I_Listener) {
-    UtilKView.applyOnGlobalLayoutObserver(this, invoke)
-}
-
 fun View.applyFitSystemWindow() {
     UtilKView.applyFitSystemWindow(this)
 }
@@ -142,10 +134,15 @@ fun View.applySuspendDebounceClickListener(scope: CoroutineScope, thresholdMilli
 
 object UtilKView : BaseUtilK() {
     @JvmStatic
-    fun get_ofInflate(viewGroup: ViewGroup, @LayoutRes layoutId: Int): View =
-        LayoutInflater.from(viewGroup.context).inflate(layoutId, viewGroup, false)
+    fun get_ofInflate(viewGroup: ViewGroup, @LayoutRes intResLayout: Int): View =
+        LayoutInflater.from(viewGroup.context).inflate(intResLayout, viewGroup, false)
 
     //////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun getViewTreeObserver(view: View): ViewTreeObserver? =
+        view.viewTreeObserver
+
     @JvmStatic
     fun getLongTag(view: View, key: Int, defaultValue: Long): Long =
         if (view.getTag(key) != null) view.getTag(key) as Long else defaultValue
@@ -160,7 +157,7 @@ object UtilKView : BaseUtilK() {
             putInt("propname_width", view.width)
             putInt("propname_height", view.height)
         }
-        "getBundle Left: ${screenLocation[0]} Top: ${screenLocation[1]} Width: ${view.width} Height: ${view.height}".dt(TAG)
+        "getBundle Left: ${screenLocation[0]} Top: ${screenLocation[1]} Width: ${view.width} Height: ${view.height}".d(TAG)
         return bundle
     }
 
@@ -202,7 +199,7 @@ object UtilKView : BaseUtilK() {
                 if (UtilKAny.isObjTypeMatch(tempView, *matches)) return tempView
             } catch (e: Exception) {
                 e.printStackTrace()
-                e.message?.et(TAG)
+                e.message?.e(TAG)
             }
         }
         return null
@@ -508,7 +505,7 @@ object UtilKView : BaseUtilK() {
             view.viewTreeObserver.addOnGlobalLayoutListener(listener)
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         }
     }
 
@@ -521,7 +518,7 @@ object UtilKView : BaseUtilK() {
             view.viewTreeObserver.removeOnGlobalLayoutListener(listener)
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         }
     }
 

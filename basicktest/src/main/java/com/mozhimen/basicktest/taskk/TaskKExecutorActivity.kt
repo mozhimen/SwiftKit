@@ -5,7 +5,7 @@ import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.java.lang.UtilKThread
 import com.mozhimen.basicktest.databinding.ActivityTaskkExecutorBinding
 import kotlinx.coroutines.launch
@@ -29,7 +29,7 @@ class TaskKExecutorActivity : BaseActivityVDB<ActivityTaskkExecutorBinding>() {
                         Thread.sleep((1000 - priority * 100).toLong())
                     } catch (e: InterruptedException) {
                         e.printStackTrace()
-                        e.message?.et(TAG)
+                        e.message?.e(TAG)
                     }
                 }
             }
@@ -47,13 +47,13 @@ class TaskKExecutorActivity : BaseActivityVDB<ActivityTaskkExecutorBinding>() {
         vdb.taskkExecutorBtnAsync.setOnClickListener {
             TaskKExecutor.execute(TAG, runnable = object : TaskKExecutor.ExecutorKCallable<String>() {
                 override fun onBackground(): String {
-                    UtilKLogWrapper.et(TAG, "onBackground: 当前线程: ${UtilKThread.getCur()}")
+                    UtilKLogWrapper.e(TAG, "onBackground: 当前线程: ${UtilKThread.getCur()}")
                     return "我是异步任务的结果"
                 }
 
                 override fun onCompleted(t: String?) {
-                    UtilKLogWrapper.et(TAG, "onCompleted: 当前线程是: ${UtilKThread.getCurName()}")
-                    UtilKLogWrapper.et(TAG, "onCompleted: 任务结果是: $t")
+                    UtilKLogWrapper.e(TAG, "onCompleted: 当前线程是: ${UtilKThread.getCurName()}")
+                    UtilKLogWrapper.e(TAG, "onCompleted: 任务结果是: $t")
                 }
             })
         }

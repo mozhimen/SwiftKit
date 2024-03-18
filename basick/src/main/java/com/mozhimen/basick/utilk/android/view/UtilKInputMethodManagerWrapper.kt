@@ -13,8 +13,8 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.android.util.dt
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.d
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.java.lang.UtilKReflect
 import java.lang.reflect.Field
 
@@ -148,7 +148,7 @@ object UtilKInputMethodManagerWrapper : BaseUtilK() {
      */
     @JvmStatic
     fun hideByClickOther() {
-        UtilKLogWrapper.dt(TAG, "hideByClickOther: Please refer to the following code.")
+        UtilKLogWrapper.d(TAG, "hideByClickOther: Please refer to the following code.")
         //kotlin
         /*override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
             if (event?.action == MotionEvent.ACTION_DOWN) {
@@ -231,21 +231,21 @@ object UtilKInputMethodManagerWrapper : BaseUtilK() {
                         val mParent = fieldMParent.get(mNextServedView)
                         if (mParent != null) {
                             fieldMParent.set(mParent, null)
-                            UtilKLogWrapper.dt(TAG, "fixInputMethodLeak: $tag set view mNextServedView: mParent null in inputMethodManager")
+                            UtilKLogWrapper.d(TAG, "fixInputMethodLeak: $tag set view mNextServedView: mParent null in inputMethodManager")
                         }
 //                            val mParent1Field = UtilKReflect.getField(mParentObj, "mParent")
 //                            if (!mParent1Field.isAccessible) mParent1Field.isAccessible = true
 //                            val mParent1Obj = mParent1Field.get(mParentObj)
 //                            if (mParent1Obj != null) {
 //                                mParent1Field.set(mParent1Obj, null)
-//                                UtilKLog.dt(TAG, "fixInputMethodLeak: $tag set view mNextServedView: mParent null in inputMethodManager")
+//                                UtilKLogWrapper.d(TAG, "fixInputMethodLeak: $tag set view mNextServedView: mParent null in inputMethodManager")
 //                            }
                     }
                 }
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         }
     }
 
@@ -268,13 +268,13 @@ object UtilKInputMethodManagerWrapper : BaseUtilK() {
                 if (view != null && view is View) {
                     if (view.context == context) {                        //注意需要判断View关联的Context是不是当前Activity，否则有可能造成正常的输入框输入失效
                         fieldLeakView.set(inputMethodManager, null)
-                        "fixInputMethodLeakBefore29: $tag set view $leakView null in inputMethodManager".dt(TAG)
+                        "fixInputMethodLeakBefore29: $tag set view $leakView null in inputMethodManager".d(TAG)
                     } else
                         break
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                e.message?.et(TAG)
+                e.message?.e(TAG)
             }
         }
     }
@@ -529,11 +529,11 @@ object UtilKInputMethodManagerWrapper : BaseUtilK() {
 //            fieldObj = field.get(inputMethodManager)
 //            if (fieldObj != null && fieldObj is ViewParent) {
 //                field.set(inputMethodManager, null)
-//                UtilKLog.dt(TAG, "fixInputMethodLeak: $tag set view mCurRootView null in inputMethodManager")
+//                UtilKLogWrapper.d(TAG, "fixInputMethodLeak: $tag set view mCurRootView null in inputMethodManager")
 //            }
 //        } catch (e: Exception) {
 //            e.printStackTrace()
-//            e.message?.et(TAG)
+//            e.message?.e(TAG)
 //        }
 //    }
 //
@@ -564,7 +564,7 @@ object UtilKInputMethodManagerWrapper : BaseUtilK() {
 //                }
 //            } catch (e: Exception) {
 //                e.printStackTrace()
-//                e.message?.et(TAG)
+//                e.message?.e(TAG)
 //            }
 //        }
 //    }
@@ -588,14 +588,14 @@ object UtilKInputMethodManagerWrapper : BaseUtilK() {
 //                if (fieldObj is View) {
 //                    if (fieldObj.context == context) {                        //注意需要判断View关联的Context是不是当前Activity，否则有可能造成正常的输入框输入失效
 //                        leakField.set(inputMethodManager, null)
-//                        UtilKLog.dt(TAG, "fixInputMethodLeak: $tag set view $leakView null in inputMethodManager")
+//                        UtilKLogWrapper.d(TAG, "fixInputMethodLeak: $tag set view $leakView null in inputMethodManager")
 //                    } else {
 //                        break
 //                    }
 //                }
 //            } catch (e: Exception) {
 //                e.printStackTrace()
-//                e.message?.et(TAG)
+//                e.message?.e(TAG)
 //            }
 //        }
 //    }

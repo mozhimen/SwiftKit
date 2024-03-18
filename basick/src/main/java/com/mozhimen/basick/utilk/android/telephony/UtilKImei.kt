@@ -12,7 +12,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.os.UtilKSystemProperties
-import com.mozhimen.basick.utilk.android.util.it
+import com.mozhimen.basick.utilk.android.util.i
 import com.mozhimen.basick.utilk.commons.IUtilK
 import java.lang.reflect.Method
 
@@ -63,7 +63,7 @@ object UtilKImei : IUtilK {
                 UtilKDeviceId.get(context, slotId)//如果获取不到 就调用 getDeviceId 方法获取//5.0以下获取imei/meid只能通过 getDeviceId  方法去取
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.it(TAG)
+            e.message?.i(TAG)
         }
         if (imei.isEmpty())
             imei = UtilKDeviceId.get(context, slotId)
@@ -126,7 +126,7 @@ object UtilKImei : IUtilK {
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.it(TAG)
+            e.message?.i(TAG)
         }
         if (TextUtils.isEmpty(imei)) {
             val imeiOrMeid = UtilKDeviceId.get(context, slotId)
@@ -163,7 +163,7 @@ object UtilKImei : IUtilK {
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.it(TAG)
+            e.message?.i(TAG)
         }
         if (TextUtils.isEmpty(meid)) {
             val imeiOrMeid = UtilKDeviceId.get(context, slotId)

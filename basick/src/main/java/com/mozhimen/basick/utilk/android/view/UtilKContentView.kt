@@ -46,10 +46,10 @@ object UtilKContentView : BaseUtilK() {
         getPac<View>(window).getTag(tag)
 
     @JvmStatic
-    fun getPacChild0(window: Window): View? =
+    fun getPacChildAt0(window: Window): View? =
         getPacAsViewGroup(window).getChildAt(0)
 
     @JvmStatic
-    fun getPacChild0(activity: Activity): View? =
-        getPacChild0(activity.window)
+    fun getPacChildAt0(activity: Activity): View? =
+        getPacChildAt0(activity.window)
 }

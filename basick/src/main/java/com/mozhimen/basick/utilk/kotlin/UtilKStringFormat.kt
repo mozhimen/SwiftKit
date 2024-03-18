@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.kotlin
 
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.UtilKFileFormat
 import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
@@ -56,7 +56,7 @@ object UtilKStringFormat {
             return fileDest
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(UtilKFileFormat.TAG)
+            e.message?.e(UtilKFileFormat.TAG)
         }
         return null
     }
@@ -73,7 +73,7 @@ object UtilKStringFormat {
             return fileDest
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(UtilKFileFormat.TAG)
+            e.message?.e(UtilKFileFormat.TAG)
         }
         return null
     }

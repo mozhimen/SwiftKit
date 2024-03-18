@@ -11,7 +11,7 @@ import com.mozhimen.basick.elemk.android.app.cons.CPendingIntent
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.lintk.optins.permission.OPermission_INSTALL_PACKAGES
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.file2fileInputStream
 import com.mozhimen.basick.utilk.java.io.flushClose
@@ -57,10 +57,10 @@ object UtilKPackageInstaller : BaseUtilK() {
         try {
             session = openSession(packageInstaller,sessionId)
             session.commit(PendingIntent.getBroadcast(_context, 1, Intent(_context, receiverClazz), CPendingIntent.FLAG_UPDATE_CURRENT).intentSender)
-            UtilKLogWrapper.dt(TAG, "commitSession begin")
+            UtilKLogWrapper.d(TAG, "commitSession begin")
         } catch (e: Exception) {
             e.printStackTrace()
-            UtilKLogWrapper.et(TAG, "commitSession: Exception ${e.message}")
+            UtilKLogWrapper.e(TAG, "commitSession: Exception ${e.message}")
         } finally {
             session?.close()
         }
@@ -84,7 +84,7 @@ object UtilKPackageInstaller : BaseUtilK() {
             return true
         } catch (e: Exception) {
             e.printStackTrace()
-            "copyBaseApk: Exception ${e.message}".et(TAG)
+            "copyBaseApk: Exception ${e.message}".e(TAG)
         } finally {
             session?.close()
             outputStream?.flushClose()

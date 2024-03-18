@@ -3,7 +3,7 @@ package com.mozhimen.basick.utilk.android.app
 import android.app.ActivityManager.RunningAppProcessInfo
 import android.content.Context
 import com.mozhimen.basick.utilk.android.os.UtilKProcess
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
@@ -29,7 +29,7 @@ object UtilKRunningAppProcessInfo : IUtilK {
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         }
         return null
     }

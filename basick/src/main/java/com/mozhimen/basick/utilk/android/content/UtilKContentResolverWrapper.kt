@@ -8,7 +8,7 @@ import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.provider.cons.CMediaStore
 import com.mozhimen.basick.elemk.android.provider.cons.COpenableColumns
 import com.mozhimen.basick.utilk.android.database.getColumnString
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.file2strFilePath
 import com.mozhimen.basick.utilk.kotlin.getStrFileExtension
@@ -43,7 +43,7 @@ object UtilKContentResolverWrapper : BaseUtilK() {
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         }
         return null
     }
@@ -66,7 +66,7 @@ object UtilKContentResolverWrapper : BaseUtilK() {
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         }
         return null
     }
@@ -80,15 +80,15 @@ object UtilKContentResolverWrapper : BaseUtilK() {
     @RequiresApi(CVersCode.V_29_10_Q)
     fun insertImageAfter29(context: Context, strFilePathName: String): Uri? {
         val strFilePath = strFilePathName.getStrFileParentPath() ?: run {
-            UtilKLogWrapper.wt(TAG, "insertImageAfter29: strFilePath get fail")
+            UtilKLogWrapper.w(TAG, "insertImageAfter29: strFilePath get fail")
             return null
         }
         val strFileName = strFilePathName.getStrFileName() ?: run {
-            UtilKLogWrapper.wt(TAG, "insertImageAfter29: strFileName get fail")
+            UtilKLogWrapper.w(TAG, "insertImageAfter29: strFileName get fail")
             return null
         }
         val strFileExtension = strFilePathName.getStrFileExtension() ?: run {
-            UtilKLogWrapper.wt(TAG, "insertImageAfter29: strFileExtension get fail")
+            UtilKLogWrapper.w(TAG, "insertImageAfter29: strFileExtension get fail")
             return null
         }
         val strMineType = strFileExtension.strFileExtension2strMineTypeImage()

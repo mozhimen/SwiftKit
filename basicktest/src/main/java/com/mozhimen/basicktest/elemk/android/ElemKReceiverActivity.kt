@@ -34,7 +34,7 @@ class ElemKReceiverActivity : BaseActivityVDB<ActivityElemkReceiverBinding>() {
 
     @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
     override fun initView(savedInstanceState: Bundle?) {
-        UtilKLogWrapper.dt(TAG, "initView: start")
+        UtilKLogWrapper.d(TAG, "initView: start")
         _receiverProxy.bindLifecycle(this)
     }
 }

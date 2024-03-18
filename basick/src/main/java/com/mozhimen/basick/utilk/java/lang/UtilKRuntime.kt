@@ -11,8 +11,8 @@ import com.mozhimen.basick.lintk.optins.permission.OPermission_INSTALL_PACKAGES
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.android.util.dt
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.d
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.flushClose
 import com.mozhimen.basick.utilk.java.io.inputStream2strOfReadMultiLines
@@ -72,7 +72,7 @@ object UtilKRuntime : BaseUtilK() {
             return inputStream.inputStream2strOfReadSingleLine(readSize = 1024)
         } catch (e: Exception) {
             e.printStackTrace()
-            UtilKLogWrapper.et(TAG, "getProp Unable to read prop strPackage $strPackage msg ${e.message}")
+            UtilKLogWrapper.e(TAG, "getProp Unable to read prop strPackage $strPackage msg ${e.message}")
         } finally {
             inputStream?.close()
             process?.destroy()
@@ -104,11 +104,11 @@ object UtilKRuntime : BaseUtilK() {
 
             errorStream = process.errorStream
             val strError =errorStream.inputStream2strOfReadMultiLines()
-            "execSuInstall msg is $strError".dt(TAG)
+            "execSuInstall msg is $strError".d(TAG)
             return !strError.contains("failure", ignoreCase = true)
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         } finally {
             errorStream?.close()
             outputStream?.flushClose()
@@ -139,7 +139,7 @@ object UtilKRuntime : BaseUtilK() {
             strInput = inputStream.inputStream2strOfReadMultiLines()
         } catch (e: Exception) {
             e.printStackTrace()
-            "execInstallBefore28: Exception ${e.message}".et(TAG)
+            "execInstallBefore28: Exception ${e.message}".e(TAG)
         } finally {
             inputStream?.close()
             process?.destroy()
@@ -170,10 +170,10 @@ object UtilKRuntime : BaseUtilK() {
             byteArrayOutputStream = ByteArrayOutputStream()
             byteArrayOutputStream.write('/'.code)
             strInput = inputStream.inputStream2strOfBytesOutStream(byteArrayOutputStream)
-            "installSilence result $strInput".dt(TAG)
+            "installSilence result $strInput".d(TAG)
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         } finally {
             byteArrayOutputStream?.flushClose()
             inputStream?.close()
@@ -198,11 +198,11 @@ object UtilKRuntime : BaseUtilK() {
             inputStream = process.inputStream
             inputStreamReader = InputStreamReader(inputStream)
             inputBufferedReader = BufferedReader(inputStreamReader)
-            (inputBufferedReader.readLine() != null).also { UtilKLogWrapper.dt(TAG, "isWhichAvailable: $it") }
+            (inputBufferedReader.readLine() != null).also { UtilKLogWrapper.d(TAG, "isWhichAvailable: $it") }
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
-            false.also { UtilKLogWrapper.dt(TAG, "isWhichAvailable: $it") }
+            e.message?.e(TAG)
+            false.also { UtilKLogWrapper.d(TAG, "isWhichAvailable: $it") }
         } finally {
             inputBufferedReader?.close()
             inputStreamReader?.close()
@@ -251,10 +251,10 @@ object UtilKRuntime : BaseUtilK() {
                 
                 """.trimIndent()
             }
-            "execShC line $strLineInput error $strLineError".dt(TAG)
+            "execShC line $strLineInput error $strLineError".d(TAG)
         } catch (e: Exception) {
             e.printStackTrace()
-            "executeShellCmd: IOException ${e.message}".et(TAG)
+            "executeShellCmd: IOException ${e.message}".e(TAG)
         } finally {
             errorBufferedReader?.close()
             inputBufferedReader?.close()
@@ -335,7 +335,7 @@ object UtilKRuntime : BaseUtilK() {
                 }
             }
         } catch (e: Exception) {
-            UtilKLogWrapper.et(TAG, "execSuOrSh: Exception ${e.message}")
+            UtilKLogWrapper.e(TAG, "execSuOrSh: Exception ${e.message}")
             e.printStackTrace()
         } finally {
             errorBufferedReader?.close()

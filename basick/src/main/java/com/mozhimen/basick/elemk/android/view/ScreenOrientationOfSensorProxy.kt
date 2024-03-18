@@ -57,10 +57,10 @@ class ScreenOrientationOfSensorProxy<A>(private val _activity: A) : BaseWakeBefD
 
     private fun startObserveScreen() {
         disableOrientationListener()
-        UtilKLogWrapper.dt(TAG, "startObserveScreen: ")
+        UtilKLogWrapper.d(TAG, "startObserveScreen: ")
         _orientationEventListener = object : OrientationEventListener(_activity, CSensorManager.SENSOR_DELAY_NORMAL) {
             override fun onOrientationChanged(orientation: Int) {
-//                    UtilKLog.vt(TAG, "startObserveScreen: onOrientationChanged " + orientation);
+//                    UtilKLogWrapper.v(TAG, "startObserveScreen: onOrientationChanged " + orientation);
                 if (orientation == ORIENTATION_UNKNOWN) return  //手机平放时，检测不到有效的角度
                 _screenOrientationChangedListener?.onDegreeChanged(orientation)
 
@@ -76,16 +76,16 @@ class ScreenOrientationOfSensorProxy<A>(private val _activity: A) : BaseWakeBefD
             }
         }
         if (_orientationEventListener!!.canDetectOrientation()) {
-            UtilKLogWrapper.vt(TAG, "startObserveScreen: Can detect orientation")
+            UtilKLogWrapper.v(TAG, "startObserveScreen: Can detect orientation")
             _orientationEventListener!!.enable()
         } else {
-            UtilKLogWrapper.vt(TAG, "startObserveScreen: Cannot detect orientation")
+            UtilKLogWrapper.v(TAG, "startObserveScreen: Cannot detect orientation")
             disableOrientationListener()
         }
     }
 
     private fun disableOrientationListener() {
-        UtilKLogWrapper.dt(TAG, "disableOrientationListener: ")
+        UtilKLogWrapper.d(TAG, "disableOrientationListener: ")
         if (_orientationEventListener != null) {
             _orientationEventListener!!.disable()
             _orientationEventListener = null

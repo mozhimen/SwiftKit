@@ -10,7 +10,7 @@ import android.view.View
 import android.view.View.OnTouchListener
 import com.mozhimen.basick.elemk.android.view.commons.IOnClickListener
 import com.mozhimen.basick.elemk.android.view.commons.IOnScaleListener
-import com.mozhimen.basick.utilk.android.util.dt
+import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
@@ -60,13 +60,13 @@ open class BaseMultiGestureOnTouchCallback(context: Context) : IUtilK, IOnClickL
 //        }
 
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-            "onSingleTapConfirmed: 严格的单击".dt(TAG)
+            "onSingleTapConfirmed: 严格的单击".d(TAG)
             onSingleClick(e.x, e.y)
             return true
         }
 
         override fun onDoubleTap(e: MotionEvent): Boolean {
-            "onDoubleTap: 双击".dt(TAG)
+            "onDoubleTap: 双击".d(TAG)
             onDoubleClick(e.x, e.y)
             return true
         }

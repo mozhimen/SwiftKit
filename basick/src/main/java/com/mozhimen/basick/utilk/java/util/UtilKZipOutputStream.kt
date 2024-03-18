@@ -32,7 +32,7 @@ object UtilKZipOutputStream : IUtilK {
                 val listFiles = fileSource.getFolderFiles()
                 if (listFiles.isEmpty()) {
                     val stringBuilder = StringBuilder().apply { append(fileName).append("/") }
-                    zipOutputStream.putNextEntry(ZipEntry(stringBuilder.toString().also { UtilKLogWrapper.dt(TAG, "compress: stringBuilder $stringBuilder") }))
+                    zipOutputStream.putNextEntry(ZipEntry(stringBuilder.toString().also { UtilKLogWrapper.d(TAG, "compress: stringBuilder $stringBuilder") }))
                 } else
                     for (file in listFiles) {
                         val stringBuilder = StringBuilder().apply { append(fileName).append("/").append(file.name) }

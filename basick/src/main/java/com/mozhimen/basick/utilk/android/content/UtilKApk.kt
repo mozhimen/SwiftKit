@@ -3,7 +3,7 @@ package com.mozhimen.basick.utilk.android.content
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.graphics.drawable.Drawable
-import com.mozhimen.basick.utilk.android.util.dt
+import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 
 /**
@@ -89,16 +89,16 @@ object UtilKApk : BaseUtilK() {
     fun printApkInfo(strPathNameApk: String) {
         // 得到应用名
         getApplicationLabel(strPathNameApk)?.let {
-            "printApkInfo: getApplicationLabel $it".dt(TAG)
+            "printApkInfo: getApplicationLabel $it".d(TAG)
         }
         getPackageName(strPathNameApk)?.let {
-            "printApkInfo: getPackageName $it".dt(TAG)
+            "printApkInfo: getPackageName $it".d(TAG)
         }
         getVersionName(strPathNameApk)?.let {
-            "printApkInfo: getVersionName $it".dt(TAG)
+            "printApkInfo: getVersionName $it".d(TAG)
         }
         getVersionCode(strPathNameApk)?.let {
-            "printApkInfo: getVersionCode $it".dt(TAG)
+            "printApkInfo: getVersionCode $it".d(TAG)
         }
     }
 }

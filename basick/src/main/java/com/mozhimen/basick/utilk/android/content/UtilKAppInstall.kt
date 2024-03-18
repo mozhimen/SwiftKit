@@ -14,7 +14,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.android.util.dt
+import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.lang.UtilKRuntime
 import java.io.*
@@ -35,7 +35,7 @@ object UtilKAppInstall : BaseUtilK() {
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     @OPermission_REQUEST_INSTALL_PACKAGES
     fun hasPackageInstalls(): Boolean =
-        UtilKPermission.hasPackageInstalls().also { "hasPackageInstalls: $it".dt(TAG) }
+        UtilKPermission.hasPackageInstalls().also { "hasPackageInstalls: $it".d(TAG) }
 
     ///////////////////////////////////////////////////////////////////////////
 
@@ -103,18 +103,18 @@ object UtilKAppInstall : BaseUtilK() {
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
     @OPermission_INSTALL_PACKAGES
     fun installSilenceAfter28(strPathNameApk: String, receiver: Class<*>) {
-        "installSilenceAfter28 pathApk $strPathNameApk".dt(TAG)
+        "installSilenceAfter28 pathApk $strPathNameApk".d(TAG)
         val fileApk = File(strPathNameApk)
         val packageInstaller = UtilKPackageInstaller.get(_context)
         val sessionParams = PackageInstaller.SessionParams(CPackageInstaller.SessionParams.MODE_FULL_INSTALL).apply {
             setSize(fileApk.length())
         }
         val sessionId: Int = UtilKPackageInstaller.createSession(packageInstaller, sessionParams)
-        "installSilenceAfter28 sessionId $sessionId".dt(TAG)
+        "installSilenceAfter28 sessionId $sessionId".d(TAG)
 
         if (sessionId != -1) {
             val isCopySuccess = UtilKPackageInstaller.copyBaseApk(packageInstaller, sessionId, strPathNameApk)
-            "installSilenceAfter28 isCopySuccess $isCopySuccess".dt(TAG)
+            "installSilenceAfter28 isCopySuccess $isCopySuccess".d(TAG)
             if (isCopySuccess)
                 UtilKPackageInstaller.commitSession(packageInstaller, sessionId, receiver)
         }

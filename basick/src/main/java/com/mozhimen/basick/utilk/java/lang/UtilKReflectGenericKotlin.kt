@@ -62,7 +62,7 @@ object UtilKReflectGenericKotlin : IUtilK {
                 if (this.isNotEmpty()) {
                     for (clz in this) {
                         if (tClazz.isAssignableFrom(clz)){
-                            UtilKLogWrapper.vt(TAG, "getParentGenericTypeByT: clz $clz")
+                            UtilKLogWrapper.v(TAG, "getParentGenericTypeByT: clz $clz")
                             return clz
                         }
                     }

@@ -12,7 +12,7 @@ import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_NETWORK_ST
 import com.mozhimen.basick.lintk.optins.permission.OPermission_INTERNET
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.net.UtilKNet
-import com.mozhimen.basick.utilk.android.util.wt
+import com.mozhimen.basick.utilk.android.util.w
 
 
 /**
@@ -65,7 +65,7 @@ open class BaseConnectivityBroadcastReceiver : BaseBroadcastReceiver, IBroadcast
         if (CConnectivityManager.CONNECTIVITY_ACTION != intent.action) return
         val netTypes = UtilKNet.getActiveNetTypes()
         if (this.netTypes != netTypes) {
-            "onReceive: eNetKType $netTypes".wt(TAG)
+            "onReceive: eNetKType $netTypes".w(TAG)
             notifyListeners(netTypes)
         }
     }

@@ -20,8 +20,8 @@ import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
 import com.mozhimen.basick.utilk.android.content.UtilKResources
 import com.mozhimen.basick.utilk.android.media.UtilKMediaScannerConnection
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.android.util.dt
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.d
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.byteArrayOutputStream2bytes
@@ -129,16 +129,16 @@ object UtilKBitmapFormat : BaseUtilK() {
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         } finally {
             outputStream?.flushClose()
             try {
                 UtilKMediaScannerConnection.scanFile(_context, arrayOf(fileDest.absolutePath), arrayOf(CMediaFormat.MIMETYPE_IMAGE_JPEG)) { path, uri ->
-                    "bitmapAny2fileImage: path $path, uri $uri".dt(TAG)
+                    "bitmapAny2fileImage: path $path, uri $uri".d(TAG)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                e.message?.et(TAG)
+                e.message?.e(TAG)
             }
         }
         return null
@@ -166,7 +166,7 @@ object UtilKBitmapFormat : BaseUtilK() {
             return fileDest
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         } finally {
             bufferedOutputStream?.flushClose()
         }
@@ -180,7 +180,7 @@ object UtilKBitmapFormat : BaseUtilK() {
             if (UtilKPermission.hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE))
                 sourceBitmap.bitmapAny2fileImage(strFilePathNameDest, CompressFormat.JPEG, quality)
             else {
-                UtilKLogWrapper.dt(TAG, "bitmapJpeg2fileJpeg: dont has permission")
+                UtilKLogWrapper.d(TAG, "bitmapJpeg2fileJpeg: dont has permission")
                 null
             }
         } else bitmapAny2fileJpeg(sourceBitmap, strFilePathNameDest, quality)

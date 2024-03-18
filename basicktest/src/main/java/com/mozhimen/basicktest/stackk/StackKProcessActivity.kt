@@ -32,6 +32,6 @@ class StackKProcessActivity : BaseActivityVDB<ActivityStackkProcessBinding>(), I
 
     override fun onChanged(isFront: Boolean, activityRef: WeakReference<Activity>?) {
         "App is At Front ?: $isFront".showToast()
-        UtilKLogWrapper.dt(TAG, "App is At Front ?: $isFront")
+        UtilKLogWrapper.d(TAG, "App is At Front ?: $isFront")
     }
 }

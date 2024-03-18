@@ -38,7 +38,7 @@ object UtilKLongFormat : IUtilK {
         else if (fileSize < 1073741824)
             decimalFormat.format(fileSize.toDouble() / 1048576.0) + "M" + suffix
         else
-            decimalFormat.format(fileSize.toDouble() / 1073741824.0) + "G" + suffix).replaceDot().also { UtilKLogWrapper.dt(TAG, "longFileSize2strFileSize: $it") }
+            decimalFormat.format(fileSize.toDouble() / 1073741824.0) + "G" + suffix).replaceDot().also { UtilKLogWrapper.d(TAG, "longFileSize2strFileSize: $it") }
     }
 
     @JvmStatic

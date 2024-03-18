@@ -116,7 +116,7 @@ object UtilKLongLogWrapper : BaseUtilK() {
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                e.message?.et(TAG)
+                e.message?.e(TAG)
             }
         } else
             log(level, tag, getLogCat(*msg))

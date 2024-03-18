@@ -11,7 +11,7 @@ import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_COARSE_LOC
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_FINE_LOCATION
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContext
-import com.mozhimen.basick.utilk.android.util.dt
+import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.commons.IUtilK
 
 
@@ -60,11 +60,11 @@ object UtilKLocationManager : IUtilK {
 
     @JvmStatic
     fun isProviderEnabledGps(context: Context): Boolean =
-        isProviderEnabled(context, CLocationManager.GPS_PROVIDER).also { "isProviderEnabledGps $it".dt(TAG) }
+        isProviderEnabled(context, CLocationManager.GPS_PROVIDER).also { "isProviderEnabledGps $it".d(TAG) }
 
     @JvmStatic
     fun isProviderEnabledNetwork(context: Context): Boolean =
-        isProviderEnabled(context, CLocationManager.NETWORK_PROVIDER).also { "isProviderEnabledNetwork $it".dt(TAG) }
+        isProviderEnabled(context, CLocationManager.NETWORK_PROVIDER).also { "isProviderEnabledNetwork $it".d(TAG) }
 
     /////////////////////////////////////////////////////////////////////
 
