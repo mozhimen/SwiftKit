@@ -9,7 +9,7 @@ import com.mozhimen.basick.elemk.cons.CStrPackage
 import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_PHONE_STATE
 import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_PRIVILEGED_PHONE_STATE
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.android.app.UtilKPermission
+import com.mozhimen.basick.utilk.android.UtilKPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.os.UtilKSystemProperties
 import com.mozhimen.basick.utilk.android.util.i
@@ -51,7 +51,7 @@ object UtilKImei : IUtilK {
     fun getImeiOrMeid(context: Context, slotId: Int): String {
         var imei = ""
         //Android 6.0 以后需要获取动态权限  检查权限
-        if (!UtilKPermission.hasPermission(CPermission.READ_PHONE_STATE))
+        if (!UtilKPermission.isSelfGranted(CPermission.READ_PHONE_STATE))
             return imei
         try {
             val telephonyManager = UtilKTelephonyManager.get(context)
@@ -111,7 +111,7 @@ object UtilKImei : IUtilK {
         var imei = ""
 
         //Android 6.0 以后需要获取动态权限  检查权限
-        if (!UtilKPermission.hasPermission(CPermission.READ_PHONE_STATE))
+        if (!UtilKPermission.isSelfGranted(CPermission.READ_PHONE_STATE))
             return imei
         try {
             val telephonyManager = UtilKTelephonyManager.get(context)
@@ -148,7 +148,7 @@ object UtilKImei : IUtilK {
     fun getMeidOnly(context: Context, slotId: Int): String {
         var meid = ""
         //Android 6.0 以后需要获取动态权限  检查权限
-        if (!UtilKPermission.hasPermission(CPermission.READ_PHONE_STATE))
+        if (!UtilKPermission.isSelfGranted(CPermission.READ_PHONE_STATE))
             return meid
         try {
             val telephonyManager = UtilKTelephonyManager.get(context)

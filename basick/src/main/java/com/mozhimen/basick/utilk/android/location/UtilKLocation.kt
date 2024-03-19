@@ -9,7 +9,7 @@ import com.mozhimen.basick.elemk.android.location.commons.ILocationListener
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_COARSE_LOCATION
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_FINE_LOCATION
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.android.app.UtilKPermission
+import com.mozhimen.basick.utilk.android.UtilKPermission
 import com.mozhimen.basick.utilk.android.provider.UtilKSettingsSecure
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.android.util.i
@@ -84,7 +84,7 @@ object UtilKLocation : BaseUtilK() {
 
     @JvmStatic
     fun hasPermission(): Boolean =
-        if (!UtilKPermission.hasPermissions(arrayOf(CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION))) {
+        if (!UtilKPermission.isSelfGranted(arrayOf(CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION))) {
             false.also { "get: permission denied".e(TAG) }
         } else if (!UtilKSettingsSecure.isLocationEnabled(_context)) {
             false.also { "get: system setting location off".e(TAG) }

@@ -1,15 +1,7 @@
 package com.mozhimen.basick.utilk.android.os
 
-import android.annotation.SuppressLint
-import android.app.Application
 import android.os.Process
-import com.mozhimen.basick.utilk.android.app.UtilKApplication
-import com.mozhimen.basick.utilk.android.app.UtilKApplicationReflect
-import com.mozhimen.basick.utilk.android.app.UtilKRunningAppProcessInfo
-import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.io.UtilKReader
-import java.lang.reflect.Method
 
 
 /**
@@ -23,4 +15,14 @@ object UtilKProcess : BaseUtilK() {
     @JvmStatic
     fun getMyPid(): Int =
         Process.myPid()
+
+    @JvmStatic
+    fun killProcess(intPid: Int) {
+        Process.killProcess(intPid)
+    }
+
+    @JvmStatic
+    fun killProcess_ofMyPid() {
+        Process.killProcess(getMyPid())
+    }
 }

@@ -18,6 +18,6 @@ object UtilKPackageArchiveInfo : BaseUtilK() {
         UtilKPackageManager.getPackageArchiveInfo(context, archiveFilePath, flags)
 
     @JvmStatic
-    fun getActivities(context: Context, archiveFilePath: String): PackageInfo? =
+    fun get_ofGetActivities(context: Context, archiveFilePath: String): PackageInfo? =
         get(context, archiveFilePath, CPackageManager.GET_ACTIVITIES)
 }

@@ -159,7 +159,7 @@ object UtilKDevice : BaseUtilK() {
     fun isPad(context: Context): Boolean =
         if (UtilKTelephonyManager.hasTelephone(context)) {        //如果能打电话那可能是平板或手机，再根据配置判断
             //能打电话可能是手机也可能是平板
-            (UtilKConfiguration.getSysScreenLayout() and CConfiguration.ScreenLayout.SIZE_MASK >= CConfiguration.ScreenLayout.SIZE_LARGE)
+            (UtilKConfiguration.getScreenLayout_ofSys() and CConfiguration.ScreenLayout.SIZE_MASK >= CConfiguration.ScreenLayout.SIZE_LARGE)
         } else true //不能打电话一定是平板
 
     /**

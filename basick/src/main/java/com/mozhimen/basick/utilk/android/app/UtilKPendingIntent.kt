@@ -15,13 +15,13 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
  */
 object UtilKPendingIntent {
     @JvmStatic
-    fun getFlagOfUpdate(): Int =
+    fun get_ofActivity(context: Context, intent: Intent): PendingIntent {
+        return PendingIntent.getActivity(context, 0, intent, CPendingIntent.FLAG_IMMUTABLE)
+    }
+
+    @JvmStatic
+    fun getFlag_ofUpdate(): Int =
         if (UtilKBuildVersion.isAfterV_23_6_M()) {
             CPendingIntent.FLAG_UPDATE_CURRENT or CPendingIntent.FLAG_IMMUTABLE
         } else CPendingIntent.FLAG_UPDATE_CURRENT
-
-    @JvmStatic
-    fun getActivity(context: Context, intent: Intent): PendingIntent {
-        return PendingIntent.getActivity(context, 0, intent, CPendingIntent.FLAG_IMMUTABLE)
-    }
 }

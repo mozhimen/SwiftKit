@@ -47,7 +47,7 @@ object UtilKPackage : BaseUtilK() {
     fun getInstalledPackages(context: Context, hasSystemPackages: Boolean = false): List<PackageInfo> {
         var installedPackages = UtilKPackageManager.getInstalledPackages(context).toMutableList()
         if (installedPackages.isEmpty()) {
-            installedPackages = getInstalledPackagesForce(context).toMutableList()
+            installedPackages = getInstalledPackages_ofForce(context).toMutableList()
         }
         if (!hasSystemPackages) {
             val iterator = installedPackages.iterator()
@@ -65,7 +65,7 @@ object UtilKPackage : BaseUtilK() {
      * @return 获取查询到的应用列表
      */
     @JvmStatic
-    fun getInstalledPackagesForce(context: Context): List<PackageInfo> {
+    fun getInstalledPackages_ofForce(context: Context): List<PackageInfo> {
         val installedPackages = mutableListOf<PackageInfo>()
         val packageManager = UtilKPackageManager.get(context)
         for (uid in CProcess.SYSTEM_UID..CProcess.LAST_APPLICATION_UID) {
@@ -93,7 +93,7 @@ object UtilKPackage : BaseUtilK() {
     @JvmStatic
     fun isPackageInstalled(context: Context, strPackageName: String, flags: Int): Boolean {
         return try {
-            UtilKApplicationInfo.enabled(context, strPackageName, flags)
+            UtilKApplicationInfo.enabled_ofPkM(context, strPackageName, flags)
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             false
@@ -123,7 +123,7 @@ object UtilKPackage : BaseUtilK() {
     @JvmStatic
     @OPermission_QUERY_ALL_PACKAGES
     @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
-    fun hasPackageOfQuery(context: Context, strPackageName: String): Boolean =
+    fun hasPackage_ofQuery(context: Context, strPackageName: String): Boolean =
         UtilKPackageManager.queryIntentActivities(context, UtilKIntentWrapper.getMainLauncher_ofPackage(strPackageName), 0).isNotEmpty()
 
     @JvmStatic
@@ -131,7 +131,7 @@ object UtilKPackage : BaseUtilK() {
         UtilKPackageInfo.hasPackage(context, strPackageName)
 
     @JvmStatic
-    fun hasPackageOfClazz(strPackageNameWithActivity: String): Boolean =
+    fun hasPackage_ofClazz(strPackageNameWithActivity: String): Boolean =
         UtilKStrClazz.isStrClassPackageExists(strPackageNameWithActivity)
 
     /**

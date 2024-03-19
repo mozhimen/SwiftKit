@@ -35,15 +35,13 @@ object UtilKPackageInstaller : BaseUtilK() {
 
     @RequiresApi(CVersCode.V_21_5_L)
     @JvmStatic
-    fun createSession(packageInstaller: PackageInstaller, sessionParams: PackageInstaller.SessionParams): Int {
-        return packageInstaller.createSession(sessionParams)
-    }
+    fun createSession(packageInstaller: PackageInstaller, sessionParams: PackageInstaller.SessionParams): Int =
+        packageInstaller.createSession(sessionParams)
 
     @RequiresApi(CVersCode.V_21_5_L)
     @JvmStatic
-    fun openSession(packageInstaller: PackageInstaller, sessionId: Int):PackageInstaller.Session{
-        return packageInstaller.openSession(sessionId)
-    }
+    fun openSession(packageInstaller: PackageInstaller, sessionId: Int): PackageInstaller.Session =
+        packageInstaller.openSession(sessionId)
 
     /**
      * 命令安装
@@ -55,7 +53,7 @@ object UtilKPackageInstaller : BaseUtilK() {
     fun commitSession(packageInstaller: PackageInstaller, sessionId: Int, receiverClazz: Class<*>) {
         var session: PackageInstaller.Session? = null
         try {
-            session = openSession(packageInstaller,sessionId)
+            session = openSession(packageInstaller, sessionId)
             session.commit(PendingIntent.getBroadcast(_context, 1, Intent(_context, receiverClazz), CPendingIntent.FLAG_UPDATE_CURRENT).intentSender)
             UtilKLogWrapper.d(TAG, "commitSession begin")
         } catch (e: Exception) {
@@ -77,7 +75,7 @@ object UtilKPackageInstaller : BaseUtilK() {
         var outputStream: OutputStream? = null
         var session: PackageInstaller.Session? = null
         try {
-            session = openSession(packageInstaller,sessionId)
+            session = openSession(packageInstaller, sessionId)
             outputStream = session.openWrite("base.apk", 0, fileApk.length())
             fileApk.file2fileInputStream().inputStream2outputStream(outputStream, 65536)
             session.fsync(outputStream)

@@ -120,7 +120,7 @@ object UtilKRes : BaseUtilK() {
 
     @JvmStatic
     fun getString_ofResources(context: Context, @StringRes intResStr: Int): String =
-        UtilKResources.getAppString(context, intResStr)
+        UtilKResources.getString_ofApp(context, intResStr)
 
     @JvmStatic
     fun getString_ofResources(@StringRes intResStr: Int): String =
@@ -168,7 +168,7 @@ object UtilKRes : BaseUtilK() {
 
     @JvmStatic
     fun getStringArray_ofResources(context: Context, @ArrayRes intResArray: Int): Array<String> =
-        UtilKResources.getAppStringArray(context, intResArray)
+        UtilKResources.getStringArray_ofApp(context, intResArray)
 
     @JvmStatic
     fun getStringArray_ofResources(@ArrayRes intResArray: Int): Array<String> =
@@ -199,7 +199,7 @@ object UtilKRes : BaseUtilK() {
 
     @JvmStatic
     fun getColor_ofResources(context: Context, @ColorRes intResColor: Int): Int =
-        UtilKResources.getAppColor(context, intResColor)
+        UtilKResources.getColor_ofApp(context, intResColor)
 
     @JvmStatic
     fun getColor_ofResources(@ColorRes intResColor: Int): Int =
@@ -229,7 +229,7 @@ object UtilKRes : BaseUtilK() {
     @RequiresApi(CVersCode.V_23_6_M)
     @JvmStatic
     fun getColor_ofResources(context: Context, @ColorRes intResColor: Int, theme: Theme?): Int =
-        UtilKResources.getAppColor(context, intResColor, theme)
+        UtilKResources.getColor_ofApp(context, intResColor, theme)
 
     @RequiresApi(CVersCode.V_23_6_M)
     @JvmStatic
@@ -238,7 +238,7 @@ object UtilKRes : BaseUtilK() {
 
     @JvmStatic
     fun getColor_ofResourcesCompat(context: Context, @ColorRes intResColor: Int, theme: Theme?): Int =
-        UtilKResourcesCompat.getColor(UtilKResources.getApp(context), intResColor, theme)
+        UtilKResourcesCompat.getColor(UtilKResources.get_ofApp(context), intResColor, theme)
 
     @JvmStatic
     fun getColor_ofResourcesCompat(@ColorRes intResColor: Int, theme: Theme?): Int =
@@ -269,7 +269,7 @@ object UtilKRes : BaseUtilK() {
 
     @JvmStatic
     fun getColorStateList_ofResources(context: Context, @ColorRes intResColor: Int): ColorStateList =
-        UtilKResources.getAppColorStateList(context, intResColor)
+        UtilKResources.getColorStateList_ofApp(context, intResColor)
 
     @JvmStatic
     fun getColorStateList_ofResources(@ColorRes intResColor: Int): ColorStateList =
@@ -299,7 +299,7 @@ object UtilKRes : BaseUtilK() {
     @RequiresApi(CVersCode.V_23_6_M)
     @JvmStatic
     fun getColorStateList_ofResources(context: Context, @ColorRes intResColor: Int, theme: Theme?): ColorStateList =
-        UtilKResources.getAppColorStateList(context, intResColor, theme)
+        UtilKResources.getColorStateList_ofApp(context, intResColor, theme)
 
     @RequiresApi(CVersCode.V_23_6_M)
     @JvmStatic
@@ -308,7 +308,7 @@ object UtilKRes : BaseUtilK() {
 
     @JvmStatic
     fun getColorStateList_ofResourcesCompat(context: Context, @ColorRes intResColor: Int, theme: Theme?): ColorStateList? =
-        UtilKResourcesCompat.getColorStateList(UtilKResources.getApp(context), intResColor, theme)
+        UtilKResourcesCompat.getColorStateList(UtilKResources.get_ofApp(context), intResColor, theme)
 
     @JvmStatic
     fun getColorStateList_ofResourcesCompat(@ColorRes intResColor: Int, theme: Theme?): ColorStateList? =
@@ -339,7 +339,7 @@ object UtilKRes : BaseUtilK() {
 
     @JvmStatic
     fun getDrawable_ofResources(context: Context, @DrawableRes intResDrawable: Int): Drawable =
-        UtilKResources.getAppDrawable(context, intResDrawable)
+        UtilKResources.getDrawable_ofApp(context, intResDrawable)
 
     @JvmStatic
     fun getDrawable_ofResources(@DrawableRes intResDrawable: Int): Drawable =
@@ -369,7 +369,7 @@ object UtilKRes : BaseUtilK() {
     @RequiresApi(CVersCode.V_21_5_L)
     @JvmStatic
     fun getDrawable_ofResources(context: Context, @DrawableRes intResDrawable: Int, theme: Theme?): Drawable =
-        UtilKResources.getAppDrawable(context, intResDrawable, theme)
+        UtilKResources.getDrawable_ofApp(context, intResDrawable, theme)
 
     @RequiresApi(CVersCode.V_21_5_L)
     @JvmStatic
@@ -378,7 +378,7 @@ object UtilKRes : BaseUtilK() {
 
     @JvmStatic
     fun getDrawable_ofResourcesCompact(context: Context, @DrawableRes intResDrawable: Int, theme: Theme?): Drawable? =
-        UtilKResourcesCompat.getDrawable(UtilKResources.getApp(context), intResDrawable, theme)
+        UtilKResourcesCompat.getDrawable(UtilKResources.get_ofApp(context), intResDrawable, theme)
 
     @JvmStatic
     fun getDrawable_ofResourcesCompact(@DrawableRes intResDrawable: Int, theme: Theme?): Drawable? =
@@ -397,7 +397,7 @@ object UtilKRes : BaseUtilK() {
     //////////////////////////
     @JvmStatic
     fun getDrawableForDensity_ofResources(context: Context, @DrawableRes intResDrawable: Int, density: Int): Drawable? =
-        UtilKResources.getAppDrawableForDensity(context, intResDrawable, density)
+        UtilKResources.getDrawableForDensity_ofApp(context, intResDrawable, density)
 
     @JvmStatic
     fun getDrawableForDensity_ofResources(@DrawableRes intResDrawable: Int, density: Int): Drawable? =
@@ -419,7 +419,7 @@ object UtilKRes : BaseUtilK() {
     @RequiresApi(CVersCode.V_21_5_L)
     @JvmStatic
     fun getDrawableForDensity_ofResources(context: Context, @DrawableRes intResDrawable: Int, density: Int, theme: Theme?): Drawable? =
-        UtilKResources.getAppDrawableForDensity(context, intResDrawable, density, theme)
+        UtilKResources.getDrawableForDensity_ofApp(context, intResDrawable, density, theme)
 
     @RequiresApi(CVersCode.V_21_5_L)
     @JvmStatic
@@ -428,7 +428,7 @@ object UtilKRes : BaseUtilK() {
 
     @JvmStatic
     fun getDrawableForDensity_ofResourcesCompat(context: Context, @DrawableRes intResDrawable: Int, density: Int, theme: Theme?): Drawable? =
-        UtilKResourcesCompat.getDrawableForDensity(UtilKResources.getApp(context), intResDrawable, density, theme)
+        UtilKResourcesCompat.getDrawableForDensity(UtilKResources.get_ofApp(context), intResDrawable, density, theme)
 
     @JvmStatic
     fun getDrawableForDensity_ofResourcesCompat(@DrawableRes intResDrawable: Int, density: Int, theme: Theme?): Drawable? =
@@ -448,7 +448,7 @@ object UtilKRes : BaseUtilK() {
 
     @JvmStatic
     fun getBoolean_ofResources(context: Context, @BoolRes intResBool: Int): Boolean =
-        UtilKResources.getAppBoolean(context, intResBool)
+        UtilKResources.getBoolean_ofApp(context, intResBool)
 
     @JvmStatic
     fun getBoolean_ofResources(@BoolRes intResBool: Int): Boolean =
@@ -468,7 +468,7 @@ object UtilKRes : BaseUtilK() {
 
     @JvmStatic
     fun getInteger_ofResources(context: Context, @IntegerRes intResInt: Int): Int =
-        UtilKResources.getAppInteger(context, intResInt)
+        UtilKResources.getInteger_ofApp(context, intResInt)
 
     @JvmStatic
     fun getInteger_ofResources(@IntegerRes intResInt: Int): Int =
@@ -490,7 +490,7 @@ object UtilKRes : BaseUtilK() {
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
     fun getFloat_ofResources(context: Context, @DimenRes intResDimen: Int): Float =
-        UtilKResources.getAppFloat(context, intResDimen)
+        UtilKResources.getFloat_ofApp(context, intResDimen)
 
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
@@ -499,7 +499,7 @@ object UtilKRes : BaseUtilK() {
 
     @JvmStatic
     fun getFloat_ofResourcesCompact(context: Context, @DimenRes intResDimen: Int): Float =
-        UtilKResourcesCompat.getFloat(UtilKResources.getApp(context), intResDimen)
+        UtilKResourcesCompat.getFloat(UtilKResources.get_ofApp(context), intResDimen)
 
     @JvmStatic
     fun getFloat_ofResourcesCompact(@DimenRes intResDimen: Int): Float =
@@ -519,7 +519,7 @@ object UtilKRes : BaseUtilK() {
 
     @JvmStatic
     fun getDimensionPixelOffset_ofResources(context: Context, @DimenRes intResDimen: Int): Int =
-        UtilKResources.getAppDimensionPixelOffset(context, intResDimen)
+        UtilKResources.getDimensionPixelOffset_ofApp(context, intResDimen)
 
     @JvmStatic
     fun getDimensionPixelOffset_ofResources(@DimenRes intResDimen: Int): Int =
@@ -538,7 +538,7 @@ object UtilKRes : BaseUtilK() {
     //////////////////////////
     @JvmStatic
     fun getDimensionPixelSize_ofResources(context: Context, @DimenRes intResDimen: Int): Int =
-        UtilKResources.getAppDimensionPixelSize(context, intResDimen)
+        UtilKResources.getDimensionPixelSize_ofApp(context, intResDimen)
 
     @JvmStatic
     fun getDimensionPixelSize_ofResources(@DimenRes intResDimen: Int): Int =
@@ -557,7 +557,7 @@ object UtilKRes : BaseUtilK() {
     //////////////////////////
     @JvmStatic
     fun getDimension_ofResources(context: Context, @DimenRes intResDimen: Int): Float =
-        UtilKResources.getAppDimension(context, intResDimen)
+        UtilKResources.getDimension_ofApp(context, intResDimen)
 
     @JvmStatic
     fun getDimension_ofResources(@DimenRes intResDimen: Int): Float =
@@ -576,7 +576,7 @@ object UtilKRes : BaseUtilK() {
     //////////////////////////
     @JvmStatic
     fun getIntArray_ofResources(context: Context, @ArrayRes intResArray: Int): IntArray =
-        UtilKResources.getAppIntArray(context, intResArray)
+        UtilKResources.getIntArray_ofApp(context, intResArray)
 
     @JvmStatic
     fun getIntArray_ofResources(@ArrayRes intResArray: Int): IntArray =
@@ -595,7 +595,7 @@ object UtilKRes : BaseUtilK() {
     //////////////////////////
     @JvmStatic
     fun getXml_ofResources(context: Context, @XmlRes intResXml: Int): XmlResourceParser =
-        UtilKResources.getAppXml(context, intResXml)
+        UtilKResources.getXml_ofApp(context, intResXml)
 
     @JvmStatic
     fun getXml_ofResources(@XmlRes intResXml: Int): XmlResourceParser =
@@ -614,11 +614,11 @@ object UtilKRes : BaseUtilK() {
     //////////////////////////
     @JvmStatic
     fun getAnimation_ofResources(context: Context, @AnimRes intResAnim: Int): XmlResourceParser =
-        UtilKResources.getAppAnimation(context, intResAnim)
+        UtilKResources.getAnimation_ofApp(context, intResAnim)
 
     @JvmStatic
     fun getAnimation_ofResources(@AnimRes intResAnim: Int): XmlResourceParser =
-        UtilKResources.getAppAnimation(_context, intResAnim)
+        UtilKResources.getAnimation_ofApp(_context, intResAnim)
 
     /////////////////////////////////////////////////////////////////////
 
@@ -633,7 +633,7 @@ object UtilKRes : BaseUtilK() {
     //////////////////////////
     @JvmStatic
     fun getLayout_ofResources(context: Context, @LayoutRes intResLayout: Int): XmlResourceParser =
-        UtilKResources.getAppLayout(context, intResLayout)
+        UtilKResources.getLayout_ofApp(context, intResLayout)
 
     @JvmStatic
     fun getLayout_ofResources(@LayoutRes intResLayout: Int): XmlResourceParser =
@@ -655,7 +655,7 @@ object UtilKRes : BaseUtilK() {
     @RequiresApi(CVersCode.V_26_8_O)
     @JvmStatic
     fun getFont_ofResources(context: Context, @FontRes intResFont: Int): Typeface =
-        UtilKResources.getAppFont(context, intResFont)
+        UtilKResources.getFont_ofApp(context, intResFont)
 
     @RequiresApi(CVersCode.V_26_8_O)
     @JvmStatic

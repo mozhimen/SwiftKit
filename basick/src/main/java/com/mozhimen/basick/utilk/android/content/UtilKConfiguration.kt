@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
 import com.mozhimen.basick.elemk.android.content.cons.CConfiguration
-import com.mozhimen.basick.elemk.androidx.appcompat.cons.CAppCompatDelegate
 
 
 /**
@@ -19,76 +18,76 @@ object UtilKConfiguration {
      * 获取系统Configuration
      */
     @JvmStatic
-    fun getSys(): Configuration =
-        UtilKResources.getSysConfiguration()
+    fun get_ofSys(): Configuration =
+        UtilKResources.getConfiguration_ofSys()
 
     @JvmStatic
-    fun getApp(context: Context): Configuration =
-        UtilKResources.getAppConfiguration(context)
+    fun get_ofApp(context: Context): Configuration =
+        UtilKResources.getConfiguration_ofApp(context)
 
     //////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun getSysUiMode(): Int =
-        getSys().uiMode
+    fun getUiMode_ofSys(): Int =
+        get_ofSys().uiMode
 
     @JvmStatic
-    fun getSysScreenLayout(): Int =
-        getSys().screenLayout
+    fun getScreenLayout_ofSys(): Int =
+        get_ofSys().screenLayout
 
     /**
      * 获取密度dp
      */
     @JvmStatic
-    fun getSysDensityDpi(): Int =
-        getSys().densityDpi
+    fun getDensityDpi_ofSys(): Int =
+        get_ofSys().densityDpi
 
     /**
      * 获取dp宽
      */
     @JvmStatic
-    fun getSysScreenWidthDp(): Int =
-        getSys().screenWidthDp
+    fun getScreenWidthDp_ofSys(): Int =
+        get_ofSys().screenWidthDp
 
     /**
      * 获取dp高
      */
     @JvmStatic
-    fun getSysScreenHeightDp(): Int =
-        getSys().screenHeightDp
+    fun getScreenHeightDp_ofSys(): Int =
+        get_ofSys().screenHeightDp
 
     /**
      * 获取屏幕方向
      */
     @JvmStatic
-    fun getSysOrientation(): Int =
-        getSys().orientation
+    fun getOrientation_ofSys(): Int =
+        get_ofSys().orientation
 
     @JvmStatic
-    fun getSysUiModeAndNightMask(): Int =
-        getSysUiMode() and CConfiguration.UiMode.NIGHT_MASK
+    fun getUiModeAndNightMask_ofSys(): Int =
+        getUiMode_ofSys() and CConfiguration.UiMode.NIGHT_MASK
 
     /**
      * 检测系统是否是浅色主题
      */
     @JvmStatic
-    fun isSysLightMode(): Boolean =
-        getSysUiModeAndNightMask() == CConfiguration.UiMode.NIGHT_NO
+    fun isUiModelLight_ofSys(): Boolean =
+        getUiModeAndNightMask_ofSys() == CConfiguration.UiMode.NIGHT_NO
 
     @JvmStatic
-    fun isSysDarkMode(): Boolean =
-        getSysUiModeAndNightMask() == CConfiguration.UiMode.NIGHT_YES
+    fun isUiModeDark_ofSys(): Boolean =
+        getUiModeAndNightMask_ofSys() == CConfiguration.UiMode.NIGHT_YES
 
     /**
      * 是否为竖屏
      */
     @JvmStatic
-    fun isSysOrientationPortrait(): Boolean =
-        getSysOrientation() == CConfiguration.Orientation.PORTRAIT
+    fun isOrientationPortrait_ofSys(): Boolean =
+        getOrientation_ofSys() == CConfiguration.Orientation.PORTRAIT
 
     @JvmStatic
-    fun isSysOrientationLandscape(): Boolean =
-        getSysOrientation() == CConfiguration.Orientation.LANDSCAPE
+    fun isOrientationLandscape_ofSys(): Boolean =
+        getOrientation_ofSys() == CConfiguration.Orientation.LANDSCAPE
 
     ////////////////////////////////////////////////////////////////////
 
@@ -96,36 +95,36 @@ object UtilKConfiguration {
      * 获取自定义Configuration
      */
     @JvmStatic
-    fun getApp(resources: Resources): Configuration =
+    fun get_ofApp(resources: Resources): Configuration =
         UtilKResources.getConfiguration(resources)
 
     @JvmStatic
-    fun getAppOrientation(resources: Resources): Int =
-        getApp(resources).orientation
+    fun getOrientation_ofApp(resources: Resources): Int =
+        get_ofApp(resources).orientation
 
     @JvmStatic
-    fun isAppOrientationPortrait(resources: Resources): Boolean =
-        getAppOrientation(resources) == CConfiguration.Orientation.PORTRAIT
+    fun isOrientationPortrait_ofApp(resources: Resources): Boolean =
+        getOrientation_ofApp(resources) == CConfiguration.Orientation.PORTRAIT
 
     @JvmStatic
-    fun isAppOrientationLandscape(resources: Resources): Boolean =
-        getAppOrientation(resources) == CConfiguration.Orientation.LANDSCAPE
+    fun isOrientationLandscape_ofApp(resources: Resources): Boolean =
+        getOrientation_ofApp(resources) == CConfiguration.Orientation.LANDSCAPE
 
     ////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun getAppUiMode(resources: Resources): Int =
-        getApp(resources).uiMode
+    fun getUiMode_ofApp(resources: Resources): Int =
+        get_ofApp(resources).uiMode
 
     @JvmStatic
-    fun getAppUiMode(context: Context): Int =
-        getApp(context).uiMode
+    fun getUiMode_ofApp(context: Context): Int =
+        get_ofApp(context).uiMode
 
     @JvmStatic
-    fun isLightMode(context: Context): Boolean =
-        !isNightMode(context)
+    fun isLightMode_ofApp(context: Context): Boolean =
+        !isNightMode_ofApp(context)
 
     @JvmStatic
-    fun isNightMode(context: Context): Boolean =
-        getAppUiMode(context) and Configuration.UI_MODE_NIGHT_MASK == CConfiguration.UiMode.NIGHT_YES
+    fun isNightMode_ofApp(context: Context): Boolean =
+        getUiMode_ofApp(context) and Configuration.UI_MODE_NIGHT_MASK == CConfiguration.UiMode.NIGHT_YES
 }

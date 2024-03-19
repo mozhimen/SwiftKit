@@ -81,7 +81,7 @@ object UtilKFileFormat : BaseUtilK() {
             return null
         }
         return if (UtilKBuildVersion.isAfterV_29_10_Q()) {
-            UtilKContentResolverWrapper.insertImageAfter29(_context, file)
+            UtilKContentResolverWrapper.insertImage_after29(_context, file)
         } else file2uri(file)
     }
 

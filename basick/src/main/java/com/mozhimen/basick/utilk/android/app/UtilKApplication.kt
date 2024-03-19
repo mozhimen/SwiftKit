@@ -15,7 +15,7 @@ object UtilKApplication {
      * 通过Application新的API获取进程名，无需反射，无需IPC，效率最高。
      */
     @JvmStatic
-    fun getCurrentProcessName(): String? {
+    fun getProcessName(): String? {
         if (UtilKBuildVersion.isAfterV_28_9_P())
             return Application.getProcessName()
         return null

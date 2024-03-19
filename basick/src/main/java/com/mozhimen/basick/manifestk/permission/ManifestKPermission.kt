@@ -8,8 +8,8 @@ import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.permission.commons.IManifestKPermissionListener
 import com.mozhimen.basick.manifestk.permission.helpers.InvisibleProxyFragment
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
-import com.mozhimen.basick.utilk.android.app.UtilKPermission
+import com.mozhimen.basick.utilk.android.app.UtilKActivityStart
+import com.mozhimen.basick.utilk.android.UtilKPermission
 import com.mozhimen.basick.utilk.android.app.getAnnotation
 import com.mozhimen.basick.utilk.android.util.w
 import com.mozhimen.basick.utilk.android.widget.showToastOnMain
@@ -27,7 +27,7 @@ object ManifestKPermission : BaseUtilK() {
     fun requestPermissions(
         activity: AppCompatActivity,
         onSuccess: I_Listener,
-        onFail: I_Listener? = { UtilKLaunchActivity.startSettingAppDetails(activity) }
+        onFail: I_Listener? = { UtilKActivityStart.startApplicationDetailsSettings(activity) }
     ) {
         requestPermissions(
             activity,
@@ -63,7 +63,7 @@ object ManifestKPermission : BaseUtilK() {
         onResult: IA_Listener<Boolean>/*(isGranted: Boolean) -> Unit*/? = null
     ) {
         if (permissions.isNotEmpty()) {
-            if (!UtilKPermission.hasPermissions(permissions)) {
+            if (!UtilKPermission.isSelfGranted(permissions)) {
                 requestPermissionsByFragment(activity, permissions) { isAllGranted, deniedList ->
                     printDeniedPermissions(deniedList)
                     onResult?.invoke(isAllGranted)
@@ -80,7 +80,7 @@ object ManifestKPermission : BaseUtilK() {
     ) {
         val noPermissions = mutableListOf<String>()
         for (permission in permissions) {
-            if (!UtilKPermission.hasPermission(permission))
+            if (!UtilKPermission.isSelfGranted(permission))
                 noPermissions.add(permission)
         }
         if (noPermissions.isNotEmpty()) {

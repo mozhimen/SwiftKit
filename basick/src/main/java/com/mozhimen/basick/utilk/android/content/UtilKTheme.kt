@@ -22,9 +22,7 @@ object UtilKTheme {
 
     ////////////////////////////////////////////////////////////////////
 
-    /**
-     * 是否全屏
-     */
+    //是否全屏
     @JvmStatic
     fun isFullScreen(context: Context): Boolean =
         obtainStyledAttributes(context, intArrayOf(CPackage.ANDROID_R_ATTR_WINDOWFULLSCREEN)).use { it.getBoolean(0, false) }

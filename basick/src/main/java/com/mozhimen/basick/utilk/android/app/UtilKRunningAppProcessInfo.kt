@@ -15,17 +15,13 @@ import com.mozhimen.basick.utilk.commons.IUtilK
  */
 object UtilKRunningAppProcessInfo : IUtilK {
     @JvmStatic
-    fun get(context: Context): List<RunningAppProcessInfo> =
-        UtilKActivityManager.getRunningAppProcesses(context)
-
-    @JvmStatic
-    fun getCurrentProcessName(context: Context): String? {
+    fun get(context: Context): RunningAppProcessInfo? {
         try {
-            val runningAppProcessInfos = get(context)
+            val runningAppProcessInfos = UtilKActivityManager.getRunningAppProcesses(context)
             if (runningAppProcessInfos.isEmpty()) return null
             for (runningAppProcessInfo in runningAppProcessInfos) {
                 if (runningAppProcessInfo.pid == UtilKProcess.getMyPid() && runningAppProcessInfo.processName != null)
-                    return runningAppProcessInfo.processName
+                    return runningAppProcessInfo
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -34,12 +30,16 @@ object UtilKRunningAppProcessInfo : IUtilK {
         return null
     }
 
+    @JvmStatic
+    fun getProcessName(context: Context): String? =
+        get(context)?.processName
+
     //////////////////////////////////////////////////////////////////////////////
 
     /**
      * 是否在主线程
      */
     @JvmStatic
-    fun isMainProcess(context: Context): Boolean =
-        context.packageName == getCurrentProcessName(context)
+    fun isSelfProcessName(context: Context): Boolean =
+        context.packageName == getProcessName(context)
 }

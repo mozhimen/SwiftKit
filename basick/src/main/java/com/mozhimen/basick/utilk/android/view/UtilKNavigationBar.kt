@@ -43,7 +43,7 @@ object UtilKNavigationBar : BaseUtilK() {
             val child = decorView.getChildAt(i)
             if (child.id == CView.NO_ID || !child.isShown) continue
             try {
-                val resourceEntryName = UtilKResources.getAppResourceEntryName(context, child.id)
+                val resourceEntryName = UtilKResources.getResourceEntryName_ofApp(context, child.id)
                 if (_navigationBarNames.containsKey(resourceEntryName.lowercase(Locale.getDefault()))) {
                     rect[child.left, child.top, child.right] = child.bottom
                     return
@@ -75,7 +75,7 @@ object UtilKNavigationBar : BaseUtilK() {
     @SuppressLint("DiscouragedApi", "InternalInsetResource")
     @JvmStatic
     fun getHeight(): Int {
-        val dimensionId = UtilKResources.getSysIdentifier("navigation_bar_height", "dimen", "android")
+        val dimensionId = UtilKResources.getIdentifier_ofSys("navigation_bar_height", "dimen", "android")
         return if (dimensionId != 0) UtilKRes.getDimensionPixelSize_ofResources(dimensionId) else 0
     }
 

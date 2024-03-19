@@ -1,7 +1,6 @@
 package com.mozhimen.basick.utilk.android.content
 
 import android.content.pm.ApplicationInfo
-import android.content.pm.PackageInfo
 import android.graphics.drawable.Drawable
 import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -15,49 +14,33 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
  */
 object UtilKApk : BaseUtilK() {
 
+    //得到版本信息
     @JvmStatic
-    fun getPackageArchiveInfoOfActivities(strPathNameApk: String): PackageInfo? =
-        UtilKPackageArchiveInfo.getActivities(_context, strPathNameApk)
+    fun getVersionName(strPathNameApk: String): String? =
+        UtilKPackageArchiveInfo.get_ofGetActivities(_context, strPathNameApk)?.let { UtilKPackageInfo.getVersionName(it) }
+
+    //得到版本号
+    @JvmStatic
+    fun getVersionCode(strPathNameApk: String): Int? =
+        UtilKPackageArchiveInfo.get_ofGetActivities(_context, strPathNameApk)?.let { UtilKPackageInfo.getVersionCode(it) }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun getApplicationInfo(strPathNameApk: String): ApplicationInfo? =
-        getPackageArchiveInfoOfActivities(strPathNameApk)?.let { UtilKPackageInfo.getApplicationInfo(it) }
+        UtilKPackageArchiveInfo.get_ofGetActivities(_context, strPathNameApk)?.let { UtilKPackageInfo.getApplicationInfo(it) }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * 得到版本信息
-     */
-    @JvmStatic
-    fun getVersionName(strPathNameApk: String): String? =
-        getPackageArchiveInfoOfActivities(strPathNameApk)?.let { UtilKPackageInfo.getVersionName(it) }
-
-    /**
-     * 得到版本号
-     */
-    @JvmStatic
-    fun getVersionCode(strPathNameApk: String): Int? =
-        getPackageArchiveInfoOfActivities(strPathNameApk)?.let { UtilKPackageInfo.getVersionCode(it) }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * 得到应用名
-     */
+    //得到应用名
     @JvmStatic
     fun getApplicationLabel(strPathNameApk: String): String? =
         getApplicationInfo(strPathNameApk)?.let { UtilKPackageManager.getApplicationLabel(_context, it) }
 
-    /**
-     * 得到包名
-     */
+    //得到包名
     @JvmStatic
     fun getPackageName(strPathNameApk: String): String? =
         getApplicationInfo(strPathNameApk)?.let { UtilKApplicationInfo.getPackageName(it) }
 
-    /**
-     * 得到图标信息
-     */
+    //得到图标信息
     @JvmStatic
     fun getApplicationIcon(strPathNameApk: String): Drawable? =
         getApplicationInfo(strPathNameApk)?.let {
@@ -68,11 +51,9 @@ object UtilKApk : BaseUtilK() {
             UtilKPackageManager.getApplicationIcon(_context, it)
         }
 
-    /**
-     * 得到图标信息2
-     */
+    //得到图标信息2
     @JvmStatic
-    fun getApplicationIconOfLoad(strPathNameApk: String): Drawable? =
+    fun getApplicationIcon_ofLoadIcon(strPathNameApk: String): Drawable? =
         getApplicationInfo(strPathNameApk)?.let {
             it.apply {
                 sourceDir = strPathNameApk

@@ -33,7 +33,7 @@ object UtilKStatusBar : BaseUtilK() {
     @SuppressLint("InternalInsetResource", "DiscouragedApi")
     @JvmStatic
     fun getHeight(): Int {
-        val dimensionId = UtilKResources.getSysIdentifier("status_bar_height", "dimen", "android")
+        val dimensionId = UtilKResources.getIdentifier_ofSys("status_bar_height", "dimen", "android")
         return if (dimensionId != 0) UtilKRes.getDimensionPixelSize_ofResources(dimensionId) else 0
     }
 

@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.android.app
+package com.mozhimen.basick.utilk.android
 
 import android.provider.Settings
 import android.text.TextUtils
@@ -35,22 +35,22 @@ import com.mozhimen.basick.utilk.android.util.v
 object UtilKPermission : BaseUtilK() {
 
     @JvmStatic
-    fun hasPermissions(permissions: Array<String>): Boolean =
-        hasPermissions(permissions.toList())
+    fun isSelfGranted(permissions: Array<String>): Boolean =
+        isSelfGranted(permissions.toList())
 
     @JvmStatic
-    fun hasPermissions(permissions: List<String>): Boolean {
+    fun isSelfGranted(permissions: List<String>): Boolean {
         var allGranted = true
         return if (permissions.isEmpty()) true
         else {
             for (permission in permissions)
-                allGranted = allGranted and hasPermission(permission)
+                allGranted = allGranted and isSelfGranted(permission)
             allGranted
         }
     }
 
     @JvmStatic
-    fun hasPermission(permission: String): Boolean =
+    fun isSelfGranted(permission: String): Boolean =
         UtilKContextCompat.isSelfPermissionGranted(_context, permission).also { UtilKLogWrapper.d(TAG, "hasPermission: permission $permission is $it") }
 
     /////////////////////////////////////////////////////////////////////////
@@ -59,42 +59,35 @@ object UtilKPermission : BaseUtilK() {
     @OPermission_MANAGE_EXTERNAL_STORAGE
     @RequiresPermission(allOf = [CPermission.MANAGE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE])
     @JvmStatic
-    fun hasWriteRead(): Boolean =
+    fun hasManageExternalStorage(): Boolean =
         if (UtilKBuildVersion.isAfterV_30_11_R())
             UtilKEnvironment.isExternalStorageManager()
         else
-            hasPermissions(arrayOf(CPermission.READ_EXTERNAL_STORAGE, CPermission.WRITE_EXTERNAL_STORAGE))
+            isSelfGranted(arrayOf(CPermission.READ_EXTERNAL_STORAGE, CPermission.WRITE_EXTERNAL_STORAGE))
 
-    /**
-     * 是否有Overlay的权限
-     */
-
-    @JvmStatic
-    @OPermission_SYSTEM_ALERT_WINDOW
-    @RequiresPermission(CPermission.SYSTEM_ALERT_WINDOW)
-    @ADescription(CSettings.ACTION_MANAGE_OVERLAY_PERMISSION)
-    fun hasOverlay(): Boolean =
-        if (UtilKBuildVersion.isAfterV_23_6_M()) {
-            UtilKSettings.canDrawOverlays(_context)
-        } else true
-
-    /**
-     * 是否有文件管理权限
-     */
+    //是否有文件管理权限
     @JvmStatic
     @OPermission_READ_EXTERNAL_STORAGE
     @OPermission_MANAGE_EXTERNAL_STORAGE
     @RequiresPermission(allOf = [CPermission.MANAGE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE])
-    fun hasExternalStorage(): Boolean =
+    fun hasReadExternalStorage(): Boolean =
         if (UtilKBuildVersion.isAfterV_30_11_R()) UtilKEnvironment.isExternalStorageManager() else true
 
-    /**
-     * 是否有包安装权限
-     */
+    //是否有Overlay的权限
+    @JvmStatic
+    @OPermission_SYSTEM_ALERT_WINDOW
+    @RequiresPermission(CPermission.SYSTEM_ALERT_WINDOW)
+    @ADescription(CSettings.ACTION_MANAGE_OVERLAY_PERMISSION)
+    fun hasSystemAlertWindow(): Boolean =
+        if (UtilKBuildVersion.isAfterV_23_6_M()) {
+            UtilKSettings.canDrawOverlays(_context)
+        } else true
+
+    //是否有包安装权限
     @JvmStatic
     @OPermission_REQUEST_INSTALL_PACKAGES
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
-    fun hasPackageInstalls(): Boolean =
+    fun hasRequestInstallPackages(): Boolean =
         UtilKPackageManager.canRequestPackageInstalls(_context)
 
     /**

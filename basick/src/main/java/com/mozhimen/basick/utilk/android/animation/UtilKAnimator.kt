@@ -37,7 +37,7 @@ object UtilKAnimator {
      * @param animator Animator
      */
     @JvmStatic
-    fun releaseAnimator(animator: Animator) {
+    fun cancel_removeAllListeners(animator: Animator) {
         animator.cancel()
         animator.removeAllListeners()
     }

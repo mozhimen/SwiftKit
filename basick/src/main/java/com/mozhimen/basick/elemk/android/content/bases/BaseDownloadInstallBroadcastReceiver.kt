@@ -44,7 +44,7 @@ open class BaseDownloadInstallBroadcastReceiver(private val _strPathNameApk: Str
 
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.action) {
-            CDownloadManager.ACTION_DOWNLOAD_COMPLETE ->  UtilKAppInstall.installHand(_strPathNameApk)
+            CDownloadManager.ACTION_DOWNLOAD_COMPLETE ->  UtilKAppInstall.install_ofView(_strPathNameApk)
         }
     }
 }

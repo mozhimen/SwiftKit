@@ -247,12 +247,12 @@ object UtilKIntentWrapper {
      */
     @JvmStatic
     fun getApplicationDetailsSettings(context: Context): Intent =
-        UtilKIntent.get(CSettings.ACTION_APPLICATION_DETAILS_SETTINGS, UtilKUri.getPackageUriOfParts(context))
+        UtilKIntent.get(CSettings.ACTION_APPLICATION_DETAILS_SETTINGS, UtilKUri.getPackageUri_ofParts(context))
 
     /**
      * 管理APP下载
      */
-    fun getApplicationDetailsSettingsDownloads(context: Context): Intent =
+    fun getApplicationDetailsSettings_ofDownloads(context: Context): Intent =
         UtilKIntent.get(CSettings.ACTION_APPLICATION_DETAILS_SETTINGS, "package:${CStrPackage.COM_ANDROID_PROVIDERS_DOWNLOADS}".strUri2uri())
 
     /**

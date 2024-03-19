@@ -2,12 +2,12 @@ package com.mozhimen.basick.utilk.android.content
 
 import android.content.Context
 import android.content.Intent
-import android.os.Process
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.lintk.optins.permission.OPermission_QUERY_ALL_PACKAGES
 import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.android.os.UtilKProcess
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.lang.UtilKSystem
 import java.lang.IllegalArgumentException
@@ -25,15 +25,15 @@ object UtilKApp : BaseUtilK() {
     @JvmStatic
     @Throws(IllegalArgumentException::class)
     fun isSystemApp(context: Context): Boolean =
-        UtilKApplicationInfo.isSystemApp(context)
+        UtilKApplicationInfo.isSystemApp_ofPkI(context)
 
     @JvmStatic
     fun isSystemUpdateApp(context: Context): Boolean =
-        UtilKApplicationInfo.isSystemUpdateApp(context)
+        UtilKApplicationInfo.isSystemUpdateApp_ofPkI(context)
 
     @JvmStatic
     fun isUserApp(context: Context): Boolean =
-        UtilKApplicationInfo.isUserApp(context)
+        UtilKApplicationInfo.isUserApp_ofPkI(context)
 
     /////////////////////////////////////////////////////////////////////////////
 
@@ -59,7 +59,7 @@ object UtilKApp : BaseUtilK() {
     @JvmStatic
     fun exitApp(isValid: Boolean = true, isGc: Boolean = false) {
         if (isGc) UtilKSystem.gc()
-        Process.killProcess(Process.myPid())//杀掉当前进程,并主动启动新的启动页,以完成重启的动作
+        UtilKProcess.killProcess_ofMyPid()//杀掉当前进程,并主动启动新的启动页,以完成重启的动作
         exitProcess(if (isValid) 0 else 10)
     }
 }

@@ -16,7 +16,7 @@ import com.mozhimen.basick.utilk.android.text.formatFileSize
 object UtilKActivityManager {
     @JvmStatic
     fun get(context: Context): ActivityManager =
-            UtilKContext.getActivityManager(context)
+        UtilKContext.getActivityManager(context)
 
     @JvmStatic
     fun getMemoryInfo(context: Context, memoryInfo: MemoryInfo) {
@@ -34,5 +34,5 @@ object UtilKActivityManager {
 
     @JvmStatic
     fun getRunningAppProcesses(context: Context): List<ActivityManager.RunningAppProcessInfo> =
-            get(context).runningAppProcesses
+        get(context).runningAppProcesses
 }

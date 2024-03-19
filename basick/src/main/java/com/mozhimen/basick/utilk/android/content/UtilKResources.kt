@@ -39,147 +39,12 @@ import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 object UtilKResources {
 
     @JvmStatic
-    fun getSys(): Resources =
+    fun get_ofSys(): Resources =
         Resources.getSystem()
 
     @JvmStatic
-    fun getApp(context: Context): Resources =
+    fun get_ofApp(context: Context): Resources =
         UtilKContext.getResources(context)
-
-    ////////////////////////////////////////////////////////////////////////////
-
-    //获取系统Configuration
-    @JvmStatic
-    fun getSysConfiguration(): Configuration =
-        getSys().configuration
-
-    @JvmStatic
-    fun getSysDisplayMetrics(): DisplayMetrics =
-        getDisplayMetrics(getSys())
-
-    @JvmStatic
-    @SuppressLint("DiscouragedApi")
-    fun getSysIdentifier(name: String, defType: String, defPackage: String): Int =
-        getSys().getIdentifier(name, defType, defPackage)
-
-    ////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun getAppConfiguration(context: Context): Configuration =
-        getConfiguration(getApp(context))
-
-    @JvmStatic
-    fun getAppDisplayMetrics(context: Context): DisplayMetrics =
-        getDisplayMetrics(getApp(context))
-
-    @JvmStatic
-    fun getAppAssets(context: Context): AssetManager =
-        getApp(context).assets
-
-    @JvmStatic
-    fun getAppResourceEntryName(context: Context, @AnyRes intResAny: Int): String =
-        getApp(context).getResourceEntryName(intResAny)
-
-    ////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun getAppString(context: Context, @StringRes intResStr: Int): String =
-        getApp(context).getString(intResStr)
-
-    @JvmStatic
-    fun getAppString(context: Context, @StringRes intResStr: Int, vararg formatArgs: Any): String =
-        getApp(context).getString(intResStr, formatArgs)
-
-    @JvmStatic
-    fun getAppStringArray(context: Context, @ArrayRes intResArray: Int): Array<String> =
-        getApp(context).getStringArray(intResArray)
-
-    @JvmStatic
-    fun getAppColor(context: Context, @ColorRes intResColor: Int): Int =
-        getApp(context).getColor(intResColor)
-
-    @RequiresApi(CVersCode.V_23_6_M)
-    @JvmStatic
-    fun getAppColor(context: Context, @ColorRes intResColor: Int, theme: Theme?): Int =
-        getApp(context).getColor(intResColor, theme)
-
-    @SuppressLint("UseCompatLoadingForColorStateLists")
-    @JvmStatic
-    fun getAppColorStateList(context: Context, @ColorRes intResColor: Int): ColorStateList =
-        getApp(context).getColorStateList(intResColor)
-
-    @RequiresApi(CVersCode.V_23_6_M)
-    @JvmStatic
-    fun getAppColorStateList(context: Context, @ColorRes intResColor: Int, theme: Theme?): ColorStateList =
-        getApp(context).getColorStateList(intResColor, theme)
-
-    @JvmStatic
-    @SuppressLint("UseCompatLoadingForDrawables")
-    fun getAppDrawable(context: Context, @DrawableRes intResDrawable: Int): Drawable =
-        getApp(context).getDrawable(intResDrawable)// ResourcesCompat.getDrawable()
-
-    @RequiresApi(CVersCode.V_21_5_L)
-    @SuppressLint("UseCompatLoadingForDrawables")
-    @JvmStatic
-    fun getAppDrawable(context: Context, @DrawableRes intResDrawable: Int, theme: Theme?): Drawable =
-        getApp(context).getDrawable(intResDrawable, theme)
-
-    @JvmStatic
-    fun getAppDrawableForDensity(context: Context, @DrawableRes intResDrawable: Int, density: Int): Drawable? =
-        getApp(context).getDrawableForDensity(intResDrawable, density)
-
-    @RequiresApi(CVersCode.V_21_5_L)
-    @JvmStatic
-    fun getAppDrawableForDensity(context: Context, @DrawableRes intResDrawable: Int, density: Int, theme: Theme?): Drawable? =
-        getApp(context).getDrawableForDensity(intResDrawable, density, theme)
-
-    @JvmStatic
-    fun getAppBoolean(context: Context, @BoolRes intResBool: Int): Boolean =
-        getApp(context).getBoolean(intResBool)
-
-    @JvmStatic
-    fun getAppInteger(context: Context, @IntegerRes intResInt: Int): Int =
-        getApp(context).getInteger(intResInt)
-
-    @RequiresApi(CVersCode.V_29_10_Q)
-    @JvmStatic
-    fun getAppFloat(context: Context, @DimenRes intResDimen: Int): Float =
-        getApp(context).getFloat(intResDimen)
-
-    @JvmStatic
-    fun getAppDimensionPixelOffset(context: Context, @DimenRes intResDimen: Int): Int =
-        getApp(context).getDimensionPixelOffset(intResDimen)
-
-    @JvmStatic
-    fun getAppDimensionPixelSize(context: Context, @DimenRes intResDimen: Int): Int =
-        getApp(context).getDimensionPixelSize(intResDimen)
-
-    @JvmStatic
-    fun getAppDimension(context: Context, @DimenRes intResDimen: Int): Float =
-        getApp(context).getDimension(intResDimen)
-
-    @JvmStatic
-    fun getAppIntArray(context: Context, @ArrayRes intResArray: Int): IntArray =
-        getApp(context).getIntArray(intResArray)
-
-    ////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun getAppXml(context: Context, @XmlRes intResXml: Int): XmlResourceParser =
-        getApp(context).getXml(intResXml)
-
-    @JvmStatic
-    fun getAppAnimation(context: Context, @AnimRes intResAnim: Int): XmlResourceParser =
-        getApp(context).getAnimation(intResAnim)
-
-    @JvmStatic
-    fun getAppLayout(context: Context, @LayoutRes intResLayout: Int): XmlResourceParser =
-        getApp(context).getLayout(intResLayout)
-
-    @RequiresApi(CVersCode.V_26_8_O)
-    @JvmStatic
-    fun getAppFont(context: Context, @FontRes intResFont: Int): Typeface =
-        getApp(context).getFont(intResFont)
 
     ////////////////////////////////////////////////////////////////////////////
 
@@ -193,12 +58,147 @@ object UtilKResources {
 
     ////////////////////////////////////////////////////////////////////////////
 
+    //获取系统Configuration
     @JvmStatic
-    fun obtainAttributes(context: Context, set: AttributeSet, @StyleableRes intArrayStyleable: IntArray): TypedArray =
-        getApp(context).obtainAttributes(set, intArrayStyleable)
+    fun getConfiguration_ofSys(): Configuration =
+        get_ofSys().configuration
 
     @JvmStatic
-    fun updateConfiguration(context: Context, configuration: Configuration, displayMetrics: DisplayMetrics) {
-        getApp(context).updateConfiguration(configuration, displayMetrics)
+    fun getDisplayMetrics_ofSys(): DisplayMetrics =
+        getDisplayMetrics(get_ofSys())
+
+    @JvmStatic
+    @SuppressLint("DiscouragedApi")
+    fun getIdentifier_ofSys(name: String, defType: String, defPackage: String): Int =
+        get_ofSys().getIdentifier(name, defType, defPackage)
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun getConfiguration_ofApp(context: Context): Configuration =
+        getConfiguration(get_ofApp(context))
+
+    @JvmStatic
+    fun getDisplayMetrics_ofApp(context: Context): DisplayMetrics =
+        getDisplayMetrics(get_ofApp(context))
+
+    @JvmStatic
+    fun getAssets_ofApp(context: Context): AssetManager =
+        get_ofApp(context).assets
+
+    @JvmStatic
+    fun getResourceEntryName_ofApp(context: Context, @AnyRes intResAny: Int): String =
+        get_ofApp(context).getResourceEntryName(intResAny)
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun getString_ofApp(context: Context, @StringRes intResStr: Int): String =
+        get_ofApp(context).getString(intResStr)
+
+    @JvmStatic
+    fun getString_ofApp(context: Context, @StringRes intResStr: Int, vararg formatArgs: Any): String =
+        get_ofApp(context).getString(intResStr, formatArgs)
+
+    @JvmStatic
+    fun getStringArray_ofApp(context: Context, @ArrayRes intResArray: Int): Array<String> =
+        get_ofApp(context).getStringArray(intResArray)
+
+    @JvmStatic
+    fun getColor_ofApp(context: Context, @ColorRes intResColor: Int): Int =
+        get_ofApp(context).getColor(intResColor)
+
+    @RequiresApi(CVersCode.V_23_6_M)
+    @JvmStatic
+    fun getColor_ofApp(context: Context, @ColorRes intResColor: Int, theme: Theme?): Int =
+        get_ofApp(context).getColor(intResColor, theme)
+
+    @SuppressLint("UseCompatLoadingForColorStateLists")
+    @JvmStatic
+    fun getColorStateList_ofApp(context: Context, @ColorRes intResColor: Int): ColorStateList =
+        get_ofApp(context).getColorStateList(intResColor)
+
+    @RequiresApi(CVersCode.V_23_6_M)
+    @JvmStatic
+    fun getColorStateList_ofApp(context: Context, @ColorRes intResColor: Int, theme: Theme?): ColorStateList =
+        get_ofApp(context).getColorStateList(intResColor, theme)
+
+    @JvmStatic
+    @SuppressLint("UseCompatLoadingForDrawables")
+    fun getDrawable_ofApp(context: Context, @DrawableRes intResDrawable: Int): Drawable =
+        get_ofApp(context).getDrawable(intResDrawable)// ResourcesCompat.getDrawable()
+
+    @RequiresApi(CVersCode.V_21_5_L)
+    @SuppressLint("UseCompatLoadingForDrawables")
+    @JvmStatic
+    fun getDrawable_ofApp(context: Context, @DrawableRes intResDrawable: Int, theme: Theme?): Drawable =
+        get_ofApp(context).getDrawable(intResDrawable, theme)
+
+    @JvmStatic
+    fun getDrawableForDensity_ofApp(context: Context, @DrawableRes intResDrawable: Int, density: Int): Drawable? =
+        get_ofApp(context).getDrawableForDensity(intResDrawable, density)
+
+    @RequiresApi(CVersCode.V_21_5_L)
+    @JvmStatic
+    fun getDrawableForDensity_ofApp(context: Context, @DrawableRes intResDrawable: Int, density: Int, theme: Theme?): Drawable? =
+        get_ofApp(context).getDrawableForDensity(intResDrawable, density, theme)
+
+    @JvmStatic
+    fun getBoolean_ofApp(context: Context, @BoolRes intResBool: Int): Boolean =
+        get_ofApp(context).getBoolean(intResBool)
+
+    @JvmStatic
+    fun getInteger_ofApp(context: Context, @IntegerRes intResInt: Int): Int =
+        get_ofApp(context).getInteger(intResInt)
+
+    @RequiresApi(CVersCode.V_29_10_Q)
+    @JvmStatic
+    fun getFloat_ofApp(context: Context, @DimenRes intResDimen: Int): Float =
+        get_ofApp(context).getFloat(intResDimen)
+
+    @JvmStatic
+    fun getDimensionPixelOffset_ofApp(context: Context, @DimenRes intResDimen: Int): Int =
+        get_ofApp(context).getDimensionPixelOffset(intResDimen)
+
+    @JvmStatic
+    fun getDimensionPixelSize_ofApp(context: Context, @DimenRes intResDimen: Int): Int =
+        get_ofApp(context).getDimensionPixelSize(intResDimen)
+
+    @JvmStatic
+    fun getDimension_ofApp(context: Context, @DimenRes intResDimen: Int): Float =
+        get_ofApp(context).getDimension(intResDimen)
+
+    @JvmStatic
+    fun getIntArray_ofApp(context: Context, @ArrayRes intResArray: Int): IntArray =
+        get_ofApp(context).getIntArray(intResArray)
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun getXml_ofApp(context: Context, @XmlRes intResXml: Int): XmlResourceParser =
+        get_ofApp(context).getXml(intResXml)
+
+    @JvmStatic
+    fun getAnimation_ofApp(context: Context, @AnimRes intResAnim: Int): XmlResourceParser =
+        get_ofApp(context).getAnimation(intResAnim)
+
+    @JvmStatic
+    fun getLayout_ofApp(context: Context, @LayoutRes intResLayout: Int): XmlResourceParser =
+        get_ofApp(context).getLayout(intResLayout)
+
+    @RequiresApi(CVersCode.V_26_8_O)
+    @JvmStatic
+    fun getFont_ofApp(context: Context, @FontRes intResFont: Int): Typeface =
+        get_ofApp(context).getFont(intResFont)
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun obtainAttributes_ofApp(context: Context, set: AttributeSet, @StyleableRes intArrayStyleable: IntArray): TypedArray =
+        get_ofApp(context).obtainAttributes(set, intArrayStyleable)
+
+    @JvmStatic
+    fun updateConfiguration_ofApp(context: Context, configuration: Configuration, displayMetrics: DisplayMetrics) {
+        get_ofApp(context).updateConfiguration(configuration, displayMetrics)
     }
 }

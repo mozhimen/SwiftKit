@@ -7,7 +7,7 @@ import android.text.TextUtils
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.android.app.UtilKPermission
+import com.mozhimen.basick.utilk.android.UtilKPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.android.util.i
@@ -32,7 +32,7 @@ object UtilKDeviceId : IUtilK {
     @RequiresApi(CVersCode.V_23_6_M)
     fun get(context: Context): String {
         var imei = ""
-        if (!UtilKPermission.hasPermission(CPermission.READ_PHONE_STATE))//Android 6.0 以后需要获取动态权限  检查权限
+        if (!UtilKPermission.isSelfGranted(CPermission.READ_PHONE_STATE))//Android 6.0 以后需要获取动态权限  检查权限
             return imei
         imei = UtilKDeviceId.get_ofSys(context)// 1. 尝试通过系统api获取imei
         if (TextUtils.isEmpty(imei))

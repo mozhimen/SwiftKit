@@ -15,7 +15,7 @@ import com.mozhimen.basick.elemk.android.media.cons.CMediaFormat
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.provider.cons.CMediaStore
 import com.mozhimen.basick.elemk.android.util.cons.CBase64
-import com.mozhimen.basick.utilk.android.app.UtilKPermission
+import com.mozhimen.basick.utilk.android.UtilKPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
 import com.mozhimen.basick.utilk.android.content.UtilKResources
 import com.mozhimen.basick.utilk.android.media.UtilKMediaScannerConnection
@@ -177,7 +177,7 @@ object UtilKBitmapFormat : BaseUtilK() {
     @JvmStatic
     fun bitmapJpeg2fileJpeg(sourceBitmap: Bitmap, strFilePathNameDest: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
         if (UtilKBuildVersion.isAfterV_29_10_Q()) {
-            if (UtilKPermission.hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE))
+            if (UtilKPermission.isSelfGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE))
                 sourceBitmap.bitmapAny2fileImage(strFilePathNameDest, CompressFormat.JPEG, quality)
             else {
                 UtilKLogWrapper.d(TAG, "bitmapJpeg2fileJpeg: dont has permission")
@@ -312,9 +312,9 @@ object UtilKBitmapFormat : BaseUtilK() {
 
     @JvmStatic
     fun bitmapAny2drawable(sourceBitmap: Bitmap): Drawable =
-        sourceBitmap.toDrawable(UtilKResources.getSys())
+        sourceBitmap.toDrawable(UtilKResources.get_ofSys())
 
     @JvmStatic
     fun bitmapAny2bitmapDrawable(sourceBitmap: Bitmap): BitmapDrawable =
-        BitmapDrawable(UtilKResources.getApp(_context), sourceBitmap)
+        BitmapDrawable(UtilKResources.get_ofApp(_context), sourceBitmap)
 }

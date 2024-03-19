@@ -77,7 +77,7 @@ object UtilKPackageManager {
      */
     @JvmStatic
     fun getApplicationIcon(context: Context): Drawable? =
-        UtilKApplicationInfo.getPackInfo(context)?.let { get(context).getApplicationIcon(it) }
+        UtilKApplicationInfo.get_ofPkI(context)?.let { get(context).getApplicationIcon(it) }
 
     /**
      * 得到图标

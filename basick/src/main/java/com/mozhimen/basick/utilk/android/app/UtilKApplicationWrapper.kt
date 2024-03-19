@@ -15,7 +15,7 @@ import java.lang.Exception
  * @Date 2021/12/20 15:02
  * @Version 1.0
  */
-class UtilKApplicationReflect {
+class UtilKApplicationWrapper {
     companion object {
         @JvmStatic//单例内部静态类,线程安全
         val instance = INSTANCE.holder
@@ -46,6 +46,6 @@ class UtilKApplicationReflect {
     /////////////////////////////////////////////////////////////
 
     private object INSTANCE {
-        val holder = UtilKApplicationReflect()
+        val holder = UtilKApplicationWrapper()
     }
 }

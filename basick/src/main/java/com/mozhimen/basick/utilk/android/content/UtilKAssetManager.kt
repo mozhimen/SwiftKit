@@ -14,26 +14,26 @@ import java.io.InputStream
  */
 object UtilKAssetManager {
     @JvmStatic
-    fun getForRes(context: Context): AssetManager =
-        UtilKResources.getAppAssets(context)
+    fun get_ofRes(context: Context): AssetManager =
+        UtilKResources.getAssets_ofApp(context)
 
     @JvmStatic
-    fun getForContext(context: Context): AssetManager =
+    fun get_ofCxt(context: Context): AssetManager =
         UtilKContext.getAssets(context)
 
     /////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun openFd(context: Context, strAssetName: String): AssetFileDescriptor =
-        getForContext(context).openFd(strAssetName)
+        get_ofCxt(context).openFd(strAssetName)
 
     @JvmStatic
     fun open(context: Context, strAssetName: String): InputStream =
-        getForContext(context).open(strAssetName)
+        get_ofCxt(context).open(strAssetName)
 
     /////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun list(context: Context,strAssetName: String): Array<String>? =
-        getForRes(context).list(strAssetName)
+        get_ofRes(context).list(strAssetName)
 }

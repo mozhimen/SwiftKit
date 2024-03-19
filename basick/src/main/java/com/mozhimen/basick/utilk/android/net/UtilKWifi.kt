@@ -7,7 +7,7 @@ import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_FINE_LOCAT
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_NETWORK_STATE
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_WIFI_STATE
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.android.app.UtilKPermission
+import com.mozhimen.basick.utilk.android.UtilKPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.text.replaceRegexDoubleQuote
@@ -43,7 +43,7 @@ object UtilKWifi : BaseUtilK() {
         val wifiInfo = UtilKWifiManager.getConnectionInfo(_context) ?: return CWifiManager.NO_CONNECT
         return if (wifiInfo.ssid == CWifiManager.UNKNOWN_SSID) {
             if (UtilKBuildVersion.isAfterV_26_8_O()) {
-                if (UtilKPermission.hasPermission(CPermission.ACCESS_FINE_LOCATION)) {
+                if (UtilKPermission.isSelfGranted(CPermission.ACCESS_FINE_LOCATION)) {
                     val configuredNetworks = UtilKWifiManager.getConfiguredNetworks(_context)
                     if (!configuredNetworks.isNullOrEmpty()) {
                         for (wifiConfiguration in configuredNetworks) {

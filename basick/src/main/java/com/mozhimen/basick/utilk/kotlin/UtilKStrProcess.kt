@@ -3,7 +3,7 @@ package com.mozhimen.basick.utilk.kotlin
 import android.annotation.SuppressLint
 import android.app.Application
 import com.mozhimen.basick.utilk.android.app.UtilKApplication
-import com.mozhimen.basick.utilk.android.app.UtilKApplicationReflect
+import com.mozhimen.basick.utilk.android.app.UtilKApplicationWrapper
 import com.mozhimen.basick.utilk.android.app.UtilKRunningAppProcessInfo
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -40,7 +40,7 @@ object UtilKStrProcess : BaseUtilK() {
      */
     @JvmStatic
     fun getStrProcessNameCurrentOfApplication(): String? =
-        UtilKApplication.getCurrentProcessName()
+        UtilKApplication.getProcessName()
 
     @JvmStatic
     fun getStrProcessNameCurrentOfFile(): String? =
@@ -48,12 +48,12 @@ object UtilKStrProcess : BaseUtilK() {
 
     @JvmStatic
     fun getStrProcessNameCurrentOfActivityManager(): String? =
-        UtilKRunningAppProcessInfo.getCurrentProcessName(_context)
+        UtilKRunningAppProcessInfo.getProcessName(_context)
 
     @JvmStatic
     fun getStrProcessNameCurrentOfReflect(): String? {
         try {
-            val fieldMLoadedApk = UtilKApplicationReflect.instance.get().javaClass.getField("mLoadedApk")
+            val fieldMLoadedApk = UtilKApplicationWrapper.instance.get().javaClass.getField("mLoadedApk")
             fieldMLoadedApk.isAccessible = true
             val loadedApk = fieldMLoadedApk[_context]
 

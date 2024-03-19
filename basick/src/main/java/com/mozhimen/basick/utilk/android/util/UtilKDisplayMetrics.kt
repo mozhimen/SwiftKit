@@ -22,11 +22,11 @@ object UtilKDisplayMetrics {
     //region # get function
     @JvmStatic
     fun getApp(context: Context) =
-        UtilKResources.getAppDisplayMetrics(context)
+        UtilKResources.getDisplayMetrics_ofApp(context)
 
     @JvmStatic
     fun getSys(): DisplayMetrics =
-        UtilKResources.getSysDisplayMetrics()
+        UtilKResources.getDisplayMetrics_ofSys()
 
     @JvmStatic
     fun getDef(context: Context): DisplayMetrics {

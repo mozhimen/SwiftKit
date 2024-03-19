@@ -17,7 +17,7 @@ object UtilKConfig {
 
     @JvmStatic
     fun isLightMode_ofConfiguration(context: Context): Boolean =
-        UtilKConfiguration.isLightMode(context)
+        UtilKConfiguration.isLightMode_ofApp(context)
 
     @JvmStatic
     fun isNightMode_ofAppCompatDelegate(): Boolean =
@@ -25,5 +25,5 @@ object UtilKConfig {
 
     @JvmStatic
     fun isNightMode_ofConfiguration(context: Context): Boolean =
-        UtilKConfiguration.isNightMode(context)
+        UtilKConfiguration.isNightMode_ofApp(context)
 }

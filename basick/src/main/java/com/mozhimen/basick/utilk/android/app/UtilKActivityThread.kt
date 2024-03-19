@@ -15,7 +15,7 @@ import com.mozhimen.basick.utilk.kotlin.strPackage2clazz
  * @Date 2023/1/11 12:31
  * @Version 1.0
  */
-object UtilKDialog : BaseUtilK() {
+object UtilKActivityThread : BaseUtilK() {
 
     /**
      * 关闭Android9.0弹出框（Detected problems with API compatibility）
@@ -23,7 +23,7 @@ object UtilKDialog : BaseUtilK() {
     @JvmStatic
     @RequiresApi(CVersCode.V_28_9_P)
     @SuppressLint("PrivateApi", "DiscouragedPrivateApi", "SoonBlockedPrivateApi")
-    fun hideAt28() {
+    fun hide_at28() {
         try {
 //            val constructor = "android.content.pm.PackageParser\$Package".strPackage2clazz().getDeclaredConstructor(String::class.java)
 //            constructor.isAccessible = true

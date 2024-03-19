@@ -73,7 +73,7 @@ class TaskKAnimator : BaseWakeBefDestroyTaskK() {
     override fun cancel() {
         _viewAnimMap.forEach {
             (it.value as ValueAnimator).removeAllUpdateListeners()
-            UtilKAnimator.releaseAnimator(it.value)
+            UtilKAnimator.cancel_removeAllListeners(it.value)
             UtilKAnim.stopAnim(it.key)
         }
         _viewAnimMap.clear()

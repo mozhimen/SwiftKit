@@ -11,8 +11,8 @@ import com.mozhimen.basick.lintk.optins.ODeviceRoot
 import com.mozhimen.basick.lintk.optins.permission.OPermission_INSTALL_PACKAGES
 import com.mozhimen.basick.lintk.optins.permission.OPermission_REQUEST_INSTALL_PACKAGES
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
-import com.mozhimen.basick.utilk.android.app.UtilKPermission
+import com.mozhimen.basick.utilk.android.app.UtilKActivityStart
+import com.mozhimen.basick.utilk.android.UtilKPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -34,8 +34,8 @@ object UtilKAppInstall : BaseUtilK() {
     @JvmStatic
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     @OPermission_REQUEST_INSTALL_PACKAGES
-    fun hasPackageInstalls(): Boolean =
-        UtilKPermission.hasPackageInstalls().also { "hasPackageInstalls: $it".d(TAG) }
+    fun hasRequestInstallPackages(): Boolean =
+        UtilKPermission.hasRequestInstallPackages().also { "hasPackageInstalls: $it".d(TAG) }
 
     ///////////////////////////////////////////////////////////////////////////
 
@@ -44,24 +44,26 @@ object UtilKAppInstall : BaseUtilK() {
      * @param activity Activity
      */
     @JvmStatic
-    fun openSettingAppInstall(activity: Activity) {
-        UtilKLaunchActivity.startManageUnknownInstallSource(activity)
+    fun startManageUnknownInstallSource(activity: Activity) {
+        UtilKActivityStart.startManageUnknownInstallSource(activity)
     }
 
     /**
      * 打开包安装权限
      */
     @JvmStatic
-    fun openSettingAppInstall(context: Context) {
-        UtilKLaunchActivity.startManageUnknownInstallSource(context)
+    fun startManageUnknownInstallSource(context: Context) {
+        UtilKActivityStart.startManageUnknownInstallSource(context)
     }
+
+    ///////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     @Throws(Exception::class)
     @ODeviceRoot
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
     @OPermission_INSTALL_PACKAGES
-    fun installRoot(strPathNameApk: String): Boolean =
+    fun install_ofRuntime(strPathNameApk: String): Boolean =
         UtilKRuntime.execSuInstall(strPathNameApk)
 
     /**
@@ -70,8 +72,8 @@ object UtilKAppInstall : BaseUtilK() {
     @JvmStatic
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     @OPermission_REQUEST_INSTALL_PACKAGES
-    fun installHand(strPathNameApk: String) {
-        UtilKLaunchActivity.startInstall(_context, strPathNameApk)
+    fun install_ofView(strPathNameApk: String) {
+        UtilKActivityStart.startViewInstall(_context, strPathNameApk)
     }
 
     /**
@@ -80,8 +82,8 @@ object UtilKAppInstall : BaseUtilK() {
     @JvmStatic
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     @OPermission_REQUEST_INSTALL_PACKAGES
-    fun installHand(fileApk: File) {
-        UtilKLaunchActivity.startInstall(_context, fileApk)
+    fun install_ofView(fileApk: File) {
+        UtilKActivityStart.startViewInstall(_context, fileApk)
     }
 
     /**
@@ -90,8 +92,8 @@ object UtilKAppInstall : BaseUtilK() {
     @JvmStatic
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
     @OPermission_INSTALL_PACKAGES
-    fun installSilence(strPathNameApk: String, receiver: Class<*>) {
-        if (UtilKBuildVersion.isAfterV_28_9_P()) installSilenceAfter28(strPathNameApk, receiver)
+    fun install_ofSilence(strPathNameApk: String, receiver: Class<*>) {
+        if (UtilKBuildVersion.isAfterV_28_9_P()) install_ofSilence_after28(strPathNameApk, receiver)
         else UtilKRuntime.execInstallBefore28(strPathNameApk)
     }
 
@@ -102,19 +104,19 @@ object UtilKAppInstall : BaseUtilK() {
     @RequiresApi(CVersCode.V_28_9_P)
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
     @OPermission_INSTALL_PACKAGES
-    fun installSilenceAfter28(strPathNameApk: String, receiver: Class<*>) {
-        "installSilenceAfter28 pathApk $strPathNameApk".d(TAG)
+    fun install_ofSilence_after28(strPathNameApk: String, receiver: Class<*>) {
+        "install_ofSilence_after28 pathApk $strPathNameApk".d(TAG)
         val fileApk = File(strPathNameApk)
         val packageInstaller = UtilKPackageInstaller.get(_context)
         val sessionParams = PackageInstaller.SessionParams(CPackageInstaller.SessionParams.MODE_FULL_INSTALL).apply {
             setSize(fileApk.length())
         }
         val sessionId: Int = UtilKPackageInstaller.createSession(packageInstaller, sessionParams)
-        "installSilenceAfter28 sessionId $sessionId".d(TAG)
+        "install_ofSilence_after28 sessionId $sessionId".d(TAG)
 
         if (sessionId != -1) {
             val isCopySuccess = UtilKPackageInstaller.copyBaseApk(packageInstaller, sessionId, strPathNameApk)
-            "installSilenceAfter28 isCopySuccess $isCopySuccess".d(TAG)
+            "install_ofSilence_after28 isCopySuccess $isCopySuccess".d(TAG)
             if (isCopySuccess)
                 UtilKPackageInstaller.commitSession(packageInstaller, sessionId, receiver)
         }

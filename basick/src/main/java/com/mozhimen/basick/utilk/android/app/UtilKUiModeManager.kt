@@ -22,6 +22,6 @@ object UtilKUiModeManager {
         get(context).currentModeType
 
     @JvmStatic
-    fun isCurrentTypeDesk(context: Context): Boolean =
+    fun isCurrentModeTypeDesk(context: Context): Boolean =
         getCurrentModeType(context) == CConfiguration.UiMode.TYPE_DESK
 }

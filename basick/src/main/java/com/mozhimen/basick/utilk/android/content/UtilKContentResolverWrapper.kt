@@ -73,12 +73,12 @@ object UtilKContentResolverWrapper : BaseUtilK() {
 
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
-    fun insertImageAfter29(context: Context, file: File): Uri? =
-        insertImageAfter29(context, file.file2strFilePath())
+    fun insertImage_after29(context: Context, file: File): Uri? =
+        insertImage_after29(context, file.file2strFilePath())
 
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
-    fun insertImageAfter29(context: Context, strFilePathName: String): Uri? {
+    fun insertImage_after29(context: Context, strFilePathName: String): Uri? {
         val strFilePath = strFilePathName.getStrFileParentPath() ?: run {
             UtilKLogWrapper.w(TAG, "insertImageAfter29: strFilePath get fail")
             return null
@@ -92,12 +92,12 @@ object UtilKContentResolverWrapper : BaseUtilK() {
             return null
         }
         val strMineType = strFileExtension.strFileExtension2strMineTypeImage()
-        return insertImageAfter29(context, strMineType, strFilePath, strFileName)
+        return insertImage_after29(context, strMineType, strFilePath, strFileName)
     }
 
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
-    fun insertImageAfter29(context: Context, mineType: String, strFilePath: String, strFileName: String): Uri? =
+    fun insertImage_after29(context: Context, mineType: String, strFilePath: String, strFileName: String): Uri? =
         UtilKContentResolver.insert(context, CMediaStore.Images.Media.EXTERNAL_CONTENT_URI, UtilKContentValues.get(mineType, strFilePath, strFileName))
 
     @JvmStatic
