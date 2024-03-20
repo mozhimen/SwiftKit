@@ -37,8 +37,8 @@ object UtilKStateListDrawable {
     @RequiresPermission(CPermission.INTERNET)
     @OPermission_INTERNET
     fun getForStrUrls(strUrlDrawableNormal: String, strUrlDrawablePressed: String): Drawable? {
-        val drawableNormal = UtilKDrawable.getDrawableForStrUrl(strUrlDrawableNormal)
-        val drawablePressed = UtilKDrawable.getDrawableForStrUrl(strUrlDrawablePressed)
+        val drawableNormal = UtilKDrawable.getDrawable_ofStrUrl(strUrlDrawableNormal)
+        val drawablePressed = UtilKDrawable.getDrawable_ofStrUrl(strUrlDrawablePressed)
         return if (drawableNormal != null && drawablePressed != null) {
             get(drawableNormal, drawablePressed)
         } else null

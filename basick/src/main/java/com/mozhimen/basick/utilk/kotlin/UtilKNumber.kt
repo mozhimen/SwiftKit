@@ -10,53 +10,55 @@ import kotlin.math.min
  * @Date 2022/5/31 17:33
  * @Version 1.0
  */
-fun Double.normalize(min: Double, max: Double): Double =
-    UtilKNumber.normalize(this, min, max)
+fun Double.constraint(min: Double, max: Double): Double =
+    UtilKNumber.constraint(this, min, max)
 
-fun Long.normalize(min: Long, max: Long): Long =
-    UtilKNumber.normalize(this, min, max)
+fun Long.constraint(min: Long, max: Long): Long =
+    UtilKNumber.constraint(this, min, max)
 
-fun Float.normalize(min: Float, max: Float): Float =
-    UtilKNumber.normalize(this, min, max)
+fun Float.constraint(min: Float, max: Float): Float =
+    UtilKNumber.constraint(this, min, max)
 
-fun Int.normalize(min: Int, max: Int): Int =
-    UtilKNumber.normalize(this, min, max)
-
-/////////////////////////////////////////////////////
-
-fun Double.normalize(range: Pair<Double, Double>): Double =
-    UtilKNumber.normalize(this, range.first, range.second)
-
-fun Long.normalize(range: Pair<Long, Long>): Long =
-    UtilKNumber.normalize(this, range.first, range.second)
-
-fun Float.normalize(range: Pair<Float, Float>): Float =
-    UtilKNumber.normalize(this, range.first, range.second)
-
-fun Int.normalize(range: Pair<Int, Int>): Int =
-    UtilKNumber.normalize(this, range.first, range.second)
+fun Int.constraint(min: Int, max: Int): Int =
+    UtilKNumber.constraint(this, min, max)
 
 /////////////////////////////////////////////////////
 
-fun Int.normalize(range: IntRange): Int =
-    UtilKNumber.normalize(this, range.first, range.last)
+fun Double.constraint(pair: Pair<Double, Double>): Double =
+    UtilKNumber.constraint(this, pair.first, pair.second)
 
-fun Long.normalize(range: LongRange): Long =
-    UtilKNumber.normalize(this, range.first, range.last)
+fun Long.constraint(pair: Pair<Long, Long>): Long =
+    UtilKNumber.constraint(this, pair.first, pair.second)
+
+fun Float.constraint(pair: Pair<Float, Float>): Float =
+    UtilKNumber.constraint(this, pair.first, pair.second)
+
+fun Int.constraint(pair: Pair<Int, Int>): Int =
+    UtilKNumber.constraint(this, pair.first, pair.second)
+
+/////////////////////////////////////////////////////
+
+fun Int.constraint(range: IntRange): Int =
+    UtilKNumber.constraint(this, range)
+
+fun Long.constraint(range: LongRange): Long =
+    UtilKNumber.constraint(this, range)
 
 /////////////////////////////////////////////////////
 
 fun Float.percent(start: Float, end: Float): Float =
     UtilKNumber.percent(this, start, end)
 
-fun Float.percent(range: Pair<Float, Float>): Float =
-    UtilKNumber.percent(this, range.first, range.second)
+fun Float.percent(pair: Pair<Float, Float>): Float =
+    UtilKNumber.percent(this, pair.first, pair.second)
 
 fun Double.percent(start: Double, end: Double): Double =
     UtilKNumber.percent(this, start, end)
 
-fun Double.percent(range: Pair<Double, Double>): Double =
-    UtilKNumber.percent(this, range.first, range.second)
+fun Double.percent(pair: Pair<Double, Double>): Double =
+    UtilKNumber.percent(this, pair.first, pair.second)
+
+/////////////////////////////////////////////////////
 
 object UtilKNumber {
 
@@ -68,50 +70,42 @@ object UtilKNumber {
      * @return
      */
     @JvmStatic
-    fun complementBy0(number: Number, decimal: Int): String =
+    fun complement_of0(number: Number, decimal: Int): String =
         String.format("%0${decimal}d", number)
 
     ////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun normalize(value: Long, min: Long, max: Long): Long {
+    fun constraint(value: Long, min: Long, max: Long): Long {
         val tempRange = min(min, max) to max(min, max)
-        return when {
-            value < tempRange.first -> tempRange.first
-            value > tempRange.second -> tempRange.second
-            else -> value
-        }
+        return value.coerceIn(tempRange.first, tempRange.second)
     }
 
     @JvmStatic
-    fun normalize(value: Float, min: Float, max: Float): Float {
+    fun constraint(value: Float, min: Float, max: Float): Float {
         val tempRange = min(min, max) to max(min, max)
-        return when {
-            value < tempRange.first -> tempRange.first
-            value > tempRange.second -> tempRange.second
-            else -> value
-        }
+        return value.coerceIn(tempRange.first, tempRange.second)
     }
 
     @JvmStatic
-    fun normalize(value: Double, min: Double, max: Double): Double {
+    fun constraint(value: Double, min: Double, max: Double): Double {
         val tempRange = min(min, max) to max(min, max)
-        return when {
-            value < tempRange.first -> min
-            value > tempRange.second -> max
-            else -> value
-        }
+        return value.coerceIn(tempRange.first, tempRange.second)
     }
 
     @JvmStatic
-    fun normalize(value: Int, min: Int, max: Int): Int {
+    fun constraint(value: Int, min: Int, max: Int): Int {
         val tempRange = min(min, max) to max(min, max)
-        return when {
-            value < tempRange.first -> tempRange.first
-            value > tempRange.second -> tempRange.second
-            else -> value
-        }
+        return value.coerceIn(tempRange.first, tempRange.second)
     }
+
+    @JvmStatic
+    fun constraint(value: Int, range: IntRange): Int =
+        value.coerceIn(range)
+
+    @JvmStatic
+    fun constraint(value: Long, range: LongRange): Long =
+        value.coerceIn(range)
 
     ////////////////////////////////////////////////////////////
 
@@ -119,14 +113,14 @@ object UtilKNumber {
     fun percent(value: Double, start: Double, end: Double): Double {
         if (start == end) return 0.0
         val tempRange = min(start, end) to max(start, end)
-        return (normalize(value, tempRange.first, tempRange.second) - tempRange.first) / (tempRange.second - tempRange.first)
+        return (constraint(value, tempRange.first, tempRange.second) - tempRange.first) / (tempRange.second - tempRange.first)
     }
 
     @JvmStatic
     fun percent(value: Float, start: Float, end: Float): Float {
         if (start == end) return 0f
         val tempRange = min(start, end) to max(start, end)
-        return (normalize(value, tempRange.first, tempRange.second) - tempRange.first) / (tempRange.second - tempRange.first)
+        return (constraint(value, tempRange.first, tempRange.second) - tempRange.first) / (tempRange.second - tempRange.first)
     }
 
     ////////////////////////////////////////////////////////////

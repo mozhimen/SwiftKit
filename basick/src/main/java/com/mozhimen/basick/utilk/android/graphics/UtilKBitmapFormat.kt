@@ -48,26 +48,26 @@ fun Bitmap.bitmapAny2strBase64(compressFormat: CompressFormat = CompressFormat.J
     UtilKBitmapFormat.bitmapAny2strBase64(this,compressFormat, quality, flags)
 
 @RequiresApi(CVersCode.V_29_10_Q)
-fun Bitmap.bitmapAny2fileImage(strFilePathName: String, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
-    UtilKBitmapFormat.bitmapAny2fileImage(this, strFilePathName, compressFormat, quality)
+fun Bitmap.bitmapAny2fileImage(strBitmapPathName: String, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
+    UtilKBitmapFormat.bitmapAny2fileImage(this, strBitmapPathName, compressFormat, quality)
 
-fun Bitmap.bitmapAny2file(strFilePathNameDest: String, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
-    UtilKBitmapFormat.bitmapAny2file(this, strFilePathNameDest, compressFormat, quality)
+fun Bitmap.bitmapAny2file(strBitmapPathNameDest: String, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
+    UtilKBitmapFormat.bitmapAny2file(this, strBitmapPathNameDest, compressFormat, quality)
 
 fun Bitmap.bitmapAny2file(fileDest: File, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
     UtilKBitmapFormat.bitmapAny2file(this, fileDest, compressFormat, quality)
 
-fun Bitmap.bitmapJpeg2fileJpeg(strFilePathNameDest: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
-    UtilKBitmapFormat.bitmapJpeg2fileJpeg(this, strFilePathNameDest, quality)
+fun Bitmap.bitmapJpeg2fileJpeg(strBitmapPathNameDest: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
+    UtilKBitmapFormat.bitmapJpeg2fileJpeg(this, strBitmapPathNameDest, quality)
 
-fun Bitmap.bitmapAny2fileJpeg(strFilePathNameDest: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
-    UtilKBitmapFormat.bitmapAny2fileJpeg(this, strFilePathNameDest, quality)
+fun Bitmap.bitmapAny2fileJpeg(strBitmapPathNameDest: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
+    UtilKBitmapFormat.bitmapAny2fileJpeg(this, strBitmapPathNameDest, quality)
 
-fun Bitmap.bitmapAny2filePng(strFilePathNameDest: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
-    UtilKBitmapFormat.bitmapAny2filePng(this, strFilePathNameDest, quality)
+fun Bitmap.bitmapAny2filePng(strBitmapPathNameDest: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
+    UtilKBitmapFormat.bitmapAny2filePng(this, strBitmapPathNameDest, quality)
 
-fun Bitmap.bitmapAny2fileBmp(strFilePathNameDest: String): File =
-    UtilKBitmapFormat.bitmapAny2fileBmp(this, strFilePathNameDest)
+fun Bitmap.bitmapAny2fileBmp(strBitmapPathNameDest: String): File =
+    UtilKBitmapFormat.bitmapAny2fileBmp(this, strBitmapPathNameDest)
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -112,13 +112,13 @@ object UtilKBitmapFormat : BaseUtilK() {
 
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
-    fun bitmapAny2fileImage(sourceBitmap: Bitmap, strFilePathName: String, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? {
+    fun bitmapAny2fileImage(sourceBitmap: Bitmap, strBitmapPathName: String, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? {
         var outputStream: OutputStream? = null
-        val fileDest = strFilePathName.createFile()
+        val fileDest = strBitmapPathName.createFile()
         try {
             val contentValues = ContentValues().apply {
                 put(CMediaStore.Images.ImageColumns.DATA, fileDest.absolutePath)
-                put(CMediaStore.Images.ImageColumns.DISPLAY_NAME, strFilePathName.split("/").lastOrNull() ?: UtilKFile.getStrFileName_ofNow())
+                put(CMediaStore.Images.ImageColumns.DISPLAY_NAME, strBitmapPathName.split("/").lastOrNull() ?: UtilKFile.getStrFileName_ofNow())
                 put(CMediaStore.Images.ImageColumns.MIME_TYPE, CMediaFormat.MIMETYPE_IMAGE_JPEG)
                 put(CMediaStore.Images.ImageColumns.DATE_TAKEN, System.currentTimeMillis().toString())
             }
@@ -150,8 +150,8 @@ object UtilKBitmapFormat : BaseUtilK() {
      * 保存图片 before 29
      */
     @JvmStatic
-    fun bitmapAny2file(sourceBitmap: Bitmap, strFilePathNameDest: String, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
-        bitmapAny2file(sourceBitmap, File(strFilePathNameDest), compressFormat, quality)
+    fun bitmapAny2file(sourceBitmap: Bitmap, strBitmapPathNameDest: String, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
+        bitmapAny2file(sourceBitmap, File(strBitmapPathNameDest), compressFormat, quality)
 
     /**
      * 保存图片 before 29
@@ -175,27 +175,27 @@ object UtilKBitmapFormat : BaseUtilK() {
 
     @SuppressLint("MissingPermission")
     @JvmStatic
-    fun bitmapJpeg2fileJpeg(sourceBitmap: Bitmap, strFilePathNameDest: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
+    fun bitmapJpeg2fileJpeg(sourceBitmap: Bitmap, strBitmapPathNameDest: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
         if (UtilKBuildVersion.isAfterV_29_10_Q()) {
             if (UtilKPermission.isSelfGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE))
-                sourceBitmap.bitmapAny2fileImage(strFilePathNameDest, CompressFormat.JPEG, quality)
+                sourceBitmap.bitmapAny2fileImage(strBitmapPathNameDest, CompressFormat.JPEG, quality)
             else {
                 UtilKLogWrapper.d(TAG, "bitmapJpeg2fileJpeg: dont has permission")
                 null
             }
-        } else bitmapAny2fileJpeg(sourceBitmap, strFilePathNameDest, quality)
+        } else bitmapAny2fileJpeg(sourceBitmap, strBitmapPathNameDest, quality)
 
     @JvmStatic
-    fun bitmapAny2fileJpeg(sourceBitmap: Bitmap, strFilePathNameDest: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
-        bitmapAny2file(sourceBitmap, strFilePathNameDest, CompressFormat.JPEG, quality)
+    fun bitmapAny2fileJpeg(sourceBitmap: Bitmap, strBitmapPathNameDest: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
+        bitmapAny2file(sourceBitmap, strBitmapPathNameDest, CompressFormat.JPEG, quality)
 
     @JvmStatic
-    fun bitmapAny2filePng(sourceBitmap: Bitmap, strFilePathNameDest: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
-        bitmapAny2file(sourceBitmap, strFilePathNameDest, CompressFormat.PNG, quality)
+    fun bitmapAny2filePng(sourceBitmap: Bitmap, strBitmapPathNameDest: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
+        bitmapAny2file(sourceBitmap, strBitmapPathNameDest, CompressFormat.PNG, quality)
 
     @JvmStatic
-    fun bitmapAny2fileBmp(sourceBitmap: Bitmap, strFilePathNameDest: String): File =
-        sourceBitmap.bitmapAny2bytesBmp().bytes2file(strFilePathNameDest)
+    fun bitmapAny2fileBmp(sourceBitmap: Bitmap, strBitmapPathNameDest: String): File =
+        sourceBitmap.bitmapAny2bytesBmp().bytes2file(strBitmapPathNameDest)
 
     //////////////////////////////////////////////////////////////////////////////
 

@@ -155,7 +155,7 @@ object UtilKString : BaseUtilK() {
      */
     @JvmStatic
     fun subStr(strContent: String, firstIndex: Int, length: Int): String =
-        strContent.substring(firstIndex.normalize(strContent.indices), if (firstIndex + length > strContent.length) strContent.length else firstIndex + length)
+        strContent.substring(firstIndex.constraint(strContent.indices), if (firstIndex + length > strContent.length) strContent.length else firstIndex + length)
 
     /**
      * 电话号码隐藏中间四位

@@ -4,7 +4,8 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorInt
 import com.mozhimen.basick.utilk.java.io.UtilKFile
-import java.net.URL
+import com.mozhimen.basick.utilk.java.net.UtilKURL
+import java.io.InputStream
 
 /**
  * @ClassName UtilKDrawable
@@ -18,13 +19,11 @@ fun Drawable.applyColorFilter(@ColorInt intColor: Int) {
 }
 
 object UtilKDrawable {
-    /**
-     * 从网络获取图片
-     */
+    //从网络获取图片
     @JvmStatic
-    fun getDrawableForStrUrl(strUrl: String, drawableName: String = UtilKFile.getStrFileName_ofNow()): Drawable? =
+    fun getDrawable_ofStrUrl(strUrl: String, drawableName: String = UtilKFile.getStrFileName_ofNow()): Drawable? =
         try {
-            Drawable.createFromStream(URL(strUrl).openStream(), drawableName/*"netUrl.jpg"*/)
+            createFromStream(UtilKURL.openStream(strUrl), drawableName/*"netUrl.jpg"*/)
         } catch (e: Exception) {
             e.printStackTrace()
             null
@@ -33,7 +32,17 @@ object UtilKDrawable {
     /////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
+    fun createFromStream(inputStream: InputStream?, srcName: String?): Drawable? =
+        Drawable.createFromStream(inputStream, srcName)
+
+    @JvmStatic
+    fun mutate(drawable: Drawable): Drawable =
+        drawable.mutate()
+
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
     fun applyColorFilter(drawable: Drawable, @ColorInt intColor: Int) {
-        drawable.mutate().setColorFilter(intColor, PorterDuff.Mode.SRC_IN)
+        mutate(drawable).setColorFilter(intColor, PorterDuff.Mode.SRC_IN)
     }
 }

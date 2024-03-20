@@ -39,26 +39,20 @@ object UtilKPermission : BaseUtilK() {
         isSelfGranted(permissions.toList())
 
     @JvmStatic
-    fun isSelfGranted(permissions: List<String>): Boolean {
-        var allGranted = true
-        return if (permissions.isEmpty()) true
-        else {
-            for (permission in permissions)
-                allGranted = allGranted and isSelfGranted(permission)
-            allGranted
-        }
-    }
+    fun isSelfGranted(permissions: List<String>): Boolean =
+        if (permissions.isEmpty()) true
+        else permissions.all { isSelfGranted(it) }
 
     @JvmStatic
     fun isSelfGranted(permission: String): Boolean =
-        UtilKContextCompat.isSelfPermissionGranted(_context, permission).also { UtilKLogWrapper.d(TAG, "hasPermission: permission $permission is $it") }
+        UtilKContextCompat.isSelfPermissionGranted(_context, permission).also { UtilKLogWrapper.d(TAG, "isSelfGranted: permission $permission is $it") }
 
     /////////////////////////////////////////////////////////////////////////
 
+    @JvmStatic
     @OPermission_READ_EXTERNAL_STORAGE
     @OPermission_MANAGE_EXTERNAL_STORAGE
     @RequiresPermission(allOf = [CPermission.MANAGE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE])
-    @JvmStatic
     fun hasManageExternalStorage(): Boolean =
         if (UtilKBuildVersion.isAfterV_30_11_R())
             UtilKEnvironment.isExternalStorageManager()
@@ -71,7 +65,9 @@ object UtilKPermission : BaseUtilK() {
     @OPermission_MANAGE_EXTERNAL_STORAGE
     @RequiresPermission(allOf = [CPermission.MANAGE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE])
     fun hasReadExternalStorage(): Boolean =
-        if (UtilKBuildVersion.isAfterV_30_11_R()) UtilKEnvironment.isExternalStorageManager() else true
+        if (UtilKBuildVersion.isAfterV_30_11_R())
+            UtilKEnvironment.isExternalStorageManager()
+        else true
 
     //是否有Overlay的权限
     @JvmStatic
@@ -79,9 +75,9 @@ object UtilKPermission : BaseUtilK() {
     @RequiresPermission(CPermission.SYSTEM_ALERT_WINDOW)
     @ADescription(CSettings.ACTION_MANAGE_OVERLAY_PERMISSION)
     fun hasSystemAlertWindow(): Boolean =
-        if (UtilKBuildVersion.isAfterV_23_6_M()) {
+        if (UtilKBuildVersion.isAfterV_23_6_M())
             UtilKSettings.canDrawOverlays(_context)
-        } else true
+        else true
 
     //是否有包安装权限
     @JvmStatic

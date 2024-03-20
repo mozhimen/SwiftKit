@@ -22,5 +22,4 @@ object UtilKUsbManager {
     @JvmStatic
     fun getDeviceList(context: Context): HashMap<String, UsbDevice> =
         get(context).deviceList
-
 }

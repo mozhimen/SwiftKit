@@ -50,18 +50,16 @@ object UtilKBitmapCompress : BaseUtilK() {
             else -> CompressFormat.JPEG
         }
 
-    /**
-     * 压缩质量
-     */
+    //////////////////////////////////////////////////////////////////
+
+    //压缩质量
     @JvmStatic
-    fun compressBitmapAnyQuality(sourceBitmap: Bitmap, compressFormat: CompressFormat = CompressFormat.JPEG, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int = 50): Bitmap? =
-        sourceBitmap.bitmapAny2bytesAny(compressFormat, quality)?.let { bytes ->
+    fun compressBitmapAnyQuality(bitmapSource: Bitmap, compressFormat: CompressFormat = CompressFormat.JPEG, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int = 50): Bitmap? =
+        bitmapSource.bitmapAny2bytesAny(compressFormat, quality)?.let { bytes ->
             bytes.bytes2bitmapAny().also { printBitmapInfo(it, bytes, quality) }
         }
 
-    /**
-     * 压缩采样率
-     */
+    //压缩采样率
     @JvmStatic
     fun compressStrBitmapPathSampleSize(bitmapPathName: String, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap? {
         val options = BitmapFactory.Options()
@@ -69,25 +67,19 @@ object UtilKBitmapCompress : BaseUtilK() {
         return bitmapPathName.strFilePath2bitmapAny(options)?.also { printBitmapInfo(it, null, quality) }
     }
 
-    /**
-     * 缩放压缩法
-     */
+    //缩放压缩法
     @JvmStatic
-    fun compressBitmapAnyMatrix(sourceBitmap: Bitmap, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap {
+    fun compressBitmapAnyMatrix(bitmapSource: Bitmap, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap {
         val ratio: Float = sqrt(quality.toFloat() / 100f).also { "compressMatrix: ratio $it".v(TAG) }//这里很好理解, 我们是对面的比例, 开方才是边的缩小比例
-        return sourceBitmap.applyBitmapAnyScaleRatio(ratio).also { printBitmapInfo(it, null, quality) }
+        return bitmapSource.applyBitmapAnyScaleRatio(ratio).also { printBitmapInfo(it, null, quality) }
     }
 
-    /**
-     * rgb565压缩方法
-     */
+    //rgb565压缩方法
     @JvmStatic
-    fun compressBitmapAny2bitmapRgb565(sourceBitmap: Bitmap): Bitmap =
-        sourceBitmap.bitmapAny2bitmapRgb565().also { printBitmapInfo(it, null, 100) }
+    fun compressBitmapAny2bitmapRgb565(bitmapSource: Bitmap): Bitmap =
+        bitmapSource.bitmapAny2bitmapRgb565().also { printBitmapInfo(it, null, 100) }
 
-    /**
-     * rgb565压缩方法
-     */
+    //rgb565压缩方法
     @JvmStatic
     fun compressStrBitmapPath2bitmapRgb565(bitmapPathName: String): Bitmap? {
         val options = BitmapFactory.Options()
@@ -95,20 +87,16 @@ object UtilKBitmapCompress : BaseUtilK() {
         return bitmapPathName.strFilePath2bitmapAny(options)?.also { printBitmapInfo(it, null, 100) }
     }
 
-    /**
-     * compressScaledBitmap方法压缩
-     */
+    //compressScaledBitmap方法压缩
     @JvmStatic
-    fun compressBitmapAnyScaled(sourceBitmap: Bitmap, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap {
+    fun compressBitmapAnyScaled(bitmapSource: Bitmap, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap {
         val ratio: Float = sqrt(quality.toFloat() / 100f).also { "compressScaledBitmap: ratio $it".v(TAG) }//这里很好理解, 我们是对面的比例, 开方才是边的缩小比例
-        return sourceBitmap.applyBitmapAnyResize((sourceBitmap.width * ratio).toInt(), (sourceBitmap.height * ratio).toInt()).also { printBitmapInfo(it, null, quality) }
+        return bitmapSource.applyBitmapAnyResize((bitmapSource.width * ratio).toInt(), (bitmapSource.height * ratio).toInt()).also { printBitmapInfo(it, null, quality) }
     }
 
-    /**
-     * 打印bitmap信息
-     */
+    //打印bitmap信息
     @JvmStatic
-    private fun printBitmapInfo(bitmap: Bitmap, bytes: ByteArray?, quality: Int) {
-        "compress after bitmap size: ${bitmap.getSizeOfM()}MB width: ${bitmap.width} height: ${bitmap.height} bytes.length: ${bytes?.let { it.size / 1024 } ?: 0}KB quality: $quality".v(TAG)
+    private fun printBitmapInfo(bitmapSource: Bitmap, bytes: ByteArray?, quality: Int) {
+        "compress after bitmap size: ${bitmapSource.getByteCount_ofM()}MB width: ${bitmapSource.width} height: ${bitmapSource.height} bytes.length: ${bytes?.let { it.size / 1024 } ?: 0}KB quality: $quality".v(TAG)
     }
 }

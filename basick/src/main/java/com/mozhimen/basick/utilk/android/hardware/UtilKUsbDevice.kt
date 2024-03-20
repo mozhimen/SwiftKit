@@ -12,8 +12,6 @@ import android.hardware.usb.UsbDevice
  */
 object UtilKUsbDevice {
     @JvmStatic
-    fun get(context: Context): Collection<UsbDevice> =
+    fun getListValues(context: Context): Collection<UsbDevice> =
         UtilKUsbManager.getDeviceList(context).values
-
-
 }

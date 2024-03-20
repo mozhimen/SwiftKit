@@ -64,16 +64,20 @@ object ManifestKPermission : BaseUtilK() {
     ) {
         if (permissions.isNotEmpty()) {
             if (!UtilKPermission.isSelfGranted(permissions)) {
-                requestPermissionsByFragment(activity, permissions) { isAllGranted, deniedList ->
-                    printDeniedPermissions(deniedList)
-                    onResult?.invoke(isAllGranted)
-                }
+                requestPermissions_ofProxyFragment(
+                    activity,
+                    permissions,
+                    onResult = { isAllGranted, deniedList ->
+                        printDeniedPermissions(deniedList)
+                        onResult?.invoke(isAllGranted)
+                    }
+                )
             } else onResult?.invoke(true)
         } else onResult?.invoke(true)
     }
 
     @JvmStatic
-    fun requestPermissionsByFragment(
+    fun requestPermissions_ofProxyFragment(
         activity: FragmentActivity,
         permissions: Array<out String>,
         onResult: IManifestKPermissionListener
@@ -103,7 +107,7 @@ object ManifestKPermission : BaseUtilK() {
 
     private fun printDeniedPermissions(deniedList: List<String>) {
         "printDeniedPermissions $deniedList".w(TAG)
-        if (deniedList.isNotEmpty())
-            "请在设置中打开${deniedList.joinToString()}权限".showToastOnMain()
+//        if (deniedList.isNotEmpty())
+//            "请在设置中打开${deniedList.joinToString()}权限".showToastOnMain()
     }
 }

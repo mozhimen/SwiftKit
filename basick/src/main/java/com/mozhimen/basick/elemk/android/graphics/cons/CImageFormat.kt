@@ -38,10 +38,14 @@ object CImageFormat {
 
     @RequiresApi(CVersCode.V_23_6_M)
     const val FLEX_RGBA_8888 = ImageFormat.FLEX_RGBA_8888
+
+    @RequiresApi(CVersCode.V_21_5_L)
     const val RAW_SENSOR = ImageFormat.RAW_SENSOR
 
     @RequiresApi(CVersCode.V_24_7_N)
     const val RAW_PRIVATE = ImageFormat.RAW_PRIVATE
+
+    @RequiresApi(CVersCode.V_21_5_L)
     const val RAW10 = ImageFormat.RAW10
 
     @RequiresApi(CVersCode.V_23_6_M)

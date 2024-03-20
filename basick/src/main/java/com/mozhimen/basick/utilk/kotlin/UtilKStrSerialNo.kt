@@ -44,7 +44,7 @@ object UtilKStrSerialNo : BaseUtilK() {
     fun getStrNoComplementBy0(nowNo: Long, bit: Int): String {
         //封装的数字对象，里面 value 加了 volatile关键字，保证了线程安全
         val count = AtomicLong(nowNo)
-        return UtilKNumber.complementBy0(count.get(), bit)
+        return UtilKNumber.complement_of0(count.get(), bit)
     }
 
     /**

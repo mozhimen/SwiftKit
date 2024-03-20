@@ -299,16 +299,16 @@ object UtilKStrFile : IUtilK {
 
     //region # folder
     @JvmStatic
-    fun getStrFolderPath(folderPath: String): String =
-        if (!folderPath.endsWith("/")) "$folderPath/" else folderPath
+    fun getStrFolderPath(strFolderPath: String): String =
+        if (!strFolderPath.endsWith("/")) "$strFolderPath/" else strFolderPath
 
     @JvmStatic
-    fun getFolderFiles(folderPath: String): Array<File> =
-        folderPath.getStrFolderPath().strFilePath2file().getFolderFiles()
+    fun getFolderFiles(strFolderPath: String): Array<File> =
+        strFolderPath.getStrFolderPath().strFilePath2file().getFolderFiles()
 
     @JvmStatic
-    fun getFolderAllFiles(folderPath: String, fileType: String? = null): Vector<File> =
-        folderPath.getStrFolderPath().strFilePath2file().getFolderAllFiles(fileType)
+    fun getFolderAllFiles(strFolderPath: String, fileType: String? = null): Vector<File> =
+        strFolderPath.getStrFolderPath().strFilePath2file().getFolderAllFiles(fileType)
 
     //////////////////////////////////////////////////////////////////////
 
@@ -316,28 +316,28 @@ object UtilKStrFile : IUtilK {
      * 判断是否是文件夹
      */
     @JvmStatic
-    fun isFolder(folderPath: String): Boolean =
-        folderPath.getStrFolderPath().strFilePath2file().isFolder()
+    fun isFolder(strFolderPath: String): Boolean =
+        strFolderPath.getStrFolderPath().strFilePath2file().isFolder()
 
     /**
      * 文件夹是否存在
      */
     @JvmStatic
-    fun isFolderExist(folderPath: String): Boolean =
-        folderPath.getStrFolderPath().strFilePath2file().isFolderExist()
+    fun isFolderExist(strFolderPath: String): Boolean =
+        strFolderPath.getStrFolderPath().strFilePath2file().isFolderExist()
 
     /**
      * 创建文件夹
      */
     @JvmStatic
-    fun createFolder(folderPath: String): File =
-        folderPath.getStrFolderPath().strFilePath2file().createFolder()
+    fun createFolder(strFolderPath: String): File =
+        strFolderPath.getStrFolderPath().strFilePath2file().createFolder()
 
     /**
      * 删除文件夹
      */
     @JvmStatic
-    fun deleteFolder(folderPath: String): Boolean =
-        folderPath.getStrFolderPath().strFilePath2file().deleteFolder()
+    fun deleteFolder(strFolderPath: String): Boolean =
+        strFolderPath.getStrFolderPath().strFilePath2file().deleteFolder()
     //endregion
 }

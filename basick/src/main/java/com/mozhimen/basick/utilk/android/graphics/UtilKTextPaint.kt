@@ -11,9 +11,7 @@ import android.text.TextPaint
  * @Version 1.0
  */
 object UtilKTextPaint {
-    /**
-     * 多行高度
-     */
+    //多行高度
     @JvmStatic
     fun getMultiLineStrHeight(textPaint: TextPaint, str: String): Float =
         str.split("\n").toTypedArray().size * textPaint.textSize

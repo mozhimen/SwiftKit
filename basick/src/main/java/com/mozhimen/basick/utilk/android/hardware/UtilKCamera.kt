@@ -17,6 +17,10 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 object UtilKCamera {
 
     @JvmStatic
+    fun getCameraInfo(): CameraInfo =
+        CameraInfo()
+
+    @JvmStatic
     fun getCameraInfo(cameraId: Int, cameraInfo: CameraInfo) {
         Camera.getCameraInfo(cameraId, cameraInfo)
     }
@@ -27,31 +31,23 @@ object UtilKCamera {
 
     ///////////////////////////////////////////////////////////////////////
 
-    /**
-     * 设备是否有前置摄像
-     */
+    //设备是否有前置摄像
     @JvmStatic
-    fun hasFrontCamera(context: Context): Boolean =
-        hasCamera(context, true)
+    fun hasCamera_ofFront(context: Context): Boolean =
+        hasCamera_of(context, true)
 
-    /**
-     * 设备是否有后置摄像头
-     */
+    //设备是否有后置摄像头
     @JvmStatic
-    fun hasBackCamera(context: Context): Boolean =
-        hasCamera(context, false)
+    fun hasCamera_ofBack(context: Context): Boolean =
+        hasCamera_of(context, false)
 
-    /**
-     * 是否含有相机
-     * @param isFront Boolean
-     * @return Boolean
-     */
+    //是否含有相机
     @JvmStatic
-    fun hasCamera(context: Context, isFront: Boolean): Boolean {
+    fun hasCamera_of(context: Context, isFront: Boolean): Boolean {
         if (UtilKBuildVersion.isAfterV_28_9_P()) {
             return if (isFront) UtilKPackage.hasFrontCamera(context) else UtilKPackage.hasBackCamera(context)
         } else {
-            val cameraInfo = CameraInfo()
+            val cameraInfo = getCameraInfo()
             for (cameraId in 0 until getNumberOfCameras()) {
                 getCameraInfo(cameraId, cameraInfo)
                 if (cameraInfo.facing == if (isFront) CCamera.CameraInfo.CAMERA_FACING_FRONT else CCamera.CameraInfo.CAMERA_FACING_BACK)

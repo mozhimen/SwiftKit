@@ -17,6 +17,8 @@ object UtilKColorDrawable {
     fun get(@ColorInt intColor: Int): ColorDrawable =
         ColorDrawable(intColor)
 
+    ////////////////////////////////////////////////////////////
+
     /**
      * 是否正常的drawable
      */

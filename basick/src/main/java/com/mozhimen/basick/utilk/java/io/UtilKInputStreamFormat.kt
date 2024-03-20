@@ -17,7 +17,7 @@ import com.mozhimen.basick.utilk.kotlin.bytes2strHex
 import com.mozhimen.basick.utilk.kotlin.bytes2strHex2
 import com.mozhimen.basick.utilk.kotlin.bytes2strHexOfBigInteger
 import com.mozhimen.basick.utilk.kotlin.createFile
-import com.mozhimen.basick.utilk.kotlin.normalize
+import com.mozhimen.basick.utilk.kotlin.constraint
 import java.io.BufferedInputStream
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -365,7 +365,7 @@ object UtilKInputStreamFormat : IUtilK {
             while (inputStream.read(bytes).also { readCount = it } != -1) {
                 offset += readCount
                 outputStream.write(bytes, 0, readCount)
-                percent = (offset.toFloat() / totalCount.toFloat()).normalize(0f, 1f)
+                percent = (offset.toFloat() / totalCount.toFloat()).constraint(0f, 1f)
                 //UtilKLogWrapper.d(TAG, "inputStream2outputStream: offset $offset total $totalCount percent $percent")
                 block?.invoke(readCount, percent)
             }

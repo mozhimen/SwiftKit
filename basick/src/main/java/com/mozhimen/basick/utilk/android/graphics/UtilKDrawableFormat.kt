@@ -19,8 +19,8 @@ fun Drawable.drawable2bitmapDrawable(drawable: Drawable): BitmapDrawable =
 fun Drawable.drawable2bitmap(width: Int = this.intrinsicWidth, height: Int = this.intrinsicHeight, config: Bitmap.Config? = null): Bitmap =
     UtilKDrawableFormat.drawable2bitmap(this, width, height, config)
 
-fun Drawable.drawable2bitmapOfCustom(width: Int = this.intrinsicWidth, height: Int = this.intrinsicHeight): Bitmap =
-    UtilKDrawableFormat.drawable2bitmapOfCustom(this, width, height)
+fun Drawable.drawable2bitmap_ofCustom(width: Int = this.intrinsicWidth, height: Int = this.intrinsicHeight): Bitmap =
+    UtilKDrawableFormat.drawable2bitmap_ofCustom(this, width, height)
 
 object UtilKDrawableFormat {
     @JvmStatic
@@ -32,7 +32,7 @@ object UtilKDrawableFormat {
         drawable.toBitmap(width, height, config)
 
     @JvmStatic
-    fun drawable2bitmapOfCustom(drawable: Drawable, width: Int = drawable.intrinsicWidth, height: Int = drawable.intrinsicHeight): Bitmap =
+    fun drawable2bitmap_ofCustom(drawable: Drawable, width: Int = drawable.intrinsicWidth, height: Int = drawable.intrinsicHeight): Bitmap =
         if (drawable is BitmapDrawable) drawable.bitmap else {
             val bitmap: Bitmap = if (width <= 0 || height <= 0) {
                 Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)

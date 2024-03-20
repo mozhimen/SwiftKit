@@ -47,7 +47,7 @@ object UtilKDevice : BaseUtilK() {
     @RequiresPermission(allOf = [CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE])
     fun getImei(): String =
         if (UtilKBuildVersion.isAfterV_23_6_M()) {
-            UtilKImei.getImei(_context)
+            UtilKImei.getImeiOrMeid(_context)
         } else ""
 
     /**
@@ -181,7 +181,7 @@ object UtilKDevice : BaseUtilK() {
 
     @JvmStatic
     fun hasFrontCamera(): Boolean =
-        UtilKCamera.hasFrontCamera(_context)
+        UtilKCamera.hasCamera_ofFront(_context)
 
     @JvmStatic
     fun hasFrontCameraOfPackage(): Boolean =
@@ -189,7 +189,7 @@ object UtilKDevice : BaseUtilK() {
 
     @JvmStatic
     fun hasBackCamera(): Boolean =
-        UtilKCamera.hasBackCamera(_context)
+        UtilKCamera.hasCamera_ofBack(_context)
 
     @JvmStatic
     fun hasBackCameraOfPackage(): Boolean =
@@ -207,7 +207,7 @@ object UtilKDevice : BaseUtilK() {
      */
     @JvmStatic
     fun hasPid(context: Context, vendorId: Int, productId: Int): Boolean {
-        val devices: Iterator<UsbDevice> = UtilKUsbDevice.get(context).iterator()
+        val devices: Iterator<UsbDevice> = UtilKUsbDevice.getListValues(context).iterator()
         while (devices.hasNext()) {
             val usbDevice: UsbDevice = devices.next()
             if (usbDevice.vendorId == vendorId && usbDevice.productId == productId) return true

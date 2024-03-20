@@ -1,8 +1,8 @@
 package com.mozhimen.basick.utilk.android.content
 
 import android.content.ContentValues
-import android.os.Environment
 import android.provider.MediaStore
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 
 /**
  * @ClassName UtilKContentValues
@@ -13,10 +13,11 @@ import android.provider.MediaStore
  */
 object UtilKContentValues {
     @JvmStatic
-    fun get(mineType: String, filePath: String, fileName: String): ContentValues =
+    fun get(strFileName: String, mineType: String, strFilePath: String): ContentValues =
         ContentValues().apply {
-            put(MediaStore.MediaColumns.DISPLAY_NAME, fileName/*imageFileName*/)
+            put(MediaStore.MediaColumns.DISPLAY_NAME, strFileName/*imageFileName*/)
             put(MediaStore.Images.Media.MIME_TYPE, mineType/*"image/jpeg"*/)
-            put(MediaStore.Images.Media.RELATIVE_PATH, filePath/*Environment.DIRECTORY_PICTURES*/)
+            if (UtilKBuildVersion.isAfterV_28_9_P())
+                put(MediaStore.Images.Media.RELATIVE_PATH, strFilePath/*Environment.DIRECTORY_PICTURES*/)
         }
 }

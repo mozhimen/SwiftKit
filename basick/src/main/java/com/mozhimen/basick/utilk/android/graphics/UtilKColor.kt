@@ -23,7 +23,7 @@ object UtilKColor {
     @JvmStatic
     @ColorInt
     @RequiresApi(CVersCode.V_26_8_O)
-    fun getMedianColor(@ColorInt intColorStart: Int, @ColorInt intColorEnd: Int, ratio: Float): Int {
+    fun getColor_ofMedian(@ColorInt intColorStart: Int, @ColorInt intColorEnd: Int, ratio: Float): Int {
         val startRed = Color.red(intColorStart)
         val startBlue = Color.blue(intColorStart)
         val startGreen = Color.green(intColorStart)
