@@ -87,7 +87,7 @@ object UtilKUriFormat : BaseUtilK() {
             CContentResolver.SCHEME_CONTENT -> {
                 //把文件保存到沙盒
                 val strFileName = UtilKContentResolverWrapper.getOpenableColumns(uri) ?: run {
-                    "${UtilKFile.getStrFileNameForStrNowDate()}.${UtilKMimeTypeMap.getExtensionFromMimeType(_context, uri)}"
+                    "${UtilKFile.getStrFileName_ofNow()}.${UtilKMimeTypeMap.getExtensionFromMimeType(_context, uri)}"
                 }
                 val strFilePathName = "${UtilKStrPath.Absolute.Internal.getCache().getStrFolderPath()}uri/$strFileName"
                 UtilKContentResolver.openInputStream(_context, uri)?.inputStream2fileOfFileUtils(strFilePathName)?.absolutePath

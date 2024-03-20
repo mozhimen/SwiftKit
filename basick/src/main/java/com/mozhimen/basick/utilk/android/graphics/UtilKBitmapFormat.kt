@@ -118,7 +118,7 @@ object UtilKBitmapFormat : BaseUtilK() {
         try {
             val contentValues = ContentValues().apply {
                 put(CMediaStore.Images.ImageColumns.DATA, fileDest.absolutePath)
-                put(CMediaStore.Images.ImageColumns.DISPLAY_NAME, strFilePathName.split("/").lastOrNull() ?: UtilKFile.getStrFileNameForStrNowDate())
+                put(CMediaStore.Images.ImageColumns.DISPLAY_NAME, strFilePathName.split("/").lastOrNull() ?: UtilKFile.getStrFileName_ofNow())
                 put(CMediaStore.Images.ImageColumns.MIME_TYPE, CMediaFormat.MIMETYPE_IMAGE_JPEG)
                 put(CMediaStore.Images.ImageColumns.DATE_TAKEN, System.currentTimeMillis().toString())
             }

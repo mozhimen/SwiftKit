@@ -94,6 +94,13 @@ object UtilKIntentWrapper {
         UtilKIntent.get(CIntent.ACTION_GET_CONTENT)
 
     @JvmStatic
+    fun getGetContentImage(): Intent =
+        getGetContent().apply {
+            type = CMediaFormat.MIMETYPE_IMAGE_ALL
+            addCategory(Intent.CATEGORY_OPENABLE)
+        }
+
+    @JvmStatic
     fun getGetContentAudio(): Intent =
         getGetContent().apply {
             type = CMediaFormat.MIMETYPE_AUDIO_ALL

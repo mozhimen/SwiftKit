@@ -92,7 +92,7 @@ class MediaStoreCaptureProxy {
     //////////////////////////////////////////////////////////
 
     private fun createCurrentPhotoUri() {
-        val currentPhotoFile = File(UtilKStrPath.Absolute.External.getEnvStoragePublicPictures(), String.format("JPEG_%s.jpg", UtilKFile.getStrFileNameForStrNowDate(Locale.getDefault())))
+        val currentPhotoFile = File(UtilKStrPath.Absolute.External.getEnvStoragePublicPictures(), String.format("JPEG_%s.jpg", UtilKFile.getStrFileName_ofNow(Locale.getDefault())))
         _currentPhotoUri = currentPhotoFile.file2uriImage()?.apply {
             _currentPhotoStrPath = currentPhotoFile.absolutePath
         }

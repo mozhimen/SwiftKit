@@ -80,29 +80,29 @@ object UtilKFile : BaseUtilK() {
 
     //region # file
     @JvmStatic
-    fun getStrFileNameForStrToday(locale: Locale = Locale.CHINA): String =
-        getStrFileNameForStrDate(CDateFormat.yyyy_MM_dd, locale)
+    fun getStrFileName_ofToday(locale: Locale = Locale.CHINA): String =
+        getStrFileName(CDateFormat.yyyy_MM_dd, locale)
 
     /**
      * 当前小时转文件名
      */
     @JvmStatic
-    fun getStrFileNameForStrCurrentHour(locale: Locale = Locale.CHINA): String =
-        getStrFileNameForStrDate(CDateFormat.yyyy_MM_dd_HH, locale)
+    fun getStrFileName_ofCurrentHour(locale: Locale = Locale.CHINA): String =
+        getStrFileName(CDateFormat.yyyy_MM_dd_HH, locale)
 
     /**
      * 当前时间转文件名
      * @return 2023-08-19~11-46-00
      */
     @JvmStatic
-    fun getStrFileNameForStrNowDate(locale: Locale = Locale.CHINA): String =
-        getStrFileNameForStrDate(locale = locale)
+    fun getStrFileName_ofNow(locale: Locale = Locale.CHINA): String =
+        getStrFileName(locale = locale)
 
     /**
      * 时间转文件名
      */
     @JvmStatic
-    fun getStrFileNameForStrDate(formatDate: String = CDateFormat.yyyy_MM_dd_HH_mm_ss, locale: Locale = Locale.CHINA): String =
+    fun getStrFileName(formatDate: String = CDateFormat.yyyy_MM_dd_HH_mm_ss, locale: Locale = Locale.CHINA): String =
         UtilKDate.getNowStr(formatDate, locale).replace(" ", "~").replace(":", "-")
 
     /////////////////////////////////////////////////////////////////////////////////////////////

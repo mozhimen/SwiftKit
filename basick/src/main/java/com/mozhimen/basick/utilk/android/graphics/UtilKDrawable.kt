@@ -1,8 +1,6 @@
 package com.mozhimen.basick.utilk.android.graphics
 
-import android.graphics.Color
 import android.graphics.PorterDuff
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorInt
 import com.mozhimen.basick.utilk.java.io.UtilKFile
@@ -24,7 +22,7 @@ object UtilKDrawable {
      * 从网络获取图片
      */
     @JvmStatic
-    fun getDrawableForStrUrl(strUrl: String, drawableName: String = UtilKFile.getStrFileNameForStrNowDate()): Drawable? =
+    fun getDrawableForStrUrl(strUrl: String, drawableName: String = UtilKFile.getStrFileName_ofNow()): Drawable? =
         try {
             Drawable.createFromStream(URL(strUrl).openStream(), drawableName/*"netUrl.jpg"*/)
         } catch (e: Exception) {
