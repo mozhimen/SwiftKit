@@ -4,7 +4,7 @@ import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
 import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
-import com.mozhimen.basick.utilk.android.content.UtilKApp
+import com.mozhimen.basick.utilk.wrapper.UtilKApp
 import com.mozhimen.basick.utilk.android.widget.showToast
 
 /**

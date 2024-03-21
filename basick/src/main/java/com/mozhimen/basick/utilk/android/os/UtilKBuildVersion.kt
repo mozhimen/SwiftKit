@@ -34,7 +34,7 @@ object UtilKBuildVersion {
         Build.VERSION.CODENAME
 
     @JvmStatic
-    fun getSDKStr(): String =
+    fun getStrSDKInt(): String =
         getSDKInt().toString()
 
     @JvmStatic

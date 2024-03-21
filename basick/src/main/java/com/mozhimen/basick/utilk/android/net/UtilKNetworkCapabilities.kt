@@ -26,8 +26,8 @@ object UtilKNetworkCapabilities {
     @RequiresApi(CVersCode.V_23_6_M)
     @OPermission_ACCESS_NETWORK_STATE
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun getActive(context: Context): NetworkCapabilities? =
-        UtilKActiveNetwork.getActiveNetworkCapabilities(context)
+    fun get_ofActive(context: Context): NetworkCapabilities? =
+        UtilKActiveNetwork.getNetworkCapabilities(context)
 
     ////////////////////////////////////////////////////////////////////
 
@@ -47,15 +47,15 @@ object UtilKNetworkCapabilities {
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
-    fun isActiveAvailable(context: Context): Boolean =
-        getActive(context)?.let { isAvailable(it) } ?: false
+    fun isAvailable_ofActive(context: Context): Boolean =
+        get_ofActive(context)?.let { isAvailable(it) } ?: false
 
     @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
-    fun isActiveConnected(context: Context): Boolean =
-        getActive(context)?.let { isConnected(it) } ?: false
+    fun isConnected_ofActive(context: Context): Boolean =
+        get_ofActive(context)?.let { isConnected(it) } ?: false
 
     ////////////////////////////////////////////////////////////////////
 
@@ -63,8 +63,8 @@ object UtilKNetworkCapabilities {
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
-    fun isActiveAny(context: Context): Boolean {
-        val activeNetworkCapabilities = getActive(context) ?: return false
+    fun isAny_ofActive(context: Context): Boolean {
+        val activeNetworkCapabilities = get_ofActive(context) ?: return false
         return when {
             activeNetworkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_CELLULAR) -> true
             activeNetworkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_ETHERNET) -> true
@@ -79,8 +79,8 @@ object UtilKNetworkCapabilities {
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
-    fun isActiveMobile(context: Context): Boolean {
-        val networkCapabilities = getActive(context) ?: return false
+    fun isMobile_ofActive(context: Context): Boolean {
+        val networkCapabilities = get_ofActive(context) ?: return false
         return networkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_CELLULAR)
     }
 
@@ -88,8 +88,8 @@ object UtilKNetworkCapabilities {
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
-    fun isActiveEthernet(context: Context): Boolean {
-        val networkCapabilities = getActive(context) ?: return false
+    fun isEthernet_ofActive(context: Context): Boolean {
+        val networkCapabilities = get_ofActive(context) ?: return false
         return networkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_ETHERNET)
     }
 
@@ -97,8 +97,8 @@ object UtilKNetworkCapabilities {
     @RequiresApi(CVersCode.V_26_8_O)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
-    fun isActiveWifi(context: Context): Boolean {
-        val networkCapabilities = getActive(context) ?: return false
+    fun isWifi_ofActive(context: Context): Boolean {
+        val networkCapabilities = get_ofActive(context) ?: return false
         return (networkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_WIFI) || networkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_WIFI_AWARE))
     }
 
@@ -106,8 +106,8 @@ object UtilKNetworkCapabilities {
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
-    fun isActiveVpn(context: Context): Boolean {
-        val networkCapabilities = getActive(context) ?: return false
+    fun isVpn_ofActive(context: Context): Boolean {
+        val networkCapabilities = get_ofActive(context) ?: return false
         return networkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_VPN)
     }
 
@@ -117,29 +117,29 @@ object UtilKNetworkCapabilities {
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
-    fun isActiveMobileAvailable(context: Context) =
-        isActiveMobile(context) && isActiveAvailable(context)
+    fun isMobileAvailable_ofActive(context: Context) =
+        isMobile_ofActive(context) && isAvailable_ofActive(context)
 
     @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
-    fun isActiveEthernetAvailable(context: Context) =
-        isActiveEthernet(context) && isActiveAvailable(context)
+    fun isEthernetAvailable_ofActive(context: Context) =
+        isEthernet_ofActive(context) && isAvailable_ofActive(context)
 
     @JvmStatic
     @RequiresApi(CVersCode.V_26_8_O)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
-    fun isActiveWifiAvailable(context: Context) =
-        isActiveWifi(context) && isActiveAvailable(context)
+    fun isWifiAvailable_ofActive(context: Context) =
+        isWifi_ofActive(context) && isAvailable_ofActive(context)
 
     @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
-    fun isActiveVpnAvailable(context: Context) =
-        isActiveVpn(context) && isActiveAvailable(context)
+    fun isVpnAvailable_ofActive(context: Context) =
+        isVpn_ofActive(context) && isAvailable_ofActive(context)
 
     ///////////////////////////////////////////////////////////////////////////////
 
@@ -147,29 +147,29 @@ object UtilKNetworkCapabilities {
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
-    fun isActiveMobileConnected(context: Context) =
-        isActiveMobile(context) && isActiveConnected(context)
+    fun isMobileConnected_ofActive(context: Context) =
+        isMobile_ofActive(context) && isConnected_ofActive(context)
 
     @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
-    fun isActiveEthernetConnected(context: Context) =
-        isActiveEthernet(context) && isActiveConnected(context)
+    fun isEthernetConnected_ofActive(context: Context) =
+        isEthernet_ofActive(context) && isConnected_ofActive(context)
 
     @JvmStatic
     @RequiresApi(CVersCode.V_26_8_O)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
-    fun isActiveWifiConnected(context: Context) =
-        isActiveWifi(context) && isActiveConnected(context)
+    fun isWifiConnected_ofActive(context: Context) =
+        isWifi_ofActive(context) && isConnected_ofActive(context)
 
     @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
-    fun isActiveVpnConnected(context: Context) =
-        isActiveVpn(context) && isActiveConnected(context)
+    fun isVpnConnected_ofActive(context: Context) =
+        isVpn_ofActive(context) && isConnected_ofActive(context)
 
     ///////////////////////////////////////////////////////////////////////////////
 
@@ -177,8 +177,8 @@ object UtilKNetworkCapabilities {
     @RequiresApi(CVersCode.V_23_6_M)
     @OPermission_ACCESS_NETWORK_STATE
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun activeNetworkCapabilities2netTypes(context: Context): Set<ENetType> =
-        getActive(context)?.let { networkCapabilities2netTypes(it) } ?: setOf(ENetType.NONE)
+    fun networkCapabilities2netTypes_ofActive(context: Context): Set<ENetType> =
+        get_ofActive(context)?.let { networkCapabilities2netTypes(it) } ?: setOf(ENetType.NONE)
 
     @JvmStatic
     @RequiresApi(CVersCode.V_21_5_L)

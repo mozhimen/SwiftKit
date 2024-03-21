@@ -14,6 +14,6 @@ import java.util.Locale
  */
 object UtilKGeocoder {
     @JvmStatic
-    fun get(context: Context, locale: Locale = Locale.CHINA): Geocoder =
+    fun get(context: Context, locale: Locale = Locale.getDefault()): Geocoder =
         Geocoder(context, locale)
 }

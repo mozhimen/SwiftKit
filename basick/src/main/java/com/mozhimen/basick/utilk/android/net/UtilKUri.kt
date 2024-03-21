@@ -51,20 +51,31 @@ fun Uri.isAuthorityMediaDocument(): Boolean =
     UtilKUri.isAuthorityMediaDocument(this)
 
 object UtilKUri : BaseUtilK() {
-
-    /**
-     * 获取PackageUri
-     */
     @JvmStatic
-    fun getPackageUri(context: Context): Uri =
+    fun get(strUri: String): Uri =
+        parse(strUri)
+
+    @JvmStatic
+    fun get(scheme: String, ssp: String, fragment: String): Uri =
+        fromParts(scheme, ssp, fragment)
+
+    //获取PackageUri
+    @JvmStatic
+    fun getPackage(context: Context): Uri =
         Uri.parse("package:${UtilKContext.getPackageName(context)}")
 
-    /**
-     * 获取PackageUri
-     */
+    //获取PackageUri
     @JvmStatic
-    fun getPackageUri_ofParts(context: Context): Uri =
+    fun getPackage_ofParts(context: Context): Uri =
         Uri.fromParts("package", UtilKContext.getPackageName(context), null)
+
+    @JvmStatic
+    fun fromParts(scheme: String, ssp: String, fragment: String): Uri =
+        Uri.fromParts(scheme, ssp, fragment)
+
+    @JvmStatic
+    fun parse(strUri: String): Uri =
+        Uri.parse(strUri)
 
     /////////////////////////////////////////////////////////////////////////////
 

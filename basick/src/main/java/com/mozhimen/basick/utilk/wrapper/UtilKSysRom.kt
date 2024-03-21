@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.android.os
+package com.mozhimen.basick.utilk.wrapper
 
 import android.os.Build
 import android.text.TextUtils
@@ -14,7 +14,7 @@ import java.util.Locale
  * @Date 2023/6/20 16:05
  * @Version 1.0
  */
-object UtilKRom {
+object UtilKSysRom {
 
     private var _name: String? = null
     private var _version: String? = null

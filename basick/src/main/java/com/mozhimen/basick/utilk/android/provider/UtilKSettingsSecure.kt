@@ -35,10 +35,8 @@ object UtilKSettingsSecure {
 
     //////////////////////////////////////////////////////////////////////////
 
-    /**
-     * 判断定位服务是否开启
-     */
-    fun isLocationEnabled(context: Context): Boolean {
+    //判断定位服务是否开启
+    fun isLocationModeOn(context: Context): Boolean {
         return if (UtilKBuildVersion.isAfterV_19_44_K()) {
             val locationMode = try {
                 getInt(context, CSettings.Secure.LOCATION_MODE)

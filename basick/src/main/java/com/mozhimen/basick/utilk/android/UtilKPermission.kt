@@ -6,6 +6,8 @@ import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.elemk.android.provider.cons.CSettings
+import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_COARSE_LOCATION
+import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_FINE_LOCATION
 import com.mozhimen.basick.lintk.optins.permission.OPermission_MANAGE_EXTERNAL_STORAGE
 import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_EXTERNAL_STORAGE
 import com.mozhimen.basick.lintk.optins.permission.OPermission_REQUEST_INSTALL_PACKAGES
@@ -86,9 +88,18 @@ object UtilKPermission : BaseUtilK() {
     fun hasRequestInstallPackages(): Boolean =
         UtilKPackageManager.canRequestPackageInstalls(_context)
 
-    /**
-     * 是否有无障碍权限
-     */
+    @JvmStatic
+    @OPermission_ACCESS_COARSE_LOCATION
+    @OPermission_ACCESS_FINE_LOCATION
+    @RequiresPermission(allOf = [CPermission.ACCESS_FINE_LOCATION, CPermission.ACCESS_COARSE_LOCATION])
+    fun hasAccessLocation(): Boolean =
+        if (!isSelfGranted(arrayOf(CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION))) {
+            false.also { "get: permission denied".e(TAG) }
+        } else if (!UtilKSettingsSecure.isLocationModeOn(_context)) {
+            false.also { "get: system setting location off".e(TAG) }
+        } else true
+
+    //是否有无障碍权限
     @JvmStatic
     fun hasAccessibility(serviceClazz: Class<*>): Boolean {
         var permissionEnable = 0

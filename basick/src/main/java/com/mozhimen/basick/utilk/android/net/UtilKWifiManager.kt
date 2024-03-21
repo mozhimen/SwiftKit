@@ -28,23 +28,23 @@ object UtilKWifiManager {
     /////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
     @OPermission_ACCESS_WIFI_STATE
     @OPermission_ACCESS_FINE_LOCATION
+    @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
     fun getScanResults(context: Context): List<ScanResult> =
         get(context).scanResults
 
     @JvmStatic
-    @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
     @OPermission_ACCESS_WIFI_STATE
     @OPermission_ACCESS_FINE_LOCATION
+    @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
     fun getConnectionInfo(context: Context): WifiInfo? =
         get(context).connectionInfo
 
     @JvmStatic
-    @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
     @OPermission_ACCESS_WIFI_STATE
     @OPermission_ACCESS_FINE_LOCATION
+    @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
     fun getConfiguredNetworks(context: Context): List<WifiConfiguration>? =
         get(context).configuredNetworks
 

@@ -43,8 +43,8 @@ object UtilKBuild {
 
     //构建SDK版本
     @JvmStatic
-    fun getVersionSDKStr(): String =
-        UtilKBuildVersion.getSDKStr()
+    fun getVersionSDK(): String =
+        UtilKBuildVersion.getStrSDKInt()
 
     //构建Release版本号
     @JvmStatic

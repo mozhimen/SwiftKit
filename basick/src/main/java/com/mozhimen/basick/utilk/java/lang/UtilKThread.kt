@@ -23,7 +23,7 @@ object UtilKThread {
 
     @JvmStatic
     fun getMain(): Thread =
-        UtilKLooper.getMainThread()
+        UtilKLooper.getThread_ofMain()
 
     /////////////////////////////////////////////////////////
 

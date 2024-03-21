@@ -30,7 +30,7 @@ object UtilKMatrix {
     @JvmStatic
     fun postFlip(matrix: Matrix, flipX: Boolean = false, flipY: Boolean = false) {
         if (flipX || flipY)
-            matrix.postScale(if (flipX) -1f else 1f, if (flipY) -1f else 1f)
+            postScale(matrix, if (flipX) -1f else 1f, if (flipY) -1f else 1f)
     }
 
     @JvmStatic

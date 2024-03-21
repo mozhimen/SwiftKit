@@ -8,6 +8,7 @@ import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_COARSE_LOCATION
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_FINE_LOCATION
 import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.android.UtilKPermission
 import com.mozhimen.basick.utilk.android.location.UtilKLocation
 import kotlinx.coroutines.Dispatchers
 
@@ -45,7 +46,7 @@ class TaskKLocation : TaskKPollInfinite() {
     @OPermission_ACCESS_FINE_LOCATION
     @OPermission_ACCESS_COARSE_LOCATION
     fun startLocationTask(intervalMillis: Long, minTimeMs: Long = 2000, minDistanceM: Float = 5f, task: ISuspendAA_Listener<Double>? = null) {
-        if (!UtilKLocation.hasPermission()) {
+        if (!UtilKPermission.hasAccessLocation()) {
             UtilKLogWrapper.w(TAG, "startLocationTask: dont hasPermission")
             return
         }

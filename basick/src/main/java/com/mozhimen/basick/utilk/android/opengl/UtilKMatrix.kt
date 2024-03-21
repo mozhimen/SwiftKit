@@ -1,83 +1,37 @@
 package com.mozhimen.basick.utilk.android.opengl
 
 import android.opengl.Matrix
-import com.mozhimen.basick.elemk.android.opengl.annors.AMatrixType
 
 /**
- * @ClassName UtilKMatrix
+ * @ClassName UtilKMatrixDeal
  * @Description TODO
- * @Author Kolin Zhao / Mozhimen
- * @Date 2022/6/16 13:03
+ * @Author Mozhimen / Kolin Zhao
+ * @Date 2023/8/6 21:57
  * @Version 1.0
  */
 object UtilKMatrix {
     @JvmStatic
-    fun get_of(matrix: FloatArray, @AMatrixType type: Int, widthImage: Int, heightImage: Int, widthView: Int, heightView: Int) {
-        if (heightImage > 0 && widthImage > 0 && widthView > 0 && heightView > 0) {
-            val projection = FloatArray(16)
-            val camera = FloatArray(16)
-            if (type == AMatrixType.MATRIX_FIT_XY) {
-                Matrix.orthoM(projection, 0, -1f, 1f, -1f, 1f, 1f, 3f)
-                Matrix.setLookAtM(camera, 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f)
-                Matrix.multiplyMM(matrix, 0, projection, 0, camera, 0)
-            }
-            val sWhView = widthView.toFloat() / heightView
-            val sWhImg = widthImage.toFloat() / heightImage
-            if (sWhImg > sWhView) {
-                when (type) {
-                    AMatrixType.MATRIX_CENTER_CROP -> Matrix.orthoM(projection, 0, -sWhView / sWhImg, sWhView / sWhImg, -1f, 1f, 1f, 3f)
-                    AMatrixType.MATRIX_CENTER_IN_SIDE -> Matrix.orthoM(projection, 0, -1f, 1f, -sWhImg / sWhView, sWhImg / sWhView, 1f, 3f)
-                    AMatrixType.MATRIX_FIT_START -> Matrix.orthoM(projection, 0, -1f, 1f, 1 - 2 * sWhImg / sWhView, 1f, 1f, 3f)
-                    AMatrixType.MATRIX_FIT_END -> Matrix.orthoM(projection, 0, -1f, 1f, -1f, 2 * sWhImg / sWhView - 1, 1f, 3f)
-                }
-            } else {
-                when (type) {
-                    AMatrixType.MATRIX_CENTER_CROP -> Matrix.orthoM(projection, 0, -1f, 1f, -sWhImg / sWhView, sWhImg / sWhView, 1f, 3f)
-                    AMatrixType.MATRIX_CENTER_IN_SIDE -> Matrix.orthoM(projection, 0, -sWhView / sWhImg, sWhView / sWhImg, -1f, 1f, 1f, 3f)
-                    AMatrixType.MATRIX_FIT_START -> Matrix.orthoM(projection, 0, -1f, 2 * sWhView / sWhImg - 1, -1f, 1f, 1f, 3f)
-                    AMatrixType.MATRIX_FIT_END -> Matrix.orthoM(projection, 0, 1 - 2 * sWhView / sWhImg, 1f, -1f, 1f, 1f, 3f)
-                }
-            }
-            Matrix.setLookAtM(camera, 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f)
-            Matrix.multiplyMM(matrix, 0, projection, 0, camera, 0)
-        }
+    fun rotateM(matrix: FloatArray, mOffset: Int, a: Float, x: Float, y: Float, z: Float) {
+        Matrix.rotateM(matrix, mOffset, a, x, y, z)
     }
 
     @JvmStatic
-    fun get_ofShow(matrix: FloatArray, widthImage: Int, heightImage: Int, widthView: Int, heightView: Int) {
-        if (heightImage > 0 && widthImage > 0 && widthView > 0 && heightView > 0) {
-            val sWhView = widthView.toFloat() / heightView
-            val sWhImg = widthImage.toFloat() / heightImage
-            val projection = FloatArray(16)
-            val camera = FloatArray(16)
-            if (sWhImg > sWhView) {
-                Matrix.orthoM(projection, 0, -sWhView / sWhImg, sWhView / sWhImg, -1f, 1f, 1f, 3f)
-            } else {
-                Matrix.orthoM(projection, 0, -1f, 1f, -sWhImg / sWhView, sWhImg / sWhView, 1f, 3f)
-            }
-            Matrix.setLookAtM(camera, 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f)
-            Matrix.multiplyMM(matrix, 0, projection, 0, camera, 0)
-        }
+    fun scaleM(matrix: FloatArray, mOffset: Int, x: Float, y: Float, z: Float) {
+        Matrix.scaleM(matrix, mOffset, x, y, z)
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun rotateM_ofZ(matrix: FloatArray, angle: Float): FloatArray {
+        Matrix.rotateM(matrix, 0, angle, 0f, 0f, 1f)
+        return matrix
     }
 
     @JvmStatic
-    fun getOriginal(): FloatArray =
-        floatArrayOf(1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f)
-
-    @JvmStatic
-    fun getCenterInside(matrix: FloatArray, imgWidth: Int, imgHeight: Int, viewWidth: Int, viewHeight: Int) {
-        if (imgHeight > 0 && imgWidth > 0 && viewWidth > 0 && viewHeight > 0) {
-            val sWhView = viewWidth.toFloat() / viewHeight
-            val sWhImg = imgWidth.toFloat() / imgHeight
-            val projection = FloatArray(16)
-            val camera = FloatArray(16)
-            if (sWhImg > sWhView) {
-                Matrix.orthoM(projection, 0, -1f, 1f, -sWhImg / sWhView, sWhImg / sWhView, 1f, 3f)
-            } else {
-                Matrix.orthoM(projection, 0, -sWhView / sWhImg, sWhView / sWhImg, -1f, 1f, 1f, 3f)
-            }
-            Matrix.setLookAtM(camera, 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f)
-            Matrix.multiplyMM(matrix, 0, projection, 0, camera, 0)
-        }
+    fun flip_ofXY(matrix: FloatArray, isFlipX: Boolean, isFlipY: Boolean): FloatArray {
+        if (isFlipX || isFlipY)
+            Matrix.scaleM(matrix, 0, if (isFlipX) -1f else 1f, if (isFlipY) -1f else 1f, 1f)
+        return matrix
     }
 }

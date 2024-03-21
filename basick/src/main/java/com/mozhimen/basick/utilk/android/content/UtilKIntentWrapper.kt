@@ -254,7 +254,7 @@ object UtilKIntentWrapper {
      */
     @JvmStatic
     fun getApplicationDetailsSettings(context: Context): Intent =
-        UtilKIntent.get(CSettings.ACTION_APPLICATION_DETAILS_SETTINGS, UtilKUri.getPackageUri_ofParts(context))
+        UtilKIntent.get(CSettings.ACTION_APPLICATION_DETAILS_SETTINGS, UtilKUri.getPackage_ofParts(context))
 
     /**
      * 管理APP下载
@@ -291,7 +291,7 @@ object UtilKIntentWrapper {
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
     @OPermission_MANAGE_EXTERNAL_STORAGE
     fun getManageAppAllFilesAccessPermission(context: Context): Intent =
-        UtilKIntent.get(CSettings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, UtilKUri.getPackageUri(context))
+        UtilKIntent.get(CSettings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, UtilKUri.getPackage(context))
 
     /**
      * 获取管理悬浮窗
@@ -299,7 +299,7 @@ object UtilKIntentWrapper {
     @RequiresApi(CVersCode.V_23_6_M)
     @JvmStatic
     fun getManageOverlayPermission(context: Context): Intent =
-        UtilKIntent.get(CSettings.ACTION_MANAGE_OVERLAY_PERMISSION, UtilKUri.getPackageUri(context))
+        UtilKIntent.get(CSettings.ACTION_MANAGE_OVERLAY_PERMISSION, UtilKUri.getPackage(context))
 
     /**
      * 获取管理安装
@@ -307,7 +307,7 @@ object UtilKIntentWrapper {
     @RequiresApi(CVersCode.V_26_8_O)
     @JvmStatic
     fun getManageUnknownAppSources(context: Context): Intent =
-        UtilKIntent.get(CSettings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, UtilKUri.getPackageUri(context))
+        UtilKIntent.get(CSettings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, UtilKUri.getPackage(context))
 
     ///////////////////////////////////////////////////////////////////////////////////////
     //MediaStore

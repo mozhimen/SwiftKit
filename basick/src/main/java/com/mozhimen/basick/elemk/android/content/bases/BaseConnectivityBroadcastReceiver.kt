@@ -63,7 +63,7 @@ open class BaseConnectivityBroadcastReceiver : BaseBroadcastReceiver, IBroadcast
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     override fun onReceive(context: Context?, intent: Intent) {
         if (CConnectivityManager.CONNECTIVITY_ACTION != intent.action) return
-        val netTypes = UtilKNet.getActiveNetTypes()
+        val netTypes = UtilKNet.getNetTypes_ofActive()
         if (this.netTypes != netTypes) {
             "onReceive: eNetKType $netTypes".w(TAG)
             notifyListeners(netTypes)

@@ -2,7 +2,6 @@ package com.mozhimen.basick.utilk.android.opengl
 
 import android.opengl.ETC1
 import java.nio.Buffer
-import java.nio.ByteBuffer
 
 /**
  * @ClassName UtilKETC1

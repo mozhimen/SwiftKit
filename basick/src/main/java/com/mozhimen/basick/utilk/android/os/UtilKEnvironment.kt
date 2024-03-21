@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk.android.os
 
-import android.annotation.SuppressLint
 import android.os.Environment
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
@@ -10,7 +9,6 @@ import com.mozhimen.basick.elemk.android.provider.cons.CSettings
 import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.lintk.optins.permission.OPermission_MANAGE_EXTERNAL_STORAGE
 import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_EXTERNAL_STORAGE
-import com.mozhimen.basick.lintk.optins.permission.OPermission_WRITE_EXTERNAL_STORAGE
 import com.mozhimen.basick.manifestk.cons.CPermission
 import java.io.File
 
@@ -52,64 +50,64 @@ object UtilKEnvironment {
         Environment.getExternalStoragePublicDirectory(null)
 
     @JvmStatic
-    fun getExternalStoragePublicDirAlarms(): File =
+    fun getExternalStoragePublicDir_ofAlarms(): File =
         Environment.getExternalStoragePublicDirectory(CEnvironment.DIRECTORY_ALARMS)
 
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
-    fun getExternalStoragePublicDirScreenshots(): File =
+    fun getExternalStoragePublicDir_ofScreenshots(): File =
         Environment.getExternalStoragePublicDirectory(CEnvironment.getDirectoryScreenShots())
 
     @JvmStatic
     @RequiresApi(CVersCode.V_31_12_S)
-    fun getExternalStoragePublicDirRecordings(): File =
+    fun getExternalStoragePublicDir_ofRecordings(): File =
         Environment.getExternalStoragePublicDirectory(CEnvironment.getDirectoryRecordings())
 
     @JvmStatic
-    fun getExternalStoragePublicDirPodcasts(): File =
+    fun getExternalStoragePublicDir_ofPodcasts(): File =
         Environment.getExternalStoragePublicDirectory(CEnvironment.DIRECTORY_PODCASTS)
 
     @JvmStatic
-    fun getExternalStoragePublicDirPictures(): File =
+    fun getExternalStoragePublicDir_ofPictures(): File =
         Environment.getExternalStoragePublicDirectory(CEnvironment.DIRECTORY_PICTURES)
 
     @JvmStatic
-    fun getExternalStoragePublicDirNotifications(): File =
+    fun getExternalStoragePublicDir_ofNotifications(): File =
         Environment.getExternalStoragePublicDirectory(CEnvironment.DIRECTORY_NOTIFICATIONS)
 
     @JvmStatic
-    fun getExternalStoragePublicDirMusic(): File =
+    fun getExternalStoragePublicDir_ofMusic(): File =
         Environment.getExternalStoragePublicDirectory(CEnvironment.DIRECTORY_MUSIC)
 
     @JvmStatic
-    fun getExternalStoragePublicDirMovies(): File =
+    fun getExternalStoragePublicDir_ofMovies(): File =
         Environment.getExternalStoragePublicDirectory(CEnvironment.DIRECTORY_MOVIES)
 
     @JvmStatic
-    fun getExternalStoragePublicDirDownloads(): File =
+    fun getExternalStoragePublicDir_ofDownloads(): File =
         Environment.getExternalStoragePublicDirectory(CEnvironment.DIRECTORY_DOWNLOADS)
 
     @JvmStatic
-    fun getExternalStoragePublicDirDocuments(): File =
+    fun getExternalStoragePublicDir_ofDocuments(): File =
         Environment.getExternalStoragePublicDirectory(CEnvironment.DIRECTORY_DOCUMENTS)
 
     @JvmStatic
-    fun getExternalStoragePublicDirDCIM(): File =
+    fun getExternalStoragePublicDir_ofDCIM(): File =
         Environment.getExternalStoragePublicDirectory(CEnvironment.DIRECTORY_DCIM)
 
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
-    fun getExternalStoragePublicDirAudiobooks(): File =
+    fun getExternalStoragePublicDir_ofAudiobooks(): File =
         Environment.getExternalStoragePublicDirectory(CEnvironment.getDirectoryAudioBooks())
 
     @JvmStatic
-    fun getExternalStoragePublicDirRingtones(): File =
+    fun getExternalStoragePublicDir_ofRingtones(): File =
         Environment.getExternalStoragePublicDirectory(CEnvironment.DIRECTORY_RINGTONES)
 
     ////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun isExternalStorageMounted(): Boolean =
+    fun isExternalStorageStateMounted(): Boolean =
         Environment.getExternalStorageState() == CEnvironment.MEDIA_MOUNTED
 
     @JvmStatic

@@ -23,6 +23,6 @@ object UtilKProcess : BaseUtilK() {
 
     @JvmStatic
     fun killProcess_ofMyPid() {
-        Process.killProcess(getMyPid())
+        killProcess(getMyPid())
     }
 }

@@ -1,7 +1,11 @@
-package com.mozhimen.basick.utilk.android.content
+package com.mozhimen.basick.utilk.wrapper
 
 import android.content.pm.ApplicationInfo
 import android.graphics.drawable.Drawable
+import com.mozhimen.basick.utilk.android.content.UtilKApplicationInfo
+import com.mozhimen.basick.utilk.android.content.UtilKPackageArchiveInfo
+import com.mozhimen.basick.utilk.android.content.UtilKPackageInfo
+import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
 import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 

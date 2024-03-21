@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk.android.net
 
-import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -51,8 +50,8 @@ fun Uri.uri2file(): File? =
 fun Uri.uri2bitmap(): Bitmap =
     UtilKUriFormat.uri2bitmap(this)
 
-fun Uri.uri2bitmapOfStream(): Bitmap? =
-    UtilKUriFormat.uri2bitmapOfStream(this)
+fun Uri.uri2bitmap_ofStream(): Bitmap? =
+    UtilKUriFormat.uri2bitmap_ofStream(this)
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -61,34 +60,29 @@ object UtilKUriFormat : BaseUtilK() {
     fun uri2file(uri: Uri): File? =
         this.uri2strFilePathName(uri)?.let { File(it) }
 
-    @SuppressLint("Recycle")
     @JvmStatic
     fun uri2strFilePathName(uri: Uri): String? =
         if (uri.scheme == CContentResolver.SCHEME_FILE) {
             uri.path
         } else if (UtilKBuildVersion.isAfterV_29_10_Q()) {
-            uri2strFilePathNameAfter29(uri)
+            uri2strFilePathName_after29(uri)
         } else if (UtilKBuildVersion.isAfterV_24_7_N()) {
-            uri2strFilePathNameAfter24(uri)
+            uri2strFilePathName_after24(uri)
         } else if (UtilKBuildVersion.isAfterV_19_44_K() && UtilKDocumentsContract.isDocumentUri(_context, uri)) {
-            uri2strFilePathNameAfter19(uri)
+            uri2strFilePathName_after19(uri)
         } else if (uri.scheme == CContentResolver.SCHEME_CONTENT) {
             uri.getMediaColumns()
         } else null
 
-    /**
-     * android Q 的写法 沙盒
-     */
-    @SuppressLint("Recycle")
+    //android Q 的写法 沙盒
     @RequiresApi(CVersCode.V_29_10_Q)
-    fun uri2strFilePathNameAfter29(uri: Uri): String? =
+    fun uri2strFilePathName_after29(uri: Uri): String? =
         when (uri.scheme) {
             CContentResolver.SCHEME_FILE -> uri.path
             CContentResolver.SCHEME_CONTENT -> {
                 //把文件保存到沙盒
-                val strFileName = UtilKContentResolverWrapper.getOpenableColumns(uri) ?: run {
-                    "${UtilKFile.getStrFileName_ofNow()}.${UtilKMimeTypeMap.getExtensionFromMimeType(_context, uri)}"
-                }
+                val strFileName = UtilKContentResolverWrapper.getOpenableColumns(uri) ?:
+                "${UtilKFile.getStrFileName_ofNow()}.${UtilKMimeTypeMap.getExtensionFromMimeType(_context, uri)}"
                 val strFilePathName = "${UtilKStrPath.Absolute.Internal.getCache().getStrFolderPath()}uri/$strFileName"
                 UtilKContentResolver.openInputStream(_context, uri)?.inputStream2fileOfFileUtils(strFilePathName)?.absolutePath
             }
@@ -98,7 +92,7 @@ object UtilKUriFormat : BaseUtilK() {
 
     @JvmStatic
     @RequiresApi(CVersCode.V_24_7_N)
-    fun uri2strFilePathNameAfter24(uri: Uri): String? {
+    fun uri2strFilePathName_after24(uri: Uri): String? {
         if (uri.scheme == CContentResolver.SCHEME_FILE)
             return uri.path
         val strFilePath = uri.path
@@ -116,7 +110,7 @@ object UtilKUriFormat : BaseUtilK() {
     }
 
     @JvmStatic
-    fun uri2strFilePathNameAfter19(uri: Uri): String? {
+    fun uri2strFilePathName_after19(uri: Uri): String? {
         if (uri.scheme == CContentResolver.SCHEME_FILE)
             return uri.path
         if (UtilKBuildVersion.isAfterV_19_44_K() && DocumentsContract.isDocumentUri(_context, uri)) {
@@ -168,12 +162,12 @@ object UtilKUriFormat : BaseUtilK() {
     @JvmStatic
     fun uri2bitmap(uri: Uri): Bitmap =
         if (UtilKBuildVersion.isAfterV_28_9_P())
-            uri2bitmapOfDecoder(uri)
+            uri2bitmap_ofDecoder(uri)
         else
-            uri2bitmapOfMedia(uri)
+            uri2bitmap_ofMedia(uri)
 
     @JvmStatic
-    fun uri2bitmapOfDescriptor(uri: Uri, opts: BitmapFactory.Options? = null): Bitmap? =
+    fun uri2bitmap_ofDescriptor(uri: Uri, opts: BitmapFactory.Options? = null): Bitmap? =
         try {
             UtilKContentResolver.openFileDescriptor(_context, uri, "r")?.use {// mode："r" 表示只读 "w"表示只写
                 UtilKBitmapFactory.decodeFileDescriptor(it.fileDescriptor, null, opts = opts)
@@ -184,15 +178,15 @@ object UtilKUriFormat : BaseUtilK() {
 
     @JvmStatic
     @RequiresApi(CVersCode.V_28_9_P)
-    fun uri2bitmapOfDecoder(uri: Uri): Bitmap =
+    fun uri2bitmap_ofDecoder(uri: Uri): Bitmap =
         UtilKImageDecoder.decodeBitmap(_context, uri)
 
     @JvmStatic
-    fun uri2bitmapOfMedia(uri: Uri): Bitmap =
+    fun uri2bitmap_ofMedia(uri: Uri): Bitmap =
         UtilKMediaStore.getImagesMediaBitmap(_context, uri)
 
     @JvmStatic
-    fun uri2bitmapOfStream(uri: Uri): Bitmap? {
+    fun uri2bitmap_ofStream(uri: Uri): Bitmap? {
         var contentSizeInputStream: InputStream? = null
         var realInputStream: InputStream? = null
         try {

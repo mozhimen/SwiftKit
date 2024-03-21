@@ -26,11 +26,11 @@ object UtilKNet : BaseUtilK() {
     //region # wifi
     //获取Wifi强度
     @JvmStatic
-    @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
     @OPermission_ACCESS_WIFI_STATE
     @OPermission_ACCESS_FINE_LOCATION
+    @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
     fun getWifiStrength(): Int =
-        UtilKWifiInfo.getRssiAbs(_context)
+        UtilKWifiInfo.getRssiAbs_ofMgr(_context)
     //endregion
 
     //region # net
@@ -42,18 +42,18 @@ object UtilKNet : BaseUtilK() {
     @JvmStatic
     @OPermission_ACCESS_NETWORK_STATE
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun getActiveNetTypes(): Set<ENetType> =
+    fun getNetTypes_ofActive(): Set<ENetType> =
         if (UtilKBuildVersion.isAfterV_23_6_M())
-            UtilKNetworkCapabilities.activeNetworkCapabilities2netTypes(_context)
+            UtilKNetworkCapabilities.networkCapabilities2netTypes_ofActive(_context)
         else
-            UtilKActiveNetworkInfo.activeNetworkInfo2netTypes(_context)
+            UtilKActiveNetworkInfo.networkInfo2netTypes(_context)
 
     //获取连接类型
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
-    fun getActiveType(): Int =
-        UtilKActiveNetworkInfo.getActiveType(_context)
+    fun getType_ofActive(): Int =
+        UtilKActiveNetworkInfo.getType(_context)
 
     /////////////////////////////////////////////////////////////////////////
 
@@ -69,71 +69,71 @@ object UtilKNet : BaseUtilK() {
     @JvmStatic
     @OPermission_ACCESS_NETWORK_STATE
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun isActiveAvailable(): Boolean =
+    fun isAvailable_ofActive(): Boolean =
         if (UtilKBuildVersion.isAfterV_23_6_M())
-            UtilKActiveNetwork.isActiveAvailable(_context) || UtilKNetworkCapabilities.isActiveAvailable(_context)
+            UtilKActiveNetwork.isAvailable(_context) || UtilKNetworkCapabilities.isAvailable_ofActive(_context)
         else
-            UtilKActiveNetworkInfo.isActiveAvailable(_context)//UtilKConnectivityManager.getActiveNetworkInfo(_context)?.isAvailable ?: false
+            UtilKActiveNetworkInfo.isAvailable(_context)//UtilKConnectivityManager.getActiveNetworkInfo(_context)?.isAvailable ?: false
 
     //是否连接网络,需要权限:ACCESS_NETWORK_STATE
     @JvmStatic
     @OPermission_ACCESS_NETWORK_STATE
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun isActiveConnected(): Boolean =
+    fun isConnected_ofActive(): Boolean =
         if (UtilKBuildVersion.isAfterV_23_6_M())
-            UtilKNetworkCapabilities.isActiveConnected(_context)
+            UtilKNetworkCapabilities.isConnected_ofActive(_context)
         else
-            UtilKActiveNetworkInfo.isActiveConnected(_context)//UtilKConnectivityManager.getActiveNetworkInfo(_context)?.isAvailable ?: false
+            UtilKActiveNetworkInfo.isConnected(_context)//UtilKConnectivityManager.getActiveNetworkInfo(_context)?.isAvailable ?: false
 
     /////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
-    fun isActiveAny(): Boolean =
+    fun isAny_ofActive(): Boolean =
         if (UtilKBuildVersion.isAfterV_23_6_M())
-            UtilKNetworkCapabilities.isActiveAny(_context)
+            UtilKNetworkCapabilities.isAny_ofActive(_context)
         else
-            UtilKActiveNetworkInfo.isActiveAny(_context)
+            UtilKActiveNetworkInfo.isAny(_context)
 
     //移动网络是否活跃
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
-    fun isActiveMobile(): Boolean =
+    fun isMobile_ofActive(): Boolean =
         if (UtilKBuildVersion.isAfterV_23_6_M())
-            UtilKNetworkCapabilities.isActiveMobile(_context)
+            UtilKNetworkCapabilities.isMobile_ofActive(_context)
         else
-            UtilKActiveNetworkInfo.isActiveMobile(_context)
+            UtilKActiveNetworkInfo.isMobile(_context)
 
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
-    fun isActiveEthernet(): Boolean =
+    fun isEthernet_ofActive(): Boolean =
         if (UtilKBuildVersion.isAfterV_23_6_M())
-            UtilKNetworkCapabilities.isActiveEthernet(_context)
+            UtilKNetworkCapabilities.isEthernet_ofActive(_context)
         else
-            UtilKActiveNetworkInfo.isActiveEthernet(_context)
+            UtilKActiveNetworkInfo.isEthernet(_context)
 
     //无线网是否活跃
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
-    fun isActiveWifi(): Boolean =
+    fun isWifi_ofActive(): Boolean =
         if (UtilKBuildVersion.isAfterV_26_8_O())
-            UtilKNetworkCapabilities.isActiveWifi(_context)
+            UtilKNetworkCapabilities.isWifi_ofActive(_context)
         else
-            UtilKActiveNetworkInfo.isActiveWifi(_context)
+            UtilKActiveNetworkInfo.isWifi(_context)
 
     //VPN是否活跃
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
-    fun isActiveVpn(): Boolean =
+    fun isVpn_ofActive(): Boolean =
         if (UtilKBuildVersion.isAfterV_23_6_M())
-            UtilKNetworkCapabilities.isActiveVpn(_context)
+            UtilKNetworkCapabilities.isVpn_ofActive(_context)
         else if (UtilKBuildVersion.isAfterV_21_5_L())
-            UtilKActiveNetworkInfo.isActiveVpn(_context)
+            UtilKActiveNetworkInfo.isVpn(_context)
         else false
 
     /////////////////////////////////////////////////////////////////////////
@@ -143,9 +143,9 @@ object UtilKNet : BaseUtilK() {
     @OPermission_ACCESS_NETWORK_STATE
     fun isMobileAvailable(): Boolean =
         if (UtilKBuildVersion.isAfterV_23_6_M())
-            UtilKNetworkCapabilities.isActiveMobileAvailable(_context)
+            UtilKNetworkCapabilities.isMobileAvailable_ofActive(_context)
         else if (UtilKBuildVersion.isAfterV_21_5_L())
-            UtilKActiveNetworkInfo.isActiveMobileAvailable(_context)
+            UtilKActiveNetworkInfo.isMobileAvailable(_context)
         else
             UtilKNetworkInfo.isMobileAvailable(_context)
 
@@ -154,9 +154,9 @@ object UtilKNet : BaseUtilK() {
     @OPermission_ACCESS_NETWORK_STATE
     fun isEthernetAvailable(): Boolean =
         if (UtilKBuildVersion.isAfterV_23_6_M())
-            UtilKNetworkCapabilities.isActiveEthernetAvailable(_context)
+            UtilKNetworkCapabilities.isEthernetAvailable_ofActive(_context)
         else if (UtilKBuildVersion.isAfterV_21_5_L())
-            UtilKActiveNetworkInfo.isActiveEthernetAvailable(_context)
+            UtilKActiveNetworkInfo.isEthernetAvailable(_context)
         else
             UtilKNetworkInfo.isEthernetAvailable(_context)
 
@@ -165,9 +165,9 @@ object UtilKNet : BaseUtilK() {
     @OPermission_ACCESS_NETWORK_STATE
     fun isWifiAvailable(): Boolean =
         if (UtilKBuildVersion.isAfterV_26_8_O())
-            UtilKNetworkCapabilities.isActiveWifiAvailable(_context)
+            UtilKNetworkCapabilities.isWifiAvailable_ofActive(_context)
         else if (UtilKBuildVersion.isAfterV_21_5_L())
-            UtilKActiveNetworkInfo.isActiveWifiAvailable(_context)
+            UtilKActiveNetworkInfo.isWifiAvailable(_context)
         else
             UtilKNetworkInfo.isWifiAvailable(_context)
 
@@ -176,9 +176,9 @@ object UtilKNet : BaseUtilK() {
     @OPermission_ACCESS_NETWORK_STATE
     fun isVpnAvailable(): Boolean =
         if (UtilKBuildVersion.isAfterV_23_6_M())
-            UtilKNetworkCapabilities.isActiveVpnAvailable(_context)
+            UtilKNetworkCapabilities.isVpnAvailable_ofActive(_context)
         else if (UtilKBuildVersion.isAfterV_21_5_L())
-            UtilKActiveNetworkInfo.isActiveVpnAvailable(_context) || UtilKNetworkInfo.isVpnAvailable(_context)
+            UtilKActiveNetworkInfo.isVpnAvailable(_context) || UtilKNetworkInfo.isVpnAvailable(_context)
         else false
 
     /////////////////////////////////////////////////////////////////////////
@@ -188,9 +188,9 @@ object UtilKNet : BaseUtilK() {
     @OPermission_ACCESS_NETWORK_STATE
     fun isMobileConnected(): Boolean =
         if (UtilKBuildVersion.isAfterV_23_6_M())
-            UtilKNetworkCapabilities.isActiveMobileConnected(_context)
+            UtilKNetworkCapabilities.isMobileConnected_ofActive(_context)
         else if (UtilKBuildVersion.isAfterV_21_5_L())
-            UtilKActiveNetworkInfo.isActiveMobileConnected(_context)
+            UtilKActiveNetworkInfo.isMobileConnected(_context)
         else
             UtilKNetworkInfo.isMobileConnected(_context)
 
@@ -199,9 +199,9 @@ object UtilKNet : BaseUtilK() {
     @OPermission_ACCESS_NETWORK_STATE
     fun isEthernetConnected(): Boolean =
         if (UtilKBuildVersion.isAfterV_23_6_M())
-            UtilKNetworkCapabilities.isActiveEthernetConnected(_context)
+            UtilKNetworkCapabilities.isEthernetConnected_ofActive(_context)
         else if (UtilKBuildVersion.isAfterV_21_5_L())
-            UtilKActiveNetworkInfo.isActiveEtherNetConnected(_context)
+            UtilKActiveNetworkInfo.isEtherNetConnected(_context)
         else
             UtilKNetworkInfo.isEthernetConnected(_context)
 
@@ -210,9 +210,9 @@ object UtilKNet : BaseUtilK() {
     @OPermission_ACCESS_NETWORK_STATE
     fun isWifiConnected(): Boolean =
         if (UtilKBuildVersion.isAfterV_26_8_O())
-            UtilKNetworkCapabilities.isActiveWifiConnected(_context)
+            UtilKNetworkCapabilities.isWifiConnected_ofActive(_context)
         else if (UtilKBuildVersion.isAfterV_21_5_L())
-            UtilKActiveNetworkInfo.isActiveWifiConnected(_context)
+            UtilKActiveNetworkInfo.isWifiConnected(_context)
         else
             UtilKNetworkInfo.isWifiConnected(_context)
 
@@ -221,9 +221,9 @@ object UtilKNet : BaseUtilK() {
     @OPermission_ACCESS_NETWORK_STATE
     fun isVpnConnected(): Boolean =
         if (UtilKBuildVersion.isAfterV_23_6_M())
-            UtilKNetworkCapabilities.isActiveVpnConnected(_context)
+            UtilKNetworkCapabilities.isVpnConnected_ofActive(_context)
         else if (UtilKBuildVersion.isAfterV_21_5_L())
-            UtilKActiveNetworkInfo.isActiveVpnConnected(_context) || UtilKNetworkInfo.isVpnConnected(_context)
+            UtilKActiveNetworkInfo.isVpnConnected(_context) || UtilKNetworkInfo.isVpnConnected(_context)
         else false
 
     /////////////////////////////////////////////////////////////////////////

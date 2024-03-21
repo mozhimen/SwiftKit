@@ -2,7 +2,6 @@ package com.mozhimen.basick.utilk.android.net
 
 import android.content.Context
 import android.net.Network
-import android.net.NetworkCapabilities
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
@@ -21,6 +20,6 @@ object UtilKNetwork {
     @RequiresApi(CVersCode.V_23_6_M)
     @OPermission_ACCESS_NETWORK_STATE
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun getActive(context: Context): Network? =
+    fun get_ofActive(context: Context): Network? =
         UtilKConnectivityManager.getActiveNetwork(context)
 }

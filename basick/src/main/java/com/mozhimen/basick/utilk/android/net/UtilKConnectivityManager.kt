@@ -35,29 +35,29 @@ object UtilKConnectivityManager {
 
     //获取可获得的网络信息
     @JvmStatic
-    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     fun getActiveNetworkInfo(context: Context): NetworkInfo? =
         get(context).activeNetworkInfo
 
     //获取所有网络信息
     @JvmStatic
-    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     fun getAllNetworkInfo(context: Context): Array<NetworkInfo> =
         get(context).allNetworkInfo
 
     @JvmStatic
+    @OPermission_ACCESS_NETWORK_STATE
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    @OPermission_ACCESS_NETWORK_STATE
     fun getActiveNetwork(context: Context): Network? =
         get(context).activeNetwork
 
     @JvmStatic
+    @OPermission_ACCESS_NETWORK_STATE
     @RequiresApi(CVersCode.V_21_5_L)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    @OPermission_ACCESS_NETWORK_STATE
     fun getNetworkCapabilities(context: Context, network: Network): NetworkCapabilities? =
         get(context).getNetworkCapabilities(network)
 
@@ -71,9 +71,9 @@ object UtilKConnectivityManager {
     }
 
     @JvmStatic
-    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     @OPermission_ACCESS_NETWORK_STATE
     @RequiresApi(CVersCode.V_21_5_L)
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     fun registerNetworkCallback(context: Context, request: NetworkRequest, networkCallback: NetworkCallback) {
         get(context).registerNetworkCallback(request, networkCallback)
     }

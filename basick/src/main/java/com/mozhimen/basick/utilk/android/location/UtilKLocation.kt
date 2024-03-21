@@ -10,8 +10,6 @@ import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_COARSE_LOC
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_FINE_LOCATION
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.UtilKPermission
-import com.mozhimen.basick.utilk.android.provider.UtilKSettingsSecure
-import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.android.util.i
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 
@@ -29,7 +27,7 @@ object UtilKLocation : BaseUtilK() {
     @JvmStatic
     @SuppressLint("MissingPermission")
     fun get(minTimeMs: Long, minDistanceM: Float): Location? {
-        if (!hasPermission()) return null
+        if (!UtilKPermission.hasAccessLocation()) return null
         return get_ofGps() ?: get_ofNetwork(minTimeMs, minDistanceM) ?: getLastLocation()
     }
 
@@ -38,8 +36,8 @@ object UtilKLocation : BaseUtilK() {
     @OPermission_ACCESS_FINE_LOCATION
     @OPermission_ACCESS_COARSE_LOCATION
     fun get_ofGps(): Location? =
-        (if (UtilKLocationManager.isProviderEnabledGps(_context))
-            UtilKLocationManager.getLastKnownLocationGps(_context)
+        (if (UtilKLocationManager.isProviderEnabled_ofGps(_context))
+            UtilKLocationManager.getLastKnownLocation_ofGps(_context)
         else null).also { "getForGps is null ${it == null}".i(TAG) }
 
     /**
@@ -52,9 +50,9 @@ object UtilKLocation : BaseUtilK() {
     @OPermission_ACCESS_FINE_LOCATION
     @OPermission_ACCESS_COARSE_LOCATION
     fun get_ofNetwork(minTimeMs: Long, minDistanceM: Float, listener: LocationListener = object : ILocationListener {}): Location? {
-        if (!UtilKLocationManager.isProviderEnabledNetwork(_context)) return null
-        UtilKLocationManager.requestLocationUpdatesNetwork(_context, minTimeMs, minDistanceM, listener)
-        return UtilKLocationManager.getLastKnownLocationNetwork(_context).also { "getForNetwork is null ${it == null}".i(TAG) }
+        if (!UtilKLocationManager.isProviderEnabled_ofNetwork(_context)) return null
+        UtilKLocationManager.requestLocationUpdates_ofNetwork(_context, minTimeMs, minDistanceM, listener)
+        return UtilKLocationManager.getLastKnownLocation_ofNetwork(_context).also { "getForNetwork is null ${it == null}".i(TAG) }
     }
 
     @JvmStatic
@@ -79,14 +77,4 @@ object UtilKLocation : BaseUtilK() {
     @JvmStatic
     fun get_Longitude_Latitude(minTimeMs: Long = 2000, minDistanceM: Float = 5f): Pair<Double, Double>? =
         get(minTimeMs, minDistanceM)?.let { it.longitude to it.latitude }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun hasPermission(): Boolean =
-        if (!UtilKPermission.isSelfGranted(arrayOf(CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION))) {
-            false.also { "get: permission denied".e(TAG) }
-        } else if (!UtilKSettingsSecure.isLocationEnabled(_context)) {
-            false.also { "get: system setting location off".e(TAG) }
-        } else true
 }

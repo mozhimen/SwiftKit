@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.android.media
 
 import android.graphics.ImageFormat
 import android.media.Image
+import com.mozhimen.basick.elemk.android.graphics.cons.CImageFormat
 import com.mozhimen.basick.utilk.kotlin.bytesNv212bytesJpeg
 
 /**
@@ -28,8 +29,8 @@ object UtilKImageFormat {
     @Throws(Exception::class)
     fun imageAny2bytesJpeg(image: Image): ByteArray {
         val bytes: ByteArray = when (image.format) {
-            ImageFormat.JPEG -> imageJpeg2bytesJpeg(image)
-            ImageFormat.YUV_420_888 -> imageYuv4208882bytesJpeg(image)
+            CImageFormat.JPEG -> imageJpeg2bytesJpeg(image)
+            CImageFormat.YUV_420_888 -> imageYuv4208882bytesJpeg(image)
             else -> throw Exception("cannot handle this format")
         }
         return bytes

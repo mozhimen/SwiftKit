@@ -10,7 +10,7 @@ import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.lintk.optins.OApiTarget_AtV_25_71_N1
 import com.mozhimen.basick.lintk.optins.permission.OPermission_QUERY_ALL_PACKAGES
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.android.content.UtilKApp
+import com.mozhimen.basick.utilk.wrapper.UtilKApp
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 
 /**

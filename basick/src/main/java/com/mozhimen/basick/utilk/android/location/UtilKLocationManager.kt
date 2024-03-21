@@ -28,24 +28,24 @@ object UtilKLocationManager : IUtilK {
         UtilKContext.getLocationManager(context)
 
     @JvmStatic
-    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
     @OPermission_ACCESS_COARSE_LOCATION
     @OPermission_ACCESS_FINE_LOCATION
+    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
     fun getLastKnownLocation(context: Context, provider: String): Location? =
         get(context).getLastKnownLocation(provider)
 
     @JvmStatic
-    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
     @OPermission_ACCESS_COARSE_LOCATION
     @OPermission_ACCESS_FINE_LOCATION
-    fun getLastKnownLocationGps(context: Context): Location? =
+    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
+    fun getLastKnownLocation_ofGps(context: Context): Location? =
         getLastKnownLocation(context, CLocationManager.GPS_PROVIDER)
 
     @JvmStatic
-    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
     @OPermission_ACCESS_COARSE_LOCATION
     @OPermission_ACCESS_FINE_LOCATION
-    fun getLastKnownLocationNetwork(context: Context): Location? =
+    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
+    fun getLastKnownLocation_ofNetwork(context: Context): Location? =
         getLastKnownLocation(context, CLocationManager.NETWORK_PROVIDER)
 
     @JvmStatic
@@ -59,50 +59,53 @@ object UtilKLocationManager : IUtilK {
         get(context).isProviderEnabled(provider)
 
     @JvmStatic
-    fun isProviderEnabledGps(context: Context): Boolean =
+    fun isProviderEnabled_ofGps(context: Context): Boolean =
         isProviderEnabled(context, CLocationManager.GPS_PROVIDER).also { "isProviderEnabledGps $it".d(TAG) }
 
     @JvmStatic
-    fun isProviderEnabledNetwork(context: Context): Boolean =
+    fun isProviderEnabled_ofNetwork(context: Context): Boolean =
         isProviderEnabled(context, CLocationManager.NETWORK_PROVIDER).also { "isProviderEnabledNetwork $it".d(TAG) }
 
     /////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
     @OPermission_ACCESS_COARSE_LOCATION
     @OPermission_ACCESS_FINE_LOCATION
+    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
     fun requestLocationUpdates(context: Context, provider: String, minTimeMs: Long, minDistanceM: Float, listener: LocationListener) {
         get(context).requestLocationUpdates(provider, minTimeMs, minDistanceM, listener)
     }
 
     @JvmStatic
-    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
     @OPermission_ACCESS_COARSE_LOCATION
     @OPermission_ACCESS_FINE_LOCATION
+    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
     fun requestLocationUpdates(context: Context, provider: String, minTimeMs: Long, minDistanceM: Float, listener: LocationListener, looper: Looper) {
         get(context).requestLocationUpdates(provider, minTimeMs, minDistanceM, listener, looper)
     }
 
     @JvmStatic
-    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
     @OPermission_ACCESS_COARSE_LOCATION
     @OPermission_ACCESS_FINE_LOCATION
-    fun requestLocationUpdatesNetwork(context: Context, minTimeMs: Long, minDistanceM: Float, listener: LocationListener) {
+    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
+    fun requestLocationUpdates_ofNetwork(context: Context, minTimeMs: Long, minDistanceM: Float, listener: LocationListener) {
         requestLocationUpdates(context, CLocationManager.NETWORK_PROVIDER, minTimeMs, minDistanceM, listener)
     }
 
     @JvmStatic
-    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
     @OPermission_ACCESS_COARSE_LOCATION
     @OPermission_ACCESS_FINE_LOCATION
-    fun requestLocationUpdatesNetwork(context: Context, minTimeMs: Long, minDistanceM: Float, listener: LocationListener, looper: Looper) {
+    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
+    fun requestLocationUpdates_ofNetwork(context: Context, minTimeMs: Long, minDistanceM: Float, listener: LocationListener, looper: Looper) {
         requestLocationUpdates(context, CLocationManager.NETWORK_PROVIDER, minTimeMs, minDistanceM, listener, looper)
     }
 
     /////////////////////////////////////////////////////////////////////
 
     @JvmStatic
+    @OPermission_ACCESS_COARSE_LOCATION
+    @OPermission_ACCESS_FINE_LOCATION
+    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
     fun removeUpdates(context: Context, listener: LocationListener) {
         get(context).removeUpdates(listener)
     }

@@ -220,5 +220,5 @@ object UtilKDevice : BaseUtilK() {
      */
     @JvmStatic
     fun hasExternalStorage(): Boolean =
-        UtilKEnvironment.isExternalStorageMounted()
+        UtilKEnvironment.isExternalStorageStateMounted()
 }

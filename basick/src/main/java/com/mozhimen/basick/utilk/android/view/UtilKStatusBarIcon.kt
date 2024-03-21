@@ -9,7 +9,7 @@ import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.e
-import com.mozhimen.basick.utilk.android.os.UtilKRom
+import com.mozhimen.basick.utilk.wrapper.UtilKSysRom
 import com.mozhimen.basick.utilk.java.lang.UtilKReflect
 import com.mozhimen.basick.utilk.android.os.UtilKSystemPropertiesWrapper
 import com.mozhimen.basick.utilk.kotlin.strPackage2clazz
@@ -35,9 +35,9 @@ object UtilKStatusBarIcon : BaseUtilK() {
     @JvmStatic
     fun applyIcon(activity: Activity, isThemeDark: Boolean) {
         when {
-            UtilKRom.isMiui() -> applyIcon_MiuiUi(activity, isThemeDark)
-            UtilKRom.isOppo() -> applyIcon_ColorOsUi(activity, isThemeDark)
-            UtilKRom.isFlyme() -> applyIcon_FlymeUi(activity, isThemeDark)
+            UtilKSysRom.isMiui() -> applyIcon_MiuiUi(activity, isThemeDark)
+            UtilKSysRom.isOppo() -> applyIcon_ColorOsUi(activity, isThemeDark)
+            UtilKSysRom.isFlyme() -> applyIcon_FlymeUi(activity, isThemeDark)
             else -> applyIcon_CommonUi(activity, isThemeDark)
         }
     }

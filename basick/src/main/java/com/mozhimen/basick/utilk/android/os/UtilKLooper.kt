@@ -1,15 +1,7 @@
 package com.mozhimen.basick.utilk.android.os
 
 import android.os.Looper
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
-import com.mozhimen.basick.elemk.commons.ISuspend_Listener
 import com.mozhimen.basick.elemk.commons.I_Listener
-import com.mozhimen.basick.utilk.java.lang.UtilKThread
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 /**
  * @ClassName UtilKLooper
@@ -20,25 +12,35 @@ import kotlinx.coroutines.withContext
  */
 object UtilKLooper {
     @JvmStatic
-    fun getMainLooper():Looper =
-        Looper.getMainLooper()
+    fun get_ofMain(): Looper =
+        getMainLooper()
 
     @JvmStatic
-    fun getMyLooper():Looper? =
-        Looper.myLooper()
-
-    @JvmStatic
-    fun getMainThread():Thread =
-        getMainLooper().thread
+    fun get_ofMy(): Looper? =
+        getMyLooper()
 
     ////////////////////////////////////////////////////////////////////////////
 
-    /**
-     * 是否是MainLooper
-     */
+    @JvmStatic
+    fun getMainLooper(): Looper =
+        Looper.getMainLooper()
+
+    @JvmStatic
+    fun getMyLooper(): Looper? =
+        Looper.myLooper()
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun getThread_ofMain(): Thread =
+        get_ofMain().thread
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    //是否是MainLooper
     @JvmStatic
     fun isMainLooper(): Boolean =
-        Looper.myLooper() == Looper.getMainLooper()
+        get_ofMy() == get_ofMain()
 
     ////////////////////////////////////////////////////////////////////////////
 
@@ -47,10 +49,10 @@ object UtilKLooper {
      */
     @JvmStatic
     fun prepareAndLoop(block: I_Listener) {
-        var myLooper = Looper.myLooper()
+        var myLooper = get_ofMy()
         if (myLooper == null) {
             Looper.prepare()
-            myLooper = Looper.myLooper()
+            myLooper = get_ofMy()
         }
         block.invoke()
         if (myLooper != null) {
