@@ -5,6 +5,7 @@ import com.mozhimen.basick.elemk.cons.CCons
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.lang.UtilKStackTraceElement
 import com.mozhimen.basick.utilk.kotlin.obj2str
+import com.mozhimen.basick.utilk.org.json.UtilKJSON
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -16,34 +17,28 @@ import java.util.concurrent.atomic.AtomicBoolean
  */
 object UtilKLongLogWrapper : BaseUtilK() {
 
-    private val _isOpenLog = AtomicBoolean(true)
-    private val _isSupportLongLog = AtomicBoolean(true)
-
-    @JvmStatic
-    fun applySupportLongLog(isSupportLongLog: Boolean) {
-        _isSupportLongLog.set(isSupportLongLog)
-    }
-
-    @JvmStatic
-    fun applyOpenLog(isOpenLog: Boolean) {
-        _isOpenLog.set(isOpenLog)
-    }
+    private val _isLogEnable = AtomicBoolean(true)
+    private val _isLongLogSupport = AtomicBoolean(true)
 
     ///////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun isSupportLongLog(): Boolean =
-        _isSupportLongLog.get()
+    fun isLongLogSupport(isLongLogSupport: Boolean) {
+        _isLongLogSupport.set(isLongLogSupport)
+    }
 
     @JvmStatic
-    fun isOpenLog(): Boolean =
-        _isOpenLog.get()
-
-    ///////////////////////////////////////////////////////////////////
+    fun isLogEnable(isLogEnable: Boolean) {
+        _isLogEnable.set(isLogEnable)
+    }
 
     @JvmStatic
-    private fun getLogCat(vararg msg: Any): String =
-        UtilKStackTraceElement.getStackTracesInfo(parseContents(*msg))
+    fun isLongLogSupport(): Boolean =
+        _isLongLogSupport.get()
+
+    @JvmStatic
+    fun isLogEnable(): Boolean =
+        _isLogEnable.get()
 
     ///////////////////////////////////////////////////////////////////
 
@@ -97,10 +92,27 @@ object UtilKLongLogWrapper : BaseUtilK() {
         log(CLog.ERROR, tag, *msg)
     }
 
-    @JvmStatic
+    ///////////////////////////////////////////////////////////////////
+
+    private fun getLogCat(vararg msg: Any): String =
+        getStackTraceElementInfo(parseContents(*msg))
+
+    private fun getStackTraceElementInfo(msg: String): String {
+        val element = UtilKStackTraceElement.get(this::class.java)
+        var clazzName = "unknown"
+        var methodName = "unknown"
+        var lineNumber = -1
+        if (element != null) {
+            clazzName = element.fileName
+            methodName = element.methodName
+            lineNumber = element.lineNumber
+        }
+        return "  ($clazzName:$lineNumber) #$methodName: \n${UtilKJSON.wrapStrJson(msg)}"
+    }
+
     private fun log(level: Int, tag: String, vararg msg: Any) {
-        if (!isOpenLog()) return
-        if (isSupportLongLog()) {
+        if (!isLogEnable()) return
+        if (isLongLogSupport()) {
             try {
                 var logCat = getLogCat(*msg)
                 val length = logCat.length.toLong()
@@ -122,13 +134,11 @@ object UtilKLongLogWrapper : BaseUtilK() {
             log(level, tag, getLogCat(*msg))
     }
 
-    @JvmStatic
     private fun log(level: Int, tag: String, msg: String) {
-        if (!isOpenLog()) return
-        UtilKLogWrapper.log(level, tag, msg)
+        if (!isLogEnable()) return
+        UtilKLogWrapper.println(level, tag, msg)
     }
 
-    @JvmStatic
     private fun parseContents(vararg objs: Any): String {
         val stringBuilder = StringBuilder()
         if (objs.isNotEmpty()) {

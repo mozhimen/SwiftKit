@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.android.view
 
 import android.app.Activity
+import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.FloatRange
 import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
@@ -13,6 +14,7 @@ import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
  * @Version 1.0
  */
 object UtilKWindowWrapper {
+
     /**
      * 设置屏幕亮度
      * @param paramFloat Float 0-1范围

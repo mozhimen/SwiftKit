@@ -8,8 +8,8 @@ import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_COARSE_LOCATION
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_FINE_LOCATION
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.android.UtilKPermission
-import com.mozhimen.basick.utilk.android.location.UtilKLocation
+import com.mozhimen.basick.utilk.wrapper.UtilKPermission
+import com.mozhimen.basick.utilk.wrapper.UtilKLocation
 import kotlinx.coroutines.Dispatchers
 
 

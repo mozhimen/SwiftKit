@@ -1,6 +1,7 @@
-package com.mozhimen.basick.utilk.android.content
+package com.mozhimen.basick.utilk.wrapper
 
 import android.content.Context
+import com.mozhimen.basick.utilk.android.content.UtilKConfiguration
 import com.mozhimen.basick.utilk.androidx.appcompat.UtilKAppCompatDelegate
 
 /**

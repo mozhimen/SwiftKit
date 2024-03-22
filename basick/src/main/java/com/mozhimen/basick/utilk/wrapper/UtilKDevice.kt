@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.android.hardware
+package com.mozhimen.basick.utilk.wrapper
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -17,15 +17,16 @@ import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_PRIVILEGED_P
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKConfiguration
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
+import com.mozhimen.basick.utilk.android.hardware.UtilKCamera
+import com.mozhimen.basick.utilk.android.hardware.UtilKUsbDevice
 import com.mozhimen.basick.utilk.android.os.UtilKBuild
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.os.UtilKEnvironment
 import com.mozhimen.basick.utilk.android.os.UtilKStatFs
 import com.mozhimen.basick.utilk.android.os.UtilKSystemProperties
 import com.mozhimen.basick.utilk.android.os.UtilKSystemPropertiesWrapper
-import com.mozhimen.basick.utilk.android.telephony.UtilKImei
+import com.mozhimen.basick.utilk.android.telephony.UtilKImeiOrMeid
 import com.mozhimen.basick.utilk.android.telephony.UtilKTelephonyManager
-import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKRandomAccessFile
 import com.mozhimen.basick.utilk.java.io.UtilKReader
@@ -47,7 +48,7 @@ object UtilKDevice : BaseUtilK() {
     @RequiresPermission(allOf = [CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE])
     fun getImei(): String =
         if (UtilKBuildVersion.isAfterV_23_6_M()) {
-            UtilKImei.getImeiOrMeid(_context)
+            UtilKImeiOrMeid.getImeiOrMeid(_context)
         } else ""
 
     /**

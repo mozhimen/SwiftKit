@@ -8,7 +8,7 @@ import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_PHONE_STATE
 import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_PRIVILEGED_PHONE_STATE
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.android.UtilKPermission
+import com.mozhimen.basick.utilk.wrapper.UtilKPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.os.UtilKSystemPropertiesWrapper
 import com.mozhimen.basick.utilk.android.util.i
@@ -22,7 +22,7 @@ import com.mozhimen.basick.utilk.commons.IUtilK
  * @Date 2023/7/16 10:53
  * @Version 1.0
  */
-object UtilKImei : IUtilK {
+object UtilKImeiOrMeid : IUtilK {
     /**
      * 获取默认的imei  一般都是IMEI 1
      * //优先获取IMEI(即使是电信卡)  不行的话就获取MEID
@@ -83,16 +83,14 @@ object UtilKImei : IUtilK {
             //这种情况下，返回 imei2也应该是空串
             return ""
         }
-
         //注意，拿第一个 IMEI 是传0，第2个 IMEI 是传1，别搞错了
         val imei1 = getImeiOrMeid(context, 0)
         val imei2 = getImeiOrMeid(context, 1)
         //sim 卡换卡位时，imei1与 imei2有可能互换，而 imeidefault 有可能不变
-        if (!TextUtils.equals(imei2, imeiDefault)) {
+        return if (!TextUtils.equals(imei2, imeiDefault)) {
             //返回与 imeiDefault 不一样的
-            return imei2
-        }
-        return if (!TextUtils.equals(imei1, imeiDefault))
+            imei2
+        } else if (!TextUtils.equals(imei1, imeiDefault))
             imei1
         else ""
     }
@@ -107,28 +105,22 @@ object UtilKImei : IUtilK {
     @OPermission_READ_PRIVILEGED_PHONE_STATE
     @RequiresPermission(CPermission.READ_PRIVILEGED_PHONE_STATE)
     fun getImei(context: Context, slotIndex: Int): String {
-        var imei = ""
-
         //Android 6.0 以后需要获取动态权限  检查权限
         if (!UtilKPermission.isSelfGranted(CPermission.READ_PHONE_STATE))
-            return imei
-        try {
+            return ""
+        return try {
             if (UtilKBuildVersion.isAfterV_26_8_O()) { // android 8 即以后建议用getImei 方法获取 不会获取到MEID
                 UtilKTelephonyManager.getImei(context, slotIndex)
             } else if (UtilKBuildVersion.isAfterV_21_5_L()) {
-                imei = UtilKSystemPropertiesWrapper.getImei()//如果获取不到 就调用 getDeviceId 方法获取
+                UtilKSystemPropertiesWrapper.getImei()//如果获取不到 就调用 getDeviceId 方法获取
             } else { //5.0以下获取imei/meid只能通过 getDeviceId  方法去取
+                UtilKDeviceId.getImei(context, slotIndex) ?: ""
             }
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.i(TAG)
+            ""
         }
-        if (TextUtils.isEmpty(imei)) {
-            val imeiOrMeid = UtilKDeviceId.get(context, slotIndex)
-            if (!TextUtils.isEmpty(imeiOrMeid) && imeiOrMeid.length >= 15)//长度15 的是imei  14的是meid
-                imei = imeiOrMeid
-        }
-        return imei
     }
 
     /**
@@ -141,28 +133,22 @@ object UtilKImei : IUtilK {
     @OPermission_READ_PRIVILEGED_PHONE_STATE
     @RequiresPermission(CPermission.READ_PRIVILEGED_PHONE_STATE)
     fun getMeid(context: Context, slotIndex: Int): String {
-        var meid = ""
         //Android 6.0 以后需要获取动态权限  检查权限
         if (!UtilKPermission.isSelfGranted(CPermission.READ_PHONE_STATE))
-            return meid
-        try {
+            return ""
+        return try {
             if (UtilKBuildVersion.isAfterV_26_8_O()) { // android 8 即以后建议用getMeid 方法获取 不会获取到Imei
-                UtilKTelephonyManager.getMeid(context,slotIndex)
+                UtilKTelephonyManager.getMeid(context, slotIndex)
             } else if (UtilKBuildVersion.isAfterV_21_5_L()) {
-                meid = UtilKSystemPropertiesWrapper.getMeid()//如果获取不到 就调用 getDeviceId 方法获取
+                UtilKSystemPropertiesWrapper.getMeid()//如果获取不到 就调用 getDeviceId 方法获取
             } else { //5.0以下获取imei/meid只能通过 getDeviceId  方法去取
+                UtilKDeviceId.getMeid(context,slotIndex)?:""
             }
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.i(TAG)
+            ""
         }
-        if (TextUtils.isEmpty(meid)) {
-            val imeiOrMeid = UtilKDeviceId.get(context, slotIndex)
-            //长度15 的是imei  14的是meid
-            if (imeiOrMeid.length == 14)
-                meid = imeiOrMeid
-        }
-        return meid
     }
 }
 

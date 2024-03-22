@@ -43,10 +43,10 @@ object UtilKMotionEvent {
 
     @JvmStatic
     fun motionEvent2str(motionEvent: MotionEvent): String =
-        intAction2str(motionEvent.action)
+        intActionMotionEvent2str(motionEvent.action)
 
     @JvmStatic
-    fun intAction2str(intAction: Int): String {
+    fun intActionMotionEvent2str(intAction: Int): String {
         when (intAction) {
             CMotionEvent.ACTION_DOWN -> return CMotionEvent.Str.ACTION_DOWN
             CMotionEvent.ACTION_UP -> return CMotionEvent.Str.ACTION_UP

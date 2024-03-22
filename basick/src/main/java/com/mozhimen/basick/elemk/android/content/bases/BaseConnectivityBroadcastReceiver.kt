@@ -11,7 +11,7 @@ import com.mozhimen.basick.elemk.android.net.cons.ENetType
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_NETWORK_STATE
 import com.mozhimen.basick.lintk.optins.permission.OPermission_INTERNET
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.android.net.UtilKNet
+import com.mozhimen.basick.utilk.wrapper.UtilKNet
 import com.mozhimen.basick.utilk.android.util.w
 
 

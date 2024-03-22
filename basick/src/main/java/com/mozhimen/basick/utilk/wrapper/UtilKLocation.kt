@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.android.location
+package com.mozhimen.basick.utilk.wrapper
 
 
 import android.annotation.SuppressLint
@@ -9,7 +9,7 @@ import com.mozhimen.basick.elemk.android.location.commons.ILocationListener
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_COARSE_LOCATION
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_FINE_LOCATION
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.android.UtilKPermission
+import com.mozhimen.basick.utilk.android.location.UtilKLocationManager
 import com.mozhimen.basick.utilk.android.util.i
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 

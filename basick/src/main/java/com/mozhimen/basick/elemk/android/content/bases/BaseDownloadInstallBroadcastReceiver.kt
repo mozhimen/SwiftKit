@@ -6,7 +6,7 @@ import com.mozhimen.basick.elemk.android.app.cons.CDownloadManager
 import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_INSTALL_SESSIONS
 import com.mozhimen.basick.lintk.optins.permission.OPermission_REPLACE_EXISTING_PACKAGE
 import com.mozhimen.basick.lintk.optins.permission.OPermission_REQUEST_INSTALL_PACKAGES
-import com.mozhimen.basick.utilk.android.content.UtilKAppInstall
+import com.mozhimen.basick.utilk.wrapper.UtilKAppInstall
 
 
 /**

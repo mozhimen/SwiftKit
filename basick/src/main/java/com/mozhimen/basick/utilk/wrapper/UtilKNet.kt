@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.android.net
+package com.mozhimen.basick.utilk.wrapper
 
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.net.cons.CNetType
@@ -7,6 +7,11 @@ import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_FINE_LOCAT
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_NETWORK_STATE
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_WIFI_STATE
 import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.android.net.UtilKActiveNetwork
+import com.mozhimen.basick.utilk.android.net.UtilKActiveNetworkInfo
+import com.mozhimen.basick.utilk.android.net.UtilKNetworkCapabilities
+import com.mozhimen.basick.utilk.android.net.UtilKNetworkInfo
+import com.mozhimen.basick.utilk.android.net.UtilKWifiInfo
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.net.UtilKNetworkInterface

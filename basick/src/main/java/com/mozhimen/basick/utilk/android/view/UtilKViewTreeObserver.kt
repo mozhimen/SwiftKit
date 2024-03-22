@@ -62,10 +62,10 @@ object UtilKViewTreeObserver {
     fun registerInputChangeListener(window: Window, listener: IA_Listener<Int>) {
         if (UtilKWindow.getAttributesFlags(window) and CWinMgr.Lpf.LAYOUT_NO_LIMITS != 0)
             window.clearFlags(CWinMgr.Lpf.LAYOUT_NO_LIMITS)
-        val contentView = UtilKContentView.getPac<FrameLayout>(window)
-        val decorViewInvisibleHeightPre = intArrayOf(UtilKDecorView.getInvisibleHeight(window))
+        val contentView = UtilKContentView.get_ofPac<FrameLayout>(window)
+        val decorViewInvisibleHeightPre = intArrayOf(UtilKDecorViewWrapper.getInvisibleHeight(window))
         val onGlobalLayoutListener = ViewTreeObserver.OnGlobalLayoutListener {
-            val height = UtilKDecorView.getInvisibleHeight(window)
+            val height = UtilKDecorViewWrapper.getInvisibleHeight(window)
             if (decorViewInvisibleHeightPre[0] != height) {
                 listener.invoke(height)
                 decorViewInvisibleHeightPre[0] = height
@@ -80,7 +80,7 @@ object UtilKViewTreeObserver {
      */
     @JvmStatic
     fun unregisterInputChangeListener(window: Window) {
-        val contentView = UtilKContentView.getPac<View>(window)
+        val contentView = UtilKContentView.get_ofPac<View>(window)
         val tag = contentView.getTag(CCons.UTILK_INPUT_CHANGE_TAG_ON_GLOBAL_LAYOUT_LISTENER)
         if (tag is ViewTreeObserver.OnGlobalLayoutListener) {
             if (UtilKBuildVersion.isAfterV_16_41_J()) {
@@ -117,7 +117,7 @@ object UtilKViewTreeObserver {
             private var _lastHeight = 0
 
             override fun onGlobalLayout() {
-                val contentView = UtilKDecorView.getContentView(activity) ?: return
+                val contentView = UtilKContentView.get_ofDecor<View>(activity)
                 if (_originalContentRect.isEmpty) {
                     val destView: View = UtilKView.findViewForParentByView(decorView, contentView)!!
                     _originalContentRect[destView.left, destView.top, destView.right] = destView.bottom

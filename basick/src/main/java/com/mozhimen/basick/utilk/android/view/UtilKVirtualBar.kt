@@ -22,7 +22,7 @@ object UtilKVirtualBar : IUtilK {
     @JvmStatic
     fun getHeight(context: Context): Int {
         try {
-            return UtilKDisplayMetrics.getRealHeightPixels(context) - UtilKDisplay.getDefHeight(context)
+            return UtilKDisplayMetrics.getHeightPixels_ofReal(context) - UtilKDisplay.getHeight_ofDef(context)
         } catch (e: Exception) {
             e.printStackTrace()
             "getHeight Exception ${e.message}".e(TAG)

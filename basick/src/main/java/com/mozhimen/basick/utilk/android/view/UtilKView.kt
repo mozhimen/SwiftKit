@@ -31,6 +31,7 @@ import com.mozhimen.basick.utilk.kotlin.UtilKAny
 import com.mozhimen.basick.utilk.kotlin.strColor2intColor
 import com.mozhimen.basick.utilk.kotlinx.coroutines.getViewClickFlow
 import com.mozhimen.basick.utilk.kotlinx.coroutines.throttleFirst
+import com.mozhimen.basick.utilk.wrapper.UtilKScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -159,13 +160,6 @@ object UtilKView : BaseUtilK() {
         }
         "getBundle Left: ${screenLocation[0]} Top: ${screenLocation[1]} Width: ${view.width} Height: ${view.height}".d(TAG)
         return bundle
-    }
-
-    @JvmStatic
-    fun getWindowVisibleDisplayFrame(view: View): Rect {
-        val rect = Rect()
-        getWindowVisibleDisplayFrame(view, rect)
-        return rect
     }
 
     @JvmStatic

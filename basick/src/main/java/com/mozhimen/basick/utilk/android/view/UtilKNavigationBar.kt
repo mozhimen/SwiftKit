@@ -13,7 +13,7 @@ import com.mozhimen.basick.elemk.android.view.cons.CView
 import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
 import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
 import com.mozhimen.basick.utilk.android.app.UtilKActivityWrapper
-import com.mozhimen.basick.utilk.android.content.UtilKRes
+import com.mozhimen.basick.utilk.wrapper.UtilKRes
 import com.mozhimen.basick.utilk.android.content.UtilKResources
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.e
@@ -28,45 +28,6 @@ import java.util.*
  * @Version 1.0
  */
 object UtilKNavigationBar : BaseUtilK() {
-    /**
-     * 方法参考
-     * https://juejin.im/post/5bb5c4e75188255c72285b54
-     */
-    @OApiUse_BaseApplication
-    @JvmStatic
-    fun getBounds(rect: Rect, context: Context) {
-        val activity = UtilKActivityWrapper.get_ofContext(context, true)
-        if (activity == null || UtilKActivityWrapper.isFinishingOrDestroyed(activity)) return
-        val decorView = UtilKDecorView.get(activity) as ViewGroup
-        val childCount = decorView.childCount
-        for (i in childCount - 1 downTo 0) {
-            val child = decorView.getChildAt(i)
-            if (child.id == CView.NO_ID || !child.isShown) continue
-            try {
-                val resourceEntryName = UtilKResources.getResourceEntryName_ofApp(context, child.id)
-                if (_navigationBarNames.containsKey(resourceEntryName.lowercase(Locale.getDefault()))) {
-                    rect[child.left, child.top, child.right] = child.bottom
-                    return
-                }
-            } catch (e: Exception) {
-                //do nothing
-            }
-        }
-    }
-
-    /**
-     * 获取导航栏Gravity
-     */
-    @SuppressLint("RtlHardcoded")
-    @JvmStatic
-    fun getGravity(navigationBarBounds: Rect): Int {
-        if (navigationBarBounds.isEmpty) return CGravity.NO_GRAVITY
-        return if (navigationBarBounds.left <= 0) {
-            if (navigationBarBounds.top <= 0)
-                if (navigationBarBounds.width() > navigationBarBounds.height()) CGravity.TOP else CGravity.LEFT
-            else CGravity.BOTTOM
-        } else CGravity.RIGHT
-    }
 
     /**
      * Return the navigation bar's height.
@@ -89,25 +50,20 @@ object UtilKNavigationBar : BaseUtilK() {
     fun getHeight(view: View): Int {
         val activity: Activity? = UtilKActivityWrapper.get_ofView(view)
         if (activity != null) {
-            val usableHeight: Int = UtilKDisplay.getDefSizeY(activity)
+            val usableHeight: Int = UtilKDisplay.getSizeY_ofDef(activity)
             val realHeight: Int = if (UtilKBuildVersion.isAfterV_17_42_J1()) {
-                UtilKDisplay.getDefRealSizeY(activity) // getRealMetrics is only available with API 17 and +
+                UtilKDisplay.getRealSizeY_ofDef(activity) // getRealMetrics is only available with API 17 and +
             } else {
                 try {
-                    UtilKDisplay.getDefRawHeight(activity)
+                    UtilKDisplay.getRawHeight_ofDef(activity)
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    "getHeight: error ${e.message}".e(TAG)
                     usableHeight
                 }
             }
             return if (realHeight > usableHeight) realHeight - usableHeight else 0
         }
         return 0
-    }
-
-    private val _navigationBarNames: HashMap<String, Void?> by lazy {
-        hashMapOf("navigationbarbackground" to null, "immersion_navigation_bar_view" to null)
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -144,9 +100,4 @@ object UtilKNavigationBar : BaseUtilK() {
         val windowSystemUiVisibility = UtilKDecorView.getWindowSystemUiVisibility(activity)
         return windowSystemUiVisibility and CView.SystemUiFlag.HIDE_NAVIGATION == 0 && windowSystemUiVisibility and CView.SystemUiFlag.LAYOUT_HIDE_NAVIGATION == 0
     }
-
-//    @JvmStatic
-//    fun appendID(id: String) {
-//        _navigationBarNames[id] = null
-//    }
 }

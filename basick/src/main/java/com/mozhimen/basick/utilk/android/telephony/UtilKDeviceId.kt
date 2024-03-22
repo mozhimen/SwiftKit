@@ -2,20 +2,14 @@ package com.mozhimen.basick.utilk.android.telephony
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.telephony.TelephonyManager
 import android.text.TextUtils
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_PRIVILEGED_PHONE_STATE
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.android.UtilKPermission
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.android.util.e
-import com.mozhimen.basick.utilk.android.util.i
+import com.mozhimen.basick.utilk.wrapper.UtilKPermission
 import com.mozhimen.basick.utilk.commons.IUtilK
-import com.mozhimen.basick.utilk.kotlin.strPackage2clazz
-import java.lang.reflect.Method
 
 /**
  * @ClassName UtilKDeviceId
@@ -101,4 +95,32 @@ object UtilKDeviceId : IUtilK {
     @JvmStatic
     fun get_ofReflect(context: Context, slotIndex: Int): String =
         UtilKTelephonyManager.getDeviceId_ofReflect(context, slotIndex)
+
+    ////////////////////////////////////////////////////////////////////////
+
+    //长度15 的是imei  14的是meid
+    @JvmStatic
+    @RequiresApi(CVersCode.V_23_6_M)
+    @OPermission_READ_PRIVILEGED_PHONE_STATE
+    @RequiresPermission(CPermission.READ_PRIVILEGED_PHONE_STATE)
+    fun getImei(context: Context, slotIndex: Int): String? {
+        val imeiOrMeid = get(context, slotIndex)
+        return if (!TextUtils.isEmpty(imeiOrMeid) && imeiOrMeid.length >= 15)//长度15 的是imei  14的是meid
+            imeiOrMeid
+        else null
+    }
+
+    //长度15 的是imei  14的是meid
+    @JvmStatic
+    @RequiresApi(CVersCode.V_23_6_M)
+    @OPermission_READ_PRIVILEGED_PHONE_STATE
+    @RequiresPermission(CPermission.READ_PRIVILEGED_PHONE_STATE)
+    fun getMeid(context: Context, slotIndex: Int): String? {
+        val imeiOrMeid = get(context, slotIndex)
+        //长度15 的是imei  14的是meid
+        return if (imeiOrMeid.length == 14)
+            imeiOrMeid
+        else null
+    }
+
 }

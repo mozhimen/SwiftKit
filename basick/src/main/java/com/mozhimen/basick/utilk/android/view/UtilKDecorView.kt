@@ -46,14 +46,14 @@ object UtilKDecorView : BaseUtilK() {
     ///////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun getContentView(activity: Activity): View? =
+    fun <V : View> getContentView(activity: Activity): V =
         get(activity).findViewById(CPackage.ANDROID_R_ID_CONTENT)
 
     ///////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun getSystemUiVisibility(activity: Activity): Int =
-        getSystemUiVisibility(activity.window)
+        getSystemUiVisibility(get(activity) )
 
     @JvmStatic
     fun getSystemUiVisibility(window: Window): Int =
@@ -65,7 +65,7 @@ object UtilKDecorView : BaseUtilK() {
 
     @JvmStatic
     fun getWindowSystemUiVisibility(activity: Activity): Int =
-        getWindowSystemUiVisibility(activity.window)
+        getWindowSystemUiVisibility(get(activity))
 
     @JvmStatic
     fun getWindowSystemUiVisibility(window: Window): Int =
@@ -78,31 +78,17 @@ object UtilKDecorView : BaseUtilK() {
     ///////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun getWindowVisibleDisplayFrame(activity: Activity, rect: Rect) {
-        getWindowVisibleDisplayFrame(get(activity), rect)
-    }
+    fun getWindowVisibleDisplayFrame(activity: Activity): Rect =
+        getWindowVisibleDisplayFrame(get(activity), Rect())
 
     @JvmStatic
-    fun getWindowVisibleDisplayFrame(view: View, rect: Rect) {
+    fun getWindowVisibleDisplayFrame(window: Window): Rect =
+        getWindowVisibleDisplayFrame(get(window), Rect())
+
+    @JvmStatic
+    fun getWindowVisibleDisplayFrame(view: View, rect: Rect): Rect {
         UtilKView.getWindowVisibleDisplayFrame(view, rect)
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun getInvisibleHeight(activity: Activity): Int =
-        getInvisibleHeight(UtilKWindow.get(activity))
-
-    /**
-     * 获取DecorView区域高度
-     */
-    @JvmStatic
-    fun getInvisibleHeight(window: Window): Int {
-        val decorView = UtilKWindow.getDecorView(window)
-        val rect = Rect()
-        getWindowVisibleDisplayFrame(decorView, rect)
-        val delta = abs(decorView.bottom - rect.bottom)
-        return (if (delta <= UtilKNavigationBar.getHeight() + UtilKStatusBar.getHeight()) 0 else delta).also { ("getInvisibleHeight: " + (decorView.bottom - rect.bottom)).d(TAG) }
+        return rect
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -134,7 +120,7 @@ object UtilKDecorView : BaseUtilK() {
     @JvmStatic
     fun applyFitsSystemWindows(activity: Activity) {
         get(activity).post {
-            UtilKContentView.getPacChildAt0(activity)?.applyFitSystemWindow() ?: "setFitsSystemWindows contentView is null".e(TAG)
+            UtilKContentView.getChildAt0_ofPac(activity)?.applyFitSystemWindow() ?: "setFitsSystemWindows contentView is null".e(TAG)
         }
     }
 

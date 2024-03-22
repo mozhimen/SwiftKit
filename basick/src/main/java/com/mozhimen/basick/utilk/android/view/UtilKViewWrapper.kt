@@ -67,6 +67,10 @@ fun View.applyGoneIf(boolean: Boolean) {
 }
 
 object UtilKViewFormat {
+
+
+    //////////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun applyVisible(view: View) {
         if (!UtilKView.isVisible(view))

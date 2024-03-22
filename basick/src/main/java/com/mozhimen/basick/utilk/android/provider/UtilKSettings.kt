@@ -25,5 +25,7 @@ object UtilKSettings : IUtilK {
     @OPermission_SYSTEM_ALERT_WINDOW
     @ADescription(CSettings.ACTION_MANAGE_OVERLAY_PERMISSION)
     fun canDrawOverlays(context: Context): Boolean =
-        if (UtilKBuildVersion.isAfterV_23_6_M()) Settings.canDrawOverlays(context) else true
+        if (UtilKBuildVersion.isAfterV_23_6_M())
+            Settings.canDrawOverlays(context)
+        else true
 }

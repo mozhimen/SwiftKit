@@ -37,37 +37,27 @@ object UtilKCharacterStyle {
     fun getRelativeSizeSpan(@FloatRange(from = 0.0) proportion: Float): RelativeSizeSpan =
         RelativeSizeSpan(proportion)
 
-    /**
-     * 删除线
-     */
+    //删除线
     @JvmStatic
     fun getStrikethroughSpan(): StrikethroughSpan =
         StrikethroughSpan()
 
-    /**
-     * 下划线
-     */
+    //下划线
     @JvmStatic
     fun getUnderlineSpan(): UnderlineSpan =
         UnderlineSpan()
 
-    /**
-     * 上标
-     */
+    //上标
     @JvmStatic
     fun getSuperscriptSpan(): SuperscriptSpan =
         SuperscriptSpan()
 
-    /**
-     * 下标
-     */
+    //下标
     @JvmStatic
     fun getSubscriptSpan(): SubscriptSpan =
         SubscriptSpan()
 
-    /**
-     * 为文字设置风格（粗体、斜体）
-     */
+    //为文字设置风格（粗体、斜体）
     @JvmStatic
     fun getStyleSpan(@ATypeface style: Int): StyleSpan =
         StyleSpan(style)

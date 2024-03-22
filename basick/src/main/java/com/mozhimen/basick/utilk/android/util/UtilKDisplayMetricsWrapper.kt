@@ -43,13 +43,13 @@ val Float.px2dp: Float
     get() = px2dp()
 
 fun Float.px2dp(): Float =
-    UtilKDisplayMetricsWrapper.px2dp_ofDpi(this)
+    UtilKDisplayMetricsWrapper.px2dp_ofSysDpi(this)
 
 val Int.px2dp: Float
     get() = px2dp()
 
 fun Int.px2dp(): Float =
-    UtilKDisplayMetricsWrapper.px2dp_ofDpi(this.toFloat())
+    UtilKDisplayMetricsWrapper.px2dp_ofSysDpi(this.toFloat())
 
 val Float.px2sp: Float
     get() = px2sp()
@@ -81,19 +81,19 @@ object UtilKDisplayMetricsWrapper {
 
     @JvmStatic
     fun dp2px(@FloatRange(from = 0.0) dp: Float): Float =
-        TypedValue.applyDimension(CTypedValue.COMPLEX_UNIT_DIP, dp, UtilKDisplayMetrics.getSys())
+        TypedValue.applyDimension(CTypedValue.COMPLEX_UNIT_DIP, dp, UtilKDisplayMetrics.get_ofSys())
 
     @JvmStatic
-    fun dp2px_ofSysDensity(@FloatRange(from = 0.0) dp: Float): Float =
-        dp * UtilKDisplayMetrics.getSysDensity()
+    fun dp2px_ofSys(@FloatRange(from = 0.0) dp: Float): Float =
+        dp * UtilKDisplayMetrics.getDensity_ofSys()
 
     @JvmStatic
-    fun dp2px_ofAppDensity(context: Context, @FloatRange(from = 0.0) dp: Float): Float =
-        dp * UtilKDisplayMetrics.getAppDensity(context) + 0.5f
+    fun dp2px_ofApp(context: Context, @FloatRange(from = 0.0) dp: Float): Float =
+        dp * UtilKDisplayMetrics.getDensity_ofApp(context) + 0.5f
 
     @JvmStatic
     fun dp2px_ofDpi(@FloatRange(from = 0.0) dp: Float): Float =
-        dp * (UtilKDisplayMetrics.getSysXdpi() / CDisplayMetrics.DENSITY_DEFAULT)
+        dp * (UtilKDisplayMetrics.getXdpi_ofSys() / CDisplayMetrics.DENSITY_DEFAULT)
 
     @JvmStatic
     fun dp2sp(@FloatRange(from = 0.0) dp: Float): Float =
@@ -102,24 +102,24 @@ object UtilKDisplayMetricsWrapper {
     /////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun px2dp_ofDpi(@FloatRange(from = 0.0) px: Float): Float =
-        px / (UtilKDisplayMetrics.getSysDensityDpi() / CDisplayMetrics.DENSITY_DEFAULT)
+    fun px2dp_ofSysDpi(@FloatRange(from = 0.0) px: Float): Float =
+        px / (UtilKDisplayMetrics.getDensityDpi_ofSys() / CDisplayMetrics.DENSITY_DEFAULT)
 
     @JvmStatic
-    fun px2dp_ofDensity(@FloatRange(from = 0.0) px: Float): Float =
-        px / UtilKDisplayMetrics.getSysDensity()
+    fun px2dp_ofSys(@FloatRange(from = 0.0) px: Float): Float =
+        px / UtilKDisplayMetrics.getDensity_ofSys()
 
     @JvmStatic
     fun px2sp(@FloatRange(from = 0.0) px: Float): Float =
-        px / UtilKDisplayMetrics.getSysScaledDensity() + 0.5f
+        px / UtilKDisplayMetrics.getScaledDensity_ofSys() + 0.5f
 
     /////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun sp2px(@FloatRange(from = 0.0) sp: Float): Float =
-        TypedValue.applyDimension(CTypedValue.COMPLEX_UNIT_SP, sp, UtilKDisplayMetrics.getSys())
+        TypedValue.applyDimension(CTypedValue.COMPLEX_UNIT_SP, sp, UtilKDisplayMetrics.get_ofSys())
 
     @JvmStatic
-    fun sp2px_ofDensity(@FloatRange(from = 0.0) sp: Float): Float =
-        sp * UtilKDisplayMetrics.getSysScaledDensity()
+    fun sp2px_ofSys(@FloatRange(from = 0.0) sp: Float): Float =
+        sp * UtilKDisplayMetrics.getScaledDensity_ofSys()
 }

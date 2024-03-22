@@ -4,19 +4,19 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.graphics.Color
-import android.graphics.Rect
 import androidx.annotation.ColorInt
 import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.elemk.android.view.cons.CView
 import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.android.content.UtilKRes
+import com.mozhimen.basick.utilk.wrapper.UtilKRes
 import com.mozhimen.basick.elemk.android.view.ColorfulStatusBar
 import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
 import com.mozhimen.basick.utilk.android.app.UtilKActivityWrapper
 import com.mozhimen.basick.utilk.android.content.UtilKResources
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import com.mozhimen.basick.utilk.wrapper.UtilKScreen
 
 /**
  * @ClassName UtilKBar
@@ -45,11 +45,8 @@ object UtilKStatusBar : BaseUtilK() {
      * @return Int
      */
     @JvmStatic
-    fun getHeight(activity: Activity): Int {
-        val rect = Rect()
-        UtilKDecorView.getWindowVisibleDisplayFrame(activity, rect)
-        return rect.top
-    }
+    fun getHeight(activity: Activity): Int =
+        UtilKDecorView.getWindowVisibleDisplayFrame(activity).top
 
     /**
      * 获取状态栏高度1
@@ -59,6 +56,7 @@ object UtilKStatusBar : BaseUtilK() {
      * @return Int
      */
     @JvmStatic
+    @JvmOverloads
     fun getHeight(isCheckFullScreen: Boolean = true): Int {
         if (isCheckFullScreen && UtilKScreen.isFullScreen_ofTheme()) return 0
         return getHeight()
@@ -66,28 +64,22 @@ object UtilKStatusBar : BaseUtilK() {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    /**
-     * 状态栏是否可见
-     * @param context Context
-     * @return Boolean
-     */
+    //状态栏是否可见
     @OApiUse_BaseApplication
     @JvmStatic
     fun isVisible(context: Context): Boolean {
         return isVisible(UtilKActivityWrapper.get_ofContext(context, true) ?: return true)
     }
 
-    /**
-     * 状态栏是否可见
-     */
+    //状态栏是否可见
     @JvmStatic
     fun isVisible(activity: Activity): Boolean =
-        !UtilKWindowParams.isFlagFullScreen(activity)
+        !UtilKWindowManagerLayoutParams.isFlagFullScreen(activity)
 
     @JvmStatic
     fun isTranslucent(activity: Activity): Boolean {//检查主题中是否有透明的状态栏
         var isStatusBarAvailable: Boolean = activity.obtainStyledAttributes(intArrayOf(CPackage.ANDROID_R_ATTR_WINDOWTRANSLUCENTSTATUS)).use { it.getBoolean(0,false) }
-        if (UtilKWindowParams.isFlagStatusBarTranslucent(activity)) isStatusBarAvailable = true
+        if (UtilKWindowManagerLayoutParams.isFlagTranslucentStatus(activity)) isStatusBarAvailable = true
         return isStatusBarAvailable
     }
 

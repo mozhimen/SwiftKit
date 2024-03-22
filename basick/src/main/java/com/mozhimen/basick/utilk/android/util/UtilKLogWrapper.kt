@@ -50,8 +50,8 @@ fun String.e(tag: String) {
 
 ///////////////////////////////////////////////////////////////////////////
 
-fun String.log(level: Int, tag: String) {
-    UtilKLogWrapper.log(level, tag, this)
+fun String.println(level: Int, tag: String) {
+    UtilKLogWrapper.println(level, tag, this)
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -73,70 +73,70 @@ object UtilKLogWrapper : BaseUtilK() {
 
     @JvmStatic
     fun v(msg: String) {
-        log(CLog.VERBOSE, TAG, msg)
+        println(CLog.VERBOSE, TAG, msg)
     }
 
     @JvmStatic
     fun d(msg: String) {
-        log(CLog.DEBUG, TAG, msg)
+        println(CLog.DEBUG, TAG, msg)
     }
 
     @JvmStatic
     fun i(msg: String) {
-        log(CLog.INFO, TAG, msg)
+        println(CLog.INFO, TAG, msg)
     }
 
     @JvmStatic
     fun w(msg: String) {
-        log(CLog.WARN, TAG, msg)
+        println(CLog.WARN, TAG, msg)
     }
 
     @JvmStatic
     fun e(msg: String) {
-        log(CLog.ERROR, TAG, msg)
+        println(CLog.ERROR, TAG, msg)
     }
 
     @JvmStatic
     fun e(exception: Exception) {
-        log(CLog.ERROR, TAG, exception.message ?: "")
+        println(CLog.ERROR, TAG, exception.message ?: "")
     }
 
     /////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun v(tag: String, msg: String) {
-        log(CLog.VERBOSE, tag, msg)
+        println(CLog.VERBOSE, tag, msg)
     }
 
     @JvmStatic
     fun d(tag: String, msg: String) {
-        log(CLog.DEBUG, tag, msg)
+        println(CLog.DEBUG, tag, msg)
     }
 
     @JvmStatic
     fun i(tag: String, msg: String) {
-        log(CLog.INFO, tag, msg)
+        println(CLog.INFO, tag, msg)
     }
 
     @JvmStatic
     fun w(tag: String, msg: String) {
-        log(CLog.WARN, tag, msg)
+        println(CLog.WARN, tag, msg)
     }
 
     @JvmStatic
     fun e(tag: String, msg: String) {
-        log(CLog.ERROR, tag, msg)
+        println(CLog.ERROR, tag, msg)
     }
 
     @JvmStatic
     fun e(tag: String, msg: String, exception: Exception) {
-        log(CLog.ERROR, tag, msg + " " + exception.getStrMessage())
+        println(CLog.ERROR, tag, msg + " " + exception.getStrMessage())
     }
 
     /////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun log(level: Int, tag: String, msg: String) {
+    fun println(level: Int, tag: String, msg: String) {
         if (!isLogEnable()) return
         Log.println(level, tag, msg)
     }
@@ -144,12 +144,12 @@ object UtilKLogWrapper : BaseUtilK() {
     /////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun longLog(level: Int, tag: String, msg: String) {
+    fun pringln_ofLongLog(level: Int, tag: String, msg: String) {
         if (!isLogEnable()) return
         val segmentSize = 1024
         val logLength = msg.length
         if (logLength < segmentSize) {
-            log(level, tag, msg)
+            println(level, tag, msg)
         } else {
             var startIndex = 0
             while (startIndex < logLength) {
@@ -158,7 +158,7 @@ object UtilKLogWrapper : BaseUtilK() {
                     endIndex = logLength
                 }
                 val printMessage = msg.subSequence(startIndex, endIndex)
-                log(level, tag, printMessage.toString())
+                println(level, tag, printMessage.toString())
                 startIndex = endIndex
             }
         }

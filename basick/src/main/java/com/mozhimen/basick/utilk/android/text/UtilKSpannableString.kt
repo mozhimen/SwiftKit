@@ -13,10 +13,10 @@ import androidx.annotation.ColorInt
  */
 object UtilKSpannableString {
     @JvmStatic
-    fun getStrSpan(str: CharSequence): SpannableString =
+    fun get(str: CharSequence): SpannableString =
         SpannableString(str)
 
     @JvmStatic
-    fun getStrSpanOfForeColor(chars: CharSequence, @ColorInt intColor: Int, start: Int, end: Int): SpannableString =
-        getStrSpan(chars).apply { setSpan(UtilKCharacterStyle.getForegroundColorSpan(intColor), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE) }
+    fun get_ofForeColor(chars: CharSequence, @ColorInt intColor: Int, start: Int, end: Int): SpannableString =
+        get(chars).apply { setSpan(UtilKCharacterStyle.getForegroundColorSpan(intColor), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE) }
 }

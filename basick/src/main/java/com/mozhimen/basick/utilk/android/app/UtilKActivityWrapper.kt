@@ -89,7 +89,7 @@ object UtilKActivityWrapper {
 
     @JvmStatic
     fun <V : View> getContentView(activity: Activity): V =
-        UtilKContentView.getPac(activity)
+        UtilKContentView.get_ofPac(activity)
 
     @JvmStatic
     fun <A : Annotation> getAnnotation(activity: Activity, annotationClazz: Class<A>): A? =

@@ -72,13 +72,12 @@ object UtilKInputMethodManager {
     }
 
     @JvmStatic
-    fun toggleSoftInput(context: Context, showFlags: Int, hideFlags: Int) {
-        get(context).toggleSoftInput(showFlags, hideFlags)
-    }
-
-    @OApiDeprecated_Official_AfterV_31_11_S
-    @JvmStatic
     fun toggleSoftInput(context: Context) {
         toggleSoftInput(context, 0, 0)
+    }
+
+    @JvmStatic
+    fun toggleSoftInput(context: Context, showFlags: Int, hideFlags: Int) {
+        get(context).toggleSoftInput(showFlags, hideFlags)
     }
 }

@@ -26,12 +26,10 @@ import java.lang.reflect.Field
  * @Version 1.0
  */
 object UtilKInputMethodManagerWrapper : BaseUtilK() {
-    /**
-     * 是否显示
-     */
+    //是否显示
     @JvmStatic
     fun isShow(activity: Activity): Boolean =
-        UtilKDecorView.getInvisibleHeight(activity) > 0
+        UtilKDecorViewWrapper.getInvisibleHeight(activity) > 0
 
     /**
      * 是否需要隐藏软键盘
@@ -84,26 +82,11 @@ object UtilKInputMethodManagerWrapper : BaseUtilK() {
 
     ////////////////////////////////////////////////////////////////////////////
 
-    /**
-     * 显示软键盘
-     */
+    //显示软键盘
     @JvmStatic
     fun show(activity: Activity) {
         if (UtilKInputMethodManager.isActive(activity) && UtilKActivity.getCurrentFocus(activity) != null)
             show(UtilKActivity.getCurrentFocus(activity)!!)
-    }
-
-    /**
-     * 显示软键盘
-     */
-    @JvmStatic
-    fun show(view: View) {
-        var focusView = view
-        if (!view.hasFocus()) {
-            UtilKView.applyRequestFocus(view)
-            view.findFocus()?.let { focusView = it }
-        }
-        UtilKInputMethodManager.showSoftInput(focusView)
     }
 
     /**
@@ -115,26 +98,33 @@ object UtilKInputMethodManagerWrapper : BaseUtilK() {
         show(editText as View)
     }
 
-    /**
-     * 延迟显示软键盘
-     */
+    //显示软键盘
+    @JvmStatic
+    fun show(view: View) {
+        var focusView = view
+        if (!view.hasFocus()) {
+            UtilKView.applyRequestFocus(view)
+            view.findFocus()?.let { focusView = it }
+        }
+        UtilKInputMethodManager.showSoftInput(focusView)
+    }
+
+
+
+    //延迟显示软键盘
     @JvmStatic
     fun showByDelay(view: View, delayMillis: Long) {
         view.postDelayed({ show(view) }, delayMillis)
     }
 
-    /**
-     * 关闭软键盘
-     */
+    //关闭软键盘
     @JvmStatic
     fun hide(activity: Activity) {
         if (((UtilKPeekDecorView.get(activity) != null || UtilKInputMethodManager.isActive(activity)) && UtilKActivity.getCurrentFocus(activity) != null) && isShow(activity))
             hide(UtilKActivity.getCurrentFocus(activity)!!)
     }
 
-    /**
-     * 隐藏软键盘
-     */
+    //隐藏软键盘
     @JvmStatic
     fun hide(view: View) {
         if (UtilKInputMethodManager.isActive(view))
@@ -197,9 +187,9 @@ object UtilKInputMethodManagerWrapper : BaseUtilK() {
     @JvmStatic
     fun fixInputLeak(context: Context, tag: String) {
         if (UtilKBuildVersion.isAfterV_29_10_Q())
-            fixInputLeakAfter29(context, tag)
+            fixInputLeak_after29(context, tag)
         else
-            fixInputLeakBefore29(context, tag)
+            fixInputLeak_before29(context, tag)
     }
 
     /**
@@ -207,7 +197,7 @@ object UtilKInputMethodManagerWrapper : BaseUtilK() {
      */
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
-    fun fixInputLeakAfter29(context: Context, tag: String) {
+    fun fixInputLeak_after29(context: Context, tag: String) {
         val inputMethodManager = UtilKInputMethodManager.get(context)
         try {
             val fieldMCurRootView = UtilKReflect.getField(inputMethodManager, "mCurRootView")
@@ -249,11 +239,9 @@ object UtilKInputMethodManagerWrapper : BaseUtilK() {
         }
     }
 
-    /**
-     * 修复在RecyclerView中持有内存泄漏的问题
-     */
+    //修复在RecyclerView中持有内存泄漏的问题
     @JvmStatic
-    fun fixInputLeakBefore29(context: Context, tag: String) {
+    fun fixInputLeak_before29(context: Context, tag: String) {
         if (UtilKBuildVersion.isAfterV_29_10_Q()) return
         val inputMethodManager = UtilKContext.getInputMethodManager(context)
         val leakViews = arrayOf("mCurRootView", "mServedView", "mNextServedView")

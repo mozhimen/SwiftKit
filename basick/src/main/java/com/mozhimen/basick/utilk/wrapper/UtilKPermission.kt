@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.android
+package com.mozhimen.basick.utilk.wrapper
 
 import android.provider.Settings
 import android.text.TextUtils

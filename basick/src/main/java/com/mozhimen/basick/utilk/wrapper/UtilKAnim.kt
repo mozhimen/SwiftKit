@@ -1,9 +1,10 @@
-package com.mozhimen.basick.utilk.android.view
+package com.mozhimen.basick.utilk.wrapper
 
 import android.animation.Animator
 import android.view.View
 import android.view.animation.Animation
 import com.mozhimen.basick.utilk.android.animation.UtilKAnimator
+import com.mozhimen.basick.utilk.android.view.UtilKAnimation
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 
 /**
@@ -27,7 +28,7 @@ object UtilKAnim : BaseUtilK() {
     fun releaseAnim(vararg objs: Any) {
         if (objs.isEmpty()) return
         for (obj in objs) {
-            if (obj is Animation) UtilKAnimation.releaseAnimation(obj)
+            if (obj is Animation) UtilKAnimation.cancel_releaseAnimationListener(obj)
             else if (obj is Animator) UtilKAnimator.cancel_removeAllListeners(obj)
         }
     }

@@ -14,7 +14,7 @@ import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
 import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
 import com.mozhimen.basick.utilk.android.animation.UtilKAnimator
-import com.mozhimen.basick.utilk.android.view.UtilKAnim
+import com.mozhimen.basick.utilk.wrapper.UtilKAnim
 import java.util.concurrent.ConcurrentHashMap
 
 /**

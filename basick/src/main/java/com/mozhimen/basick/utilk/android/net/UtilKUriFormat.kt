@@ -17,7 +17,7 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.provider.UtilKDocumentsContract
 import com.mozhimen.basick.utilk.android.provider.UtilKMediaStore
 import com.mozhimen.basick.utilk.android.content.getMediaColumns
-import com.mozhimen.basick.utilk.android.view.UtilKScreen
+import com.mozhimen.basick.utilk.wrapper.UtilKScreen
 import com.mozhimen.basick.utilk.android.webkit.UtilKMimeTypeMap
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile

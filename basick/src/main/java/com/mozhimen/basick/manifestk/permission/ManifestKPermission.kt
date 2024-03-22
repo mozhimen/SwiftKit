@@ -9,10 +9,9 @@ import com.mozhimen.basick.manifestk.permission.commons.IManifestKPermissionList
 import com.mozhimen.basick.manifestk.permission.helpers.InvisibleProxyFragment
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKActivityStart
-import com.mozhimen.basick.utilk.android.UtilKPermission
+import com.mozhimen.basick.utilk.wrapper.UtilKPermission
 import com.mozhimen.basick.utilk.android.app.getAnnotation
 import com.mozhimen.basick.utilk.android.util.w
-import com.mozhimen.basick.utilk.android.widget.showToastOnMain
 
 /**
  * @ClassName ManifestKPermission

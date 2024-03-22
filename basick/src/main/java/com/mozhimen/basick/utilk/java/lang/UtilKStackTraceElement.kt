@@ -15,16 +15,57 @@ import java.util.logging.Logger
  */
 object UtilKStackTraceElement : IUtilK {
 
+    @JvmStatic
+    fun get(clazz: Class<*>): StackTraceElement? {
+        val stackTrace = UtilKThread.getCurStackTrace()
+        var stackOffset = getOffset(stackTrace, clazz)
+        if (stackOffset == -1) {
+            stackOffset = getOffset(stackTrace, Logger::class.java)
+            if (stackOffset == -1) {
+                stackOffset = getOffset(stackTrace, Log::class.java)
+                if (stackOffset == -1)
+                    return null
+            }
+        }
+        return stackTrace[stackOffset]
+    }
+
+    @JvmStatic
+    fun getOffset(stackTraceElements: Array<StackTraceElement>, clazz: Class<*>): Int {
+        var logIndex = -1
+        for (i in stackTraceElements.indices) {
+            val element = stackTraceElements[i]
+            val tClass = element.className
+            if (TextUtils.equals(tClass, clazz.name))
+                logIndex = i
+            else
+                if (logIndex > -1) break
+        }
+        if (logIndex != -1) {
+            logIndex++
+            if (logIndex >= stackTraceElements.size)
+                logIndex = stackTraceElements.size - 1
+        }
+        return logIndex
+    }
+
+    ////////////////////////////////////////////////////////////////////////
+
     /**
-     * 获取真正的堆栈跟踪，然后用最大深度裁剪它。
-     * @param stackTrace Array<StackTraceElement?> 完整的堆栈跟踪
-     * @param maxDepth Int 将被裁剪的真实堆栈跟踪的最大深度，O表示没有限制
-     * @return Array<StackTraceElement?> 裁剪后的真实堆栈跟踪
+     * 使用最大深度裁剪堆栈跟踪.
+     * @param callStack Array<StackTraceElement?> 原始堆栈跟踪
+     * @param maxDepth Int 将被裁剪的真实堆栈跟踪的最大深度, O表示没有限制
+     * @return Array<StackTraceElement?> 裁剪后的堆栈跟踪
      */
     @JvmStatic
-    @Throws(Exception::class)
-    fun getCroppedRealStackTracks(stackTrace: Array<StackTraceElement?>, ignoredPackage: String, maxDepth: Int): Array<StackTraceElement?> =
-        getCroppedStackTraces(getRealStackTracks(stackTrace, ignoredPackage), maxDepth)
+    fun gets_ofCropped(callStack: Array<StackTraceElement?>, maxDepth: Int): Array<StackTraceElement?> {
+        var realDepth = callStack.size
+        if (maxDepth > 0)
+            realDepth = maxDepth.coerceAtMost(realDepth)
+        val realStack = arrayOfNulls<StackTraceElement>(realDepth)
+        System.arraycopy(callStack, 0, realStack, 0, realDepth)
+        return realStack
+    }
 
     /**
      * 获取真正的堆栈跟踪，所有来自XLog库的元素都将被删除
@@ -34,7 +75,7 @@ object UtilKStackTraceElement : IUtilK {
      */
     @JvmStatic
     @Throws(Exception::class)
-    fun getRealStackTracks(stackTrace: Array<StackTraceElement?>, ignorePackage: String?): Array<StackTraceElement?> {
+    fun gets_ofReal(stackTrace: Array<StackTraceElement?>, ignorePackage: String?): Array<StackTraceElement?> {
         var ignoreDepth = 0
         val allDepth = stackTrace.size
         require(allDepth > 0) { "$TAG stackTrace's size is 0" }
@@ -53,66 +94,13 @@ object UtilKStackTraceElement : IUtilK {
     }
 
     /**
-     * 使用最大深度裁剪堆栈跟踪.
-     * @param callStack Array<StackTraceElement?> 原始堆栈跟踪
-     * @param maxDepth Int 将被裁剪的真实堆栈跟踪的最大深度, O表示没有限制
-     * @return Array<StackTraceElement?> 裁剪后的堆栈跟踪
+     * 获取真正的堆栈跟踪，然后用最大深度裁剪它。
+     * @param stackTrace Array<StackTraceElement?> 完整的堆栈跟踪
+     * @param maxDepth Int 将被裁剪的真实堆栈跟踪的最大深度，O表示没有限制
+     * @return Array<StackTraceElement?> 裁剪后的真实堆栈跟踪
      */
     @JvmStatic
-    fun getCroppedStackTraces(callStack: Array<StackTraceElement?>, maxDepth: Int): Array<StackTraceElement?> {
-        var realDepth = callStack.size
-        if (maxDepth > 0)
-            realDepth = maxDepth.coerceAtMost(realDepth)
-        val realStack = arrayOfNulls<StackTraceElement>(realDepth)
-        System.arraycopy(callStack, 0, realStack, 0, realDepth)
-        return realStack
-    }
-
-    @JvmStatic
-    fun getCurrentStackTraces(clazz: Class<*>): StackTraceElement? {
-        val stackTrace = UtilKThread.getCurStackTrace()
-        var stackOffset = getStackTracesOffset(stackTrace, clazz)
-        if (stackOffset == -1) {
-            stackOffset = getStackTracesOffset(stackTrace, Logger::class.java)
-            if (stackOffset == -1) {
-                stackOffset = getStackTracesOffset(stackTrace, Log::class.java)
-                if (stackOffset == -1)
-                    return null
-            }
-        }
-        return stackTrace[stackOffset]
-    }
-
-    @JvmStatic
-    fun getStackTracesOffset(stackTraceElements: Array<StackTraceElement>, clazz: Class<*>): Int {
-        var logIndex = -1
-        for (i in stackTraceElements.indices) {
-            val element = stackTraceElements[i]
-            val tClass = element.className
-            if (TextUtils.equals(tClass, clazz.name))
-                logIndex = i
-            else
-                if (logIndex > -1) break
-        }
-        if (logIndex != -1) {
-            logIndex++
-            if (logIndex >= stackTraceElements.size)
-                logIndex = stackTraceElements.size - 1
-        }
-        return logIndex
-    }
-
-    @JvmStatic
-    fun getStackTracesInfo(msg: String): String {
-        val element = getCurrentStackTraces(this::class.java)
-        var clazzName = "unknown"
-        var methodName = "unknown"
-        var lineNumber = -1
-        if (element != null) {
-            clazzName = element.fileName
-            methodName = element.methodName
-            lineNumber = element.lineNumber
-        }
-        return "  ($clazzName:$lineNumber) #$methodName: \n${UtilKJSON.wrapStrJson(msg)}"
-    }
+    @Throws(Exception::class)
+    fun gets_ofRealCropped(stackTrace: Array<StackTraceElement?>, ignoredPackage: String, maxDepth: Int): Array<StackTraceElement?> =
+        gets_ofCropped(gets_ofReal(stackTrace, ignoredPackage), maxDepth)
 }

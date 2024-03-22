@@ -1,8 +1,9 @@
 package com.mozhimen.basick.utilk.android.text
 
 import android.text.Html
-import com.mozhimen.basick.elemk.android.text.cons.CHtml
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import android.text.Spanned
+import androidx.annotation.RequiresApi
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 
 /**
  * @ClassName UtilKHtml
@@ -12,10 +13,13 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
  * @Version 1.0
  */
 object UtilKHtml {
+
     @JvmStatic
-    fun fromHtml(content: String): CharSequence =
-        if (UtilKBuildVersion.isAfterV_24_7_N())
-            Html.fromHtml(content, CHtml.FROM_HTML_MODE_LEGACY)
-        else
-            Html.fromHtml(content)
+    @RequiresApi(CVersCode.V_24_7_N)
+    fun fromHtml(strHtml: String, flags: Int): Spanned =
+        Html.fromHtml(strHtml, flags)
+
+    @JvmStatic
+    fun fromHtml(strHtml: String): Spanned =
+        Html.fromHtml(strHtml)
 }

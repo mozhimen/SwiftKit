@@ -13,7 +13,6 @@ import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_NETWORK_STATE
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.net.UtilKConnectivityManager
-import com.mozhimen.basick.utilk.android.net.UtilKNet
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 
 /**

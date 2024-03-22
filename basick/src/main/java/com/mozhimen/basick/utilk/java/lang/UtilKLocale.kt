@@ -28,7 +28,7 @@ object UtilKLocale {
     @JvmStatic
     fun applyLanguage(locale: Locale, context: Context) {
         val configuration: Configuration = UtilKConfiguration.get_ofApp(context)
-        val displayMetrics: DisplayMetrics = UtilKDisplayMetrics.getApp(context)
+        val displayMetrics: DisplayMetrics = UtilKDisplayMetrics.get_ofApp(context)
         if (UtilKBuildVersion.isAfterV_17_42_J1()) {
             configuration.setLocale(locale)
         } else {

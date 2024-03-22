@@ -8,7 +8,7 @@ import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.lintk.optins.permission.OPermission_INTERNET
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.android.content.UtilKRes
+import com.mozhimen.basick.utilk.wrapper.UtilKRes
 
 /**
  * @ClassName UtilKStateListDrawable

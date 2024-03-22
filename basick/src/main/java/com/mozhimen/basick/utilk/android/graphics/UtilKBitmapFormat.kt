@@ -15,7 +15,7 @@ import com.mozhimen.basick.elemk.android.media.cons.CMediaFormat
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.provider.cons.CMediaStore
 import com.mozhimen.basick.elemk.android.util.cons.CBase64
-import com.mozhimen.basick.utilk.android.UtilKPermission
+import com.mozhimen.basick.utilk.wrapper.UtilKPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
 import com.mozhimen.basick.utilk.android.content.UtilKResources
 import com.mozhimen.basick.utilk.android.media.UtilKMediaScannerConnection

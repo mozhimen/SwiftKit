@@ -25,4 +25,5 @@ object UtilKRegexExtensions {
     @JvmStatic
     fun replaceRegexDoubleQuote(str: String): String =
         str.replace("\"".toRegex(), "")
+
 }

@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.android.content
+package com.mozhimen.basick.utilk.wrapper
 
 import android.app.Activity
 import android.content.Context
@@ -12,7 +12,7 @@ import com.mozhimen.basick.lintk.optins.permission.OPermission_INSTALL_PACKAGES
 import com.mozhimen.basick.lintk.optins.permission.OPermission_REQUEST_INSTALL_PACKAGES
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKActivityStart
-import com.mozhimen.basick.utilk.android.UtilKPermission
+import com.mozhimen.basick.utilk.android.content.UtilKPackageInstaller
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.bases.BaseUtilK

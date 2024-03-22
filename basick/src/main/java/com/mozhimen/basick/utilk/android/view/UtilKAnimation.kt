@@ -15,12 +15,9 @@ object UtilKAnimation {
 
     //////////////////////////////////////////////////////////////////////////////////////////
 
-    /**
-     * 释放Animation
-     * @param animation Animation
-     */
+    //释放Animation
     @JvmStatic
-    fun releaseAnimation(animation: Animation) {
+    fun cancel_releaseAnimationListener(animation: Animation) {
         animation.cancel()
         animation.setAnimationListener(null)
     }

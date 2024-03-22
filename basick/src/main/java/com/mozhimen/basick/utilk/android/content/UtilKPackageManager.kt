@@ -116,12 +116,12 @@ object UtilKPackageManager {
     @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
     fun getInstalledPackages(context: Context): List<PackageInfo> {
         val flags = CPackageManager.GET_ACTIVITIES or CPackageManager.GET_SERVICES
-        val packageInfos: List<PackageInfo> = if (UtilKBuildVersion.isAfterV_33_13_TIRAMISU()) {
+        val installedPackageInfos: List<PackageInfo> = if (UtilKBuildVersion.isAfterV_33_13_TIRAMISU()) {
             getInstalledPackages(context, PackageInfoFlags.of(flags.toLong()))
         } else {
             getInstalledPackages(context, flags)
         }
-        return packageInfos
+        return installedPackageInfos
     }
 
 

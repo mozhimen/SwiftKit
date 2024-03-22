@@ -9,6 +9,9 @@ import com.mozhimen.basick.elemk.cons.CMsg
  * @Date 2024/1/2
  * @Version 1.0
  */
+fun String.replaceLineBreak2strHtmlBr(): String =
+    UtilKStringsJVM.replaceLineBreak2strHtmlBr(this)
+
 fun String.replaceDot(): String =
     UtilKStringsJVM.replaceDot(this)
 
@@ -39,6 +42,10 @@ fun String.complementStartPlus(): String =
 /////////////////////////////////////////////////////////////////////////////
 
 object UtilKStringsJVM {
+    @JvmStatic
+    fun replaceLineBreak2strHtmlBr(str: String): String =
+        str.replace(CMsg.LINE_BREAK, "<br>")
+
     @JvmStatic
     fun replaceDot(str: String): String =
         str.replace(",", ".")

@@ -2,7 +2,6 @@ package com.mozhimen.basick.utilk.android.util
 
 import android.content.Context
 import android.util.DisplayMetrics
-import android.view.Display
 import com.mozhimen.basick.utilk.android.content.UtilKResources
 import com.mozhimen.basick.utilk.android.view.UtilKDisplay
 import kotlin.math.max
@@ -21,25 +20,31 @@ object UtilKDisplayMetrics {
 
     //region # get function
     @JvmStatic
-    fun getApp(context: Context) =
+    fun get_ofApp(context: Context) =
         UtilKResources.getDisplayMetrics_ofApp(context)
 
     @JvmStatic
-    fun getSys(): DisplayMetrics =
+    fun get_ofSys(): DisplayMetrics =
         UtilKResources.getDisplayMetrics_ofSys()
 
     @JvmStatic
-    fun getDef(context: Context): DisplayMetrics {
-        val displayMetrics = DisplayMetrics()
-        UtilKDisplay.getDefMetrics(context, displayMetrics)
+    fun get_ofDef(context: Context): DisplayMetrics =
+        get_ofDef(context, DisplayMetrics())
+
+    @JvmStatic
+    fun get_ofDef(context: Context, displayMetrics: DisplayMetrics): DisplayMetrics {
+        UtilKDisplay.getMetrics_ofDef(context, displayMetrics)
         return displayMetrics
     }
 
     @JvmStatic
-    fun getReal(context: Context): DisplayMetrics {
-        val displayMetrics = DisplayMetrics()
-        Display::class.java.getMethod("getRealMetrics", DisplayMetrics::class.java).invoke(UtilKDisplay.getDef(context), displayMetrics)
-        return displayMetrics;
+    fun get_ofReal(context: Context): DisplayMetrics =
+        get_ofReal(context, DisplayMetrics())
+
+    @JvmStatic
+    fun get_ofReal(context: Context, displayMetrics: DisplayMetrics): DisplayMetrics {
+        UtilKDisplay.getRealMatrics_ofDef(context, displayMetrics)
+        return displayMetrics
     }
 
     //////////////////////////////////////////////////////////////////////
@@ -47,102 +52,95 @@ object UtilKDisplayMetrics {
     //region # app
 
     @JvmStatic
-    fun getAppWidthPixels(context: Context): Int =
-        getApp(context).widthPixels
+    fun getWidthPixels_ofApp(context: Context): Int =
+        get_ofApp(context).widthPixels
 
     @JvmStatic
-    fun getAppHeightPixels(context: Context): Int =
-        getApp(context).heightPixels
+    fun getHeightPixels_ofApp(context: Context): Int =
+        get_ofApp(context).heightPixels
 
-    /**
-     * 获取密度
-     */
+    //获取密度
     @JvmStatic
-    fun getAppDensity(context: Context): Float =
-        getApp(context).density
+    fun getDensity_ofApp(context: Context): Float =
+        get_ofApp(context).density
+
     //endregion
 
     //////////////////////////////////////////////////////////////////////
 
     //region # sys
-    /**
-     * 获取密度dp
-     */
+    //获取密度dp
     @JvmStatic
-    fun getSysDensityDpi(): Int =
-        getSys().densityDpi
+    fun getDensityDpi_ofSys(): Int =
+        get_ofSys().densityDpi
 
-    /**
-     * 获取密度
-     */
+    //获取密度
     @JvmStatic
-    fun getSysDensity(): Float =
-        getSys().density
+    fun getDensity_ofSys(): Float =
+        get_ofSys().density
 
     @JvmStatic
-    fun getSysWidthPixels(): Int =
-        getSys().widthPixels
+    fun getWidthPixels_ofSys(): Int =
+        get_ofSys().widthPixels
 
     @JvmStatic
-    fun getSysHeightPixels(): Int =
-        getSys().heightPixels
+    fun getHeightPixels_ofSys(): Int =
+        get_ofSys().heightPixels
 
     @JvmStatic
-    fun getSysRatio(): Float {
-        val max = max(getSysWidthPixels(), getSysHeightPixels()).toFloat()
-        val min = min(getSysWidthPixels(), getSysHeightPixels()).toFloat()
+    fun getRatio_ofSys(): Float {
+        val max = max(getWidthPixels_ofSys(), getHeightPixels_ofSys()).toFloat()
+        val min = min(getWidthPixels_ofSys(), getHeightPixels_ofSys()).toFloat()
         return max / min
     }
 
     @JvmStatic
-    fun getSysXdpi(): Float =
-        getSys().xdpi
+    fun getXdpi_ofSys(): Float =
+        get_ofSys().xdpi
 
     @JvmStatic
-    fun getSysYdpi(): Float =
-        getSys().ydpi
+    fun getYdpi_ofSys(): Float =
+        get_ofSys().ydpi
 
     @JvmStatic
-    fun getSysScaledDensity(): Float =
-        getSys().scaledDensity
+    fun getScaledDensity_ofSys(): Float =
+        get_ofSys().scaledDensity
 
-    /**
-     * 获取屏幕尺寸
-     */
+    //获取屏幕尺寸
     @JvmStatic
-    fun getSysSize(): Float {
-        val xdpi = getSysXdpi()
-        val ydpi = getSysYdpi()
-        val width = getSysWidthPixels()
-        val height = getSysHeightPixels()
+    fun getSize_ofSys(): Float {
+        val xdpi = getXdpi_ofSys()
+        val ydpi = getYdpi_ofSys()
+        val width = getWidthPixels_ofSys()
+        val height = getHeightPixels_ofSys()
         //计算屏幕的物理尺寸
         val widthPhy = (width / xdpi) * (width / xdpi)
         val heightPhy = (height / ydpi) * (height / ydpi)
         return sqrt(widthPhy + heightPhy)
     }
 
-    fun isSysOrientationPortrait(): Boolean =
-        getSysHeightPixels() >= getSysWidthPixels()
+    fun isOrientationPortrait_ofSys(): Boolean =
+        getHeightPixels_ofSys() >= getWidthPixels_ofSys()
 
-    fun isSysOrientationLandscape(): Boolean =
-        !isSysOrientationPortrait()
+    fun isOrientationLandscape_ofSys(): Boolean =
+        !isOrientationPortrait_ofSys()
     //endregion
 
     //////////////////////////////////////////////////////////////////////
 
     //region # def
     @JvmStatic
-    fun getDefWidthPixels(context: Context): Int =
-        getDef(context).widthPixels
+    fun getWidthPixels_ofDef(context: Context): Int =
+        get_ofDef(context).widthPixels
 
     @JvmStatic
-    fun getDefHeightPixels(context: Context): Int =
-        getDef(context).heightPixels
+    fun getHeightPixels_ofDef(context: Context): Int =
+        get_ofDef(context).heightPixels
 
     @JvmStatic
-    fun getDefRatio(context: Context): Float {
-        val max = max(getDefWidthPixels(context), getDefHeightPixels(context)).toFloat()
-        val min = min(getDefWidthPixels(context), getDefHeightPixels(context)).toFloat()
+    fun getRatio_ofDef(context: Context): Float {
+        val max = max(getWidthPixels_ofDef(context), getHeightPixels_ofDef(context)).toFloat()
+        val min = min(getWidthPixels_ofDef(context), getHeightPixels_ofDef(context)).toFloat()
         return max / min
     }
     //endregion
@@ -151,17 +149,17 @@ object UtilKDisplayMetrics {
 
     //region # real
     @JvmStatic
-    fun getRealWidthPixels(context: Context): Int =
-        getReal(context).widthPixels
+    fun getWidthPixels_ofReal(context: Context): Int =
+        get_ofReal(context).widthPixels
 
     @JvmStatic
-    fun getRealHeightPixels(context: Context): Int =
-        getReal(context).heightPixels
+    fun getHeightPixels_ofReal(context: Context): Int =
+        get_ofReal(context).heightPixels
 
     @JvmStatic
-    fun getRealRatio(context: Context): Float {
-        val max = max(getRealWidthPixels(context), getRealHeightPixels(context)).toFloat()
-        val min = min(getRealWidthPixels(context), getRealHeightPixels(context)).toFloat()
+    fun getRatio_ofReal(context: Context): Float {
+        val max = max(getWidthPixels_ofReal(context), getHeightPixels_ofReal(context)).toFloat()
+        val min = min(getWidthPixels_ofReal(context), getHeightPixels_ofReal(context)).toFloat()
         return max / min
     }
     //endregion

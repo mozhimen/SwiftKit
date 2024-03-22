@@ -8,6 +8,7 @@ import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.IdRes
 import com.mozhimen.basick.elemk.android.content.cons.CApplicationInfo
 import com.mozhimen.basick.utilk.commons.IUtilK
+import com.mozhimen.basick.utilk.wrapper.UtilKRes
 
 /**
  * @ClassName UtilKApplicationInfo
