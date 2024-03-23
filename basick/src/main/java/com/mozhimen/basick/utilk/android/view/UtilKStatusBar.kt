@@ -38,6 +38,19 @@ object UtilKStatusBar : BaseUtilK() {
     }
 
     /**
+     * 获取状态栏高度1
+     * 优点: 不需要在Activity的回调方法onWindowFocusChanged()执行后才能得到结果
+     * 缺点: 不管你是否设置全屏模式,或是不是显示状态栏,高度是固定的;因为系统资源属性是固定的,真实的,不管你是否隐藏(隐藏或显示),他都在那里
+     * @param isCheckFullScreen Boolean 是否把全屏纳入考虑范围, 置true, 全屏返回0
+     * @return Int
+     */
+    @JvmStatic
+    fun getHeight(isCheckFullScreen: Boolean): Int {
+        if (isCheckFullScreen && UtilKScreen.isFullScreen_ofTheme()) return 0
+        return getHeight()
+    }
+
+    /**
      * 获取状态栏高度2
      * 优点: 依赖于WMS,是在界面构建后根据View获取的,所以高度是动态的
      * 缺点: 在Activity的回调方法onWindowFocusChanged()执行后,才能得到预期的结果
@@ -47,20 +60,6 @@ object UtilKStatusBar : BaseUtilK() {
     @JvmStatic
     fun getHeight(activity: Activity): Int =
         UtilKDecorView.getWindowVisibleDisplayFrame(activity).top
-
-    /**
-     * 获取状态栏高度1
-     * 优点: 不需要在Activity的回调方法onWindowFocusChanged()执行后才能得到结果
-     * 缺点: 不管你是否设置全屏模式,或是不是显示状态栏,高度是固定的;因为系统资源属性是固定的,真实的,不管你是否隐藏(隐藏或显示),他都在那里
-     * @param isCheckFullScreen Boolean 是否把全屏纳入考虑范围, 置true, 全屏返回0
-     * @return Int
-     */
-    @JvmStatic
-    @JvmOverloads
-    fun getHeight(isCheckFullScreen: Boolean = true): Int {
-        if (isCheckFullScreen && UtilKScreen.isFullScreen_ofTheme()) return 0
-        return getHeight()
-    }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
