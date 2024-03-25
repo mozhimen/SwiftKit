@@ -18,29 +18,29 @@ import kotlin.math.min
 object UtilKWindowMetrics {
     @JvmStatic
     @RequiresApi(CVersCode.V_30_11_R)
-    fun getCur(context: Context): WindowMetrics =
+    fun get_ofCur(context: Context): WindowMetrics =
         UtilKWindowManager.getCurrentWindowMetrics(context)
 
     @RequiresApi(CVersCode.V_30_11_R)
     @JvmStatic
-    fun getCurBounds(context: Context): Rect =
-        getCur(context).bounds
+    fun getBounds_ofCur(context: Context): Rect =
+        get_ofCur(context).bounds
 
     @RequiresApi(CVersCode.V_30_11_R)
     @JvmStatic
-    fun getCurBoundsWidth(context: Context): Int =
-        getCurBounds(context).width()
+    fun getBoundsWidth_ofCur(context: Context): Int =
+        getBounds_ofCur(context).width()
 
     @RequiresApi(CVersCode.V_30_11_R)
     @JvmStatic
-    fun getCurBoundsHeight(context: Context): Int =
-        getCurBounds(context).height()
+    fun getBoundsHeight_ofCur(context: Context): Int =
+        getBounds_ofCur(context).height()
 
     @RequiresApi(CVersCode.V_30_11_R)
     @JvmStatic
-    fun getCurBoundsRatio(context: Context): Float {
-        val max: Float = max(getCurBoundsWidth(context), getCurBoundsHeight(context)).toFloat()
-        val min: Float = min(getCurBoundsWidth(context), getCurBoundsHeight(context)).toFloat()
+    fun getBoundsRatio_ofCur(context: Context): Float {
+        val max: Float = max(getBoundsWidth_ofCur(context), getBoundsHeight_ofCur(context)).toFloat()
+        val min: Float = min(getBoundsWidth_ofCur(context), getBoundsHeight_ofCur(context)).toFloat()
         return max / min
     }
 }

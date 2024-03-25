@@ -47,7 +47,7 @@ object UtilKScreen : BaseUtilK() {
     @JvmStatic
     fun getWidth(): Int =
         if (UtilKBuildVersion.isAfterV_30_11_R())
-            UtilKWindowMetrics.getCurBoundsWidth(_context)
+            UtilKWindowMetrics.getBoundsWidth_ofCur(_context)
         else
             UtilKDisplay.getSizeX_ofDef(_context)
 
@@ -86,7 +86,7 @@ object UtilKScreen : BaseUtilK() {
     @JvmStatic
     fun getHeight(): Int =
         if (UtilKBuildVersion.isAfterV_30_11_R())
-            UtilKWindowMetrics.getCurBoundsHeight(_context)
+            UtilKWindowMetrics.getBoundsHeight_ofCur(_context)
         else
             UtilKDisplay.getSizeY_ofDef(_context)
 
@@ -234,12 +234,12 @@ object UtilKScreen : BaseUtilK() {
      */
     @JvmStatic
     fun applyBrightness(activity: Activity, @FloatRange(from = 0.0, to = 1.0) paramFloat: Float) {
-        UtilKWindowWrapper.applyBrightness(activity, paramFloat)
+        UtilKWindowManagerLayoutParams.applyBrightness(activity, paramFloat)
     }
 
     @JvmStatic
     fun applyMaxBrightness(activity: Activity, isMaxBrightness: Boolean) {
-        UtilKWindowWrapper.applyMaxBrightness(activity, isMaxBrightness)
+        UtilKWindowManagerLayoutParams.applyMaxBrightness(activity, isMaxBrightness)
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////

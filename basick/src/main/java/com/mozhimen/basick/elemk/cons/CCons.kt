@@ -9,6 +9,7 @@ package com.mozhimen.basick.elemk.cons
  */
 object CCons {
     const val UTILK_SNACK_BAR_MAX_LINES = 50//能显示的最多行数
-    const val UTILK_INPUT_CHANGE_TAG_ON_GLOBAL_LAYOUT_LISTENER = -8
+    const val DEBOUNCE_THRESHOLD_MILLIS = 1123460103
+    const val DEBOUNCE_LAST_CLICK_TIME = 1123461123
     const val UTILK_LOG_PRO_MAX_LOG_MSG_LENGTH = 4000//logcat最大长度为4*1024，此处取4000
 }

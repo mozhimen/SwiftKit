@@ -29,12 +29,12 @@ import kotlinx.coroutines.flow.onEach
  * @Date 2022/11/6 0:28
  * @Version 1.0
  */
-val EditText.value: String get() = UtilKEditText.gainValue(this)
+val EditText.value: String get() = UtilKEditText.getValue(this)
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-fun EditText.applyOnEditorActionSearchListener(block: I_Listener) {
-    UtilKEditText.applyOnEditorActionSearchListener(this, block)
+fun EditText.applyOnEditorActionListener_ofSearch(block: I_Listener) {
+    UtilKEditText.applyOnEditorActionListener_ofSearch(this, block)
 }
 
 @FlowPreview
@@ -59,36 +59,31 @@ fun EditText.applySuspendDebounceTextChangeListener(
     UtilKEditText.applySuspendDebounceTextChangeListener(this, scope, searchBlock, resBlock, thresholdMillis)
 }
 
-fun EditText.applyInputMaxLength(inputMaxLength: Int) {
-    UtilKEditText.applyInputMaxLength(this, inputMaxLength)
+fun EditText.addTextChangedObserver(onTextChanged: IA_Listener<String>/*(newText: String) -> Unit*/) {
+    UtilKEditText.addTextChangedObserver(this, onTextChanged)
 }
 
-fun EditText.addTextChangeWatcher(onTextChanged: IA_Listener<String>/*(newText: String) -> Unit*/) {
-    UtilKEditText.addTextChangeWatcher(this, onTextChanged)
+fun EditText.clearText() {
+    UtilKEditText.clearText(this)
 }
 
-fun EditText.applyClearText() {
-    UtilKEditText.applyClearText(this)
-}
+//////////////////////////////////////////////////////////////////////////////////////////////
 
 object UtilKEditText {
 
-    /**
-     * 获取text
-     */
     @JvmStatic
-    fun gainValue(editText: EditText): String =
-        editText.text.obj2stringTrim()
+    fun getText(editText: EditText): Editable =
+        editText.text
+
+    //获取text
+    @JvmStatic
+    fun getValue(editText: EditText): String =
+        getText(editText).obj2stringTrim()
 
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun applyClearText(editText: EditText) {
-        editText.text.clear()
-    }
-
-    @JvmStatic
-    fun applyOnEditorActionSearchListener(editText: EditText, block: I_Listener) {
+    fun applyOnEditorActionListener_ofSearch(editText: EditText, block: I_Listener) {
         editText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == CEditorInfo.IME_ACTION_SEARCH) {
                 block.invoke()
@@ -128,28 +123,20 @@ object UtilKEditText {
         }.launchIn(scope)
     }
 
-    /**
-     * 最多可输入的字符数
-     * @param editText EditText
-     * @param inputMaxLength Int
-     */
+    //变化观察
     @JvmStatic
-    fun applyInputMaxLength(editText: EditText, inputMaxLength: Int) {
-        if (inputMaxLength > 0)
-            editText.filters = arrayOf(InputFilter.LengthFilter(inputMaxLength))
-    }
-
-    /**
-     * 变化观察
-     * @param editText EditText
-     * @param onTextChanged Function1<[@kotlin.ParameterName] String, Unit>
-     */
-    @JvmStatic
-    fun addTextChangeWatcher(editText: EditText, onTextChanged: IA_Listener<String>/*(newTextStr: String) -> Unit*/) {
+    fun addTextChangedObserver(editText: EditText, onTextChanged: IA_Listener<String>/*(newTextStr: String) -> Unit*/) {
         editText.addTextChangedListener(object : ITextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 onTextChanged(s.toString())
             }
         })
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun clearText(editText: EditText) {
+        editText.text.clear()
     }
 }

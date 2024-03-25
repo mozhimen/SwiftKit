@@ -16,9 +16,9 @@ import com.mozhimen.basick.elemk.androidx.appcompat.commons.IActivity
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.widget.UtilKTextView
 import com.mozhimen.basick.utilk.android.widget.applyTextStyle
+import com.mozhimen.basick.utilk.androidx.appcompat.UtilKToolbar
 import com.mozhimen.basick.utilk.androidx.appcompat.applyCustomView
 import com.mozhimen.basick.utilk.androidx.appcompat.getActionBarContainer
-import com.mozhimen.basick.utilk.androidx.appcompat.getToolbar
 
 /**
  * @ClassName BaseBarActivityVB
@@ -102,7 +102,7 @@ abstract class BaseBarActivity : BaseSaveStateActivity(), IActivity {
         if (UtilKBuildVersion.isAfterV_21_5_L()) //用来隐藏Toolbar的阴影效果
             getActionBarContainer()?.elevation = 0f
 
-        _toolbar = getToolbar()
+        _toolbar = UtilKToolbar.get(this)
         if (null == _customView) {//如果自定义标题为空，初始化通用的标题，否则初始话自定义标题
             _toolbar?.let {
                 applyTitleView(it)

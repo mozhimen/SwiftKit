@@ -14,6 +14,10 @@ import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
  */
 object UtilKMimeTypeMap {
     @JvmStatic
+    fun get():MimeTypeMap =
+        MimeTypeMap.getSingleton()
+
+    @JvmStatic
     fun getExtensionFromMimeType(context: Context, uri: Uri): String? =
-        MimeTypeMap.getSingleton().getExtensionFromMimeType(UtilKContentResolver.getType(context, uri))
+        get().getExtensionFromMimeType(UtilKContentResolver.getType(context, uri))
 }

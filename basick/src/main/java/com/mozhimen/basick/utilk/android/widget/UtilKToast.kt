@@ -67,12 +67,10 @@ object UtilKToast : BaseUtilK() {
     @JvmStatic
     fun showToast(msg: String, duration: Int = Toast.LENGTH_SHORT, context: Context = _context) {
         if (context is Activity) {
-            if (!context.isFinishingOrDestroyed()) {
+            if (!context.isFinishingOrDestroyed())
                 makeToast(context, msg, duration)
-            }
-        } else {
+        } else
             makeToast(context, msg, duration)
-        }
     }
 
     /**
@@ -81,12 +79,10 @@ object UtilKToast : BaseUtilK() {
     @JvmStatic
     fun showToast(@StringRes intResStr: Int, duration: Int = Toast.LENGTH_SHORT, context: Context = _context) {
         if (context is Activity) {
-            if (!context.isFinishingOrDestroyed()) {
+            if (!context.isFinishingOrDestroyed())
                 makeToast(context, intResStr, duration)
-            }
-        } else {
+        } else
             makeToast(context, intResStr, duration)
-        }
     }
 
     ////////////////////////////////////////////////////////////////
@@ -97,11 +93,10 @@ object UtilKToast : BaseUtilK() {
      */
     @JvmStatic
     fun showToastOnMain(msg: String, duration: Int = Toast.LENGTH_SHORT) {
-        if (UtilKLooper.isMainLooper()) {
+        if (UtilKLooper.isMainLooper())
             showToast(msg, duration)
-        } else {
+        else
             UtilKHandler.postOnMain { showToast(msg, duration) }
-        }
     }
 
     /**
@@ -110,11 +105,10 @@ object UtilKToast : BaseUtilK() {
      */
     @JvmStatic
     fun showToastOnMain(@StringRes intResStr: Int, duration: Int = Toast.LENGTH_SHORT) {
-        if (UtilKLooper.isMainLooper()) {
+        if (UtilKLooper.isMainLooper())
             showToast(intResStr, duration)
-        } else {
+        else
             UtilKHandler.postOnMain { showToast(intResStr, duration) }
-        }
     }
 
     ////////////////////////////////////////////////////////////////

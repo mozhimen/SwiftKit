@@ -5,12 +5,12 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
+import android.text.InputFilter
 import android.text.TextUtils
 import android.view.Gravity
 import android.widget.TextView
 import androidx.annotation.IntRange
 import androidx.core.content.ContextCompat
-import com.mozhimen.basick.elemk.android.graphics.cons.CTypeface
 import com.mozhimen.basick.elemk.android.view.annors.AGravity
 import com.mozhimen.basick.elemk.android.view.cons.CGravity
 import com.mozhimen.basick.elemk.commons.IA_Listener
@@ -27,10 +27,10 @@ import com.mozhimen.basick.utilk.kotlin.whether
  * @Version 1.0
  */
 
-val TextView.value: String get() = UtilKTextView.gainValue(this)
+val TextView.value: String get() = UtilKTextView.getValue(this)
 
-fun TextView.gainValueIfNotEmpty(invoke: IA_Listener<String>/*(value: String) -> Unit*/) {
-    UtilKTextView.gainValueIfNotEmpty(this, invoke)
+fun TextView.getValueIfNotEmpty(invoke: IA_Listener<String>/*(value: String) -> Unit*/) {
+    UtilKTextView.getValueIfNotEmpty(this, invoke)
 }
 
 //////////////////////////////////////////////////////////////////////////////////////
@@ -43,16 +43,16 @@ fun TextView.applyTextStyle(@IntRange(from = 0, to = 3) style: Int = Typeface.NO
     UtilKTextView.applyTextStyle(this, style)
 }
 
-fun TextView.applyTextStyleBold() {
-    UtilKTextView.applyTextStyleBold(this)
+fun TextView.applyTextStyle_ofBold() {
+    UtilKTextView.applyTextStyle_ofBold(this)
 }
 
-fun TextView.applyTextStyleNormal() {
-    UtilKTextView.applyTextStyleNormal(this)
+fun TextView.applyTextStyle_ofNormal() {
+    UtilKTextView.applyTextStyle_ofNormal(this)
 }
 
-fun TextView.applyIconFont(iconFont: String = "icons/iconfont.ttf") {
-    UtilKTextView.applyIconFont(this, iconFont)
+fun TextView.applyIconFont(assetFontPathWithName: String) {
+    UtilKTextView.applyIconFont(this, assetFontPathWithName)
 }
 
 fun TextView.applyValueIfNotEmpty(str: String?) {
@@ -63,8 +63,8 @@ fun TextView.applyTextColorStateList(colors: ColorStateList) {
     UtilKTextView.applyTextColorStateList(this, colors)
 }
 
-fun TextView.applyLengthFilter(max: Int) {
-    UtilKTextView.applyLengthFilter(this, max)
+fun TextView.applyFilter_ofLength(inputLength: Int) {
+    UtilKTextView.applyFilter_ofLength(this, inputLength)
 }
 
 fun TextView.applyCompoundDrawable(drawable: Drawable, @AGravity gravity: Int, boundsSize: Int = 0) {
@@ -98,12 +98,12 @@ object UtilKTextView {
     }
 
     @JvmStatic
-    fun gainValue(textView: TextView): String =
+    fun getValue(textView: TextView): String =
         textView.text.obj2stringTrim()
 
     @JvmStatic
-    fun gainValueIfNotEmpty(textView: TextView, invoke: IA_Listener<String>/*(value: String) -> Unit*/) {
-        val value = gainValue(textView)
+    fun getValueIfNotEmpty(textView: TextView, invoke: IA_Listener<String>/*(value: String) -> Unit*/) {
+        val value = getValue(textView)
         if (value.isNotEmpty()) invoke.invoke(value)
     }
 
@@ -149,30 +149,29 @@ object UtilKTextView {
         textView.maxLines = 1
     }
 
-    /**
-     * 设置字体的细或粗
-     */
+    //设置字体的细或粗
     @JvmStatic
     fun applyTextStyle(textView: TextView, @IntRange(from = 0, to = 3) style: Int = Typeface.NORMAL) {
         textView.typeface = Typeface.defaultFromStyle(style)
     }
 
     @JvmStatic
-    fun applyTextStyleBold(textView: TextView) {
+    fun applyTextStyle_ofBold(textView: TextView) {
         applyTextStyle(textView, Typeface.BOLD)
     }
 
     @JvmStatic
-    fun applyTextStyleNormal(textView: TextView) {
+    fun applyTextStyle_ofNormal(textView: TextView) {
         applyTextStyle(textView, Typeface.NORMAL)
     }
 
     /**
      * 设置字体
+     * assetFontPathWithName "fonts/iconfont.ttf"
      */
     @JvmStatic
-    fun applyIconFont(textView: TextView, fontPathWithName: String = "fonts/iconfont.ttf") {
-        textView.typeface = Typeface.createFromAsset(UtilKContext.getAssets(textView.context), fontPathWithName)
+    fun applyIconFont(textView: TextView, assetFontPathWithName: String) {
+        textView.typeface = Typeface.createFromAsset(UtilKContext.getAssets(textView.context), assetFontPathWithName)
     }
 
     @JvmStatic
@@ -189,16 +188,21 @@ object UtilKTextView {
     }
 
     @JvmStatic
-    fun applyLengthFilter(textView: TextView, max: Int) {
-        if (max > 0) {
-            textView.filters = arrayOf(UtilKInputFilter.getLengthFilter(max))
+    fun applyFilters(textView: TextView, filters: Array<InputFilter>) {
+        textView.filters = filters
+    }
+
+    @JvmStatic
+    fun applyFilter_ofLength(textView: TextView, inputLength: Int) {
+        if (inputLength > 0) {
+            applyFilters(textView, arrayOf(UtilKInputFilter.getLengthFilter(inputLength)))
         }
     }
 
     ////////////////////////////////////////////////////////////////////////////
 
-    @SuppressLint("SetTextI18n")
     @JvmStatic
+    @SuppressLint("SetTextI18n")
     fun applyPrintLog(textView: TextView, log: String) {
         textView.text = textView.getText().toString() + log + "\n"
         //let text view to move to the last line.

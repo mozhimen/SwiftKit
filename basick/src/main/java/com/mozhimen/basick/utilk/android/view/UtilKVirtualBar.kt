@@ -16,8 +16,6 @@ object UtilKVirtualBar : IUtilK {
 
     /**
      * 获取虚拟功能键的高度
-     * @param context Context
-     * @return Int
      */
     @JvmStatic
     fun getHeight(context: Context): Int {

@@ -10,13 +10,13 @@ import android.widget.LinearLayout
  * @Date 2023/11/17 12:09
  * @Version 1.0
  */
-fun LinearLayout.addViewOfWeight(view: View) {
-    UtilKLinearLayout.addViewOfWeight(this, view)
+fun LinearLayout.addView_ofWeight(view: View, weight: Float) {
+    UtilKLinearLayout.addView_ofWeight(this, view, weight)
 }
 
 object UtilKLinearLayout {
     @JvmStatic
-    fun addViewOfWeight(linearLayout: LinearLayout, view: View) {
-        linearLayout.addView(view, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f))
+    fun addView_ofWeight(linearLayout: LinearLayout, view: View, weight: Float) {
+        linearLayout.addView(view, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, weight))
     }
 }

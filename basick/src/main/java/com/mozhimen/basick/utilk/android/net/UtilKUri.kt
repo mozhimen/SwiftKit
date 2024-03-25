@@ -89,5 +89,5 @@ object UtilKUri : BaseUtilK() {
 
     @JvmStatic
     fun isAuthorityMediaDocument(uri: Uri): Boolean =
-        uri.authority == CStrPackage.COM_ANDROID_PROVIDERS_MEDIA_DOCUMENTS//"com.android.providers.media.documents"
+        uri.authority == CStrPackage.COM_ANDROID_INTERNAL_POLICY_DECORVIEW//"com.android.providers.media.documents"
 }

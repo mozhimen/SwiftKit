@@ -1,10 +1,8 @@
 package com.mozhimen.basick.utilk.androidx.appcompat
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.ActionBarContainer
 
 /**
  * @ClassName UtilKActionBar
@@ -13,13 +11,9 @@ import androidx.appcompat.widget.ActionBarContainer
  * @Date 2022/11/27 18:02
  * @Version 1.0
  */
-fun AppCompatActivity.applyActionBarTitle(str: String) {
-    UtilKActionBar.applyActionBarTitle(this, str)
+fun AppCompatActivity.applyTitle(str: String) {
+    UtilKActionBar.applyTitle(this, str)
 }
-
-@SuppressLint("RestrictedApi")
-fun AppCompatActivity.getActionBarContainer(): ActionBarContainer? =
-    UtilKActionBar.getActionBarContainer(this)
 
 object UtilKActionBar {
 
@@ -27,23 +21,18 @@ object UtilKActionBar {
     fun get(activity: AppCompatActivity): ActionBar? =
         activity.supportActionBar
 
-    @SuppressLint("RestrictedApi")
-    @JvmStatic
-    fun getActionBarContainer(activity: AppCompatActivity): ActionBarContainer? =
-        activity.findViewById(androidx.appcompat.R.id.action_bar_container)
-
     /////////////////////////////////////////////////////////////////
 
     /**
      * enableBackIfActionBarExists
      */
     @JvmStatic
-    fun applyActionBarDisplayHomeAsUpEnabled(activity: AppCompatActivity) {
+    fun applyDisplayHomeAsUpEnabled(activity: AppCompatActivity) {
         get(activity)?.setDisplayHomeAsUpEnabled(true)
     }
 
     @JvmStatic
-    fun applyActionBarTitle(activity: AppCompatActivity, str: String) {
+    fun applyTitle(activity: AppCompatActivity, str: String) {
         get(activity)?.title = str
     }
 

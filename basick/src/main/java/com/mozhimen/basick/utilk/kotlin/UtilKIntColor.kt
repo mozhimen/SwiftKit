@@ -12,40 +12,36 @@ import kotlin.math.roundToInt
  * @Version 1.0
  */
 @ColorInt
-fun Int.getIntColorContrast(): Int =
-    UtilKIntColor.getIntColorContrast(this)
+fun Int.get_ofContrast(): Int =
+    UtilKIntColor.get_ofContrast(this)
 
 fun Int.intColor2strColor(): String =
     UtilKIntColor.intColor2strColor(this)
 
 @ColorInt
-fun Int.applyIntColorAdjustAlpha(factor: Float): Int =
-    UtilKIntColor.applyIntColorAdjustAlpha(this, factor)
+fun Int.get_ofAlpha(factor: Float): Int =
+    UtilKIntColor.get_ofAlpha(this, factor)
 
 object UtilKIntColor {
-    /**
-     * 颜色取反
-     */
+    //颜色取反
     @JvmStatic
     @ColorInt
-    fun getIntColorContrast(@ColorInt intColor: Int): Int {
+    fun get_ofContrast(@ColorInt intColor: Int): Int {
         val y = (299 * Color.red(intColor) + 587 * Color.green(intColor) + 114 * Color.blue(intColor)) / 1000
         return if (y >= 149 && intColor != Color.BLACK) 0xFF333333.toInt() else Color.WHITE
     }
-
-    /////////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun intColor2strColor(@ColorInt intColor: Int): String =
-        String.format("#%06X", 0xFFFFFF and intColor).uppercase()
-
-    /////////////////////////////////////////////////////////////////////////////////
 
     /**
      * @param ratio Float 比例 0-1
      */
     @JvmStatic
     @ColorInt
-    fun applyIntColorAdjustAlpha(@ColorInt intColor: Int, ratio: Float): Int =
+    fun get_ofAlpha(@ColorInt intColor: Int, ratio: Float): Int =
         Color.argb((Color.alpha(intColor) * ratio).roundToInt(), Color.red(intColor), Color.green(intColor), Color.blue(intColor))
+
+    /////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun intColor2strColor(@ColorInt intColor: Int): String =
+        String.format("#%06X", 0xFFFFFF and intColor).uppercase()
 }

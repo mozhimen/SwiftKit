@@ -1,17 +1,16 @@
-package com.mozhimen.basick.utilk.androidx.coordinatorlayout
+package com.mozhimen.basick.utilk.google.material
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.appbar.AppBarLayout
 
 /**
- * @ClassName UtilKCoordinatorLayout
+ * @ClassName UtilKAppBarLayout
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2024/1/24
+ * @Date 2024/3/25
  * @Version 1.0
  */
-object UtilKCoordinatorLayout {
-
+object UtilKAppBarLayout {
     @JvmStatic
     fun scroll2top(appBarLayout: AppBarLayout) {
         if (appBarLayout.layoutParams is CoordinatorLayout.LayoutParams) {

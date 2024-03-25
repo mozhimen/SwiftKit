@@ -27,33 +27,29 @@ object UtilKStatusBarIcon : BaseUtilK() {
         UtilKDecorView.applySystemUiVisibilityOr(activity, CView.SystemUiFlag.LOW_PROFILE)
     }
 
-    /**
-     * 状态栏字体和图标是否是深色
-     * @param activity Activity
-     * @param isThemeDark Boolean
-     */
+    //状态栏字体和图标是否是深色
     @JvmStatic
     fun applyIcon(activity: Activity, isThemeDark: Boolean) {
         when {
-            UtilKSysRom.isMiui() -> applyIcon_MiuiUi(activity, isThemeDark)
-            UtilKSysRom.isOppo() -> applyIcon_ColorOsUi(activity, isThemeDark)
-            UtilKSysRom.isFlyme() -> applyIcon_FlymeUi(activity, isThemeDark)
-            else -> applyIcon_CommonUi(activity, isThemeDark)
+            UtilKSysRom.isMiui() -> applyIcon_ofMiui(activity, isThemeDark)
+            UtilKSysRom.isOppo() -> applyIcon_ofColorOsUi(activity, isThemeDark)
+            UtilKSysRom.isFlyme() -> applyIcon_ofFlymeUi(activity, isThemeDark)
+            else -> applyIcon_ofCommon(activity, isThemeDark)
         }
     }
 
     @JvmStatic
-    fun applyIcon_MiuiUi(activity: Activity, isThemeDark: Boolean) {
+    fun applyIcon_ofMiui(activity: Activity, isThemeDark: Boolean) {
         if (UtilKBuildVersion.isAfterV_23_6_M()) {
-            applyIcon_CommonUi(activity, isThemeDark)
+            applyIcon_ofCommon(activity, isThemeDark)
         } else if (UtilKSystemPropertiesWrapper.isMiui_after6()) {
-            applyIcon_MiuiUi_After6(activity, isThemeDark)
+            applyIcon_ofMiui_After6(activity, isThemeDark)
         } else "setIcon_MiuiUi: don't support this miui version".e(TAG)
     }
 
     @JvmStatic
     @SuppressLint("PrivateApi")
-    fun applyIcon_MiuiUi_After6(activity: Activity, isDark: Boolean) {
+    fun applyIcon_ofMiui_After6(activity: Activity, isDark: Boolean) {
         try {
             val window = UtilKWindow.get(activity)
             val EXTRA_FLAG_STATUS_BAR_DARK_MODE_OBJ = UtilKReflect.getFieldInt("android.view.MiuiWindowManager${'$'}LayoutParams".strPackage2clazz(), "EXTRA_FLAG_STATUS_BAR_DARK_MODE")
@@ -67,7 +63,7 @@ object UtilKStatusBarIcon : BaseUtilK() {
     }
 
     @JvmStatic
-    fun applyIcon_CommonUi(activity: Activity, isDarkMode: Boolean) {
+    fun applyIcon_ofCommon(activity: Activity, isDarkMode: Boolean) {
         if (UtilKBuildVersion.isAfterV_23_6_M()) {
             val window: Window = UtilKWindow.get(activity)
             window.addFlags(CWinMgr.Lpf.DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -84,7 +80,7 @@ object UtilKStatusBarIcon : BaseUtilK() {
     }
 
     @JvmStatic
-    fun applyIcon_FlymeUi(activity: Activity, isDarkMode: Boolean) {
+    fun applyIcon_ofFlymeUi(activity: Activity, isDarkMode: Boolean) {
         try {
             val window = UtilKWindow.get(activity)
             val layoutParams = window.attributes
@@ -107,13 +103,14 @@ object UtilKStatusBarIcon : BaseUtilK() {
     }
 
     @JvmStatic
-    fun applyIcon_ColorOsUi(activity: Activity, isDarkMode: Boolean) {//控制字体颜色，只有黑白两色
+    fun applyIcon_ofColorOsUi(activity: Activity, isDarkMode: Boolean) {//控制字体颜色，只有黑白两色
         //UtilKDecorView.setSystemUiVisibility(activity, 0 or if (isDarkMode) 0x00000010 else 0x00190000)
         if (UtilKBuildVersion.isAfterV_23_6_M()) {
-            applyIcon_CommonUi(activity, isDarkMode)
+            applyIcon_ofCommon(activity, isDarkMode)
         } else
             UtilKDecorView.applySystemUiVisibilityOr(
-                activity, 0 or
+                activity,
+                0 or
                         if (isDarkMode)
                             0x00000010
                         else

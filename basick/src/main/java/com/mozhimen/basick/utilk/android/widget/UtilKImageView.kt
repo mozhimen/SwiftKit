@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
-import com.mozhimen.basick.utilk.kotlin.applyIntColorAdjustAlpha
-import com.mozhimen.basick.utilk.kotlin.getIntColorContrast
+import com.mozhimen.basick.elemk.android.graphics.cons.CGradientDrawable
+import com.mozhimen.basick.utilk.android.graphics.UtilKGradientDrawable
+import com.mozhimen.basick.utilk.kotlin.get_ofAlpha
+import com.mozhimen.basick.utilk.kotlin.get_ofContrast
 
 /**
  * @ClassName UtilKViewImage
@@ -17,20 +19,20 @@ import com.mozhimen.basick.utilk.kotlin.getIntColorContrast
  * @Date 2022/11/6 2:35
  * @Version 1.0
  */
-fun ImageView.applyImageResourceWhen(bool: Boolean, @DrawableRes statusTrue: Int, @DrawableRes statusFalse: Int) {
-    UtilKImageView.applyImageResourceWhen(this, bool, statusTrue, statusFalse)
+fun ImageView.applyImageResource_of(bool: Boolean, @DrawableRes statusTrue: Int, @DrawableRes statusFalse: Int) {
+    UtilKImageView.applyImageResource_of(this, bool, statusTrue, statusFalse)
 }
 
-fun ImageView.applyFitDrawable(drawable: Drawable) {
-    UtilKImageView.applyFitDrawable(this, drawable)
+fun ImageView.applyFitDrawable_ofFit(drawable: Drawable) {
+    UtilKImageView.applyFitDrawable_ofFit(this, drawable)
 }
 
 fun ImageView.applyColorFilter(colorRes: Int) {
     UtilKImageView.applyColorFilter(this, colorRes)
 }
 
-fun ImageView.applyFillWithStroke(@ColorInt fillColorInt: Int, @ColorInt backgroundColorInt: Int, isDrawRectangle: Boolean = false) {
-    UtilKImageView.applyFillWithStroke(this, fillColorInt, backgroundColorInt, isDrawRectangle)
+fun ImageView.applyBackground_ofFillWithStroke(@ColorInt fillColorInt: Int, @ColorInt backgroundColorInt: Int, isDrawRectangle: Boolean = false) {
+    UtilKImageView.applyBackground_ofFillWithStroke(this, fillColorInt, backgroundColorInt, isDrawRectangle)
 }
 
 fun ImageView.showToastContentDescriptionOnLongClick() {
@@ -44,17 +46,19 @@ fun ImageView.showToastContentDescription() {
 object UtilKImageView {
 
     @JvmStatic
-    fun applyImageResourceWhen(imageView: ImageView, bool: Boolean, @DrawableRes statusTrue: Int, @DrawableRes statusFalse: Int) {
+    fun getContentDescription(imageView: ImageView): CharSequence? =
+        imageView.contentDescription
+
+    ///////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun applyImageResource_of(imageView: ImageView, bool: Boolean, @DrawableRes statusTrue: Int, @DrawableRes statusFalse: Int) {
         imageView.setImageResource(if (bool) statusTrue else statusFalse)
     }
 
-    /**
-     * 适应图片
-     * @param imageView ImageView
-     * @param drawable Drawable
-     */
+    //适应图片
     @JvmStatic
-    fun applyFitDrawable(imageView: ImageView, drawable: Drawable) {
+    fun applyFitDrawable_ofFit(imageView: ImageView, drawable: Drawable) {
         val layoutParams = imageView.layoutParams ?: ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         layoutParams.height = (drawable.intrinsicHeight / (drawable.intrinsicWidth * 1.0f / layoutParams.width)).toInt()
         imageView.layoutParams = layoutParams
@@ -66,16 +70,13 @@ object UtilKImageView {
     }
 
     @JvmStatic
-    fun applyFillWithStroke(imageView: ImageView, @ColorInt fillColorInt: Int, @ColorInt backgroundColorInt: Int, isDrawRectangle: Boolean = false) {
-        GradientDrawable().apply {
-            shape = if (isDrawRectangle) GradientDrawable.RECTANGLE else GradientDrawable.OVAL
-            setColor(fillColorInt)
-            imageView.background = this
-
-            if (backgroundColorInt == fillColorInt || fillColorInt == -2 && backgroundColorInt == -1) {
-                setStroke(2, backgroundColorInt.getIntColorContrast().applyIntColorAdjustAlpha(0.5f))
-            }
-        }
+    fun applyBackground_ofFillWithStroke(imageView: ImageView, @ColorInt intColor: Int, @ColorInt intColorBorder: Int, isDrawRectangle: Boolean = false) {
+        imageView.background = UtilKGradientDrawable.get(
+            if (isDrawRectangle) CGradientDrawable.RECTANGLE else CGradientDrawable.OVAL,
+            intColor,
+            intColorBorder,
+            2
+        )
     }
 
     ///////////////////////////////////////////////////////////////////////
@@ -83,12 +84,13 @@ object UtilKImageView {
     @JvmStatic
     fun showToastContentDescriptionOnLongClick(imageView: ImageView) {
         imageView.setOnLongClickListener {
-            showToastContentDescription(imageView);true
+            showToastContentDescription(imageView)
+            true
         }
     }
 
     @JvmStatic
     fun showToastContentDescription(imageView: ImageView) {
-        imageView.contentDescription?.toString()?.showToastOnMain()
+        getContentDescription(imageView)?.toString()?.showToastOnMain()
     }
 }

@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.androidx.activity
 
 import androidx.activity.ComponentActivity
-//import androidx.activity.enableEdgeToEdge
+import androidx.activity.enableEdgeToEdge
 
 /**
  * @ClassName UtilKEdgeToEdge
@@ -11,12 +11,12 @@ import androidx.activity.ComponentActivity
  * @Version 1.0
  */
 object UtilKEdgeToEdge {
-//    /**
-//     * enableEdgeToEdge()
-//     * setContentView(R.layout.activity_main)
-//     */
-//    @JvmStatic
-//    fun enableEdgeToEdge(componentActivity: ComponentActivity) {
-//        componentActivity.enableEdgeToEdge()
-//    }
+    /**
+     * enableEdgeToEdge()
+     * setContentView(R.layout.activity_main)
+     */
+    @JvmStatic
+    fun enableEdgeToEdge(componentActivity: ComponentActivity) {
+        componentActivity.enableEdgeToEdge()
+    }
 }

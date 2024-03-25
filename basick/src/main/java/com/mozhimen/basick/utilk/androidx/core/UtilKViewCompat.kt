@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.androidx.core
 
 import android.view.View
+import androidx.core.view.OnApplyWindowInsetsListener
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
@@ -22,10 +23,15 @@ object UtilKViewCompat {
      */
     @JvmStatic
     fun applyWindowInsets(rootView: View) {
-        ViewCompat.setOnApplyWindowInsetsListener(rootView) { view, insets ->
+        applyOnApplyWindowInsetsListener(rootView) { view, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             view.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    @JvmStatic
+    fun applyOnApplyWindowInsetsListener(view: View, listener: OnApplyWindowInsetsListener) {
+        ViewCompat.setOnApplyWindowInsetsListener(view, listener)
     }
 }

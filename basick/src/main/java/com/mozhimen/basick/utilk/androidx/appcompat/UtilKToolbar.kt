@@ -12,22 +12,18 @@ import androidx.appcompat.widget.Toolbar
  * @Date 2023/11/16 11:49
  * @Version 1.0
  */
-fun AppCompatActivity.getToolbar(): Toolbar =
-    UtilKToolbar.getToolbar(this)
-
 fun Toolbar.applyCustomView(customView: View, drawIcon: Drawable? = null) {
     UtilKToolbar.applyCustomView(this, customView, drawIcon)
 }
 
 object UtilKToolbar {
     @JvmStatic
-    fun getToolbar(activity: AppCompatActivity): Toolbar =
+    fun get(activity: AppCompatActivity): Toolbar =
         activity.findViewById(androidx.appcompat.R.id.action_bar)
 
     //////////////////////////////////////////////////////////////
-    /**
-     * 自定义标题
-     */
+
+    //自定义标题
     @JvmStatic
     fun applyCustomView(toolbar: Toolbar, customView: View, drawIcon: Drawable? = null) {
         toolbar.removeAllViews()//移除掉所有的子View

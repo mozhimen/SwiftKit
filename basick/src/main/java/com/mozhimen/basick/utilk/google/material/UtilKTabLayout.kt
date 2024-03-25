@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.google.android
+package com.mozhimen.basick.utilk.google.material
 
 import android.graphics.Typeface
 import android.view.Gravity
@@ -7,7 +7,7 @@ import android.widget.TextView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.Tab
 import com.mozhimen.basick.elemk.google.android.commons.IOnTabSelectedListener
-import com.mozhimen.basick.utilk.android.view.applyLayoutParamsMatch
+import com.mozhimen.basick.utilk.android.view.applyLayoutParams_ofMatch
 import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
@@ -34,7 +34,7 @@ object UtilKTabLayout : IUtilK {
                 if (customView == null) tab.setCustomView(TextView(tabLayout.context).apply {
                     id = android.R.id.text1
                     gravity = Gravity.CENTER
-                    applyLayoutParamsMatch()
+                    applyLayoutParams_ofMatch()
                 })
                 tab.customView?.findViewById<TextView>(android.R.id.text1)?.let {
                     it.setTextColor(tabLayout.tabTextColors)
@@ -48,7 +48,7 @@ object UtilKTabLayout : IUtilK {
                 if (customView == null) tab.setCustomView(TextView(tabLayout.context).apply {
                     id = android.R.id.text1
                     gravity = Gravity.CENTER
-                    applyLayoutParamsMatch()
+                    applyLayoutParams_ofMatch()
                 })
                 tab.customView?.findViewById<TextView>(android.R.id.text1)?.let {
                     it.setTextColor(tabLayout.tabTextColors)

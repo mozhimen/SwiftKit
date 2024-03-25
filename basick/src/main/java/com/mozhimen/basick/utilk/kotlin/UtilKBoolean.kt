@@ -15,8 +15,8 @@ fun Boolean.whether(onTrue: I_Listener) {
     UtilKBoolean.whether(this, onTrue)
 }
 
-fun Boolean.ifOrElse(onTrue: I_Listener, onFalse: I_Listener) {
-    UtilKBoolean.ifOrElse(this, onTrue, onFalse)
+fun Boolean.whether(onTrue: I_Listener, onFalse: I_Listener) {
+    UtilKBoolean.whether(this, onTrue, onFalse)
 }
 
 fun Boolean.boolean2str(locale: Locale = Locale.CHINA): String =
@@ -30,7 +30,7 @@ object UtilKBoolean {
     }
 
     @JvmStatic
-    fun ifOrElse(boolean: Boolean, onTrue: I_Listener, onFalse: I_Listener) {
+    fun whether(boolean: Boolean, onTrue: I_Listener, onFalse: I_Listener) {
         if (boolean) onTrue.invoke() else onFalse.invoke()
     }
 

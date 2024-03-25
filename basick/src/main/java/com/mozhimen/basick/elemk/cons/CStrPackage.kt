@@ -28,6 +28,7 @@ object CStrPackage {
     const val COM_ANDROID_PROVIDERS_DOWNLOADS_DOCUMENTS = "com.android.providers.downloads.documents"
     const val COM_ANDROID_EXTERNALSTORAGE_DOCUMENTS = "com.android.externalstorage.documents"
     const val COM_ANDROID_PROVIDERS_MEDIA_DOCUMENTS = "com.android.providers.media.documents"
+    const val COM_ANDROID_INTERNAL_POLICY_DECORVIEW = "com.android.internal.policy.DecorView"
     const val ANDROID_OS_SYSTEMPROPERTIES = "android.os.SystemProperties"
     const val RIL_GSM_IMEI = "ril.gsm.imei"
     const val RIL_CDMA_MEID = "ril.cdma.meid"
