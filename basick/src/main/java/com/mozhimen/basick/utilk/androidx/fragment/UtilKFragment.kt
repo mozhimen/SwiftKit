@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.androidx.fragment
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -13,10 +14,28 @@ import androidx.fragment.app.FragmentManager
  */
 object UtilKFragment {
     @JvmStatic
+    fun getActivity(fragment: Fragment): Activity? =
+        fragment.activity
+
+    @JvmStatic
     fun getChildFragmentManager(fragment: Fragment): FragmentManager =
         fragment.childFragmentManager
 
+    ///////////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun isAlive(fragment: Fragment): Boolean =
-        !fragment.isRemoving && !fragment.isDetached && fragment.activity != null
+        !isRemoving(fragment) && !isDetached(fragment) && getActivity(fragment) != null
+
+    @JvmStatic
+    fun isAdded(fragment: Fragment): Boolean =
+        fragment.isAdded
+
+    @JvmStatic
+    fun isRemoving(fragment: Fragment): Boolean =
+        fragment.isRemoving
+
+    @JvmStatic
+    fun isDetached(fragment: Fragment): Boolean =
+        fragment.isDetached
 }

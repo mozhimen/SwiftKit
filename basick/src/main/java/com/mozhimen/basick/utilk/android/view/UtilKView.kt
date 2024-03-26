@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.view.*
 import androidx.annotation.LayoutRes
 import androidx.annotation.RequiresApi
+import androidx.core.graphics.Insets
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.view.HapticOnTouchCallback
 import com.mozhimen.basick.elemk.android.view.cons.CHapticFeedbackConstants
@@ -200,6 +201,11 @@ object UtilKView : BaseUtilK() {
             view.background = background
         else
             view.setBackgroundDrawable(background)
+    }
+
+    @JvmStatic
+    fun applyPadding(view: View, insets: Insets) {
+        view.setPadding(insets.left, insets.top, insets.right, insets.bottom)
     }
 
     @JvmStatic

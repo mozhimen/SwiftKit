@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.org.json
 
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.commons.IUtilK
-import com.mozhimen.basick.utilk.google.gson.UtilKGson
+import com.mozhimen.basick.utilk.google.gson.UtilKGsonWrapper
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -46,7 +46,7 @@ object UtilKJSONArrayFormat: IUtilK {
             for (i in 0 until length) {
                 val jsonObj = jsonArray[i] as? JSONObject?
                 if (jsonObj != null)
-                    arrayList.add(UtilKGson.strJson2tGson(jsonObj.toString(), clazz))
+                    arrayList.add(UtilKGsonWrapper.strJson2t_ofGson(jsonObj.toString(), clazz))
                 else
                     arrayList.add(null)
             }

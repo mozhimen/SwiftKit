@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.IdRes
+import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
@@ -23,14 +24,7 @@ fun FragmentActivity.findFragmentById(@IdRes intResId: Int): Fragment? =
 fun FragmentActivity.findFragmentByTag(tag: String): Fragment? =
     UtilKFragmentManager.findFragmentByTag(this, tag)
 
-fun FragmentActivity.beginTransaction(): FragmentTransaction =
-    UtilKFragmentManager.beginTransaction(this)
-
-fun FragmentActivity.getVisibleFragment(@IdRes intResId: Int): Fragment? =
-    UtilKFragmentManager.getVisibleFragment(this, intResId)
-
-fun Fragment.beginTransaction(): FragmentTransaction =
-    UtilKFragmentManager.beginTransaction(this)
+/////////////////////////////////////////////////////////////////////
 
 object UtilKFragmentManager : IUtilK {
     @JvmStatic
@@ -59,12 +53,16 @@ object UtilKFragmentManager : IUtilK {
     fun beginTransaction(fragment: Fragment): FragmentTransaction =
         get(fragment).beginTransaction()
 
-    /////////////////////////////////////////////////////////////////////
-
-    @SuppressLint("RestrictedApi")
     @JvmStatic
-    fun getVisibleFragment(fragmentActivity: FragmentActivity,@IdRes intResId: Int): Fragment? =
-        get(fragmentActivity).findFragmentById(intResId)
+    fun putFragment(fragmentActivity: FragmentActivity, bundle: Bundle, key: String, fragment: Fragment) {
+        get(fragmentActivity).putFragment(bundle, key, fragment)
+    }
+
+    @JvmStatic
+    fun getFragment(fragmentActivity: FragmentActivity, bundle: Bundle, key: String): Fragment? =
+        get(fragmentActivity).getFragment(bundle, key)
+
+    /////////////////////////////////////////////////////////////////////
 
     /**
      * 可以通过在 AndroidManifest.xml 中配置 <activity> 的 android:screenOrientation 属性，将 Activity 的方向固定，可以避免因屏幕旋转导致的重建，同时也不会回调 onConfigurationChanged。但是该属性在 多窗口系统 下会失效。
@@ -76,7 +74,7 @@ object UtilKFragmentManager : IUtilK {
     fun onSaveInstanceState(fragmentActivity: FragmentActivity, outState: Bundle, map: Map<String, Fragment?>) {
         map.forEach {
             if (it.value != null) {
-                get(fragmentActivity).putFragment(outState, it.key, it.value!!)
+                putFragment(fragmentActivity, outState, it.key, it.value!!)
                 UtilKLogWrapper.d(TAG, "onSaveInstanceState: putFragment ${it.key} ${it.value}")
             }
         }
@@ -87,7 +85,7 @@ object UtilKFragmentManager : IUtilK {
         val map: HashMap<String, Fragment?> = HashMap()
         if (outState == null) return map
         fragmentName.forEach {
-            map[it] = get(fragmentActivity).getFragment(outState, it)
+            map[it] = getFragment(fragmentActivity, outState, it)
         }
         return map.also { UtilKLogWrapper.d(TAG, "onRestoreInstanceState: getFragment $it") }
     }

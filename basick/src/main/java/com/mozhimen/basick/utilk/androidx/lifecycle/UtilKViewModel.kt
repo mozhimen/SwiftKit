@@ -19,11 +19,23 @@ object UtilKViewModel: IUtilK {
     @JvmStatic
     @Suppress(CSuppress.UNCHECKED_CAST)
     fun <VM : ViewModel> get(owner: ViewModelStoreOwner, factory: ViewModelProvider.Factory? = null/*, index: Int = 1*/): VM =
-        (UtilKReflectGenericKotlin.getParentGenericTypeByTClazz(owner::class.java, ViewModel::class.java)?.let { vmClazz ->
+        (UtilKReflectGenericKotlin.getParentGenericTypeByTClazz(owner::class.java, ViewModel::class.java)?.let { clazzVM ->
             factory?.let { fac ->
-                ViewModelProvider(owner, fac)[vmClazz as Class<VM>]
+                ViewModelProvider(owner, fac)[clazzVM as Class<VM>]
             } ?: run {
-                ViewModelProvider(owner)[vmClazz as Class<VM>]
+                ViewModelProvider(owner)[clazzVM as Class<VM>]
             }
         } ?: throw Exception("inflate vm fail!")).also { UtilKLogWrapper.d(TAG, "get: $it") }
+
+//    fun <VM : ViewDataBinding> ComponentActivity.createViewModel(position: Int): VM {
+//        val vbClass = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments.filterIsInstance<Class<*>>()
+//        val viewModel = vbClass[position] as Class<VM>
+//        return ViewModelProvider(this).get(viewModel)
+//    }
+
+//    fun <VM : ViewDataBinding> ComponentActivity.createViewModel(position: Int): VM {
+//        val vbClass = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments.filterIsInstance<Class<*>>()
+//        val viewModel = vbClass[position] as Class<VM>
+//        return ViewModelProvider(this).get(viewModel)
+//    }
 }

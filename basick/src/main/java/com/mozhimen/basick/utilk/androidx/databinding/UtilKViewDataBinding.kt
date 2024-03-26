@@ -31,12 +31,6 @@ object UtilKViewDataBinding {
 
     ///////////////////////////////////////////////////////////////////////////////////////
 
-//    fun <VM : ViewDataBinding> ComponentActivity.createViewModel(position: Int): VM {
-//        val vbClass = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments.filterIsInstance<Class<*>>()
-//        val viewModel = vbClass[position] as Class<VM>
-//        return ViewModelProvider(this).get(viewModel)
-//    }
-
 //    fun <VB : ViewDataBinding> Any.getViewBinding(inflater: LayoutInflater, position: Int = 0): VB {
 //        val vbClass = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments.filterIsInstance<Class<*>>()
 //        val inflate = vbClass[position].getDeclaredMethod("inflate", LayoutInflater::class.java)
@@ -49,10 +43,5 @@ object UtilKViewDataBinding {
 //        val inflate = vbClass[position].getDeclaredMethod("inflate", LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java)
 //        return inflate.invoke(null, inflater, container, false) as VB
 //    }
-//
-//    fun <VM : ViewDataBinding> ComponentActivity.createViewModel(position: Int): VM {
-//        val vbClass = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments.filterIsInstance<Class<*>>()
-//        val viewModel = vbClass[position] as Class<VM>
-//        return ViewModelProvider(this).get(viewModel)
-//    }
+
 }

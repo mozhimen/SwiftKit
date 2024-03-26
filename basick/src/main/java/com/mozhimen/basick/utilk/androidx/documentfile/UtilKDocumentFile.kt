@@ -16,9 +16,19 @@ object UtilKDocumentFile {
 
     @JvmStatic
     fun get(context: Context, strUriDocument: String): DocumentFile? =
-        DocumentFile.fromTreeUri(context, strUriDocument.strUri2uri())
+        fromTreeUri(context, strUriDocument.strUri2uri())
 
     @JvmStatic
     fun get(context: Context, uri: Uri): DocumentFile? =
+        fromTreeUri(context, uri)
+
+    ////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun fromTreeUri(context: Context, strUriDocument: String): DocumentFile? =
+        DocumentFile.fromTreeUri(context, strUriDocument.strUri2uri())
+
+    @JvmStatic
+    fun fromTreeUri(context: Context, uri: Uri): DocumentFile? =
         DocumentFile.fromTreeUri(context, uri)
 }

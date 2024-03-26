@@ -8,7 +8,7 @@ import android.view.animation.Animation
 import androidx.annotation.ColorInt
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.android.view.motionEvent2str
-import com.mozhimen.basick.utilk.google.gson.UtilKGson
+import com.mozhimen.basick.utilk.google.gson.UtilKGsonWrapper
 import com.mozhimen.basick.utilk.java.io.byteArrayOutputStream2bytes
 import com.mozhimen.basick.utilk.java.io.flushClose
 import com.mozhimen.basick.utilk.kotlin.collections.list2str
@@ -48,7 +48,7 @@ object UtilKAnyFormat {
     fun obj2jSONObject(obj: Any): JSONObject =
         if (obj is String)
             JSONObject(obj)
-        else JSONObject(UtilKGson.obj2strJsonGson(obj))
+        else JSONObject(UtilKGsonWrapper.obj2strJson_ofGson(obj))
 
     @JvmStatic
     @ColorInt
