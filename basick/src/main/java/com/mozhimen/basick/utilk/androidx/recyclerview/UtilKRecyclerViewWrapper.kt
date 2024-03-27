@@ -106,7 +106,7 @@ object UtilKRecyclerViewWrapper {
     fun equilibriumAssignmentOfLinearLayoutManager(recyclerView: RecyclerView, itemView: View, outRect: Rect, gapOuter: Int, gapInner: Int = gapOuter / 2, gapOther: Int = gapOuter) {
         val itemCount = recyclerView.getItemCount()// item 的个数
         val itemPosition = recyclerView.getChildAdapterPosition(itemView)// 当前 item 的 position
-        val layoutManager = recyclerView.requireLinearLayoutManager() ?: return
+        val layoutManager = recyclerView.requireLayoutManager_ofLinear() ?: return
         val orientation = layoutManager.orientation// 获取 LinearLayoutManager 的布局方向
         for (index in 0..itemCount) {// 遍历所有 item
             when (itemPosition) {
@@ -166,7 +166,7 @@ object UtilKRecyclerViewWrapper {
         val spanCount = recyclerView.getSpanCount()// 网格布局的跨度数
         val itemPosition = recyclerView.getChildAdapterPosition(itemView)// 当前 item 的 position
         val lastRowFirstPosition = itemCount - (itemCount % spanCount)
-        val layoutManager = recyclerView.requireGridLayoutManager() ?: return
+        val layoutManager = recyclerView.requireLayoutManager_ofGrid() ?: return
         if (spanCount < 2) {
             equilibriumAssignmentOfLinearLayoutManager(recyclerView, itemView, outRect, gapOuter, gapInner, gapOther)
             return

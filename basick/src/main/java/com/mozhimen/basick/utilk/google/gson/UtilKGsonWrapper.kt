@@ -36,22 +36,22 @@ object UtilKGsonWrapper : BaseUtilK() {
     @JvmStatic
     @Throws(Exception::class)
     fun <T> t2strJson_ofGson(gson: Gson, t: T): String =
-        gson.toJson(t)
+        UtilKGson.toJson(gson, t)
 
     @JvmStatic
     @Throws(Exception::class)
-    fun <T> strJson2t_ofGson(gson: Gson, strJson: String, typeToken: TypeToken<T>): T =
-        gson.fromJson(strJson, typeToken.type)
+    fun <T> strJson2t_ofGson(gson: Gson, strJson: String, typeToken: TypeToken<T>): T? =
+        UtilKGson.fromJson<T>(gson, strJson, typeToken.type)
 
     @JvmStatic
     @Throws(Exception::class)
     fun <T> strJson2t_ofGson(gson: Gson, strJson: String, clazz: Class<T>): T? =
-        gson.fromJson(strJson, clazz)
+        UtilKGson.fromJson(gson, strJson, clazz)
 
     @JvmStatic
     @Throws(Exception::class)
     fun <T> strJson2t_ofGson(gson: Gson, strJson: String, type: Type): T? =
-        gson.fromJson(strJson, type)
+        UtilKGson.fromJson(gson, strJson, type)
 
     /////////////////////////////////////////////////////////////////////////////
 
@@ -67,7 +67,7 @@ object UtilKGsonWrapper : BaseUtilK() {
 
     @JvmStatic
     @Throws(Exception::class)
-    fun <T> strJson2t_ofGson(strJson: String, typeToken: TypeToken<T>): T =
+    fun <T> strJson2t_ofGson(strJson: String, typeToken: TypeToken<T>): T? =
         strJson2t_ofGson(gson, strJson, typeToken)
 
     @JvmStatic
@@ -95,7 +95,7 @@ object UtilKGsonWrapper : BaseUtilK() {
     @JvmStatic
     @Throws(Exception::class)
     fun strJson2jsonElement_ofGson(strJson: String): JsonElement? =
-        strJson2t_ofGson(strJson.trim { it <= ' ' }, JsonElement::class.java)
+        strJson2t_ofGson(strJson, JsonElement::class.java)
 }
 
 //    private val _gsonWithField by lazy { GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES).create() }
@@ -119,6 +119,6 @@ object UtilKGsonWrapper : BaseUtilK() {
 
 //fun Any.toJsonWithExposeGson(): String =
 //    UtilKJsonGson.obj2JsonWithExpose(this)
-//
+
 //fun <T> String.toTWithExposeGson(clazz: Class<T>): T? =
 //    UtilKJsonGson.json2TWithExpose(this, clazz)

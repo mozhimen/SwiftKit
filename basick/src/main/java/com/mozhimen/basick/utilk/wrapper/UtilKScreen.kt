@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import androidx.annotation.FloatRange
+import androidx.annotation.RequiresApi
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKConfiguration
@@ -47,37 +49,42 @@ object UtilKScreen : BaseUtilK() {
     @JvmStatic
     fun getWidth(): Int =
         if (UtilKBuildVersion.isAfterV_30_11_R())
-            UtilKWindowMetrics.getBoundsWidth_ofCur(_context)
+            getWidth_ofWindowMetrics_ofCur()
         else
-            UtilKDisplay.getSizeX_ofDef(_context)
+            getWidth_ofDisplay_ofDefSize()
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_30_11_R)
+    fun getWidth_ofWindowMetrics_ofCur(): Int =
+        UtilKWindowMetrics.getBoundsWidth_ofCur(_context)
 
     @JvmStatic
     @ADescription("getCurrentWidth", "getWidthOfDisplay")
-    fun getWidth_ofSysMetrics(): Int =
+    fun getWidth_ofDisplayMetrics_ofSys(): Int =
         UtilKDisplayMetrics.getWidthPixels_ofSys()
 
     @JvmStatic
-    fun getWidth_ofAppMetrics(): Int =
+    fun getWidth_ofDisplayMetrics_ofApp(): Int =
         UtilKDisplayMetrics.getWidthPixels_ofApp(_context)
 
     @JvmStatic
-    fun getWidth_ofDefMetrics(): Int =
+    fun getWidth_ofDisplayMetrics_ofDef(): Int =
         UtilKDisplayMetrics.getWidthPixels_ofDef(_context)
 
     @JvmStatic
-    fun getWidth_ofRealMetrics(): Int =
+    fun getWidth_ofDisplayMetrics_ofReal(): Int =
         UtilKDisplayMetrics.getWidthPixels_ofReal(_context)
 
     @JvmStatic
-    fun getWidth_ofDefDisplay(): Int =
+    fun getWidth_ofDisplay_ofDef(): Int =
         UtilKDisplay.getWidth_ofDef(_context)
 
     @JvmStatic
-    fun getWidth_ofSizeDefDisplay(): Int =
+    fun getWidth_ofDisplay_ofDefSize(): Int =
         UtilKDisplay.getSizeX_ofDef(_context)
 
     @JvmStatic
-    fun getWidth_ofRealSizeDefDisplay(): Int =
+    fun getWidth_ofDisplay_ofDefSizeReal(): Int =
         UtilKDisplay.getRealSizeX_ofDef(_context)
 
     /////////////////////////////////////////////////////////////////////
@@ -90,38 +97,39 @@ object UtilKScreen : BaseUtilK() {
         else
             UtilKDisplay.getSizeY_ofDef(_context)
 
-    /**
-     * 获取屏幕高度 2的和1的区别是是否考虑状态栏等, 2是减去状态栏的高度, 即为当前的
-     */
     @JvmStatic
-    fun getHeight_ofSysMetrics(): Int =
+    @RequiresApi(CVersCode.V_30_11_R)
+    fun getHeight_ofWindowMetrics_ofCur(): Int =
+        UtilKWindowMetrics.getBoundsHeight_ofCur(_context)
+
+    //获取屏幕高度 2的和1的区别是是否考虑状态栏等, 2是减去状态栏的高度, 即为当前的
+    @JvmStatic
+    fun getHeight_ofDisplayMetrics_ofSys(): Int =
         UtilKDisplayMetrics.getHeightPixels_ofSys()
 
     @JvmStatic
-    fun getHeight_ofAppMetrics(): Int =
+    fun getHeight_ofDisplayMetrics_ofApp(): Int =
         UtilKDisplayMetrics.getHeightPixels_ofApp(_context)
 
-    /**
-     * 获取屏幕高度 2的和1的区别是是否考虑状态栏等, 2是减去状态栏的高度, 即为当前的
-     */
+    //获取屏幕高度 2的和1的区别是是否考虑状态栏等, 2是减去状态栏的高度, 即为当前的
     @JvmStatic
-    fun getHeight_ofDefMetrics(): Int =
+    fun getHeight_ofDisplayMetrics_ofDef(): Int =
         UtilKDisplayMetrics.getHeightPixels_ofDef(_context)
 
     @JvmStatic
-    fun getHeight_ofRealMetrics(): Int =
+    fun getHeight_ofDisplayMetrics_ofReal(): Int =
         UtilKDisplayMetrics.getHeightPixels_ofReal(_context)
 
     @JvmStatic
-    fun getHeight_ofDefDisplay(): Int =
+    fun getHeight_ofDisplay_ofDef(): Int =
         UtilKDisplay.getHeight_ofDef(_context)
 
     @JvmStatic
-    fun getHeight_ofSizeDefDisplay(): Int =
+    fun getHeight_ofDisplay_ofDefSize(): Int =
         UtilKDisplay.getSizeY_ofDef(_context)
 
     @JvmStatic
-    fun getHeight_ofRealSizeDefDisplay(): Int =
+    fun getHeight_ofDisplay_ofDefSizeReal(): Int =
         UtilKDisplay.getRealSizeY_ofDef(_context)
 
     /////////////////////////////////////////////////////////////////////

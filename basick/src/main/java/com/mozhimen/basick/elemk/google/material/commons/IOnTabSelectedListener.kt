@@ -1,4 +1,4 @@
-package com.mozhimen.basick.elemk.google.android.commons
+package com.mozhimen.basick.elemk.google.material.commons
 
 import com.google.android.material.tabs.TabLayout
 

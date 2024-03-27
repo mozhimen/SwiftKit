@@ -9,7 +9,6 @@ import android.graphics.Rect
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewParent
-import android.view.ViewTreeObserver
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.elemk.commons.I_AListener
 import com.mozhimen.basick.elemk.cons.CCons
@@ -129,7 +128,7 @@ object UtilKViewWrapper {
     fun getVisiblePercent(view: View): Int {
         if (view.isShown) {
             val rect = UtilKView.getGlobalVisibleRect(view)
-            return if (rect.top > 0 && rect.left < UtilKScreen.getWidth_ofSysMetrics())
+            return if (rect.top > 0 && rect.left < UtilKScreen.getWidth_ofDisplayMetrics_ofSys())
                 ((rect.width().toFloat() * rect.height().toFloat()) / (view.width.toFloat() * view.height.toFloat()) * 100).toInt()
             else 0
         }

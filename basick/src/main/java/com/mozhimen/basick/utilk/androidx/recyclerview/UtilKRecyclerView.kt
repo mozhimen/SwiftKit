@@ -35,11 +35,11 @@ fun LayoutManager.getFirstVisibleItemPosition(): Int =
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-fun RecyclerView.requireLinearLayoutManager(): LinearLayoutManager? =
-    UtilKRecyclerView.requireLinearLayoutManager(this)
+fun RecyclerView.requireLayoutManager_ofLinear(): LinearLayoutManager? =
+    UtilKRecyclerView.requireLayoutManager_ofLinear(this)
 
-fun RecyclerView.requireGridLayoutManager(): GridLayoutManager? =
-    UtilKRecyclerView.requireGridLayoutManager(this)
+fun RecyclerView.requireLayoutManager_ofGrid(): GridLayoutManager? =
+    UtilKRecyclerView.requireLayoutManager_ofGrid(this)
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -56,7 +56,7 @@ object UtilKRecyclerView : IUtilK {
      */
     @JvmStatic
     fun getSpanCount(recyclerView: RecyclerView): Int =
-        requireGridLayoutManager(recyclerView)?.spanCount ?: 0
+        requireLayoutManager_ofGrid(recyclerView)?.spanCount ?: 0
 
     //获取item数
     @JvmStatic
@@ -109,7 +109,7 @@ object UtilKRecyclerView : IUtilK {
     ////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun requireLinearLayoutManager(recyclerView: RecyclerView): LinearLayoutManager? {
+    fun requireLayoutManager_ofLinear(recyclerView: RecyclerView): LinearLayoutManager? {
         val layoutManager = recyclerView.layoutManager ?: return null
         if (layoutManager !is LinearLayoutManager)
             throw IllegalStateException("Make sure you are using the LinearLayoutManager")
@@ -120,7 +120,7 @@ object UtilKRecyclerView : IUtilK {
      * 检查 RecyclerView 设置的 GridLayoutManager
      */
     @JvmStatic
-    fun requireGridLayoutManager(recyclerView: RecyclerView): GridLayoutManager? {
+    fun requireLayoutManager_ofGrid(recyclerView: RecyclerView): GridLayoutManager? {
         val layoutManager = recyclerView.layoutManager ?: return null
         if (layoutManager !is GridLayoutManager) {
             throw IllegalStateException("Make sure you are using the GridLayoutManager")

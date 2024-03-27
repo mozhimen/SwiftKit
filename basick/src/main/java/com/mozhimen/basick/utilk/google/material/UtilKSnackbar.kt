@@ -1,151 +1,90 @@
 package com.mozhimen.basick.utilk.google.material
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.SnackbarContentLayout
-import com.mozhimen.basick.elemk.cons.CCons
-import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.android.os.UtilKHandler
-import com.mozhimen.basick.utilk.android.os.UtilKLooper
+import com.mozhimen.basick.elemk.google.material.CSnackbar
 
 /**
- * @ClassName UtilKSnackBar
+ * @ClassName UtilKSnackbar
  * @Description TODO
- * @Author mozhimen / Kolin Zhao
- * @Date 2022/11/27 17:37
+ * @Author Mozhimen & Kolin Zhao
+ * @Date 2024/3/27
  * @Version 1.0
  */
-object UtilKSnackbar : BaseUtilK() {
+object UtilKSnackbar {
+    @SuppressLint("RestrictedApi")
     @JvmStatic
-    fun showSnackbar(view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null) {
-        make(view, msg, duration, action, listener).show()
+    fun getSnackbarContentLayout(snackbar: Snackbar): SnackbarContentLayout =
+        (snackbar.view as ViewGroup).getChildAt(0) as SnackbarContentLayout
+
+    @SuppressLint("RestrictedApi")
+    @JvmStatic
+    fun getMessageView(snackbar: Snackbar): TextView =
+        getSnackbarContentLayout(snackbar).messageView
+
+
+    /////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun make(view: View, @StringRes intResStr: Int, duration: Int): Snackbar =
+        Snackbar.make(view, intResStr, duration)
+
+    @JvmStatic
+    fun make(view: View, chars: CharSequence, duration: Int): Snackbar =
+        Snackbar.make(view, chars, duration)
+
+    @JvmStatic
+    fun make(context: Context, view: View, chars: CharSequence, duration: Int): Snackbar =
+        Snackbar.make(context, view, chars, duration)
+
+    /////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun show(view: View, @StringRes intResStr: Int, duration: Int) {
+        make(view, intResStr, duration).show()
     }
 
     @JvmStatic
-    fun showSnackbar(view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null) {
-        make(view, msgId, duration, action, listener).show()
-    }
-
-    //////////////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun showSnackbarMultiLines(
-        view: View,
-        msg: String,
-        duration: Int = Snackbar.LENGTH_SHORT,
-        action: String = "",
-        listener: View.OnClickListener? = null,
-        maxLines: Int = CCons.UTILK_SNACK_BAR_MAX_LINES
-    ) {
-        makeMultiLines(view, msg, duration, action, listener, maxLines).show()
+    fun show(view: View, chars: CharSequence, duration: Int) {
+        make(view, chars, duration).show()
     }
 
     @JvmStatic
-    fun showSnackbarMultiLines(
-        view: View,
-        @StringRes msgId: Int,
-        duration: Int = Snackbar.LENGTH_SHORT,
-        action: String = "",
-        listener: View.OnClickListener? = null,
-        maxLines: Int = CCons.UTILK_SNACK_BAR_MAX_LINES
-    ) {
-        makeMultiLines(view, msgId, duration, action, listener, maxLines).show()
+    fun show(context: Context, view: View, chars: CharSequence, duration: Int) {
+        make(context, view, chars, duration).show()
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun showSnackbarOnMain(view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null) {
-        if (UtilKLooper.isMainLooper())
-            showSnackbar(view, msg, duration, action, listener)
-        else
-            UtilKHandler.postOnMain { showSnackbar(view, msg, duration, action, listener) }
+    fun show_ofLines(view: View, chars: CharSequence, duration: Int = CSnackbar.LENGTH_SHORT, maxLines: Int = CSnackbar.MAX_LINES) {
+        make_ofLines(view, chars, duration, maxLines).show()
     }
 
     @JvmStatic
-    fun showSnackbarOnMain(view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null) {
-        if (UtilKLooper.isMainLooper())
-            showSnackbar(view, msgId, duration, action, listener)
-        else
-            UtilKHandler.postOnMain { showSnackbar(view, msgId, duration, action, listener) }
-    }
-
-    //////////////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun showSnackbarMultiLinesOnMain(
-        view: View,
-        msg: String,
-        duration: Int = Snackbar.LENGTH_SHORT,
-        action: String = "",
-        listener: View.OnClickListener? = null,
-        maxLines: Int = CCons.UTILK_SNACK_BAR_MAX_LINES
-    ) {
-        if (UtilKLooper.isMainLooper())
-            showSnackbarMultiLines(view, msg, duration, action, listener, maxLines)
-        else
-            UtilKHandler.postOnMain { showSnackbarMultiLines(view, msg, duration, action, listener, maxLines) }
+    fun show_ofLines(view: View, @StringRes intResStr: Int, duration: Int = CSnackbar.LENGTH_SHORT, maxLines: Int = CSnackbar.MAX_LINES) {
+        make_ofLines(view, intResStr, duration, maxLines).show()
     }
 
     @JvmStatic
-    fun showSnackbarMultiLinesOnMain(
-        view: View,
-        @StringRes msgId: Int,
-        duration: Int = Snackbar.LENGTH_SHORT,
-        action: String = "",
-        listener: View.OnClickListener? = null,
-        maxLines: Int = CCons.UTILK_SNACK_BAR_MAX_LINES
-    ) {
-        if (UtilKLooper.isMainLooper())
-            showSnackbarMultiLines(view, msgId, duration, action, listener, maxLines)
-        else
-            UtilKHandler.postOnMain { showSnackbarMultiLines(view, msgId, duration, action, listener, maxLines) }
-    }
-
-    //////////////////////////////////////////////////////////////////////////////////////
-
-    @SuppressLint("ShowToast")
-    @JvmStatic
-    fun make(view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null): Snackbar =
-        Snackbar.make(view, msg, duration).apply { if (action.isNotEmpty() && listener != null) setAction(action, listener) }
-
-    @SuppressLint("ShowToast")
-    @JvmStatic
-    fun make(view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null): Snackbar =
-        Snackbar.make(view, msgId, duration).apply { if (action.isNotEmpty() && listener != null) setAction(action, listener) }
-
-    //////////////////////////////////////////////////////////////////////////////////////
+    fun make_ofLines(view: View, chars: CharSequence, duration: Int = CSnackbar.LENGTH_SHORT, maxLines: Int = CSnackbar.MAX_LINES): Snackbar =
+        UtilKSnackbar.make(view, chars, duration).apply { applyMessageView_maxLines(this, maxLines) }
 
     @JvmStatic
-    fun makeMultiLines(
-        view: View,
-        msg: String,
-        duration: Int = Snackbar.LENGTH_SHORT,
-        action: String = "",
-        listener: View.OnClickListener? = null,
-        maxLines: Int = CCons.UTILK_SNACK_BAR_MAX_LINES
-    ): Snackbar =
-        make(view, msg, duration, action, listener).apply { enableMultiLines(this, maxLines) }
-
-    @JvmStatic
-    fun makeMultiLines(
-        view: View,
-        @StringRes msgId: Int,
-        duration: Int = Snackbar.LENGTH_SHORT,
-        action: String = "",
-        listener: View.OnClickListener? = null,
-        maxLines: Int = CCons.UTILK_SNACK_BAR_MAX_LINES
-    ): Snackbar =
-        make(view, msgId, duration, action, listener).apply { enableMultiLines(this, maxLines) }
+    fun make_ofLines(view: View, @StringRes intResStr: Int, duration: Int = CSnackbar.LENGTH_SHORT, maxLines: Int = CSnackbar.MAX_LINES): Snackbar =
+        make(view, intResStr, duration).apply { applyMessageView_maxLines(this, maxLines) }
 
     //////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     @SuppressLint("RestrictedApi")
-    fun enableMultiLines(snackbar: Snackbar, maxLines: Int) {
-        ((snackbar.view as ViewGroup).getChildAt(0) as SnackbarContentLayout).messageView.maxLines = maxLines
+    fun applyMessageView_maxLines(snackbar: Snackbar, maxLines: Int) {
+        getMessageView(snackbar).maxLines = maxLines
     }
 }

@@ -1,6 +1,8 @@
 package com.mozhimen.basick.utilk.google.material
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.AppBarLayout
 
 /**
@@ -12,13 +14,21 @@ import com.google.android.material.appbar.AppBarLayout
  */
 object UtilKAppBarLayout {
     @JvmStatic
+    fun requireLayoutParams_ofCoordinatorLayout(appBarLayout: AppBarLayout): CoordinatorLayout.LayoutParams? {
+        val layoutParams = appBarLayout.layoutParams ?: return null
+        if (layoutParams !is CoordinatorLayout.LayoutParams)
+            throw IllegalStateException("Make sure you are using the LinearLayoutManager")
+        return layoutParams
+    }
+
+    @JvmStatic
     fun scroll2top(appBarLayout: AppBarLayout) {
-        if (appBarLayout.layoutParams is CoordinatorLayout.LayoutParams) {
-            val behavior = (appBarLayout.layoutParams as CoordinatorLayout.LayoutParams).behavior
-            if (behavior is AppBarLayout.Behavior) {
-                val topAndBottomOffset = behavior.topAndBottomOffset
-                if (topAndBottomOffset != 0) {
-                    behavior.setTopAndBottomOffset(0)
+        when(val layoutParams = appBarLayout.layoutParams){
+            is CoordinatorLayout.LayoutParams -> {
+                val behavior = layoutParams.behavior
+                if (behavior is AppBarLayout.Behavior) {
+                    if (behavior.topAndBottomOffset != 0)
+                        behavior.setTopAndBottomOffset(0)
                 }
             }
         }

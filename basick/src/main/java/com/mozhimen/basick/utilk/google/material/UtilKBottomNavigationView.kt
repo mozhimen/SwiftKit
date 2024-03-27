@@ -30,20 +30,20 @@ object UtilKBottomNavigationView {
             bottomNavigationMenuView.getChildAt(index) as BottomNavigationItemView
         } else null
 
-    @SuppressLint("RestrictedApi")
-    @JvmStatic
-    fun applyBottomNavigationItemViewAddOrSetBadge(bottomNavigationView: BottomNavigationView, textView: TextView, index: Int, count: Int) {
-        val bottomNavigationMenuView = getBottomNavigationMenuView(bottomNavigationView)
-        val bottomNavigationItemView = getBottomNavigationItemView(bottomNavigationMenuView, index) ?: return//获取第2个itemView
-        val badgeView = if (bottomNavigationItemView.contains(textView)) {
-            bottomNavigationItemView.findViewById(textView.hashCode())
-        } else {
-            bottomNavigationItemView.addView(textView.apply {
-                id = textView.hashCode()
-            })//把badgeView添加到itemView中
-            textView
-        }
-        badgeView.text = count.toString()
-        badgeView.visibility = if (count > 0) View.VISIBLE else View.GONE
-    }
+//    @SuppressLint("RestrictedApi")
+//    @JvmStatic
+//    fun applyBottomNavigationItemViewAddOrSetBadge(bottomNavigationView: BottomNavigationView, textView: TextView, index: Int, count: Int) {
+//        val bottomNavigationMenuView = getBottomNavigationMenuView(bottomNavigationView)
+//        val bottomNavigationItemView = getBottomNavigationItemView(bottomNavigationMenuView, index) ?: return//获取第2个itemView
+//        val badgeView = if (bottomNavigationItemView.contains(textView)) {
+//            bottomNavigationItemView.findViewById(textView.hashCode())
+//        } else {
+//            bottomNavigationItemView.addView(textView.apply {
+//                id = textView.hashCode()
+//            })//把badgeView添加到itemView中
+//            textView
+//        }
+//        badgeView.text = count.toString()
+//        badgeView.visibility = if (count > 0) View.VISIBLE else View.GONE
+//    }
 }

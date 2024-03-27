@@ -203,8 +203,8 @@ object UtilKUriFormat : BaseUtilK() {
             val outHeight = options.outHeight.toDouble()
             val outWidth = options.outWidth.toDouble()
             //heightPixels就是要压缩后的图片高度，宽度也一样
-            val a = ceil((outHeight / UtilKScreen.getHeight_ofSysMetrics().toDouble())).toInt()
-            val b = ceil((outWidth / UtilKScreen.getWidth_ofSysMetrics().toDouble())).toInt()
+            val a = ceil((outHeight / UtilKScreen.getHeight_ofDisplayMetrics_ofSys().toDouble())).toInt()
+            val b = ceil((outWidth / UtilKScreen.getWidth_ofDisplayMetrics_ofSys().toDouble())).toInt()
             //比例计算,一般是图片比较大的情况下进行压缩
             val max = a.coerceAtLeast(b)
             if (max > 1)

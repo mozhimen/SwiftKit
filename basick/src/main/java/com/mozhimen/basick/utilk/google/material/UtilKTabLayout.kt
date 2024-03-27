@@ -6,8 +6,9 @@ import android.view.View
 import android.widget.TextView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.Tab
-import com.mozhimen.basick.elemk.google.android.commons.IOnTabSelectedListener
+import com.mozhimen.basick.elemk.google.material.commons.IOnTabSelectedListener
 import com.mozhimen.basick.utilk.android.view.applyLayoutParams_ofMatch
+import com.mozhimen.basick.utilk.android.widget.applyTypeface_ofBold
 import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
@@ -21,14 +22,14 @@ fun TabLayout.applyTabTextSize(unselectedTextSize: Float, selectedTextSize: Floa
     UtilKTabLayout.applyTabTextSize(this, unselectedTextSize, selectedTextSize)
 }
 
-fun TabLayout.applyTabModeScrollable() {
-    UtilKTabLayout.applyTabModeScrollable(this)
+fun TabLayout.applyTabMode_ofScrollable() {
+    UtilKTabLayout.applyTabMode_ofScrollable(this)
 }
 
 object UtilKTabLayout : IUtilK {
     @JvmStatic
     fun applyTabTextSize(tabLayout: TabLayout, unselectedTextSize: Float, selectedTextSize: Float) {
-        tabLayout.addOnTabSelectedListener(object : IOnTabSelectedListener {
+        addOnTabSelectedListener(tabLayout, object : IOnTabSelectedListener {
             override fun onTabSelected(tab: Tab) {
                 val customView: View? = tab.customView
                 if (customView == null) tab.setCustomView(TextView(tabLayout.context).apply {
@@ -52,6 +53,7 @@ object UtilKTabLayout : IUtilK {
                 })
                 tab.customView?.findViewById<TextView>(android.R.id.text1)?.let {
                     it.setTextColor(tabLayout.tabTextColors)
+                    it.applyTypeface_ofBold()
                     it.typeface = Typeface.DEFAULT
                     it.textSize = unselectedTextSize
                 }
@@ -60,7 +62,14 @@ object UtilKTabLayout : IUtilK {
     }
 
     @JvmStatic
-    fun applyTabModeScrollable(tabLayout: TabLayout) {
+    fun applyTabMode_ofScrollable(tabLayout: TabLayout) {
         tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun addOnTabSelectedListener(tabLayout: TabLayout, listener: TabLayout.OnTabSelectedListener) {
+        tabLayout.addOnTabSelectedListener(listener)
     }
 }

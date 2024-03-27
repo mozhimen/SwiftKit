@@ -14,8 +14,8 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
 import com.mozhimen.basick.elemk.androidx.appcompat.commons.IActivity
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.android.widget.UtilKTextView
-import com.mozhimen.basick.utilk.android.widget.applyTextStyle
+import com.mozhimen.basick.utilk.android.widget.UtilKTextViewWrapper
+import com.mozhimen.basick.utilk.android.widget.applyTypeface
 import com.mozhimen.basick.utilk.androidx.appcompat.UtilKToolbar
 import com.mozhimen.basick.utilk.androidx.appcompat.applyCustomView
 import com.mozhimen.basick.utilk.androidx.appcompat.getActionBarContainer
@@ -119,9 +119,9 @@ abstract class BaseBarActivity : BaseSaveStateActivity(), IActivity {
      */
     private fun applyTitleView(toolbar: Toolbar) {
         if (null == _titleView) {//如果当前的TextView为null，则创建一个
-            _titleView = UtilKTextView.get(this).apply {
+            _titleView = UtilKTextViewWrapper.get(this).apply {
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
-                applyTextStyle(Typeface.BOLD)
+                applyTypeface(Typeface.BOLD)
             }
         } else {
             val parent: ViewParent? = _titleView!!.parent

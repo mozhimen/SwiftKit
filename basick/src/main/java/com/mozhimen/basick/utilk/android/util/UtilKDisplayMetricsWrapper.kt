@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.android.util
 
 import android.content.Context
+import android.util.DisplayMetrics
 import android.util.TypedValue
 import androidx.annotation.FloatRange
 import com.mozhimen.basick.elemk.android.util.cons.CDisplayMetrics
@@ -79,28 +80,39 @@ fun Int.sp2px(): Float =
 
 object UtilKDisplayMetricsWrapper {
 
+    //region # dp -> px
     @JvmStatic
     fun dp2px(@FloatRange(from = 0.0) dp: Float): Float =
-        TypedValue.applyDimension(CTypedValue.COMPLEX_UNIT_DIP, dp, UtilKDisplayMetrics.get_ofSys())
+        dp2px(dp)
 
     @JvmStatic
     fun dp2px_ofSys(@FloatRange(from = 0.0) dp: Float): Float =
-        dp * UtilKDisplayMetrics.getDensity_ofSys()
+        dp2px(dp, UtilKDisplayMetrics.get_ofSys())
 
     @JvmStatic
-    fun dp2px_ofApp(context: Context, @FloatRange(from = 0.0) dp: Float): Float =
-        dp * UtilKDisplayMetrics.getDensity_ofApp(context) + 0.5f
-
-    @JvmStatic
-    fun dp2px_ofDpi(@FloatRange(from = 0.0) dp: Float): Float =
+    fun dp2px_ofSysDpi(@FloatRange(from = 0.0) dp: Float): Float =
         dp * (UtilKDisplayMetrics.getXdpi_ofSys() / CDisplayMetrics.DENSITY_DEFAULT)
 
     @JvmStatic
-    fun dp2sp(@FloatRange(from = 0.0) dp: Float): Float =
-        dp2px(dp).px2sp()
+    fun dp2px_ofApp(@FloatRange(from = 0.0) dp: Float, context: Context): Float =
+        dp2px(dp, UtilKDisplayMetrics.get_ofApp(context))
+
+    @JvmStatic
+    fun dp2px(@FloatRange(from = 0.0) dp: Float, displayMetrics: DisplayMetrics): Float =
+        UtilKTypedValue.applyDimension(CTypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics)
+    //endregion
 
     /////////////////////////////////////////////////////////////
 
+    //region # dp -> sp
+    @JvmStatic
+    fun dp2sp(@FloatRange(from = 0.0) dp: Float): Float =
+        dp2px(dp).px2sp()
+    //endregion
+
+    /////////////////////////////////////////////////////////////
+
+    //region # px -> dp
     @JvmStatic
     fun px2dp_ofSysDpi(@FloatRange(from = 0.0) px: Float): Float =
         px / (UtilKDisplayMetrics.getDensityDpi_ofSys() / CDisplayMetrics.DENSITY_DEFAULT)
@@ -108,18 +120,33 @@ object UtilKDisplayMetricsWrapper {
     @JvmStatic
     fun px2dp_ofSys(@FloatRange(from = 0.0) px: Float): Float =
         px / UtilKDisplayMetrics.getDensity_ofSys()
-
-    @JvmStatic
-    fun px2sp(@FloatRange(from = 0.0) px: Float): Float =
-        px / UtilKDisplayMetrics.getScaledDensity_ofSys() + 0.5f
+    //endregion
 
     /////////////////////////////////////////////////////////////
 
+    //region # px -> sp
+    @JvmStatic
+    fun px2sp(@FloatRange(from = 0.0) px: Float): Float =
+        px / UtilKDisplayMetrics.getScaledDensity_ofSys() /*+ 0.5f*/
+    //endregion
+
+    /////////////////////////////////////////////////////////////
+
+    //region # sp -> px
     @JvmStatic
     fun sp2px(@FloatRange(from = 0.0) sp: Float): Float =
-        TypedValue.applyDimension(CTypedValue.COMPLEX_UNIT_SP, sp, UtilKDisplayMetrics.get_ofSys())
+        sp2px_ofSys(sp)
 
     @JvmStatic
     fun sp2px_ofSys(@FloatRange(from = 0.0) sp: Float): Float =
-        sp * UtilKDisplayMetrics.getScaledDensity_ofSys()
+        sp2px(sp, UtilKDisplayMetrics.get_ofSys())
+
+    @JvmStatic
+    fun sp2px_ofApp(@FloatRange(from = 0.0) sp: Float, context: Context): Float =
+        sp2px(sp, UtilKDisplayMetrics.get_ofApp(context))
+
+    @JvmStatic
+    fun sp2px(@FloatRange(from = 0.0) sp: Float, displayMetrics: DisplayMetrics): Float =
+        UtilKTypedValue.applyDimension(CTypedValue.COMPLEX_UNIT_SP, sp, displayMetrics)
+    //endregion
 }

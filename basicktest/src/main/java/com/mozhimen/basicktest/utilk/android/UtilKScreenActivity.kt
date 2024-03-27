@@ -22,7 +22,7 @@ class UtilKScreenActivity : BaseActivityVDB<ActivityUtilkScreenBinding>() {
         super.initData(savedInstanceState)
         UtilKLogWrapper.d(TAG, "initData: 获取屏幕宽度")
         UtilKLogWrapper.d(TAG, "initData: getWidth ${UtilKScreen.getWidth()}")
-        UtilKLogWrapper.d(TAG, "initData: getWidth_ofSysMetrics ${UtilKScreen.getWidth_ofSysMetrics()}")
+        UtilKLogWrapper.d(TAG, "initData: getWidth_ofDisplayMetrics_ofSys ${UtilKScreen.getWidth_ofDisplayMetrics_ofSys()}")
         UtilKLogWrapper.d(TAG, "initData: getWidth_ofDefMetrics ${UtilKScreen.getWidth_ofDefMetrics()}")
         UtilKLogWrapper.d(TAG, "initData: getWidth_ofRealMetrics ${UtilKScreen.getWidth_ofRealMetrics()}")
         UtilKLogWrapper.d(TAG, "initData: getWidth_ofDefDisplay ${UtilKScreen.getWidth_ofDefDisplay()}")
@@ -31,7 +31,7 @@ class UtilKScreenActivity : BaseActivityVDB<ActivityUtilkScreenBinding>() {
 
         UtilKLogWrapper.d(TAG, "initData: 获取屏幕高度")
         UtilKLogWrapper.d(TAG, "initData: getHeight ${UtilKScreen.getHeight()}")
-        UtilKLogWrapper.d(TAG, "initData: getHeight_ofSysMetrics ${UtilKScreen.getHeight_ofSysMetrics()}")
+        UtilKLogWrapper.d(TAG, "initData: getHeight_ofDisplayMetrics_ofSys ${UtilKScreen.getHeight_ofDisplayMetrics_ofSys()}")
         UtilKLogWrapper.d(TAG, "initData: getHeight_ofDefMetrics ${UtilKScreen.getHeight_ofDefMetrics()}")
         UtilKLogWrapper.d(TAG, "initData: getHeight_ofRealMetrics ${UtilKScreen.getHeight_ofRealMetrics()}")
         UtilKLogWrapper.d(TAG, "initData: getHeight_ofDefDisplay ${UtilKScreen.getHeight_ofDefDisplay()}")

@@ -13,10 +13,6 @@ import com.mozhimen.basick.taskk.handler.TaskKHandler
  * @Date 2022/6/12 10:31
  * @Version 1.0
  */
-fun Handler.postDelayed(delayMills: Long, runnable: Runnable) {
-    UtilKHandler.postDelayed(this, delayMills, runnable)
-}
-
 fun Handler.sendMsgAtFrontOfQueue(runnable: Runnable) {
     UtilKHandler.sendMsgAtFrontOfQueue(this, runnable)
 }
