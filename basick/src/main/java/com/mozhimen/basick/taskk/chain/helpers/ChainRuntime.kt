@@ -1,7 +1,6 @@
 package com.mozhimen.basick.taskk.chain.helpers
 
 import android.text.TextUtils
-import androidx.core.os.postDelayed
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.BuildConfig
 import com.mozhimen.basick.elemk.android.os.bases.BaseWeakRefMainHandler
@@ -10,6 +9,7 @@ import com.mozhimen.basick.taskk.chain.commons.IChainRuntime
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basick.taskk.chain.mos.MChainTaskRuntimeInfo
 import com.mozhimen.basick.taskk.chain.temps.CriticalChainTask
+import com.mozhimen.basick.utilk.android.os.UtilKHandler
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import java.util.*
 
@@ -98,7 +98,7 @@ internal object ChainRuntime : BaseUtilK(), IChainRuntime {
                 head.run()
             } else {
                 for (task in _waitingTasks) {
-                    BaseWeakRefMainHandler(this).postDelayed(task.delayMills, task)
+                    UtilKHandler.postDelayedOnMain(task.delayMills, task)
                 }
                 _waitingTasks.clear()
             }
@@ -112,7 +112,7 @@ internal object ChainRuntime : BaseUtilK(), IChainRuntime {
             //else里面的都是在主线程执行的
             //延迟任务，但是如果这个延迟任务它存在着后置任务A(延迟任务)-->B--->C (Block task)
             if (task.delayMills > 0 && !hasBlockBehindTask(task)) {
-                BaseWeakRefMainHandler(this).postDelayed(task.delayMills, task)
+                UtilKHandler.postDelayedOnMain(task.delayMills, task)
                 return
             }
             if (!hasBlockTasks()) {

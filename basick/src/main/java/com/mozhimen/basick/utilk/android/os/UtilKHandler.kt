@@ -13,17 +13,19 @@ import com.mozhimen.basick.taskk.handler.TaskKHandler
  * @Date 2022/6/12 10:31
  * @Version 1.0
  */
-fun Handler.sendMsgAtFrontOfQueue(runnable: Runnable) {
-    UtilKHandler.sendMsgAtFrontOfQueue(this, runnable)
+fun Handler.postDelayed(delayMills: Long, runnable: Runnable) {
+    UtilKHandler.postDelayed(this, delayMills, runnable)
 }
 
-fun Handler.removeCbs(runnable: Runnable) {
-    UtilKHandler.removeCbs(this, runnable)
+fun Handler.sendMessageAtFrontOfQueue(runnable: Runnable) {
+    UtilKHandler.sendMessageAtFrontOfQueue(this, runnable)
 }
 
-fun Handler.removeAllCbsAndMsgs() {
-    UtilKHandler.removeAllCbsAndMsgs(this)
+fun Handler.removeCallbacksAndMessages_ofNull() {
+    UtilKHandler.removeCallbacksAndMessages_ofNull(this)
 }
+
+/////////////////////////////////////////////////////////////////
 
 object UtilKHandler {
     @JvmStatic
@@ -33,25 +35,41 @@ object UtilKHandler {
 
     //插到队首
     @JvmStatic
-    fun sendMsgAtFrontOfQueue(handler: Handler, runnable: Runnable) {
+    fun sendMessageAtFrontOfQueue(handler: Handler, runnable: Runnable) {
         handler.sendMessageAtFrontOfQueue(Message.obtain(handler, runnable))
     }
 
     //移除callbacks
     @JvmStatic
-    fun removeCbs(handler: Handler, runnable: Runnable) {
+    fun removeCallbacks(handler: Handler, runnable: Runnable) {
         handler.removeCallbacks(runnable)
     }
 
     //移除所有
     @JvmStatic
-    fun removeAllCbsAndMsgs(handler: Handler) {
+    fun removeCallbacksAndMessages_ofNull(handler: Handler) {
         handler.removeCallbacksAndMessages(null)
     }
 
+    /////////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun postOnMain(block: I_Listener) {
-        TaskKHandler.post(block)
-//        Handler(UtilKLooper.getMainLooper()).post(block)
+        postOnMain(block)
+    }
+
+    @JvmStatic
+    fun postOnMain(runnable: Runnable) {
+        TaskKHandler.post(runnable)
+    }
+
+    @JvmStatic
+    fun postDelayedOnMain(delayMillis: Long, block: I_Listener) {
+        postDelayedOnMain(delayMillis, block)
+    }
+
+    @JvmStatic
+    fun postDelayedOnMain(delayMillis: Long, runnable: Runnable) {
+        TaskKHandler.postDelayed(delayMillis, runnable)
     }
 }

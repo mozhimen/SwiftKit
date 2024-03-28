@@ -5,7 +5,7 @@ import com.mozhimen.basick.elemk.android.os.bases.BaseWeakRefMainHandler
 import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.basick.elemk.androidx.lifecycle.commons.IDefaultLifecycleObserver
 import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
-import com.mozhimen.basick.utilk.android.os.removeAllCbsAndMsgs
+import com.mozhimen.basick.utilk.android.os.removeCallbacksAndMessages_ofNull
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
 
 /**
@@ -30,7 +30,7 @@ class WakeBefPauseLifecycleHandler<O : LifecycleOwner>(private val _lifecycleOwn
     }
 
     override fun onPause(owner: LifecycleOwner) {
-        this.removeAllCbsAndMsgs()
+        this.removeCallbacksAndMessages_ofNull()
         this.clearRef()
         owner.lifecycle.removeObserver(this@WakeBefPauseLifecycleHandler)
     }

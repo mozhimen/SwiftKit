@@ -83,7 +83,7 @@ object UtilKDisplayMetricsWrapper {
     //region # dp -> px
     @JvmStatic
     fun dp2px(@FloatRange(from = 0.0) dp: Float): Float =
-        dp2px(dp)
+        dp2px_ofSys(dp)
 
     @JvmStatic
     fun dp2px_ofSys(@FloatRange(from = 0.0) dp: Float): Float =
