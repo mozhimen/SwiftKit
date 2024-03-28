@@ -5,10 +5,10 @@ import com.mozhimen.basick.elemk.commons.IAB_Listener
 import com.mozhimen.basick.utilk.android.content.UtilKAssetManager
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.inputStream2bitmapAny
-import com.mozhimen.basick.utilk.java.io.inputStream2bytes
+import com.mozhimen.basick.utilk.java.io.inputStream2bytes_use
 import com.mozhimen.basick.utilk.java.io.inputStream2file
-import com.mozhimen.basick.utilk.java.io.inputStream2strOfReadMultiLines
 import com.mozhimen.basick.utilk.java.io.inputStream2strOfBytes
+import com.mozhimen.basick.utilk.java.io.inputStream2str_use_ofBufferedReader
 import java.io.File
 
 /**
@@ -37,8 +37,8 @@ fun String.strAssetName2strFilePathName(strFilePathNameDest: String): String =
 fun String.strAssetName2bytes(): ByteArray =
     UtilKStrAsset.strAssetName2bytes(this)
 
-fun String.strAssetName2strOfReadMultiLines(): String? =
-    UtilKStrAsset.strAssetName2strOfReadMultiLines(this)
+fun String.strAssetName2str_use_ofBufferedReader(): String? =
+    UtilKStrAsset.strAssetName2str_use_ofBufferedReader(this)
 
 fun String.strAssetName2strOfBytes(): String? =
     UtilKStrAsset.strAssetName2strOfBytes(this)
@@ -86,15 +86,15 @@ object UtilKStrAsset : BaseUtilK() {
 
     @JvmStatic
     fun strAssetName2bytes(strAssetName: String): ByteArray =
-        UtilKAssetManager.open_ofCxt(_context, strAssetName).inputStream2bytes()
+        UtilKAssetManager.open_ofCxt(_context, strAssetName).inputStream2bytes_use()
 
     /**
      * 文件转String:分析json文件,从资产文件加载内容:license,获取txt文本文件内容等
      */
     @JvmStatic
-    fun strAssetName2strOfReadMultiLines(strAssetName: String): String? =
+    fun strAssetName2str_use_ofBufferedReader(strAssetName: String): String? =
         if (!isAssetExists(strAssetName)) null
-        else UtilKAssetManager.open_ofCxt(_context, strAssetName).inputStream2strOfReadMultiLines()
+        else UtilKAssetManager.open_ofCxt(_context, strAssetName).inputStream2str_use_ofBufferedReader()
 
     /**
      * 获取文本文件内容: txt 最快的方法

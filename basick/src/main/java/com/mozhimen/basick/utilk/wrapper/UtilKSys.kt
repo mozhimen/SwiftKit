@@ -6,7 +6,7 @@ import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_EXTERNAL_STO
 import com.mozhimen.basick.utilk.android.os.UtilKBuild
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.commons.IUtilK
-import com.mozhimen.basick.utilk.java.io.UtilKFile
+import com.mozhimen.basick.utilk.java.io.UtilKFileWrapper
 import com.mozhimen.basick.utilk.java.lang.UtilKRuntime
 import com.mozhimen.basick.utilk.kotlin.strFilePath2file
 import java.io.File
@@ -48,7 +48,7 @@ object UtilKSys : IUtilK {
         )
         for (path in strFilePaths) {
             file = path.strFilePath2file()
-            if (UtilKFile.isFileExist(file) && file.canExecute())
+            if (UtilKFileWrapper.isFileExist(file) && file.canExecute())
                 return true.also { UtilKLogWrapper.d(TAG, "isSuAvailable: $it") }
         }
         return false.also { UtilKLogWrapper.d(TAG, "isSuAvailable: $it") }
@@ -85,7 +85,7 @@ object UtilKSys : IUtilK {
     @JvmStatic
     @OPermission_READ_EXTERNAL_STORAGE
     fun hasSuperuserApk(): Boolean =
-            UtilKFile.isFileExist(File("/system/app/Superuser.apk")).also { UtilKLogWrapper.d(TAG, "hasSuperuserApk: $it") }
+        UtilKFileWrapper.isFileExist(File("/system/app/Superuser.apk")).also { UtilKLogWrapper.d(TAG, "hasSuperuserApk: $it") }
 
     //系统是否是非官方发布版
     @JvmStatic

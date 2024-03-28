@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
  * @Date 2022/6/12 0:48
  * @Version 1.0
  */
-object UtilKRxJava {
+object UtilKObservableWrapper {
     /**
      * 毫秒后执行next操作
      */
@@ -37,7 +37,7 @@ object UtilKRxJava {
      * 每隔毫秒后执行next操作
      */
     @JvmStatic
-    fun take(millisecond: Long, repeatCount: Int, schedulers: Scheduler = AndroidSchedulers.mainThread(), listener: IA_Listener<Long>): Disposable =
+    fun interval_take(millisecond: Long, repeatCount: Int, schedulers: Scheduler = AndroidSchedulers.mainThread(), listener: IA_Listener<Long>): Disposable =
         Observable.interval(millisecond, TimeUnit.MILLISECONDS)
             .take(repeatCount.toLong())
             .observeOn(schedulers)

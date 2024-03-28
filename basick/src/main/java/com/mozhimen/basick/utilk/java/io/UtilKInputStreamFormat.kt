@@ -12,10 +12,11 @@ import com.mozhimen.basick.elemk.commons.IAB_Listener
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.java.security.UtilKMd5
+import com.mozhimen.basick.utilk.kotlin.UtilKByteArray
 import com.mozhimen.basick.utilk.kotlin.bytes2str
 import com.mozhimen.basick.utilk.kotlin.bytes2strHex
-import com.mozhimen.basick.utilk.kotlin.bytes2strHex2
-import com.mozhimen.basick.utilk.kotlin.bytes2strHexOfBigInteger
+import com.mozhimen.basick.utilk.kotlin.bytes2strHex_ofHexString
+import com.mozhimen.basick.utilk.kotlin.bytes2strHex_ofBigInteger
 import com.mozhimen.basick.utilk.kotlin.createFile
 import com.mozhimen.basick.utilk.kotlin.constraint
 import java.io.BufferedInputStream
@@ -42,37 +43,25 @@ fun InputStream.inputStream2bufferedInputStream(): BufferedInputStream =
 
 ////////////////////////////////////////////////////////////////////////////
 
-fun InputStream.inputStream2bytes(): ByteArray =
-    UtilKInputStreamFormat.inputStream2bytes(this)
-
-fun InputStream.inputStream2bytesCheck(): ByteArray =
-    UtilKInputStreamFormat.inputStream2bytesCheck(this)
-
-fun InputStream.inputStream2bytesCheck(fileLength: Long): ByteArray =
-    UtilKInputStreamFormat.inputStream2bytesCheck(this, fileLength)
+fun InputStream.inputStream2bytes_use(): ByteArray =
+    UtilKInputStreamFormat.inputStream2bytes_use(this)
 
 ////////////////////////////////////////////////////////////////////////////
 
-fun InputStream.inputStream2bytesMd5(): ByteArray =
-    UtilKInputStreamFormat.inputStream2bytesMd5(this)
+fun InputStream.inputStream2bytesMd5_use(bufferSize: Int = 1024 * 1024): ByteArray =
+    UtilKInputStreamFormat.inputStream2bytesMd5_use(this, bufferSize)
 
-fun InputStream.inputStream2bytesMd52(): ByteArray =
-    UtilKInputStreamFormat.inputStream2bytesMd52(this)
+fun InputStream.inputStream2strMd5_use(): String =
+    UtilKInputStreamFormat.inputStream2strMd5_use(this)
 
-fun InputStream.inputStream2strMd5(): String =
-    UtilKInputStreamFormat.inputStream2strMd5(this)
+fun InputStream.inputStream2strMd5_use_ofBigInteger(): String =
+    UtilKInputStreamFormat.inputStream2strMd5_use_ofBigInteger(this)
 
-fun InputStream.inputStream2strMd52(): String =
-    UtilKInputStreamFormat.inputStream2strMd52(this)
+fun InputStream.inputStream2strMd5_use_ofHexString(): String =
+    UtilKInputStreamFormat.inputStream2strMd5_use_ofHexString(this)
 
-fun InputStream.inputStream2strMd53(): String =
-    UtilKInputStreamFormat.inputStream2strMd53(this)
-
-fun InputStream.inputStream2strOfReadSingleLine(charset: String? = null, readSize: Int = 0): String =
-    UtilKInputStreamFormat.inputStream2strOfReadSingleLine(this, charset, readSize)
-
-fun InputStream.inputStream2strOfReadMultiLines(charset: String? = null, readSize: Int = 0): String =
-    UtilKInputStreamFormat.inputStream2strOfReadMultiLines(this, charset, readSize)
+fun InputStream.inputStream2str_use_ofBufferedReader(charset: String? = null, bufferSize: Int = 1024): String =
+    UtilKInputStreamFormat.inputStream2str_use_ofBufferedReader(this, charset, bufferSize)
 
 fun InputStream.inputStream2strOfBytesOutStream(byteArrayOutputStream: ByteArrayOutputStream): String =
     UtilKInputStreamFormat.inputStream2strOfBytesOutStream(this, byteArrayOutputStream)
@@ -124,7 +113,7 @@ fun InputStream.inputStream2outputStream(outputStream: OutputStream, bufferSize:
     UtilKInputStreamFormat.inputStream2outputStream(this, outputStream, bufferSize, block)
 }
 
-fun InputStream.inputStream2outputStreamOfFileUtils(outputStream: OutputStream, bufferSize: Int) {
+fun InputStream.inputStream2outputStream_ofFileUtils(outputStream: OutputStream, bufferSize: Int) {
     UtilKInputStreamFormat.inputStream2outputStreamOfFileUtils(this, outputStream, bufferSize)
 }
 
@@ -133,7 +122,7 @@ fun InputStream.inputStream2outputStream(outputStream: OutputStream) {
 }
 
 @RequiresApi(CVersCode.V_29_10_Q)
-fun InputStream.inputStream2outputStreamOfFileUtils(outputStream: OutputStream) {
+fun InputStream.inputStream2outputStream_ofFileUtils(outputStream: OutputStream) {
     UtilKInputStreamFormat.inputStream2outputStreamOfFileUtils(this, outputStream)
 }
 
@@ -142,28 +131,20 @@ fun InputStream.inputStream2outputStreamOfFileUtils(outputStream: OutputStream) 
 object UtilKInputStreamFormat : IUtilK {
     @JvmStatic
     fun inputStream2bufferedInputStream(inputStream: InputStream): BufferedInputStream =
-        BufferedInputStream(inputStream)
+        UtilKBufferedInputStream.get(inputStream)
 
     ////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun inputStream2bytes(inputStream: InputStream): ByteArray {
-        val bytes = ByteArray(inputStream.available())
-        inputStream.readBytesForInputStream(bytes)
-        return bytes
-    }
+    fun inputStream2bytes_use(inputStream: InputStream): ByteArray =
+        inputStream2bytes_use(inputStream, false)
 
-    /**
-     * 和方法一一样(增加完整性校验)
-     */
     @JvmStatic
-    fun inputStream2bytesCheck(inputStream: InputStream): ByteArray {
-        val size = inputStream.available()
-        val bytes = ByteArray(size)
-        inputStream.use {
-            val readSize = inputStream.read(bytes)
-            if (readSize.toLong() < size) throw IOException(String.format("File length is [{}] but read [{}]!", *arrayOf<Any>(size, readSize)))
-        }
+    fun inputStream2bytes_use(inputStream: InputStream, isVerify: Boolean): ByteArray {
+        val bytes = UtilKByteArray.get(inputStream)
+        val readSize = inputStream.read_use(bytes)
+        if (isVerify && readSize.toLong() < inputStream.available())
+            throw IOException(String.format("File length is [{}] but read [{}]!", *arrayOf<Any>(inputStream.available(), readSize)))
         return bytes
     }
 
@@ -171,8 +152,8 @@ object UtilKInputStreamFormat : IUtilK {
      * 和方法二一样(增加完整性校验)
      */
     @JvmStatic
-    fun inputStream2bytesCheck(inputStream: InputStream, fileLength: Long): ByteArray {
-        val bytes = ByteArray(fileLength.toInt())
+    fun inputStream2bytes_use_ofVerify(inputStream: InputStream): ByteArray {
+        val bytes = UtilKByteArray.get(inputStream)
         inputStream.use {
             var offset = 0
             var readCount = 0
@@ -188,11 +169,11 @@ object UtilKInputStreamFormat : IUtilK {
 
     @JvmStatic
     @Throws(NoSuchAlgorithmException::class)
-    fun inputStream2bytesMd5(inputStream: InputStream): ByteArray =
+    fun inputStream2bytesMd5_use(inputStream: InputStream, bufferSize: Int = 1024 * 1024): ByteArray =
         inputStream.use {
             val messageDigest: MessageDigest = UtilKMd5.get()
             var readCount: Int
-            val bytes = ByteArray(1024 * 1024)
+            val bytes = ByteArray(bufferSize)
             while (inputStream.read(bytes).also { readCount = it } != -1)
                 messageDigest.update(bytes, 0, readCount)
             messageDigest.digest()
@@ -200,46 +181,27 @@ object UtilKInputStreamFormat : IUtilK {
 
     @JvmStatic
     @Throws(NoSuchAlgorithmException::class)
-    fun inputStream2bytesMd52(inputStream: InputStream): ByteArray =
-        inputStream.use {
-            val messageDigest: MessageDigest = UtilKMd5.get()
-            var readCount: Int
-            val bytes = ByteArray(1024)
-            while (inputStream.read(bytes, 0, 1024).also { readCount = it } != -1)
-                messageDigest.update(bytes, 0, readCount)
-            messageDigest.digest()
-        }
-
-    @JvmStatic
-    @Throws(NoSuchAlgorithmException::class)
-    fun inputStream2strMd5(inputStream: InputStream): String {
-        return inputStream.inputStream2bytesMd5().bytes2strHex()
+    fun inputStream2strMd5_use(inputStream: InputStream): String {
+        return inputStream.inputStream2bytesMd5_use().bytes2strHex()
     }
 
     @JvmStatic
     @Throws(NoSuchAlgorithmException::class)
-    fun inputStream2strMd52(inputStream: InputStream): String {
-        return inputStream.inputStream2bytesMd52().bytes2strHexOfBigInteger()
+    fun inputStream2strMd5_use_ofBigInteger(inputStream: InputStream): String {
+        return inputStream.inputStream2bytesMd5_use().bytes2strHex_ofBigInteger()
     }
 
     @JvmStatic
     @Throws(NoSuchAlgorithmException::class)
-    fun inputStream2strMd53(inputStream: InputStream): String {
-        return inputStream.inputStream2bytesMd52().bytes2strHex2()
+    fun inputStream2strMd5_use_ofHexString(inputStream: InputStream): String {
+        return inputStream.inputStream2bytesMd5_use().bytes2strHex_ofHexString()
     }
 
     ////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun inputStream2strOfReadSingleLine(inputStream: InputStream, charset: String? = null, readSize: Int = 0): String =
-        UtilKReader.getStrForInputStreamSingleLine(inputStream, charset, readSize)
-
-    /**
-     * 针对字符串文本
-     */
-    @JvmStatic
-    fun inputStream2strOfReadMultiLines(inputStream: InputStream, charset: String? = null, readSize: Int = 0): String =
-        UtilKReader.getStrForInputStreamMultiLine(inputStream, charset, readSize)
+    fun inputStream2str_use_ofBufferedReader(inputStream: InputStream, charset: String? = null, bufferSize: Int = 1024): String =
+        UtilKInputStreamReader.readLine_use(inputStream, charset, bufferSize)
 
     @JvmStatic
     fun inputStream2strOfBytesOutStream(inputStream: InputStream): String =
@@ -248,7 +210,7 @@ object UtilKInputStreamFormat : IUtilK {
     @JvmStatic
     fun inputStream2strOfBytesOutStream(inputStream: InputStream, byteArrayOutputStream: ByteArrayOutputStream, charset: Charset = Charsets.UTF_8): String {
         inputStream.inputStream2outputStream(byteArrayOutputStream)
-        return byteArrayOutputStream.byteArrayOutputStream2str(charset)
+        return byteArrayOutputStream.byteArrayOutputStream2str_flushClose(charset)
     }
 
     @JvmStatic
@@ -292,7 +254,7 @@ object UtilKInputStreamFormat : IUtilK {
 
     @JvmStatic
     fun inputStream2file(inputStream: InputStream, fileDest: File, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? {
-        UtilKFile.createFile(fileDest)
+        UtilKFileWrapper.createFile(fileDest)
         /*//        val fileInputStream = file.file2fileInputStream()
         //        UtilKLogWrapper.d(TAG, "inputStream2file: inputStream ${inputStream.available()}")
         //        if (isInputStreamSame(inputStream, fileInputStream)) {//相似内容就直接返回地址
@@ -315,7 +277,7 @@ object UtilKInputStreamFormat : IUtilK {
 
     @JvmStatic
     fun inputStream2fileOfBufferedOps(inputStream: InputStream, fileDest: File, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? {
-        UtilKFile.createFile(fileDest)
+        UtilKFileWrapper.createFile(fileDest)
         try {
             inputStream.inputStream2outputStream(fileDest.file2fileBufferedOutputStream(isAppend), bufferSize, block)
             return fileDest
@@ -334,14 +296,14 @@ object UtilKInputStreamFormat : IUtilK {
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
     fun inputStream2fileOfFileUtils(inputStream: InputStream, fileDest: File, isAppend: Boolean = false): File? {
-        UtilKFile.createFile(fileDest)
+        UtilKFileWrapper.createFile(fileDest)
         /*//        val fileInputStream = file.file2fileInputStream()
         //        if (isInputStreamSame(inputStream, fileInputStream)) {//相似内容就直接返回地址
         //            UtilKLogWrapper.d(UtilKFile.TAG, "assetCopyFile: the two files is same")
         //            return file//"the two files is same, don't need overwrite"
         //        }*/
         try {
-            inputStream.inputStream2outputStreamOfFileUtils(fileDest.file2fileOutputStream(isAppend))
+            inputStream.inputStream2outputStream_ofFileUtils(fileDest.file2fileOutputStream(isAppend))
             return fileDest
         } catch (e: Exception) {
             e.printStackTrace()

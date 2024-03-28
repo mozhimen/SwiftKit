@@ -6,11 +6,11 @@ import com.mozhimen.basick.elemk.javax.net.bases.BaseHostnameVerifier
 import com.mozhimen.basick.lintk.optins.application.OApplication_USES_CLEAR_TEXT_TRAFFIC
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.commons.IUtilK
-import com.mozhimen.basick.utilk.java.io.UtilKFile
+import com.mozhimen.basick.utilk.java.io.UtilKFileWrapper
 import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
 import com.mozhimen.basick.utilk.java.io.flushClose
 import com.mozhimen.basick.utilk.java.io.inputStream2outputStream
-import com.mozhimen.basick.utilk.java.io.inputStream2strOfReadMultiLines
+import com.mozhimen.basick.utilk.java.io.inputStream2str_use_ofBufferedReader
 import com.mozhimen.basick.utilk.javax.net.UtilKSSLContext
 import com.mozhimen.basick.utilk.kotlin.UtilKStrUrl
 import kotlinx.coroutines.Dispatchers
@@ -79,7 +79,7 @@ object UtilKHttpURLConnection : IUtilK {
     @JvmStatic
     fun getFileForStrUrl(strUrl: String, fileDest: File, isAppend: Boolean = false): File? {
         require(strUrl.isNotEmpty()) { "${UtilKStrUrl.TAG} httpUrl must be not empty" }
-        UtilKFile.deleteFile(fileDest)
+        UtilKFileWrapper.deleteFile(fileDest)
 
         var inputStream: InputStream? = null
         var httpURLConnection: HttpURLConnection? = null
@@ -126,7 +126,7 @@ object UtilKHttpURLConnection : IUtilK {
                 httpURLConnection.inputStream
             else httpURLConnection.errorStream
 
-            return inputStream.inputStream2strOfReadMultiLines()
+            return inputStream.inputStream2str_use_ofBufferedReader()
         } catch (e: MalformedURLException) {
             e.printStackTrace() // url格式错误
         } catch (e: IOException) {
@@ -175,7 +175,7 @@ object UtilKHttpURLConnection : IUtilK {
             inputStream = if (httpURLConnection.responseCode == 200)
                 httpURLConnection.inputStream
             else httpURLConnection.errorStream
-            return inputStream.inputStream2strOfReadMultiLines()
+            return inputStream.inputStream2str_use_ofBufferedReader()
         } catch (e: MalformedURLException) {
             e.printStackTrace()// url格式错误
         } catch (e: IOException) {

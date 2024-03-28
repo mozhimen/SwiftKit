@@ -2,12 +2,10 @@ package com.mozhimen.basick.elemk.android.content.bases
 
 import android.content.Context
 import android.content.Intent
-import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.elemk.io.reactivex.commons.IObserver
 import com.mozhimen.basick.lintk.optins.permission.OPermission_RECEIVE_BOOT_COMPLETED
-import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.io.reactivex.UtilKTransformer
+import com.mozhimen.basick.utilk.io.reactivex.UtilKTransformerWrapper
 import com.mozhimen.basick.utilk.android.content.startContext
 import io.reactivex.Observable
 import java.util.concurrent.TimeUnit
@@ -43,7 +41,7 @@ open class BaseBootBroadcastReceiver(private val clazz: Class<*>, private val _d
         when (intent.action) {
             CIntent.ACTION_BOOT_COMPLETED -> {
                 if (_delayTime != 0L) {
-                    Observable.just("").delay(_delayTime, TimeUnit.MILLISECONDS).compose(UtilKTransformer.io2mainObservable()).subscribe(object : IObserver<String> {
+                    Observable.just("").delay(_delayTime, TimeUnit.MILLISECONDS).compose(UtilKTransformerWrapper.getObservableTransformer_ofIo2main()).subscribe(object : IObserver<String> {
                         override fun onComplete() {
                             context.startContext(clazz)
                         }

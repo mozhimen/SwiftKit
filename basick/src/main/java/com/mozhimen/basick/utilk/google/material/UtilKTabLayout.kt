@@ -8,7 +8,9 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.Tab
 import com.mozhimen.basick.elemk.google.material.commons.IOnTabSelectedListener
 import com.mozhimen.basick.utilk.android.view.applyLayoutParams_ofMatch
+import com.mozhimen.basick.utilk.android.widget.applyTypeface
 import com.mozhimen.basick.utilk.android.widget.applyTypeface_ofBold
+import com.mozhimen.basick.utilk.android.widget.applyTypeface_ofDefaultBold
 import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
@@ -32,25 +34,27 @@ object UtilKTabLayout : IUtilK {
         addOnTabSelectedListener(tabLayout, object : IOnTabSelectedListener {
             override fun onTabSelected(tab: Tab) {
                 val customView: View? = tab.customView
-                if (customView == null) tab.setCustomView(TextView(tabLayout.context).apply {
-                    id = android.R.id.text1
-                    gravity = Gravity.CENTER
-                    applyLayoutParams_ofMatch()
-                })
-                tab.customView?.findViewById<TextView>(android.R.id.text1)?.let {
-                    it.setTextColor(tabLayout.tabTextColors)
-                    it.typeface = Typeface.DEFAULT_BOLD
-                    it.textSize = selectedTextSize
+                if (customView == null)
+                    tab.setCustomView(TextView(tabLayout.context).apply {
+                        id = android.R.id.text1
+                        gravity = Gravity.CENTER
+                        applyLayoutParams_ofMatch()
+                    })
+                tab.customView?.findViewById<TextView>(android.R.id.text1)?.apply {
+                    setTextColor(tabLayout.tabTextColors)
+                    applyTypeface_ofDefaultBold()
+                    textSize = selectedTextSize
                 }
             }
 
             override fun onTabUnselected(tab: Tab) {
                 val customView: View? = tab.customView
-                if (customView == null) tab.setCustomView(TextView(tabLayout.context).apply {
-                    id = android.R.id.text1
-                    gravity = Gravity.CENTER
-                    applyLayoutParams_ofMatch()
-                })
+                if (customView == null)
+                    tab.setCustomView(TextView(tabLayout.context).apply {
+                        id = android.R.id.text1
+                        gravity = Gravity.CENTER
+                        applyLayoutParams_ofMatch()
+                    })
                 tab.customView?.findViewById<TextView>(android.R.id.text1)?.let {
                     it.setTextColor(tabLayout.tabTextColors)
                     it.applyTypeface_ofBold()

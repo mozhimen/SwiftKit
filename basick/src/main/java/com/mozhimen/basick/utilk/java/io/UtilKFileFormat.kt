@@ -14,7 +14,6 @@ import com.mozhimen.basick.utilk.androidx.core.UtilKFileProvider
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import java.io.BufferedOutputStream
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -26,8 +25,8 @@ import java.io.FileOutputStream
  * @Date 2023/8/3 16:42
  * @Version 1.0
  */
-fun File.file2uriImage(): Uri? =
-    UtilKFileFormat.file2uriImage(this)
+fun File.file2uri_ofImage(): Uri? =
+    UtilKFileFormat.file2uri_ofImage(this)
 
 fun File.file2uri(): Uri? =
     UtilKFileFormat.file2uri(this)
@@ -54,8 +53,8 @@ fun File.file2fileBufferedOutputStream(isAppend: Boolean = false): BufferedOutpu
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
-fun File.file2str(): String? =
-    UtilKFileFormat.file2str(this)
+fun File.file2str_use(): String? =
+    UtilKFileFormat.file2str_use(this)
 
 fun File.file2strMd5(): String? =
     UtilKFileFormat.file2strMd5(this)
@@ -65,9 +64,6 @@ fun File.file2strMd5(): String? =
 fun File.file2bytes(): ByteArray? =
     UtilKFileFormat.file2bytes(this)
 
-fun File.file2bytesCheck(): ByteArray? =
-    UtilKFileFormat.file2bytesCheck(this)
-
 fun File.file2bytes2(): ByteArray? =
     UtilKFileFormat.file2bytes2(this)
 
@@ -75,8 +71,8 @@ fun File.file2bytes2(): ByteArray? =
 
 object UtilKFileFormat : BaseUtilK() {
     @JvmStatic
-    fun file2uriImage(file: File): Uri? {
-        if (!UtilKFile.isFileExist(file)) {
+    fun file2uri_ofImage(file: File): Uri? {
+        if (!UtilKFileWrapper.isFileExist(file)) {
             UtilKLogWrapper.e(TAG, "file2imageUri: file isFileExist false")
             return null
         }
@@ -88,7 +84,7 @@ object UtilKFileFormat : BaseUtilK() {
     @JvmStatic
     @ADescription(CIntent.FLAG_GRANT_READ_URI_PERMISSION.toString(), CIntent.FLAG_GRANT_WRITE_URI_PERMISSION.toString())
     fun file2uri(file: File): Uri? {
-        if (!UtilKFile.isFileExist(file)) {
+        if (!UtilKFileWrapper.isFileExist(file)) {
             UtilKLogWrapper.e(TAG, "file2Uri: file ${file.absolutePath} isFileExist false")
             return null
         }
@@ -110,50 +106,45 @@ object UtilKFileFormat : BaseUtilK() {
 
     @JvmStatic
     fun file2strFilePath(file: File): String =
-        file.absolutePath
+        UtilKFile.getAbsolutePath(file)
 
     ////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun file2fileInputStream(file: File): FileInputStream =
-        FileInputStream(file)
+        UtilKFileInputStream.get(file)
 
     @JvmStatic
     fun file2fileOutputStream(file: File, isAppend: Boolean = false): FileOutputStream =
-        FileOutputStream(file, isAppend)
+        UtilKFileInputStream.get(file, isAppend)
 
     @JvmStatic
     fun file2fileBufferedOutputStream(file: File, isAppend: Boolean = false): BufferedOutputStream =
-        FileOutputStream(file, isAppend).outputStream2bufferedOutputStream()
+        file2fileOutputStream(file, isAppend).outputStream2bufferedOutputStream()
 
     ////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun file2str(file: File): String? =
-        if (!UtilKFile.isFileExist(file)) null
-        else file.file2fileInputStream().inputStream2strOfReadMultiLines()
+    fun file2str_use(file: File): String? =
+        if (!UtilKFileWrapper.isFileExist(file)) null
+        else file.file2fileInputStream().inputStream2str_use_ofBufferedReader()
 
     @JvmStatic
     fun file2strMd5(file: File): String? =
-        if (!UtilKFile.isFileExist(file)) null
-        else file.file2fileInputStream().inputStream2strMd53()
+        if (!UtilKFileWrapper.isFileExist(file)) null
+        else file.file2fileInputStream().inputStream2strMd5_use_ofHexString()
 
     @JvmStatic
     fun file2bytes(file: File): ByteArray? =
-        if (!UtilKFile.isFileExist(file)) null
-        else file.file2fileInputStream().inputStream2bytes()
-
-    @JvmStatic
-    fun file2bytesCheck(file: File): ByteArray? =
-        if (!UtilKFile.isFileExist(file)) null
-        else file.file2fileInputStream().inputStream2bytesCheck(file.length())
+        if (!UtilKFileWrapper.isFileExist(file)) null
+        else file.file2fileInputStream().inputStream2bytes_use()
 
     @JvmStatic
     fun file2bytes2(file: File): ByteArray? =
-        if (!UtilKFile.isFileExist(file)) null
+        if (!UtilKFileWrapper.isFileExist(file)) null
         else {
-            val byteArrayOutputStream = ByteArrayOutputStream(file.length().toInt())
-            file.file2fileInputStream().inputStream2bufferedInputStream().inputStream2outputStreamOfFileUtils(byteArrayOutputStream, 1024)
-            byteArrayOutputStream.byteArrayOutputStream2bytes()
+            val byteArrayOutputStream = UtilKByteArrayOutputStream.get(file)
+            file.file2fileInputStream().inputStream2bufferedInputStream().inputStream2outputStream_ofFileUtils(byteArrayOutputStream, 1024)
+            byteArrayOutputStream.byteArrayOutputStream2bytes_flushClose()
         }
 }

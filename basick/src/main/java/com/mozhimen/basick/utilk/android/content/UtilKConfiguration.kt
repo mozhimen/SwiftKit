@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
 import com.mozhimen.basick.elemk.android.content.cons.CConfiguration
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import java.util.Locale
 
 
 /**
@@ -127,4 +129,15 @@ object UtilKConfiguration {
     @JvmStatic
     fun isNightMode_ofApp(context: Context): Boolean =
         getUiMode_ofApp(context) and Configuration.UI_MODE_NIGHT_MASK == CConfiguration.UiMode.NIGHT_YES
+
+    ////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun setLocale(configuration: Configuration, locale: Locale) {
+        if (UtilKBuildVersion.isAfterV_17_42_J1()) {
+            configuration.setLocale(locale)
+        } else {
+            configuration.locale = locale
+        }
+    }
 }

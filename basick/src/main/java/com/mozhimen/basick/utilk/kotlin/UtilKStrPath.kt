@@ -32,19 +32,19 @@ object UtilKStrPath {
 
             @JvmStatic
             fun getEnvStorage(): String =
-                UtilKFileDir.External.getEnvStorage().absolutePath
+                UtilKFileDir.External.getStorage_ofEnvironment().absolutePath
 
             @JvmStatic
             fun getEnvStoragePublicPictures(): String =
-                UtilKFileDir.External.getEnvStoragePublicPictures().absolutePath
+                UtilKFileDir.External.getStoragePublic_ofPictures_ofEnvironment().absolutePath
 
             @JvmStatic
             fun getEnvStoragePublicDCIM(): String =
-                UtilKFileDir.External.getEnvStoragePublicDCIM().absolutePath
+                UtilKFileDir.External.getStoragePublic_ofDCIM_ofEnvironment().absolutePath
 
             @JvmStatic
             fun getEnvData(): String =
-                UtilKFileDir.External.getEnvData().absolutePath
+                UtilKFileDir.External.getData_ofEnvironment().absolutePath
         }
     }
 }

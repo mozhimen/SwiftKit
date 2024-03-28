@@ -20,9 +20,10 @@ import com.mozhimen.basick.utilk.android.content.getMediaColumns
 import com.mozhimen.basick.utilk.wrapper.UtilKScreen
 import com.mozhimen.basick.utilk.android.webkit.UtilKMimeTypeMap
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.io.UtilKFile
+import com.mozhimen.basick.utilk.java.io.UtilKFileWrapper
 import com.mozhimen.basick.utilk.java.io.inputStream2bitmapAny
 import com.mozhimen.basick.utilk.java.io.inputStream2fileOfFileUtils
+import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import com.mozhimen.basick.utilk.kotlin.getStrFolderPath
 import com.mozhimen.basick.utilk.kotlin.isFileExist
@@ -82,7 +83,7 @@ object UtilKUriFormat : BaseUtilK() {
             CContentResolver.SCHEME_CONTENT -> {
                 //把文件保存到沙盒
                 val strFileName = UtilKContentResolverWrapper.getOpenableColumns(uri) ?:
-                "${UtilKFile.getStrFileName_ofNow()}.${UtilKMimeTypeMap.getExtensionFromMimeType(_context, uri)}"
+                "${UtilKStrFile.getStrFileName_ofNow()}.${UtilKMimeTypeMap.getExtensionFromMimeType(_context, uri)}"
                 val strFilePathName = "${UtilKStrPath.Absolute.Internal.getCache().getStrFolderPath()}uri/$strFileName"
                 UtilKContentResolver.openInputStream(_context, uri)?.inputStream2fileOfFileUtils(strFilePathName)?.absolutePath
             }

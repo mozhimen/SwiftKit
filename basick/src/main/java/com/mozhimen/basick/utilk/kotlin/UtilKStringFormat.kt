@@ -1,10 +1,10 @@
 package com.mozhimen.basick.utilk.kotlin
 
 import com.mozhimen.basick.utilk.android.util.e
-import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.UtilKFileFormat
+import com.mozhimen.basick.utilk.java.io.UtilKFileWrapper
 import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
-import com.mozhimen.basick.utilk.java.io.writeStr2fileOutputStream
+import com.mozhimen.basick.utilk.java.io.write_flashClose
 import com.mozhimen.basick.utilk.java.io.writeStr2randomAccessFile
 import java.io.File
 import java.io.RandomAccessFile
@@ -50,7 +50,7 @@ object UtilKStringFormat {
      */
     @JvmStatic
     fun str2file(str: String, fileDest: File): File? {
-        UtilKFile.createFile(fileDest)
+        UtilKFileWrapper.createFile(fileDest)
         try {
             RandomAccessFile(fileDest, "rwd").writeStr2randomAccessFile(str)
             return fileDest
@@ -67,9 +67,9 @@ object UtilKStringFormat {
 
     @JvmStatic
     fun str2fileOfFileOutStream(str: String, fileDest: File, isAppend: Boolean = false): File? {
-        UtilKFile.createFile(fileDest)
+        UtilKFileWrapper.createFile(fileDest)
         try {
-            fileDest.file2fileOutputStream(isAppend).writeStr2fileOutputStream(str)
+            fileDest.file2fileOutputStream(isAppend).write_flashClose(str)
             return fileDest
         } catch (e: Exception) {
             e.printStackTrace()

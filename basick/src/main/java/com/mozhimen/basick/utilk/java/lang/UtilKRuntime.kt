@@ -15,9 +15,8 @@ import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.flushClose
-import com.mozhimen.basick.utilk.java.io.inputStream2strOfReadMultiLines
 import com.mozhimen.basick.utilk.java.io.inputStream2strOfBytesOutStream
-import com.mozhimen.basick.utilk.java.io.inputStream2strOfReadSingleLine
+import com.mozhimen.basick.utilk.java.io.inputStream2str_use_ofBufferedReader
 import com.mozhimen.basick.utilk.kotlin.getStrFolderPath
 import java.io.BufferedReader
 import java.io.ByteArrayOutputStream
@@ -69,7 +68,7 @@ object UtilKRuntime : BaseUtilK() {
         try {
             process = exec("getprop $strPackage")
             inputStream = process.inputStream
-            return inputStream.inputStream2strOfReadSingleLine(readSize = 1024)
+            return inputStream.inputStream2str_use_ofBufferedReader(bufferSize = 1024)
         } catch (e: Exception) {
             e.printStackTrace()
             UtilKLogWrapper.e(TAG, "getProp Unable to read prop strPackage $strPackage msg ${e.message}")
@@ -103,7 +102,7 @@ object UtilKRuntime : BaseUtilK() {
             process.waitFor()
 
             errorStream = process.errorStream
-            val strError =errorStream.inputStream2strOfReadMultiLines()
+            val strError =errorStream.inputStream2str_use_ofBufferedReader()
             "execSuInstall msg is $strError".d(TAG)
             return !strError.contains("failure", ignoreCase = true)
         } catch (e: Exception) {
@@ -136,7 +135,7 @@ object UtilKRuntime : BaseUtilK() {
         try {
             process = ProcessBuilder(*command).start()
             inputStream = process.inputStream
-            strInput = inputStream.inputStream2strOfReadMultiLines()
+            strInput = inputStream.inputStream2str_use_ofBufferedReader()
         } catch (e: Exception) {
             e.printStackTrace()
             "execInstallBefore28: Exception ${e.message}".e(TAG)

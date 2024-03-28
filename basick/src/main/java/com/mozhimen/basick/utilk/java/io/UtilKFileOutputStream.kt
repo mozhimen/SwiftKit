@@ -12,24 +12,24 @@ import java.io.FileOutputStream
  * @Date 2023/8/2 16:54
  * @Version 1.0
  */
-fun FileOutputStream.writeStr2fileOutputStream(str: String) {
-    UtilKFileOutputStream.writeStr2fileOutputStream(this, str)
+fun FileOutputStream.write_flashClose(str: String) {
+    UtilKFileOutputStream.write_flashClose(this, str)
 }
 
-fun FileOutputStream.writeBytes2fileOutputStream(bytes: ByteArray) {
-    UtilKFileOutputStream.writeBytes2fileOutputStream(this, bytes)
+fun FileOutputStream.write_flashClose(bytes: ByteArray) {
+    UtilKFileOutputStream.write_flashClose(this, bytes)
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 object UtilKFileOutputStream : IUtilK {
     @JvmStatic
-    fun writeStr2fileOutputStream(fileOutputStream: FileOutputStream, str: String) {
-        writeBytes2fileOutputStream(fileOutputStream, str.appendStrLineBreak().str2bytes())
+    fun write_flashClose(fileOutputStream: FileOutputStream, str: String) {
+        write_flashClose(fileOutputStream, str.str2bytes())
     }
 
     @JvmStatic
-    fun writeBytes2fileOutputStream(fileOutputStream: FileOutputStream, bytes: ByteArray) {
+    fun write_flashClose(fileOutputStream: FileOutputStream, bytes: ByteArray) {
         fileOutputStream.flushClose { it.write(bytes) }
     }
 }

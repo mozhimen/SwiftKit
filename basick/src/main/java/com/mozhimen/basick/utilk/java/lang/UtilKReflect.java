@@ -43,16 +43,12 @@ public class UtilKReflect {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    /**
-     * 获取类及其基类所有的field
-     */
+    //获取类及其基类所有的field
     public static List<Field> getAllFields(Object obj) {
         return getAllFields(obj.getClass());
     }
 
-    /**
-     * 获取类及其基类所有的field
-     */
+    //获取类及其基类所有的field
     public static List<Field> getAllFields(Class<?> clazz) {
         ArrayList<Field> fields = new ArrayList<>(Arrays.asList(clazz.getDeclaredFields()));
         Class<?> superClass = clazz.getSuperclass();

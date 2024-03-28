@@ -3,7 +3,6 @@ package com.mozhimen.basick.utilk.java.io
 import com.mozhimen.basick.utilk.kotlin.internal.UtilKPlatformImplementations
 import java.io.Closeable
 import java.io.Flushable
-import java.io.OutputStream
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract

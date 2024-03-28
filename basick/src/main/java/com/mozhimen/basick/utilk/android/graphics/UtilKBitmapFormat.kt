@@ -23,11 +23,12 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.io.UtilKFile
-import com.mozhimen.basick.utilk.java.io.byteArrayOutputStream2bytes
+import com.mozhimen.basick.utilk.java.io.UtilKFileWrapper
+import com.mozhimen.basick.utilk.java.io.byteArrayOutputStream2bytes_flushClose
 import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
 import com.mozhimen.basick.utilk.java.io.flushClose
 import com.mozhimen.basick.utilk.java.io.outputStream2bufferedOutputStream
+import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import com.mozhimen.basick.utilk.kotlin.bytes2file
 import com.mozhimen.basick.utilk.kotlin.bytes2strBase64
 import com.mozhimen.basick.utilk.kotlin.createFile
@@ -118,7 +119,7 @@ object UtilKBitmapFormat : BaseUtilK() {
         try {
             val contentValues = ContentValues().apply {
                 put(CMediaStore.Images.ImageColumns.DATA, fileDest.absolutePath)
-                put(CMediaStore.Images.ImageColumns.DISPLAY_NAME, strBitmapPathName.split("/").lastOrNull() ?: UtilKFile.getStrFileName_ofNow())
+                put(CMediaStore.Images.ImageColumns.DISPLAY_NAME, strBitmapPathName.split("/").lastOrNull() ?: UtilKStrFile.getStrFileName_ofNow())
                 put(CMediaStore.Images.ImageColumns.MIME_TYPE, CMediaFormat.MIMETYPE_IMAGE_JPEG)
                 put(CMediaStore.Images.ImageColumns.DATE_TAKEN, System.currentTimeMillis().toString())
             }
@@ -158,7 +159,7 @@ object UtilKBitmapFormat : BaseUtilK() {
      */
     @JvmStatic
     fun bitmapAny2file(sourceBitmap: Bitmap, fileDest: File, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? {
-        UtilKFile.createFile(fileDest)
+        UtilKFileWrapper.createFile(fileDest)
         var bufferedOutputStream: BufferedOutputStream? = null
         try {
             bufferedOutputStream = fileDest.file2fileOutputStream().outputStream2bufferedOutputStream()
@@ -203,7 +204,7 @@ object UtilKBitmapFormat : BaseUtilK() {
     fun bitmapAny2bytesAny(sourceBitmap: Bitmap, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray {
         val byteArrayOutputStream = ByteArrayOutputStream(sourceBitmap.width * sourceBitmap.height * 4)
         sourceBitmap.applyBitmapAnyCompress(compressFormat, quality, byteArrayOutputStream)
-        return byteArrayOutputStream.byteArrayOutputStream2bytes()
+        return byteArrayOutputStream.byteArrayOutputStream2bytes_flushClose()
     }
 
     @JvmStatic

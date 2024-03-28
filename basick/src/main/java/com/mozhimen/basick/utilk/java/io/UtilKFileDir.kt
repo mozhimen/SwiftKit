@@ -36,30 +36,30 @@ object UtilKFileDir : BaseUtilK() {
 
         @JvmStatic
         fun getFilesRootFreeSpace(): Long =
-            getFilesRoot()?.freeSpace ?: Long.MAX_VALUE
+            getFilesRoot()?.freeSpace ?: 0
 
         //////////////////////////////////////////////////////////////
 
         @JvmStatic
-        fun getFilesDownloadsDir(): File? =
+        fun getFilesDownloads(): File? =
             UtilKContextDir.External.getFilesDownloadsDir(_context)
 
         //////////////////////////////////////////////////////////////
 
         @JvmStatic
-        fun getEnvStorage(): File =
+        fun getStorage_ofEnvironment(): File =
             UtilKEnvironment.getExternalStorageDir()
 
         @JvmStatic
-        fun getEnvStoragePublicPictures(): File =
+        fun getStoragePublic_ofPictures_ofEnvironment(): File =
             UtilKEnvironment.getExternalStoragePublicDir_ofPictures()
 
         @JvmStatic
-        fun getEnvStoragePublicDCIM(): File =
+        fun getStoragePublic_ofDCIM_ofEnvironment(): File =
             UtilKEnvironment.getExternalStoragePublicDir_ofDCIM()
 
         @JvmStatic
-        fun getEnvData(): File =
+        fun getData_ofEnvironment(): File =
             UtilKEnvironment.getDataDir()
     }
 }

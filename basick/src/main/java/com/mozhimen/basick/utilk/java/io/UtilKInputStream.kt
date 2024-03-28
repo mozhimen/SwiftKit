@@ -12,31 +12,29 @@ import java.io.InputStream
  * @Version 1.0
  */
 
-fun InputStream.getAvailableLong(): Long =
-    UtilKInputStream.getAvailableLong(this)
+fun InputStream.getAvailableLong_use(): Long =
+    UtilKInputStream.getAvailableLong_use(this)
 
-fun InputStream.readBytesForInputStream(bytes: ByteArray) {
-    UtilKInputStream.readBytesForInputStream(this, bytes)
-}
+fun InputStream.read_use(bytes: ByteArray): Int =
+    UtilKInputStream.read_use(this, bytes)
 
 ////////////////////////////////////////////////////////////////////////////
 
 object UtilKInputStream : IUtilK {
 
     @JvmStatic
-    fun getAvailableLong(inputStream: InputStream): Long =
+    fun getAvailableLong_use(inputStream: InputStream): Long =
         inputStream.use { it.available().toLong() }
 
     ////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun isInputStreamSame(inputStream1: InputStream, inputStream2: InputStream): Boolean =
-        TextUtils.equals(inputStream1.inputStream2strMd52(), inputStream2.inputStream2strMd52())
+    fun isInputStreamSame_use(inputStream1: InputStream, inputStream2: InputStream): Boolean =
+        TextUtils.equals(inputStream1.inputStream2strMd5_use_ofBigInteger(), inputStream2.inputStream2strMd5_use_ofBigInteger())
 
     ////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun readBytesForInputStream(inputStream: InputStream, bytes: ByteArray) {
+    fun read_use(inputStream: InputStream, bytes: ByteArray): Int =
         inputStream.use { inputStream.read(bytes) }
-    }
 }

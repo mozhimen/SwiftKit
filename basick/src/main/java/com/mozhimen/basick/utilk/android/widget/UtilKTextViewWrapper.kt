@@ -55,6 +55,10 @@ fun TextView.applyTypeface_ofDefault() {
     UtilKTextViewWrapper.applyTypeface_ofDefault(this)
 }
 
+fun TextView.applyTypeface_ofDefaultBold() {
+    UtilKTextViewWrapper.applyTypeface_ofDefaultBold(this)
+}
+
 fun TextView.applyTypeface_ofAsset(assetFontPathWithName: String) {
     UtilKTextViewWrapper.applyTypeface_ofAsset(this, assetFontPathWithName)
 }
@@ -189,6 +193,11 @@ object UtilKTextViewWrapper {
     @JvmStatic
     fun applyTypeface_ofDefault(textView: TextView) {
         UtilKTextView.setTypeface(textView, Typeface.DEFAULT)
+    }
+
+    @JvmStatic
+    fun applyTypeface_ofDefaultBold(textView: TextView) {
+        UtilKTextView.setTypeface(textView, Typeface.DEFAULT_BOLD)
     }
 
     /**

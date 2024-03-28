@@ -16,8 +16,9 @@ import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.content.UtilKIntentWrapper
 import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.java.io.UtilKFile
-import com.mozhimen.basick.utilk.java.io.file2uriImage
+import com.mozhimen.basick.utilk.java.io.UtilKFileWrapper
+import com.mozhimen.basick.utilk.java.io.file2uri_ofImage
+import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import java.io.File
 import java.lang.ref.WeakReference
@@ -92,8 +93,8 @@ class MediaStoreCaptureProxy {
     //////////////////////////////////////////////////////////
 
     private fun createCurrentPhotoUri() {
-        val currentPhotoFile = File(UtilKStrPath.Absolute.External.getEnvStoragePublicPictures(), String.format("JPEG_%s.jpg", UtilKFile.getStrFileName_ofNow(Locale.getDefault())))
-        _currentPhotoUri = currentPhotoFile.file2uriImage()?.apply {
+        val currentPhotoFile = File(UtilKStrPath.Absolute.External.getEnvStoragePublicPictures(), String.format("JPEG_%s.jpg", UtilKStrFile.getStrFileName_ofNow(Locale.getDefault())))
+        _currentPhotoUri = currentPhotoFile.file2uri_ofImage()?.apply {
             _currentPhotoStrPath = currentPhotoFile.absolutePath
         }
     }

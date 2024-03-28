@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.java.util
 
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.utilk.commons.IUtilK
-import com.mozhimen.basick.utilk.java.io.UtilKFile
+import com.mozhimen.basick.utilk.java.io.UtilKFileWrapper
 import com.mozhimen.basick.utilk.java.io.file2fileInputStream
 import com.mozhimen.basick.utilk.java.io.flushClose
 import com.mozhimen.basick.utilk.java.io.getFolderFiles
@@ -28,7 +28,7 @@ object UtilKZipOutputStream : IUtilK {
     @JvmStatic
     fun zipOutputStream2bufferedOutputStream(zipOutputStream: ZipOutputStream, bufferedOutputStream: BufferedOutputStream, fileSource: File, fileName: String) {
         try {
-            if (UtilKFile.isFolder(fileSource)) {
+            if (UtilKFileWrapper.isFolder(fileSource)) {
                 val listFiles = fileSource.getFolderFiles()
                 if (listFiles.isEmpty()) {
                     val stringBuilder = StringBuilder().apply { append(fileName).append("/") }

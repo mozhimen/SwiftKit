@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.javax.net
 
 import com.mozhimen.basick.elemk.javax.net.bases.BaseHostnameVerifier
-import com.mozhimen.basick.utilk.java.io.inputStream2strOfReadMultiLines
+import com.mozhimen.basick.utilk.java.io.inputStream2str_use_ofBufferedReader
 import java.io.IOException
 import java.io.InputStream
 import java.net.HttpURLConnection
@@ -53,7 +53,7 @@ object UtilKHttpsURLConnection {
             inputStream = if (httpsURLConnection.responseCode == HttpURLConnection.HTTP_OK)
                 httpsURLConnection.inputStream
             else httpsURLConnection.errorStream
-            return inputStream.inputStream2strOfReadMultiLines()
+            return inputStream.inputStream2str_use_ofBufferedReader()
 
         } catch (e: MalformedURLException) {
             e.printStackTrace() // url格式错误

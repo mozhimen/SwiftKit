@@ -16,41 +16,48 @@ import java.nio.charset.Charset
  * @Date 2023/7/31 14:07
  * @Version 1.0
  */
-fun ByteArrayOutputStream.byteArrayOutputStream2bytes(): ByteArray =
-    UtilKByteArrayOutputStream.byteArrayOutputStream2bytes(this)
+fun ByteArrayOutputStream.byteArrayOutputStream2bytes_flushClose(): ByteArray =
+    UtilKByteArrayOutputStream.byteArrayOutputStream2bytes_flushClose(this)
 
-fun ByteArrayOutputStream.byteArrayOutputStream2str(charset: Charset = Charsets.UTF_8): String =
-    UtilKByteArrayOutputStream.byteArrayOutputStream2str(this, charset)
+fun ByteArrayOutputStream.byteArrayOutputStream2str_flushClose(charset: Charset = Charsets.UTF_8): String =
+    UtilKByteArrayOutputStream.byteArrayOutputStream2str_flushClose(this, charset)
 
-fun ByteArrayOutputStream.byteArrayOutputStream2bitmapAny(): Bitmap =
-    UtilKByteArrayOutputStream.byteArrayOutputStream2bitmapAny(this)
+fun ByteArrayOutputStream.byteArrayOutputStream2bitmapAny_flushClose(): Bitmap =
+    UtilKByteArrayOutputStream.byteArrayOutputStream2bitmapAny_flushClose(this)
 
-fun ByteArrayOutputStream.byteArrayOutputStream2file(strFilePathNameDest: String, isAppend: Boolean = false): File =
-    UtilKByteArrayOutputStream.byteArrayOutputStream2file(this, strFilePathNameDest, isAppend)
+fun ByteArrayOutputStream.byteArrayOutputStream2file_flushClose(strFilePathNameDest: String, isAppend: Boolean = false): File =
+    UtilKByteArrayOutputStream.byteArrayOutputStream2file_flushClose(this, strFilePathNameDest, isAppend)
 
-fun ByteArrayOutputStream.byteArrayOutputStream2file(fileDest: File, isAppend: Boolean = false): File =
-    UtilKByteArrayOutputStream.byteArrayOutputStream2file(this, fileDest, isAppend)
+fun ByteArrayOutputStream.byteArrayOutputStream2file_flushClose(fileDest: File, isAppend: Boolean = false): File =
+    UtilKByteArrayOutputStream.byteArrayOutputStream2file_flushClose(this, fileDest, isAppend)
 
+////////////////////////////////////////////////////////////////////
 
 object UtilKByteArrayOutputStream {
     @JvmStatic
+    fun get(file: File): ByteArrayOutputStream =
+        ByteArrayOutputStream(file.length().toInt())
+
+    ////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
     @Throws(Exception::class)
-    fun byteArrayOutputStream2bytes(byteArrayOutputStream: ByteArrayOutputStream): ByteArray =
+    fun byteArrayOutputStream2bytes_flushClose(byteArrayOutputStream: ByteArrayOutputStream): ByteArray =
         byteArrayOutputStream.flushClose { it.toByteArray() }
 
     @JvmStatic
-    fun byteArrayOutputStream2str(byteArrayOutputStream: ByteArrayOutputStream, charset: Charset = Charsets.UTF_8): String =
-        byteArrayOutputStream.byteArrayOutputStream2bytes().bytes2str(charset)
+    fun byteArrayOutputStream2str_flushClose(byteArrayOutputStream: ByteArrayOutputStream, charset: Charset = Charsets.UTF_8): String =
+        byteArrayOutputStream.byteArrayOutputStream2bytes_flushClose().bytes2str(charset)
 
     @JvmStatic
-    fun byteArrayOutputStream2bitmapAny(byteArrayOutputStream: ByteArrayOutputStream): Bitmap =
-        byteArrayOutputStream.byteArrayOutputStream2bytes().bytes2bitmapAny()
+    fun byteArrayOutputStream2bitmapAny_flushClose(byteArrayOutputStream: ByteArrayOutputStream): Bitmap =
+        byteArrayOutputStream.byteArrayOutputStream2bytes_flushClose().bytes2bitmapAny()
 
     @JvmStatic
-    fun byteArrayOutputStream2file(byteArrayOutputStream: ByteArrayOutputStream, strFilePathNameDest: String, isAppend: Boolean = false): File =
-        byteArrayOutputStream2file(byteArrayOutputStream, strFilePathNameDest.strFilePath2file(), isAppend)
+    fun byteArrayOutputStream2file_flushClose(byteArrayOutputStream: ByteArrayOutputStream, strFilePathNameDest: String, isAppend: Boolean = false): File =
+        byteArrayOutputStream2file_flushClose(byteArrayOutputStream, strFilePathNameDest.strFilePath2file(), isAppend)
 
     @JvmStatic
-    fun byteArrayOutputStream2file(byteArrayOutputStream: ByteArrayOutputStream, fileDest: File, isAppend: Boolean = false): File =
-        byteArrayOutputStream.byteArrayOutputStream2bytes().bytes2file(fileDest, isAppend)
+    fun byteArrayOutputStream2file_flushClose(byteArrayOutputStream: ByteArrayOutputStream, fileDest: File, isAppend: Boolean = false): File =
+        byteArrayOutputStream.byteArrayOutputStream2bytes_flushClose().bytes2file(fileDest, isAppend)
 }

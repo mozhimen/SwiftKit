@@ -28,8 +28,8 @@ import com.mozhimen.basick.utilk.android.os.UtilKSystemPropertiesWrapper
 import com.mozhimen.basick.utilk.android.telephony.UtilKImeiOrMeid
 import com.mozhimen.basick.utilk.android.telephony.UtilKTelephonyManager
 import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.java.io.UtilKFileReader
 import com.mozhimen.basick.utilk.java.io.UtilKRandomAccessFile
-import com.mozhimen.basick.utilk.java.io.UtilKReader
 
 /**
  * @ClassName UtilKDevice
@@ -56,7 +56,7 @@ object UtilKDevice : BaseUtilK() {
      */
     @JvmStatic
     fun getMemorySize(): String? =
-        UtilKReader.getMemorySize()
+        UtilKFileReader.getMemorySize()
 
     /**
      * cpu使用率

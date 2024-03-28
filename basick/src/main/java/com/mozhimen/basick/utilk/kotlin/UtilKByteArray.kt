@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.kotlin
 
 import com.mozhimen.basick.utilk.bases.BaseUtilK
+import java.io.InputStream
 
 /**
  * @ClassName UtilKByteArray
@@ -11,9 +12,15 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
  */
 object UtilKByteArray : BaseUtilK() {
 
-    /**
-     * cs校验
-     */
+    @JvmStatic
+    fun get(size: Int): ByteArray =
+        ByteArray(size)
+
+    @JvmStatic
+    fun get(inputStream: InputStream): ByteArray =
+        ByteArray(inputStream.available())
+
+    //cs校验
     @JvmStatic
     fun getCS(bytes: ByteArray): Byte {
         try {

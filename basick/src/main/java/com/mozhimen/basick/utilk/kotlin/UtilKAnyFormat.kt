@@ -9,7 +9,7 @@ import androidx.annotation.ColorInt
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.android.view.motionEvent2str
 import com.mozhimen.basick.utilk.google.gson.UtilKGsonWrapper
-import com.mozhimen.basick.utilk.java.io.byteArrayOutputStream2bytes
+import com.mozhimen.basick.utilk.java.io.byteArrayOutputStream2bytes_flushClose
 import com.mozhimen.basick.utilk.java.io.flushClose
 import com.mozhimen.basick.utilk.kotlin.collections.list2str
 import com.mozhimen.basick.utilk.kotlin.collections.map2str
@@ -96,7 +96,7 @@ object UtilKAnyFormat {
             byteArrayOutputStream = ByteArrayOutputStream()
             objectOutputStream = ObjectOutputStream(byteArrayOutputStream)
             objectOutputStream.writeObject(obj)
-            return byteArrayOutputStream.byteArrayOutputStream2bytes()
+            return byteArrayOutputStream.byteArrayOutputStream2bytes_flushClose()
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.e(UtilKAny.TAG)

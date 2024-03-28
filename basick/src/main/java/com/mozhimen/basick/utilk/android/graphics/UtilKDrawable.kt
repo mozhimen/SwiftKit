@@ -3,8 +3,8 @@ package com.mozhimen.basick.utilk.android.graphics
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorInt
-import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.net.UtilKURL
+import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import java.io.InputStream
 
 /**
@@ -21,7 +21,7 @@ fun Drawable.applyColorFilter(@ColorInt intColor: Int) {
 object UtilKDrawable {
     //从网络获取图片
     @JvmStatic
-    fun getDrawable_ofStrUrl(strUrl: String, drawableName: String = UtilKFile.getStrFileName_ofNow()): Drawable? =
+    fun getDrawable_ofStrUrl(strUrl: String, drawableName: String = UtilKStrFile.getStrFileName_ofNow()): Drawable? =
         try {
             createFromStream(UtilKURL.openStream(strUrl), drawableName/*"netUrl.jpg"*/)
         } catch (e: Exception) {

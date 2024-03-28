@@ -4,9 +4,8 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.commons.IUtilK
-import com.mozhimen.basick.utilk.java.io.UtilKFile
+import com.mozhimen.basick.utilk.java.io.UtilKFileWrapper
 import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
-import com.mozhimen.basick.utilk.java.io.writeBytes2fileOutputStream
 import com.mozhimen.basick.utilk.java.security.UtilKMd5
 import java.io.ByteArrayInputStream
 import java.io.File
@@ -14,7 +13,6 @@ import java.io.ObjectInputStream
 import java.math.BigInteger
 import java.nio.charset.Charset
 import java.security.NoSuchAlgorithmException
-import kotlin.experimental.and
 
 /**
  * @ClassName UtilKByteArrayFormat
@@ -50,11 +48,11 @@ fun ByteArray.bytes2strHex(size: Int): String =
 fun ByteArray.bytes2strHex(): String =
     UtilKByteArrayFormat.bytes2strHex(this)
 
-fun ByteArray.bytes2strHex2(): String =
-    UtilKByteArrayFormat.bytes2strHex2(this)
+fun ByteArray.bytes2strHex_ofHexString(): String =
+    UtilKByteArrayFormat.bytes2strHex_ofHexString(this)
 
-fun ByteArray.bytes2strHexOfBigInteger(): String =
-    UtilKByteArrayFormat.bytes2strHexOfBigInteger(this)
+fun ByteArray.bytes2strHex_ofBigInteger(): String =
+    UtilKByteArrayFormat.bytes2strHex_ofBigInteger(this)
 
 fun ByteArray.bytes2str(charset: Charset = Charsets.UTF_8): String =
     UtilKByteArrayFormat.bytes2str(this, charset)
@@ -96,8 +94,8 @@ object UtilKByteArrayFormat : IUtilK {
 
     @JvmStatic
     fun bytes2file(bytes: ByteArray, fileDest: File, isAppend: Boolean = false): File {
-        UtilKFile.createFile(fileDest)
-        fileDest.file2fileOutputStream(isAppend).writeBytes2fileOutputStream(bytes)
+        UtilKFileWrapper.createFile(fileDest)
+        fileDest.file2fileOutputStream(isAppend).write(bytes)
         return fileDest
     }
 
@@ -133,6 +131,7 @@ object UtilKByteArrayFormat : IUtilK {
     @JvmStatic
     fun bytes2strHex(bytes: ByteArray): String {
         val stringBuilder = StringBuilder()
+        if (bytes.isEmpty()) return ""
         for (byte in bytes) {
             stringBuilder.append(byte.byte2strHex())
             // 也可以使用下面的方式。 X 表示大小字母，x 表示小写字母，对应的是 HEX_DIGITS 中字母
@@ -142,23 +141,18 @@ object UtilKByteArrayFormat : IUtilK {
     }
 
     @JvmStatic
-    fun bytes2strHex2(bytes: ByteArray): String {
+    fun bytes2strHex_ofHexString(bytes: ByteArray): String {
         val stringBuilder = StringBuilder()
         if (bytes.isEmpty()) return ""
-        for (i in bytes.indices) {
-            val v: Int = ((bytes[i] and 0xFF.toByte()).toInt())
-            val hv = Integer.toHexString(v)
-            if (hv.length < 2)
-                stringBuilder.append(0)
-            stringBuilder.append(hv)
+        for (byte in bytes) {
+            stringBuilder.append(byte.byte2strHex_ofHexString())
         }
         return stringBuilder.toString()
     }
 
     @JvmStatic
-    fun bytes2strHexOfBigInteger(bytes: ByteArray): String {
-        return BigInteger(1, bytes).toString(16)
-    }
+    fun bytes2strHex_ofBigInteger(bytes: ByteArray): String =
+        BigInteger(1, bytes).toString(16)
 
     //////////////////////////////////////////////////////////////////////////////////
 

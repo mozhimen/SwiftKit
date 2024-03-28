@@ -5,31 +5,33 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.elemk.android.media.cons.CMediaFormat
+import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
 import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.utilk.commons.IUtilK
-import com.mozhimen.basick.utilk.java.io.UtilKFile
+import com.mozhimen.basick.utilk.java.io.UtilKFileWrapper
 import com.mozhimen.basick.utilk.java.io.createFile
 import com.mozhimen.basick.utilk.java.io.createFolder
 import com.mozhimen.basick.utilk.java.io.deleteFile
 import com.mozhimen.basick.utilk.java.io.deleteFolder
 import com.mozhimen.basick.utilk.java.io.file2bytes
 import com.mozhimen.basick.utilk.java.io.file2bytes2
-import com.mozhimen.basick.utilk.java.io.file2bytesCheck
 import com.mozhimen.basick.utilk.java.io.file2fileInputStream
 import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
-import com.mozhimen.basick.utilk.java.io.file2str
+import com.mozhimen.basick.utilk.java.io.file2str_use
 import com.mozhimen.basick.utilk.java.io.file2uri
-import com.mozhimen.basick.utilk.java.io.getFileSizeAvailable
-import com.mozhimen.basick.utilk.java.io.getFileSizeTotal
-import com.mozhimen.basick.utilk.java.io.getFolderAllFiles
-import com.mozhimen.basick.utilk.java.io.getFolderFiles
 import com.mozhimen.basick.utilk.java.io.getFileNameNoExtension
+import com.mozhimen.basick.utilk.java.io.getFileSize_ofAvaioflable
+import com.mozhimen.basick.utilk.java.io.getFileSize_ofTotal
+import com.mozhimen.basick.utilk.java.io.getFolderFiles
+import com.mozhimen.basick.utilk.java.io.getFolderFiles_ofAll
 import com.mozhimen.basick.utilk.java.io.isFileExist
 import com.mozhimen.basick.utilk.java.io.isFolder
 import com.mozhimen.basick.utilk.java.io.isFolderExist
+import com.mozhimen.basick.utilk.java.util.UtilKDate
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.util.Locale
 import java.util.Vector
 
 /**
@@ -91,9 +93,6 @@ fun String.strFilePath2file(): File =
 fun String.strFilePath2bytes(): ByteArray? =
     UtilKStrFile.strFilePath2bytes(this)
 
-fun String.strFilePath2bytesCheck(): ByteArray? =
-    UtilKStrFile.strFilePath2bytesCheck(this)
-
 fun String.strFilePath2bytes2(): ByteArray? =
     UtilKStrFile.strFilePath2bytes2(this)
 
@@ -151,6 +150,30 @@ fun String.deleteFolder(): Boolean =
 object UtilKStrFile : IUtilK {
     //region # file
     @JvmStatic
+    fun getStrFileName_ofToday(locale: Locale = Locale.CHINA): String =
+        getStrFileName(CDateFormat.yyyy_MM_dd, locale)
+
+    //当前小时转文件名
+    @JvmStatic
+    fun getStrFileName_ofCurrentHour(locale: Locale = Locale.CHINA): String =
+        getStrFileName(CDateFormat.yyyy_MM_dd_HH, locale)
+
+    /**
+     * 当前时间转文件名
+     * @return 2023-08-19~11-46-00
+     */
+    @JvmStatic
+    fun getStrFileName_ofNow(locale: Locale = Locale.CHINA): String =
+        getStrFileName(locale = locale)
+
+    //时间转文件名
+    @JvmStatic
+    fun getStrFileName(formatDate: String = CDateFormat.yyyy_MM_dd_HH_mm_ss, locale: Locale = Locale.CHINA): String =
+        UtilKDate.getNowStr(formatDate, locale).replace(" ", "~").replace(":", "-")
+
+    /////////////////////////////////////////////////////////////////
+
+    @JvmStatic
     fun getStrFileExtension(strFilePathName: String): String? =
         if (strFilePathName.isEmpty()) null
         else if (strFilePathName.containStr(".")) strFilePathName.getSplitLastIndexToEnd(".") else null
@@ -178,7 +201,7 @@ object UtilKStrFile : IUtilK {
     @JvmStatic
     fun getFileSizeTotal(strFilePathName: String): Long? =
         if (strFilePathName.isEmpty()) null
-        else strFilePathName.strFilePath2file().getFileSizeTotal()
+        else strFilePathName.strFilePath2file().getFileSize_ofTotal()
 
     /**
      * 获取文件大小
@@ -186,7 +209,7 @@ object UtilKStrFile : IUtilK {
     @JvmStatic
     fun getFileSizeAvailable(strFilePathName: String): Long? =
         if (strFilePathName.isEmpty()) null
-        else strFilePathName.strFilePath2file().getFileSizeAvailable()
+        else strFilePathName.strFilePath2file().getFileSize_ofAvaioflable()
 
     //////////////////////////////////////////////////////////////////////
 
@@ -195,7 +218,7 @@ object UtilKStrFile : IUtilK {
      */
     @JvmStatic
     fun isFile(strFilePathName: String): Boolean =
-        UtilKFile.isFile(strFilePathName.strFilePath2file())
+        UtilKFileWrapper.isFile(strFilePathName.strFilePath2file())
 
     /**
      * 文件是否存在
@@ -216,7 +239,7 @@ object UtilKStrFile : IUtilK {
 
     @JvmStatic
     fun strFilePath2str(strFilePathName: String): String? =
-        strFilePathName.strFilePath2file().file2str()
+        strFilePathName.strFilePath2file().file2str_use()
 
     @JvmStatic
     fun strFilePath2fileOutputStream(strFilePathName: String, isAppend: Boolean = false): FileOutputStream =
@@ -239,10 +262,6 @@ object UtilKStrFile : IUtilK {
     @JvmStatic
     fun strFilePath2bytes(strFilePathName: String): ByteArray? =
         strFilePathName.strFilePath2file().file2bytes()
-
-    @JvmStatic
-    fun strFilePath2bytesCheck(strFilePathName: String): ByteArray? =
-        strFilePathName.strFilePath2file().file2bytesCheck()
 
     @JvmStatic
     fun strFilePath2bytes2(strFilePathName: String): ByteArray? =
@@ -280,14 +299,14 @@ object UtilKStrFile : IUtilK {
      */
     @JvmStatic
     fun copyFile(strFilePathNameSource: String, strFilePathNameDest: String, isAppend: Boolean = false): File? =
-        UtilKFile.copyFile(strFilePathNameSource.strFilePath2file(), strFilePathNameDest.strFilePath2file(), isAppend)
+        UtilKFileWrapper.copyFile(strFilePathNameSource.strFilePath2file(), strFilePathNameDest.strFilePath2file(), isAppend)
 
     /**
      * 压缩文件
      */
     @JvmStatic
     fun zipFile(strFilePathNameSource: String, zipFilePathWithName: String): File? =
-        UtilKFile.zipFile(strFilePathNameSource.strFilePath2file(), zipFilePathWithName.strFilePath2file())
+        UtilKFileWrapper.zipFile(strFilePathNameSource.strFilePath2file(), zipFilePathWithName.strFilePath2file())
 
     /**
      * 删除文件
@@ -308,7 +327,7 @@ object UtilKStrFile : IUtilK {
 
     @JvmStatic
     fun getFolderAllFiles(strFolderPath: String, fileType: String? = null): Vector<File> =
-        strFolderPath.getStrFolderPath().strFilePath2file().getFolderAllFiles(fileType)
+        strFolderPath.getStrFolderPath().strFilePath2file().getFolderFiles_ofAll(fileType)
 
     //////////////////////////////////////////////////////////////////////
 

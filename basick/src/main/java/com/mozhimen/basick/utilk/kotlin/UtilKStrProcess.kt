@@ -7,7 +7,7 @@ import com.mozhimen.basick.utilk.android.app.UtilKApplicationWrapper
 import com.mozhimen.basick.utilk.android.app.UtilKRunningAppProcessInfo
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.io.UtilKReader
+import com.mozhimen.basick.utilk.java.io.UtilKFileReader
 import java.lang.reflect.Method
 
 /**
@@ -44,7 +44,7 @@ object UtilKStrProcess : BaseUtilK() {
 
     @JvmStatic
     fun getStrProcessNameCurrentOfFile(): String? =
-        UtilKReader.getCurrentProcessName()
+        UtilKFileReader.getCurrentProcessName()
 
     @JvmStatic
     fun getStrProcessNameCurrentOfActivityManager(): String? =

@@ -28,6 +28,8 @@ import androidx.annotation.StringRes
 import androidx.annotation.StyleableRes
 import androidx.annotation.XmlRes
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import java.util.Locale
 
 /**
  * @ClassName UtilKResource
