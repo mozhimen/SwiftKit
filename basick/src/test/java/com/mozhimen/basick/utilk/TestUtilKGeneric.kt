@@ -16,7 +16,7 @@ class TestUtilKGeneric : Person<Knife>() {
     fun getClazzGenericType() {
         UtilKReflectGenericKotlin.getGenericType<TestUtilKGeneric>()?.printlog()
         UtilKReflectGenericKotlin.getParentGenericType<TestUtilKGeneric>()?.printlog()
-        UtilKReflectGenericKotlin.getParentGenericTypeClazz<TestUtilKGeneric>()?.printlog()
+        UtilKReflectGenericKotlin.getParentGenericType_ofClazz<TestUtilKGeneric>()?.printlog()
     }
 }
 

@@ -1,7 +1,6 @@
 package com.mozhimen.basick.utilk.java.io
 
 import com.mozhimen.basick.elemk.cons.CPath
-import com.mozhimen.basick.utilk.kotlin.appendStrLineBreak
 import java.io.RandomAccessFile
 
 /**
@@ -11,12 +10,12 @@ import java.io.RandomAccessFile
  * @Date 2023/8/2 17:08
  * @Version 1.0
  */
-fun RandomAccessFile.writeStr2randomAccessFile(str: String) {
-    UtilKRandomAccessFile.writeStr2randomAccessFile(this, str)
+fun RandomAccessFile.write_use(str: String) {
+    UtilKRandomAccessFile.write_use(this, str)
 }
 
-fun RandomAccessFile.writeBytes2randomAccessFile(bytes: ByteArray) {
-    UtilKRandomAccessFile.writeBytes2randomAccessFile(this, bytes)
+fun RandomAccessFile.write_use(bytes: ByteArray) {
+    UtilKRandomAccessFile.write_use(this, bytes)
 }
 
 object UtilKRandomAccessFile {
@@ -55,12 +54,12 @@ object UtilKRandomAccessFile {
     //////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun writeStr2randomAccessFile(randomAccessFile: RandomAccessFile, str: String) {
-        writeBytes2randomAccessFile(randomAccessFile, str.appendStrLineBreak().toByteArray())
+    fun write_use(randomAccessFile: RandomAccessFile, str: String) {
+        write_use(randomAccessFile, str.toByteArray())
     }
 
     @JvmStatic
-    fun writeBytes2randomAccessFile(randomAccessFile: RandomAccessFile, bytes: ByteArray) {
+    fun write_use(randomAccessFile: RandomAccessFile, bytes: ByteArray) {
         randomAccessFile.use { it.write(bytes) }
     }
 }

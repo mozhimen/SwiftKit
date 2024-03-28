@@ -18,6 +18,9 @@ fun <T> T.flushClose() where T : Closeable?, T : Flushable? {
     UtilKFlushable.flushClose(this)
 }
 
+inline fun <T, R> T.use(block: (T) -> R): R where T : Closeable?, T : Flushable? =
+    UtilKFlushable.flushClose(this, block)
+
 inline fun <T, R> T.flushClose(block: (T) -> R): R where T : Closeable?, T : Flushable? =
     UtilKFlushable.flushClose(this, block)
 

@@ -1,7 +1,6 @@
 package com.mozhimen.basick.utilk
 
 import com.mozhimen.basick.utilk.java.lang.UtilKReflectGenericKotlin
-import com.mozhimen.basick.utilk.kotlin.println
 import com.mozhimen.basick.utilk.kotlin.printlog
 import org.junit.Test
 
@@ -36,7 +35,7 @@ class TestUtilKReflectGenericKotlin {
     open class BaseClassA: BaseClass<BaseReflect>(){
         @Test
         open fun getParentGenericTypeClazz(){
-            UtilKReflectGenericKotlin.getParentGenericTypeClazz(this::class.java)?.run {
+            UtilKReflectGenericKotlin.getParentGenericType_ofClazz(this::class.java)?.run {
                 (getDeclaredMethod("printXXX").invoke(null) as String).printlog()
             }?:"null".printlog()
         }
@@ -45,7 +44,7 @@ class TestUtilKReflectGenericKotlin {
     open class BaseClassB<T1:BaseReflectDisturb>: BaseClassA(){
         @Test
         override fun getParentGenericTypeClazz(){
-            UtilKReflectGenericKotlin.getParentGenericTypeClazz(this::class.java)?.run {
+            UtilKReflectGenericKotlin.getParentGenericType_ofClazz(this::class.java)?.run {
                 (getDeclaredMethod("printXXX").invoke(null) as String).printlog()
             }?:"null".printlog()
         }
@@ -57,7 +56,7 @@ class TestUtilKReflectGenericKotlin {
     open class BaseClassC: BaseClassB<BaseReflectDisturb>() {
         @Test
         override fun getParentGenericTypeClazz(){
-            UtilKReflectGenericKotlin.getParentGenericTypeByTClazz(this::class.java,BaseReflect::class.java)?.run {
+            UtilKReflectGenericKotlin.getParentGenericType_ofClazz(this::class.java,BaseReflect::class.java)?.run {
                 (getDeclaredMethod("printXXX").invoke(null) as String).printlog()
             }?:"null".printlog()
         }

@@ -13,9 +13,10 @@ import com.mozhimen.basick.lintk.optins.permission.OPermission_INSTALL_PACKAGES
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.java.io.UtilKInputStream
+import com.mozhimen.basick.utilk.java.io.UtilKInputStreamFormat
 import com.mozhimen.basick.utilk.java.io.file2fileInputStream
 import com.mozhimen.basick.utilk.java.io.flushClose
-import com.mozhimen.basick.utilk.java.io.inputStream2outputStream
 import java.io.File
 import java.io.OutputStream
 
@@ -77,7 +78,7 @@ object UtilKPackageInstaller : BaseUtilK() {
         try {
             session = openSession(packageInstaller, sessionId)
             outputStream = session.openWrite("base.apk", 0, fileApk.length())
-            fileApk.file2fileInputStream().inputStream2outputStream(outputStream, 65536)
+            UtilKInputStream.read_write_use(fileApk.file2fileInputStream(),outputStream, 65536)
             session.fsync(outputStream)
             return true
         } catch (e: Exception) {

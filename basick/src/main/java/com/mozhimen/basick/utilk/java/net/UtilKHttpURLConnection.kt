@@ -7,9 +7,10 @@ import com.mozhimen.basick.lintk.optins.application.OApplication_USES_CLEAR_TEXT
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFileWrapper
+import com.mozhimen.basick.utilk.java.io.UtilKInputStream
+import com.mozhimen.basick.utilk.java.io.UtilKInputStreamFormat
 import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
 import com.mozhimen.basick.utilk.java.io.flushClose
-import com.mozhimen.basick.utilk.java.io.inputStream2outputStream
 import com.mozhimen.basick.utilk.java.io.inputStream2str_use_ofBufferedReader
 import com.mozhimen.basick.utilk.javax.net.UtilKSSLContext
 import com.mozhimen.basick.utilk.kotlin.UtilKStrUrl
@@ -97,7 +98,7 @@ object UtilKHttpURLConnection : IUtilK {
                 connect()
             }
             inputStream = httpURLConnection.inputStream
-            inputStream.inputStream2outputStream(fileDest.file2fileOutputStream(isAppend), 1024)
+            UtilKInputStream.read_write_use(inputStream, fileDest.file2fileOutputStream(isAppend), 1024)
             return fileDest
         } catch (e: Exception) {
             e.printStackTrace()

@@ -15,19 +15,15 @@ import java.util.List;
  */
 public class UtilKReflect {
 
-    public static int getFieldInt(Object obj, String fieldName) throws NoSuchFieldException, IllegalAccessException {
+    public static int getField_ofInt(Object obj, String fieldName) throws NoSuchFieldException, IllegalAccessException {
         return getField(obj, fieldName).getInt(obj);
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static Field getField(Object obj, String fieldName) throws NoSuchFieldException {
         return getField(obj.getClass(), fieldName);
     }
 
-    /**
-     * 仅能获取类本身的属性成员（包括私有、共有、保护）
-     */
+    //仅能获取类本身的属性成员（包括私有、共有、保护）
     public static Field getField(Class<?> clazz, String fieldName) throws NoSuchFieldException {
         for (Class<?> tempClazz = clazz; tempClazz != null; tempClazz = tempClazz.getSuperclass()) {
             try {
@@ -44,12 +40,12 @@ public class UtilKReflect {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //获取类及其基类所有的field
-    public static List<Field> getAllFields(Object obj) {
-        return getAllFields(obj.getClass());
+    public static List<Field> getFields_ofAll(Object obj) {
+        return getFields_ofAll(obj.getClass());
     }
 
     //获取类及其基类所有的field
-    public static List<Field> getAllFields(Class<?> clazz) {
+    public static List<Field> getFields_ofAll(Class<?> clazz) {
         ArrayList<Field> fields = new ArrayList<>(Arrays.asList(clazz.getDeclaredFields()));
         Class<?> superClass = clazz.getSuperclass();
         while (superClass != null) {

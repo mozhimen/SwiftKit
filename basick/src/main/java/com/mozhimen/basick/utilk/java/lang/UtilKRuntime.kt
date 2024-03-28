@@ -2,24 +2,13 @@ package com.mozhimen.basick.utilk.java.lang
 
 import android.text.TextUtils
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
-import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.cons.CPath
 import com.mozhimen.basick.elemk.kotlin.text.cons.CCharsets
 import com.mozhimen.basick.elemk.mos.MResultISS
-import com.mozhimen.basick.lintk.optins.ODeviceRoot
-import com.mozhimen.basick.lintk.optins.permission.OPermission_INSTALL_PACKAGES
-import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.android.content.UtilKPackage
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.io.flushClose
-import com.mozhimen.basick.utilk.java.io.inputStream2strOfBytesOutStream
-import com.mozhimen.basick.utilk.java.io.inputStream2str_use_ofBufferedReader
-import com.mozhimen.basick.utilk.kotlin.getStrFolderPath
 import java.io.BufferedReader
-import java.io.ByteArrayOutputStream
 import java.io.DataOutputStream
 import java.io.IOException
 import java.io.InputStream
@@ -41,8 +30,8 @@ object UtilKRuntime : BaseUtilK() {
 
     @JvmStatic
     @Throws(IOException::class)
-    fun exec(cmdArray: Array<String>): Process =
-        get().exec(cmdArray, null, null)
+    fun exec(cmdarray: Array<String>): Process =
+        get().exec(cmdarray)
 
     @JvmStatic
     @Throws(IOException::class)
@@ -50,136 +39,6 @@ object UtilKRuntime : BaseUtilK() {
         get().exec(command)
 
     ///////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun chmod777(path: String) {
-        try {
-            get().exec("chmod 777 ${path.getStrFolderPath()}")
-            get().exec("chmod 777 $path")
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-    }
-
-    @JvmStatic
-    fun execGetProp(strPackage: String): String? {
-        var process: Process? = null
-        var inputStream: InputStream? = null
-        try {
-            process = exec("getprop $strPackage")
-            inputStream = process.inputStream
-            return inputStream.inputStream2str_use_ofBufferedReader(bufferSize = 1024)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            UtilKLogWrapper.e(TAG, "getProp Unable to read prop strPackage $strPackage msg ${e.message}")
-        } finally {
-            inputStream?.close()
-            process?.destroy()
-        }
-        return ""
-    }
-
-    @JvmStatic
-    @Throws(Exception::class)
-    @ODeviceRoot
-    @OPermission_INSTALL_PACKAGES
-    @RequiresPermission(CPermission.INSTALL_PACKAGES)
-    fun execSuInstall(strPathNameApk: String): Boolean {
-        require(strPathNameApk.isNotEmpty()) { "$TAG please check apk file path" }
-
-        var process: Process? = null
-        var outputStream: OutputStream? = null
-        var errorStream: InputStream? = null
-        try {
-            process = exec("su")
-
-            outputStream = process.outputStream
-            outputStream.write("pm install -r $strPathNameApk\n".toByteArray())
-            outputStream.flush()
-            outputStream.write("exit\n".toByteArray())
-            outputStream.flush()
-
-            process.waitFor()
-
-            errorStream = process.errorStream
-            val strError =errorStream.inputStream2str_use_ofBufferedReader()
-            "execSuInstall msg is $strError".d(TAG)
-            return !strError.contains("failure", ignoreCase = true)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.e(TAG)
-        } finally {
-            errorStream?.close()
-            outputStream?.flushClose()
-            process?.destroy()
-        }
-        return false
-    }
-
-    /**
-     * 静默安装适配 SDK28 之前的安装方法
-     */
-    @JvmStatic
-    @OPermission_INSTALL_PACKAGES
-    @RequiresPermission(CPermission.INSTALL_PACKAGES)
-    fun execInstallBefore28(strPathNameApk: String): Boolean {
-        val command: Array<String> =
-            if (UtilKBuildVersion.isAfterV_24_7_N())
-                arrayOf("pm", "install", "-i", UtilKPackage.getPackageName(), "-r", strPathNameApk)
-            else arrayOf("pm", "install", "-r", strPathNameApk)
-
-        var strInput = ""
-        var process: Process? = null
-        var inputStream: InputStream? = null
-
-        try {
-            process = ProcessBuilder(*command).start()
-            inputStream = process.inputStream
-            strInput = inputStream.inputStream2str_use_ofBufferedReader()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            "execInstallBefore28: Exception ${e.message}".e(TAG)
-        } finally {
-            inputStream?.close()
-            process?.destroy()
-        }
-        return strInput.contains("success", ignoreCase = true)        //如果含有success单词则认为安装成功
-    }
-
-    /**
-     * 静默安装
-     * @param strPathNameApk String 绝对路径
-     */
-    @JvmStatic
-    @OPermission_INSTALL_PACKAGES
-    @RequiresPermission(CPermission.INSTALL_PACKAGES)
-    fun execInstallBefore282(strPathNameApk: String): Boolean {
-        val command =
-            if (UtilKBuildVersion.isAfterV_24_7_N())
-                arrayOf("pm", "install", "-r", "-i", UtilKPackage.getPackageName(), "--user", "0", strPathNameApk)
-            else arrayOf("pm", "install", "-i", UtilKPackage.getPackageName(), "-r", strPathNameApk)
-
-        var strInput = ""
-        var process: Process? = null
-        var inputStream: InputStream? = null
-        var byteArrayOutputStream: ByteArrayOutputStream? = null
-        try {
-            process = ProcessBuilder(*command).start()
-            inputStream = process.inputStream
-            byteArrayOutputStream = ByteArrayOutputStream()
-            byteArrayOutputStream.write('/'.code)
-            strInput = inputStream.inputStream2strOfBytesOutStream(byteArrayOutputStream)
-            "installSilence result $strInput".d(TAG)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.e(TAG)
-        } finally {
-            byteArrayOutputStream?.flushClose()
-            inputStream?.close()
-            process?.destroy()
-        }
-        return strInput.contains("success", ignoreCase = true)
-    }
 
     /**
      * 系统是否包含which

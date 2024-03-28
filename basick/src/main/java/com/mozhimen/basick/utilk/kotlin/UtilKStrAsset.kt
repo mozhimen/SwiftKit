@@ -4,10 +4,10 @@ import android.graphics.Bitmap
 import com.mozhimen.basick.elemk.commons.IAB_Listener
 import com.mozhimen.basick.utilk.android.content.UtilKAssetManager
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.io.inputStream2bitmapAny
+import com.mozhimen.basick.utilk.java.io.inputStream2bitmapAny_use
 import com.mozhimen.basick.utilk.java.io.inputStream2bytes_use
-import com.mozhimen.basick.utilk.java.io.inputStream2file
-import com.mozhimen.basick.utilk.java.io.inputStream2strOfBytes
+import com.mozhimen.basick.utilk.java.io.inputStream2file_use
+import com.mozhimen.basick.utilk.java.io.inputStream2str_use_ofBytes
 import com.mozhimen.basick.utilk.java.io.inputStream2str_use_ofBufferedReader
 import java.io.File
 
@@ -110,7 +110,7 @@ object UtilKStrAsset : BaseUtilK() {
     @JvmStatic
     fun strAssetName2strOfStream(strAssetName: String): String? =
         if (!isAssetExists(strAssetName)) null
-        else UtilKAssetManager.open_ofCxt(_context, strAssetName).inputStream2strOfBytes()
+        else UtilKAssetManager.open_ofCxt(_context, strAssetName).inputStream2str_use_ofBytes()
 
     /**
      * 从资产拷贝到文件
@@ -118,10 +118,10 @@ object UtilKStrAsset : BaseUtilK() {
     @JvmStatic
     fun strAssetName2file(strAssetName: String, strFilePathNameDest: String, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
         if (!isAssetExists(strAssetName)) null
-        else UtilKAssetManager.open_ofCxt(_context, strAssetName).inputStream2file(strAssetName.strAssetName2strFilePathName(strFilePathNameDest), isAppend, bufferSize, block)
+        else UtilKAssetManager.open_ofCxt(_context, strAssetName).inputStream2file_use(strAssetName.strAssetName2strFilePathName(strFilePathNameDest), isAppend, bufferSize, block)
 
     @JvmStatic
     fun strAssetName2bitmap(strAssetName: String): Bitmap? =
         if (!isAssetExists(strAssetName)) null
-        else UtilKAssetManager.open_ofCxt(_context, strAssetName).inputStream2bitmapAny()
+        else UtilKAssetManager.open_ofCxt(_context, strAssetName).inputStream2bitmapAny_use()
 }

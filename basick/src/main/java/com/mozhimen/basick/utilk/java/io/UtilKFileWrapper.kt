@@ -146,7 +146,7 @@ object UtilKFileWrapper : BaseUtilK(){
     @JvmStatic
     fun copyFile(fileSource: File, fileDest: File, isAppend: Boolean = false): File? =
         if (!isFileExist(fileSource)) null
-        else fileSource.file2fileInputStream().inputStream2file(fileDest, isAppend)
+        else fileSource.file2fileInputStream().inputStream2file_use(fileDest, isAppend)
 
     @JvmStatic
     fun copyFile_ofFileChannel(fileSource: File, fileDest: File, isAppend: Boolean = false): File? =

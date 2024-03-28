@@ -1,15 +1,13 @@
 package com.mozhimen.basick.utilk.kotlin
 
-import android.content.Context
 import android.graphics.Bitmap
 import androidx.annotation.RequiresPermission
-import androidx.annotation.WorkerThread
 import com.mozhimen.basick.lintk.optins.permission.OPermission_INTERNET
 import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_EXTERNAL_STORAGE
 import com.mozhimen.basick.lintk.optins.permission.OPermission_WRITE_EXTERNAL_STORAGE
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.io.inputStream2bitmapAny
+import com.mozhimen.basick.utilk.java.io.inputStream2bitmapAny_use
 import com.mozhimen.basick.utilk.java.net.UtilKHttpURLConnection
 import com.mozhimen.basick.utilk.java.net.UtilKURI
 import java.io.File
@@ -60,7 +58,7 @@ object UtilKStrUrl : BaseUtilK() {
     @RequiresPermission(CPermission.INTERNET)
     @OPermission_INTERNET
     fun strUrl2bitmapAny(strUrl: String): Bitmap =
-        URL(strUrl).openStream().inputStream2bitmapAny()
+        URL(strUrl).openStream().inputStream2bitmapAny_use()
 
     /////////////////////////////////////////////////////////////////////////
 

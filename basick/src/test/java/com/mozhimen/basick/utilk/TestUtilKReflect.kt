@@ -15,7 +15,7 @@ class TestUtilKReflect {
     @Test
     fun test() {
         val reflectTest = ReflectTest()
-        UtilKReflect.getFieldInt(reflectTest,"field").printlog()
+        UtilKReflect.getField_ofInt(reflectTest,"field").printlog()
     }
 
     class ReflectTest {

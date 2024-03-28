@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 
 public class UtilKReflectGenericJava {
 
-    public static boolean isInstanceOfGenericType(Object obj, Class<?> genericClass) {
+    public static boolean isInstance_ofGenericType(Object obj, Class<?> genericClass) {
         Type type = obj.getClass().getGenericSuperclass();
         if (type instanceof ParameterizedType) {
             ParameterizedType parameterizedType = (ParameterizedType) type;

@@ -28,11 +28,6 @@ android {
         consumerProguardFiles "consumer-rules.pro"
     }
 
-    lintOptions {
-        checkReleaseBuilds false
-        abortOnError false
-    }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -46,10 +41,12 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
     }
+
     //强制项目使用指定的版本
 //    configurations.all {
 //        resolutionStrategy {

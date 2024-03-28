@@ -20,9 +20,8 @@ import com.mozhimen.basick.utilk.android.content.getMediaColumns
 import com.mozhimen.basick.utilk.wrapper.UtilKScreen
 import com.mozhimen.basick.utilk.android.webkit.UtilKMimeTypeMap
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.io.UtilKFileWrapper
-import com.mozhimen.basick.utilk.java.io.inputStream2bitmapAny
-import com.mozhimen.basick.utilk.java.io.inputStream2fileOfFileUtils
+import com.mozhimen.basick.utilk.java.io.inputStream2bitmapAny_use
+import com.mozhimen.basick.utilk.java.io.inputStream2file_use_ofFileUtils
 import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import com.mozhimen.basick.utilk.kotlin.getStrFolderPath
@@ -85,7 +84,7 @@ object UtilKUriFormat : BaseUtilK() {
                 val strFileName = UtilKContentResolverWrapper.getOpenableColumns(uri) ?:
                 "${UtilKStrFile.getStrFileName_ofNow()}.${UtilKMimeTypeMap.getExtensionFromMimeType(_context, uri)}"
                 val strFilePathName = "${UtilKStrPath.Absolute.Internal.getCache().getStrFolderPath()}uri/$strFileName"
-                UtilKContentResolver.openInputStream(_context, uri)?.inputStream2fileOfFileUtils(strFilePathName)?.absolutePath
+                UtilKContentResolver.openInputStream(_context, uri)?.inputStream2file_use_ofFileUtils(strFilePathName)?.absolutePath
             }
 
             else -> null
@@ -197,7 +196,7 @@ object UtilKUriFormat : BaseUtilK() {
             options.inJustDecodeBounds = true            //options的in系列的设置了，injustDecodeBound只解析图片的大小，而不加载到内存中去
             //1.如果通过options.outHeight获取图片的宽高，就必须通过decodeStream解析同options赋值
             //否则options.outHeight获取不到宽高
-            contentSizeInputStream?.inputStream2bitmapAny(null, options)
+            contentSizeInputStream?.inputStream2bitmapAny_use(null, options)
             //2.通过 btm.getHeight()获取图片的宽高就不需要1的解析，我这里采取第一张方式
             //Bitmap btm = BitmapFactory.decodeStream(inputStream)
             //获取图片的宽高
@@ -214,7 +213,7 @@ object UtilKUriFormat : BaseUtilK() {
             options.inJustDecodeBounds = false
             //根据uri重新获取流，inputStream在解析中发生改变了
             realInputStream = UtilKContentResolver.openInputStream(_context, uri)
-            return realInputStream?.inputStream2bitmapAny(null, options)
+            return realInputStream?.inputStream2bitmapAny_use(null, options)
         } catch (e: Exception) {
             e.printStackTrace()
             return null

@@ -48,8 +48,8 @@ fun File.file2fileInputStream(): FileInputStream =
 fun File.file2fileOutputStream(isAppend: Boolean = false): FileOutputStream =
     UtilKFileFormat.file2fileOutputStream(this, isAppend)
 
-fun File.file2fileBufferedOutputStream(isAppend: Boolean = false): BufferedOutputStream =
-    UtilKFileFormat.file2fileBufferedOutputStream(this, isAppend)
+fun File.file2bufferedOutputStream(isAppend: Boolean = false): BufferedOutputStream =
+    UtilKFileFormat.file2bufferedOutputStream(this, isAppend)
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -116,10 +116,10 @@ object UtilKFileFormat : BaseUtilK() {
 
     @JvmStatic
     fun file2fileOutputStream(file: File, isAppend: Boolean = false): FileOutputStream =
-        UtilKFileInputStream.get(file, isAppend)
+        UtilKFileOutputStream.get(file, isAppend)
 
     @JvmStatic
-    fun file2fileBufferedOutputStream(file: File, isAppend: Boolean = false): BufferedOutputStream =
+    fun file2bufferedOutputStream(file: File, isAppend: Boolean = false): BufferedOutputStream =
         file2fileOutputStream(file, isAppend).outputStream2bufferedOutputStream()
 
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -144,7 +144,7 @@ object UtilKFileFormat : BaseUtilK() {
         if (!UtilKFileWrapper.isFileExist(file)) null
         else {
             val byteArrayOutputStream = UtilKByteArrayOutputStream.get(file)
-            file.file2fileInputStream().inputStream2bufferedInputStream().inputStream2outputStream_ofFileUtils(byteArrayOutputStream, 1024)
-            byteArrayOutputStream.byteArrayOutputStream2bytes_flushClose()
+            UtilKInputStream.read_write_use(file.file2fileInputStream().inputStream2bufferedInputStream(),byteArrayOutputStream, 1024)
+            byteArrayOutputStream.byteArrayOutputStream2bytes_use()
         }
 }

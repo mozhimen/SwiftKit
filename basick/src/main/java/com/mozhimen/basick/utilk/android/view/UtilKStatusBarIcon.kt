@@ -52,7 +52,7 @@ object UtilKStatusBarIcon : BaseUtilK() {
     fun applyIcon_ofMiui_After6(activity: Activity, isDark: Boolean) {
         try {
             val window = UtilKWindow.get(activity)
-            val EXTRA_FLAG_STATUS_BAR_DARK_MODE_OBJ = UtilKReflect.getFieldInt("android.view.MiuiWindowManager${'$'}LayoutParams".strPackage2clazz(), "EXTRA_FLAG_STATUS_BAR_DARK_MODE")
+            val EXTRA_FLAG_STATUS_BAR_DARK_MODE_OBJ = UtilKReflect.getField_ofInt("android.view.MiuiWindowManager${'$'}LayoutParams".strPackage2clazz(), "EXTRA_FLAG_STATUS_BAR_DARK_MODE")
             val extraFlagMethod = window.javaClass.getMethod("setExtraFlags", Int::class.java, Int::class.java)
             //状态栏亮色且黑色字体
             extraFlagMethod.invoke(window, if (isDark) EXTRA_FLAG_STATUS_BAR_DARK_MODE_OBJ else 0, EXTRA_FLAG_STATUS_BAR_DARK_MODE_OBJ)

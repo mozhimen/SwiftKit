@@ -5,7 +5,7 @@ import com.mozhimen.basick.utilk.java.io.UtilKFileFormat
 import com.mozhimen.basick.utilk.java.io.UtilKFileWrapper
 import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
 import com.mozhimen.basick.utilk.java.io.write_flashClose
-import com.mozhimen.basick.utilk.java.io.writeStr2randomAccessFile
+import com.mozhimen.basick.utilk.java.io.write_use
 import java.io.File
 import java.io.RandomAccessFile
 import java.nio.charset.Charset
@@ -52,7 +52,7 @@ object UtilKStringFormat {
     fun str2file(str: String, fileDest: File): File? {
         UtilKFileWrapper.createFile(fileDest)
         try {
-            RandomAccessFile(fileDest, "rwd").writeStr2randomAccessFile(str)
+            RandomAccessFile(fileDest, "rwd").write_use(str)
             return fileDest
         } catch (e: Exception) {
             e.printStackTrace()

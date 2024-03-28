@@ -24,7 +24,7 @@ import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFileWrapper
-import com.mozhimen.basick.utilk.java.io.byteArrayOutputStream2bytes_flushClose
+import com.mozhimen.basick.utilk.java.io.byteArrayOutputStream2bytes_use
 import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
 import com.mozhimen.basick.utilk.java.io.flushClose
 import com.mozhimen.basick.utilk.java.io.outputStream2bufferedOutputStream
@@ -72,8 +72,8 @@ fun Bitmap.bitmapAny2fileBmp(strBitmapPathNameDest: String): File =
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-fun Bitmap.bitmapAny2bytesAny(compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray =
-    UtilKBitmapFormat.bitmapAny2bytesAny(this, compressFormat, quality)
+fun Bitmap.bitmapAny2bytesAny_use(compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray =
+    UtilKBitmapFormat.bitmapAny2bytesAny_use(this, compressFormat, quality)
 
 fun Bitmap.bitmapAny2bytesJpeg(): ByteArray =
     UtilKBitmapFormat.bitmapAny2bytesJpeg(this)
@@ -108,7 +108,7 @@ object UtilKBitmapFormat : BaseUtilK() {
      */
     @JvmStatic
     fun bitmapAny2strBase64(sourceBitmap: Bitmap, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 50, flags: Int = CBase64.NO_WRAP): String? {
-        return sourceBitmap.bitmapAny2bytesAny(compressFormat, quality).bytes2strBase64(flags)
+        return sourceBitmap.bitmapAny2bytesAny_use(compressFormat, quality).bytes2strBase64(flags)
     }
 
     @JvmStatic
@@ -201,19 +201,19 @@ object UtilKBitmapFormat : BaseUtilK() {
     //////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun bitmapAny2bytesAny(sourceBitmap: Bitmap, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray {
+    fun bitmapAny2bytesAny_use(sourceBitmap: Bitmap, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray {
         val byteArrayOutputStream = ByteArrayOutputStream(sourceBitmap.width * sourceBitmap.height * 4)
         sourceBitmap.applyBitmapAnyCompress(compressFormat, quality, byteArrayOutputStream)
-        return byteArrayOutputStream.byteArrayOutputStream2bytes_flushClose()
+        return byteArrayOutputStream.byteArrayOutputStream2bytes_use()
     }
 
     @JvmStatic
     fun bitmapAny2bytesJpeg(sourceBitmap: Bitmap, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray =
-        bitmapAny2bytesAny(sourceBitmap, CompressFormat.JPEG, quality)
+        bitmapAny2bytesAny_use(sourceBitmap, CompressFormat.JPEG, quality)
 
     @JvmStatic
     fun bitmapAny2bytesPng(sourceBitmap: Bitmap, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray =
-        bitmapAny2bytesAny(sourceBitmap, CompressFormat.PNG, quality)
+        bitmapAny2bytesAny_use(sourceBitmap, CompressFormat.PNG, quality)
 
     @JvmStatic
     fun bitmapAny2bytesBmp(sourceBitmap: Bitmap): ByteArray {

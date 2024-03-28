@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.java.io
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.kotlin.appendStrLineBreak
 import com.mozhimen.basick.utilk.kotlin.str2bytes
+import java.io.File
 import java.io.FileOutputStream
 
 /**
@@ -23,6 +24,12 @@ fun FileOutputStream.write_flashClose(bytes: ByteArray) {
 //////////////////////////////////////////////////////////////////////////
 
 object UtilKFileOutputStream : IUtilK {
+    @JvmStatic
+    fun get(file: File, isAppend: Boolean = false): FileOutputStream =
+        FileOutputStream(file, isAppend)
+
+    //////////////////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun write_flashClose(fileOutputStream: FileOutputStream, str: String) {
         write_flashClose(fileOutputStream, str.str2bytes())

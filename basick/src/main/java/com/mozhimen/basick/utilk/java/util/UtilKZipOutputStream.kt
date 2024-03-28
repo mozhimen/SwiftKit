@@ -3,13 +3,14 @@ package com.mozhimen.basick.utilk.java.util
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFileWrapper
+import com.mozhimen.basick.utilk.java.io.UtilKInputStream
 import com.mozhimen.basick.utilk.java.io.file2fileInputStream
 import com.mozhimen.basick.utilk.java.io.flushClose
 import com.mozhimen.basick.utilk.java.io.getFolderFiles
 import com.mozhimen.basick.utilk.java.io.inputStream2bufferedInputStream
-import com.mozhimen.basick.utilk.java.io.inputStream2outputStream
 import java.io.BufferedOutputStream
 import java.io.File
+import java.io.OutputStream
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
@@ -21,6 +22,10 @@ import java.util.zip.ZipOutputStream
  * @Version 1.0
  */
 object UtilKZipOutputStream : IUtilK {
+
+    @JvmStatic
+    fun get(outputStream: OutputStream): ZipOutputStream =
+        ZipOutputStream(outputStream)
 
     /**
      * 压缩
@@ -40,7 +45,7 @@ object UtilKZipOutputStream : IUtilK {
                     }
             } else {
                 zipOutputStream.putNextEntry(ZipEntry(fileName))
-                fileSource.file2fileInputStream().inputStream2bufferedInputStream().inputStream2outputStream(bufferedOutputStream)
+                UtilKInputStream.read_write_use(fileSource.file2fileInputStream().inputStream2bufferedInputStream(),bufferedOutputStream)
             }
         } finally {
             zipOutputStream.flushClose()

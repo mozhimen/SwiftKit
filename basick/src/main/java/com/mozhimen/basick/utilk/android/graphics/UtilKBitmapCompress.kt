@@ -55,7 +55,7 @@ object UtilKBitmapCompress : BaseUtilK() {
     //压缩质量
     @JvmStatic
     fun compressBitmapAnyQuality(bitmapSource: Bitmap, compressFormat: CompressFormat = CompressFormat.JPEG, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int = 50): Bitmap? =
-        bitmapSource.bitmapAny2bytesAny(compressFormat, quality)?.let { bytes ->
+        bitmapSource.bitmapAny2bytesAny_use(compressFormat, quality)?.let { bytes ->
             bytes.bytes2bitmapAny().also { printBitmapInfo(it, bytes, quality) }
         }
 

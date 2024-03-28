@@ -10,7 +10,7 @@ import java.io.File
 import java.nio.ByteBuffer
 import androidx.annotation.IntRange
 import com.mozhimen.basick.utilk.android.graphics.bitmapJpeg2fileJpeg
-import com.mozhimen.basick.utilk.java.io.byteArrayOutputStream2bytes_flushClose
+import com.mozhimen.basick.utilk.java.io.byteArrayOutputStream2bytes_use
 
 /**
  * @ClassName UtilKImageByteArray
@@ -76,7 +76,7 @@ object UtilKByteArrayImage : IUtilK {
         val byteArrayOutputStream = ByteArrayOutputStream()
         val yuvImage = YuvImage(nv21Bytes, ImageFormat.NV21, width, height, null)
         yuvImage.compressToJpeg(Rect(0, 0, width, height), quality, byteArrayOutputStream)
-        return byteArrayOutputStream.byteArrayOutputStream2bytes_flushClose()
+        return byteArrayOutputStream.byteArrayOutputStream2bytes_use()
     }
 
     @JvmStatic

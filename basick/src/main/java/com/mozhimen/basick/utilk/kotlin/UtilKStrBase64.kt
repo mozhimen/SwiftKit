@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.util.Base64
 import com.mozhimen.basick.elemk.android.util.cons.CBase64
-import com.mozhimen.basick.utilk.java.io.inputStream2bitmapDrawable
+import com.mozhimen.basick.utilk.java.io.inputStream2bitmapDrawable_use
 
 /**
  * @ClassName UtilKStrBase64
@@ -36,5 +36,5 @@ object UtilKStrBase64 {
 
     @JvmStatic
     fun strBase642bitmapDrawable(strBase64: String, flags: Int = CBase64.DEFAULT): BitmapDrawable =
-        strBase64.strBase642bytes(flags).bytes2byteArrayInputStream().inputStream2bitmapDrawable()
+        strBase64.strBase642bytes(flags).bytes2byteArrayInputStream().inputStream2bitmapDrawable_use()
 }

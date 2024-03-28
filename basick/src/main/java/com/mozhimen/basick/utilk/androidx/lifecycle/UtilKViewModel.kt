@@ -19,7 +19,7 @@ object UtilKViewModel: IUtilK {
     @JvmStatic
     @Suppress(CSuppress.UNCHECKED_CAST)
     fun <VM : ViewModel> get(owner: ViewModelStoreOwner, factory: ViewModelProvider.Factory? = null/*, index: Int = 1*/): VM =
-        (UtilKReflectGenericKotlin.getParentGenericTypeByTClazz(owner::class.java, ViewModel::class.java)?.let { clazzVM ->
+        (UtilKReflectGenericKotlin.getParentGenericType_ofClazz(owner::class.java, ViewModel::class.java)?.let { clazzVM ->
             factory?.let { fac ->
                 ViewModelProvider(owner, fac)[clazzVM as Class<VM>]
             } ?: run {

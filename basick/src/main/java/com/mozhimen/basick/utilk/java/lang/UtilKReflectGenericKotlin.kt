@@ -14,16 +14,12 @@ import java.lang.reflect.Type
  * @Version 1.0
  */
 object UtilKReflectGenericKotlin : IUtilK {
-    /**
-     * 获取当前<>里面的泛型实例
-     */
+    //获取当前<>里面的泛型实例
     @JvmStatic
-    inline fun <reified T> getGenericTypeClazz(index: Int = 0): Class<*>? =
+    inline fun <reified T> getGenericType_ofClazz(index: Int = 0): Class<*>? =
         getGenericType<T>(index) as? Class<*>?
 
-    /**
-     * 获取当前<>里面的泛型实例
-     */
+    //获取当前<>里面的泛型实例
     @JvmStatic
     inline fun <reified T> getGenericType(index: Int = 0): Type? =
         object : BaseGeneric<T>() {}::class.java
@@ -37,23 +33,19 @@ object UtilKReflectGenericKotlin : IUtilK {
                     null
             }
 
-    /**
-     * 获取继承自parentClass的泛型实例
-     */
+    //获取继承自parentClass的泛型实例
     @JvmStatic
-    fun getParentGenericTypeByTClazz(clazz: Class<*>, parentClazz: Class<*>/*, index: Int = 0*/): Class<*>? =
-        getParentGenericTypeByT(clazz, parentClazz) as? Class<*>?
+    fun getParentGenericType_ofClazz(clazz: Class<*>, parentClazz: Class<*>/*, index: Int = 0*/): Class<*>? =
+        getParentGenericType(clazz, parentClazz) as? Class<*>?
 
-    /**
-     * 获取继承自parentClass的泛型实例
-     */
+    //获取继承自parentClass的泛型实例
     @JvmStatic
-    fun getParentGenericTypeByT(clazz: Class<*>, tClazz: Class<*>/*, index: Int = 0*/): Type? {
+    fun getParentGenericType(clazz: Class<*>, tClazz: Class<*>/*, index: Int = 0*/): Type? {
         val superClazz: Class<*>? = clazz.superclass
         val genericSuperclass: Type? = clazz.genericSuperclass
         if (genericSuperclass !is ParameterizedType) {//当继承类不是参数化类型,就从父类中寻找
             return if (superClazz != null) {
-                getParentGenericTypeByT(superClazz, tClazz)//当我们继承多层BaseActivity时递归查找泛型
+                getParentGenericType(superClazz, tClazz)//当我们继承多层BaseActivity时递归查找泛型
             } else
                 null
         }
@@ -68,31 +60,27 @@ object UtilKReflectGenericKotlin : IUtilK {
                     }
                 }
                 if (superClazz != null)
-                    return getParentGenericTypeByT(superClazz, tClazz)
+                    return getParentGenericType(superClazz, tClazz)
                 else
                     return null
             }
     }
 
-    /**
-     * 获取父类泛型类
-     */
+    //获取父类泛型类
     @JvmStatic
-    fun getParentGenericTypeClazz(clazz: Class<*>, index: Int = 0): Class<*>? =
+    fun getParentGenericType_ofClazz(clazz: Class<*>, index: Int = 0): Class<*>? =
         getParentGenericType(clazz, index) as? Class<*>?
 
-    /**
-     * 获取父类泛型type
-     */
+    //获取父类泛型type
     @JvmStatic
     fun getParentGenericType(clazz: Class<*>, index: Int = 0): Type? {
         val superClazz = clazz.superclass
         val genericSuperclass = clazz.genericSuperclass
         if (genericSuperclass !is ParameterizedType) {//当继承类不是参数化类型,就从父类中寻找
-            if (superClazz != null) {
-                return getParentGenericType(superClazz, index)
+            return if (superClazz != null) {
+                getParentGenericType(superClazz, index)
             } else
-                return null//当我们继承多层BaseActivity时递归查找泛型
+                null//当我们继承多层BaseActivity时递归查找泛型
         }
         genericSuperclass
             .actualTypeArguments.filterIsInstance<Class<*>>()
@@ -108,16 +96,12 @@ object UtilKReflectGenericKotlin : IUtilK {
 
     ////////////////////////////////////////////////////////////////////////////////////////////
 
-    /**
-     * 获取继承父类的泛型类
-     */
+    //获取继承父类的泛型类
     @JvmStatic
-    inline fun <reified T> getParentGenericTypeClazz(index: Int = 0): Class<*>? =
+    inline fun <reified T> getParentGenericType_ofClazz(index: Int = 0): Class<*>? =
         getParentGenericType<T>(index) as? Class<*>?
 
-    /**
-     * 获取继承父类的泛型Type
-     */
+    //获取继承父类的泛型Type
     @JvmStatic
     inline fun <reified T> getParentGenericType(index: Int = 0): Type? =
         getParentGenericType(T::class.java, index)

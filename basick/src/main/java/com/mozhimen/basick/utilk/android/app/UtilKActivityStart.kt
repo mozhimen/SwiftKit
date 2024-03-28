@@ -12,7 +12,7 @@ import com.mozhimen.basick.utilk.android.content.UtilKIntentWrapper
 import com.mozhimen.basick.utilk.android.content.createChooser
 import com.mozhimen.basick.utilk.android.content.startContext
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.java.lang.UtilKRuntime
+import com.mozhimen.basick.utilk.java.lang.UtilKRuntimeWrapper
 import java.io.File
 
 /**
@@ -45,7 +45,7 @@ object UtilKActivityStart {
         context.startContext(
             UtilKIntentWrapper.getViewInstall(strPathNameApk.apply {
                 if (UtilKBuildVersion.isBeforeVersion(CVersCode.V_24_7_N))
-                    UtilKRuntime.chmod777(this)
+                    UtilKRuntimeWrapper.exec_chmod_777(this)
             }) ?: return
         )
     }

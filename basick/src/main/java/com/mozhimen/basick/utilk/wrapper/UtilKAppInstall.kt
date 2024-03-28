@@ -17,6 +17,7 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.lang.UtilKRuntime
+import com.mozhimen.basick.utilk.java.lang.UtilKRuntimeWrapper
 import java.io.*
 
 /**
@@ -64,7 +65,7 @@ object UtilKAppInstall : BaseUtilK() {
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
     @OPermission_INSTALL_PACKAGES
     fun install_ofRuntime(strPathNameApk: String): Boolean =
-        UtilKRuntime.execSuInstall(strPathNameApk)
+        UtilKRuntimeWrapper.exec_su_pm_install(strPathNameApk)
 
     /**
      * 手动安装 if sdk >= 24 add provider
@@ -94,7 +95,7 @@ object UtilKAppInstall : BaseUtilK() {
     @OPermission_INSTALL_PACKAGES
     fun install_ofSilence(strPathNameApk: String, receiver: Class<*>) {
         if (UtilKBuildVersion.isAfterV_28_9_P()) install_ofSilence_after28(strPathNameApk, receiver)
-        else UtilKRuntime.execInstallBefore28(strPathNameApk)
+        else UtilKRuntimeWrapper.exec_pm_install_before28(strPathNameApk)
     }
 
     /**

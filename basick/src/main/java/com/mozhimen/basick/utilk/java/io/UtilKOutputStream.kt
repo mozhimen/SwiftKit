@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.java.io
 
 import com.mozhimen.basick.utilk.commons.IUtilK
+import com.mozhimen.basick.utilk.java.util.UtilKZipOutputStream
 import java.io.BufferedOutputStream
 import java.io.OutputStream
 import java.util.zip.ZipOutputStream
@@ -21,9 +22,9 @@ fun OutputStream.outputStream2zipOutputStream(): ZipOutputStream =
 object UtilKOutputStream : IUtilK {
     @JvmStatic
     fun outputStream2bufferedOutputStream(outputStream: OutputStream): BufferedOutputStream =
-        BufferedOutputStream(outputStream)
+        UtilKBufferedOutputStream.get(outputStream)
 
     @JvmStatic
     fun outputStream2zipOutputStream(outputStream: OutputStream): ZipOutputStream =
-        ZipOutputStream(outputStream)
+        UtilKZipOutputStream.get(outputStream)
 }
