@@ -1,8 +1,8 @@
 package com.mozhimen.basick.utilk
 
 import com.mozhimen.basick.utilk.kotlin.printlog
-import com.mozhimen.basick.utilk.squareup.moshi.strJson2tMoshi
-import com.mozhimen.basick.utilk.squareup.moshi.t2strJsonMoshi
+import com.mozhimen.basick.utilk.squareup.moshi.strJson2t_ofMoshi
+import com.mozhimen.basick.utilk.squareup.moshi.t2strJson_ofMoshi
 import org.junit.Test
 
 /**
@@ -20,9 +20,9 @@ class TestUtilKJson {
               "user": "DK234455",
               "pwd": "78e3396c576b4420b31acd20e412c5d9"
             }
-        """.trimIndent().strJson2tMoshi<Bean>().printlog()
+        """.trimIndent().strJson2t_ofMoshi<Bean>().printlog()
 
-        Bean("123", "123").t2strJsonMoshi().printlog()
+        Bean("123", "123").t2strJson_ofMoshi().printlog()
     }
 
     data class Bean(
