@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.java.io
 
+import android.text.TextUtils
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.Reader
@@ -36,6 +37,6 @@ object UtilKBufferedReader {
     }
 
     @JvmStatic
-    fun readLine_use(bufferedReader: BufferedReader): String =
+    fun readLine_use(bufferedReader: BufferedReader): String? =
         bufferedReader.use { bufferedReader.readLine() }
 }

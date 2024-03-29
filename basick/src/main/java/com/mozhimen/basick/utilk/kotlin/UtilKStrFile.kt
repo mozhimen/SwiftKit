@@ -27,7 +27,7 @@ import com.mozhimen.basick.utilk.java.io.getFolderFiles_ofAll
 import com.mozhimen.basick.utilk.java.io.isFileExist
 import com.mozhimen.basick.utilk.java.io.isFolder
 import com.mozhimen.basick.utilk.java.io.isFolderExist
-import com.mozhimen.basick.utilk.java.util.UtilKDate
+import com.mozhimen.basick.utilk.java.util.UtilKDateWrapper
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -169,7 +169,7 @@ object UtilKStrFile : IUtilK {
     //时间转文件名
     @JvmStatic
     fun getStrFileName(formatDate: String = CDateFormat.yyyy_MM_dd_HH_mm_ss, locale: Locale = Locale.CHINA): String =
-        UtilKDate.getNowStr(formatDate, locale).replace(" ", "~").replace(":", "-")
+        UtilKDateWrapper.getNowStr(formatDate, locale).replace(" ", "~").replace(":", "-")
 
     /////////////////////////////////////////////////////////////////
 

@@ -17,7 +17,7 @@ object UtilKURI : IUtilK {
 
     @JvmStatic
     fun isSchemeValid(uRI: URI): Boolean =
-            uRI.scheme.equals(CURI.Scheme.http) || uRI.scheme.equals(CURI.Scheme.https) || uRI.scheme.equals(CURI.Scheme.tcp) || uRI.scheme.equals(CURI.Scheme.udp)
+        uRI.scheme.equals(CURI.Scheme.http) || uRI.scheme.equals(CURI.Scheme.https) || uRI.scheme.equals(CURI.Scheme.tcp) || uRI.scheme.equals(CURI.Scheme.udp)
 
     /**
      * 判断strUrl是否可连
@@ -29,7 +29,6 @@ object UtilKURI : IUtilK {
             uRI = URI(strUrl)
         } catch (e: URISyntaxException) {
             e.printStackTrace()
-            e.message?.e(TAG)
             return false
         }
         if (uRI.host == null) {

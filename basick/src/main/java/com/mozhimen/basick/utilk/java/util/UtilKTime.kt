@@ -31,7 +31,7 @@ object UtilKTime {
      */
     @JvmStatic
     fun getCurrentHourStrDoubleBits(): String =
-        UtilKDate.getNowStr(CDateFormat.HH)
+        UtilKDateWrapper.getNowStr(CDateFormat.HH)
 
     //////////////////////////////////////////////////////////////////////
 
@@ -41,7 +41,7 @@ object UtilKTime {
      */
     @JvmStatic
     fun isTimeAtMinuteOf(hourAndMinuteTwoBits: Pair<String, String>): Boolean =
-        isTimeAtMinuteOf(hourAndMinuteTwoBits.first, hourAndMinuteTwoBits.second, UtilKDate.getNowStr(CDateFormat.HH_mm))
+        isTimeAtMinuteOf(hourAndMinuteTwoBits.first, hourAndMinuteTwoBits.second, UtilKDateWrapper.getNowStr(CDateFormat.HH_mm))
 
     /**
      * 是否对齐时间
@@ -75,7 +75,7 @@ object UtilKTime {
      */
     @JvmStatic
     fun isTimeAtHourOf(hourStrTwoBits: String): Boolean =
-        isTimeAtHourOf(hourStrTwoBits, UtilKDate.getNowStr(CDateFormat.HH_mm))
+        isTimeAtHourOf(hourStrTwoBits, UtilKDateWrapper.getNowStr(CDateFormat.HH_mm))
 
     /**
      * 是否是指定整点
@@ -104,7 +104,7 @@ object UtilKTime {
      */
     @JvmStatic
     fun isTimeAtHour(): Boolean =
-        isTimeAtHour(UtilKDate.getNowStr(CDateFormat.mm))
+        isTimeAtHour(UtilKDateWrapper.getNowStr(CDateFormat.mm))
 
     /**
      * 是否是整小时

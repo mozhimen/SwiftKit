@@ -10,6 +10,6 @@ import java.security.MessageDigest
  * @Version 1.0
  */
 object UtilKMessageDigest {
-    fun getMD5(): MessageDigest =
+    fun get_ofMD5(): MessageDigest =
         MessageDigest.getInstance("MD5")
 }

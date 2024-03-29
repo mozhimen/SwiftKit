@@ -6,7 +6,7 @@ import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFileWrapper
 import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
-import com.mozhimen.basick.utilk.java.security.UtilKMd5
+import com.mozhimen.basick.utilk.java.security.UtilKMessageDigestMD5
 import java.io.ByteArrayInputStream
 import java.io.File
 import java.io.ObjectInputStream
@@ -104,7 +104,7 @@ object UtilKByteArrayFormat : IUtilK {
     @JvmStatic
     @Throws(NoSuchAlgorithmException::class)
     fun bytes2strMd5Hex(bytes: ByteArray): String =
-        UtilKMd5.digest(bytes).bytes2strHex()
+        UtilKMessageDigestMD5.digest(bytes).bytes2strHex()
 
     /**
      * byte[]数组转换为16进制的字符串

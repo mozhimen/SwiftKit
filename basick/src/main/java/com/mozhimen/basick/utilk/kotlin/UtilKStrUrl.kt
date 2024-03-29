@@ -76,5 +76,5 @@ object UtilKStrUrl : BaseUtilK() {
     @OPermission_READ_EXTERNAL_STORAGE
     @OPermission_INTERNET
     fun strUrl2file(strUrl: String, fileDest: File, isAppend: Boolean = false): File? =
-        UtilKHttpURLConnection.getFileForStrUrl(strUrl, fileDest, isAppend)
+        UtilKHttpURLConnection.getFile_ofStrUrl(strUrl, fileDest, isAppend)
 }

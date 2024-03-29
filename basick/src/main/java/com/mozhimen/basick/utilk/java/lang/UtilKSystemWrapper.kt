@@ -11,6 +11,6 @@ import com.mozhimen.basick.elemk.cons.CStrPackage
  */
 object UtilKSystemWrapper {
     @JvmStatic
-    fun getPropertyLineSeparator(): String? =
+    fun getProperty_ofLineSeparator(): String? =
         UtilKSystem.getProperty(CStrPackage.LINE_SEPARATOR)
 }

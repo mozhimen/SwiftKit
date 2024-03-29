@@ -49,11 +49,10 @@ object UtilKStrSerialNo : BaseUtilK() {
 
     /**
      * 获取下小时结束还剩余多少秒
-     * @return
      */
     @JvmStatic
     fun resetLongNo(no: Long): Long {
-        val remainTime = UtilKCalendar.getRemainTimeForNextHour()
+        val remainTime = UtilKCalendar.getRemainTime_ofNextHour()
         return if (remainTime <= 0) 0 else no
     }
 }

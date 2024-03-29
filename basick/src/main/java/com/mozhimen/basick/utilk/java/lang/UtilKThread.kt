@@ -18,22 +18,22 @@ import kotlinx.coroutines.withContext
  */
 object UtilKThread {
     @JvmStatic
-    fun getCur(): Thread =
+    fun get_ofCur(): Thread =
         Thread.currentThread()
 
     @JvmStatic
-    fun getMain(): Thread =
+    fun get_ofMain(): Thread =
         UtilKLooper.getThread_ofMain()
 
     /////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun getCurName(): String =
-        getCur().name
+    fun getName_ofCur(): String =
+        get_ofCur().name
 
     @JvmStatic
-    fun getCurStackTrace(): Array<StackTraceElement> =
-        getCur().stackTrace
+    fun getStackTrace_ofCur(): Array<StackTraceElement> =
+        get_ofCur().stackTrace
 
     /////////////////////////////////////////////////////////
 
@@ -42,7 +42,7 @@ object UtilKThread {
      */
     @JvmStatic
     fun isMainThread(): Boolean =
-        getMain() == getCur()
+        get_ofMain() == get_ofCur()
 
     ////////////////////////////////////////////////////////////////////////////
 
@@ -60,6 +60,15 @@ object UtilKThread {
             lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) { block.invoke() }
         else
             block.invoke()
+    }
+
+
+    @JvmStatic
+    suspend fun runOnMainThread(block: ISuspend_Listener) {
+        if (isMainThread())
+            block.invoke()
+        else
+            withContext(Dispatchers.Main) { block.invoke() }
     }
 
     @JvmStatic

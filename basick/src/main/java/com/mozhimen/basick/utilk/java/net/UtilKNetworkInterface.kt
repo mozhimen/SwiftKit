@@ -20,14 +20,14 @@ import java.util.Enumeration
  */
 object UtilKNetworkInterface : IUtilK {
     @JvmStatic
-    fun getNetworkInterfaces(): Enumeration<NetworkInterface> =
+    fun gets(): Enumeration<NetworkInterface> =
         NetworkInterface.getNetworkInterfaces()
 
     //获取网路IP(移动网络)
     @JvmStatic
-    fun getStrIp(): String? {
+    fun getStrIP(): String? {
         try {
-            val networkInterfaces: Enumeration<NetworkInterface> = getNetworkInterfaces()
+            val networkInterfaces: Enumeration<NetworkInterface> = gets()
             var inetAddress: InetAddress
             while (networkInterfaces.hasMoreElements()) {
                 val networkInterface = (networkInterfaces.nextElement() as NetworkInterface)
@@ -46,10 +46,12 @@ object UtilKNetworkInterface : IUtilK {
         return null
     }
 
+    /////////////////////////////////////////////////////////////////////////
+
     @JvmStatic
-    fun printStrIp() {
+    fun printStrIP() {
         try {
-            val networkInterfaces: Enumeration<NetworkInterface> = getNetworkInterfaces()
+            val networkInterfaces: Enumeration<NetworkInterface> = gets()
             var inetAddress: InetAddress
             while (networkInterfaces.hasMoreElements()) {
                 val networkInterface = (networkInterfaces.nextElement() as NetworkInterface)

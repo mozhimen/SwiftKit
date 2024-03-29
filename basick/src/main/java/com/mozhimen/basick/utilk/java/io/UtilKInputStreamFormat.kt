@@ -4,28 +4,23 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
-import android.os.FileUtils
-import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.commons.IAB_Listener
-import com.mozhimen.basick.utilk.android.os.UtilKFileUtils
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.commons.IUtilK
-import com.mozhimen.basick.utilk.java.security.UtilKMd5
+import com.mozhimen.basick.utilk.java.security.UtilKMessageDigestMD5
 import com.mozhimen.basick.utilk.kotlin.UtilKByteArray
 import com.mozhimen.basick.utilk.kotlin.bytes2str
 import com.mozhimen.basick.utilk.kotlin.bytes2strHex
 import com.mozhimen.basick.utilk.kotlin.bytes2strHex_ofHexString
 import com.mozhimen.basick.utilk.kotlin.bytes2strHex_ofBigInteger
 import com.mozhimen.basick.utilk.kotlin.createFile
-import com.mozhimen.basick.utilk.kotlin.constraint
 import java.io.BufferedInputStream
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
 import java.io.InputStream
-import java.io.OutputStream
 import java.nio.charset.Charset
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -152,7 +147,7 @@ object UtilKInputStreamFormat : IUtilK {
     @Throws(NoSuchAlgorithmException::class)
     fun inputStream2bytesMd5_use(inputStream: InputStream, bufferSize: Int = 1024 * 1024): ByteArray =
         inputStream.use {
-            val messageDigest: MessageDigest = UtilKMd5.get()
+            val messageDigest: MessageDigest = UtilKMessageDigestMD5.get()
             var readCount: Int
             val bytes = ByteArray(bufferSize)
             while (inputStream.read(bytes).also { readCount = it } != -1)
@@ -180,7 +175,7 @@ object UtilKInputStreamFormat : IUtilK {
 
     @JvmStatic
     fun inputStream2str_use_ofBufferedReader(inputStream: InputStream, charset: String? = null, bufferSize: Int = 1024): String =
-        UtilKInputStreamReader.readLine_use(inputStream, charset, bufferSize)
+        UtilKInputStreamReader.readLines_use(inputStream, charset, bufferSize)
 
     @JvmStatic
     fun inputStream2str_use_ofBytesOutStream(inputStream: InputStream): String =

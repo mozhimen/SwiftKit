@@ -8,6 +8,7 @@ import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFileWrapper
 import com.mozhimen.basick.utilk.java.lang.UtilKRuntime
+import com.mozhimen.basick.utilk.java.lang.UtilKRuntimeWrapper
 import com.mozhimen.basick.utilk.kotlin.strFilePath2file
 import java.io.File
 
@@ -79,7 +80,7 @@ object UtilKSys : IUtilK {
     @Throws(Exception::class)
     @OPermission_READ_EXTERNAL_STORAGE
     fun isWhichAvailable(): Boolean =
-            UtilKRuntime.execSystemXbinWhich()
+            UtilKRuntimeWrapper.exec_su_system_xbin_which()
 
     //检测系统内是否安装了Superuser.apk之类的App
     @JvmStatic

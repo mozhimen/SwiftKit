@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.kotlin
 
 //import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.digest.DigestUtils
-import com.mozhimen.basick.utilk.java.security.UtilKMd5
+import com.mozhimen.basick.utilk.java.security.UtilKMessageDigestMD5
 import java.math.BigInteger
 import java.security.NoSuchAlgorithmException
 
@@ -36,7 +36,7 @@ object UtilKStrMd5 {
     @JvmStatic
     @Throws(NoSuchAlgorithmException::class)
     fun str2strMd5_16(str: String): String {
-        val bytes: ByteArray = UtilKMd5.digest(str.str2bytes())
+        val bytes: ByteArray = UtilKMessageDigestMD5.digest(str.str2bytes())
         var md5Str: String = BigInteger(1, bytes).toString(16)
         for (i in 0 until 32 - md5Str.length) md5Str = "0$md5Str"
         return md5Str
@@ -48,7 +48,7 @@ object UtilKStrMd5 {
     @JvmStatic
     @Throws(NoSuchAlgorithmException::class)
     fun str2strMd5_32_lowerCase(str: String): String {
-        val bytes = UtilKMd5.digest(str.str2bytes())
+        val bytes = UtilKMessageDigestMD5.digest(str.str2bytes())
         val stringBuilder = StringBuilder()
         for (byte in bytes.indices) {
             val value = bytes[byte].toInt() and 0xff

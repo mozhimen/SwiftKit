@@ -11,11 +11,11 @@ import java.security.NoSuchAlgorithmException
  * @Date 2022/6/11 17:13
  * @Version 1.0
  */
-object UtilKMd5 : BaseUtilK() {
+object UtilKMessageDigestMD5 : BaseUtilK() {
     @JvmStatic
     @Throws(NoSuchAlgorithmException::class)
     fun get(): MessageDigest =
-        UtilKMessageDigest.getMD5()
+        UtilKMessageDigest.get_ofMD5()
 
     @JvmStatic
     @Throws(NoSuchAlgorithmException::class)

@@ -30,6 +30,7 @@ import com.mozhimen.basick.utilk.android.telephony.UtilKTelephonyManager
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFileReader
 import com.mozhimen.basick.utilk.java.io.UtilKRandomAccessFile
+import com.mozhimen.basick.utilk.java.io.UtilKRandomAccessFileWrapper
 
 /**
  * @ClassName UtilKDevice
@@ -63,7 +64,7 @@ object UtilKDevice : BaseUtilK() {
      */
     @JvmStatic
     fun getCpuUsage(): Float =
-        UtilKRandomAccessFile.getCpuUsage()
+        UtilKRandomAccessFileWrapper.getCpuUsage()
 
     /**
      * 设备Rom版本

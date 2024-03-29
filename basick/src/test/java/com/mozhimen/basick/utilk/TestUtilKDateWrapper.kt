@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk
 
 import org.junit.Test
 
-class TestUtilKDate {
+class TestUtilKDateWrapper {
     @Test
     fun test() {
 //        val nowDate = UtilKDate.getNowDate()

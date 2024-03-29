@@ -14,7 +14,7 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.kotlin.containStr
 import com.mozhimen.basick.utilk.kotlin.strUri2uri
-import com.mozhimen.basick.utilk.kotlin.text.removeEndSeparator
+import com.mozhimen.basick.utilk.kotlin.text.removeEnd_ofSeparator
 
 
 /**
@@ -113,19 +113,19 @@ object ManifestKPermissionScopedUtil : IUtilK {
 
     @JvmStatic
     fun strFilePath2strUriDocumentAndroidData(strFilePath: String): String {
-        val tempStrUri = strFilePath.removeEndSeparator().replace("/storage/emulated/0/", "").replace("/", "%2F")
+        val tempStrUri = strFilePath.removeEnd_ofSeparator().replace("/storage/emulated/0/", "").replace("/", "%2F")
         return "${CManifestKPermissionScoped.STR_URI_DOCUMENT_ANDROID_DATA}/document/primary%3A$tempStrUri"
     }
 
     @JvmStatic
     fun strFilePath2strUriDocumentAndroidObb(strFilePath: String): String {
-        val tempStrUri = strFilePath.removeEndSeparator().replace("/storage/emulated/0/", "").replace("/", "%2F")
+        val tempStrUri = strFilePath.removeEnd_ofSeparator().replace("/storage/emulated/0/", "").replace("/", "%2F")
         return "${CManifestKPermissionScoped.STR_URI_DOCUMENT_ANDROID_OBB}/document/primary%3A$tempStrUri"
     }
 
     @JvmStatic
     fun strFilePath2strUriDocument(strFilePath: String): String {
-        val tempStrUri = strFilePath.removeEndSeparator().replace("/storage/emulated/0/", "").replace("/", "%2F")
+        val tempStrUri = strFilePath.removeEnd_ofSeparator().replace("/storage/emulated/0/", "").replace("/", "%2F")
         return "${CManifestKPermissionScoped.STR_URI_DOCUMENT}%3A$tempStrUri"
     }
 

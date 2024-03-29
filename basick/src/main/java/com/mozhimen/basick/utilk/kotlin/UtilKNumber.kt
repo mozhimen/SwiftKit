@@ -65,9 +65,6 @@ object UtilKNumber {
     /**
      * Complement by0
      * 左补0
-     * @param number
-     * @param decimal
-     * @return
      */
     @JvmStatic
     fun complement_of0(number: Number, decimal: Int): String =

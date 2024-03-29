@@ -42,7 +42,7 @@ object UtilKNet : BaseUtilK() {
     //获取网路IP
     @JvmStatic
     fun getStrIp(): String? =
-        UtilKNetworkInterface.getStrIp()
+        UtilKNetworkInterface.getStrIP()
 
     @JvmStatic
     @OPermission_ACCESS_NETWORK_STATE

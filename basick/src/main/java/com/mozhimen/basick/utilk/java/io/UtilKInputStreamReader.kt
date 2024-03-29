@@ -19,7 +19,7 @@ object UtilKInputStreamReader {
     ///////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun readLine_use(inputStream: InputStream, charset: String? = null, bufferSize: Int = 1024): String {
+    fun readLines_use(inputStream: InputStream, charset: String? = null, bufferSize: Int = 1024): String {
         var inputStreamReader: InputStreamReader? = null
         try {
             inputStreamReader = get(inputStream, charset)
@@ -30,5 +30,19 @@ object UtilKInputStreamReader {
             inputStreamReader?.close()
         }
         return ""
+    }
+
+    @JvmStatic
+    fun readLine_use(inputStream: InputStream, charset: String? = null, bufferSize: Int = 1024): String? {
+        var inputStreamReader: InputStreamReader? = null
+        try {
+            inputStreamReader = get(inputStream, charset)
+            return UtilKBufferedReader.readLine_use(UtilKBufferedReader.get(inputStreamReader, bufferSize))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            inputStreamReader?.close()
+        }
+        return null
     }
 }

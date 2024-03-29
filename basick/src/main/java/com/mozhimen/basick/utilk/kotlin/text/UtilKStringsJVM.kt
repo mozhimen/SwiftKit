@@ -21,23 +21,23 @@ fun String.removeLineBreakStr(): String =
 fun String.removeLineBreak(): String =
     UtilKStringsJVM.removeLineBreak(this)
 
-fun String.removeEndLineBreak(): String =
-    UtilKStringsJVM.removeEndLineBreak(this)
+fun String.removeEnd_ofLineBreak(): String =
+    UtilKStringsJVM.removeEnd_ofLineBreak(this)
 
-fun String.removeStartLineBreak(): String =
-    UtilKStringsJVM.removeStartLineBreak(this)
+fun String.removeStart_ofLineBreak(): String =
+    UtilKStringsJVM.removeStart_ofLineBreak(this)
 
-fun String.removeEndSeparator(): String =
-    UtilKStringsJVM.removeEndSeparator(this)
+fun String.removeEnd_ofSeparator(): String =
+    UtilKStringsJVM.removeEnd_ofSeparator(this)
 
-fun String.removeStartSeparator(): String =
-    UtilKStringsJVM.removeStartSeparator(this)
+fun String.removeStart_ofSeparator(): String =
+    UtilKStringsJVM.removeStart_ofSeparator(this)
 
-fun String.complementStart0(): String =
-    UtilKStringsJVM.complementStart0(this)
+fun String.addStart_of0(): String =
+    UtilKStringsJVM.addStart_of0(this)
 
-fun String.complementStartPlus(): String =
-    UtilKStringsJVM.complementStartPlus(this)
+fun String.addStart_ofPlus(): String =
+    UtilKStringsJVM.addStart_ofPlus(this)
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -58,27 +58,29 @@ object UtilKStringsJVM {
     fun removeLineBreak(str: String): String =
         str.replace(CMsg.LINE_BREAK, "")
 
+    ///////////////////////////////////////////////////////////////////
+
     @JvmStatic
-    fun removeEndLineBreak(str: String): String =
+    fun removeEnd_ofLineBreak(str: String): String =
         if (str.endsWith(CMsg.LINE_BREAK)) str.substring(0, str.length - 1) else str
 
     @JvmStatic
-    fun removeStartLineBreak(str: String): String =
-        if (str.startsWith(CMsg.LINE_BREAK)) str.substring(1) else str
-
-    @JvmStatic
-    fun removeEndSeparator(str: String): String =
+    fun removeEnd_ofSeparator(str: String): String =
         if (str.endsWith("/")) str.substring(0, str.length - 1) else str
 
     @JvmStatic
-    fun removeStartSeparator(str: String): String =
+    fun removeStart_ofLineBreak(str: String): String =
+        if (str.startsWith(CMsg.LINE_BREAK)) str.substring(1) else str
+
+    @JvmStatic
+    fun removeStart_ofSeparator(str: String): String =
         if (str.startsWith("/")) str.substring(1) else str
 
     @JvmStatic
-    fun complementStart0(str: String): String =
+    fun addStart_of0(str: String): String =
         if (str.startsWith(".")) "0$str" else str
 
     @JvmStatic
-    fun complementStartPlus(str: String): String =
+    fun addStart_ofPlus(str: String): String =
         if (!str.startsWith("+")) "+$str" else str
 }
