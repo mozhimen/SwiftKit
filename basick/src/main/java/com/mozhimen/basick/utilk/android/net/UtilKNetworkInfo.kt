@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.net.cons.CConnectivityManager
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_NETWORK_STATE
 import com.mozhimen.basick.manifestk.cons.CPermission
 import java.net.NetworkInterface
@@ -134,6 +135,7 @@ object UtilKNetworkInfo {
     //////////////////////////////////////////////////////////////////////////////
 
     //网络是否连接
+    @ADescription("isNetAvailable","isConnectionUseful")
     @JvmStatic
     @OPermission_ACCESS_NETWORK_STATE
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)

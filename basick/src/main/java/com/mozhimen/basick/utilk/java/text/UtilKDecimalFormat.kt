@@ -33,15 +33,11 @@ object UtilKDecimalFormat {
         DecimalFormat(pattern/*, DecimalFormatSymbols()*/)
 
     @JvmStatic
-    fun get(pattern: String, locale: Locale): DecimalFormat =
-        DecimalFormat(pattern, DecimalFormatSymbols(locale))
-
-    @JvmStatic
     fun get(pattern: String, locale: Locale?): DecimalFormat =
         if (locale == null)
             get(pattern)
         else
-            get(pattern, locale)
+            DecimalFormat(pattern, DecimalFormatSymbols(locale))
 
     //////////////////////////////////////////////////////////////////////
 

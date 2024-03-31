@@ -29,7 +29,7 @@ object UtilKLongFormat : IUtilK {
 
     @JvmStatic
     fun longFileSize2strFileSize(fileSize: Long, suffix: String = "B", bit: Int = 2, locale: Locale): String {
-        val decimalFormat = UtilKDecimalFormat.get(bit, locale)
+        val decimalFormat = UtilKDecimalFormat.get_ofBit(bit, locale)
         return (if (fileSize <= 0) "0B"
         else if (fileSize < 1024)
             "${fileSize}B"

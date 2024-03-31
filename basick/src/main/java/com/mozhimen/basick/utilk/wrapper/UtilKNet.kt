@@ -41,7 +41,7 @@ object UtilKNet : BaseUtilK() {
     //region # net
     //获取网路IP
     @JvmStatic
-    fun getStrIp(): String? =
+    fun getStrIP(): String? =
         UtilKNetworkInterface.getStrIP()
 
     @JvmStatic
