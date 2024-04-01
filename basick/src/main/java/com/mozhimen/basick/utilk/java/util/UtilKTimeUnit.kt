@@ -10,32 +10,25 @@ import java.util.concurrent.TimeUnit
  * @Date 2023/8/11 15:43
  * @Version 1.0
  */
-fun Long.second2millis(): Long =
-    UtilKTimeUnit.second2millis(this)
+fun Long.longSecond2longMillis(): Long =
+    UtilKTimeUnit.longSecond2longMillis(this)
 
-fun Long.second2millis2(): Long =
-    UtilKTimeUnit.second2millisOfCus(this)
+fun Long.longMinute2longMillis(): Long =
+    UtilKTimeUnit.longMinute2longMillis(this)
 
-fun Long.minute2millis(): Long =
-    UtilKTimeUnit.minute2millis(this)
-
-fun Long.hour2millis(): Long =
-    UtilKTimeUnit.hour2millis(this)
+fun Long.longHour2longMillis(): Long =
+    UtilKTimeUnit.longHour2longMillis(this)
 
 object UtilKTimeUnit {
     @JvmStatic
-    fun second2millis(second: Long): Long =
+    fun longSecond2longMillis(second: Long): Long =
         TimeUnit.SECONDS.toMillis(second)
 
     @JvmStatic
-    fun second2millisOfCus(second: Long): Long =
-        second * 1000L
-
-    @JvmStatic
-    fun minute2millis(second: Long): Long =
+    fun longMinute2longMillis(second: Long): Long =
         TimeUnit.MINUTES.toMillis(second)
 
     @JvmStatic
-    fun hour2millis(second: Long): Long =
+    fun longHour2longMillis(second: Long): Long =
         TimeUnit.HOURS.toMillis(second)
 }

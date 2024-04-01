@@ -58,6 +58,15 @@ object UtilKDateWrapper : BaseUtilK() {
     fun getCurrentHourStr(locale: Locale = Locale.CHINA): String =
         date2strDate(getNowDate(), CDateFormat.yyyy_MM_dd_HH, locale)
 
+    //获取当前小时2位
+    @JvmStatic
+    fun getCurrentHourStr_ofHH(): String =
+        getNowStr(CDateFormat.HH)
+
+    @JvmStatic
+    fun getCurrentHourStr_ofHHmm(): String =
+        getNowStr(CDateFormat.HH_mm)
+
     //获取当前小时
     @JvmStatic
     fun getCurrentHourLong(locale: Locale = Locale.CHINA): Long? =

@@ -13,24 +13,19 @@ import java.util.UUID
  * @Date 2023/8/2 15:51
  * @Version 1.0
  */
-fun String.compressStrUUID(): String =
-    UtilKUUID.compressStrUUID(this)
-
 object UtilKUUID {
     @JvmStatic
-    fun getStrUUID(): String =
-        UUID.randomUUID().toString()
+    fun get(): String =
+        randomUUID().toString()
 
-    /**
-     * 生成随机字符串
-     */
+    //生成随机字符串
     @JvmStatic
-    fun getFormatStrUUID(): String =
-        getStrUUID().replace("-", "")
+    fun get_ofFormat(): String =
+        get().replace("-", "")
 
     //////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun compressStrUUID(strUUID: String): String =
-        strUUID.replace("-", "").strHex2bytes().bytes2bytesBase64(CBase64.URL_SAFE or CBase64.NO_PADDING or CBase64.NO_WRAP).bytes2str()
+    fun randomUUID(): UUID =
+        UUID.randomUUID()
 }

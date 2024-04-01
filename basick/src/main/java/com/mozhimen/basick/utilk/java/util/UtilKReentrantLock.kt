@@ -18,8 +18,7 @@ fun ReentrantLock.safeUnlock(){
 object UtilKReentrantLock {
     @JvmStatic
     fun safeUnlock(reentrantLock: ReentrantLock) {
-        if (reentrantLock.isHeldByCurrentThread()) {
+        if (reentrantLock.isHeldByCurrentThread)
             reentrantLock.unlock()
-        }
     }
 }

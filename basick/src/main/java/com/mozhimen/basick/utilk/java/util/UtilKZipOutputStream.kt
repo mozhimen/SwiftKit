@@ -27,11 +27,9 @@ object UtilKZipOutputStream : IUtilK {
     fun get(outputStream: OutputStream): ZipOutputStream =
         ZipOutputStream(outputStream)
 
-    /**
-     * 压缩
-     */
+    //压缩
     @JvmStatic
-    fun zipOutputStream2bufferedOutputStream(zipOutputStream: ZipOutputStream, bufferedOutputStream: BufferedOutputStream, fileSource: File, fileName: String) {
+    fun read_write_use(zipOutputStream: ZipOutputStream, bufferedOutputStream: BufferedOutputStream, fileSource: File, fileName: String) {
         try {
             if (UtilKFileWrapper.isFolder(fileSource)) {
                 val listFiles = fileSource.getFolderFiles()
@@ -41,7 +39,7 @@ object UtilKZipOutputStream : IUtilK {
                 } else
                     for (file in listFiles) {
                         val stringBuilder = StringBuilder().apply { append(fileName).append("/").append(file.name) }
-                        zipOutputStream2bufferedOutputStream(zipOutputStream, bufferedOutputStream, file, stringBuilder.toString())
+                        read_write_use(zipOutputStream, bufferedOutputStream, file, stringBuilder.toString())
                     }
             } else {
                 zipOutputStream.putNextEntry(ZipEntry(fileName))

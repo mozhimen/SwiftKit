@@ -13,7 +13,7 @@ import org.junit.Test
  * @Date 2023/7/19 19:36
  * @Version 1.0
  */
-class TestUtilKPattern {
+class TestUtilKMatcherWrapper {
     @Test
     fun test() {
         "TestUtilKPattern".strUnderline2strHump().printlog()

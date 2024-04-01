@@ -175,7 +175,7 @@ object UtilKFileWrapper : BaseUtilK(){
         if (!isFileExist(fileSource)) null
         else {
             val zipOutputStream = zipFile.file2fileOutputStream().outputStream2zipOutputStream()
-            UtilKZipOutputStream.zipOutputStream2bufferedOutputStream(zipOutputStream, zipOutputStream.outputStream2bufferedOutputStream(), fileSource, fileSource.name)
+            UtilKZipOutputStream.read_write_use(zipOutputStream, zipOutputStream.outputStream2bufferedOutputStream(), fileSource, fileSource.name)
             zipFile
         }
 
