@@ -40,6 +40,6 @@ object UtilKRunningAppProcessInfo : IUtilK {
      * 是否在主线程
      */
     @JvmStatic
-    fun isSelfProcessName(context: Context): Boolean =
+    fun isMainProcess(context: Context): Boolean =
         context.packageName == getProcessName(context)
 }

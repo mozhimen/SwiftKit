@@ -3,10 +3,8 @@ package com.mozhimen.basick.utilk.java.io
 import com.mozhimen.basick.elemk.cons.CPath
 import com.mozhimen.basick.utilk.android.os.UtilKProcess
 import com.mozhimen.basick.utilk.android.text.formatFileSize
-import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.kotlin.strFilePath2file
-import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
 import java.io.IOException
@@ -31,7 +29,7 @@ object UtilKFileReader : IUtilK {
     /////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun getCurrentProcessName(): String? =
+    fun getStrProcessName(): String? =
         try {
             readLine_use("/proc/${UtilKProcess.getMyPid()}/cmdline".strFilePath2file())?.trim { it <= ' ' }
         } catch (e: Exception) {

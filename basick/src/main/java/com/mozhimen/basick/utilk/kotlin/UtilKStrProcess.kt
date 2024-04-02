@@ -19,39 +19,39 @@ import java.lang.reflect.Method
  */
 object UtilKStrProcess : BaseUtilK() {
     @JvmStatic
-    fun getStrProcessNameCurrent(): String? {
-        var processName = getStrProcessNameCurrentOfApplication()
+    fun getStrProcessName_ofCurrent(): String? {
+        var processName = getStrProcessName_ofCurrent_ofApplication()
         if (!processName.isNullOrEmpty())
             return processName
-        processName = getStrProcessNameCurrentOfFile()
+        processName = getStrProcessName_ofCurrent_ofFileReader()
         if (!processName.isNullOrEmpty())
             return processName
-        processName = getStrProcessNameCurrentOfActivityManager()
+        processName = getStrProcessName_ofCurrent_ofActivityManager()
         if (!processName.isNullOrEmpty())
             return processName
-        processName = getStrProcessNameCurrentOfReflect()
+        processName = getStrProcessName_ofCurrent_ofReflect()
         if (!processName.isNullOrEmpty())
             return processName
-        return getStrProcessNameCurrentOfReflect2()
+        return getStrProcessName_ofCurrent_ofReflect2()
     }
 
     /**
      * 通过Application新的API获取进程名，无需反射，无需IPC，效率最高。
      */
     @JvmStatic
-    fun getStrProcessNameCurrentOfApplication(): String? =
+    fun getStrProcessName_ofCurrent_ofApplication(): String? =
         UtilKApplication.getProcessName()
 
     @JvmStatic
-    fun getStrProcessNameCurrentOfFile(): String? =
-        UtilKFileReader.getCurrentProcessName()
+    fun getStrProcessName_ofCurrent_ofFileReader(): String? =
+        UtilKFileReader.getStrProcessName()
 
     @JvmStatic
-    fun getStrProcessNameCurrentOfActivityManager(): String? =
+    fun getStrProcessName_ofCurrent_ofActivityManager(): String? =
         UtilKRunningAppProcessInfo.getProcessName(_context)
 
     @JvmStatic
-    fun getStrProcessNameCurrentOfReflect(): String? {
+    fun getStrProcessName_ofCurrent_ofReflect(): String? {
         try {
             val fieldMLoadedApk = UtilKApplicationWrapper.instance.get().javaClass.getField("mLoadedApk")
             fieldMLoadedApk.isAccessible = true
@@ -75,7 +75,7 @@ object UtilKStrProcess : BaseUtilK() {
      */
     @SuppressLint("DiscouragedPrivateApi", "PrivateApi")
     @JvmStatic
-    fun getStrProcessNameCurrentOfReflect2(): String? {
+    fun getStrProcessName_ofCurrent_ofReflect2(): String? {
         try {
             val methodCurrentProcessName: Method = Class.forName("android.app.ActivityThread", false, Application::class.java.classLoader).getDeclaredMethod("currentProcessName", *arrayOfNulls<Class<*>?>(0))
             methodCurrentProcessName.isAccessible = true
@@ -94,7 +94,7 @@ object UtilKStrProcess : BaseUtilK() {
      */
     @JvmStatic
     fun isMainProcess(mainProcessName: String): Boolean {
-        val currentProcessName = getStrProcessNameCurrent() ?: return true
+        val currentProcessName = getStrProcessName_ofCurrent() ?: return true
         return mainProcessName == currentProcessName
     }
 }
