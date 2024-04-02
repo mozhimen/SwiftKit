@@ -53,7 +53,7 @@ object UtilKMoshiWrapper {
 
     @Throws(Exception::class)
     @JvmStatic
-    inline fun <reified T> strJson2tMoshi_ofReified(strJson: String): T? =
+    inline fun <reified T> strJson2t_ofMoshi_ofReified(strJson: String): T? =
         UtilKMoshi.fromJson(moshiBuilder.adapter(T::class.java), strJson)
 
     @Throws(Exception::class)
