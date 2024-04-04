@@ -26,7 +26,7 @@ object UtilKViewGroupLayoutParams {
     fun applyMargin(view: View, @Px leftMargin: Int, @Px topMargin: Int, @Px rightMargin: Int, @Px bottomMargin: Int) {
         when (view.layoutParams) {
             is ViewGroup.MarginLayoutParams -> {
-                val layoutParams = view.layoutParams as FrameLayout.LayoutParams
+                val layoutParams = view.layoutParams as ViewGroup.MarginLayoutParams
                 layoutParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin)
                 view.layoutParams = layoutParams
             }
