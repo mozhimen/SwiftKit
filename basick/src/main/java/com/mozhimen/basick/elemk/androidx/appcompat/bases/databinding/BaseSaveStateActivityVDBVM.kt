@@ -16,17 +16,11 @@ import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKViewModel
  */
 abstract class BaseSaveStateActivityVDBVM<VB : ViewDataBinding, VM : ViewModel> : BaseSaveStateActivityVDB<VB>, IViewDataBinding<VB> {
 
-    protected var _factory: ViewModelProvider.Factory?
-
     /**
      * 针对Hilt(@JvmOverloads kotlin默认参数值无效)
      * @constructor
      */
-    constructor() : this(null)
-
-    constructor(factory: ViewModelProvider.Factory?){
-        _factory = factory
-    }
+    constructor() : super()
 
     //////////////////////////////////////////////////////////////////////////////
 
@@ -37,7 +31,7 @@ abstract class BaseSaveStateActivityVDBVM<VB : ViewDataBinding, VM : ViewModel> 
     @CallSuper
     override fun initLayout() {
         super.initLayout()
-        vm = UtilKViewModel.get(this, _factory/*, 1*/)
+        vm = UtilKViewModel.get(this, getViewModelProviderFactory()/*, 1*/)
         bindViewVM(vdb)
     }
 }

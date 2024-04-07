@@ -11,9 +11,7 @@ import com.mozhimen.basick.elemk.androidx.appcompat.commons.IFragment
 import com.mozhimen.basick.elemk.androidx.fragment.bases.BaseDialogFragment
 import com.mozhimen.basick.utilk.androidx.databinding.UtilKViewDataBinding
 
-open class BaseDialogFragmentVDB<VDB : ViewDataBinding>(
-    /*protected open var _factory: ViewModelProvider.Factory? = null*/
-) : BaseDialogFragment(), IActivity, IFragment {
+open class BaseDialogFragmentVDB<VDB : ViewDataBinding> : BaseDialogFragment(), IActivity, IFragment {
 
     private var _vdb: VDB? = null
     protected val vdb get() = _vdb!!

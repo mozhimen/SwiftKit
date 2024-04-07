@@ -1,6 +1,7 @@
 package com.mozhimen.basick.elemk.androidx.databinding.commons
 
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModelProvider
 
 /**
  * @ClassName IViewDataBinding
@@ -14,4 +15,6 @@ interface IViewDataBinding<VDB : ViewDataBinding> {
      * vdb.vm=vm
      */
     fun bindViewVM(vdb: VDB)
+
+    fun getViewModelProviderFactory(): ViewModelProvider.Factory? = null
 }

@@ -6,11 +6,10 @@ import com.mozhimen.basicktest.databinding.ActivityElemkVbvmBinding
 
 class ElemKVBVMActivity : BaseActivityVDBVM<ActivityElemkVbvmBinding, ElemKViewModel>() {
 
-    init {
-        _factory = SavedStateViewModelFactory(application, this)
-    }
-
     override fun bindViewVM(vb: ActivityElemkVbvmBinding) {
         vdb.elemkVbvm = vm
     }
+
+    override fun getViewModelProviderFactory() =
+    SavedStateViewModelFactory(application, this)
 }
