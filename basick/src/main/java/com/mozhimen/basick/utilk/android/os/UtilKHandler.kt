@@ -54,18 +54,8 @@ object UtilKHandler {
     /////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun postOnMain(block: I_Listener) {
-        postOnMain(block)
-    }
-
-    @JvmStatic
     fun postOnMain(runnable: Runnable) {
         TaskKHandler.post(runnable)
-    }
-
-    @JvmStatic
-    fun postDelayedOnMain(delayMillis: Long, block: I_Listener) {
-        postDelayedOnMain(delayMillis, block)
     }
 
     @JvmStatic
