@@ -20,56 +20,37 @@ fun <T> List<T>.ifNotEmptyOr(onNotEmpty: IA_Listener<List<T>>, onEmpty: I_Listen
     UtilKList.ifNotEmptyOr(this, onNotEmpty, onEmpty)
 }
 
-fun List<*>.list2str(): String =
+fun <T> List<T>.list2str(): String =
     UtilKList.list2str(this)
 
-fun <T> List<T>.joinList2str(defaultValue: String = "", splitStr: String = ","): String =
-    UtilKList.joinList2str(this, defaultValue, splitStr)
+///////////////////////////////////////////////////////////////////////////
 
 object UtilKList {
     @JvmStatic
     fun <T> ifNotEmpty(list: List<T>, block: IA_Listener<List<T>>) {
-        if (list.isNotEmpty()) {
+        if (list.isNotEmpty())
             block.invoke(list)
-        }
     }
 
     @JvmStatic
     fun <T> ifNotEmptyOr(list: List<T>, onNotEmpty: IA_Listener<List<T>>, onEmpty: I_Listener) {
-        if (list.isNotEmpty()) {
+        if (list.isNotEmpty())
             onNotEmpty.invoke(list)
-        } else
+        else
             onEmpty.invoke()
     }
 
-    /**
-     * list2Str
-     */
     @JvmStatic
-    fun list2str(list: List<*>): String {
-        if (list.isEmpty()) return "list is empty"
-        val stringBuilder = StringBuilder()
-        stringBuilder.append("\n").append("{\n ")
-        for (obj in list) {
-            if (obj is List<*>) stringBuilder.append(list2str(obj))
-            else stringBuilder.append(obj.toString()).append(" ,\n ")
-        }
-        stringBuilder.append("}")
-        return stringBuilder.toString()
-    }
-
-    /**
-     * 聚合list
-     */
-    @JvmStatic
-    fun <T> joinList2str(list: List<T>, defaultValue: String = "", splitChar: String = ","): String =
+    @JvmOverloads
+    fun <T> list2str(list: List<T>, defaultValue: String = "", splitChar: String = ","): String =
         if (UtilKBuildVersion.isAfterV_24_7_N()) {
-            val ret = list.stream().map { elem: T? -> elem?.toString() ?: "" }
-                .collect(Collectors.joining(splitChar))
-            ret.ifEmpty { defaultValue }
+            list.stream().map { elem: T? -> elem?.toString() ?: "" }.collect(Collectors.joining(splitChar)).ifEmpty { defaultValue }
         } else {
             val stringBuilder = StringBuilder()
-            for (obj in list) stringBuilder.append(obj?.toString() ?: "").append(splitChar)
-            if (stringBuilder.isNotEmpty()) stringBuilder.deleteAt(stringBuilder.length - 1).toString() else defaultValue
+            for (obj in list)
+                stringBuilder.append(obj?.toString() ?: "").append(splitChar)
+            if (stringBuilder.isNotEmpty())
+                stringBuilder.deleteAt(stringBuilder.length - 1).toString()
+            else defaultValue
         }
 }

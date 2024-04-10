@@ -23,9 +23,9 @@ class UtilKPackageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
         UtilKLogWrapper.d(TAG, "onCreate: isPackageInstalled ${UtilKPackage.isPackageInstalled(this,STR_PACKAGE_NAME)}")
-        UtilKLogWrapper.d(TAG, "onCreate: hasPackageOfQuery ${UtilKPackage.hasPackageOfQuery(this,STR_PACKAGE_NAME)}")
+        UtilKLogWrapper.d(TAG, "onCreate: hasPackageOfQuery ${UtilKPackage.hasPackage_ofQuery(this,STR_PACKAGE_NAME)}")
         UtilKLogWrapper.d(TAG, "onCreate: hasPackage ${UtilKPackage.hasPackage(this,STR_PACKAGE_NAME)}")
-        UtilKLogWrapper.d(TAG, "onCreate: hasPackageOfClazz ${UtilKPackage.hasPackageOfClazz("$STR_PACKAGE_NAME.MainActivity")}")
-        "${UtilKPackage.isPackageInstalled(this,STR_PACKAGE_NAME)} ${UtilKPackage.hasPackageOfQuery(this,STR_PACKAGE_NAME)} ${UtilKPackage.hasPackage(this,STR_PACKAGE_NAME)} ${UtilKPackage.hasPackageOfClazz("$STR_PACKAGE_NAME.MainActivity")}".showToast()
+        UtilKLogWrapper.d(TAG, "onCreate: hasPackageOfClazz ${UtilKPackage.hasPackage_ofClazz("$STR_PACKAGE_NAME.MainActivity")}")
+        "${UtilKPackage.isPackageInstalled(this,STR_PACKAGE_NAME)} ${UtilKPackage.hasPackage_ofQuery(this,STR_PACKAGE_NAME)} ${UtilKPackage.hasPackage(this,STR_PACKAGE_NAME)} ${UtilKPackage.hasPackage_ofClazz("$STR_PACKAGE_NAME.MainActivity")}".showToast()
     }
 }

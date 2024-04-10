@@ -1,14 +1,13 @@
 package com.mozhimen.basick.utilk.android.widget
 
 import android.text.Editable
-import android.text.InputFilter
 import android.widget.EditText
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.elemk.android.view.commons.ITextWatcher
 import com.mozhimen.basick.elemk.android.view.cons.CEditorInfo
 import com.mozhimen.basick.elemk.commons.IAB_Listener
 import com.mozhimen.basick.elemk.commons.I_Listener
-import com.mozhimen.basick.utilk.kotlin.obj2stringTrim
+import com.mozhimen.basick.utilk.kotlin.obj2str_trim
 import com.mozhimen.basick.utilk.kotlinx.coroutines.UtilKFlow.getSearchFlow
 import com.mozhimen.basick.utilk.kotlinx.coroutines.getEditTextChangeFlow
 import kotlinx.coroutines.CoroutineScope
@@ -78,7 +77,7 @@ object UtilKEditText {
     //获取text
     @JvmStatic
     fun getValue(editText: EditText): String =
-        getText(editText).obj2stringTrim()
+        getText(editText).obj2str_trim()
 
     //////////////////////////////////////////////////////////////////////////////////////////////
 

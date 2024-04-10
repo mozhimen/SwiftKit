@@ -10,7 +10,7 @@ import com.mozhimen.basick.utilk.android.net.UtilKWifiInfo
 import com.mozhimen.basick.utilk.android.net.UtilKWifiManager
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.kotlin.text.replaceRegexDoubleQuote
+import com.mozhimen.basick.utilk.kotlin.text.removeRegexDoubleQuote
 
 object UtilKWifi : BaseUtilK() {
 
@@ -44,12 +44,12 @@ object UtilKWifi : BaseUtilK() {
                     if (!configuredNetworks.isNullOrEmpty()) {
                         for (wifiConfiguration in configuredNetworks) {
                             if (wifiConfiguration.networkId == wifiInfo.networkId)
-                                return wifiConfiguration.SSID.replaceRegexDoubleQuote()
+                                return wifiConfiguration.SSID.removeRegexDoubleQuote()
                         }
                     }
                 } else CWifiManager.PERMISSION_DENIED
             } else CWifiManager.NO_CONNECT
             CWifiManager.UNKNOWN
-        } else wifiInfo.ssid.replaceRegexDoubleQuote()
+        } else wifiInfo.ssid.removeRegexDoubleQuote()
     }
 }

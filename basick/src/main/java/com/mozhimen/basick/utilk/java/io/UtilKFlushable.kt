@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.java.io
 
-import com.mozhimen.basick.utilk.kotlin.internal.UtilKPlatformImplementations
+import com.mozhimen.basick.utilk.kotlin.UtilKKotlinVersion
 import java.io.Closeable
 import java.io.Flushable
 import kotlin.contracts.ExperimentalContracts
@@ -48,7 +48,7 @@ object UtilKFlushable {
             throw e
         } finally {
             when {
-                UtilKPlatformImplementations.apiVersionIsAtLeast(1, 1, 0) -> t.flushCloseFinally(exception)
+                UtilKKotlinVersion.isAtLeast(1, 1, 0) -> t.flushCloseFinally(exception)
                 t == null -> {}
                 exception == null -> {
                     t.flush()

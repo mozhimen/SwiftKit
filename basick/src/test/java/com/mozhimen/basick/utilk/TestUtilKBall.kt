@@ -14,6 +14,6 @@ import org.junit.Test
 class TestUtilKBall {
     @Test
     fun distance() {
-        UtilKMathBall.distance(31.250101, 0.0,31.150101, 0.0).printlog()
+        UtilKMathBall.getDistance(31.250101, 0.0,31.150101, 0.0).printlog()
     }
 }

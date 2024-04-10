@@ -47,12 +47,12 @@ class TaskKExecutorActivity : BaseActivityVDB<ActivityTaskkExecutorBinding>() {
         vdb.taskkExecutorBtnAsync.setOnClickListener {
             TaskKExecutor.execute(TAG, runnable = object : TaskKExecutor.ExecutorKCallable<String>() {
                 override fun onBackground(): String {
-                    UtilKLogWrapper.e(TAG, "onBackground: 当前线程: ${UtilKThread.getCur()}")
+                    UtilKLogWrapper.e(TAG, "onBackground: 当前线程: ${UtilKThread.get_ofCur()}")
                     return "我是异步任务的结果"
                 }
 
                 override fun onCompleted(t: String?) {
-                    UtilKLogWrapper.e(TAG, "onCompleted: 当前线程是: ${UtilKThread.getCurName()}")
+                    UtilKLogWrapper.e(TAG, "onCompleted: 当前线程是: ${UtilKThread.getName_ofCur()}")
                     UtilKLogWrapper.e(TAG, "onCompleted: 任务结果是: $t")
                 }
             })

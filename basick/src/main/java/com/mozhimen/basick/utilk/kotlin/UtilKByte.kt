@@ -13,7 +13,7 @@ fun Byte.byte2strHex(): String =
     UtilKByte.byte2strHex(this)
 
 fun Byte.byte2strHex_ofHexString(): String =
-    UtilKByte.byte2strHex(this)
+    UtilKByte.byte2strHex_ofHexString(this)
 
 fun Byte.byte2int(): Int =
     UtilKByte.byte2int(this)
@@ -39,5 +39,8 @@ object UtilKByte {
 
     @JvmStatic
     fun byte2int(byte: Byte): Int =
-        if (byte <= '9'.toByte()) byte - '0'.toByte() else byte - 'a'.toByte() + 10
+        if (byte <= '9'.toByte())
+            byte - '0'.toByte()
+        else
+            byte - 'a'.toByte() + 10
 }

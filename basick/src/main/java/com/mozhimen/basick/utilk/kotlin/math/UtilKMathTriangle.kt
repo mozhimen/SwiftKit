@@ -44,7 +44,6 @@ object UtilKMathTriangle {
     fun angleSin(opposite: Float, hypotenuse: Float): Float =
         Math.toDegrees(asin(opposite / hypotenuse).toDouble()).toFloat()
 
-
     @JvmStatic
     fun getOppositeLength(hypotenuse: Double, angle: Double): Double =
         sin(2.0 * Math.PI / 360.0 * angle) * hypotenuse

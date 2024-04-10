@@ -7,22 +7,24 @@ package com.mozhimen.basick.utilk.kotlin.collections
  * @Date 2023/8/2 16:15
  * @Version 1.0
  */
-fun Map<*, *>.map2str(): String =
+fun <K, V> Map<K, V>.map2str(): String =
     UtilKMap.map2str(this)
+
+////////////////////////////////////////////////////////////////////////
 
 object UtilKMap {
     @JvmStatic
-    fun map2str(map: Map<*, *>): String {
-        if (map.isEmpty()) return "map is empty"
+    fun <K, V> map2str(map: Map<K, V>, defaultValue: String = "", splitChar: String = ",",splitCharKV: String = ":"): String {
+        if (map.isEmpty()) return defaultValue
         val stringBuilder = StringBuilder()
-        stringBuilder.append("\n").append("{").append("\n").append("\t")
         val iterator: Iterator<*> = map.entries.iterator()
         while (iterator.hasNext()) {
             val (key, value) = iterator.next() as Map.Entry<*, *>
-            stringBuilder.append(String.format("\t%1\$s : %2\$s", key.toString(), value.toString()))
+            stringBuilder.append("$key $splitCharKV $value").append(splitChar)
             stringBuilder.append("\n")
         }
-        stringBuilder.append("}")
+        if (stringBuilder.isNotEmpty())
+            stringBuilder.deleteAt(stringBuilder.length - 1).toString()
         return stringBuilder.toString()
     }
 }

@@ -39,13 +39,10 @@ fun Any.isObjTypeMatch(vararg matches: Class<*>): Boolean =
 
 object UtilKAny : IUtilK {
 
-    /**
-     * 获取类型名称
-     */
+    //获取类型名称
     @JvmStatic
-    fun getObjTypeName(obj: Any): String {
-        return obj.javaClass.simpleName
-    }
+    fun getObjTypeName(obj: Any): String =
+        obj.javaClass.simpleName
 
     /////////////////////////////////////////////////////////////////////
 
@@ -92,9 +89,7 @@ object UtilKAny : IUtilK {
         return false
     }
 
-    /**
-     * 判断数据类型是否是原始数据类型
-     */
+    //判断数据类型是否是原始数据类型
     @JvmStatic
     fun isObjPrimitive(obj: Any): Boolean {
         //String
@@ -114,13 +109,11 @@ object UtilKAny : IUtilK {
         return false
     }
 
-    /**
-     * 判断类型是否匹配
-     */
+    //判断类型是否匹配
     @JvmStatic
-    fun isObjTypeMatch(obj: Any, vararg matches: Class<*>): Boolean {
+    fun isObjTypeMatch(obj: Any, vararg clazz: Class<*>): Boolean {
         try {
-            return matches.any { obj.javaClass == it || obj.javaClass.superclass == it }
+            return clazz.any { obj.javaClass == it || obj.javaClass.superclass == it }
         } catch (e: IllegalAccessException) {
             e.printStackTrace()
         } catch (e: NoSuchFieldException) {

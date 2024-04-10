@@ -2,10 +2,8 @@ package com.mozhimen.basick.utilk.android.widget
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
-import android.text.InputFilter
 import android.text.TextUtils
 import android.view.Gravity
 import android.widget.TextView
@@ -16,7 +14,7 @@ import com.mozhimen.basick.elemk.android.view.cons.CGravity
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.text.UtilKInputFilter
-import com.mozhimen.basick.utilk.kotlin.obj2stringTrim
+import com.mozhimen.basick.utilk.kotlin.obj2str_trim
 import com.mozhimen.basick.utilk.kotlin.whether
 
 /**
@@ -102,7 +100,7 @@ object UtilKTextViewWrapper {
 
     @JvmStatic
     fun getValue(textView: TextView): String =
-        textView.text.obj2stringTrim()
+        textView.text.obj2str_trim()
 
     @JvmStatic
     fun getValueIfNotEmpty(textView: TextView, invoke: IA_Listener<String>/*(value: String) -> Unit*/) {

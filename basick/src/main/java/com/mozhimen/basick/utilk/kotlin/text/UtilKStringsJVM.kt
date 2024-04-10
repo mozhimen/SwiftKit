@@ -50,6 +50,8 @@ object UtilKStringsJVM {
     fun replaceDot(str: String): String =
         str.replace(",", ".")
 
+    ///////////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun removeLineBreakStr(str: String): String =
         str.replace(CMsg.LINE_BREAK_STR, "")
@@ -75,6 +77,8 @@ object UtilKStringsJVM {
     @JvmStatic
     fun removeStart_ofSeparator(str: String): String =
         if (str.startsWith("/")) str.substring(1) else str
+
+    ///////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun addStart_of0(str: String): String =

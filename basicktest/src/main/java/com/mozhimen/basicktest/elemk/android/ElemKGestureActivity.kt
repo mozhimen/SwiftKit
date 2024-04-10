@@ -6,7 +6,6 @@ import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivi
 import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.basick.elemk.android.view.DragAndDropProxy
 import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
-import com.mozhimen.basick.utilk.android.view.UtilKViewDrag
 import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityElemkGestureBinding
 
@@ -76,7 +75,7 @@ class ElemKGestureActivity : BaseActivityVDB<ActivityElemkGestureBinding>() {
     }
 
     override fun onPause() {
-        UtilKViewDrag.fixDragLeak(findViewById(R.id.elemk_gesture_fragment_container))
+        com.mozhimen.basick.utilk.android.view.UtilKViewLeak.fixLeak_ofDragChild(findViewById(R.id.elemk_gesture_fragment_container))
         super.onPause()
     }
 }

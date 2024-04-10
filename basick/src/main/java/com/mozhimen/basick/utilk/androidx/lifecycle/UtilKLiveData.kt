@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.androidx.lifecycle
 
 import androidx.lifecycle.LiveData
-import com.mozhimen.basick.utilk.kotlin.obj2stringTrim
+import com.mozhimen.basick.utilk.kotlin.obj2str_trim
 
 /**
  * @ClassName UtilKLiveData
@@ -16,5 +16,5 @@ fun LiveData<String>.liveValue2stringTrim() =
 object UtilKLiveData {
     @JvmStatic
     fun liveValue2stringTrim(liveData: LiveData<String>): String =
-        liveData.value?.obj2stringTrim() ?: ""
+        liveData.value?.obj2str_trim() ?: ""
 }

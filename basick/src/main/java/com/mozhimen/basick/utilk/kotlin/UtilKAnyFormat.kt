@@ -34,14 +34,16 @@ fun Any.obj2intColor(): Int =
 fun Any.obj2str(): String =
     UtilKAnyFormat.obj2str(this)
 
-fun Any.obj2stringTrim(): String =
-    UtilKAnyFormat.obj2stringTrim(this)
+fun Any.obj2str_trim(): String =
+    UtilKAnyFormat.obj2str_trim(this)
 
 fun Any.obj2clazz(): Class<*> =
     UtilKAnyFormat.obj2clazz(this)
 
 fun Any.obj2bytes(): ByteArray? =
     UtilKAnyFormat.obj2bytes(this)
+
+//////////////////////////////////////////////////////////////////
 
 object UtilKAnyFormat {
     @JvmStatic
@@ -71,7 +73,7 @@ object UtilKAnyFormat {
         }
 
     @JvmStatic
-    fun obj2stringTrim(obj: Any): String =
+    fun obj2str_trim(obj: Any): String =
         obj.toString().trim()
 
     @JvmStatic
@@ -90,10 +92,9 @@ object UtilKAnyFormat {
 
     @JvmStatic
     fun obj2bytes(obj: Any): ByteArray? {
-        var byteArrayOutputStream: ByteArrayOutputStream? = null
         var objectOutputStream: ObjectOutputStream? = null
         try {
-            byteArrayOutputStream = ByteArrayOutputStream()
+            val byteArrayOutputStream = ByteArrayOutputStream()
             objectOutputStream = ObjectOutputStream(byteArrayOutputStream)
             objectOutputStream.writeObject(obj)
             return byteArrayOutputStream.byteArrayOutputStream2bytes_use()
@@ -101,7 +102,6 @@ object UtilKAnyFormat {
             e.printStackTrace()
             e.message?.e(UtilKAny.TAG)
         } finally {
-            byteArrayOutputStream?.flushClose()
             objectOutputStream?.flushClose()
         }
         return null

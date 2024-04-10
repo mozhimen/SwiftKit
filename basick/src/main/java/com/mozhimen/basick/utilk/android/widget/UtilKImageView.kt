@@ -1,14 +1,21 @@
 package com.mozhimen.basick.utilk.android.widget
 
+import android.graphics.Outline
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
+import android.view.View
 import android.view.ViewGroup
+import android.view.ViewOutlineProvider
 import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import androidx.annotation.FloatRange
+import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.graphics.cons.CGradientDrawable
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.utilk.android.graphics.UtilKGradientDrawable
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.kotlin.get_ofAlpha
 import com.mozhimen.basick.utilk.kotlin.get_ofContrast
 
@@ -77,6 +84,35 @@ object UtilKImageView {
             intColorBorder,
             2
         )
+    }
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
+    fun applyRoundRect_ofOutline(imageView: ImageView, @FloatRange(from = 0.0, to = 1.0) alpha: Float, radius: Float) {
+        imageView.apply {
+            clipToOutline = true
+            outlineProvider = object : ViewOutlineProvider() {
+                override fun getOutline(view: View?, outline: Outline?) {
+                    view ?: return
+                    outline?.apply {
+                        this.alpha = alpha
+                        setRoundRect(0, 0, view.width, view.height, radius)
+                    }
+                }
+            }
+        }
+    }
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
+    fun applyShadow(imageView: ImageView, elevation: Float, @ColorInt outlineAmbientShadowColor: Int, @ColorInt outlineSpotShadowColor: Int) {
+        imageView.apply {
+            setElevation(elevation)
+            if (UtilKBuildVersion.isAfterV_28_9_P()) {
+                this.outlineAmbientShadowColor = outlineAmbientShadowColor
+                this.outlineSpotShadowColor = outlineSpotShadowColor
+            }
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////

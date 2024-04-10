@@ -27,7 +27,7 @@ import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import com.mozhimen.basick.utilk.kotlin.getStrFolderPath
 import com.mozhimen.basick.utilk.kotlin.isFileExist
 import com.mozhimen.basick.utilk.kotlin.strUri2uri
-import com.mozhimen.basick.utilk.kotlin.text.isStrDigits2
+import com.mozhimen.basick.utilk.kotlin.text.matches_ofStrDigits2
 import java.io.File
 import java.io.InputStream
 import kotlin.math.ceil
@@ -121,7 +121,7 @@ object UtilKUriFormat : BaseUtilK() {
 
             when {
                 uri.isAuthorityDownloadsDocument() -> {
-                    if (documentId.isStrDigits2())
+                    if (documentId.matches_ofStrDigits2())
                         return "content://downloads/public_downloads".strUri2uri().withAppendedId(documentId.toLong()).getMediaColumns()
                 }
 
