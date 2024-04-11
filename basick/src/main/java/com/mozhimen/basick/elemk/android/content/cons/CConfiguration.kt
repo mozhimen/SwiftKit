@@ -8,7 +8,6 @@ import com.mozhimen.basick.elemk.android.os.cons.CVersCode
  * @ClassName CConfig
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/6/30 16:31
  * @Version 1.0
  */
 object CConfiguration {

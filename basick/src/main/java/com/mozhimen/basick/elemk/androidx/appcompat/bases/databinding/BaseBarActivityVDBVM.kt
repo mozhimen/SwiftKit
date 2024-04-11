@@ -11,7 +11,6 @@ import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKViewModel
  * @ClassName BaseBarActivityVBVM
  * @Description TODO
  * @Author Mozhimen / Kolin Zhao
- * @Date 2023/12/24 15:40
  * @Version 1.0
  */
 abstract class BaseBarActivityVDBVM<VDB : ViewDataBinding, VM : ViewModel> : BaseBarActivityVDB<VDB>, IViewDataBinding<VDB> {

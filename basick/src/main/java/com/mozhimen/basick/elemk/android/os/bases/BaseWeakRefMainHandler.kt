@@ -7,7 +7,6 @@ import java.lang.ref.WeakReference
  * @ClassName UtilKHandler
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
- * @Date 2022/2/27 17:56
  * @Version 1.0
  */
 open class BaseWeakRefMainHandler<T>(obj: T) : BaseWeakRefHandler<T>(WeakReference(obj), Looper.getMainLooper())

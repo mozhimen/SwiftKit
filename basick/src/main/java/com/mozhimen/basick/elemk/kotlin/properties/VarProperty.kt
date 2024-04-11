@@ -7,7 +7,6 @@ import kotlin.reflect.KProperty
  * @ClassName PropertyDelegate
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/3/13 15:07
  * @Version 1.0
  */
 open class VarProperty<T>(default: T) : ReadWriteProperty<Any?, T> {

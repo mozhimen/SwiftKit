@@ -19,7 +19,6 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
  * @ClassName SenseKNetConnSimpleProxy
  * @Description TODO
  * @Author Mozhimen & Kolin
- * @Date 2023/4/25 11:51
  * @Version 1.0
  */
 @OPermission_ACCESS_NETWORK_STATE

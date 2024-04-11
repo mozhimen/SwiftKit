@@ -8,7 +8,6 @@ import com.mozhimen.basick.utilk.commons.IUtilK
  * @ClassName IAnimatorType
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
- * @Date 2022/11/26 17:31
  * @Version 1.0
  */
 interface IAnimatorType : IUtilK {

@@ -6,7 +6,6 @@ import android.content.Intent
  * @ClassName CIntent
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/8/3 15:15
  * @Version 1.0
  */
 object CIntent {

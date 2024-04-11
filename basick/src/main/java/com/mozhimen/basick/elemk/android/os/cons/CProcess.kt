@@ -5,7 +5,6 @@ import android.os.Process
  * @ClassName CProcess
  * @Description TODO
  * @Author Mozhimen
- * @Date 2023/11/9 11:59
  * @Version 1.0
  */
 object CProcess {

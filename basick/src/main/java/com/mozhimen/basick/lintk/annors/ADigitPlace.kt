@@ -6,7 +6,6 @@ import androidx.annotation.IntDef
  * @ClassName ADigitPlace
  * @Description TODO
  * @Author Mozhimen / Kolin Zhao
- * @Date 2023/9/12 15:57
  * @Version 1.0
  */
 @IntDef(

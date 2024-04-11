@@ -10,7 +10,6 @@ import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
  * @ClassName RotateRecyclerType
  * @Description 不断旋转
  * @Author mozhimen / Kolin Zhao
- * @Date 2022/11/20 15:50
  * @Version 1.0
  */
 class AnimKRotationRecyclerType : AnimKRotationType() {

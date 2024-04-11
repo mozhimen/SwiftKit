@@ -6,7 +6,6 @@ import android.app.DownloadManager
  * @ClassName CDownloadManager
  * @Description TODO
  * @Author Mozhimen / Kolin Zhao
- * @Date 2023/9/18 14:57
  * @Version 1.0
  */
 object CDownloadManager {

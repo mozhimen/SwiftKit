@@ -8,7 +8,6 @@ import io.reactivex.disposables.Disposable
  * @ClassName ObserverCallback
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2022/11/14 11:53
  * @Version 1.0
  */
 interface IObserver<T : Any> : Observer<T> {

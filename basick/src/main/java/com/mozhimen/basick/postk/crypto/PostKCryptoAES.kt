@@ -8,7 +8,6 @@ import com.mozhimen.basick.postk.crypto.mos.MCryptoAESConfig
  * @ClassName UtilKEncryptAES
  * @Description  AESUtil.with("xxx","xxx").encrypt("xxx")
  * @Author Kolin Zhao
- * @Date 2021/10/14 15:13
  * @Version 1.0
  */
 object PostKCryptoAES : ICrypto<MCryptoAESConfig, CryptoAESProvider> {

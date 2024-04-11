@@ -9,7 +9,6 @@ import android.os.Bundle
  * @ClassName LocationCallback
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/8/15 16:19
  * @Version 1.0
  */
 interface ILocationListener : LocationListener {

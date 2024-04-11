@@ -13,7 +13,6 @@ import com.mozhimen.basick.utilk.kotlin.UtilKT
  * @ClassName CacheK
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
- * @Date 2021/12/20 14:50
  * @Version 1.0
  */
 object CacheKRM : BaseUtilK(), ICacheKProvider {

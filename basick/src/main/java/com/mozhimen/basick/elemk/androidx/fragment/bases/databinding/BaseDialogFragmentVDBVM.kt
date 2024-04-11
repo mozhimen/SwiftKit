@@ -13,7 +13,6 @@ import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKViewModel
  * @ClassName BaseDialogFragmentVBVM
  * @Description 这里的VM是和Activity共享的VM,私有可以通过代理的方式引入
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/2/17 13:06
  * @Version 1.0
  */
 abstract class BaseDialogFragmentVDBVM<VB : ViewDataBinding, VM : BaseViewModel> : BaseDialogFragmentVDB<VB>, IActivity, IViewDataBinding<VB> {

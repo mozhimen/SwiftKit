@@ -11,7 +11,6 @@ import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
  * @ClassName ScaleRecyclerType
  * @Description 开始扩大然后缩小.像波浪一样
  * @Author mozhimen / Kolin Zhao
- * @Date 2022/11/20 16:42
  * @Version 1.0
  */
 class AnimKScaleRecyclerType : AnimKScaleType() {

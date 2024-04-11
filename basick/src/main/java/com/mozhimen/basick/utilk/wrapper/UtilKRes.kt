@@ -30,7 +30,6 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
  * @ClassName UtilKRes
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
- * @Date 2021/12/25 16:56
  * @Version 1.0
  */
 fun Context.gainString(@StringRes intResStr: Int): String =

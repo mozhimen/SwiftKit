@@ -10,7 +10,6 @@ import javax.net.ssl.SSLSession
  * @ClassName BaseHostnameVerifier
  * @Description TODO
  * @Author Mozhimen / Kolin Zhao
- * @Date 2023/10/28 16:34
  * @Version 1.0
  */
 class BaseHostnameVerifier: HostnameVerifier , IUtilK {

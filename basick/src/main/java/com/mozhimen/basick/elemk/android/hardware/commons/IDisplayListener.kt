@@ -6,7 +6,6 @@ import android.hardware.display.DisplayManager.DisplayListener
  * @ClassName IDisplayListener
  * @Description TODO
  * @Author Mozhimen / Kolin Zhao
- * @Date 2023/9/8 17:55
  * @Version 1.0
  */
 interface IDisplayListener : DisplayListener {

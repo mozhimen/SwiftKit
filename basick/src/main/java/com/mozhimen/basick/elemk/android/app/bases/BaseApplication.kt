@@ -11,7 +11,6 @@ import com.mozhimen.basick.utilk.commons.IUtilK
  * @ClassName BaseApplication
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
- * @Date 2022/2/27 13:00
  * @Version 1.0
  */
 @OApiMultiDex_InApplication

@@ -11,7 +11,6 @@ import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKViewModel
  * @ClassName BaseSaveStateActivityVBVM
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/9/26 15:18
  * @Version 1.0
  */
 abstract class BaseSaveStateActivityVDBVM<VB : ViewDataBinding, VM : ViewModel> : BaseSaveStateActivityVDB<VB>, IViewDataBinding<VB> {

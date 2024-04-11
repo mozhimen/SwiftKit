@@ -6,7 +6,6 @@ import android.provider.MediaStore
  * @ClassName MediaStore
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/8/3 17:22
  * @Version 1.0
  */
 object CMediaStore {

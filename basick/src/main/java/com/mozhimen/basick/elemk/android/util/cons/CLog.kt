@@ -7,7 +7,6 @@ import android.util.Log
  * @ClassName CLogType
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2022/10/31 13:29
  * @Version 1.0
  */
 object CLog {

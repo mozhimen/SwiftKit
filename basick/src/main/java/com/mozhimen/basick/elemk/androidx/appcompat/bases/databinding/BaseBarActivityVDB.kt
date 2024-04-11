@@ -10,7 +10,6 @@ import com.mozhimen.basick.utilk.androidx.databinding.UtilKViewDataBinding
  * @ClassName BaseBarActivityVB
  * @Description TODO
  * @Author Mozhimen / Kolin Zhao
- * @Date 2023/12/24 15:26
  * @Version 1.0
  */
 abstract class BaseBarActivityVDB<VDB : ViewDataBinding> : BaseBarActivity() {

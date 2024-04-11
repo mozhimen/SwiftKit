@@ -9,7 +9,6 @@ import com.mozhimen.basick.elemk.android.os.cons.CVersCode
  * @ClassName CSettings
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/8/3 10:48
  * @Version 1.0
  */
 object CSettings {

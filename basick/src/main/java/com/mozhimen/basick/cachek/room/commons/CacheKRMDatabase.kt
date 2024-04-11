@@ -10,7 +10,6 @@ import com.mozhimen.basick.utilk.android.app.UtilKApplicationWrapper
  * @ClassName CacheDatabase
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
- * @Date 2021/12/20 14:59
  * @Version 1.0
  */
 @Database(entities = [MCacheKRM::class], version = 1, exportSchema = false)

@@ -14,7 +14,6 @@ import com.mozhimen.basick.utilk.android.view.applyVisibleIfElseGone
  * @ClassName BarTintManager
  * @Description TODO
  * @Author mozhimen
- * @Date 2021/4/14 17:14
  * @Version 1.0
  */
 class ColorfulStatusBar(private val _activity: Activity) {

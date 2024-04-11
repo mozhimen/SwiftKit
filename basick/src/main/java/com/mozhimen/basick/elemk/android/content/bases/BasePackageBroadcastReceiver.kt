@@ -37,7 +37,6 @@ android:exported="true">
 </receiver>
 
  * @Author Kolin Zhao / Mozhimen
- * @Date 2022/6/13 12:04
  * @Version 1.0
  */
 @OApiTarget_AtV_25_71_N1

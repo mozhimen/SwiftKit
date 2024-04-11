@@ -22,7 +22,6 @@ import com.mozhimen.basick.utilk.android.view.UtilKWindowWrapper
  * @ClassName ScreenUtil
  * @Description TODO
  * @Author mozhimen
- * @Date 2021/4/21 9:16
  * @Version 1.0
  */
 object UtilKScreen : BaseUtilK() {

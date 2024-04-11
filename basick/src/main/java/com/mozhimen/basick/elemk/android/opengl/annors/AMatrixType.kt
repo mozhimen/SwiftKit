@@ -6,7 +6,6 @@ import androidx.annotation.IntDef
  * @ClassName AMatrixType
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/7/31 16:06
  * @Version 1.0
  */
 @IntDef(value = [AMatrixType.MATRIX_FIT_XY, AMatrixType.MATRIX_CENTER_CROP, AMatrixType.MATRIX_CENTER_IN_SIDE, AMatrixType.MATRIX_FIT_START, AMatrixType.MATRIX_FIT_END])

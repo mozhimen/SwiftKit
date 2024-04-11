@@ -12,7 +12,6 @@ import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
  * @ClassName EventKHandler
  * @Description 在onPause之前都醒(保持运行)的Handler, 一般用于View
  * @Author mozhimen / Kolin Zhao
- * @Date 2022/6/12 11:34
  * @Version 1.0
  */
 @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)

@@ -8,7 +8,6 @@ import com.mozhimen.basick.elemk.android.os.cons.CVersCode
  * @ClassName CPackageManager
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/8/3 17:35
  * @Version 1.0
  */
 object CPackageManager {
