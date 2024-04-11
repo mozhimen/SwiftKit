@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.kotlin
 
-import com.mozhimen.basick.utilk.kotlin.collections.UtilKList
+import com.mozhimen.basick.utilk.kotlin.collections.UtilKCollections
 
 /**
  * @ClassName UtilKArray
@@ -18,5 +18,5 @@ object UtilKArray {
     //聚合array
     @JvmStatic
     fun <T> array2str(array: Array<T>, defaultValue: String = "", splitChar: String = ","): String =
-        UtilKList.list2str(array.toList(), defaultValue, splitChar)
+        UtilKCollections.list2str(array.toList(), defaultValue, splitChar)
 }

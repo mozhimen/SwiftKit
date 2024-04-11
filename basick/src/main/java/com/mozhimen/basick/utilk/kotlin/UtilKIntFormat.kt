@@ -29,11 +29,11 @@ fun Int.intByte2strByte(): String =
 fun Int.intImageFormat2strImageFormat(): String =
     UtilKIntFormat.intImageFormat2strImageFormat(this)
 
-fun Int.intLogPriority2strLog_ofSimple(): String =
-    UtilKIntFormat.intLogPriority2strLog_ofSimple(this)
+fun Int.intLogPriority2strLogPriority_ofSimple(): String =
+    UtilKIntFormat.intLogPriority2strLogPriority_ofSimple(this)
 
-fun Int.intLogPriority2strLog(): String =
-    UtilKIntFormat.intLogPriority2strLog(this)
+fun Int.intLogPriority2strLogPriority(): String =
+    UtilKIntFormat.intLogPriority2strLogPriority(this)
 
 ///////////////////////////////////////////////////////////////////////
 
@@ -86,7 +86,7 @@ object UtilKIntFormat {
         }
 
     @JvmStatic
-    fun intLogPriority2strLog_ofSimple(@ALog priority: Int): String =
+    fun intLogPriority2strLogPriority_ofSimple(@ALog priority: Int): String =
         when (priority) {
             CLog.VERBOSE -> "V"
             CLog.DEBUG -> "D"
@@ -98,7 +98,7 @@ object UtilKIntFormat {
         }
 
     @JvmStatic
-    fun intLogPriority2strLog(@ALog priority: Int): String =
+    fun intLogPriority2strLogPriority(@ALog priority: Int): String =
         when (priority) {
             CLog.VERBOSE -> "VERBOSE"
             CLog.DEBUG -> "DEBUG"

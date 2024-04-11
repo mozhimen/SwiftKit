@@ -1,7 +1,6 @@
 package com.mozhimen.basick.utilk.java.text
 
-import com.mozhimen.basick.utilk.kotlin.text.addStart_of0
-import com.mozhimen.basick.utilk.kotlin.text.replaceDot
+import com.mozhimen.basick.utilk.kotlin.text.addStart_of0_ofDot
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
@@ -82,15 +81,15 @@ object UtilKDecimalFormat {
 
     @JvmStatic
     fun getStrDecimal(obj: Any, bit: Int, locale: Locale?): String =
-        get_ofBit(bit, locale).format(obj).addStart_of0()
+        get_ofBit(bit, locale).format(obj).addStart_of0_ofDot()
 
     @JvmStatic
     fun getDoubleDecimal(obj: Any, bit: Int, locale: Locale?): Double =
-        get_ofBit(bit, locale).format(obj).addStart_of0().toDouble()
+        get_ofBit(bit, locale).format(obj).addStart_of0_ofDot().toDouble()
 
     @JvmStatic
     fun getFloatDecimal(obj: Any, bit: Int, locale: Locale?): Float =
-        get_ofBit(bit, locale).format(obj).addStart_of0().toFloat()
+        get_ofBit(bit, locale).format(obj).addStart_of0_ofDot().toFloat()
 
     //////////////////////////////////////////////////////////////////////
 

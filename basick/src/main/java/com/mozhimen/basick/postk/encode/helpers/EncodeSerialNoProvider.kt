@@ -2,7 +2,7 @@ package com.mozhimen.basick.postk.encode.helpers
 
 import com.mozhimen.basick.cachek.room.CacheKRM
 import com.mozhimen.basick.postk.encode.commons.IEncodeProvider
-import com.mozhimen.basick.utilk.kotlin.UtilKNumber
+import com.mozhimen.basick.utilk.kotlin.text.UtilKStringsJVM
 import java.util.Calendar
 import java.util.GregorianCalendar
 import java.util.concurrent.atomic.AtomicLong
@@ -43,7 +43,7 @@ class EncodeSerialNoProvider(private val _encodeName: String) : IEncodeProvider 
     fun getCodeOfSix(nowNum: Long): String {
         //封装的数字对象，里面 value 加了 volatile关键字，保证了线程安全
         val count = AtomicLong(nowNum)
-        return UtilKNumber.complement_of0(count.get(), 6)
+        return UtilKStringsJVM.fillStart_of0(count.get(), 6)
     }
 
     /**

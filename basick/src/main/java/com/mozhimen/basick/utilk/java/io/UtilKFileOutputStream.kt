@@ -1,7 +1,6 @@
 package com.mozhimen.basick.utilk.java.io
 
 import com.mozhimen.basick.utilk.commons.IUtilK
-import com.mozhimen.basick.utilk.kotlin.appendStrLineBreak
 import com.mozhimen.basick.utilk.kotlin.str2bytes
 import java.io.File
 import java.io.FileOutputStream
