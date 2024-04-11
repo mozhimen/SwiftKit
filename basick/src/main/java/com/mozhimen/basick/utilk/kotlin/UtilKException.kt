@@ -12,13 +12,18 @@ import com.mozhimen.basick.elemk.android.os.cons.CBuild
 fun Exception.getStrMessage(): String =
     UtilKException.getStrMessage(this)
 
+/////////////////////////////////////////////////////////////////////////
+
 object UtilKException {
     @JvmStatic
+    fun getMessage(exception: Exception): String? =
+        exception.message
+
+    @JvmStatic
     fun getStrMessage(exception: Exception): String {
-        val message = exception.message
-        if (message.isNullOrEmpty()) {
+        val message = getMessage(exception)
+        if (message.isNullOrEmpty())
             return CBuild.UNKNOWN
-        }
         return message
     }
 }

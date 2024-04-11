@@ -37,6 +37,44 @@ fun ByteArray.bytesNv212fileJpeg2(strFilePathName: String, width: Int, height: I
 ////////////////////////////////////////////////////////////////////////////
 
 object UtilKByteArrayImage : IUtilK {
+    /**
+     * 裁剪nv21Bytes
+     * @param bytesNv21 ByteArray 原始数据
+     * @param width Int 原始图像的width
+     * @param height Int 原始图像height
+     * @param cropX Int 裁剪区域左上角的x
+     * @param cropY Int 裁剪区域左上角的y
+     * @param cropWidth Int 裁剪的宽度
+     * @param cropHeight Int 裁剪的高度
+     * @return ByteArray 裁剪后的图像数据
+     */
+    @JvmStatic
+    fun applyClipNv21Bytes(bytesNv21: ByteArray, width: Int, height: Int, cropX: Int, cropY: Int, cropWidth: Int, cropHeight: Int): ByteArray {
+        // 目标区域取偶(YUV420SP要求图像高度是偶数)
+        var left = cropX
+        var top = cropY
+//        val begin = System.nanoTime()
+        if (left % 2 == 1)
+            left--
+        if (top % 2 == 1)
+            top--
+        val bottom = top + cropHeight
+        // 裁剪后的占用的大小
+        val size = cropWidth * cropHeight * 3 / 2
+        val data = ByteArray(size)
+        // 按照YUV420SP格式，复制Y
+        for (i in top until bottom)
+            System.arraycopy(bytesNv21, left + i * width, data, (i - top) * cropWidth, cropWidth)
+        // 按照YUV420SP格式，复制UV
+        val startH = height + top / 2
+        val endH = height + bottom / 2
+        for (i in startH until endH)
+            System.arraycopy(bytesNv21, left + i * width, data, (i - startH + cropHeight) * cropWidth, cropWidth)
+//        val end = System.nanoTime()
+        return data
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun bytesYuv4202bytesYuv420sp(bytesY: ByteArray, bytesU: ByteArray, bytesV: ByteArray, bytesNV21: ByteArray, stride: Int, height: Int) {
@@ -95,42 +133,5 @@ object UtilKByteArrayImage : IUtilK {
     fun bytesNv212fileJpeg2(bytesNv21: ByteArray, strFilePathName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
         bytesNv212bitmapJpeg(bytesNv21, width, height, quality).bitmapJpeg2fileJpeg(strFilePathName)
 
-    ////////////////////////////////////////////////////////////////////////////////////
 
-    /**
-     * 裁剪nv21Bytes
-     * @param bytesNv21 ByteArray 原始数据
-     * @param width Int 原始图像的width
-     * @param height Int 原始图像height
-     * @param cropX Int 裁剪区域左上角的x
-     * @param cropY Int 裁剪区域左上角的y
-     * @param cropWidth Int 裁剪的宽度
-     * @param cropHeight Int 裁剪的高度
-     * @return ByteArray 裁剪后的图像数据
-     */
-    @JvmStatic
-    fun clipNv21Bytes(bytesNv21: ByteArray, width: Int, height: Int, cropX: Int, cropY: Int, cropWidth: Int, cropHeight: Int): ByteArray {
-        // 目标区域取偶(YUV420SP要求图像高度是偶数)
-        var left = cropX
-        var top = cropY
-//        val begin = System.nanoTime()
-        if (left % 2 == 1)
-            left--
-        if (top % 2 == 1)
-            top--
-        val bottom = top + cropHeight
-        // 裁剪后的占用的大小
-        val size = cropWidth * cropHeight * 3 / 2
-        val data = ByteArray(size)
-        // 按照YUV420SP格式，复制Y
-        for (i in top until bottom)
-            System.arraycopy(bytesNv21, left + i * width, data, (i - top) * cropWidth, cropWidth)
-        // 按照YUV420SP格式，复制UV
-        val startH = height + top / 2
-        val endH = height + bottom / 2
-        for (i in startH until endH)
-            System.arraycopy(bytesNv21, left + i * width, data, (i - startH + cropHeight) * cropWidth, cropWidth)
-//        val end = System.nanoTime()
-        return data
-    }
 }

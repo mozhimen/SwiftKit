@@ -13,8 +13,17 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 fun Long.formatFileSize(): String =
     UtilKFormatter.formatFileSize(this)
 
+fun Int.formatIpAddress(): String =
+    UtilKFormatter.formatIpAddress(this)
+
+///////////////////////////////////////////////////////////////////////
+
 object UtilKFormatter : BaseUtilK() {
     @JvmStatic
     fun formatFileSize(bytes: Long): String =
         Formatter.formatFileSize(_context, bytes)
+
+    @JvmStatic
+    fun formatIpAddress(ipv4Address: Int): String =
+        Formatter.formatIpAddress(ipv4Address)
 }

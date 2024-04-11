@@ -1,9 +1,5 @@
 package com.mozhimen.basick.utilk.kotlin
 
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.style.ForegroundColorSpan
-import androidx.annotation.ColorInt
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.elemk.commons.I_AListener
 import com.mozhimen.basick.elemk.commons.I_Listener
@@ -18,16 +14,18 @@ import com.mozhimen.basick.elemk.commons.I_Listener
 fun CharSequence.isEquals(chars: CharSequence): Boolean =
     UtilKCharSequence.isEquals(this, chars)
 
-fun CharSequence.ifNotEmpty(block: IA_Listener<CharSequence>) {
+fun <C : CharSequence> CharSequence.ifNotEmpty(block: IA_Listener<CharSequence>) {
     UtilKCharSequence.ifNotEmpty(this, block)
 }
 
-fun CharSequence.ifNotEmptyOr(onNotEmpty: IA_Listener<CharSequence>, onEmpty: I_Listener) {
+fun <C : CharSequence> CharSequence.ifNotEmptyOr(onNotEmpty: IA_Listener<CharSequence>, onEmpty: I_Listener) {
     UtilKCharSequence.ifNotEmptyOr(this, onNotEmpty, onEmpty)
 }
 
 fun <C : CharSequence> C?.ifNullOrEmpty(defaultValue: I_AListener<C>): C =
     UtilKCharSequence.ifNullOrEmpty(this, defaultValue)
+
+//////////////////////////////////////////////////////////////////////////////
 
 object UtilKCharSequence {
     @JvmStatic
@@ -46,9 +44,9 @@ object UtilKCharSequence {
         } else false
     }
 
-    /**
-     * 是否为空
-     */
+    //////////////////////////////////////////////////////////////////////////////
+
+    //是否为空
     @JvmStatic
     fun isNullOrEmpty(chars: CharSequence?): Boolean =
         chars.isNullOrEmpty()
@@ -56,17 +54,24 @@ object UtilKCharSequence {
     //////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun ifNotEmpty(chars: CharSequence, block: IA_Listener<CharSequence>) {
-        if (chars.isNotEmpty()) block.invoke(chars)
+    fun <C : CharSequence> ifNotEmpty(chars: C, block: IA_Listener<C>) {
+        if (chars.isNotEmpty())
+            block.invoke(chars)
     }
 
     @JvmStatic
-    fun ifNotEmptyOr(chars: CharSequence, onNotEmpty: IA_Listener<CharSequence>, onEmpty: I_Listener) {
-        if (chars.isNotEmpty()) onNotEmpty.invoke(chars) else onEmpty.invoke()
+    fun <C : CharSequence> ifNotEmptyOr(chars: C, onNotEmpty: IA_Listener<C>, onEmpty: I_Listener) {
+        if (chars.isNotEmpty())
+            onNotEmpty.invoke(chars)
+        else
+            onEmpty.invoke()
     }
 
     @JvmStatic
-    fun <C : CharSequence> ifNullOrEmpty(str: C?, defaultValue: I_AListener<C>): C =
-        if (str.isNullOrEmpty()) defaultValue() else str
+    fun <C : CharSequence> ifNullOrEmpty(chars: C?, onNullOrEmpty: I_AListener<C>): C =
+        if (chars.isNullOrEmpty())
+            onNullOrEmpty()
+        else
+            chars
 }
 

@@ -25,9 +25,11 @@ fun <T> T.printlog(tag: String) {
     UtilKConsole.printlog(tag, this)
 }
 
-fun String.printlogEach() {
-    UtilKConsole.printlogEach(this)
+fun String.printlog_ofEach() {
+    UtilKConsole.printlog_ofEach(this)
 }
+
+///////////////////////////////////////////////////////////////////////////////
 
 object UtilKConsole : IUtilK {
     @JvmStatic
@@ -46,13 +48,13 @@ object UtilKConsole : IUtilK {
     }
 
     @JvmStatic
-    fun printlogEach(msg: String) {
-        for (char in msg)
-            printlog(TAG, char)
+    fun <T> printlog(tag: String, msg: T) {
+        println("$tag: $msg")
     }
 
     @JvmStatic
-    fun <T> printlog(tag: String, msg: T) {
-        println("$tag: $msg")
+    fun <T> printlog_ofEach(vararg msg: T) {
+        for (char in msg)
+            printlog(TAG, char)
     }
 }
