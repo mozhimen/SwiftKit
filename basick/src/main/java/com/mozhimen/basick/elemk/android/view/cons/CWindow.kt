@@ -1,6 +1,8 @@
 package com.mozhimen.basick.elemk.android.view.cons
 
 import android.view.Window
+import androidx.annotation.RequiresApi
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 
 /**
  * @ClassName CWindow
@@ -25,7 +27,10 @@ object CWindow {
         const val ACTION_BAR = Window.FEATURE_ACTION_BAR
         const val ACTION_BAR_OVERLAY = Window.FEATURE_ACTION_BAR_OVERLAY
         const val ACTION_MODE_OVERLAY = Window.FEATURE_ACTION_MODE_OVERLAY
+
+        @RequiresApi(CVersCode.V_21_5_L)
         const val CONTENT_TRANSITIONS = Window.FEATURE_CONTENT_TRANSITIONS
+        @RequiresApi(CVersCode.V_21_5_L)
         const val ACTIVITY_TRANSITIONS = Window.FEATURE_ACTIVITY_TRANSITIONS
     }
 }

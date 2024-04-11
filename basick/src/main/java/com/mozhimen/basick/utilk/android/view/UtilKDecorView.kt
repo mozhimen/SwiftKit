@@ -32,6 +32,11 @@ object UtilKDecorView : BaseUtilK() {
 
     @Suppress(CSuppress.UNCHECKED_CAST)
     @JvmStatic
+    fun <V : View> getAs(activity: Activity): V =
+        getAs(activity.window)
+
+    @Suppress(CSuppress.UNCHECKED_CAST)
+    @JvmStatic
     fun <V : View> getAs(window: Window): V =
         get(window) as V
 
@@ -53,7 +58,7 @@ object UtilKDecorView : BaseUtilK() {
 
     @JvmStatic
     fun getSystemUiVisibility(activity: Activity): Int =
-        getSystemUiVisibility(get(activity) )
+        getSystemUiVisibility(get(activity))
 
     @JvmStatic
     fun getSystemUiVisibility(window: Window): Int =

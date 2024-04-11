@@ -11,6 +11,7 @@ import com.mozhimen.basick.lintk.optins.OApiInit_InApplication
 import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.utilk.android.view.UtilKContentView
+import com.mozhimen.basick.utilk.android.view.UtilKDecorView
 import com.mozhimen.basick.utilk.kotlin.UtilKClazz
 
 /**
@@ -90,6 +91,10 @@ object UtilKActivityWrapper {
     @JvmStatic
     fun <V : View> getContentView(activity: Activity): V =
         UtilKContentView.get_ofPac(activity)
+
+    @JvmStatic
+    fun <V : View> getDecorView(activity: Activity): V =
+        UtilKDecorView.getAs(activity)
 
     @JvmStatic
     fun <A : Annotation> getAnnotation(activity: Activity, annotationClazz: Class<A>): A? =
