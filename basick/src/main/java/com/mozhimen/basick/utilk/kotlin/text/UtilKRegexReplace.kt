@@ -10,20 +10,19 @@ import com.mozhimen.basick.elemk.cons.CMsg
  * @Version 1.0
  */
 fun String.replaceRegexLineBreak(): String =
-    UtilKRegexExtensions.replaceRegexLineBreak(this)
+    UtilKRegexReplace.replaceRegexLineBreak(this)
 
-fun String.replaceRegexDoubleQuote(): String =
-    UtilKRegexExtensions.replaceRegexDoubleQuote(this)
+fun String.removeRegexDoubleQuote(): String =
+    UtilKRegexReplace.removeRegexDoubleQuote(this)
 
 /////////////////////////////////////////////////////////////////////////////
 
-object UtilKRegexExtensions {
+object UtilKRegexReplace {
     @JvmStatic
     fun replaceRegexLineBreak(str: String): String =
         str.replace("\\n".toRegex(), CMsg.LINE_BREAK)
 
     @JvmStatic
-    fun replaceRegexDoubleQuote(str: String): String =
+    fun removeRegexDoubleQuote(str: String): String =
         str.replace("\"".toRegex(), "")
-
 }

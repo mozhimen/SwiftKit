@@ -33,8 +33,8 @@ fun String.removeEnd_ofSeparator(): String =
 fun String.removeStart_ofSeparator(): String =
     UtilKStringsJVM.removeStart_ofSeparator(this)
 
-fun String.addStart_of0(): String =
-    UtilKStringsJVM.addStart_of0(this)
+fun String.addStart_of0_ofDot(): String =
+    UtilKStringsJVM.addStart_of0_ofDot(this)
 
 fun String.addStart_ofPlus(): String =
     UtilKStringsJVM.addStart_ofPlus(this)
@@ -49,6 +49,8 @@ object UtilKStringsJVM {
     @JvmStatic
     fun replaceDot(str: String): String =
         str.replace(",", ".")
+
+    ///////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun removeLineBreakStr(str: String): String =
@@ -76,11 +78,19 @@ object UtilKStringsJVM {
     fun removeStart_ofSeparator(str: String): String =
         if (str.startsWith("/")) str.substring(1) else str
 
+    ///////////////////////////////////////////////////////////////////
+
     @JvmStatic
-    fun addStart_of0(str: String): String =
+    fun addStart_of0_ofDot(str: String): String =
         if (str.startsWith(".")) "0$str" else str
 
     @JvmStatic
     fun addStart_ofPlus(str: String): String =
         if (!str.startsWith("+")) "+$str" else str
+
+    ///////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun fillStart_of0(number: Number, decimal: Int): String =
+        String.format("%0${decimal}d", number)
 }

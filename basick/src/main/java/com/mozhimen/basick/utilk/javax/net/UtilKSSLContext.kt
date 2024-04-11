@@ -16,19 +16,14 @@ import javax.net.ssl.TrustManager
  */
 object UtilKSSLContext : IUtilK {
     @JvmStatic
-    fun getTLS(): SSLContext =
-        SSLContext.getInstance("TLS")
+    fun get_ofTLS(): SSLContext =
+        SSLContext.getInstance("TLS").apply {
+            init(null, arrayOf<TrustManager>(BaseX509TrustManager()), SecureRandom())
+        }
 
     //////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun generateTLS(): SSLContext {
-        val sslContext = getTLS()
-        sslContext.init(null, arrayOf<TrustManager>(BaseX509TrustManager()), SecureRandom())
-        return sslContext
-    }
-
-    @JvmStatic
-    fun getTLSSocketFactory(): SSLSocketFactory =
-        generateTLS().socketFactory
+    fun getSocketFactory_ofTLS(): SSLSocketFactory =
+        get_ofTLS().socketFactory
 }

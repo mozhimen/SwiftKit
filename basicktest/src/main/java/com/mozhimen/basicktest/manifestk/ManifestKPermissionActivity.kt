@@ -5,7 +5,7 @@ import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivi
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
-import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
+import com.mozhimen.basick.utilk.android.app.UtilKActivityStart
 import com.mozhimen.basicktest.databinding.ActivityManifestkPermissionBinding
 
 @APermissionCheck(CPermission.WRITE_EXTERNAL_STORAGE)
@@ -16,7 +16,7 @@ class ManifestKPermissionActivity : BaseActivityVDB<ActivityManifestkPermissionB
             if (it) {
                 super.initData(savedInstanceState)
             } else {
-                UtilKLaunchActivity.startSettingAppDetails(this)
+                UtilKActivityStart.startApplicationDetailsSettings(this)
             }
         }
 
@@ -24,7 +24,7 @@ class ManifestKPermissionActivity : BaseActivityVDB<ActivityManifestkPermissionB
         ManifestKPermission.requestPermissions(this, onSuccess = {
             initView(savedInstanceState)
         }, onFail = {
-            UtilKLaunchActivity.startSettingAppDetails(this)
+            UtilKActivityStart.startApplicationDetailsSettings(this)
         })
 
         //方法三
@@ -32,7 +32,7 @@ class ManifestKPermissionActivity : BaseActivityVDB<ActivityManifestkPermissionB
             if (it) {
                 initView(savedInstanceState)
             } else {
-                UtilKLaunchActivity.startSettingAppDetails(this)
+                UtilKActivityStart.startApplicationDetailsSettings(this)
             }
         }
     }

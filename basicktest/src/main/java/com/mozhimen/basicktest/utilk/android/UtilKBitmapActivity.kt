@@ -7,7 +7,7 @@ import android.widget.SeekBar
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basick.lintk.optins.permission.OPermission_INTERNET
-import com.mozhimen.basick.utilk.android.content.UtilKRes
+import com.mozhimen.basick.utilk.wrapper.UtilKRes
 import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapDeal
 import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapFormat
 import com.mozhimen.basick.utilk.android.graphics.applyBitmapAnyScaleRatio

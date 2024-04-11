@@ -10,7 +10,7 @@ import com.mozhimen.basick.lintk.optins.permission.OPermission_ACCESS_FINE_LOCAT
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.taskk.temps.TaskKLocation
-import com.mozhimen.basick.utilk.android.app.UtilKPermission
+import com.mozhimen.basick.utilk.wrapper.UtilKPermission
 import com.mozhimen.basicktest.databinding.ActivityTaskkLocationBinding
 
 class TaskKLocationActivity : BaseActivityVDB<ActivityTaskkLocationBinding>() {
@@ -20,7 +20,7 @@ class TaskKLocationActivity : BaseActivityVDB<ActivityTaskkLocationBinding>() {
     @SuppressLint("MissingPermission", "SetTextI18n")
     @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class, OPermission_ACCESS_FINE_LOCATION::class, OPermission_ACCESS_COARSE_LOCATION::class)
     override fun initView(savedInstanceState: Bundle?) {
-        if (UtilKPermission.hasPermissions(arrayOf(CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION)))
+        if (UtilKPermission.isSelfGranted(arrayOf(CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION)))
             _taskKLocation.startLocationTask(1000) { a1, a2 ->
                 vdb.taskkLocationTxt.text = "$a1, $a2"
             }

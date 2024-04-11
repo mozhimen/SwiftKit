@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk.javax.net
 
-import javax.net.SocketFactory
 import javax.net.ssl.SSLSocketFactory
 
 /**
@@ -11,6 +10,7 @@ import javax.net.ssl.SSLSocketFactory
  * @Version 1.0
  */
 object UtilKSSLSocketFactory {
-    fun getTLS(): SSLSocketFactory =
-        UtilKSSLContext.getTLSSocketFactory()
+    @JvmStatic
+    fun get_ofTLS(): SSLSocketFactory =
+        UtilKSSLContext.getSocketFactory_ofTLS()
 }

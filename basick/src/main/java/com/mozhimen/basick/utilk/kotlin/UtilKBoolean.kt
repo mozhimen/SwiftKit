@@ -22,19 +22,28 @@ fun Boolean.whether(onTrue: I_Listener, onFalse: I_Listener) {
 fun Boolean.boolean2str(locale: Locale = Locale.CHINA): String =
     UtilKBoolean.boolean2str(this, locale)
 
+//////////////////////////////////////////////////////////////////
+
 object UtilKBoolean {
 
     @JvmStatic
     fun whether(boolean: Boolean, onTrue: I_Listener) {
-        if (boolean) onTrue.invoke()
+        if (boolean)
+            onTrue.invoke()
     }
 
     @JvmStatic
     fun whether(boolean: Boolean, onTrue: I_Listener, onFalse: I_Listener) {
-        if (boolean) onTrue.invoke() else onFalse.invoke()
+        if (boolean)
+            onTrue.invoke()
+        else
+            onFalse.invoke()
     }
 
     @JvmStatic
     fun boolean2str(bool: Boolean, locale: Locale = Locale.CHINA) =
-        if (locale == Locale.CHINA) if (bool) "是" else "否" else (if (bool) "true" else "false")
+        if (locale == Locale.CHINA)
+            if (bool) "是" else "否"
+        else
+            (if (bool) "true" else "false")
 }

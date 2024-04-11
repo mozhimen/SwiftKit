@@ -3,9 +3,9 @@ package com.mozhimen.basicktest.utilk.android
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
-import com.mozhimen.basick.utilk.android.content.UtilKApk
-import com.mozhimen.basick.utilk.java.io.UtilKFile
+import com.mozhimen.basick.utilk.wrapper.UtilKApk
 import com.mozhimen.basick.utilk.kotlin.UtilKStrAsset
+import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import com.mozhimen.basick.utilk.kotlin.isFileExist
 import com.mozhimen.basicktest.databinding.ActivityUtilkApkBinding
@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 class UtilKApkActivity : BaseActivityVDB<ActivityUtilkApkBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         lifecycleScope.launch(Dispatchers.IO) {
-            val strPathNameApk = UtilKStrPath.Absolute.Internal.getCache() + "/temp/${UtilKFile.getStrFileNameForStrNowDate()}.apk"
+            val strPathNameApk = UtilKStrPath.Absolute.Internal.getCache() + "/temp/${UtilKStrFile.getStrFileName_ofNow()}.apk"
             if (!strPathNameApk.isFileExist()) {
                 UtilKStrAsset.strAssetName2file("basicktest-debug.apk", strPathNameApk)
             }

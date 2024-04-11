@@ -8,6 +8,7 @@ import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
 import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.android.view.UtilKDecorView
 import com.mozhimen.basick.utilk.android.view.UtilKViewGroup
+import com.mozhimen.basick.utilk.android.view.UtilKViewGroupWrapper
 import com.mozhimen.basick.utilk.android.view.applyDebounceClickListener
 import com.mozhimen.basick.utilk.android.view.applyHapticOnTouchListener
 import com.mozhimen.basick.utilk.android.view.applySuspendDebounceClickListener
@@ -37,7 +38,7 @@ class UtilKViewActivity : BaseActivityVDB<ActivityUtilkViewBinding>() {
         }
 
         vdb.utilkViewBtnGetAllViews.setOnClickListener {
-            UtilKLogWrapper.d(TAG, "initView: ${UtilKViewGroup.getChildViews(UtilKDecorView.getAsViewGroup(this)).map { it.javaClass.name + "\n" }}")
+            UtilKLogWrapper.d(TAG, "initView: ${UtilKViewGroupWrapper.getChildViews(UtilKDecorView.getAsViewGroup(this)).map { it.javaClass.name + "\n" }}")
         }
     }
 }

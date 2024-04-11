@@ -1,9 +1,9 @@
 package com.mozhimen.basick.utilk
 
-import com.mozhimen.basick.utilk.kotlin.UtilKNumber
 import com.mozhimen.basick.utilk.kotlin.printlog
 import com.mozhimen.basick.utilk.kotlin.UtilKConsole
 import com.mozhimen.basick.utilk.kotlin.math.UtilKMathTriangle
+import com.mozhimen.basick.utilk.kotlin.ranges.UtilK_Ranges
 import org.junit.Test
 
 /**
@@ -16,10 +16,10 @@ import org.junit.Test
 class TestUtilKNumber {
     @Test
     fun normalize() {
-        UtilKConsole.printlog(UtilKNumber.constraint(-1f, 0f, 10f).toString())
-        UtilKConsole.printlog(UtilKNumber.constraint(1f, 0f, 10f).toString())
-        UtilKConsole.printlog(UtilKNumber.constraint(11f, 0f, 10f).toString())
-        UtilKConsole.printlog(UtilKNumber.constraint(0f, 0f, 0f).toString())
+        UtilKConsole.printlog(UtilK_Ranges.constraint(-1f, 0f, 10f).toString())
+        UtilKConsole.printlog(UtilK_Ranges.constraint(1f, 0f, 10f).toString())
+        UtilKConsole.printlog(UtilK_Ranges.constraint(11f, 0f, 10f).toString())
+        UtilKConsole.printlog(UtilK_Ranges.constraint(0f, 0f, 0f).toString())
     }
 
     @Test
@@ -30,16 +30,16 @@ class TestUtilKNumber {
 
     @Test
     fun percent() {
-//        UtilKConsole.printlog(UtilKNumber.percent(0f, 0, 100).toString())
-//        UtilKConsole.printlog(UtilKNumber.percent(-1f, 0, 100).toString())
-//        UtilKConsole.printlog(UtilKNumber.percent(101f, 0, 100).toString())
-//        UtilKConsole.printlog(UtilKNumber.percent(50f, 0, 100).toString())
-//        UtilKConsole.printlog(UtilKNumber.percent(33f, 0, 100).toString())
-//        UtilKConsole.printlog(UtilKNumber.percent(23f, 0, 99).toString())
-//        UtilKConsole.printlog(UtilKNumber.percent(23f, 23, 99).toString())
-//        UtilKConsole.printlog(UtilKNumber.percent(23f, 0, 0).toString())
-        UtilKNumber.percent(23f, 33f, 44f).printlog()
-        UtilKNumber.percent(-23f, 33f, 44f).printlog()
+//        UtilKConsole.printlog(UtilKRanges.percent(0f, 0, 100).toString())
+//        UtilKConsole.printlog(UtilKRanges.percent(-1f, 0, 100).toString())
+//        UtilKConsole.printlog(UtilKRanges.percent(101f, 0, 100).toString())
+//        UtilKConsole.printlog(UtilKRanges.percent(50f, 0, 100).toString())
+//        UtilKConsole.printlog(UtilKRanges.percent(33f, 0, 100).toString())
+//        UtilKConsole.printlog(UtilKRanges.percent(23f, 0, 99).toString())
+//        UtilKConsole.printlog(UtilKRanges.percent(23f, 23, 99).toString())
+//        UtilKConsole.printlog(UtilKRanges.percent(23f, 0, 0).toString())
+        UtilK_Ranges.percent(23f, 33f, 44f).printlog()
+        UtilK_Ranges.percent(-23f, 33f, 44f).printlog()
     }
 
     @Test

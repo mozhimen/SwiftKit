@@ -13,14 +13,22 @@ fun Class<*>.getStrPackageName(): String =
 fun Class<*>.getStrPackage(): String =
     UtilKClazz.getStrPackage(this)
 
+////////////////////////////////////////////////////////////////////////
+
 object UtilKClazz {
     @JvmStatic
     fun <A : Annotation> getAnnotation(clazz: Class<*>, annotationClazz: Class<A>): A? =
         clazz.getAnnotation(annotationClazz)
 
     @JvmStatic
-    fun getStrPackageName(clazz: Class<*>): String =
-            clazz.name
+    fun getSuperClazz(clazz: Class<*>): Class<*> =
+        clazz.superclass
+
+    @JvmStatic
+    fun getName(clazz: Class<*>):String =
+        clazz.name
+
+    ////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun getStrPackage(clazz: Class<*>): String {
@@ -29,12 +37,10 @@ object UtilKClazz {
     }
 
     @JvmStatic
-    fun getSuperClazz(clazz: Class<*>): Class<*> =
-            clazz.superclass
+    fun getStrPackageName(clazz: Class<*>): String =
+        getName(clazz)
 
-    ////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun clazz2strLog(clazz: Class<*>, lineNumber: Int): String =
-        ".(" + clazz.simpleName + ".java:" + lineNumber + ")"
+//    @JvmStatic
+//    fun clazz2strLog(clazz: Class<*>, lineNumber: Int): String =
+//        ".(" + clazz.simpleName + ".java:" + lineNumber + ")"
 }

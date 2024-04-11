@@ -1,9 +1,10 @@
 package com.mozhimen.basick.utilk.kotlin
 
-import android.text.format.Formatter
 import com.mozhimen.basick.elemk.android.graphics.cons.CImageFormat
 import com.mozhimen.basick.elemk.android.os.cons.CBuild
 import com.mozhimen.basick.elemk.android.util.annors.ALog
+import com.mozhimen.basick.elemk.android.util.cons.CLog
+import com.mozhimen.basick.utilk.android.text.formatIpAddress
 import com.mozhimen.basick.utilk.java.lang.UtilKCharacter
 
 /**
@@ -28,11 +29,13 @@ fun Int.intByte2strByte(): String =
 fun Int.intImageFormat2strImageFormat(): String =
     UtilKIntFormat.intImageFormat2strImageFormat(this)
 
-fun Int.intLogPriority2strLogSimple(): String =
-    UtilKIntFormat.intLogPriority2strLogSimple(this)
+fun Int.intLogPriority2strLogPriority_ofSimple(): String =
+    UtilKIntFormat.intLogPriority2strLogPriority_ofSimple(this)
 
-fun Int.intLogPriority2strLog(): String =
-    UtilKIntFormat.intLogPriority2strLog(this)
+fun Int.intLogPriority2strLogPriority(): String =
+    UtilKIntFormat.intLogPriority2strLogPriority(this)
+
+///////////////////////////////////////////////////////////////////////
 
 object UtilKIntFormat {
     @JvmStatic
@@ -41,12 +44,9 @@ object UtilKIntFormat {
 
     @JvmStatic
     fun intIp2strIp(intIp: Int): String =
-        Formatter.formatIpAddress(intIp)
+        intIp.formatIpAddress()
 
-    /**
-     * ASCII转整型
-     * '5' ascci 是 53。 输入 int 53，输出 int 5
-     */
+    //ASCII转整型 '5' ascci 是 53。 输入 int 53，输出 int 5
     @JvmStatic
     fun intAscii2int(intAscii: Int): Int =
         UtilKCharacter.getNumericValue(intAscii)
@@ -86,26 +86,26 @@ object UtilKIntFormat {
         }
 
     @JvmStatic
-    fun intLogPriority2strLogSimple(@ALog priority: Int): String =
+    fun intLogPriority2strLogPriority_ofSimple(@ALog priority: Int): String =
         when (priority) {
-            2 -> "V"
-            3 -> "D"
-            4 -> "I"
-            5 -> "W"
-            6 -> "E"
-            7 -> "A"
+            CLog.VERBOSE -> "V"
+            CLog.DEBUG -> "D"
+            CLog.INFO -> "I"
+            CLog.WARN -> "W"
+            CLog.ERROR -> "E"
+            CLog.ASSERT -> "A"
             else -> "UNKNOWN"
         }
 
     @JvmStatic
-    fun intLogPriority2strLog(@ALog priority: Int): String =
+    fun intLogPriority2strLogPriority(@ALog priority: Int): String =
         when (priority) {
-            2 -> "VERBOSE"
-            3 -> "DEBUG"
-            4 -> "INFO"
-            5 -> "WARN"
-            6 -> "ERROR"
-            7 -> "ASSERT"
+            CLog.VERBOSE -> "VERBOSE"
+            CLog.DEBUG -> "DEBUG"
+            CLog.INFO -> "INFO"
+            CLog.WARN -> "WARN"
+            CLog.ERROR -> "ERROR"
+            CLog.ASSERT -> "ASSERT"
             else -> "UNKNOWN"
         }
 }

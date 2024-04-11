@@ -4,7 +4,7 @@ import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivi
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
-import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
+import com.mozhimen.basick.utilk.android.app.UtilKActivityStart
 import com.mozhimen.basick.utilk.android.content.UtilKContextDir
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.i
@@ -24,7 +24,7 @@ class UtilKContextDirActivity : BaseActivityVDB<ActivityUtilkContextDirBinding>(
             if (it) {
                 super.initData(savedInstanceState)
             } else {
-                UtilKLaunchActivity.startSettingAppDetails(this)
+                UtilKActivityStart.startApplicationDetailsSettings(this)
             }
         }
     }

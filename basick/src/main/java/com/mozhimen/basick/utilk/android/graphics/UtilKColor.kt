@@ -15,30 +15,13 @@ import kotlin.math.roundToInt
  */
 object UtilKColor {
 
-    /**
-     * 渐变色值
-     * @param intColorStart Int 开始颜色
-     * @param intColorEnd Int 结束颜色
-     */
     @JvmStatic
     @ColorInt
     @RequiresApi(CVersCode.V_26_8_O)
-    fun get_ofMedian(@ColorInt intColorStart: Int, @ColorInt intColorEnd: Int, ratio: Float): Int {
-        val startRed = Color.red(intColorStart)
-        val startBlue = Color.blue(intColorStart)
-        val startGreen = Color.green(intColorStart)
-        val startAlpha = Color.alpha(intColorStart)
+    fun argb(alpha: Float, red: Float, green: Float, blue: Float): Int =
+        Color.argb(alpha, red, green, blue)
 
-        val disRed = Color.red(intColorEnd) - startRed
-        val disBlue = Color.blue(intColorEnd) - startBlue
-        val disGreen = Color.green(intColorEnd) - startGreen
-        val disAlpha = Color.alpha(intColorEnd) - startAlpha
 
-        val medRed = startRed + ratio * disRed
-        val medBlue = startBlue + ratio * disBlue
-        val medGreen = startGreen + ratio * disGreen
-        val medAlpha = startAlpha + ratio * disAlpha
-
-        return Color.argb(medAlpha, medRed, medGreen, medBlue)
-    }
+    fun argb(alpha: Int, red: Int, green: Int, blue: Int): Int =
+        Color.argb(alpha, red, green, blue)
 }

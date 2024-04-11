@@ -10,6 +10,6 @@ package com.mozhimen.basick.utilk.kotlin
 object UtilKLongTime {
     //是否是整小时
     @JvmStatic
-    fun isLongTime_ofHH(longTime: Long): Boolean =
+    fun isHH(longTime: Long): Boolean =
         (longTime / 1000) % 3600 == 0L
 }

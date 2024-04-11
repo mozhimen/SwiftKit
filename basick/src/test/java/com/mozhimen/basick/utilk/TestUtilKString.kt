@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk
 
 import com.mozhimen.basick.utilk.kotlin.UtilKString
 import com.mozhimen.basick.utilk.kotlin.getSplitFirstIndexToStart
-import com.mozhimen.basick.utilk.kotlin.text.checkStrUrl
+import com.mozhimen.basick.utilk.kotlin.isStrUrlValid
 import com.mozhimen.basick.utilk.kotlin.printlog
 import org.junit.Test
 
@@ -15,7 +15,7 @@ class TestUtilKString {
 
         val str = "http://www.sq.com/construction-sites-images"
         UtilKString.getSplitFirstIndexToStart(str, "/").printlog()
-        str.checkStrUrl().printlog()
+        str.isStrUrlValid().printlog()
     }
 
     @Test

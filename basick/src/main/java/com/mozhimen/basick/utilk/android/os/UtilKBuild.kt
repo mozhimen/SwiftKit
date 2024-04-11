@@ -7,7 +7,7 @@ import com.mozhimen.basick.elemk.android.os.cons.CBuild
 import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_PRIVILEGED_PHONE_STATE
-import com.mozhimen.basick.utilk.kotlin.joinArray2str
+import com.mozhimen.basick.utilk.kotlin.array2str
 import com.mozhimen.basick.utilk.java.util.longDate2strDate
 
 /**
@@ -75,19 +75,19 @@ object UtilKBuild {
     @JvmStatic
     @RequiresApi(CVersCode.V_21_5_L)
     fun getSupportABIs(): String =
-        Build.SUPPORTED_ABIS.joinArray2str()
+        Build.SUPPORTED_ABIS.array2str()
 
     //设备支持32位架构
     @JvmStatic
     @RequiresApi(CVersCode.V_21_5_L)
     fun getSupport32BitABIs(): String =
-        Build.SUPPORTED_32_BIT_ABIS.joinArray2str()
+        Build.SUPPORTED_32_BIT_ABIS.array2str()
 
     //设备支持64位架构
     @JvmStatic
     @RequiresApi(CVersCode.V_21_5_L)
     fun getSupport64BitABIs(): String =
-        Build.SUPPORTED_64_BIT_ABIS.joinArray2str()
+        Build.SUPPORTED_64_BIT_ABIS.array2str()
 
     //设备开发板名称
     @JvmStatic

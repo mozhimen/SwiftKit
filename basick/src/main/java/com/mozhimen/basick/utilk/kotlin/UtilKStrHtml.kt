@@ -22,6 +22,7 @@ fun String.strHtml2chars(): Spanned =
 /////////////////////////////////////////////////////////////////////////////
 
 object UtilKStrHtml {
+    //CHtml.FROM_HTML_MODE_COMPACT
     @JvmStatic
     @RequiresApi(CVersCode.V_24_7_N)
     fun strHtml2chars(strHtml: String, flags: Int): Spanned =

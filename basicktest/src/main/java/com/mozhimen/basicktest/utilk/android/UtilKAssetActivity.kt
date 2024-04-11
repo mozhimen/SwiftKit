@@ -46,7 +46,7 @@ class UtilKAssetActivity : BaseActivityVDB<ActivityUtilkAssetBinding>() {
         lifecycleScope.launch(Dispatchers.IO) {
             addLog("isFileExists deviceInfo ${UtilKStrAsset.isAssetExists("deviceInfo")}")
             val file2StrTime = System.currentTimeMillis()
-            val file2StrContent = UtilKStrAsset.strAssetName2strOfReadMultiLines("deviceInfo")
+            val file2StrContent = UtilKStrAsset.strAssetName2str_use_ofBufferedReader("deviceInfo")
             addLog("file2Str1 deviceInfo $file2StrContent time ${System.currentTimeMillis() - file2StrTime}")
             val txt2StrTime = System.currentTimeMillis()
             val txt2StrContent = UtilKStrAsset.strAssetName2strOfStream("deviceInfo")

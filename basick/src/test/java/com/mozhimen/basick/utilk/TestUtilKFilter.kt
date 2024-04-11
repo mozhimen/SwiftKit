@@ -4,9 +4,9 @@ import com.mozhimen.basick.utilk.kotlin.filterAlphabet
 import com.mozhimen.basick.utilk.kotlin.filterChinese
 import com.mozhimen.basick.utilk.kotlin.filterNAC
 import com.mozhimen.basick.utilk.kotlin.filterNumber
-import com.mozhimen.basick.utilk.kotlin.text.isStrDigits
-import com.mozhimen.basick.utilk.kotlin.text.isStrDigits2
-import com.mozhimen.basick.utilk.kotlin.text.isStrDigitsAndAlphabets
+import com.mozhimen.basick.utilk.kotlin.text.matches_ofStrDigits
+import com.mozhimen.basick.utilk.kotlin.text.matches_ofStrDigits2
+import com.mozhimen.basick.utilk.kotlin.text.matches_ofStrDigitsAndAlphabets
 import com.mozhimen.basick.utilk.kotlin.printlog
 import org.junit.Test
 
@@ -27,18 +27,18 @@ class TestUtilKFilter {
 //        "8080".checkPort().printlog()
 //        "80".checkPort().printlog()
 
-        "0123456789".isStrDigits().printlog()
-        "12322r".isStrDigits().printlog()
-        "ree".isStrDigits().printlog()
+        "0123456789".matches_ofStrDigits().printlog()
+        "12322r".matches_ofStrDigits().printlog()
+        "ree".matches_ofStrDigits().printlog()
 
-        "0123456789".isStrDigits2().printlog()
-        "12322r".isStrDigits2().printlog()
-        "ree".isStrDigits2().printlog()
+        "0123456789".matches_ofStrDigits2().printlog()
+        "12322r".matches_ofStrDigits2().printlog()
+        "ree".matches_ofStrDigits2().printlog()
 
-        "ree123".isStrDigitsAndAlphabets().printlog()
-        "123456".isStrDigitsAndAlphabets().printlog()
-        "123".isStrDigitsAndAlphabets().printlog()
-        "ree".isStrDigitsAndAlphabets().printlog()
+        "ree123".matches_ofStrDigitsAndAlphabets().printlog()
+        "123456".matches_ofStrDigitsAndAlphabets().printlog()
+        "123".matches_ofStrDigitsAndAlphabets().printlog()
+        "ree".matches_ofStrDigitsAndAlphabets().printlog()
     }
 
     @Test

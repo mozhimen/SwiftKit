@@ -14,7 +14,7 @@ import androidx.annotation.FloatRange
 import androidx.annotation.IntRange
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.e
-import com.mozhimen.basick.utilk.kotlin.constraint
+import com.mozhimen.basick.utilk.kotlin.ranges.constraint
 import com.mozhimen.basick.utilk.kotlin.strFilePath2bitmapAny
 import java.io.OutputStream
 import java.lang.Integer.min

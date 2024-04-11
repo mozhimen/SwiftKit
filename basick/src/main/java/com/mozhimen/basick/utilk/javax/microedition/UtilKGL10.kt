@@ -12,15 +12,13 @@ import javax.microedition.khronos.opengles.GL10
  * @Version 1.0
  */
 object UtilKGL10 {
-    /**
-     * gl10转bitmap
-     */
+    //gl10转bitmap
     @JvmStatic
     @Throws(Exception::class)
     fun gl102bitmapARGB8888(gl10: GL10, width: Int, height: Int, x: Int, y: Int): Bitmap {
-        val bitmapBuffer = IntArray(width * height)
-        val bitmapSource = IntArray(width * height)
-        val intBuffer = IntBuffer.wrap(bitmapBuffer)
+        val bufferBytes = IntArray(width * height)
+        val bitmapBytes = IntArray(width * height)
+        val intBuffer = IntBuffer.wrap(bufferBytes)
         intBuffer.position(0)
         gl10.glReadPixels(x, y, width, height, GL10.GL_RGBA, GL10.GL_UNSIGNED_BYTE, intBuffer)
         var offset1: Int
@@ -29,13 +27,13 @@ object UtilKGL10 {
             offset1 = i * width
             offset2 = (height - i - 1) * width
             for (j in 0 until width) {
-                val texturePixel = bitmapBuffer[offset1 + j]
+                val texturePixel = bufferBytes[offset1 + j]
                 val blue = texturePixel shr 16 and 0xff
                 val red = texturePixel shl 16 and 0x00ff0000
                 val pixel = texturePixel and -0xff0100 or red or blue
-                bitmapSource[offset2 + j] = pixel
+                bitmapBytes[offset2 + j] = pixel
             }
         }
-        return Bitmap.createBitmap(bitmapSource, width, height, Bitmap.Config.ARGB_8888)
+        return Bitmap.createBitmap(bitmapBytes, width, height, Bitmap.Config.ARGB_8888)
     }
 }

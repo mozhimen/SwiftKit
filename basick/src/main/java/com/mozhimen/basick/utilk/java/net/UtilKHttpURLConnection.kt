@@ -11,6 +11,7 @@ import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
 import com.mozhimen.basick.utilk.java.io.flushClose
 import com.mozhimen.basick.utilk.java.io.inputStream2str_use_ofBufferedReader
 import com.mozhimen.basick.utilk.javax.net.UtilKSSLContext
+import com.mozhimen.basick.utilk.javax.net.UtilKSSLSocketFactory
 import com.mozhimen.basick.utilk.kotlin.UtilKStrUrl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -38,7 +39,7 @@ object UtilKHttpURLConnection : IUtilK {
         val httpURLConnection = uRL.openConnection() as HttpURLConnection
         if (httpURLConnection is HttpsURLConnection) {
             httpURLConnection.hostnameVerifier = BaseHostnameVerifier()
-            httpURLConnection.sslSocketFactory = UtilKSSLContext.generateTLS().socketFactory//获取SSLSocketFactory对象
+            httpURLConnection.sslSocketFactory = UtilKSSLSocketFactory.get_ofTLS()//获取SSLSocketFactory对象
         }
         return httpURLConnection.apply {
             this.connectTimeout = connectTimeout // 设置超时时间
@@ -81,7 +82,7 @@ object UtilKHttpURLConnection : IUtilK {
             val url = URL(strUrl)
             httpURLConnection = url.openConnection() as HttpURLConnection
             if (httpURLConnection is HttpsURLConnection) {
-                httpURLConnection.sslSocketFactory = UtilKSSLContext.generateTLS().socketFactory
+                httpURLConnection.sslSocketFactory = UtilKSSLSocketFactory.get_ofTLS()
             }
             httpURLConnection.apply {
                 connectTimeout = 60 * 1000
