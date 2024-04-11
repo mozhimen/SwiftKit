@@ -4,7 +4,6 @@ package com.mozhimen.basick.elemk.android.view.cons
  * @ClassName CGesture
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/6/28 15:32
  * @Version 1.0
  */
 enum class EMotionEvent {

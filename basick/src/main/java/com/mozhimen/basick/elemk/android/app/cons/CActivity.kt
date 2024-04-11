@@ -7,7 +7,6 @@ import android.app.Activity
  * @ClassName CActivity
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/8/20 12:46
  * @Version 1.0
  */
 object CActivity {

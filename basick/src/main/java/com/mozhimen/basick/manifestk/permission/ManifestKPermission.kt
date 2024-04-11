@@ -17,7 +17,6 @@ import com.mozhimen.basick.utilk.android.util.w
  * @ClassName ManifestKPermission
  * @Description TO
  * @Author mozhimen
- * @Date 2021/4/14 17:08
  * @Version 1.0
  */
 object ManifestKPermission : BaseUtilK() {

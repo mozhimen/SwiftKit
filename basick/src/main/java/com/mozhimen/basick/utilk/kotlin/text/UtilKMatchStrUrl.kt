@@ -10,7 +10,6 @@ import com.mozhimen.basick.utilk.kotlin.getSplitFirstIndexToStart
  * @ClassName Verifier
  * @Description 密码校验
  * @Author mozhimen
- * @Date 2021/4/21 13:59
  * @Version 1.0
  */
 fun String.isStrUrlIp(): Boolean =

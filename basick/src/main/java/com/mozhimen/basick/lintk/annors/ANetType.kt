@@ -7,7 +7,6 @@ import com.mozhimen.basick.elemk.android.net.cons.CNetType
  * @ClassName ANetType
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/9/27 13:42
  * @Version 1.0
  */
 @Target(AnnotationTarget.TYPE)

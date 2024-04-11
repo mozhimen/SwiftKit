@@ -7,7 +7,6 @@ import android.os.Build
  * @ClassName VersionCode
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/1/9 17:55
  * @Version 1.0
  */
 object CVersCode {

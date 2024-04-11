@@ -8,7 +8,6 @@ import android.os.Parcelable
  * @ClassName MPoint
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/3/1 15:08
  * @Version 1.0
  */
 data class MPoint(

@@ -10,7 +10,6 @@ import com.mozhimen.basick.utilk.commons.IUtilK
  * @ClassName IDefaultLifecycleObserver
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
- * @Date 2023/2/19 12:08
  * @Version 1.0
  */
 @OApiInit_ByLazy

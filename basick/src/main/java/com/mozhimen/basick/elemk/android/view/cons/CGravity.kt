@@ -8,7 +8,6 @@ import android.view.Gravity
  * @ClassName CGravity
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/7/27 17:49
  * @Version 1.0
  */
 @SuppressLint("RtlHardcoded")

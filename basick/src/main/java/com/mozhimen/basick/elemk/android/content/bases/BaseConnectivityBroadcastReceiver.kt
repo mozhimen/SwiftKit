@@ -37,7 +37,6 @@ android:exported="true">
 </receiver>
 
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/2/13 15:18
  * @Version 1.0
  */
 @OPermission_ACCESS_NETWORK_STATE

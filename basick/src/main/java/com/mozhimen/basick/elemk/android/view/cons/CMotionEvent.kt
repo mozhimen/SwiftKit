@@ -7,7 +7,6 @@ import android.view.MotionEvent
  * @ClassName CMotionEvent
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/8/7 12:57
  * @Version 1.0
  */
 object CMotionEvent {

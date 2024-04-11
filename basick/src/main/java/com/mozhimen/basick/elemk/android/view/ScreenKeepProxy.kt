@@ -12,7 +12,6 @@ import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
  * @ClassName ScreenKeepProxy
  * @Description TODO
  * @Author Mozhimen / Kolin Zhao
- * @Date 2023/9/11 17:43
  * @Version 1.0
  */
 @OApiInit_ByLazy

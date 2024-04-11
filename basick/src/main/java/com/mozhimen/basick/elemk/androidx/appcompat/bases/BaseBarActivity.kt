@@ -24,7 +24,6 @@ import com.mozhimen.basick.utilk.androidx.appcompat.getActionBarContainer
  * @ClassName BaseBarActivityVB
  * @Description TODO
  * @Author Mozhimen / Kolin Zhao
- * @Date 2023/12/24 14:57
  * @Version 1.0
  */
 abstract class BaseBarActivity : BaseSaveStateActivity(), IActivity {

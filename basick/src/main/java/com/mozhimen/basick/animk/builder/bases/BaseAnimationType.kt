@@ -8,7 +8,6 @@ import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
  * @ClassName BaseAnimationType
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
- * @Date 2022/11/26 17:46
  * @Version 1.0
  */
 abstract class BaseAnimationType<T> : BasePropertyType<T>(), IAnimationType {

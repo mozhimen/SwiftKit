@@ -14,7 +14,6 @@ import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
  * @ClassName DrawableColorType
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
- * @Date 2022/11/26 16:36
  * @Version 1.0
  */
 open class AnimatorColorType : BaseAnimatorType<AnimatorColorType>() {

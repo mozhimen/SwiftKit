@@ -42,7 +42,6 @@ super.initData(savedInstanceState)
 }
 
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/1/10 14:01
  * @Version 1.0
  */
 interface ITimeReceiverListener : IUtilK {

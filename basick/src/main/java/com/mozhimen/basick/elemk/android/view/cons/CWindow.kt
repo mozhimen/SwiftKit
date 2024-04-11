@@ -6,7 +6,6 @@ import android.view.Window
  * @ClassName CWindow
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/6/28 17:19
  * @Version 1.0
  */
 object CWindow {

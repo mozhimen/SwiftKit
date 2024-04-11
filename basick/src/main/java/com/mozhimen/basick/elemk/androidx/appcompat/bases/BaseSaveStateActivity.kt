@@ -8,7 +8,6 @@ import android.view.KeyEvent
  * @ClassName BaseSaveStateActivityVB
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/9/26 15:00
  * @Version 1.0
  */
 abstract class BaseSaveStateActivity : BaseActivity() {

@@ -9,7 +9,6 @@ import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
  * @ClassName ColorType
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
- * @Date 2022/11/20 17:34
  * @Version 1.0
  */
 class AnimatorColorRecyclerType : AnimatorColorType() {

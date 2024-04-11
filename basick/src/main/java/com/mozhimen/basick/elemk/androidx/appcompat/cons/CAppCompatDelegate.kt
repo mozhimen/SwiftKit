@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatDelegate
  * @ClassName CAppComDeleg
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/6/30 16:16
  * @Version 1.0
  */
 object CAppCompatDelegate {

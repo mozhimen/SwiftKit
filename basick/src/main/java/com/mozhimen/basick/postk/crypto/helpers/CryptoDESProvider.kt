@@ -19,7 +19,6 @@ import javax.crypto.spec.DESKeySpec
  * @ClassName EncryptDESProvider
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/7/12 16:24
  * @Version 1.0
  */
 class CryptoDESProvider(private val _config: MCryptoDESConfig) : ICryptoProvider {

@@ -7,7 +7,6 @@ import android.bluetooth.BluetoothDevice
  * @ClassName CBluetoothDevice
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/8/17 11:04
  * @Version 1.0
  */
 object CBluetoothDevice {

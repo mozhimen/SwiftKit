@@ -14,7 +14,6 @@ import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
  * @ClassName BackgroundColorAnimatorType
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/1/29 16:08
  * @Version 1.0
  */
 class AnimatorBackgroundColorType : BaseAnimatorType<AnimatorBackgroundColorType>() {

@@ -10,7 +10,6 @@ import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
  * @ClassName AlphaRecyclerType
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
- * @Date 2022/11/20 16:37
  * @Version 1.0
  */
 class AnimKAlphaRecyclerType : AnimKAlphaType() {

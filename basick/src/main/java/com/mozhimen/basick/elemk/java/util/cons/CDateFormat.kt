@@ -4,7 +4,6 @@ package com.mozhimen.basick.elemk.java.util.cons
  * @ClassName CDateFormat
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/6/20 16:38
  * @Version 1.0
  */
 object CDateFormat {

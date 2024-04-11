@@ -12,7 +12,6 @@ import com.mozhimen.basick.animk.builder.temps.AnimatorAlphaType
  * @ClassName BaseAnimatorType
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
- * @Date 2022/11/26 17:45
  * @Version 1.0
  */
 abstract class BaseAnimatorType<T> : BasePropertyType<T>(), IAnimatorType {

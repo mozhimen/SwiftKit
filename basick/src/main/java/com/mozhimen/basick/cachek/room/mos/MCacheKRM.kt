@@ -8,7 +8,6 @@ import java.io.Serializable
  * @ClassName Cache
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
- * @Date 2021/12/20 14:54
  * @Version 1.0
  */
 @Entity(tableName = "cachekrm")

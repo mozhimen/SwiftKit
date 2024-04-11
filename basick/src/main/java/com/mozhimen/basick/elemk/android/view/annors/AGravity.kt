@@ -8,7 +8,6 @@ import com.mozhimen.basick.elemk.android.view.cons.CGravity
  * @ClassName AGravity
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/8/11 17:44
  * @Version 1.0
  */
 @IntDef(

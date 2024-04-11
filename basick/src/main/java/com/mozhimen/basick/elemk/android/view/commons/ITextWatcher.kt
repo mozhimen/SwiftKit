@@ -7,7 +7,6 @@ import android.text.TextWatcher
  * @ClassName BaseTextChangedObserver
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/5/25 14:54
  * @Version 1.0
  */
 interface ITextWatcher : TextWatcher {

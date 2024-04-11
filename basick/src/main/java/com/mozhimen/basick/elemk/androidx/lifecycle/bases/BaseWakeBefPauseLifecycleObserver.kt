@@ -11,7 +11,6 @@ import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
  * @ClassName BaseLifecycleObserverForView
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/2/24 17:47
  * @Version 1.0
  */
 @OApiCall_BindLifecycle

@@ -6,7 +6,6 @@ import android.opengl.ETC1
  * @ClassName CETC1
  * @Description TODO
  * @Author Mozhimen / Kolin Zhao
- * @Date 2023/9/6 14:13
  * @Version 1.0
  */
 object CETC1 {

@@ -6,7 +6,6 @@ import java.nio.charset.Charset
  * @ClassName MEncryptAESConfig
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/7/12 15:55
  * @Version 1.0
  */
 open class BaseCryptoConfig(

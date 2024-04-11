@@ -7,7 +7,6 @@ import java.io.InputStream
  * @ClassName UtilKByteArray
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/2/3 13:15
  * @Version 1.0
  */
 object UtilKByteArray : BaseUtilK() {

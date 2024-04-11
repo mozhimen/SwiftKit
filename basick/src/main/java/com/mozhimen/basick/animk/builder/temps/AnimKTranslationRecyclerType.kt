@@ -11,7 +11,6 @@ import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
  * @ClassName TranslationRecyclerType
  * @Description 来回移动
  * @Author mozhimen / Kolin Zhao
- * @Date 2022/11/20 16:08
  * @Version 1.0
  */
 class AnimKTranslationRecyclerType : AnimKTranslationType() {

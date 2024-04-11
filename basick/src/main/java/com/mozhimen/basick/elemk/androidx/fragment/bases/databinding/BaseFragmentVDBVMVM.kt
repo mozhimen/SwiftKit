@@ -17,7 +17,6 @@ import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKViewModel
  * 这里的VM1是和Activity共享的VM,私有VM2
  *
  * @Author mozhimen / Kolin Zhao
- * @Date 2022/2/27 13:02
  * @Version 1.0
  */
 abstract class BaseFragmentVDBVMVM<VB : ViewDataBinding, VM1 : BaseViewModel, VM2 : BaseViewModel> : BaseFragmentVDB<VB>, IActivity, IViewDataBinding<VB> {

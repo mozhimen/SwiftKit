@@ -7,7 +7,6 @@ import com.mozhimen.basick.elemk.android.util.cons.CLog
  * @ClassName ALog
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
- * @Date 2021/12/20 16:59
  * @Version 1.0
  */
 @IntDef(value = [CLog.VERBOSE, CLog.DEBUG, CLog.INFO, CLog.WARN, CLog.ERROR, CLog.ASSERT])

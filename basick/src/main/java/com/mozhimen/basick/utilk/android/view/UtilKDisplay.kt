@@ -18,7 +18,6 @@ import kotlin.math.min
  * @ClassName UtilKDisplay
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
- * @Date 2021/12/24 14:27
  * @Version 1.0
  */
 object UtilKDisplay {

@@ -31,7 +31,6 @@ android:exported="true">
 </receiver>
 
  * @Author Kolin Zhao / Mozhimen
- * @Date 2022/6/13 11:55
  * @Version 1.0
  */
 @OPermission_RECEIVE_BOOT_COMPLETED

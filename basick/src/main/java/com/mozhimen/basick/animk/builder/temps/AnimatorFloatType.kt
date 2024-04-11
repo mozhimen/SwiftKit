@@ -12,7 +12,6 @@ import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
  * @ClassName AnimatorNumType
  * @Description TODO
  * @Author Mozhimen / Kolin Zhao
- * @Date 2023/9/12 16:20
  * @Version 1.0
  */
 class AnimatorFloatType : BaseAnimatorType<AnimatorFloatType>() {
