@@ -14,11 +14,11 @@ import com.mozhimen.basick.elemk.commons.I_Listener
 fun CharSequence.isEquals(chars: CharSequence): Boolean =
     UtilKCharSequence.isEquals(this, chars)
 
-fun <C : CharSequence> CharSequence.ifNotEmpty(block: IA_Listener<CharSequence>) {
+fun <C : CharSequence> C.ifNotEmpty(block: IA_Listener<C>) {
     UtilKCharSequence.ifNotEmpty(this, block)
 }
 
-fun <C : CharSequence> CharSequence.ifNotEmptyOr(onNotEmpty: IA_Listener<CharSequence>, onEmpty: I_Listener) {
+fun <C : CharSequence> C.ifNotEmptyOr(onNotEmpty: IA_Listener<C>, onEmpty: I_Listener) {
     UtilKCharSequence.ifNotEmptyOr(this, onNotEmpty, onEmpty)
 }
 
