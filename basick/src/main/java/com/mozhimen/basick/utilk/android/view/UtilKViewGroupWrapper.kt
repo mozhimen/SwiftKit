@@ -8,6 +8,7 @@ import com.mozhimen.basick.utilk.androidx.recyclerview.isScroll2top
 import java.util.ArrayDeque
 import java.util.Deque
 
+
 /**
  * @ClassName UtilKViewGroupWrapper
  * @Description TODO
@@ -32,7 +33,7 @@ object UtilKViewGroupWrapper {
 
     //获取指定类型的子View
     @JvmStatic
-    fun <T> getChildView_ofType(viewGroup: ViewGroup, clazz: Class<T>): T? {
+    fun <V : View> getChildView_ofType(viewGroup: ViewGroup, clazz: Class<V>): V? {
         val viewDeque: Deque<View> = ArrayDeque()
         viewDeque.add(viewGroup)
         while (!viewDeque.isEmpty()) {
@@ -40,32 +41,48 @@ object UtilKViewGroupWrapper {
             if (clazz.isInstance(node)) {
                 return clazz.cast(node)
             } else if (node is ViewGroup) {
-                var i = 0
-                val count = node.childCount
-                while (i < count) {
-                    viewDeque.add(node.getChildAt(i))
-                    i++
-                }
+                viewDeque.addAll(getChildViews(node))
             }
         }
         return null
     }
 
+    //获取activity所有的子view
+    @JvmStatic
+    fun getAllViews(viewGroup: ViewGroup): List<View> {
+        val viewDeque: Deque<View> = ArrayDeque()
+        viewDeque.add(viewGroup)
+        val views = mutableListOf<View>()
+        while (!viewDeque.isEmpty()) {
+            val node = viewDeque.removeFirst()
+            views.add(node)
+            if (node is ViewGroup) {
+                viewDeque.addAll(getChildViews(node))
+            }
+        }
+        return views
+    }
+
     @JvmStatic
     fun getChildViews(viewGroup: ViewGroup): List<View> {
+        val views = mutableListOf<View>()
+        for (i in 0 until viewGroup.childCount) {
+            views.add(viewGroup.getChildAt(i))
+        }
+        return views
+    }
+
+    @JvmStatic
+    fun getAllChildViews(viewGroup: ViewGroup): List<View> {
         val viewDeque: Deque<View> = ArrayDeque()
         viewDeque.add(viewGroup)
         val views = mutableListOf<View>()
         while (!viewDeque.isEmpty()) {
             val node = viewDeque.removeFirst()
             if (node is ViewGroup) {
-                var i = 0
-                val count = node.childCount
-                while (i < count) {
-                    viewDeque.add(node.getChildAt(i))
-                    i++
-                }
-            } else views.add(node)
+                viewDeque.addAll(getChildViews(node))
+            } else
+                views.add(node)
         }
         return views
     }

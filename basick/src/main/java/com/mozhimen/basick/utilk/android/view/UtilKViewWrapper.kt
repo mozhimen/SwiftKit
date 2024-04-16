@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.Rect
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewParent
@@ -17,6 +18,7 @@ import com.mozhimen.basick.utilk.android.app.UtilKActivityWrapper
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.UtilKLongLogWrapper
 import com.mozhimen.basick.utilk.android.util.e
+import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.kotlin.UtilKAny
 import com.mozhimen.basick.utilk.kotlin.strColor2intColor
 import com.mozhimen.basick.utilk.kotlinx.coroutines.getViewClickFlow
@@ -105,7 +107,14 @@ fun View.applyGoneIf(boolean: Boolean) {
 
 //////////////////////////////////////////////////////////////////
 
-object UtilKViewWrapper {
+@OApiUse_BaseApplication
+fun View.removeView_ofParent() {
+    UtilKViewWrapper.removeView_ofParent(this)
+}
+
+//////////////////////////////////////////////////////////////////
+
+object UtilKViewWrapper : IUtilK {
 
     //寻找父View是否匹配列举的类型
     @JvmStatic
@@ -353,8 +362,11 @@ object UtilKViewWrapper {
     @OApiUse_BaseApplication
     fun removeView_ofParent(view: View): View {
         val viewParent: ViewParent = view.parent
-        if (viewParent is ViewGroup && !UtilKActivityWrapper.isFinishingOrDestroyed(view.context))
+        Log.d(TAG, "removeView_ofParent: view $view viewParent $viewParent")
+        if (viewParent is ViewGroup && !UtilKActivityWrapper.isFinishingOrDestroyed(view.context)) {
+            Log.d(TAG, "removeView_ofParent: ")
             viewParent.removeView(view)
+        }
         return view
     }
 }
