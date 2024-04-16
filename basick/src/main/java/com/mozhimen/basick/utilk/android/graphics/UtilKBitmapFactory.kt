@@ -23,4 +23,8 @@ object UtilKBitmapFactory {
     @JvmStatic
     fun decodeResource(res: Resources, @DrawableRes intResDrawable: Int): Bitmap =
         BitmapFactory.decodeResource(res, intResDrawable)
+
+    @JvmStatic
+    fun decodeResource(res: Resources, @DrawableRes intResDrawable: Int, opts: BitmapFactory.Options): Bitmap =
+        BitmapFactory.decodeResource(res, intResDrawable, opts)
 }
