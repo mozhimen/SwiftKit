@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.ContextWrapper
+import android.util.Log
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.utilk.android.view.UtilKContentView
 import com.mozhimen.basick.utilk.android.view.UtilKDecorView
+import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.kotlin.UtilKClazz
 
 /**
@@ -24,6 +26,9 @@ import com.mozhimen.basick.utilk.kotlin.UtilKClazz
 fun <V : View> Activity.getContentView(): V =
     UtilKActivityWrapper.getContentView(this)
 
+fun <V : View> Activity.getDecorView(): V =
+    UtilKActivityWrapper.getDecorView(this)
+
 fun <A : Annotation> Activity.getAnnotation(annotationClazz: Class<A>): A? =
     UtilKActivityWrapper.getAnnotation(this, annotationClazz)
 
@@ -32,11 +37,11 @@ fun Activity.isFinishingOrDestroyed(): Boolean =
 
 /////////////////////////////////////////////////////////////////////////
 
-object UtilKActivityWrapper {
+object UtilKActivityWrapper : IUtilK {
     @JvmStatic
     @OApiUse_BaseApplication
     fun get_ofContext(context: Context): Activity? =
-        get_ofContext(context, false)
+        get_ofContext(context, true).also { Log.d(TAG, "get_ofContext: $it") }
 
     //判断context是否是Activity 这里注意一定要再Application中加入StackK并初始化
     @JvmStatic
@@ -111,6 +116,6 @@ object UtilKActivityWrapper {
     @OApiUse_BaseApplication
     fun isFinishingOrDestroyed(context: Context): Boolean {
         val activity: Activity? = get_ofContext(context)
-        return if (activity != null) isFinishingOrDestroyed(activity) else true
+        return (if (activity != null) isFinishingOrDestroyed(activity) else true).also { Log.d(TAG, "isFinishingOrDestroyed: $it") }
     }
 }
