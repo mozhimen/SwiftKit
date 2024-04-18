@@ -31,4 +31,7 @@ object CContext {
     const val NOTIFICATION_SERVICE = Context.NOTIFICATION_SERVICE
     const val UI_MODE_SERVICE = Context.UI_MODE_SERVICE
     const val CLIPBOARD_SERVICE = Context.CLIPBOARD_SERVICE
+
+    @RequiresApi(CVersCode.V_21_5_L)
+    const val CAMERA_SERVICE = Context.CAMERA_SERVICE
 }

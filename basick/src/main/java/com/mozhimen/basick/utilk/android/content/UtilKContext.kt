@@ -16,7 +16,9 @@ import android.content.res.AssetManager
 import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.content.res.Resources.Theme
+import android.graphics.Camera
 import android.graphics.drawable.Drawable
+import android.hardware.camera2.CameraManager
 import android.hardware.display.DisplayManager
 import android.hardware.usb.UsbManager
 import android.location.LocationManager
@@ -225,6 +227,11 @@ object UtilKContext {
     @JvmStatic
     fun getClipboardManager(context: Context): ClipboardManager =
         getSystemService(context, CContext.CLIPBOARD_SERVICE) as ClipboardManager
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
+    fun getCameraManager(context: Context): CameraManager =
+        getSystemService(context, CContext.CAMERA_SERVICE) as CameraManager
 
     ////////////////////////////////////////////////////////////////////////
 
