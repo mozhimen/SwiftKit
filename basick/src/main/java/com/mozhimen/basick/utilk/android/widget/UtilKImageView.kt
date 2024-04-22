@@ -3,7 +3,6 @@ package com.mozhimen.basick.utilk.android.widget
 import android.graphics.Outline
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
@@ -16,8 +15,6 @@ import com.mozhimen.basick.elemk.android.graphics.cons.CGradientDrawable
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.utilk.android.graphics.UtilKGradientDrawable
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.kotlin.get_ofAlpha
-import com.mozhimen.basick.utilk.kotlin.get_ofContrast
 
 /**
  * @ClassName UtilKViewImage

@@ -45,7 +45,7 @@ abstract class BaseSaveStateActivity : BaseActivity() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        return if (!_stateSaved) {
+        return if (!isActivityFinishing) {
             super.onKeyDown(keyCode, event)
         } else {
             // State already saved, so ignore the event
@@ -55,7 +55,7 @@ abstract class BaseSaveStateActivity : BaseActivity() {
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        if (!_stateSaved)
+        if (!isActivityFinishing)
             super.onBackPressed()
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseBarActivity
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.utilk.androidx.databinding.UtilKViewDataBinding
 
 /**
@@ -31,6 +32,7 @@ abstract class BaseBarActivityVDB<VDB : ViewDataBinding> : BaseBarActivity() {
             initData(savedInstanceState)
         } catch (e: Exception) {
             e.printStackTrace()
+            UtilKLogWrapper.e(TAG, "onCreate: e ${e.message}")
         }
     }
 

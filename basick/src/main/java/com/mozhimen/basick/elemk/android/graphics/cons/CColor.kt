@@ -11,4 +11,6 @@ import android.graphics.Color
  */
 object CColor {
     const val TRANSPARENT = Color.TRANSPARENT
+    const val BLACK = Color.BLACK
+    const val WHITE = Color.WHITE
 }

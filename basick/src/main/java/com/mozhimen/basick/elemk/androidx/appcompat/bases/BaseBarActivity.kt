@@ -28,20 +28,6 @@ import com.mozhimen.basick.utilk.androidx.appcompat.getActionBarContainer
  */
 abstract class BaseBarActivity : BaseSaveStateActivity(), IActivity {
 
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        if (onBreakBackPressed()) return
-        super.onBackPressed()
-    }
-
-    /**
-     * 返回键点击事件，点击标题和物理返回键都会调用改方法
-     * @return 返回false 表示没有消费该返回事件，会继续走系统的返回逻辑，返回true表示消费了返回事件，不会继续走系统的返回逻辑
-     */
-    protected open fun onBreakBackPressed(): Boolean {
-        return false
-    }
-
     //////////////////////////////////////////////////////////////////////////////
     //custom style
     //////////////////////////////////////////////////////////////////////////////
