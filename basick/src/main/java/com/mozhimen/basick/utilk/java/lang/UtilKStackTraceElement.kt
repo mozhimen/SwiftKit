@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.java.lang
 
 import android.text.TextUtils
 import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.utilk.commons.IUtilK
 import java.util.logging.Logger
 

@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.ContextWrapper
-import android.util.Log
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -41,7 +40,7 @@ object UtilKActivityWrapper : IUtilK {
     @JvmStatic
     @OApiUse_BaseApplication
     fun get_ofContext(context: Context): Activity? =
-        get_ofContext(context, true).also { Log.d(TAG, "get_ofContext: $it") }
+        get_ofContext(context, true).also { UtilKLogWrapper.d(TAG, "get_ofContext: $it") }
 
     //判断context是否是Activity 这里注意一定要再Application中加入StackK并初始化
     @JvmStatic
@@ -116,6 +115,6 @@ object UtilKActivityWrapper : IUtilK {
     @OApiUse_BaseApplication
     fun isFinishingOrDestroyed(context: Context): Boolean {
         val activity: Activity? = get_ofContext(context)
-        return (if (activity != null) isFinishingOrDestroyed(activity) else true).also { Log.d(TAG, "isFinishingOrDestroyed: $it") }
+        return (if (activity != null) isFinishingOrDestroyed(activity) else true).also { UtilKLogWrapper.d(TAG, "isFinishingOrDestroyed: $it") }
     }
 }

@@ -124,13 +124,18 @@ object UtilKLogWrapper : BaseUtilK() {
     }
 
     @JvmStatic
+    fun w(tag: String, msg: String, exception: Throwable?) {
+        println(CLog.WARN, tag, msg + " " + exception?.getStrMessage())
+    }
+
+    @JvmStatic
     fun e(tag: String, msg: String) {
         println(CLog.ERROR, tag, msg)
     }
 
     @JvmStatic
-    fun e(tag: String, msg: String, exception: Exception) {
-        println(CLog.ERROR, tag, msg + " " + exception.getStrMessage())
+    fun e(tag: String, msg: String, exception: Throwable?) {
+        println(CLog.ERROR, tag, msg + " " + exception?.getStrMessage())
     }
 
     /////////////////////////////////////////////////////////////////////////////

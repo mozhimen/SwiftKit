@@ -3,25 +3,25 @@ package com.mozhimen.basick.utilk.kotlin
 import com.mozhimen.basick.elemk.android.os.cons.CBuild
 
 /**
- * @ClassName UtilKException
+ * @ClassName UtilKThrowable
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/10/11 17:40
+ * @Date 2024/4/23
  * @Version 1.0
  */
-fun Exception.getStrMessage(): String =
-    UtilKException.getStrMessage(this)
+fun Throwable.getStrMessage(): String =
+    UtilKThrowable.getStrMessage(this)
 
 /////////////////////////////////////////////////////////////////////////
 
-object UtilKException {
+object UtilKThrowable {
     @JvmStatic
-    fun getMessage(exception: Exception): String? =
-        exception.message
+    fun getMessage(throwable: Throwable): String? =
+        throwable.message
 
     @JvmStatic
-    fun getStrMessage(exception: Exception): String {
-        val message = getMessage(exception)
+    fun getStrMessage(throwable: Throwable): String {
+        val message = getMessage(throwable)
         if (message.isNullOrEmpty())
             return CBuild.UNKNOWN
         return message

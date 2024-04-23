@@ -7,6 +7,7 @@ import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.Rect
 import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewParent
@@ -362,9 +363,9 @@ object UtilKViewWrapper : IUtilK {
     @OApiUse_BaseApplication
     fun removeView_ofParent(view: View): View {
         val viewParent: ViewParent = view.parent
-        Log.d(TAG, "removeView_ofParent: view $view viewParent $viewParent")
+        UtilKLogWrapper.d(TAG, "removeView_ofParent: view $view viewParent $viewParent")
         if (viewParent is ViewGroup && !UtilKActivityWrapper.isFinishingOrDestroyed(view.context)) {
-            Log.d(TAG, "removeView_ofParent: ")
+            UtilKLogWrapper.d(TAG, "removeView_ofParent: ")
             viewParent.removeView(view)
         }
         return view

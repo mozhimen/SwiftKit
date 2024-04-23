@@ -1,8 +1,6 @@
 package com.mozhimen.basick.elemk.android.util.cons
 
 import android.util.Log
-
-
 /**
  * @ClassName CLogType
  * @Description TODO

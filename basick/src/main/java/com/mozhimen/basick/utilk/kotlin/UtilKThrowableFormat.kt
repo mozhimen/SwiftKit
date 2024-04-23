@@ -13,13 +13,13 @@ import java.io.StringWriter
  * @Version 1.0
  */
 fun Throwable.throwable2printWriter(printWriter: PrintWriter) {
-    UtilKThrowable.throwable2printWriter(this, printWriter)
+    UtilKThrowableFormat.throwable2printWriter(this, printWriter)
 }
 
 fun Throwable.throwable2str(): String =
-    UtilKThrowable.throwable2str(this)
+    UtilKThrowableFormat.throwable2str(this)
 
-object UtilKThrowable : IUtilK {
+object UtilKThrowableFormat : IUtilK {
     @JvmStatic
     fun throwable2printWriter(e: Throwable, printWriter: PrintWriter) {
         printWriter.use {

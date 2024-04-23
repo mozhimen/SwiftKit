@@ -9,6 +9,7 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.RectF
 import android.util.Log
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
 import androidx.annotation.IntRange
@@ -120,7 +121,7 @@ object UtilKBitmapDeal : BaseUtilK() {
     //裁剪图片
     @JvmStatic
     fun applyBitmapAnyCrop(bitmapSource: Bitmap, @IntRange(from = 0) width: Int, @IntRange(from = 0) height: Int, x: Int, y: Int): Bitmap {
-        Log.d(TAG, "applyBitmapAnyCrop: width $width height $height x $x y $y")
+        UtilKLogWrapper.d(TAG, "applyBitmapAnyCrop: width $width height $height x $x y $y")
         val sourceWidth: Int = bitmapSource.width // 得到图片的宽，高
         val sourceHeight: Int = bitmapSource.height
         val cropWidth = if (width >= sourceWidth) sourceWidth else width // 裁切后所取的正方形区域边长
