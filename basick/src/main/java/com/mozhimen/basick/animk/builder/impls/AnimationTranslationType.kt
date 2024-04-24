@@ -1,13 +1,8 @@
-package com.mozhimen.basick.animk.builder.temps
+package com.mozhimen.basick.animk.builder.impls
 
-import android.animation.Animator
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
-import android.util.Property
-import android.view.View
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
-import com.mozhimen.basick.animk.builder.bases.BaseAnimKType
+import com.mozhimen.basick.animk.builder.bases.BaseAnimationType
 import com.mozhimen.basick.animk.builder.cons.EDirection
 import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
 
@@ -18,7 +13,7 @@ import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
  * @Date 2022/11/17 23:03
  * @Version 1.0
  */
-open class AnimKTranslationType() : BaseAnimKType<AnimKTranslationType>() {
+open class AnimationTranslationType() : BaseAnimationType<AnimationTranslationType>() {
     private var _fromX = 0f
     private var _toX = 0f
     private var _fromY = 0f
@@ -27,9 +22,8 @@ open class AnimKTranslationType() : BaseAnimKType<AnimKTranslationType>() {
     private var _isPercentageToX = false
     private var _isPercentageFromY = false
     private var _isPercentageToY = false
-    override lateinit var _animator: Animator
 
-    fun from(vararg directions: EDirection): AnimKTranslationType {
+    fun from(vararg directions: EDirection): AnimationTranslationType {
         if (directions.isNotEmpty()) {
             _fromY = 0f
             _fromX = _fromY
@@ -63,7 +57,7 @@ open class AnimKTranslationType() : BaseAnimKType<AnimKTranslationType>() {
         return this
     }
 
-    fun to(vararg directions: EDirection): AnimKTranslationType {
+    fun to(vararg directions: EDirection): AnimationTranslationType {
         if (directions.isNotEmpty()) {
             _toY = 0f
             _toX = _toY
@@ -97,71 +91,71 @@ open class AnimKTranslationType() : BaseAnimKType<AnimKTranslationType>() {
         return this
     }
 
-    fun fromX(fromX: Float): AnimKTranslationType {
+    fun fromX(fromX: Float): AnimationTranslationType {
         fromX(fromX, true)
         return this
     }
 
-    fun toX(toX: Float): AnimKTranslationType {
+    fun toX(toX: Float): AnimationTranslationType {
         toX(toX, true)
         return this
     }
 
-    fun fromY(fromY: Float): AnimKTranslationType {
+    fun fromY(fromY: Float): AnimationTranslationType {
         fromY(fromY, true)
         return this
     }
 
-    fun toY(toY: Float): AnimKTranslationType {
+    fun toY(toY: Float): AnimationTranslationType {
         toY(toY, true)
         return this
     }
 
-    fun fromX(fromX: Int): AnimKTranslationType {
+    fun fromX(fromX: Int): AnimationTranslationType {
         fromX(fromX.toFloat(), false)
         return this
     }
 
-    fun toX(toX: Int): AnimKTranslationType {
+    fun toX(toX: Int): AnimationTranslationType {
         toX(toX.toFloat(), false)
         return this
     }
 
-    fun fromY(fromY: Int): AnimKTranslationType {
+    fun fromY(fromY: Int): AnimationTranslationType {
         fromY(fromY.toFloat(), false)
         return this
     }
 
-    fun toY(toY: Int): AnimKTranslationType {
+    fun toY(toY: Int): AnimationTranslationType {
         toY(toY.toFloat(), false)
         return this
     }
 
-    fun fromX(fromX: Float, percentage: Boolean): AnimKTranslationType {
+    fun fromX(fromX: Float, percentage: Boolean): AnimationTranslationType {
         _isPercentageFromX = percentage
         this._fromX = fromX
         return this
     }
 
-    fun toX(toX: Float, percentage: Boolean): AnimKTranslationType {
+    fun toX(toX: Float, percentage: Boolean): AnimationTranslationType {
         _isPercentageToX = percentage
         this._toX = toX
         return this
     }
 
-    fun fromY(fromY: Float, percentage: Boolean): AnimKTranslationType {
+    fun fromY(fromY: Float, percentage: Boolean): AnimationTranslationType {
         _isPercentageFromY = percentage
         this._fromY = fromY
         return this
     }
 
-    fun toY(toY: Float, percentage: Boolean): AnimKTranslationType {
+    fun toY(toY: Float, percentage: Boolean): AnimationTranslationType {
         _isPercentageToY = percentage
         this._toY = toY
         return this
     }
 
-    override fun buildAnimation(animKConfig: MAnimKConfig): Animation {
+    override fun buildAnim(animKConfig: MAnimKConfig): Animation {
         val animation: Animation = TranslateAnimation(
             if (_isPercentageFromX) Animation.RELATIVE_TO_SELF else Animation.ABSOLUTE,
             _fromX,
@@ -172,76 +166,35 @@ open class AnimKTranslationType() : BaseAnimKType<AnimKTranslationType>() {
             if (_isPercentageToY) Animation.RELATIVE_TO_SELF else Animation.ABSOLUTE,
             _toY
         )
-        formatAnimation(animKConfig, animation)
+        formatAnim(animKConfig, animation)
         return animation
     }
 
-    override fun buildAnimator(animKConfig: MAnimKConfig): Animator {
-        _animator = AnimatorSet()
-        val translationXProperty = if (_isPercentageFromX && _isPercentageToY) object : FloatPropertyCompat<View>(
-            View.TRANSLATION_X.name
-        ) {
-            override fun setValue(obj: View, value: Float) {
-                obj.translationX = obj.width * value
-            }
-
-            override operator fun get(obj: View): Float {
-                return obj.translationX
-            }
-        } else View.TRANSLATION_X
-        val translationYProperty = if (_isPercentageFromY && _isPercentageToY) object : FloatPropertyCompat<View>(
-            View.TRANSLATION_Y.name
-        ) {
-            override fun setValue(obj: View, value: Float) {
-                obj.translationY = obj.height * value
-            }
-
-            override operator fun get(obj: View): Float {
-                return obj.translationY
-            }
-        } else View.TRANSLATION_Y
-        val translationX = ObjectAnimator.ofFloat(null, translationXProperty, _fromX, _toX)
-        val translationY = ObjectAnimator.ofFloat(null, translationYProperty, _fromY, _toY)
-        (_animator as AnimatorSet).playTogether(translationX, translationY)
-        formatAnimator(animKConfig, _animator)
-        return _animator
-    }
-
-    abstract class FloatPropertyCompat<T>(name: String) : Property<T, Float>(Float::class.java, name) {
-        /**
-         * A type-specific variant of [.set] that is faster when dealing
-         * with fields of type `float`.
-         */
-        abstract fun setValue(obj: T, value: Float)
-
-        override operator fun set(obj: T, value: Float) {
-            setValue(obj, value)
-        }
-    }
+    ////////////////////////////////////////////////////////////////////////////
 
     companion object {
-        val FROM_LEFT_SHOW: AnimKTranslationType = AnimKTranslationType().apply {
+        val FROM_LEFT_SHOW: AnimationTranslationType = AnimationTranslationType().apply {
             from(EDirection.LEFT)
         }
-        val FROM_TOP_SHOW: AnimKTranslationType = AnimKTranslationType().apply {
+        val FROM_TOP_SHOW: AnimationTranslationType = AnimationTranslationType().apply {
             from(EDirection.TOP)
         }
-        val FROM_RIGHT_SHOW: AnimKTranslationType = AnimKTranslationType().apply {
+        val FROM_RIGHT_SHOW: AnimationTranslationType = AnimationTranslationType().apply {
             from(EDirection.RIGHT)
         }
-        val FROM_BOTTOM_SHOW: AnimKTranslationType = AnimKTranslationType().apply {
+        val FROM_BOTTOM_SHOW: AnimationTranslationType = AnimationTranslationType().apply {
             from(EDirection.BOTTOM)
         }
-        val TO_LEFT_HIDE: AnimKTranslationType = AnimKTranslationType().apply {
+        val TO_LEFT_HIDE: AnimationTranslationType = AnimationTranslationType().apply {
             to(EDirection.LEFT)
         }
-        val TO_TOP_HIDE: AnimKTranslationType = AnimKTranslationType().apply {
+        val TO_TOP_HIDE: AnimationTranslationType = AnimationTranslationType().apply {
             to(EDirection.TOP)
         }
-        val TO_RIGHT_HIDE: AnimKTranslationType = AnimKTranslationType().apply {
+        val TO_RIGHT_HIDE: AnimationTranslationType = AnimationTranslationType().apply {
             to(EDirection.RIGHT)
         }
-        val TO_BOTTOM_HIDE: AnimKTranslationType = AnimKTranslationType().apply {
+        val TO_BOTTOM_HIDE: AnimationTranslationType = AnimationTranslationType().apply {
             to(EDirection.BOTTOM)
         }
     }

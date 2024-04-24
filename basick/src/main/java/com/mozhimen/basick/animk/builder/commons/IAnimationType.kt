@@ -9,12 +9,12 @@ import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
  * @Author mozhimen / Kolin Zhao
  * @Version 1.0
  */
-interface IAnimationType {
-    fun buildAnimation(animKConfig: MAnimKConfig): Animation
+interface IAnimationType : IAnimType<Animation> {
+    override fun buildAnim(animKConfig: MAnimKConfig): Animation
 
-    fun formatAnimation(animKConfig: MAnimKConfig, animation: Animation) {
-        animation.fillBefore = animKConfig.fillBefore
-        animation.fillAfter = animKConfig.fillAfter
-        animation.duration = animKConfig.duration
+    override fun formatAnim(animKConfig: MAnimKConfig, anim: Animation) {
+        anim.fillBefore = animKConfig.fillBefore
+        anim.fillAfter = animKConfig.fillAfter
+        anim.duration = animKConfig.duration
     }
 }

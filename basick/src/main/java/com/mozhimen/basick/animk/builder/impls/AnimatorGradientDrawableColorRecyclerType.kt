@@ -1,4 +1,4 @@
-package com.mozhimen.basick.animk.builder.temps
+package com.mozhimen.basick.animk.builder.impls
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
@@ -17,11 +17,13 @@ class AnimatorGradientDrawableColorRecyclerType: AnimatorGradientDrawableColorTy
         setInterpolator(LinearInterpolator())
     }
 
-    override fun formatAnimator(animKConfig: MAnimKConfig, animator: Animator) {
-        super.formatAnimator(animKConfig, animator)
-        (animator as ObjectAnimator).apply {
-            repeatCount = ObjectAnimator.INFINITE
-            repeatMode = ObjectAnimator.REVERSE
+    override fun formatAnim(animKConfig: MAnimKConfig, anim: Animator) {
+        super.formatAnim(animKConfig, anim)
+        if (anim is ObjectAnimator){
+            anim.apply {
+                repeatCount = ObjectAnimator.INFINITE
+                repeatMode = ObjectAnimator.REVERSE
+            }
         }
     }
 }

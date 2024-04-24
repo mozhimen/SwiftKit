@@ -1,4 +1,4 @@
-package com.mozhimen.basick.animk.builder.temps
+package com.mozhimen.basick.animk.builder.impls
 
 import android.animation.Animator
 import android.animation.ArgbEvaluator
@@ -16,10 +16,9 @@ import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
  * @Date 2022/11/26 19:07
  * @Version 1.0
  */
-open class AnimatorGradientDrawableColorType : BaseAnimatorType<AnimatorGradientDrawableColorType>() {
+open class AnimatorGradientDrawableColorType : BaseAnimatorType<AnimatorGradientDrawableColorType, Int>() {
     private var _gradientDrawable: GradientDrawable? = null
     private var _colors: IntArray = intArrayOf(Color.WHITE, Color.BLACK)
-    override lateinit var _animator: Animator
 
     fun setGradientDrawable(gradientDrawable: GradientDrawable): AnimatorGradientDrawableColorType {
         _gradientDrawable = gradientDrawable
@@ -31,11 +30,11 @@ open class AnimatorGradientDrawableColorType : BaseAnimatorType<AnimatorGradient
         return this
     }
 
-    override fun buildAnimator(animKConfig: MAnimKConfig): Animator {
+    override fun buildAnim(animKConfig: MAnimKConfig): Animator {
         requireNotNull(_gradientDrawable) { "$TAG you should set _drawable" }
-        _animator = ObjectAnimator.ofInt(_gradientDrawable!!, "color", *_colors)
-        (_animator as ObjectAnimator).setEvaluator(ArgbEvaluator())
-        formatAnimator(animKConfig, _animator)
-        return _animator
+        val animator: ObjectAnimator = ObjectAnimator.ofInt(_gradientDrawable!!, "color", *_colors)
+        animator.setEvaluator(ArgbEvaluator())
+        formatAnim(animKConfig, animator)
+        return animator
     }
 }

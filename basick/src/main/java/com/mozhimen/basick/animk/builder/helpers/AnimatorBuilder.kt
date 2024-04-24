@@ -4,7 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorSet
 import androidx.core.util.forEach
 import com.mozhimen.basick.animk.builder.bases.BaseAnimatorBuilder
-import com.mozhimen.basick.animk.builder.commons.IAnimatorCreateListener
+import com.mozhimen.basick.animk.builder.commons.IAnimCreateListener
 
 /**
  * @ClassName AnimatorBuilder
@@ -14,14 +14,16 @@ import com.mozhimen.basick.animk.builder.commons.IAnimatorCreateListener
  * @Version 1.0
  */
 class AnimatorBuilder : BaseAnimatorBuilder<AnimatorBuilder>() {
-    fun build(listener: IAnimatorCreateListener? = null): Animator {
+
+    @JvmOverloads
+    fun build(listener: IAnimCreateListener<Animator, AnimatorSet>? = null): Animator {
         val animatorSet = AnimatorSet()
-        _types.forEach { _, value ->
-            val childAnimator = value.buildAnimator(_animKConfig)
-            listener?.onAnimatorCreated(childAnimator)
-            animatorSet.playTogether(childAnimator)
+        _types.forEach { _, type ->
+            val childAnim = type.buildAnim(_animKConfig)
+            listener?.onAnimKCreated(childAnim)
+            animatorSet.playTogether(childAnim)
         }
-        listener?.onAnimatorCreateFinish(animatorSet)
+        listener?.onAnimKCreated(animatorSet)
         return animatorSet
     }
 }

@@ -8,5 +8,5 @@ package com.mozhimen.basick.animk.builder.commons
  * @Version 1.0
  */
 interface IAnimatorUpdateListener<T> {
-    fun onChange(value: T)
+    fun onChange(value: T?)
 }

@@ -12,7 +12,7 @@ import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
  * @Version 1.0
  */
 @Suppress(CSuppress.UNCHECKED_CAST)
-abstract class BasePropertyType<T> {
+abstract class BaseProperty<T> {
 
     protected var _interpolator: Interpolator? = null
     protected var _pivotX = 0f

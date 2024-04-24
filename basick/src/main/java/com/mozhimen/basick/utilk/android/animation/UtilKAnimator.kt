@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.android.animation
 
 import android.animation.Animator
 import android.animation.AnimatorSet
+import android.animation.ValueAnimator
 import kotlin.math.max
 
 /**
@@ -40,5 +41,8 @@ object UtilKAnimator {
     fun cancel_removeAllListeners(animator: Animator) {
         animator.cancel()
         animator.removeAllListeners()
+        if (animator is ValueAnimator) {
+            UtilKValueAnimator.removeAllUpdateListeners(animator)
+        }
     }
 }

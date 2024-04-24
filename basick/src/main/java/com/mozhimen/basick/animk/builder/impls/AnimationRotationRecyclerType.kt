@@ -1,4 +1,4 @@
-package com.mozhimen.basick.animk.builder.temps
+package com.mozhimen.basick.animk.builder.impls
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
@@ -12,25 +12,17 @@ import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
  * @Author mozhimen / Kolin Zhao
  * @Version 1.0
  */
-class AnimKRotationRecyclerType : AnimKRotationType() {
+class AnimationRotationRecyclerType : AnimationRotationType() {
 
     init {
         setInterpolator(LinearInterpolator())
     }
 
-    override fun formatAnimation(animKConfig: MAnimKConfig, animation: Animation) {
-        super.formatAnimation(animKConfig, animation)
+    override fun formatAnim(animKConfig: MAnimKConfig, animation: Animation) {
+        super.formatAnim(animKConfig, animation)
         animation.apply {
             repeatCount = Animation.INFINITE
             repeatMode = Animation.RESTART
-        }
-    }
-
-    override fun formatAnimator(animKConfig: MAnimKConfig, animator: Animator) {
-        super.formatAnimator(animKConfig, animator)
-        (animator as ObjectAnimator).apply {
-            repeatCount = ObjectAnimator.INFINITE
-            repeatMode = ObjectAnimator.RESTART
         }
     }
 }

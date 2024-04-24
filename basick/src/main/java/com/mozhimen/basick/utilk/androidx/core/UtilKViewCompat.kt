@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.androidx.core
 
+import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.core.view.OnApplyWindowInsetsListener
 import androidx.core.view.ViewCompat
@@ -14,6 +15,11 @@ import com.mozhimen.basick.utilk.android.view.UtilKView
  * @Version 1.0
  */
 object UtilKViewCompat {
+    @JvmStatic
+    fun applyBackground(view: View, background: Drawable) {
+        ViewCompat.setBackground(view, background)
+    }
+
     /**
      * setContentView(R.layout.activity_main)
      * ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->

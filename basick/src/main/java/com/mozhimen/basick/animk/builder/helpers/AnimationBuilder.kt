@@ -4,7 +4,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationSet
 import androidx.core.util.forEach
 import com.mozhimen.basick.animk.builder.bases.BaseAnimationBuilder
-import com.mozhimen.basick.animk.builder.commons.IAnimationCreateListener
+import com.mozhimen.basick.animk.builder.commons.IAnimCreateListener
 
 /**
  * @ClassName AnimationBuilder
@@ -16,10 +16,10 @@ import com.mozhimen.basick.animk.builder.commons.IAnimationCreateListener
 class AnimationBuilder : BaseAnimationBuilder<AnimationBuilder>() {
 
     @JvmOverloads
-    fun build(listener: IAnimationCreateListener? = null): Animation {
+    fun build(listener: IAnimCreateListener<Animation, AnimationSet>? = null): Animation {
         val animationSet = AnimationSet(false)
-        _types.forEach { _, value ->
-            val childAnim = value.buildAnimation(_animKConfig)
+        _types.forEach { _, type ->
+            val childAnim = type.buildAnim(_animKConfig)
             if (childAnim.isFillEnabled) {
                 animationSet.isFillEnabled = true
             }
@@ -29,10 +29,10 @@ class AnimationBuilder : BaseAnimationBuilder<AnimationBuilder>() {
             if (childAnim.fillAfter) {
                 animationSet.fillAfter = true
             }
-            listener?.onAnimationCreated(childAnim)
+            listener?.onAnimKCreated(childAnim)
             animationSet.addAnimation(childAnim)
         }
-        listener?.onAnimationCreateFinish(animationSet)
+        listener?.onAnimKCreated(animationSet)
         return animationSet
     }
 }

@@ -1,9 +1,8 @@
-package com.mozhimen.basick.animk.builder.temps
+package com.mozhimen.basick.animk.builder.impls
 
 import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
 
@@ -13,24 +12,16 @@ import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
  * @Author mozhimen / Kolin Zhao
  * @Version 1.0
  */
-class AnimKScaleRecyclerType : AnimKScaleType() {
+class AnimatorScaleRecyclerType : AnimatorScaleType() {
     init {
         setInterpolator(LinearInterpolator())
         scale(1f, 1f)
         hide()
     }
 
-    override fun formatAnimation(animKConfig: MAnimKConfig, animation: Animation) {
-        super.formatAnimation(animKConfig, animation)
-        animation.apply {
-            repeatCount = Animation.INFINITE
-            repeatMode = Animation.REVERSE
-        }
-    }
-
-    override fun formatAnimator(animKConfig: MAnimKConfig, animator: Animator) {
-        super.formatAnimator(animKConfig, animator)
-        (animator as AnimatorSet).childAnimations.forEach {
+    override fun formatAnim(animKConfig: MAnimKConfig, anim: Animator) {
+        super.formatAnim(animKConfig, anim)
+        (anim as AnimatorSet).childAnimations.forEach {
             (it as ObjectAnimator).apply {
                 repeatCount = ObjectAnimator.INFINITE
                 repeatMode = ObjectAnimator.REVERSE

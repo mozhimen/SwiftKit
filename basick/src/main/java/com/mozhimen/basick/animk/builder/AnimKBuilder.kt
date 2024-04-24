@@ -12,10 +12,12 @@ import com.mozhimen.basick.animk.builder.helpers.AnimatorBuilder
  */
 object AnimKBuilder {
 
+    @JvmStatic
     fun asAnimation(): AnimationBuilder {
         return AnimationBuilder()
     }
 
+    @JvmStatic
     fun asAnimator(): AnimatorBuilder {
         return AnimatorBuilder()
     }

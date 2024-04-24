@@ -1,11 +1,9 @@
-package com.mozhimen.basick.animk.builder.temps
+package com.mozhimen.basick.animk.builder.impls
 
-import android.animation.*
-import android.view.View
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import androidx.annotation.FloatRange
-import com.mozhimen.basick.animk.builder.bases.BaseAnimKType
+import com.mozhimen.basick.animk.builder.bases.BaseAnimationType
 import com.mozhimen.basick.animk.builder.cons.EDirection
 import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
 
@@ -16,20 +14,19 @@ import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
  * @Date 2022/11/17 23:02
  * @Version 1.0
  */
-open class AnimKScaleType : BaseAnimKType<AnimKScaleType>() {
+open class AnimationScaleType : BaseAnimationType<AnimationScaleType>() {
     private var _scaleFromX = 0f
     private var _scaleToX = 1f
     private var _scaleFromY = 0f
     private var _scaleToY = 1f
     private var _isDismiss = false
-    override lateinit var _animator: Animator
 
     init {
         setPivot(.5f, .5f)
         setPivot2(.5f, .5f)
     }
 
-    fun fromDirection(vararg from: EDirection): AnimKScaleType {
+    fun fromDirection(vararg from: EDirection): AnimationScaleType {
         if (from.isNotEmpty()) {
             var flag = 0
             for (direction in from) {
@@ -57,7 +54,7 @@ open class AnimKScaleType : BaseAnimKType<AnimKScaleType>() {
         return this
     }
 
-    fun toDirection(vararg to: EDirection): AnimKScaleType {
+    fun toDirection(vararg to: EDirection): AnimationScaleType {
         if (to.isNotEmpty()) {
             var flag = 0
             for (direction in to) {
@@ -85,69 +82,43 @@ open class AnimKScaleType : BaseAnimKType<AnimKScaleType>() {
         return this
     }
 
-    fun show(): AnimKScaleType {
+    fun show(): AnimationScaleType {
         _isDismiss = false
         return this
     }
 
-    fun hide(): AnimKScaleType {
+    fun hide(): AnimationScaleType {
         _isDismiss = true
         return this
     }
 
-    fun scaleX(@FloatRange(from = 0.0, to = 1.0) fromVal: Float, @FloatRange(from = 0.0, to = 1.0) toVal: Float): AnimKScaleType {
+    fun scaleX(@FloatRange(from = 0.0, to = 1.0) fromVal: Float, @FloatRange(from = 0.0, to = 1.0) toVal: Float): AnimationScaleType {
         _scaleFromX = fromVal
         _scaleToX = toVal
         return this
     }
 
-    fun scaleY(@FloatRange(from = 0.0, to = 1.0) fromVal: Float, @FloatRange(from = 0.0, to = 1.0) toVal: Float): AnimKScaleType {
+    fun scaleY(@FloatRange(from = 0.0, to = 1.0) fromVal: Float, @FloatRange(from = 0.0, to = 1.0) toVal: Float): AnimationScaleType {
         _scaleFromY = fromVal
         _scaleToY = toVal
         return this
     }
 
-    fun scale(@FloatRange(from = 0.0, to = 1.0) fromVal: Float, @FloatRange(from = 0.0, to = 1.0) toVal: Float): AnimKScaleType {
+    fun scale(@FloatRange(from = 0.0, to = 1.0) fromVal: Float, @FloatRange(from = 0.0, to = 1.0) toVal: Float): AnimationScaleType {
         scaleX(fromVal, toVal)
         scaleY(fromVal, toVal)
         return this
     }
 
-    override fun buildAnimation(animKConfig: MAnimKConfig): Animation {
+    override fun buildAnim(animKConfig: MAnimKConfig): Animation {
         val values = genConfigs()
         val animation: Animation = ScaleAnimation(
             values[0], values[1], values[2], values[3],
             Animation.RELATIVE_TO_SELF, values[4],
             Animation.RELATIVE_TO_SELF, values[5]
         )
-        formatAnimation(animKConfig, animation)
+        formatAnim(animKConfig, animation)
         return animation
-    }
-
-    override fun buildAnimator(animKConfig: MAnimKConfig): Animator {
-        val values = genConfigs()
-        _animator = AnimatorSet()
-        val scaleX: Animator = ObjectAnimator.ofFloat(null, View.SCALE_X, values[0], values[1])
-        val scaleY: Animator = ObjectAnimator.ofFloat(null, View.SCALE_Y, values[2], values[3])
-        scaleX.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationStart(animation: Animator) {
-                val target = (animation as ObjectAnimator).target
-                if (target is View) {
-                    target.pivotX = target.width * values[4]
-                }
-            }
-        })
-        scaleY.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationStart(animation: Animator) {
-                val target = (animation as ObjectAnimator).target
-                if (target is View) {
-                    target.pivotY = target.height * values[5]
-                }
-            }
-        })
-        (_animator as AnimatorSet).playTogether(scaleX, scaleY)
-        formatAnimator(animKConfig, _animator)
-        return _animator
     }
 
     private fun genConfigs(): FloatArray {
@@ -161,44 +132,46 @@ open class AnimKScaleType : BaseAnimKType<AnimKScaleType>() {
         return result
     }
 
+    /////////////////////////////////////////////////////////////////////
+
     companion object {
-        val LEFT_TO_RIGHT_SHOW = AnimKScaleType().apply {
+        val LEFT_TO_RIGHT_SHOW = AnimationScaleType().apply {
             fromDirection(EDirection.LEFT).toDirection(EDirection.RIGHT).show()
         }
 
-        val LEFT_TO_RIGHT_HIDE = AnimKScaleType().apply {
+        val LEFT_TO_RIGHT_HIDE = AnimationScaleType().apply {
             fromDirection(EDirection.LEFT).toDirection(EDirection.RIGHT).hide()
         }
 
-        val RIGHT_TO_LEFT_SHOW = AnimKScaleType().apply {
+        val RIGHT_TO_LEFT_SHOW = AnimationScaleType().apply {
             fromDirection(EDirection.RIGHT).toDirection(EDirection.LEFT).show()
         }
 
-        val RIGHT_TO_LEFT_HIDE = AnimKScaleType().apply {
+        val RIGHT_TO_LEFT_HIDE = AnimationScaleType().apply {
             fromDirection(EDirection.RIGHT).toDirection(EDirection.LEFT).hide()
         }
 
-        val TOP_TO_BOTTOM_SHOW = AnimKScaleType().apply {
+        val TOP_TO_BOTTOM_SHOW = AnimationScaleType().apply {
             fromDirection(EDirection.TOP).toDirection(EDirection.BOTTOM).show()
         }
 
-        val TOP_TO_BOTTOM_HIDE = AnimKScaleType().apply {
+        val TOP_TO_BOTTOM_HIDE = AnimationScaleType().apply {
             fromDirection(EDirection.TOP).toDirection(EDirection.BOTTOM).hide()
         }
 
-        val BOTTOM_TO_TOP_SHOW = AnimKScaleType().apply {
+        val BOTTOM_TO_TOP_SHOW = AnimationScaleType().apply {
             fromDirection(EDirection.BOTTOM).toDirection(EDirection.TOP).show()
         }
 
-        val BOTTOM_TO_TOP_HIDE = AnimKScaleType().apply {
+        val BOTTOM_TO_TOP_HIDE = AnimationScaleType().apply {
             fromDirection(EDirection.BOTTOM).toDirection(EDirection.TOP).hide()
         }
 
-        val CENTER_SHOW = AnimKScaleType().apply {
+        val CENTER_SHOW = AnimationScaleType().apply {
             fromDirection(EDirection.CENTER).toDirection(EDirection.CENTER).show()
         }
 
-        val CENTER_HIDE = AnimKScaleType().apply {
+        val CENTER_HIDE = AnimationScaleType().apply {
             fromDirection(EDirection.CENTER).toDirection(EDirection.CENTER).hide()
         }
     }
