@@ -8,6 +8,7 @@ import com.mozhimen.basick.animk.builder.commons.IAnimatorType
 import com.mozhimen.basick.animk.builder.commons.IAnimatorUpdateListener
 import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
 import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 
 /**
  * @ClassName BaseAnimatorType
@@ -27,6 +28,7 @@ abstract class BaseAnimatorType<TYPE, UPDATE_VALUE> : BaseProperty<TYPE>(), IAni
     }
 
     fun addAnimatorUpdateListener(listener: IAnimatorUpdateListener<UPDATE_VALUE>): TYPE {
+        UtilKLogWrapper.v(TAG, "addAnimatorUpdateListener: ")
         _animatorUpdateListener = listener
         return this as TYPE
     }
@@ -38,7 +40,9 @@ abstract class BaseAnimatorType<TYPE, UPDATE_VALUE> : BaseProperty<TYPE>(), IAni
         }
         _animatorUpdateListener?.let {
             if (anim is ValueAnimator){
+                UtilKLogWrapper.v(TAG,"_animatorUpdateListener $_animatorUpdateListener")
                 anim.addUpdateListener {
+                    UtilKLogWrapper.v(TAG,"_animatorUpdateListener onChange $it")
                     _animatorUpdateListener!!.onChange(it.animatedValue as? UPDATE_VALUE?)
                 }
             }

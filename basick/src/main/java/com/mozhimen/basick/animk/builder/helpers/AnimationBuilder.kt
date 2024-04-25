@@ -29,10 +29,10 @@ class AnimationBuilder : BaseAnimationBuilder<AnimationBuilder>() {
             if (childAnim.fillAfter) {
                 animationSet.fillAfter = true
             }
-            listener?.onAnimKCreated(childAnim)
+            listener?.onAnimCreated(childAnim)
             animationSet.addAnimation(childAnim)
         }
-        listener?.onAnimKCreated(animationSet)
+        listener?.onAnimSetCreated(animationSet)
         return animationSet
     }
 }

@@ -20,10 +20,10 @@ class AnimatorBuilder : BaseAnimatorBuilder<AnimatorBuilder>() {
         val animatorSet = AnimatorSet()
         _types.forEach { _, type ->
             val childAnim = type.buildAnim(_animKConfig)
-            listener?.onAnimKCreated(childAnim)
+            listener?.onAnimCreated(childAnim)
             animatorSet.playTogether(childAnim)
         }
-        listener?.onAnimKCreated(animatorSet)
+        listener?.onAnimSetCreated(animatorSet)
         return animatorSet
     }
 }

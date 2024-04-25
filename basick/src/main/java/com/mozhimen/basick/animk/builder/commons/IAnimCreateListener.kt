@@ -8,6 +8,6 @@ package com.mozhimen.basick.animk.builder.commons
  * @Version 1.0
  */
 interface IAnimCreateListener<ANIM, SET> {
-    fun onAnimKCreated(anim: ANIM)
-    fun onAnimKCreated(animSet: SET)
+    fun onAnimCreated(anim: ANIM)
+    fun onAnimSetCreated(animSet: SET)
 }

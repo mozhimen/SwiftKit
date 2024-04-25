@@ -2,9 +2,7 @@ package com.mozhimen.basick.animk.builder.impls
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import com.mozhimen.basick.animk.builder.bases.BaseAnimatorType
-import com.mozhimen.basick.animk.builder.commons.IAnimatorUpdateListener
 import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
 
 /**
@@ -13,18 +11,18 @@ import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
  * @Author Mozhimen / Kolin Zhao
  * @Version 1.0
  */
-open class AnimatorFloatType : BaseAnimatorType<AnimatorFloatType, Float>() {
-    protected var _startF = 0f
-    protected var _endF = 1f
+open class AnimatorIntType : BaseAnimatorType<AnimatorIntType, Int>() {
+    protected var _start = 0
+    protected var _end = 1
 
-    fun setFloat(startF: Float, endF: Float): AnimatorFloatType {
-        _startF = startF
-        _endF = endF
+    fun setInt(start: Int, end: Int): AnimatorIntType {
+        _start = start
+        _end = end
         return this
     }
 
     override fun buildAnim(animKConfig: MAnimKConfig): Animator {
-        val animator = ObjectAnimator.ofFloat(_startF, _endF)
+        val animator = ObjectAnimator.ofInt(_start, _end)
         formatAnim(animKConfig, animator)
         return animator
     }
