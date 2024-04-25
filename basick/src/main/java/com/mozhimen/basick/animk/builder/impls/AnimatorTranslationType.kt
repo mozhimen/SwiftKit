@@ -16,7 +16,7 @@ import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
  * @Date 2022/11/17 23:03
  * @Version 1.0
  */
-open class AnimatorTranslationType() : BaseAnimatorType<AnimatorTranslationType, Nothing>() {
+open class AnimatorTranslationType : BaseAnimatorType<AnimatorTranslationType, Nothing>() {
     private var _fromX = 0f
     private var _toX = 0f
     private var _fromY = 0f
