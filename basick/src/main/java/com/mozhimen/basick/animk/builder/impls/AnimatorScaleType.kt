@@ -110,7 +110,7 @@ open class AnimatorScaleType : BaseAnimatorType<AnimatorScaleType,Nothing>() {
         return this
     }
 
-    override fun buildAnim(animKConfig: MAnimKConfig): Animator {
+    override fun build(animKConfig: MAnimKConfig): Animator {
         val values = genConfigs()
         val animatorSet = AnimatorSet()
         val scaleX: Animator = ObjectAnimator.ofFloat(null, View.SCALE_X, values[0], values[1])
@@ -132,7 +132,7 @@ open class AnimatorScaleType : BaseAnimatorType<AnimatorScaleType,Nothing>() {
             }
         })
         animatorSet.playTogether(scaleX, scaleY)
-        formatAnim(animKConfig, animatorSet)
+        format(animKConfig, animatorSet)
         return animatorSet
     }
 

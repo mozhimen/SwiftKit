@@ -19,7 +19,7 @@ data class MAnimKConfig(
     companion object {
         val DEFAULT_FILLBEFORE = false
         val DEFAULT_FILLAFTER = true
-        val DEFAULT_DURATION = UtilKRes.getInteger_ofResources(android.R.integer.config_longAnimTime).toLong()
+        val DEFAULT_DURATION = 300L
         val DEFAULT_INTERPOLATOR: Interpolator = AccelerateDecelerateInterpolator()
     }
 }

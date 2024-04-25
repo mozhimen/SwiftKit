@@ -6,7 +6,9 @@ import android.animation.ObjectAnimator
 import android.view.View
 import androidx.annotation.FloatRange
 import com.mozhimen.basick.animk.builder.bases.BaseAnimatorType
+import com.mozhimen.basick.animk.builder.commons.IAnimViewType
 import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
+import java.lang.ref.WeakReference
 
 /**
  * @ClassName AnimatorRotationType
@@ -15,12 +17,18 @@ import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
  * @Date 2024/4/24
  * @Version 1.0
  */
-open class AnimatorRotationViewType : BaseAnimatorType<AnimatorRotationViewType, Float>() {
+open class AnimatorRotationViewType : BaseAnimatorType<AnimatorRotationViewType, Float>(), IAnimViewType<AnimatorRotationViewType> {
     private var _from = 0f
     private var _to = 360f
+    private var _viewRef: WeakReference<View>? = null
 
     init {
         setPivot(0.5f, 0.5f)
+    }
+
+    override fun setViewRef(view: View): AnimatorRotationViewType {
+        _viewRef = WeakReference(view)
+        return this
     }
 
     open fun rotate(@FloatRange(from = 0.0, to = 360.0) from: Float, @FloatRange(from = 0.0, to = 360.0) to: Float): AnimatorRotationViewType {
@@ -29,8 +37,12 @@ open class AnimatorRotationViewType : BaseAnimatorType<AnimatorRotationViewType,
         return this
     }
 
-    override fun buildAnim(animKConfig: MAnimKConfig): Animator {
-        val animator = ObjectAnimator.ofFloat(null, View.ROTATION, _from, _to)
+    override fun build(animKConfig: MAnimKConfig): Animator {
+        val animator = if (_viewRef?.get() != null) {
+            ObjectAnimator.ofFloat(_viewRef?.get(), View.ROTATION, _from, _to)
+        } else {
+            ObjectAnimator.ofFloat(_from, _to)
+        }
         animator.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator) {
                 val target = (animation as ObjectAnimator).target
@@ -40,7 +52,7 @@ open class AnimatorRotationViewType : BaseAnimatorType<AnimatorRotationViewType,
                 }
             }
         })
-        formatAnim(animKConfig, animator)
+        format(animKConfig, animator)
         return animator
     }
 

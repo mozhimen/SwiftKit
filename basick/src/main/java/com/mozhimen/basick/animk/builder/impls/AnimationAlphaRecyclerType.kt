@@ -16,8 +16,8 @@ class AnimationAlphaRecyclerType : AnimationAlphaType(){
         setInterpolator(LinearInterpolator())
     }
 
-    override fun formatAnim(animKConfig: MAnimKConfig, anim: Animation) {
-        super.formatAnim(animKConfig, anim)
+    override fun format(animKConfig: MAnimKConfig, anim: Animation) {
+        super.format(animKConfig, anim)
         anim.apply {
             repeatCount = Animation.INFINITE
             repeatMode = Animation.REVERSE

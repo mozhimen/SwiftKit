@@ -23,22 +23,13 @@ object AnimKUtil {
      */
     @JvmStatic
     fun get_ofHeight(view: View, startHeight: Int, endHeight: Int): Animator =
-        AnimKBuilder.asAnimator().add(AnimKTypeUtil.get_ofHeight(view, startHeight, endHeight)).build().apply {
-            addListener(BaseLayoutParamsAnimatorListenerAdapter(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
-        }
+        AnimKTypeUtil.get_ofHeight(view, startHeight, endHeight).build()
 
     @JvmStatic
     fun get_ofHeight_viewHolder(view: View, viewHolder: ViewHolder, startHeight: Int, endHeight: Int): Animator =
-        get_ofHeight(view, startHeight, endHeight).apply {
-            addListener(BaseViewHolderAnimatorListenerAdapter(viewHolder))//设定该Item在动画开始结束和取消时能否被recycle
-        }
+        AnimKTypeUtil.get_ofHeight_viewHolder(view, viewHolder, startHeight, endHeight).build()
 
     @JvmStatic
-    fun get_ofHeight_viewHolder(viewHolder: ViewHolder): Animator {
-        val parent = viewHolder.itemView.parent as View
-        val startHeight = viewHolder.itemView.measuredHeight//测量扩展动画的起始高度和结束高度
-        viewHolder.itemView.measure(View.MeasureSpec.makeMeasureSpec(parent.measuredWidth, View.MeasureSpec.AT_MOST), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED))
-        val endHeight = viewHolder.itemView.measuredHeight
-        return get_ofHeight_viewHolder(viewHolder.itemView, viewHolder, startHeight, endHeight)
-    }
+    fun get_ofHeight_viewHolder(viewHolder: ViewHolder): Animator =
+        AnimKTypeUtil.get_ofHeight_viewHolder(viewHolder).build()
 }

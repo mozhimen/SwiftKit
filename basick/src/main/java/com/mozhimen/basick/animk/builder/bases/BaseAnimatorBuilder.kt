@@ -1,6 +1,7 @@
 package com.mozhimen.basick.animk.builder.bases
 
 import android.animation.Animator
+import android.animation.AnimatorSet
 
 /**
  * @ClassName BaseAnimatorBuilder
@@ -9,4 +10,4 @@ import android.animation.Animator
  * @Date 2022/11/26 18:46
  * @Version 1.0
  */
-open class BaseAnimatorBuilder<BUILDER> : BaseAnimBuilder<BUILDER, Animator>()
+abstract class BaseAnimatorBuilder<BUILDER> : BaseAnimBuilder<BUILDER, Animator, AnimatorSet>()

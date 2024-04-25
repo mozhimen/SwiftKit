@@ -2,13 +2,12 @@ package com.mozhimen.basick.animk.builder.bases
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import com.mozhimen.basick.animk.builder.commons.IAnimatorType
 import com.mozhimen.basick.animk.builder.commons.IAnimatorUpdateListener
 import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
 import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
-import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
+import com.mozhimen.basick.utilk.android.animation.UtilKAnimator
 
 /**
  * @ClassName BaseAnimatorType
@@ -19,34 +18,61 @@ import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 @Suppress(CSuppress.UNCHECKED_CAST)
 abstract class BaseAnimatorType<TYPE, UPDATE_VALUE> : BaseProperty<TYPE>(), IAnimatorType {
 
-    protected var _animatorListenerAdapter: AnimatorListenerAdapter? = null
-    protected var _animatorUpdateListener: IAnimatorUpdateListener<UPDATE_VALUE>? = null
+    protected var _animatorListenerAdapters: ArrayList<AnimatorListenerAdapter>? = null
+    protected var _animatorUpdateListeners: ArrayList<IAnimatorUpdateListener<UPDATE_VALUE>>? = null
+
+    inner class AutoClearAnimatorListenerAdapter : android.animation.AnimatorListenerAdapter() {
+        override fun onAnimationCancel(animation: Animator) {
+            clearAllListeners(animation)
+        }
+
+        override fun onAnimationEnd(animation: Animator, isReverse: Boolean) {
+            clearAllListeners(animation)
+        }
+
+        override fun onAnimationEnd(animation: Animator) {
+            clearAllListeners(animation)
+        }
+    }
 
     fun addAnimatorListener(listener: AnimatorListenerAdapter): TYPE {
-        _animatorListenerAdapter = listener
+        if (_animatorListenerAdapters == null) {
+            _animatorListenerAdapters = ArrayList()
+        }
+        if (!_animatorListenerAdapters!!.contains(listener))
+            _animatorListenerAdapters!!.add(listener)
         return this as TYPE
     }
 
     fun addAnimatorUpdateListener(listener: IAnimatorUpdateListener<UPDATE_VALUE>): TYPE {
-        UtilKLogWrapper.v(TAG, "addAnimatorUpdateListener: ")
-        _animatorUpdateListener = listener
+        if (_animatorUpdateListeners == null) {
+            _animatorUpdateListeners = ArrayList()
+        }
+        if (!_animatorUpdateListeners!!.contains(listener))
+            _animatorUpdateListeners!!.add(listener)
         return this as TYPE
     }
 
-    override fun formatAnim(animKConfig: MAnimKConfig, anim: Animator) {
-        super.formatAnim(animKConfig, anim)
-        _animatorListenerAdapter?.let {
-            (anim as? ObjectAnimator?)?.addListener(it)
+    fun clearAllListeners(animation: Animator) {
+        UtilKAnimator.cancel_removeAllListeners(animation)
+        _animatorUpdateListeners?.clear()
+        _animatorListenerAdapters?.clear()
+    }
+
+    override fun format(animKConfig: MAnimKConfig, anim: Animator) {
+        super.format(animKConfig, anim)
+        anim.addListener(AutoClearAnimatorListenerAdapter())
+        _animatorListenerAdapters?.forEach {
+            anim.addListener(it)
         }
-        _animatorUpdateListener?.let {
-            if (anim is ValueAnimator){
-                UtilKLogWrapper.v(TAG,"_animatorUpdateListener $_animatorUpdateListener")
+        if (anim is ValueAnimator) {
+            _animatorUpdateListeners?.forEach { lis ->
                 anim.addUpdateListener {
-                    UtilKLogWrapper.v(TAG,"_animatorUpdateListener onChange $it")
-                    _animatorUpdateListener!!.onChange(it.animatedValue as? UPDATE_VALUE?)
+                    lis.onChange(it.animatedValue as? UPDATE_VALUE?)
                 }
             }
         }
         anim.interpolator = _interpolator ?: animKConfig.interpolator
+        anim.duration = _duration ?: animKConfig.duration
     }
 }

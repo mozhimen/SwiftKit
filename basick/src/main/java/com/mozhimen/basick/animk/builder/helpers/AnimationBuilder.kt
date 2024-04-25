@@ -15,11 +15,14 @@ import com.mozhimen.basick.animk.builder.commons.IAnimCreateListener
  */
 class AnimationBuilder : BaseAnimationBuilder<AnimationBuilder>() {
 
-    @JvmOverloads
-    fun build(listener: IAnimCreateListener<Animation, AnimationSet>? = null): Animation {
+    override fun build(): Animation {
+        return build(null)
+    }
+
+    override fun build(listener: IAnimCreateListener<Animation, AnimationSet>?): Animation {
         val animationSet = AnimationSet(false)
         _types.forEach { _, type ->
-            val childAnim = type.buildAnim(_animKConfig)
+            val childAnim = type.build(_animKConfig)
             if (childAnim.isFillEnabled) {
                 animationSet.isFillEnabled = true
             }

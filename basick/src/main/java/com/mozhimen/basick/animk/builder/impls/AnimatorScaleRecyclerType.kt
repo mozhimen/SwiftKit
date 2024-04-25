@@ -19,8 +19,8 @@ class AnimatorScaleRecyclerType : AnimatorScaleType() {
         hide()
     }
 
-    override fun formatAnim(animKConfig: MAnimKConfig, anim: Animator) {
-        super.formatAnim(animKConfig, anim)
+    override fun format(animKConfig: MAnimKConfig, anim: Animator) {
+        super.format(animKConfig, anim)
         (anim as AnimatorSet).childAnimations.forEach {
             (it as ObjectAnimator).apply {
                 repeatCount = ObjectAnimator.INFINITE

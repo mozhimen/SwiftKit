@@ -35,9 +35,9 @@ open class AnimationAlphaType : BaseAnimationType<AnimationAlphaType>(){
         return this
     }
 
-    override fun buildAnim(animKConfig: MAnimKConfig): Animation {
+    override fun build(animKConfig: MAnimKConfig): Animation {
         val animation = AlphaAnimation(_alphaFrom, _alphaTo)
-        formatAnim(animKConfig, animation)
+        format(animKConfig, animation)
         return animation
     }
 

@@ -16,8 +16,8 @@ class AnimatorColorRecyclerType : AnimatorColorType() {
         setInterpolator(LinearInterpolator())
     }
 
-    override fun formatAnim(animKConfig: MAnimKConfig, anim: Animator) {
-        super.formatAnim(animKConfig, anim)
+    override fun format(animKConfig: MAnimKConfig, anim: Animator) {
+        super.format(animKConfig, anim)
         if (anim is ObjectAnimator){
             anim.apply {
                 repeatCount = ObjectAnimator.INFINITE

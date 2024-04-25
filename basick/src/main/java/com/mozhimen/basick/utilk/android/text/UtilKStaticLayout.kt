@@ -3,6 +3,8 @@ package com.mozhimen.basick.utilk.android.text
 import android.text.Layout
 import android.text.StaticLayout
 import android.text.TextPaint
+import android.widget.TextView
+import com.mozhimen.basick.utilk.android.graphics.UtilKPaint
 
 /**
  * @ClassName UtilKStaticLayout

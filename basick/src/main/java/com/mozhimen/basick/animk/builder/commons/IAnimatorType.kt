@@ -10,10 +10,7 @@ import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
  * @Version 1.0
  */
 interface IAnimatorType : IAnimType<Animator> {
-
-    override fun buildAnim(animKConfig: MAnimKConfig): Animator
-
-    override fun formatAnim(animKConfig: MAnimKConfig, anim: Animator) {
+    override fun format(animKConfig: MAnimKConfig, anim: Animator) {
         anim.duration = animKConfig.duration
     }
 }

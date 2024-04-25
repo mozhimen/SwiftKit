@@ -17,6 +17,14 @@ fun View.applyMargin(@Px verticalMargin: Int, @Px horizontalMargin: Int) {
 }
 
 object UtilKViewGroupLayoutParams {
+
+    @JvmStatic
+    fun get_ofMargin(view: View): ViewGroup.MarginLayoutParams? =
+        when (view.layoutParams) {
+            is ViewGroup.MarginLayoutParams -> view.layoutParams as ViewGroup.MarginLayoutParams
+            else -> null
+        }
+
     @JvmStatic
     fun applyMargin(view: View, @Px verticalMargin: Int, @Px horizontalMargin: Int) {
         applyMargin(view, horizontalMargin, verticalMargin, horizontalMargin, verticalMargin)
@@ -32,4 +40,5 @@ object UtilKViewGroupLayoutParams {
             }
         }
     }
+
 }

@@ -2,6 +2,7 @@ package com.mozhimen.basick.animk.builder.bases
 
 import android.util.SparseArray
 import android.view.animation.Interpolator
+import com.mozhimen.basick.animk.builder.commons.IAnimCreateListener
 import com.mozhimen.basick.animk.builder.commons.IAnimType
 import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
 import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
@@ -16,7 +17,7 @@ import com.mozhimen.basick.utilk.commons.IUtilK
  * @Version 1.0
  */
 @Suppress(CSuppress.UNCHECKED_CAST)
-open class BaseAnimBuilder<BUILDER,ANIM> : IUtilK {
+abstract class BaseAnimBuilder<BUILDER, ANIM, ANIMSET> : IUtilK {
     protected var _animKConfig = MAnimKConfig()
     protected var _types: SparseArray<IAnimType<ANIM>> = SparseArray()
 
@@ -40,11 +41,17 @@ open class BaseAnimBuilder<BUILDER,ANIM> : IUtilK {
         return this as BUILDER
     }
 
-    fun add(type: IAnimType<ANIM>): BUILDER {
+    fun combine(type: IAnimType<ANIM>): BUILDER {
         _types.delete((type as BaseProperty<*>).getKey())//同类型的只能作用一个
         _types.append(type.getKey(), type)
         UtilKLogWrapper.d(TAG, "add: type $type _types $_types")
 
         return this as BUILDER
     }
+
+    ////////////////////////////////////////////////////
+
+    abstract fun build(): ANIM
+
+    abstract fun build(listener: IAnimCreateListener<ANIM, ANIMSET>?): ANIM
 }

@@ -3,6 +3,7 @@ package com.mozhimen.basick.animk.builder.bases
 import android.view.animation.Interpolator
 import androidx.annotation.FloatRange
 import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
+import kotlin.time.Duration
 
 /**
  * @ClassName BaseAnimationConfig
@@ -15,10 +16,16 @@ import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 abstract class BaseProperty<T> {
 
     protected var _interpolator: Interpolator? = null
+    protected var _duration: Long? = null
     protected var _pivotX = 0f
     protected var _pivotY = 0f
     protected var _pivotX2 = 0f
     protected var _pivotY2 = 0f
+
+    fun setDuration(duration: Long): T {
+        _duration = duration
+        return this as T
+    }
 
     fun setInterpolator(interpolator: Interpolator): T {
         _interpolator = interpolator

@@ -1,8 +1,5 @@
 package com.mozhimen.basick.animk.builder.impls
 
-import android.animation.Animator
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
@@ -19,8 +16,8 @@ class AnimationTranslationRecyclerType : AnimationTranslationType() {
         setInterpolator(LinearInterpolator())
     }
 
-    override fun formatAnim(animKConfig: MAnimKConfig, animation: Animation) {
-        super.formatAnim(animKConfig, animation)
+    override fun format(animKConfig: MAnimKConfig, animation: Animation) {
+        super.format(animKConfig, animation)
         animation.apply {
             repeatCount = Animation.INFINITE
             repeatMode = Animation.REVERSE

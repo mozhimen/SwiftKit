@@ -18,8 +18,8 @@ class AnimationScaleRecyclerType : AnimationScaleType() {
         hide()
     }
 
-    override fun formatAnim(animKConfig: MAnimKConfig, animation: Animation) {
-        super.formatAnim(animKConfig, animation)
+    override fun format(animKConfig: MAnimKConfig, animation: Animation) {
+        super.format(animKConfig, animation)
         animation.apply {
             repeatCount = Animation.INFINITE
             repeatMode = Animation.REVERSE

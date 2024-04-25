@@ -30,13 +30,13 @@ class AnimatorBackgroundColorType : BaseAnimatorType<AnimatorBackgroundColorType
         return this
     }
 
-    override fun buildAnim(animKConfig: MAnimKConfig): Animator {
+    override fun build(animKConfig: MAnimKConfig): Animator {
         requireNotNull(_view) { "$TAG you should set _view" }
         val animator = ObjectAnimator.ofInt(_view!!, "backgroundColor", *_colors)
         if (animator is ObjectAnimator) {
             animator.setEvaluator(ArgbEvaluator())
         }
-        formatAnim(animKConfig, animator)
+        format(animKConfig, animator)
         return animator
     }
 }

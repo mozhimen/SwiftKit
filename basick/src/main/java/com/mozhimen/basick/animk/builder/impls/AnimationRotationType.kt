@@ -22,14 +22,14 @@ open class AnimationRotationType : BaseAnimationType<AnimationRotationType>() {
     }
 
     open fun rotate(@FloatRange(from = 0.0, to = 360.0) from: Float, @FloatRange(from = 0.0, to = 360.0) to: Float): AnimationRotationType {
-        this._from = from
-        this._to = to
+       _from = from
+       _to = to
         return this
     }
 
-    override fun buildAnim(animKConfig: MAnimKConfig): Animation {
+    override fun build(animKConfig: MAnimKConfig): Animation {
         val rotateAnimation = RotateAnimation(_from, _to, Animation.RELATIVE_TO_SELF, _pivotX, Animation.RELATIVE_TO_SELF, _pivotY)
-        formatAnim(animKConfig, rotateAnimation)
+        format(animKConfig, rotateAnimation)
         return rotateAnimation
     }
 

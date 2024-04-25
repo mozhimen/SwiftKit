@@ -110,14 +110,14 @@ open class AnimationScaleType : BaseAnimationType<AnimationScaleType>() {
         return this
     }
 
-    override fun buildAnim(animKConfig: MAnimKConfig): Animation {
+    override fun build(animKConfig: MAnimKConfig): Animation {
         val values = genConfigs()
         val animation: Animation = ScaleAnimation(
             values[0], values[1], values[2], values[3],
             Animation.RELATIVE_TO_SELF, values[4],
             Animation.RELATIVE_TO_SELF, values[5]
         )
-        formatAnim(animKConfig, animation)
+        format(animKConfig, animation)
         return animation
     }
 

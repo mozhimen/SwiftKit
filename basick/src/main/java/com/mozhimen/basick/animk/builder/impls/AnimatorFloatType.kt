@@ -2,9 +2,7 @@ package com.mozhimen.basick.animk.builder.impls
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import com.mozhimen.basick.animk.builder.bases.BaseAnimatorType
-import com.mozhimen.basick.animk.builder.commons.IAnimatorUpdateListener
 import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
 
 /**
@@ -23,9 +21,9 @@ open class AnimatorFloatType : BaseAnimatorType<AnimatorFloatType, Float>() {
         return this
     }
 
-    override fun buildAnim(animKConfig: MAnimKConfig): Animator {
+    override fun build(animKConfig: MAnimKConfig): Animator {
         val animator = ObjectAnimator.ofFloat(_startF, _endF)
-        formatAnim(animKConfig, animator)
+        format(animKConfig, animator)
         return animator
     }
 }

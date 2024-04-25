@@ -158,7 +158,7 @@ open class AnimatorTranslationType() : BaseAnimatorType<AnimatorTranslationType,
         return this
     }
 
-    override fun buildAnim(animKConfig: MAnimKConfig): Animator {
+    override fun build(animKConfig: MAnimKConfig): Animator {
         val animatorSet = AnimatorSet()
         val translationXProperty = if (_isPercentageFromX && _isPercentageToY) object : FloatPropertyCompat<View>(
             View.TRANSLATION_X.name
@@ -185,7 +185,7 @@ open class AnimatorTranslationType() : BaseAnimatorType<AnimatorTranslationType,
         val translationX = ObjectAnimator.ofFloat(null, translationXProperty, _fromX, _toX)
         val translationY = ObjectAnimator.ofFloat(null, translationYProperty, _fromY, _toY)
         animatorSet.playTogether(translationX, translationY)
-        formatAnim(animKConfig, animatorSet)
+        format(animKConfig, animatorSet)
         return animatorSet
     }
 

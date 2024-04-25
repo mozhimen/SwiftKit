@@ -14,12 +14,14 @@ import com.mozhimen.basick.animk.builder.commons.IAnimCreateListener
  * @Version 1.0
  */
 class AnimatorBuilder : BaseAnimatorBuilder<AnimatorBuilder>() {
+    override fun build(): Animator {
+        return build(null)
+    }
 
-    @JvmOverloads
-    fun build(listener: IAnimCreateListener<Animator, AnimatorSet>? = null): Animator {
+    override fun build(listener: IAnimCreateListener<Animator, AnimatorSet>?): Animator {
         val animatorSet = AnimatorSet()
         _types.forEach { _, type ->
-            val childAnim = type.buildAnim(_animKConfig)
+            val childAnim = type.build(_animKConfig)
             listener?.onAnimCreated(childAnim)
             animatorSet.playTogether(childAnim)
         }

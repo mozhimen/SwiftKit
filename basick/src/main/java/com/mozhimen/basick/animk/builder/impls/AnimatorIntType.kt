@@ -21,9 +21,9 @@ open class AnimatorIntType : BaseAnimatorType<AnimatorIntType, Int>() {
         return this
     }
 
-    override fun buildAnim(animKConfig: MAnimKConfig): Animator {
+    override fun build(animKConfig: MAnimKConfig): Animator {
         val animator = ObjectAnimator.ofInt(_start, _end)
-        formatAnim(animKConfig, animator)
+        format(animKConfig, animator)
         return animator
     }
 }

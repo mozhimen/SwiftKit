@@ -11,7 +11,11 @@ import com.mozhimen.basick.utilk.commons.IUtilK
  * @Version 1.0
  */
 interface IAnimType<ANIM> : IUtilK {
-    fun buildAnim(animKConfig: MAnimKConfig): ANIM
+    fun build(): ANIM {
+        return build(MAnimKConfig())
+    }
 
-    fun formatAnim(animKConfig: MAnimKConfig, anim: ANIM)
+    fun build(animKConfig: MAnimKConfig): ANIM
+
+    fun format(animKConfig: MAnimKConfig, anim: ANIM)
 }

@@ -30,11 +30,11 @@ open class AnimatorGradientDrawableColorType : BaseAnimatorType<AnimatorGradient
         return this
     }
 
-    override fun buildAnim(animKConfig: MAnimKConfig): Animator {
+    override fun build(animKConfig: MAnimKConfig): Animator {
         requireNotNull(_gradientDrawable) { "$TAG you should set _drawable" }
         val animator: ObjectAnimator = ObjectAnimator.ofInt(_gradientDrawable!!, "color", *_colors)
         animator.setEvaluator(ArgbEvaluator())
-        formatAnim(animKConfig, animator)
+        format(animKConfig, animator)
         return animator
     }
 }

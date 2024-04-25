@@ -155,7 +155,7 @@ open class AnimationTranslationType() : BaseAnimationType<AnimationTranslationTy
         return this
     }
 
-    override fun buildAnim(animKConfig: MAnimKConfig): Animation {
+    override fun build(animKConfig: MAnimKConfig): Animation {
         val animation: Animation = TranslateAnimation(
             if (_isPercentageFromX) Animation.RELATIVE_TO_SELF else Animation.ABSOLUTE,
             _fromX,
@@ -166,7 +166,7 @@ open class AnimationTranslationType() : BaseAnimationType<AnimationTranslationTy
             if (_isPercentageToY) Animation.RELATIVE_TO_SELF else Animation.ABSOLUTE,
             _toY
         )
-        formatAnim(animKConfig, animation)
+        format(animKConfig, animation)
         return animation
     }
 
