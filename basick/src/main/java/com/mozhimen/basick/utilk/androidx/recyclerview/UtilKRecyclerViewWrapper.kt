@@ -95,7 +95,7 @@ object UtilKRecyclerViewWrapper {
 //    //是否向下滚动
 //    @JvmStatic
 //    fun isScrollDown(dx: Int): Boolean =
-//        dx > 0
+//        dy > 0
 
     /**
      * {@link ItemDecoration#getItemOffsets(outRect: Rect,view: View,parent: RecyclerView)} or

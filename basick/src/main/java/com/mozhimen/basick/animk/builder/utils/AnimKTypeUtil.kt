@@ -104,7 +104,10 @@ object AnimKTypeUtil {
     fun get_ofHeight_viewHolder(viewHolder: ViewHolder): AnimatorIntType {
         val parent = viewHolder.itemView.parent as View
         val startHeight = viewHolder.itemView.measuredHeight//测量扩展动画的起始高度和结束高度
-        viewHolder.itemView.measure(View.MeasureSpec.makeMeasureSpec(parent.measuredWidth, View.MeasureSpec.AT_MOST), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED))
+        viewHolder.itemView.measure(
+            View.MeasureSpec.makeMeasureSpec(parent.measuredWidth, View.MeasureSpec.AT_MOST),
+            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+        )
         val endHeight = viewHolder.itemView.measuredHeight
         return get_ofHeight_viewHolder(viewHolder.itemView, viewHolder, startHeight, endHeight)
     }

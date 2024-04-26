@@ -3,6 +3,8 @@ package com.mozhimen.basick.utilk.kotlin
 import android.text.Spanned
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.elemk.android.text.cons.CHtml
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.text.UtilKHtml
 
 /**
@@ -30,5 +32,8 @@ object UtilKStrHtml {
 
     @JvmStatic
     fun strHtml2chars(strHtml: String): Spanned =
-        UtilKHtml.fromHtml(strHtml)
+        if (UtilKBuildVersion.isAfterV_24_7_N())
+            strHtml2chars(strHtml, CHtml.FROM_HTML_MODE_COMPACT)
+        else
+            UtilKHtml.fromHtml(strHtml)
 }

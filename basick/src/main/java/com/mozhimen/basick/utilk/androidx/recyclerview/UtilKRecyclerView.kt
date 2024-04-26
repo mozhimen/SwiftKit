@@ -41,8 +41,10 @@ fun RecyclerView.requireLayoutManager_ofLinear(): LinearLayoutManager? =
 fun RecyclerView.requireLayoutManager_ofGrid(): GridLayoutManager? =
     UtilKRecyclerView.requireLayoutManager_ofGrid(this)
 
-///////////////////////////////////////////////////////////////////////////////////
+fun RecyclerView.isScrollVertical(): Boolean =
+    UtilKRecyclerView.isScrollVertical(this)
 
+///////////////////////////////////////////////////////////////////////////////////
 
 object UtilKRecyclerView : IUtilK {
 
@@ -106,6 +108,13 @@ object UtilKRecyclerView : IUtilK {
     fun canScrollVertically(recyclerView: RecyclerView, direction: Int): Boolean =
         recyclerView.canScrollVertically(direction)
 
+    @JvmStatic
+    fun isScrollVertical(recyclerView: RecyclerView): Boolean =
+        when (val layoutManager = recyclerView.layoutManager) {
+            is LinearLayoutManager -> layoutManager.orientation == LinearLayoutManager.VERTICAL
+            else -> true
+        }
+
     ////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
@@ -120,6 +129,7 @@ object UtilKRecyclerView : IUtilK {
      * 检查 RecyclerView 设置的 GridLayoutManager
      */
     @JvmStatic
+
     fun requireLayoutManager_ofGrid(recyclerView: RecyclerView): GridLayoutManager? {
         val layoutManager = recyclerView.layoutManager ?: return null
         if (layoutManager !is GridLayoutManager) {

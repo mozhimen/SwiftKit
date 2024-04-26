@@ -109,6 +109,13 @@ object UtilKTextViewWrapper {
     }
 
     @JvmStatic
+    fun getLineHeight(textView: TextView, lineCount: Int): Float {
+        if (lineCount <= 1) return 0f
+        val fm = textView.paint.fontMetricsInt
+        return (fm.descent - fm.ascent) * lineCount * textView.lineSpacingMultiplier + textView.getLineSpacingExtra() * (lineCount - 1)
+    }
+
+    @JvmStatic
     @SuppressLint("SetTextI18n")
     fun applyValue_ofLog(textView: TextView, log: String) {
         textView.text = textView.text.toString() + log + "\n"
