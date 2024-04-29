@@ -14,6 +14,10 @@ object TaskKHandler {
     private val _handler: Handler by lazy { Handler(Looper.getMainLooper()) }
 
     @JvmStatic
+    fun get(): Handler =
+        _handler
+
+    @JvmStatic
     fun post(runnable: Runnable) {
         if (UtilKLooper.isMainLooper()) {
             runnable.run()
