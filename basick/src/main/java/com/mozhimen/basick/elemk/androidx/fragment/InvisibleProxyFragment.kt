@@ -8,7 +8,7 @@ import com.mozhimen.basick.elemk.android.app.cons.CActivity
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.utilk.commons.IUtilK
 
-class InvisibleProxyFragment : Fragment(), IUtilK {
+open class InvisibleProxyFragment : Fragment(), IUtilK {
     companion object {
         const val REQUEST_CODE_PROXY = 1001
         const val TAG_PROXY = "InvisibleProxyFragment>>>>>"

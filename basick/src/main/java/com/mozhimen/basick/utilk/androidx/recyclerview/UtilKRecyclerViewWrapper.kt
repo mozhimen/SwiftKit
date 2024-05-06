@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
  * @ClassName UtilKRecyclerViewLayoutManager
@@ -38,14 +39,14 @@ fun RecyclerView.isScroll2verticalEdge_ofItem(): Boolean =
 //fun RecyclerView.isScrollDown(dx: Int): Boolean =
 //    UtilKRecyclerView.isScrollDown(dx)
 
-object UtilKRecyclerViewWrapper {
+object UtilKRecyclerViewWrapper : IUtilK {
 
     //是否滑动到边缘
     @JvmStatic
     fun isScroll2verticalEdge(recyclerView: RecyclerView): Boolean =
         isScroll2end(recyclerView) || isScroll2top(recyclerView)
 
-    //是否滑动到底部
+    //是否滑动到顶部
     @JvmStatic
     fun isScroll2top(recyclerView: RecyclerView): Boolean =
         !UtilKRecyclerView.canScrollVertically(recyclerView, -1)
@@ -62,7 +63,7 @@ object UtilKRecyclerViewWrapper {
 
     //滑动到顶部2
     @JvmStatic
-    fun isScroll2top_ofItem(recyclerView: RecyclerView): Boolean {
+    fun isScroll2end_ofItem(recyclerView: RecyclerView): Boolean {
         when (val layoutManager = recyclerView.layoutManager) {
             is LinearLayoutManager, is StaggeredGridLayoutManager -> {
                 val firstItemPos = layoutManager.getFirstVisibleItemPosition()
@@ -78,10 +79,14 @@ object UtilKRecyclerViewWrapper {
 
     //滑动到底部2
     @JvmStatic
-    fun isScroll2end_ofItem(recyclerView: RecyclerView): Boolean {
+    fun isScroll2top_ofItem(recyclerView: RecyclerView): Boolean {
         when (val layoutManager = recyclerView.layoutManager) {
             is LinearLayoutManager, is StaggeredGridLayoutManager -> {
-                return UtilKRecyclerView.getChildAt(recyclerView, 0)?.y == 0f && layoutManager.getFirstVisibleItemPosition() == 0
+                return (UtilKRecyclerView.getChildAt(recyclerView, 0)?.y.also {
+                    UtilKLogWrapper.d(TAG, "UtilKRecyclerView.getChildAt(recyclerView, 0)?.y ${UtilKRecyclerView.getChildAt(recyclerView, 0)?.y}")
+                } == 0f) && layoutManager.getFirstVisibleItemPosition().also {
+                    UtilKLogWrapper.d(TAG, "layoutManager.getFirstVisibleItemPosition() ${layoutManager.getFirstVisibleItemPosition()}")
+                } == 0
             }
         }
         return false
@@ -103,7 +108,7 @@ object UtilKRecyclerViewWrapper {
      * 均分 LinearLayoutManager 间距的便捷方法
      */
     @JvmStatic
-    fun equilibriumAssignmentOfLinearLayoutManager(recyclerView: RecyclerView, itemView: View, outRect: Rect, gapOuter: Int, gapInner: Int = gapOuter / 2, gapOther: Int = gapOuter) {
+    fun equilibriumAssignment_ofLinearLayoutManager(recyclerView: RecyclerView, itemView: View, outRect: Rect, gapOuter: Int, gapInner: Int = gapOuter / 2, gapOther: Int = gapOuter) {
         val itemCount = recyclerView.getItemCount()// item 的个数
         val itemPosition = recyclerView.getChildAdapterPosition(itemView)// 当前 item 的 position
         val layoutManager = recyclerView.requireLayoutManager_ofLinear() ?: return
@@ -161,14 +166,14 @@ object UtilKRecyclerViewWrapper {
      * 均分 GridLayoutManager 间距的便捷方法
      */
     @JvmStatic
-    fun equilibriumAssignmentOfGridLayoutManager(recyclerView: RecyclerView, itemView: View, outRect: Rect, gapOuter: Int, gapInner: Int = gapOuter / 2, gapOther: Int = gapOuter) {
+    fun equilibriumAssignment_ofGridLayoutManager(recyclerView: RecyclerView, itemView: View, outRect: Rect, gapOuter: Int, gapInner: Int = gapOuter / 2, gapOther: Int = gapOuter) {
         val itemCount = recyclerView.getItemCount()// item 的个数
         val spanCount = recyclerView.getSpanCount()// 网格布局的跨度数
         val itemPosition = recyclerView.getChildAdapterPosition(itemView)// 当前 item 的 position
         val lastRowFirstPosition = itemCount - (itemCount % spanCount)
         val layoutManager = recyclerView.requireLayoutManager_ofGrid() ?: return
         if (spanCount < 2) {
-            equilibriumAssignmentOfLinearLayoutManager(recyclerView, itemView, outRect, gapOuter, gapInner, gapOther)
+            equilibriumAssignment_ofLinearLayoutManager(recyclerView, itemView, outRect, gapOuter, gapInner, gapOther)
             return
         }
         val orientation = layoutManager.orientation// 获取 GridLayoutManager 的布局方向
