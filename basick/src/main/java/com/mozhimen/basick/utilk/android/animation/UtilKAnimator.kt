@@ -12,6 +12,12 @@ import kotlin.math.max
  * @Date 2022/11/22 23:06
  * @Version 1.0
  */
+fun Animator.cancel_removeAllListeners() {
+    UtilKAnimator.cancel_removeAllListeners(this)
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
 object UtilKAnimator {
     /**
      * 获取时长

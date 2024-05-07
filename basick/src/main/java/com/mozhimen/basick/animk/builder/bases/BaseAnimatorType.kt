@@ -20,8 +20,9 @@ abstract class BaseAnimatorType<TYPE, UPDATE_VALUE> : BaseProperty<TYPE>(), IAni
 
     protected var _animatorListenerAdapters: ArrayList<AnimatorListenerAdapter>? = null
     protected var _animatorUpdateListeners: ArrayList<IAnimatorUpdateListener<UPDATE_VALUE>>? = null
+    protected var _isAutoClearListener = true
 
-    inner class AutoClearAnimatorListenerAdapter : android.animation.AnimatorListenerAdapter() {
+    inner class AutoClearAnimatorListenerAdapter : AnimatorListenerAdapter() {
         override fun onAnimationCancel(animation: Animator) {
             clearAllListeners(animation)
         }
@@ -33,6 +34,11 @@ abstract class BaseAnimatorType<TYPE, UPDATE_VALUE> : BaseProperty<TYPE>(), IAni
         override fun onAnimationEnd(animation: Animator) {
             clearAllListeners(animation)
         }
+    }
+
+    fun isAutoClearListener(isAutoClearListener: Boolean): TYPE {
+        _isAutoClearListener = isAutoClearListener
+        return this as TYPE
     }
 
     fun addAnimatorListener(listener: AnimatorListenerAdapter): TYPE {
@@ -61,7 +67,8 @@ abstract class BaseAnimatorType<TYPE, UPDATE_VALUE> : BaseProperty<TYPE>(), IAni
 
     override fun format(animKConfig: MAnimKConfig, anim: Animator) {
         super.format(animKConfig, anim)
-        anim.addListener(AutoClearAnimatorListenerAdapter())
+        if (_isAutoClearListener)
+            anim.addListener(AutoClearAnimatorListenerAdapter())
         _animatorListenerAdapters?.forEach {
             anim.addListener(it)
         }
