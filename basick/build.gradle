@@ -87,14 +87,6 @@ dependencies {
     api "androidx.concurrent:concurrent-futures:1.1.0"
     api "androidx.concurrent:concurrent-futures-ktx:1.1.0"
 
-    //rxjava
-    api "io.reactivex.rxjava2:rxjava:2.2.14"
-    api "io.reactivex.rxjava2:rxandroid:2.1.1"
-
-    //work manager
-//    api 'androidx.work:work-runtime:2.8.1'
-
-    //////////////////////////////////////////////////////////////////
     //databinding
     api 'androidx.databinding:databinding-common:7.1.2'
     api 'androidx.databinding:databinding-runtime:7.1.2'
