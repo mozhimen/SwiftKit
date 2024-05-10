@@ -8,6 +8,20 @@
         <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
         <option name="modules">
           <set>
+            <option value="$PROJECT_DIR$/../AAbilityKit_Jetpack" />
+            <option value="$PROJECT_DIR$/../AAbilityKit_Jetpack/multidex" />
+            <option value="$PROJECT_DIR$/../AImageKit" />
+            <option value="$PROJECT_DIR$/../AImageKit/imagek_blur" />
+            <option value="$PROJECT_DIR$/../AManifestKit_XXPermissions" />
+            <option value="$PROJECT_DIR$/../AManifestKit_XXPermissions/library" />
+            <option value="$PROJECT_DIR$/../AManifestKit_XXPermissions/manifestk_xxpermissions" />
+            <option value="$PROJECT_DIR$/../ANavigateKit" />
+            <option value="$PROJECT_DIR$/../ANavigateKit/navigatek_navigation" />
+            <option value="$PROJECT_DIR$/../AXmlKit" />
+            <option value="$PROJECT_DIR$/../AXmlKit/layoutk" />
+            <option value="$PROJECT_DIR$/../AXmlKit/layoutk_blur" />
+            <option value="$PROJECT_DIR$/../AXmlKit/recyclerk" />
+            <option value="$PROJECT_DIR$/../AXmlKit/vhk" />
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/basick" />
             <option value="$PROJECT_DIR$/basicktest" />
@@ -15,18 +29,6 @@
             <option value="$PROJECT_DIR$/composektest" />
             <option value="$PROJECT_DIR$/xmlk" />
             <option value="$PROJECT_DIR$/xmlktest" />
-            <option value="D:/WorkSpace/GitHub/AImageKit" />
-            <option value="D:/WorkSpace/GitHub/AImageKit/imagek_blur" />
-            <option value="D:/WorkSpace/GitHub/AManifestKit_XXPermissions" />
-            <option value="D:/WorkSpace/GitHub/AManifestKit_XXPermissions/library" />
-            <option value="D:/WorkSpace/GitHub/AManifestKit_XXPermissions/manifestk_xxpermissions" />
-            <option value="D:/WorkSpace/GitHub/ANavigateKit_Navigation" />
-            <option value="D:/WorkSpace/GitHub/ANavigateKit_Navigation/navigatek_navigation" />
-            <option value="D:/WorkSpace/GitHub/AXmlKit" />
-            <option value="D:/WorkSpace/GitHub/AXmlKit/layoutk" />
-            <option value="D:/WorkSpace/GitHub/AXmlKit/layoutk_blur" />
-            <option value="D:/WorkSpace/GitHub/AXmlKit/recyclerk" />
-            <option value="D:/WorkSpace/GitHub/AXmlKit/vhk" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

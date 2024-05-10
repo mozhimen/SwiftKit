@@ -30,10 +30,10 @@ include ':composektest'
 include ":AImageKit"
 project(':AImageKit').projectDir = new File("D:\\WorkSpace\\GitHub\\AImageKit")
 include ':AImageKit:imagek_blur'
-//ANavigateKit_Navigation
-include ":ANavigateKit_Navigation"
-project(':ANavigateKit_Navigation').projectDir = new File("D:\\WorkSpace\\GitHub\\ANavigateKit_Navigation")
-include ':ANavigateKit_Navigation:navigatek_navigation'
+//ANavigateKit
+include ":ANavigateKit"
+project(':ANavigateKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ANavigateKit")
+include ':ANavigateKit:navigatek_navigation'
 //AXmlKit
 include ":AXmlKit"
 project(':AXmlKit').projectDir = new File("D:\\WorkSpace\\GitHub\\AXmlKit")
@@ -46,4 +46,8 @@ include ":AManifestKit_XXPermissions"
 project(':AManifestKit_XXPermissions').projectDir = new File("D:\\WorkSpace\\GitHub\\AManifestKit_XXPermissions")
 include ':AManifestKit_XXPermissions:manifestk_xxpermissions'
 include ':AManifestKit_XXPermissions:library'
+//AAbilityKit_Jetpack
+include ":AAbilityKit_Jetpack"
+project(':AAbilityKit_Jetpack').projectDir = new File("D:\\WorkSpace\\GitHub\\AAbilityKit_Jetpack")
+include ':AAbilityKit_Jetpack:multidex'
 
