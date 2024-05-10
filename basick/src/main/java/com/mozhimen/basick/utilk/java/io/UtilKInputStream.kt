@@ -7,9 +7,13 @@ import com.mozhimen.basick.elemk.commons.IAB_Listener
 import com.mozhimen.basick.utilk.android.os.UtilKFileUtils
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.utilk.commons.IUtilK
+import com.mozhimen.basick.utilk.kotlin.UtilKLongFormat
+import com.mozhimen.basick.utilk.kotlin.long2strCrc32
 import com.mozhimen.basick.utilk.kotlin.ranges.constraint
 import java.io.InputStream
 import java.io.OutputStream
+import java.util.zip.CRC32
+import java.util.zip.CheckedInputStream
 
 /**
  * @ClassName UtilKInputStream
@@ -18,6 +22,8 @@ import java.io.OutputStream
  * @Date 2023/7/31 11:42
  * @Version 1.0
  */
+fun InputStream.getStrCrc32_use(): String =
+    UtilKInputStream.getStrCrc32_use(this)
 
 fun InputStream.getAvailableLong_use(): Long =
     UtilKInputStream.getAvailableLong_use(this)
@@ -28,6 +34,18 @@ fun InputStream.read_use(bytes: ByteArray): Int =
 ////////////////////////////////////////////////////////////////////////////
 
 object UtilKInputStream : IUtilK {
+    @JvmStatic
+    fun getStrCrc32_use(inputStream: InputStream): String {
+        val buffer = ByteArray(1024)
+        inputStream.use {
+            CheckedInputStream(inputStream, CRC32()).use { crcStream ->
+                while (crcStream.read(buffer) != -1) {
+                    // Read file in completely
+                }
+                return crcStream.checksum.value.long2strCrc32()
+            }
+        }
+    }
 
     @JvmStatic
     fun getAvailableLong_use(inputStream: InputStream): Long =

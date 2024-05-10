@@ -20,6 +20,8 @@ import kotlin.jvm.Throws
  * @Date 2024/3/28
  * @Version 1.0
  */
+fun File.gerStrCrc_use(): String =
+    UtilKFileWrapper.gerStrCrc_use(this)
 
 fun File.getFileNameNoExtension(): String? =
     UtilKFileWrapper.getFileNameNoExtension(this)
@@ -75,8 +77,11 @@ fun File.deleteFolder(): Boolean =
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-object UtilKFileWrapper : BaseUtilK(){
+object UtilKFileWrapper : BaseUtilK() {
     //region # file
+    @JvmStatic
+    fun gerStrCrc_use(file: File): String =
+        file.file2fileInputStream().getStrCrc32_use()
 
     @JvmStatic
     fun getFileNameNoExtension(file: File): String? =

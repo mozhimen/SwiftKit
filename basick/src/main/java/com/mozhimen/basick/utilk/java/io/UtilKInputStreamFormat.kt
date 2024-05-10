@@ -106,6 +106,8 @@ fun InputStream.inputStream2file_use_ofFileUtils(fileDest: File, isAppend: Boole
 ////////////////////////////////////////////////////////////////////////////
 
 object UtilKInputStreamFormat : IUtilK {
+
+    ////////////////////////////////////////////////////////////////////////////
     @JvmStatic
     fun inputStream2bufferedInputStream(inputStream: InputStream): BufferedInputStream =
         UtilKBufferedInputStream.get(inputStream)
@@ -183,7 +185,7 @@ object UtilKInputStreamFormat : IUtilK {
 
     @JvmStatic
     fun inputStream2str_use_ofBytesOutStream(inputStream: InputStream, byteArrayOutputStream: ByteArrayOutputStream, charset: Charset = Charsets.UTF_8): String {
-        UtilKInputStream.read_write_use(inputStream,byteArrayOutputStream)
+        UtilKInputStream.read_write_use(inputStream, byteArrayOutputStream)
         return byteArrayOutputStream.byteArrayOutputStream2str_use(charset)
     }
 
@@ -230,7 +232,7 @@ object UtilKInputStreamFormat : IUtilK {
         //            return file//"the two files is same, don't need overwrite"
         //        }*/
         try {
-            UtilKInputStream.read_write_use(inputStream,fileDest.file2fileOutputStream(isAppend), bufferSize, block)
+            UtilKInputStream.read_write_use(inputStream, fileDest.file2fileOutputStream(isAppend), bufferSize, block)
             return fileDest
         } catch (e: Exception) {
             e.printStackTrace()
@@ -252,7 +254,7 @@ object UtilKInputStreamFormat : IUtilK {
     fun inputStream2file_use_ofBufferedOutStream(inputStream: InputStream, fileDest: File, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? {
         UtilKFileWrapper.createFile(fileDest)
         try {
-            UtilKInputStream.read_write_use(inputStream,fileDest.file2bufferedOutputStream(isAppend), bufferSize, block)
+            UtilKInputStream.read_write_use(inputStream, fileDest.file2bufferedOutputStream(isAppend), bufferSize, block)
             return fileDest
         } catch (e: Exception) {
             e.printStackTrace()
