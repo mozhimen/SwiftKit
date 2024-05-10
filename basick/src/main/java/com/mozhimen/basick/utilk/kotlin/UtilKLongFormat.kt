@@ -13,6 +13,9 @@ import java.util.Locale
  * @Date 2023/10/20 16:51
  * @Version 1.0
  */
+fun Long.long2strCrc32(): String =
+    UtilKLongFormat.long2strCrc32(this)
+
 fun Long.longFileSize2strFileSize(suffix: String = "B", bit: Int = 2, locale: Locale): String =
     UtilKLongFormat.longFileSize2strFileSize(this, suffix, bit, locale)
 
@@ -25,6 +28,10 @@ fun Long.longFileSize2strFileSize_ofLong(suffix: String = "B"): String =
 ////////////////////////////////////////////////////////////////////////
 
 object UtilKLongFormat : IUtilK {
+    @JvmStatic
+    fun long2strCrc32(long: Long): String =
+        "%x".format(long).toUpperCase()
+
     @JvmStatic
     fun longFileSize2strFileSize(fileSize: Long, suffix: String = "B", bit: Int = 2): String =
         longFileSize2strFileSize(fileSize, suffix, bit, Locale.ENGLISH)
