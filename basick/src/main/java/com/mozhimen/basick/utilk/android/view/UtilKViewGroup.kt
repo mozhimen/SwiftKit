@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.android.view
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.utilk.commons.IUtilK
 
@@ -19,6 +20,11 @@ fun ViewGroup.addView_ofMatchParent(view: View) {
 //////////////////////////////////////////////////////////////////////////////////////
 
 object UtilKViewGroup : IUtilK {
+    @JvmStatic
+    fun applyInflate(viewGroup: ViewGroup, @LayoutRes intResLayout: Int): View =
+        UtilKLayoutInflater.from_inflate(viewGroup, intResLayout)
+
+    //////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun addView(viewGroup: ViewGroup, child: View, params: ViewGroup.LayoutParams) {

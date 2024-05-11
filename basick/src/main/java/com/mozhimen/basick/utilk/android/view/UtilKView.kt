@@ -106,7 +106,7 @@ fun View.applyHapticOnTouchListener() {
 object UtilKView : BaseUtilK() {
     @JvmStatic
     fun get_ofInflate(viewGroup: ViewGroup, @LayoutRes intResLayout: Int): View =
-        UtilKLayoutInflater.inflate(viewGroup, intResLayout)
+        UtilKLayoutInflater.from_inflate(viewGroup, intResLayout)
 
     //////////////////////////////////////////////////////////////////////////
 

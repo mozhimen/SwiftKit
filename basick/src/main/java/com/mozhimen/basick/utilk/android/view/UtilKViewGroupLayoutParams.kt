@@ -16,6 +16,8 @@ fun View.applyMargin(@Px verticalMargin: Int, @Px horizontalMargin: Int) {
     UtilKViewGroupLayoutParams.applyMargin(this, verticalMargin, horizontalMargin)
 }
 
+///////////////////////////////////////////////////////////////////////////
+
 object UtilKViewGroupLayoutParams {
 
     @JvmStatic
@@ -24,6 +26,8 @@ object UtilKViewGroupLayoutParams {
             is ViewGroup.MarginLayoutParams -> view.layoutParams as ViewGroup.MarginLayoutParams
             else -> null
         }
+
+    ///////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun applyMargin(view: View, @Px verticalMargin: Int, @Px horizontalMargin: Int) {

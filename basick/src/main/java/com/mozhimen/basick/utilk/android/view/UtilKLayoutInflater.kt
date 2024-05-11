@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk.android.view
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +14,6 @@ import androidx.annotation.LayoutRes
  */
 object UtilKLayoutInflater {
     @JvmStatic
-    fun inflate(viewGroup: ViewGroup, @LayoutRes intResLayout: Int): View =
+    fun from_inflate(viewGroup: ViewGroup, @LayoutRes intResLayout: Int): View =
         LayoutInflater.from(viewGroup.context).inflate(intResLayout, viewGroup, false)
 }
