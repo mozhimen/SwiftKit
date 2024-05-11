@@ -69,6 +69,9 @@ fun File.isFolder(): Boolean =
 fun File.isFolderExist(): Boolean =
     UtilKFileWrapper.isFolderExist(this)
 
+fun File.isFileZipped(): Boolean =
+    UtilKFileWrapper.isFileZipped(this)
+
 fun File.createFolder(): File =
     UtilKFileWrapper.createFolder(this)
 
@@ -117,6 +120,10 @@ object UtilKFileWrapper : BaseUtilK() {
     @JvmStatic
     fun isFile(file: File): Boolean =
         file.exists() && file.isFile
+
+    @JvmStatic
+    fun isFileZipped(file: File): Boolean =
+        file.extension == "zip"
 
     //文件是否存在
     @JvmStatic

@@ -37,6 +37,9 @@ fun String.containStr(str: String): Boolean =
 fun String.equalsIgnoreCase(str: String): Boolean =
     UtilKString.equalsIgnoreCase(this, str)
 
+fun String.startsWithAny(strings: Collection<String>): Boolean =
+    UtilKString.startsWithAny(this, strings)
+
 ////////////////////////////////////////////////////////////////////////////
 
 fun String.findFirst(char: Char): Int =
@@ -130,8 +133,11 @@ object UtilKString : BaseUtilK() {
     fun equalsIgnoreCase(str: String, str1: String): Boolean =
         str.equals(str1, true)
 
-    ////////////////////////////////////////////////////////////////////////////
+    @JvmStatic
+    fun startsWithAny(str: String, strings: Collection<String>): Boolean =
+        strings.any { str.startsWith(it) }
 
+    ////////////////////////////////////////////////////////////////////////////
 
 
     @JvmStatic

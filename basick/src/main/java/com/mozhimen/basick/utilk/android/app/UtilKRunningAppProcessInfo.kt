@@ -33,13 +33,4 @@ object UtilKRunningAppProcessInfo : IUtilK {
     @JvmStatic
     fun getProcessName(context: Context): String? =
         get(context)?.processName
-
-    //////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * 是否在主线程
-     */
-    @JvmStatic
-    fun isMainProcess(context: Context): Boolean =
-        context.packageName == getProcessName(context)
 }

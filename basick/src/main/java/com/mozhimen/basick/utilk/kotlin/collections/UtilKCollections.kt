@@ -13,6 +13,9 @@ import java.util.stream.Collectors
  * @Date 2024/4/11
  * @Version 1.0
  */
+fun <T, K> Iterable<T>.associateByNotNull(keySelector: (T) -> K?): Map<K, T> =
+    UtilKCollections.associateByNotNull(this, keySelector)
+
 fun <T> Iterable<T>.containsBy(predicate: IA_BListener<T, Boolean>): Boolean =
     UtilKCollections.containsBy(this, predicate)
 
@@ -52,6 +55,13 @@ fun <K, V> Map<K, V>.map2str(): String =
 ///////////////////////////////////////////////////////////////////////
 
 object UtilKCollections {
+    @JvmStatic
+    fun <T, K> associateByNotNull(iterator: Iterable<T>, keySelector: (T) -> K?): Map<K, T> {
+        return iterator.map { keySelector(it) to it }
+            .filter { (key, _) -> key != null }
+            .associate { (key, value) -> key!! to value }
+    }
+
     //判断符合条件的元素是否在Collection中
     @JvmStatic
     fun <T> containsBy(iterable: Iterable<T>, predicate: IA_BListener<T, Boolean>): Boolean =
@@ -148,7 +158,7 @@ object UtilKCollections {
     ///////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun <K, V> map2str(map: Map<K, V>, defaultValue: String = "", splitChar: String = ",",splitCharKV: String = ":"): String {
+    fun <K, V> map2str(map: Map<K, V>, defaultValue: String = "", splitChar: String = ",", splitCharKV: String = ":"): String {
         if (map.isEmpty()) return defaultValue
         val stringBuilder = StringBuilder()
         val iterator: Iterator<*> = map.entries.iterator()

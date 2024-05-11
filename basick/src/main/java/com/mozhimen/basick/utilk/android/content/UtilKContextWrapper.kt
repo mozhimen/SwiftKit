@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.res.Configuration
 import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
 import com.mozhimen.basick.utilk.android.app.UtilKActivityWrapper
+import com.mozhimen.basick.utilk.android.app.UtilKRunningAppProcessInfo
 import com.mozhimen.basick.utilk.android.util.UtilKDisplayMetrics
+import com.mozhimen.basick.utilk.kotlin.UtilKStrProcess
 import java.util.Locale
 
 /**
@@ -14,7 +16,20 @@ import java.util.Locale
  * @Date 2024/3/19
  * @Version 1.0
  */
+
+fun Context.isMainProcess(): Boolean =
+    UtilKContextWrapper.isMainProcess(this)
+
+///////////////////////////////////////////////////////////////////////
+
 object UtilKContextWrapper {
+    /**
+     * 是否在主线程
+     */
+    @JvmStatic
+    fun isMainProcess(context: Context): Boolean =
+        UtilKStrProcess.isMainProcess(context.packageName)
+
     @JvmStatic
     @OApiUse_BaseApplication
     fun isFinishingOrDestroyed(context: Context): Boolean =

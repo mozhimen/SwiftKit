@@ -7,7 +7,29 @@ package com.mozhimen.basick.utilk.kotlin
  * @Date 2023/8/1 16:11
  * @Version 1.0
  */
+fun ByteArray.indexOf(bytes: ByteArray): Int =
+    UtilKByteArrayWrapper.indexOf(this, bytes)
+
+///////////////////////////////////////////////////////////////////////////
+
 object UtilKByteArrayWrapper {
+    /** Return the index at which the array was found or -1. */
+    @JvmStatic
+    fun indexOf(bytesOri: ByteArray, bytesDes: ByteArray): Int {
+        if (bytesDes.isEmpty())
+            return 0
+        outer@ for (i in 0 until bytesOri.size - bytesDes.size + 1) {
+            for (j in bytesDes.indices) {
+                if (bytesOri[i + j] != bytesDes[j]) {
+                    continue@outer
+                }
+            }
+            return i
+        }
+        return -1
+    }
+
+
     /**
      * 合并Bytes
      */

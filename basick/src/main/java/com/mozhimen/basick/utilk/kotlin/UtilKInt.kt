@@ -10,10 +10,26 @@ import com.mozhimen.basick.utilk.java.lang.UtilKCharacter
  * @Date 2023/5/25 10:41
  * @Version 1.0
  */
+fun Int.kiloBytes(): Int =
+    UtilKInt.kiloBytes(this)
+
+fun Int.megaBytes(): Int =
+    UtilKInt.megaBytes(this)
+
 fun Int.getStrByte(@IntRange(from = 1) digit: Int): String =
     UtilKInt.getStrByte(this, digit)
 
+///////////////////////////////////////////////////////////////////////
+
 object UtilKInt {
+
+    @JvmStatic
+    fun kiloBytes(int: Int): Int =
+        int * 1000
+
+    @JvmStatic
+    fun megaBytes(int: Int): Int =
+        kiloBytes(int) * 1000
 
     @JvmStatic
     fun getStrByte(intByte: Int, @IntRange(from = 1) digit: Int): String {

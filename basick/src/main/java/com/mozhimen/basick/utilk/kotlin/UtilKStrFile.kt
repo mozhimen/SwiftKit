@@ -150,6 +150,13 @@ fun String.deleteFolder(): Boolean =
 object UtilKStrFile : IUtilK {
     //region # file
     @JvmStatic
+    fun extractExtension(fileName: String): String =
+        fileName.substringAfterLast(".", "").toLowerCase(Locale.US)
+
+    @JvmStatic
+    fun discardExtension(fileName: String): String = fileName.substringBeforeLast(".")
+
+    @JvmStatic
     fun getStrFileName_ofToday(locale: Locale = Locale.CHINA): String =
         getStrFileName(CDateFormat.yyyy_MM_dd, locale)
 

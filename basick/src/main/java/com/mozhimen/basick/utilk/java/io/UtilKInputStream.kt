@@ -35,17 +35,16 @@ fun InputStream.read_use(bytes: ByteArray): Int =
 
 object UtilKInputStream : IUtilK {
     @JvmStatic
-    fun getStrCrc32_use(inputStream: InputStream): String {
-        val buffer = ByteArray(1024)
-        inputStream.use {
-            CheckedInputStream(inputStream, CRC32()).use { crcStream ->
+    fun getStrCrc32_use(inputStream: InputStream): String =
+        inputStream.use { fileStream ->
+            val buffer = ByteArray(16 * 1024)
+            return CheckedInputStream(fileStream, CRC32()).use { crcStream ->
                 while (crcStream.read(buffer) != -1) {
                     // Read file in completely
                 }
-                return crcStream.checksum.value.long2strCrc32()
+                crcStream.checksum.value.long2strCrc32()
             }
         }
-    }
 
     @JvmStatic
     fun getAvailableLong_use(inputStream: InputStream): Long =

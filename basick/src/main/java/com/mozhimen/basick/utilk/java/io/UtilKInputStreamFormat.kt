@@ -89,6 +89,14 @@ fun InputStream.inputStream2file_use(strFilePathNameDest: String, isAppend: Bool
 fun InputStream.inputStream2file_use(fileDest: File, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
     UtilKInputStreamFormat.inputStream2file_use(this, fileDest, isAppend, bufferSize, block)
 
+fun InputStream.inputStream2file_use_ofCopyTo(strFilePathNameDest: String) {
+    UtilKInputStreamFormat.inputStream2file_use_ofCopyTo(this, strFilePathNameDest)
+}
+
+fun InputStream.inputStream2file_use_ofCopyTo(fileDest: File) {
+    UtilKInputStreamFormat.inputStream2file_use_ofCopyTo(this, fileDest)
+}
+
 fun InputStream.inputStream2file_use_ofBufferedOutStream(strFilePathNameDest: String, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
     UtilKInputStreamFormat.inputStream2file_use_ofBufferedOutStream(this, strFilePathNameDest, isAppend, bufferSize, block)
 
@@ -104,7 +112,6 @@ fun InputStream.inputStream2file_use_ofFileUtils(fileDest: File, isAppend: Boole
     UtilKInputStreamFormat.inputStream2file_use_ofFileUtils(this, fileDest, isAppend)
 
 ////////////////////////////////////////////////////////////////////////////
-
 object UtilKInputStreamFormat : IUtilK {
 
     ////////////////////////////////////////////////////////////////////////////
@@ -241,6 +248,20 @@ object UtilKInputStreamFormat : IUtilK {
     }
 
     @JvmStatic
+    fun inputStream2file_use_ofCopyTo(inputStream: InputStream, strFilePathNameDest: String) {
+        inputStream2file_use_ofCopyTo(inputStream, strFilePathNameDest.createFile())
+    }
+
+    @JvmStatic
+    fun inputStream2file_use_ofCopyTo(inputStream: InputStream, file: File) {
+        inputStream.use { inputStream1 ->
+            file.outputStream().use { outputStream ->
+                inputStream1.copyTo(outputStream)
+            }
+        }
+    }
+
+    @JvmStatic
     fun inputStream2file_use_ofBufferedOutStream(
         inputStream: InputStream,
         strFilePathNameDest: String,
@@ -286,3 +307,4 @@ object UtilKInputStreamFormat : IUtilK {
         return null
     }
 }
+
