@@ -94,17 +94,6 @@
         <activity
             android:name=".elemk.android.ElemKGestureActivity"
             android:exported="false" />
-
-
-
-        <receiver
-            android:name=".elemk.android.ElemKAutoRunReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter android:priority="1000">
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
         <receiver
             android:name=".elemk.android.ElemKInstallObserverReceiver"
             android:enabled="true"

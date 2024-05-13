@@ -15,6 +15,6 @@ import com.mozhimen.basicktest.databinding.ActivityUtilkGraphicsBinding
  */
 class UtilKGraphicsActivity : BaseActivityVDB<ActivityUtilkGraphicsBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
-        vdb.utilkGraphicsImg.setImageDrawable(UtilKRoundedBitmapDrawable.get(this, com.mozhimen.basicktest.R.mipmap.utilk_img, 16f.dp2px))
+        vdb.utilkGraphicsImg.setImageDrawable(UtilKRoundedBitmapDrawable.get(this, com.mozhimen.basicktest.R.mipmap.utilk_img, 16f.dp2px()))
     }
 }

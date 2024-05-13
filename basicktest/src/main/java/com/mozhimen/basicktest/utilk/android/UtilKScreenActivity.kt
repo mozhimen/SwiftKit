@@ -3,6 +3,8 @@ package com.mozhimen.basicktest.utilk.android
 import android.os.Bundle
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
+import com.mozhimen.basick.utilk.android.view.UtilKDecorView
+import com.mozhimen.basick.utilk.android.view.UtilKWindowManager
 import com.mozhimen.basick.utilk.wrapper.UtilKScreen
 import com.mozhimen.basicktest.databinding.ActivityUtilkScreenBinding
 //import com.mozhimen.adaptk.systembar.annors.AAdaptKSystemBarProperty

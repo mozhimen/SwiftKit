@@ -47,7 +47,16 @@ object UtilKViewGroupWrapper {
         return null
     }
 
-    //获取activity所有的子view
+    @JvmStatic
+    fun getChildViews(viewGroup: ViewGroup): List<View> {
+        val views = mutableListOf<View>()
+        for (i in 0 until viewGroup.childCount) {
+            views.add(viewGroup.getChildAt(i))
+        }
+        return views
+    }
+
+    //包含ViewGroup
     @JvmStatic
     fun getAllViews(viewGroup: ViewGroup): List<View> {
         val viewDeque: Deque<View> = ArrayDeque()
@@ -63,15 +72,7 @@ object UtilKViewGroupWrapper {
         return views
     }
 
-    @JvmStatic
-    fun getChildViews(viewGroup: ViewGroup): List<View> {
-        val views = mutableListOf<View>()
-        for (i in 0 until viewGroup.childCount) {
-            views.add(viewGroup.getChildAt(i))
-        }
-        return views
-    }
-
+    //不包含ViewGroup
     @JvmStatic
     fun getAllChildViews(viewGroup: ViewGroup): List<View> {
         val viewDeque: Deque<View> = ArrayDeque()

@@ -6,12 +6,14 @@ import android.content.Context
 import android.content.ContextWrapper
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import android.view.View
+import android.view.Window
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.lintk.optins.OApiInit_InApplication
 import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.utilk.android.view.UtilKContentView
 import com.mozhimen.basick.utilk.android.view.UtilKDecorView
+import com.mozhimen.basick.utilk.android.view.UtilKWindowManagerWrapper
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.kotlin.UtilKClazz
 
@@ -105,6 +107,31 @@ object UtilKActivityWrapper : IUtilK {
         UtilKClazz.getAnnotation(activity.javaClass, annotationClazz)
 
     /////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun hasFloatWindow_ofToken(activity: Activity): Boolean {
+        // 获取目标 Activity 的 decorView
+        val targetDecorView = activity.window.decorView
+        // 获取目标 Activity 的 子窗口的 token
+        val targetSubToken = targetDecorView.windowToken
+
+
+        //  拿到 mView 集合，找到目标 Activity 所在的 index 位置
+        val mView = UtilKWindowManagerWrapper.getViews().map { it }.toList()
+        val targetIndex = mView.indexOfFirst { it == targetDecorView }
+
+        // 获取 mParams 集合
+        val mParams = UtilKWindowManagerWrapper.getParams()
+        // 根据目标 index 从 mParams 集合中找到目标 token
+        val targetToken = mParams[targetIndex].token
+
+
+        // 遍历判断时，目标 Activity 自己不能包括,所以 size 需要大于 1
+        return mParams
+            .map { it.token }
+            .filter { it == targetSubToken || it == null || it == targetToken }
+            .size > 1
+    }
 
     @JvmStatic
     fun isFinishingOrDestroyed(activity: Activity): Boolean =

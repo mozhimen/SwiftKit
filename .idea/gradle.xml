@@ -8,8 +8,6 @@
         <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/../AAbilityKit_Jetpack" />
-            <option value="$PROJECT_DIR$/../AAbilityKit_Jetpack/multidex" />
             <option value="$PROJECT_DIR$/../AImageKit" />
             <option value="$PROJECT_DIR$/../AImageKit/imagek_blur" />
             <option value="$PROJECT_DIR$/../AManifestKit_XXPermissions" />
