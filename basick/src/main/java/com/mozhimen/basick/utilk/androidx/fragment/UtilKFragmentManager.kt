@@ -69,6 +69,8 @@ object UtilKFragmentManager : IUtilK {
      * 通过配置 android:configChanges 可以控制在哪些系统配置改变的情况下 Activity 不重建。最常用的包括 orientation，screenSize，keyboardHidden。不过通过该方法，Activity 虽然不再重建，但是系统会回调 onConfigurationChanged，需要开发者自己处理配置的变换。
      *
      * 链接：https://www.jianshu.com/p/60f2ed95b124
+     *
+     *
      */
     @JvmStatic
     fun onSaveInstanceState(fragmentActivity: FragmentActivity, outState: Bundle, map: Map<String, Fragment?>) {

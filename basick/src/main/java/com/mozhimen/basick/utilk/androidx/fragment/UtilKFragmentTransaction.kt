@@ -78,6 +78,19 @@ object UtilKFragmentTransaction {
 
     ///////////////////////////////////////////////////////////////////////////////
 
+    /**
+     *         //设置容器
+     *         var nextFragment: Fragment? = findFragmentByTag(navigateKDes.id)
+     *         if (null == nextFragment) {
+     *             nextFragment = _fragmentMap[navigateKDes.id] ?: run {
+     *                 navigateKDes.onInvokeFragment.invoke().also { _fragmentMap[navigateKDes.id] = it }
+     *             }
+     *             addHideFragments(nextFragment, navigateKDes.id, lastFragment, _navigateKDes?.id, R.id.main_fragment_container)
+     *         } else {
+     *             showHideFragments(nextFragment, navigateKDes.id, lastFragment, _navigateKDes?.id, R.id.main_fragment_container)
+     *         }
+     *         _navigateKDes = navigateKDes
+     */
     @JvmStatic
     fun addHideFragments(fragmentActivity: FragmentActivity, currentFragment: Fragment, currentTag: String, lastFragment: Fragment?, lastTag: String?, @IdRes containerViewId: Int) {
         val fragmentTransaction = get(fragmentActivity)
