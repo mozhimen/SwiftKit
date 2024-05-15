@@ -30,7 +30,7 @@ fun Long.longFileSize2strFileSize_ofLong(suffix: String = "B"): String =
 object UtilKLongFormat : IUtilK {
     @JvmStatic
     fun long2strCrc32(long: Long): String =
-        "%08x".format(this).toUpperCase()
+        "%08x".format(long).toUpperCase()
 
     @JvmStatic
     fun longFileSize2strFileSize(fileSize: Long, suffix: String = "B", bit: Int = 2): String =
