@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.android.view
 
+import android.animation.ObjectAnimator
 import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -11,6 +12,8 @@ import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewParent
+import androidx.core.animation.addListener
+import androidx.core.view.isVisible
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.elemk.commons.I_AListener
 import com.mozhimen.basick.elemk.cons.CCons
@@ -70,6 +73,10 @@ fun View.applyVisibleIfElseGone(invoke: I_AListener<Boolean>) {
 
 fun View.applyVisibleIfElseGone(boolean: Boolean) {
     UtilKViewWrapper.applyVisibleIfElseGone(this, boolean)
+}
+
+fun View.applyVisibleIfElseGoneAnimate(boolean: Boolean, durationMillis: Long) {
+    UtilKViewWrapper.applyVisibleIfElseGoneAnimate(this, boolean, durationMillis)
 }
 
 fun View.applyVisibleIfElseInVisible(invoke: I_AListener<Boolean>) {
@@ -283,6 +290,26 @@ object UtilKViewWrapper : IUtilK {
     fun applyVisibleIfElseGone(view: View, boolean: Boolean) {
         if (boolean) applyVisible(view)
         else applyGone(view)
+    }
+
+    @JvmStatic
+    fun applyVisibleIfElseGoneAnimate(view: View, boolean: Boolean, durationMillis: Long) {
+        val alpha = if (boolean) 1.0f else 0.0f
+        ObjectAnimator.ofFloat(view, "alpha", alpha).apply {
+            duration = durationMillis
+            setAutoCancel(true)
+            addListener(
+                onStart = {
+                    if (boolean)
+                        view.isVisible = true
+                },
+                onEnd = {
+                    if (!boolean)
+                        view.isVisible = false
+                }
+            )
+            start()
+        }
     }
 
     @JvmStatic

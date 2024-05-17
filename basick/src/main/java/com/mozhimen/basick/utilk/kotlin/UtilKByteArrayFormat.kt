@@ -6,6 +6,8 @@ import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFileWrapper
 import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
+import com.mozhimen.basick.utilk.java.io.inputStream2File_use_ofCopyTo_gZip
+import com.mozhimen.basick.utilk.java.io.inputStream2file_use_ofCopyTo
 import com.mozhimen.basick.utilk.java.security.UtilKMessageDigestMD5
 import java.io.ByteArrayInputStream
 import java.io.File
@@ -37,6 +39,9 @@ fun ByteArray.bytes2file(strFilePathNameDest: String, isAppend: Boolean = false)
 fun ByteArray.bytes2file(fileDest: File, isAppend: Boolean = false): File =
     UtilKByteArrayFormat.bytes2file(this, fileDest, isAppend)
 
+fun ByteArray.bytes2file_ofGZip(fileDest: File): File =
+    UtilKByteArrayFormat.bytes2file_ofGZip(this, fileDest)
+
 //////////////////////////////////////////////////////////////////////////////////
 
 fun ByteArray.bytes2strMd5Hex(): String =
@@ -59,6 +64,8 @@ fun ByteArray.bytes2str(charset: Charset = Charsets.UTF_8): String =
 
 fun ByteArray.bytes2str(offset: Int, length: Int): String =
     UtilKByteArrayFormat.bytes2str(this, offset, length)
+
+//////////////////////////////////////////////////////////////////////////////////
 
 object UtilKByteArrayFormat : IUtilK {
 
@@ -98,6 +105,10 @@ object UtilKByteArrayFormat : IUtilK {
         fileDest.file2fileOutputStream(isAppend).write(bytes)
         return fileDest
     }
+
+    @JvmStatic
+    fun bytes2file_ofGZip(bytes: ByteArray, fileDest: File): File =
+        bytes.bytes2byteArrayInputStream().inputStream2File_use_ofCopyTo_gZip(fileDest)
 
     //////////////////////////////////////////////////////////////////////////////////
 

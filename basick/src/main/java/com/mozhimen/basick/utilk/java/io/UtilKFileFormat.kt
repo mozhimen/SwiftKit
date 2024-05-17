@@ -13,10 +13,13 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.androidx.core.UtilKFileProvider
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
+import com.mozhimen.basick.utilk.kotlin.bytes2strMd5Hex
 import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.io.InputStream
+import java.util.zip.GZIPInputStream
 
 /**
  * @ClassName UtilKFileFormat
@@ -51,21 +54,30 @@ fun File.file2fileOutputStream(isAppend: Boolean = false): FileOutputStream =
 fun File.file2bufferedOutputStream(isAppend: Boolean = false): BufferedOutputStream =
     UtilKFileFormat.file2bufferedOutputStream(this, isAppend)
 
+fun File.file2gZIPInputStream(): InputStream =
+    UtilKFileFormat.file2gZIPInputStream(this)
+
 ////////////////////////////////////////////////////////////////////////////////////////
 
 fun File.file2str_use(): String? =
     UtilKFileFormat.file2str_use(this)
 
-fun File.file2strMd5(): String? =
-    UtilKFileFormat.file2strMd5(this)
+fun File.file2strMd5Hex_use_ofStream(): String? =
+    UtilKFileFormat.file2strMd5Hex_use_ofStream(this)
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
-fun File.file2bytes(): ByteArray? =
-    UtilKFileFormat.file2bytes(this)
+fun File.file2bytes_use(): ByteArray? =
+    UtilKFileFormat.file2bytes_use(this)
 
-fun File.file2bytes2(): ByteArray? =
-    UtilKFileFormat.file2bytes2(this)
+fun File.file2bytes_use_ofReadWrite(bufferSize: Int = 1024): ByteArray? =
+    UtilKFileFormat.file2bytes_use_ofReadWrite(this, bufferSize)
+
+fun File.file2bytes_use_ofReadBytes(): ByteArray =
+    UtilKFileFormat.file2bytes_use_ofReadBytes(this)
+
+fun File.file2bytes_use_ofUnzip(bufferSize: Int = 8 * 1024): ByteArray? =
+    UtilKFileFormat.file2bytes_use_ofUnZip(this, bufferSize)
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -122,6 +134,10 @@ object UtilKFileFormat : BaseUtilK() {
     fun file2bufferedOutputStream(file: File, isAppend: Boolean = false): BufferedOutputStream =
         file2fileOutputStream(file, isAppend).outputStream2bufferedOutputStream()
 
+    @JvmStatic
+    fun file2gZIPInputStream(file: File): InputStream =
+        UtilKFileWrapper.getUnZippedInputStream(file)
+
     ////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
@@ -130,21 +146,33 @@ object UtilKFileFormat : BaseUtilK() {
         else file.file2fileInputStream().inputStream2str_use_ofBufferedReader()
 
     @JvmStatic
-    fun file2strMd5(file: File): String? =
+    fun file2strMd5Hex_use_ofStream(file: File): String? =
         if (!UtilKFileWrapper.isFileExist(file)) null
-        else file.file2fileInputStream().inputStream2strMd5_use_ofHexString()
+        else file.file2fileInputStream().inputStream2strMd5Hex_use_ofHexString()
 
     @JvmStatic
-    fun file2bytes(file: File): ByteArray? =
+    fun file2strMd5Hex_use(file: File): String? =
+        if (!UtilKFileWrapper.isFileExist(file)) null
+        else file.file2bytes_use_ofReadBytes().bytes2strMd5Hex()
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun file2bytes_use(file: File): ByteArray? =
         if (!UtilKFileWrapper.isFileExist(file)) null
         else file.file2fileInputStream().inputStream2bytes_use()
 
     @JvmStatic
-    fun file2bytes2(file: File): ByteArray? =
+    fun file2bytes_use_ofReadWrite(file: File, bufferSize: Int = 1024): ByteArray? =
         if (!UtilKFileWrapper.isFileExist(file)) null
-        else {
-            val byteArrayOutputStream = UtilKByteArrayOutputStream.get(file)
-            UtilKInputStream.read_write_use(file.file2fileInputStream().inputStream2bufferedInputStream(),byteArrayOutputStream, 1024)
-            byteArrayOutputStream.byteArrayOutputStream2bytes_use()
-        }
+        else UtilKInputStream.read_write_use(file.file2fileInputStream().inputStream2bufferedInputStream(), UtilKByteArrayOutputStream.get(file), bufferSize)
+
+    @JvmStatic
+    fun file2bytes_use_ofReadBytes(file: File): ByteArray =
+        file.readBytes()
+
+    @JvmStatic
+    fun file2bytes_use_ofUnZip(file: File, bufferSize: Int = 8 * 1024): ByteArray? =
+        if (!UtilKFileWrapper.isFileExist(file)) null
+        else UtilKInputStream.read_write_use(file.file2gZIPInputStream(), UtilKByteArrayOutputStream.get(file), bufferSize)
 }

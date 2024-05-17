@@ -4,12 +4,18 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.liveData
+import com.mozhimen.basick.elemk.commons.ISuspendA_BListener
+import com.mozhimen.basick.elemk.commons.ISuspendExtA_BListener
+import com.mozhimen.basick.elemk.commons.ISuspendExt_Listener
 import com.mozhimen.basick.elemk.commons.ISuspend_AListener
+import com.mozhimen.basick.elemk.commons.ISuspend_Listener
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 /**
  * @ClassName UtilKCoroutineScope
@@ -18,18 +24,35 @@ import kotlin.coroutines.CoroutineContext
  * @Date 2024/1/30 9:41
  * @Version 1.0
  */
+fun CoroutineScope.launchSafe(coroutineContext: CoroutineContext= EmptyCoroutineContext, block: ISuspendExt_Listener<CoroutineScope>) {
+    UtilKCoroutineScope.launchSafe(this, coroutineContext, block)
+}
+
+//////////////////////////////////////////////////////////////////
+
 object UtilKCoroutineScope {
     @JvmStatic
-    fun runOnMainScope(lifecycleOwner: LifecycleOwner, block: suspend CoroutineScope.() -> Unit) {
-        lifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+    fun launchOnMainScope(coroutineScope: CoroutineScope, block: ISuspendExt_Listener<CoroutineScope>) {
+        coroutineScope.launch(Dispatchers.Main) {
             this.block()
         }
     }
 
     @JvmStatic
-    fun runOnBackScope(lifecycleOwner: LifecycleOwner, block: suspend CoroutineScope.() -> Unit) {
-        lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+    fun launchOnBackScope(coroutineScope: CoroutineScope, block: ISuspendExt_Listener<CoroutineScope>) {
+        coroutineScope.launch(Dispatchers.IO) {
             this.block()
+        }
+    }
+
+    @JvmStatic
+    fun launchSafe(coroutineScope: CoroutineScope, coroutineContext: CoroutineContext= EmptyCoroutineContext, block: ISuspendExt_Listener<CoroutineScope>) {
+        coroutineScope.launch(coroutineContext) {
+            try {
+                this.block()
+            } catch (e: Throwable) {
+                UtilKLogWrapper.e(e)
+            }
         }
     }
 

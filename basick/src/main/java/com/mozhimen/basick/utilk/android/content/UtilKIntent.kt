@@ -7,7 +7,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Parcelable
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
-import com.mozhimen.basick.elemk.commons.IExtension_Listener
+import com.mozhimen.basick.elemk.commons.IExt_Listener
 import com.mozhimen.basick.lintk.optins.permission.OPermission_QUERY_ALL_PACKAGES
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.commons.IUtilK
@@ -52,7 +52,7 @@ object UtilKIntent : IUtilK {
         get(context, T::class.java)
 
     @JvmStatic
-    inline fun <reified T> get(context: Context, block: IExtension_Listener<Intent>): Intent =
+    inline fun <reified T> get(context: Context, block: IExt_Listener<Intent>): Intent =
         get(context, T::class.java).apply(block)
 
     @JvmStatic

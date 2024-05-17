@@ -13,8 +13,8 @@ import com.mozhimen.basick.utilk.java.io.createFile
 import com.mozhimen.basick.utilk.java.io.createFolder
 import com.mozhimen.basick.utilk.java.io.deleteFile
 import com.mozhimen.basick.utilk.java.io.deleteFolder
-import com.mozhimen.basick.utilk.java.io.file2bytes
-import com.mozhimen.basick.utilk.java.io.file2bytes2
+import com.mozhimen.basick.utilk.java.io.file2bytes_use
+import com.mozhimen.basick.utilk.java.io.file2bytes_use_ofReadWrite
 import com.mozhimen.basick.utilk.java.io.file2fileInputStream
 import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
 import com.mozhimen.basick.utilk.java.io.file2str_use
@@ -268,11 +268,11 @@ object UtilKStrFile : IUtilK {
 
     @JvmStatic
     fun strFilePath2bytes(strFilePathName: String): ByteArray? =
-        strFilePathName.strFilePath2file().file2bytes()
+        strFilePathName.strFilePath2file().file2bytes_use()
 
     @JvmStatic
     fun strFilePath2bytes2(strFilePathName: String): ByteArray? =
-        strFilePathName.strFilePath2file().file2bytes2()
+        strFilePathName.strFilePath2file().file2bytes_use_ofReadWrite()
 
     /**
      * 文件转Uri

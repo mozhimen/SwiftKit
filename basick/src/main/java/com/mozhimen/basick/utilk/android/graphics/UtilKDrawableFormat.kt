@@ -4,6 +4,11 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import androidx.annotation.IntRange
+import androidx.core.graphics.component1
+import androidx.core.graphics.component2
+import androidx.core.graphics.component3
+import androidx.core.graphics.component4
 import androidx.core.graphics.drawable.toBitmap
 
 /**
@@ -19,9 +24,6 @@ fun Drawable.drawable2bitmapDrawable(drawable: Drawable): BitmapDrawable =
 fun Drawable.drawable2bitmap(width: Int = this.intrinsicWidth, height: Int = this.intrinsicHeight, config: Bitmap.Config? = null): Bitmap =
     UtilKDrawableFormat.drawable2bitmap(this, width, height, config)
 
-fun Drawable.drawable2bitmap_ofCustom(width: Int = this.intrinsicWidth, height: Int = this.intrinsicHeight): Bitmap =
-    UtilKDrawableFormat.drawable2bitmap_ofCustom(this, width, height)
-
 object UtilKDrawableFormat {
     @JvmStatic
     fun drawable2bitmapDrawable(drawable: Drawable): BitmapDrawable =
@@ -30,18 +32,4 @@ object UtilKDrawableFormat {
     @JvmStatic
     fun drawable2bitmap(drawable: Drawable, width: Int = drawable.intrinsicWidth, height: Int = drawable.intrinsicHeight, config: Bitmap.Config? = null): Bitmap =
         drawable.toBitmap(width, height, config)
-
-    @JvmStatic
-    fun drawable2bitmap_ofCustom(drawable: Drawable, width: Int = drawable.intrinsicWidth, height: Int = drawable.intrinsicHeight): Bitmap =
-        if (drawable is BitmapDrawable) drawable.bitmap else {
-            val bitmap: Bitmap = if (width <= 0 || height <= 0) {
-                Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
-            } else {
-                Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-            }
-            val canvas = Canvas(bitmap)
-            drawable.setBounds(0, 0, canvas.width, canvas.height)
-            drawable.draw(canvas)
-            bitmap
-        }
 }

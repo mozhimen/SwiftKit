@@ -30,9 +30,11 @@ object UtilKActivityManager {
         return memoryInfo
     }
 
-    ////////////////////////////////////////////////////////////////
-
     @JvmStatic
     fun getRunningAppProcesses(context: Context): List<ActivityManager.RunningAppProcessInfo> =
         get(context).runningAppProcesses
+
+    @JvmStatic
+    fun getRegGlEsVersion(context: Context): Int =
+        if (get(context).deviceConfigurationInfo.reqGlEsVersion >= 0x30000) 3 else 2
 }

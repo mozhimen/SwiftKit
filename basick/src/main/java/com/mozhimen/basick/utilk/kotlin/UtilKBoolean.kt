@@ -27,6 +27,10 @@ fun Boolean.boolean2str(locale: Locale = Locale.CHINA): String =
 object UtilKBoolean {
 
     @JvmStatic
+    fun allTrue(vararg boolean: Boolean):Boolean =
+        boolean.all { it }
+
+    @JvmStatic
     fun whether(boolean: Boolean, onTrue: I_Listener) {
         if (boolean)
             onTrue.invoke()

@@ -7,9 +7,9 @@ import com.mozhimen.basick.elemk.commons.IAB_Listener
 import com.mozhimen.basick.utilk.android.os.UtilKFileUtils
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.utilk.commons.IUtilK
-import com.mozhimen.basick.utilk.kotlin.UtilKLongFormat
 import com.mozhimen.basick.utilk.kotlin.long2strCrc32
 import com.mozhimen.basick.utilk.kotlin.ranges.constraint
+import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.zip.CRC32
@@ -54,7 +54,7 @@ object UtilKInputStream : IUtilK {
 
     @JvmStatic
     fun isInputStreamSame_use(inputStream1: InputStream, inputStream2: InputStream): Boolean =
-        TextUtils.equals(inputStream1.inputStream2strMd5_use_ofBigInteger(), inputStream2.inputStream2strMd5_use_ofBigInteger())
+        TextUtils.equals(inputStream1.inputStream2strMd5Hex_use_ofBigInteger(), inputStream2.inputStream2strMd5Hex_use_ofBigInteger())
 
     ////////////////////////////////////////////////////////////////////////////
 
@@ -95,7 +95,14 @@ object UtilKInputStream : IUtilK {
 
     @JvmStatic
     @Throws(Exception::class)
-    fun read_write_use(inputStream: InputStream, outputStream: OutputStream, bufferSize: Int, block: IAB_Listener<Int, Float>? = null) {
+    fun read_write_use(inputStream: InputStream, byteArrayOutputStream: ByteArrayOutputStream, bufferSize: Int): ByteArray {
+        read_write_use(inputStream, byteArrayOutputStream, bufferSize, null)
+        return byteArrayOutputStream.byteArrayOutputStream2bytes_use()
+    }
+
+    @JvmStatic
+    @Throws(Exception::class)
+    fun read_write_use(inputStream: InputStream, outputStream: OutputStream, bufferSize: Int, block: IAB_Listener<Int, Float>?) {
         try {
             val bytes = ByteArray(bufferSize)
             val totalCount = inputStream.available()

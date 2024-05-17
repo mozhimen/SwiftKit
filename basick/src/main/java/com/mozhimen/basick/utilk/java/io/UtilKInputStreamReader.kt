@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.java.io
 
 import java.io.InputStream
 import java.io.InputStreamReader
+import java.nio.charset.Charset
 
 /**
  * @ClassName UtilKInputStreamReader
@@ -13,6 +14,11 @@ import java.io.InputStreamReader
 object UtilKInputStreamReader {
     @JvmStatic
     fun get(inputStream: InputStream, charset: String?): InputStreamReader =
+        if (charset == null) InputStreamReader(inputStream)
+        else InputStreamReader(inputStream, charset)
+
+    @JvmStatic
+    fun get(inputStream: InputStream, charset: Charset?): InputStreamReader =
         if (charset == null) InputStreamReader(inputStream)
         else InputStreamReader(inputStream, charset)
 

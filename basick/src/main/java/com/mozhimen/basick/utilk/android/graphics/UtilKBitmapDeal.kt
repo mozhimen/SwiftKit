@@ -8,7 +8,6 @@ import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.RectF
-import android.util.Log
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
@@ -55,9 +54,13 @@ fun Bitmap.applyBitmapAnyCrop(rectF: RectF): Bitmap =
 fun Bitmap.applyBitmapAnyCrop(width: Int, height: Int, x: Int, y: Int): Bitmap =
     UtilKBitmapDeal.applyBitmapAnyCrop(this, width, height, x, y)
 
+fun Bitmap.applyBitmapAnyCropSquare(): Bitmap =
+    UtilKBitmapDeal.applyBitmapAnyCropSquare(this)
+
 ///////////////////////////////////////////////////////////////////////////////
 
 object UtilKBitmapDeal : BaseUtilK() {
+    @JvmStatic
     fun applyBitmapAnyCompress(bitmapSource: Bitmap, format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100, outputStream: OutputStream) {
         UtilKBitmap.compress(bitmapSource, format, quality, outputStream)
     }
@@ -111,8 +114,8 @@ object UtilKBitmapDeal : BaseUtilK() {
     //裁剪图片
     @JvmStatic
     fun applyBitmapAnyCrop(bitmapSource: Bitmap, rectF: RectF): Bitmap {
-        val left = rectF.left.constraint(0f,bitmapSource.width.toFloat())
-        val top = rectF.top.constraint(0f,bitmapSource.height.toFloat())
+        val left = rectF.left.constraint(0f, bitmapSource.width.toFloat())
+        val top = rectF.top.constraint(0f, bitmapSource.height.toFloat())
         val right = rectF.right.constraint(0f, bitmapSource.width.toFloat())
         val bottom = rectF.bottom.constraint(0f, bitmapSource.height.toFloat())
         return applyBitmapAnyCrop(bitmapSource, (right - left).toInt(), (bottom - top).toInt(), left.toInt(), top.toInt())
@@ -127,6 +130,17 @@ object UtilKBitmapDeal : BaseUtilK() {
         val cropWidth = if (width >= sourceWidth) sourceWidth else width // 裁切后所取的正方形区域边长
         val cropHeight = if (height >= sourceHeight) sourceHeight else height
         return UtilKBitmap.createBitmap(bitmapSource, x, y, cropWidth, cropHeight, null, false)
+    }
+
+    //裁剪图片正方形
+    @JvmStatic
+    fun applyBitmapAnyCropSquare(bitmapSource: Bitmap): Bitmap {
+        val newSize = min(bitmapSource.height, bitmapSource.width)
+        var cropW = (bitmapSource.width - bitmapSource.height) / 2
+        cropW = if (cropW < 0) 0 else cropW
+        var cropH = (bitmapSource.height - bitmapSource.width) / 2
+        cropH = if (cropH < 0) 0 else cropH
+        return applyBitmapAnyCrop(bitmapSource, newSize, newSize, cropW, cropH)
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -9,8 +9,10 @@ import com.mozhimen.basick.utilk.java.util.longDate2strDate
 import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import java.io.File
 import java.io.IOException
+import java.io.InputStream
 import java.nio.channels.FileChannel
 import java.util.Vector
+import java.util.zip.GZIPInputStream
 import kotlin.jvm.Throws
 
 /**
@@ -25,6 +27,9 @@ fun File.gerStrCrc_use(): String =
 
 fun File.getFileNameNoExtension(): String? =
     UtilKFileWrapper.getFileNameNoExtension(this)
+
+fun File.getUnZippedInputStream():InputStream =
+    UtilKFileWrapper.getUnZippedInputStream(this)
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -116,6 +121,19 @@ object UtilKFileWrapper : BaseUtilK() {
     fun getFileCreateTimeStr(file: File, formatDate: String = CDateFormat.yyyy_MM_dd_HH_mm_ss): String =
         getFileCreateTime(file).longDate2strDate(formatDate)
 
+    //Returns the uncompressed input stream if gzip compressed.
+    @JvmStatic
+    fun getUnZippedInputStream(file: File): InputStream {
+        val pushbackInputStream = file.file2fileInputStream().inputStream2pushbackInputStream(2)
+        val signature = ByteArray(2)
+        val len = pushbackInputStream.read(signature)
+        pushbackInputStream.unread(signature, 0, len)
+        return if (signature[0] == 0x1f.toByte() && signature[1] == 0x8b.toByte())
+            pushbackInputStream.inputStream2gZIPInputStream(8 * 1024)
+        else
+            pushbackInputStream
+    }
+
     //判断是否为文件
     @JvmStatic
     fun isFile(file: File): Boolean =
@@ -190,6 +208,7 @@ object UtilKFileWrapper : BaseUtilK() {
             UtilKZipOutputStream.read_write_use(zipOutputStream, zipOutputStream.outputStream2bufferedOutputStream(), fileSource, fileSource.name)
             zipFile
         }
+
 
     //endregion
 

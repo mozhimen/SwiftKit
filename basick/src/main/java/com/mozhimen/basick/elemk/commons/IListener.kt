@@ -16,3 +16,6 @@ typealias IAA_Listener<A> = (a1: A, a2: A) -> Unit
 typealias IAA_BListener<A, B> = (a1: A, a2: A) -> B
 typealias IAB_Listener<A, B> = (a: A, b: B) -> Unit
 typealias IABC_Listener<A, B, C> = (a: A, b: B, c: C) -> Unit
+
+typealias IExt_Listener<E> = E.() -> Unit
+typealias IExt_AListener<E, A> = E.() -> A

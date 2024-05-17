@@ -3,10 +3,13 @@ package com.mozhimen.basick.utilk.kotlinx.coroutines
 import android.view.View
 import android.widget.EditText
 import com.mozhimen.basick.elemk.android.view.commons.ITextWatcher
+import com.mozhimen.basick.elemk.commons.ISuspendA_Listener
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 
 /**
@@ -24,6 +27,22 @@ fun EditText.getEditTextChangeFlow(): Flow<CharSequence> =
 
 fun <T> Flow<T>.throttleFirst(thresholdMillis: Long): Flow<T> =
     UtilKFlow.throttleFirst(this, thresholdMillis)
+
+fun <T> Flow<T>.batch_ofTime(maxMillis: Int): Flow<List<T>> =
+    UtilKFlow.batch_ofTime(this, maxMillis)
+
+fun <T> Flow<T>.batch_ofSizeTime(maxSize: Int, maxMillis: Int): Flow<List<T>> =
+    UtilKFlow.batch_ofSizeTime(this, maxSize, maxMillis)
+
+suspend fun <T> Flow<T>.collectSafe(block: ISuspendA_Listener<T>) {
+    UtilKFlow.collectSafe(this, block)
+}
+
+suspend fun <T> Flow<T>.collectSafe(onGenerate: ISuspendA_Listener<T>, onError: ISuspendA_Listener<Throwable>) {
+    UtilKFlow.collectSafe(this, onGenerate, onError)
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
 
 object UtilKFlow {
     @JvmStatic
@@ -47,8 +66,6 @@ object UtilKFlow {
         awaitClose { editText.removeTextChangedListener(textWatcher) } // 阻塞以保证流一直运行
     }
 
-    ///////////////////////////////////////////////////////////////////////////
-
     @JvmStatic
     fun <T> throttleFirst(flow: Flow<T>, thresholdMillis: Long): Flow<T> = flow {
         var lastTime = 0L // 上次发射数据的时间
@@ -60,4 +77,49 @@ object UtilKFlow {
             }
         }
     }
+
+    @JvmStatic
+    fun <T> batch_ofTime(flow: Flow<T>, maxMillis: Int): Flow<List<T>> =
+        batch_ofSizeTime(flow, Int.MAX_VALUE, maxMillis)
+
+    @JvmStatic
+    fun <T> batch_ofSizeTime(flow: Flow<T>, maxSize: Int, maxMillis: Int): Flow<List<T>> = flow {
+        val batch = mutableListOf<T>()
+        var lastEmission = System.currentTimeMillis()
+
+        flow.collect { value ->
+            batch.add(value)
+            if (batch.size >= maxSize || System.currentTimeMillis() > lastEmission + maxMillis) {
+                emit(batch.toList())
+                batch.clear()
+                lastEmission = System.currentTimeMillis()
+            }
+        }
+
+        if (batch.isNotEmpty()) emit(batch)
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    suspend fun <T> collectSafe(flow: Flow<T>, block: ISuspendA_Listener<T>) {
+        collectSafe(flow, block, UtilKLogWrapper::e)
+    }
+
+    @JvmStatic
+    suspend fun <T> collectSafe(flow: Flow<T>, onGenerate: ISuspendA_Listener<T>, onError: ISuspendA_Listener<Throwable>) {
+        flow
+            .catch {
+                UtilKLogWrapper.e(it)
+            }
+            .collect {
+                try {
+                    onGenerate(it)
+                } catch (e: Throwable) {
+                    onError(e)
+                }
+            }
+    }
+
+
 }

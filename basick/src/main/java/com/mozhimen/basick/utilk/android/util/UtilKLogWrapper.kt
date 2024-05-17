@@ -97,8 +97,8 @@ object UtilKLogWrapper : BaseUtilK() {
     }
 
     @JvmStatic
-    fun e(exception: Exception) {
-        println(CLog.ERROR, TAG, exception.message ?: "")
+    fun e(throwable: Throwable) {
+        println(CLog.ERROR, TAG, throwable.message ?: "")
     }
 
     /////////////////////////////////////////////////////////////////////////////

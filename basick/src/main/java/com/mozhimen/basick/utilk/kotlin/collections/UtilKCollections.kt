@@ -13,7 +13,7 @@ import java.util.stream.Collectors
  * @Date 2024/4/11
  * @Version 1.0
  */
-fun <T, K> Iterable<T>.associateByNotNull(keySelector: (T) -> K?): Map<K, T> =
+inline fun <T, K> Iterable<T>.associateByNotNull(keySelector: (T) -> K?): Map<K, T> =
     UtilKCollections.associateByNotNull(this, keySelector)
 
 fun <T> Iterable<T>.containsBy(predicate: IA_BListener<T, Boolean>): Boolean =
@@ -56,7 +56,7 @@ fun <K, V> Map<K, V>.map2str(): String =
 
 object UtilKCollections {
     @JvmStatic
-    fun <T, K> associateByNotNull(iterator: Iterable<T>, keySelector: (T) -> K?): Map<K, T> {
+    inline fun <T, K> associateByNotNull(iterator: Iterable<T>, keySelector: (T) -> K?): Map<K, T> {
         return iterator.map { keySelector(it) to it }
             .filter { (key, _) -> key != null }
             .associate { (key, value) -> key!! to value }

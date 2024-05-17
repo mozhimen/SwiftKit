@@ -13,6 +13,10 @@ fun ByteArray.indexOf(bytes: ByteArray): Int =
 ///////////////////////////////////////////////////////////////////////////
 
 object UtilKByteArrayWrapper {
+    @JvmStatic
+    fun isAll0(bytes: ByteArray): Boolean =
+        bytes.firstOrNull { it != 0x0.toByte() } == null
+
     /** Return the index at which the array was found or -1. */
     @JvmStatic
     fun indexOf(bytesOri: ByteArray, bytesDes: ByteArray): Int {

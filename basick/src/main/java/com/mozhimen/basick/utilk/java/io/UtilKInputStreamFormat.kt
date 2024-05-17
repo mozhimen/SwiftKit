@@ -10,6 +10,7 @@ import com.mozhimen.basick.elemk.commons.IAB_Listener
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.java.security.UtilKMessageDigestMD5
+import com.mozhimen.basick.utilk.java.util.UtilKGZIPInputStream
 import com.mozhimen.basick.utilk.kotlin.UtilKByteArray
 import com.mozhimen.basick.utilk.kotlin.bytes2str
 import com.mozhimen.basick.utilk.kotlin.bytes2strHex
@@ -21,9 +22,12 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
 import java.io.InputStream
+import java.io.InputStreamReader
+import java.io.PushbackInputStream
 import java.nio.charset.Charset
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
+import java.util.zip.GZIPInputStream
 
 
 /**
@@ -37,6 +41,15 @@ import java.security.NoSuchAlgorithmException
 fun InputStream.inputStream2bufferedInputStream(): BufferedInputStream =
     UtilKInputStreamFormat.inputStream2bufferedInputStream(this)
 
+fun InputStream.inputStream2inputStreamReader(): InputStreamReader =
+    UtilKInputStreamFormat.inputStream2inputStreamReader(this)
+
+fun InputStream.inputStream2pushbackInputStream(size: Int? = null): PushbackInputStream =
+    UtilKInputStreamFormat.inputStream2pushbackInputStream(this, size)
+
+fun InputStream.inputStream2gZIPInputStream(size: Int? = null): GZIPInputStream =
+    UtilKGZIPInputStream.get(this, size)
+
 ////////////////////////////////////////////////////////////////////////////
 
 fun InputStream.inputStream2bytes_use(): ByteArray =
@@ -47,14 +60,14 @@ fun InputStream.inputStream2bytes_use(): ByteArray =
 fun InputStream.inputStream2bytesMd5_use(bufferSize: Int = 1024 * 1024): ByteArray =
     UtilKInputStreamFormat.inputStream2bytesMd5_use(this, bufferSize)
 
-fun InputStream.inputStream2strMd5_use(): String =
-    UtilKInputStreamFormat.inputStream2strMd5_use(this)
+fun InputStream.inputStream2strMd5Hex_use(): String =
+    UtilKInputStreamFormat.inputStream2strMd5Hex_use(this)
 
-fun InputStream.inputStream2strMd5_use_ofBigInteger(): String =
-    UtilKInputStreamFormat.inputStream2strMd5_use_ofBigInteger(this)
+fun InputStream.inputStream2strMd5Hex_use_ofBigInteger(): String =
+    UtilKInputStreamFormat.inputStream2strMd5Hex_use_ofBigInteger(this)
 
-fun InputStream.inputStream2strMd5_use_ofHexString(): String =
-    UtilKInputStreamFormat.inputStream2strMd5_use_ofHexString(this)
+fun InputStream.inputStream2strMd5Hex_use_ofHexString(): String =
+    UtilKInputStreamFormat.inputStream2strMd5Hex_use_ofHexString(this)
 
 fun InputStream.inputStream2str_use_ofBufferedReader(charset: String? = null, bufferSize: Int = 1024): String =
     UtilKInputStreamFormat.inputStream2str_use_ofBufferedReader(this, charset, bufferSize)
@@ -67,6 +80,11 @@ fun InputStream.inputStream2str_use_ofBytesOutStream(): String =
 
 fun InputStream.inputStream2str_use_ofBytes(): String? =
     UtilKInputStreamFormat.inputStream2str_use_ofBytes(this)
+
+////////////////////////////////////////////////////////////////////////////
+
+fun InputStream.inputStream2strs_use_ofBufferedReader_forEachLine(charset: Charset = Charsets.UTF_8): List<String> =
+    UtilKInputStreamFormat.inputStream2strs_use_ofBufferedReader_forEachLine(this, charset)
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -89,13 +107,14 @@ fun InputStream.inputStream2file_use(strFilePathNameDest: String, isAppend: Bool
 fun InputStream.inputStream2file_use(fileDest: File, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
     UtilKInputStreamFormat.inputStream2file_use(this, fileDest, isAppend, bufferSize, block)
 
-fun InputStream.inputStream2file_use_ofCopyTo(strFilePathNameDest: String) {
+fun InputStream.inputStream2file_use_ofCopyTo(strFilePathNameDest: String): File =
     UtilKInputStreamFormat.inputStream2file_use_ofCopyTo(this, strFilePathNameDest)
-}
 
-fun InputStream.inputStream2file_use_ofCopyTo(fileDest: File) {
+fun InputStream.inputStream2file_use_ofCopyTo(fileDest: File): File =
     UtilKInputStreamFormat.inputStream2file_use_ofCopyTo(this, fileDest)
-}
+
+fun InputStream.inputStream2File_use_ofCopyTo_gZip(fileDest: File): File =
+    UtilKInputStreamFormat.inputStream2File_use_ofCopyTo_gZip(this, fileDest)
 
 fun InputStream.inputStream2file_use_ofBufferedOutStream(strFilePathNameDest: String, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
     UtilKInputStreamFormat.inputStream2file_use_ofBufferedOutStream(this, strFilePathNameDest, isAppend, bufferSize, block)
@@ -112,12 +131,25 @@ fun InputStream.inputStream2file_use_ofFileUtils(fileDest: File, isAppend: Boole
     UtilKInputStreamFormat.inputStream2file_use_ofFileUtils(this, fileDest, isAppend)
 
 ////////////////////////////////////////////////////////////////////////////
+
 object UtilKInputStreamFormat : IUtilK {
 
     ////////////////////////////////////////////////////////////////////////////
     @JvmStatic
     fun inputStream2bufferedInputStream(inputStream: InputStream): BufferedInputStream =
         UtilKBufferedInputStream.get(inputStream)
+
+    @JvmStatic
+    fun inputStream2inputStreamReader(inputStream: InputStream, charset: Charset? = Charsets.UTF_8): InputStreamReader =
+        UtilKInputStreamReader.get(inputStream, charset)
+
+    @JvmStatic
+    fun inputStream2pushbackInputStream(inputStream: InputStream, size: Int? = null): PushbackInputStream =
+        UtilKPushbackInputStream.get(inputStream, size)
+
+    @JvmStatic
+    fun inputStream2gZIPInputStream(inputStream: InputStream, size: Int? = 0): GZIPInputStream =
+        UtilKGZIPInputStream.get(inputStream, size)
 
     ////////////////////////////////////////////////////////////////////////////
 
@@ -166,18 +198,17 @@ object UtilKInputStreamFormat : IUtilK {
 
     @JvmStatic
     @Throws(NoSuchAlgorithmException::class)
-    fun inputStream2strMd5_use(inputStream: InputStream): String =
+    fun inputStream2strMd5Hex_use(inputStream: InputStream): String =
         inputStream.inputStream2bytesMd5_use().bytes2strHex()
 
     @JvmStatic
     @Throws(NoSuchAlgorithmException::class)
-    fun inputStream2strMd5_use_ofBigInteger(inputStream: InputStream): String =
+    fun inputStream2strMd5Hex_use_ofBigInteger(inputStream: InputStream): String =
         inputStream.inputStream2bytesMd5_use().bytes2strHex_ofBigInteger()
-
 
     @JvmStatic
     @Throws(NoSuchAlgorithmException::class)
-    fun inputStream2strMd5_use_ofHexString(inputStream: InputStream): String =
+    fun inputStream2strMd5Hex_use_ofHexString(inputStream: InputStream): String =
         inputStream.inputStream2bytesMd5_use().bytes2strHex_ofHexString()
 
     ////////////////////////////////////////////////////////////////////////////
@@ -206,6 +237,15 @@ object UtilKInputStreamFormat : IUtilK {
                 stringBuilder.append(bytes.bytes2str(0, readCount))
             return stringBuilder.toString()
         }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun inputStream2strs_use_ofBufferedReader_forEachLine(inputStream: InputStream, charset: Charset = Charsets.UTF_8): List<String> {
+        val strs = mutableListOf<String>()
+        inputStream.inputStream2inputStreamReader().inputStreamReader2bufferedReader().forEachLine_use(charset) { strs.add(it) }
+        return strs
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -248,15 +288,25 @@ object UtilKInputStreamFormat : IUtilK {
     }
 
     @JvmStatic
-    fun inputStream2file_use_ofCopyTo(inputStream: InputStream, strFilePathNameDest: String) {
+    fun inputStream2file_use_ofCopyTo(inputStream: InputStream, strFilePathNameDest: String): File =
         inputStream2file_use_ofCopyTo(inputStream, strFilePathNameDest.createFile())
+
+    @JvmStatic
+    fun inputStream2file_use_ofCopyTo(inputStream: InputStream, fileDest: File): File {
+        inputStream.use { inputStream1 ->
+            fileDest.outputStream().use { outputStream ->
+                inputStream1.copyTo(outputStream)
+                return fileDest
+            }
+        }
     }
 
     @JvmStatic
-    fun inputStream2file_use_ofCopyTo(inputStream: InputStream, file: File) {
+    fun inputStream2File_use_ofCopyTo_gZip(inputStream: InputStream, fileDest: File): File {
         inputStream.use { inputStream1 ->
-            file.outputStream().use { outputStream ->
+            fileDest.outputStream().outputStream2gZipOutputStream().use { outputStream ->
                 inputStream1.copyTo(outputStream)
+                return fileDest
             }
         }
     }

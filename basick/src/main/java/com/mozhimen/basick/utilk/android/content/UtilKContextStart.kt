@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
-import com.mozhimen.basick.elemk.commons.IExtension_Listener
+import com.mozhimen.basick.elemk.commons.IExt_Listener
 import com.mozhimen.basick.lintk.optins.permission.OPermission_QUERY_ALL_PACKAGES
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -30,7 +30,7 @@ inline fun <reified A : Context> Context.startContext() {
     UtilKContextStart.startContext<A>(this)
 }
 
-inline fun <reified A : Context> Context.startContext(block: IExtension_Listener<Intent>) {
+inline fun <reified A : Context> Context.startContext(block: IExt_Listener<Intent>) {
     UtilKContextStart.startContext<A>(this, block)
 }
 
@@ -40,7 +40,7 @@ inline fun <reified A : Activity> Activity.startActivityAndFinish() {
     UtilKContextStart.startActivityAndFinish<A>(this)
 }
 
-inline fun <reified A : Activity> Activity.startActivityAndFinish(block: IExtension_Listener<Intent>) {
+inline fun <reified A : Activity> Activity.startActivityAndFinish(block: IExt_Listener<Intent>) {
     UtilKContextStart.startActivityAndFinish<A>(this, block)
 }
 
@@ -50,7 +50,7 @@ inline fun <reified T : Activity> Activity.startActivityForResult(requestCode: I
     UtilKContextStart.startActivityForResult<T>(this, requestCode)
 }
 
-inline fun <reified T : Activity> Activity.startActivityForResult(requestCode: Int, block: IExtension_Listener<Intent>) {
+inline fun <reified T : Activity> Activity.startActivityForResult(requestCode: Int, block: IExt_Listener<Intent>) {
     UtilKContextStart.startActivityForResult<T>(this, requestCode, block)
 }
 
@@ -74,7 +74,7 @@ object UtilKContextStart : BaseUtilK() {
     }
 
     @JvmStatic
-    inline fun <reified T : Context> startContext(context: Context, block: IExtension_Listener<Intent>) {
+    inline fun <reified T : Context> startContext(context: Context, block: IExt_Listener<Intent>) {
         startContext(context, UtilKIntent.get<T>(context, block))
     }
 
@@ -87,7 +87,7 @@ object UtilKContextStart : BaseUtilK() {
     }
 
     @JvmStatic
-    inline fun <reified T : Activity> startActivityAndFinish(activity: Activity, block: IExtension_Listener<Intent>) {
+    inline fun <reified T : Activity> startActivityAndFinish(activity: Activity, block: IExt_Listener<Intent>) {
         startContext(activity, Intent(activity, T::class.java).apply(block))
         activity.finish()
     }
@@ -105,7 +105,7 @@ object UtilKContextStart : BaseUtilK() {
     }
 
     @JvmStatic
-    inline fun <reified T : Activity> startActivityForResult(activity: Activity, requestCode: Int, block: IExtension_Listener<Intent>) {
+    inline fun <reified T : Activity> startActivityForResult(activity: Activity, requestCode: Int, block: IExt_Listener<Intent>) {
         startActivityForResult(activity, requestCode, Intent(activity, T::class.java).apply(block))
     }
 

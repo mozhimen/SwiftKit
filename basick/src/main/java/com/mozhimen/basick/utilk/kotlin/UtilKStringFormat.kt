@@ -37,6 +37,8 @@ fun String.str2strUnicode(): String =
 fun String.str2bytes(charset: Charset = Charsets.UTF_8): ByteArray =
     UtilKStringFormat.str2bytes(this, charset)
 
+////////////////////////////////////////////////////////////////////////////////////////
+
 object UtilKStringFormat {
     /**
      * 文本转文件
