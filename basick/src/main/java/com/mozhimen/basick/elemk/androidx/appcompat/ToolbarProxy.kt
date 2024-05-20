@@ -2,14 +2,9 @@ package com.mozhimen.basick.elemk.androidx.appcompat
 
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
-import android.os.Handler
-import android.os.Looper
-import android.text.TextUtils
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
-import android.view.ViewParent
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.ActionBar
@@ -123,6 +118,7 @@ class ToolbarProxy<A> : BaseWakeBefDestroyLifecycleObserver() where A : AppCompa
         _strTitle?.let { setToolbarTitle(it) }
         setToolbarNavigationIcon(appCompatActivity.getToolbarNavigationIcon())
         toolbar.setNavigationOnClickListener { appCompatActivity.onBackPressed() }
+        toolbar.navigationContentDescription = (null)
     }
 
     private fun generateCustomView(toolbar: Toolbar, customView: View, drawIcon: Drawable? = null) {
