@@ -89,11 +89,16 @@
             android:name=".elemk.androidx.ElemKVBVMActivity"
             android:exported="false" />
         <activity
+            android:name=".elemk.androidx.ElemKBarActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
+            android:exported="false" />
+        <activity
             android:name=".elemk.android.ElemKReceiverActivity"
             android:exported="false" />
         <activity
             android:name=".elemk.android.ElemKGestureActivity"
             android:exported="false" />
+
         <receiver
             android:name=".elemk.android.ElemKInstallObserverReceiver"
             android:enabled="true"
@@ -193,6 +198,7 @@
         <activity
             android:name=".utilk.androidx.UtilKAndroidXActivity"
             android:exported="false" />
+
         <activity
             android:name=".utilk.android.UtilKAndroidActivity"
             android:exported="false" />

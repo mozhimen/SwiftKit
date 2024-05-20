@@ -22,14 +22,14 @@ import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityUtilkFileBinding
 import com.mozhimen.basicktest.databinding.ItemUtilkFileLogBinding
 import com.mozhimen.manifestk.xxpermissions.XXPermissionsRequestUtil
-import com.mozhimen.xmlk.recyclerk.quick.AdapterKQuickRecyclerVB
+import com.mozhimen.xmlk.recyclerk.quick.RecyclerKQuickAdapterVDB
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @APermissionCheck(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE)
 class UtilKFileActivity : BaseActivityVDB<ActivityUtilkFileBinding>() {
-    private lateinit var _adapterKRecycler: AdapterKQuickRecyclerVB<UtilKFileLogBean, ItemUtilkFileLogBinding>
+    private lateinit var _adapterKRecycler: RecyclerKQuickAdapterVDB<UtilKFileLogBean, ItemUtilkFileLogBinding>
     private val _logs = arrayListOf(
         UtilKFileLogBean(0, "start file process >>>>>")
     )
@@ -41,7 +41,7 @@ class UtilKFileActivity : BaseActivityVDB<ActivityUtilkFileBinding>() {
             ManifestKPermission.requestPermissions(this) {
                 if (it) {
                     vdb.utilkFileRecycler.layoutManager = LinearLayoutManager(this)
-                    _adapterKRecycler = AdapterKQuickRecyclerVB<UtilKFileLogBean, ItemUtilkFileLogBinding>(_logs, R.layout.item_utilk_file_log, BR.item_utilk_file_log)
+                    _adapterKRecycler = RecyclerKQuickAdapterVDB<UtilKFileLogBean, ItemUtilkFileLogBinding>(_logs, R.layout.item_utilk_file_log, BR.item_utilk_file_log)
                     vdb.utilkFileRecycler.adapter = _adapterKRecycler
 
                     super.initData(savedInstanceState)

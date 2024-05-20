@@ -12,6 +12,12 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/BasicKStyle_Btn"
+            android:onClick="goElemKBar"
+            android:text="goElemKBar"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/BasicKStyle_Btn"
             android:onClick="goElemKVBVM"
             android:text="goElemKVBVM"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

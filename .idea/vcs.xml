@@ -4,6 +4,7 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../AImageKit" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../AManifestKit_XXPermissions" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../ANavigateKit" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../AXmlKit" vcs="Git" />
   </component>
 </project>

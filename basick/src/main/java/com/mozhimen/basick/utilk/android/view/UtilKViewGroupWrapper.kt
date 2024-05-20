@@ -1,10 +1,13 @@
 package com.mozhimen.basick.utilk.android.view
 
+import android.nfc.Tag
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.utilk.androidx.recyclerview.isScroll2top
+import com.mozhimen.basick.utilk.commons.IUtilK
 import java.util.ArrayDeque
 import java.util.Deque
 
@@ -16,7 +19,7 @@ import java.util.Deque
  * @Date 2024/3/25
  * @Version 1.0
  */
-object UtilKViewGroupWrapper {
+object UtilKViewGroupWrapper : IUtilK {
     //查找可以滚动的child
     @JvmStatic
     fun getChildView_ofScrollable(viewGroup: ViewGroup): View {
@@ -69,7 +72,7 @@ object UtilKViewGroupWrapper {
                 viewDeque.addAll(getChildViews(node))
             }
         }
-        return views
+        return views.also { UtilKLogWrapper.i(TAG, "getAllViews ${it.map { it::class.java.simpleName }}") }
     }
 
     //不包含ViewGroup

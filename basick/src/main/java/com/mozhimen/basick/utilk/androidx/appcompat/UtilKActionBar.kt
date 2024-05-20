@@ -18,7 +18,7 @@ fun AppCompatActivity.applyTitle(str: String) {
 object UtilKActionBar {
 
     @JvmStatic
-    fun get(activity: AppCompatActivity): ActionBar? =
+    fun get_ofSupport(activity: AppCompatActivity): ActionBar? =
         activity.supportActionBar
 
     /////////////////////////////////////////////////////////////////
@@ -28,12 +28,12 @@ object UtilKActionBar {
      */
     @JvmStatic
     fun applyDisplayHomeAsUpEnabled(activity: AppCompatActivity) {
-        get(activity)?.setDisplayHomeAsUpEnabled(true)
+        get_ofSupport(activity)?.setDisplayHomeAsUpEnabled(true)
     }
 
     @JvmStatic
     fun applyTitle(activity: AppCompatActivity, str: String) {
-        get(activity)?.title = str
+        get_ofSupport(activity)?.title = str
     }
 
     /////////////////////////////////////////////////////////////////
@@ -46,6 +46,6 @@ object UtilKActionBar {
 
     @JvmStatic
     fun hide(activity: AppCompatActivity) {
-        get(activity)?.hide()
+        get_ofSupport(activity)?.hide()
     }
 }

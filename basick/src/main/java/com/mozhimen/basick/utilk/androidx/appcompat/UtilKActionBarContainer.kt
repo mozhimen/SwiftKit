@@ -16,6 +16,7 @@ fun AppCompatActivity.getActionBarContainer(): ActionBarContainer? =
     UtilKActionBarContainer.get(this)
 
 object UtilKActionBarContainer {
+    @SuppressLint("RestrictedApi")
     @JvmStatic
     fun get(activity: AppCompatActivity): ActionBarContainer? =
         activity.findViewById(androidx.appcompat.R.id.action_bar_container)

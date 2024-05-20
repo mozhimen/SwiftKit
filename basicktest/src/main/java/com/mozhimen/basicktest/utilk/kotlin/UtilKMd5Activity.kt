@@ -21,7 +21,7 @@ class UtilKMd5Activity : BaseActivityVDB<ActivityUtilkMd5Binding>() {
                 val time = System.currentTimeMillis()
                 val file = File(cacheDir.absolutePath + "/lelejoy_Descenders_1.5_com.noodlecake.descenders_aligned_signed_isNeedObb_false.apk")
                 if (file.isFileExist()) {
-                    UtilKLogWrapper.d(TAG, "initView: ${UtilKFileFormat.file2strMd5(file)}")
+                    UtilKLogWrapper.d(TAG, "initView: ${UtilKFileFormat.file2strMd5Hex_use(file)}")
                 }
                 UtilKLogWrapper.d(TAG, "initView: ${UtilKDateWrapper.getNowDate()}")
                 UtilKLogWrapper.d(TAG, "initView: cost ${(System.currentTimeMillis() - time).toFloat() / 60000f}m")

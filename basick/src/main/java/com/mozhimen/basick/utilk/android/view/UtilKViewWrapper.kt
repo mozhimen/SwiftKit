@@ -389,10 +389,9 @@ object UtilKViewWrapper : IUtilK {
     @JvmStatic
     @OApiUse_BaseApplication
     fun removeView_ofParent(view: View): View {
-        val viewParent: ViewParent = view.parent
-        UtilKLogWrapper.d(TAG, "removeView_ofParent: view $view viewParent $viewParent")
-        if (viewParent is ViewGroup && !UtilKActivityWrapper.isFinishingOrDestroyed(view.context)) {
-            UtilKLogWrapper.d(TAG, "removeView_ofParent: ")
+        val viewParent: ViewParent? = view.parent
+        if (viewParent != null && viewParent is ViewGroup && !UtilKActivityWrapper.isFinishingOrDestroyed(view.context)) {
+            UtilKLogWrapper.w(TAG,"removeView_ofParent")
             viewParent.removeView(view)
         }
         return view

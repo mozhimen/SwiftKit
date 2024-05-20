@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.androidx.appcompat
 
 import android.graphics.drawable.Drawable
 import android.view.View
+import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 
@@ -12,14 +13,10 @@ import androidx.appcompat.widget.Toolbar
  * @Date 2023/11/16 11:49
  * @Version 1.0
  */
-fun Toolbar.applyCustomView(customView: View, drawIcon: Drawable? = null) {
-    UtilKToolbar.applyCustomView(this, customView, drawIcon)
-}
-
 object UtilKToolbar {
     @JvmStatic
-    fun get(activity: AppCompatActivity): Toolbar =
-        activity.findViewById(androidx.appcompat.R.id.action_bar)
+    fun get(activity: AppCompatActivity, @IdRes intResId: Int = androidx.appcompat.R.id.action_bar): Toolbar =
+        activity.findViewById(intResId)
 
     //////////////////////////////////////////////////////////////
 
