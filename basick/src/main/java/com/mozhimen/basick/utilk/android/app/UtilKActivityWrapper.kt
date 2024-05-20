@@ -8,12 +8,14 @@ import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import android.view.View
 import android.view.Window
 import androidx.fragment.app.Fragment
+import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.lintk.optins.OApiInit_InApplication
 import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.utilk.android.view.UtilKContentView
 import com.mozhimen.basick.utilk.android.view.UtilKDecorView
 import com.mozhimen.basick.utilk.android.view.UtilKWindowManagerWrapper
+import com.mozhimen.basick.utilk.androidx.appcompat.UtilKAlertDialog
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.kotlin.UtilKClazz
 
@@ -35,6 +37,16 @@ fun <A : Annotation> Activity.getAnnotation(annotationClazz: Class<A>): A? =
 
 fun Activity.isFinishingOrDestroyed(): Boolean =
     UtilKActivityWrapper.isFinishingOrDestroyed(this)
+
+/////////////////////////////////////////////////////////////////////////
+
+fun Activity.showAlertDialog(intResStrMsg: Int, intResStrLabel: Int, block: I_Listener) {
+    UtilKActivityWrapper.showAlertDialog(this, intResStrMsg, intResStrLabel, block)
+}
+
+fun Activity.showAlertDialog(strMsg: String, strLabel: String, block: I_Listener) {
+    UtilKActivityWrapper.showAlertDialog(this, strMsg, strLabel, block)
+}
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -110,27 +122,16 @@ object UtilKActivityWrapper : IUtilK {
 
     @JvmStatic
     fun hasFloatWindow_ofToken(activity: Activity): Boolean {
-        // 获取目标 Activity 的 decorView
-        val targetDecorView = activity.window.decorView
-        // 获取目标 Activity 的 子窗口的 token
-        val targetSubToken = targetDecorView.windowToken
-
-
-        //  拿到 mView 集合，找到目标 Activity 所在的 index 位置
-        val mView = UtilKWindowManagerWrapper.getViews().map { it }.toList()
+        val targetDecorView = activity.window.decorView// 获取目标 Activity 的 decorView
+        val targetSubToken = targetDecorView.windowToken// 获取目标 Activity 的 子窗口的 token
+        val mView = UtilKWindowManagerWrapper.getViews().map { it }.toList()//  拿到 mView 集合，找到目标 Activity 所在的 index 位置
         val targetIndex = mView.indexOfFirst { it == targetDecorView }
-
-        // 获取 mParams 集合
-        val mParams = UtilKWindowManagerWrapper.getParams()
-        // 根据目标 index 从 mParams 集合中找到目标 token
-        val targetToken = mParams[targetIndex].token
-
-
-        // 遍历判断时，目标 Activity 自己不能包括,所以 size 需要大于 1
+        val mParams = UtilKWindowManagerWrapper.getParams()// 获取 mParams 集合
+        val targetToken = mParams[targetIndex].token// 根据目标 index 从 mParams 集合中找到目标 token
         return mParams
             .map { it.token }
             .filter { it == targetSubToken || it == null || it == targetToken }
-            .size > 1
+            .size > 1// 遍历判断时，目标 Activity 自己不能包括,所以 size 需要大于 1
     }
 
     @JvmStatic
@@ -143,5 +144,17 @@ object UtilKActivityWrapper : IUtilK {
     fun isFinishingOrDestroyed(context: Context): Boolean {
         val activity: Activity? = get_ofContext(context)
         return (if (activity != null) isFinishingOrDestroyed(activity) else true).also { UtilKLogWrapper.d(TAG, "isFinishingOrDestroyed: $it") }
+    }
+
+    /////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun showAlertDialog(activity: Activity, intResStrMsg: Int, intResStrLabel: Int, block: I_Listener) {
+        UtilKAlertDialog.show(activity, intResStrMsg, intResStrLabel, block)
+    }
+
+    @JvmStatic
+    fun showAlertDialog(activity: Activity, strMsg: String, strLabel: String, block: I_Listener) {
+        UtilKAlertDialog.show(activity, strMsg, strLabel, block)
     }
 }
