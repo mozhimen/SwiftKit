@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -35,6 +36,7 @@ interface IToolbarProxyProvider {
     fun getToolbarNavigationIcon(): Int = android.R.drawable.arrow_up_float//获取返回图标
     fun setToolbarNavigationIcon(@DrawableRes intResDrawable: Int)
     fun setToolbarTitle(strTitle: CharSequence)
+    fun setToolbarTitle(@StringRes intResStr: Int)
     fun setToolbarCustomView(customView: View)
     fun getToolbarMenuIcon(): Int = android.R.drawable.arrow_up_float
 }
