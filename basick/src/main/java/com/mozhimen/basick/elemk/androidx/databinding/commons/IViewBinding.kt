@@ -11,10 +11,5 @@ import androidx.viewbinding.ViewBinding
  * @Version 1.0
  */
 interface IViewBinding<VB : ViewBinding> {
-    /**
-     * vdb.vm=vm
-     */
-    fun bindViewVM(vb: VB)
-
     fun getViewModelProviderFactory(): ViewModelProvider.Factory? = null
 }

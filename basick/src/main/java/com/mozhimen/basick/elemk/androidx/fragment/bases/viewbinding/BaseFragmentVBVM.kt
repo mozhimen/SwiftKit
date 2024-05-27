@@ -37,6 +37,5 @@ abstract class BaseFragmentVBVM<VB : ViewBinding, VM : BaseViewModel> : BaseFrag
     override fun initLayout() {
         super.initLayout()
         vm = UtilKViewModel.get(this.requireActivity(), getViewModelProviderFactory()/*, 1*/)
-        bindViewVM(vb)
     }
 }
