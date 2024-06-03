@@ -18,8 +18,10 @@ import android.content.res.Resources
 import android.content.res.Resources.Theme
 import android.graphics.Camera
 import android.graphics.drawable.Drawable
+import android.hardware.SensorManager
 import android.hardware.camera2.CameraManager
 import android.hardware.display.DisplayManager
+import android.hardware.input.InputManager
 import android.hardware.usb.UsbManager
 import android.location.LocationManager
 import android.media.AudioManager
@@ -158,6 +160,14 @@ object UtilKContext {
     @JvmStatic
     fun getSystemService(context: Context, name: String): Any =
         context.getSystemService(name)
+
+    @JvmStatic
+    fun getInputManager(context: Context): InputManager =
+        getSystemService(context, CContext.INPUT_SERVICE) as InputManager
+
+    @JvmStatic
+    fun getSensorManager(context: Context): SensorManager =
+        getSystemService(context, CContext.SENSOR_SERVICE) as SensorManager
 
     @JvmStatic
     fun getUiModeManager(context: Context): UiModeManager =
