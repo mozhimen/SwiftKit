@@ -59,8 +59,8 @@ fun File.file2gZIPInputStream(): InputStream =
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
-fun File.file2str_use(): String? =
-    UtilKFileFormat.file2str_use(this)
+fun File.file2str_use(isAddLineBreak: Boolean = false): String? =
+    UtilKFileFormat.file2str_use(this, isAddLineBreak)
 
 fun File.file2strMd5Hex_use_ofStream(): String? =
     UtilKFileFormat.file2strMd5Hex_use_ofStream(this)
@@ -141,9 +141,9 @@ object UtilKFileFormat : BaseUtilK() {
     ////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun file2str_use(file: File): String? =
+    fun file2str_use(file: File, isAddLineBreak: Boolean = false): String? =
         if (!UtilKFileWrapper.isFileExist(file)) null
-        else file.file2fileInputStream().inputStream2str_use_ofBufferedReader()
+        else file.file2fileInputStream().inputStream2str_use_ofBufferedReader(isAddLineBreak = isAddLineBreak)
 
     @JvmStatic
     fun file2strMd5Hex_use_ofStream(file: File): String? =

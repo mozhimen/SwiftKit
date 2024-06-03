@@ -73,8 +73,8 @@ fun String.isFileExist(): Boolean =
 fun String.strFileExtension2strMineTypeImage(): String =
     UtilKStrFile.strFileExtension2strMineTypeImage(this)
 
-fun String.strFilePath2str(): String? =
-    UtilKStrFile.strFilePath2str(this)
+fun String.strFilePath2str(isAddLineBreak: Boolean = false): String? =
+    UtilKStrFile.strFilePath2str(this,isAddLineBreak)
 
 fun String.strFilePath2fileOutputStream(isAppend: Boolean = false): FileOutputStream =
     UtilKStrFile.strFilePath2fileOutputStream(this, isAppend)
@@ -245,8 +245,8 @@ object UtilKStrFile : IUtilK {
         }
 
     @JvmStatic
-    fun strFilePath2str(strFilePathName: String): String? =
-        strFilePathName.strFilePath2file().file2str_use()
+    fun strFilePath2str(strFilePathName: String, isAddLineBreak: Boolean = false): String? =
+        strFilePathName.strFilePath2file().file2str_use(isAddLineBreak)
 
     @JvmStatic
     fun strFilePath2fileOutputStream(strFilePathName: String, isAppend: Boolean = false): FileOutputStream =

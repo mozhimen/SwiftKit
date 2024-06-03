@@ -21,13 +21,19 @@ object UtilKBufferedReader {
     //////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun readLines_use(bufferedReader: BufferedReader): String {
+    fun readLines_use(bufferedReader: BufferedReader, isAddLineBreak: Boolean = false): String {
         val stringBuilder = StringBuilder()
         try {
             var line = ""
-            while (bufferedReader.readLine()?.also { line = it } != null)
-                stringBuilder.append(line)/*.append("\n")*/
-            return stringBuilder.toString()/*.replaceAfterLast("\n", "")*/
+            return if (isAddLineBreak){
+                while (bufferedReader.readLine()?.also { line = it } != null)
+                    stringBuilder.append(line).append("\n")
+                stringBuilder.toString().replaceAfterLast("\n", "")
+            }else{
+                while (bufferedReader.readLine()?.also { line = it } != null)
+                    stringBuilder.append(line)/*.append("\n")*/
+                stringBuilder.toString()/*.replaceAfterLast("\n", "")*/
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
