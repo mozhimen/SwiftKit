@@ -25,11 +25,11 @@ object UtilKInputStreamReader {
     ///////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun readLines_use(inputStream: InputStream, charset: String? = null, bufferSize: Int = 1024): String {
+    fun readLines_use(inputStream: InputStream, charset: String? = null, bufferSize: Int = 1024, isAddLineBreak: Boolean = false): String {
         var inputStreamReader: InputStreamReader? = null
         try {
             inputStreamReader = get(inputStream, charset)
-            return UtilKBufferedReader.readLines_use(UtilKBufferedReader.get(inputStreamReader, bufferSize))
+            return UtilKBufferedReader.readLines_use(UtilKBufferedReader.get(inputStreamReader, bufferSize),isAddLineBreak)
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {

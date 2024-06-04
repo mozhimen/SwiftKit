@@ -69,8 +69,8 @@ fun InputStream.inputStream2strMd5Hex_use_ofBigInteger(): String =
 fun InputStream.inputStream2strMd5Hex_use_ofHexString(): String =
     UtilKInputStreamFormat.inputStream2strMd5Hex_use_ofHexString(this)
 
-fun InputStream.inputStream2str_use_ofBufferedReader(charset: String? = null, bufferSize: Int = 1024): String =
-    UtilKInputStreamFormat.inputStream2str_use_ofBufferedReader(this, charset, bufferSize)
+fun InputStream.inputStream2str_use_ofBufferedReader(charset: String? = null, bufferSize: Int = 1024, isAddLineBreak: Boolean = false): String =
+    UtilKInputStreamFormat.inputStream2str_use_ofBufferedReader(this, charset, bufferSize,isAddLineBreak)
 
 fun InputStream.inputStream2str_use_ofBytesOutStream(byteArrayOutputStream: ByteArrayOutputStream): String =
     UtilKInputStreamFormat.inputStream2str_use_ofBytesOutStream(this, byteArrayOutputStream)
@@ -214,8 +214,8 @@ object UtilKInputStreamFormat : IUtilK {
     ////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun inputStream2str_use_ofBufferedReader(inputStream: InputStream, charset: String? = null, bufferSize: Int = 1024): String =
-        UtilKInputStreamReader.readLines_use(inputStream, charset, bufferSize)
+    fun inputStream2str_use_ofBufferedReader(inputStream: InputStream, charset: String? = null, bufferSize: Int = 1024, isAddLineBreak: Boolean = false): String =
+        UtilKInputStreamReader.readLines_use(inputStream, charset, bufferSize, isAddLineBreak)
 
     @JvmStatic
     fun inputStream2str_use_ofBytesOutStream(inputStream: InputStream): String =
