@@ -13,4 +13,8 @@ object UtilKSSLSocketFactory {
     @JvmStatic
     fun get_ofTLS(): SSLSocketFactory =
         UtilKSSLContext.getSocketFactory_ofTLS()
+
+    @JvmStatic
+    fun get_ofSSL(): SSLSocketFactory =
+        UtilKSSLContext.getSocketFactory_ofSSL()
 }
