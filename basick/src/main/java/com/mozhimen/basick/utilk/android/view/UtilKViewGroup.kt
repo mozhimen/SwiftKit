@@ -13,8 +13,12 @@ import com.mozhimen.basick.utilk.commons.IUtilK
  * @Date 2022/2/22 22:30
  * @Version 1.0
  */
-fun ViewGroup.addView_ofMatchParent(view: View) {
-    UtilKViewGroup.addView_ofMatchParent(this, view)
+fun ViewGroup.addViewSafe_ofMatchParent(view: View) {
+    UtilKViewGroup.addViewSafe_ofMatchParent(this, view)
+}
+
+fun ViewGroup.addViewSafe(view: View, width: Int, height: Int) {
+    UtilKViewGroup.addViewSafe(this, view, width, height)
 }
 
 //////////////////////////////////////////////////////////////////////////////////////
@@ -34,9 +38,14 @@ object UtilKViewGroup : IUtilK {
     //////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun addView_ofMatchParent(viewGroup: ViewGroup, view: View) {
+    fun addViewSafe_ofMatchParent(viewGroup: ViewGroup, view: View) {
+        addViewSafe(viewGroup, view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+    }
+
+    @JvmStatic
+    fun addViewSafe(viewGroup: ViewGroup, view: View, width: Int, height: Int) {
         if (view.parent == null)
-            viewGroup.addView(view, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+            viewGroup.addView(view, ViewGroup.LayoutParams(width, height))
         else
             UtilKLogWrapper.e(TAG, "addViewMatchParent: ")
     }

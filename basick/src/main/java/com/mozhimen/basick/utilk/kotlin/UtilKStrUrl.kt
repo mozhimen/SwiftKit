@@ -13,6 +13,7 @@ import com.mozhimen.basick.utilk.android.widget.showToast
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.inputStream2bitmapAny_use
 import com.mozhimen.basick.utilk.java.net.UtilKHttpURLConnection
+import com.mozhimen.basick.utilk.java.net.UtilKHttpURLConnectionWrapper
 import com.mozhimen.basick.utilk.java.net.UtilKURI
 import com.mozhimen.basick.utilk.java.net.UtilKURL
 import com.mozhimen.basick.utilk.kotlin.text.matches_ofStrDomain
@@ -151,5 +152,5 @@ object UtilKStrUrl : BaseUtilK() {
     @OPermission_WRITE_EXTERNAL_STORAGE
     @OPermission_INTERNET
     fun strUrl2file(strUrl: String, fileDest: File, isAppend: Boolean = false): File? =
-        UtilKHttpURLConnection.getFile_ofStrUrl(strUrl, fileDest, isAppend)
+        UtilKHttpURLConnectionWrapper.getFile_ofStrUrl(strUrl, fileDest, isAppend)
 }
