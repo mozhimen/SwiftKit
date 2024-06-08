@@ -26,10 +26,6 @@ include ':xmlk'
 include ':xmlktest'
 include ':composek'
 include ':composektest'
-//AImageKit
-include ":AImageKit"
-project(':AImageKit').projectDir = new File("D:\\WorkSpace\\GitHub\\AImageKit")
-include ':AImageKit:imagek_blur'
 //ANavigateKit
 include ":ANavigateKit"
 project(':ANavigateKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ANavigateKit")
@@ -46,3 +42,4 @@ include ":AManifestKit_XXPermissions"
 project(':AManifestKit_XXPermissions').projectDir = new File("D:\\WorkSpace\\GitHub\\AManifestKit_XXPermissions")
 include ':AManifestKit_XXPermissions:manifestk_xxpermissions'
 include ':AManifestKit_XXPermissions:library'
+include ':blurk'

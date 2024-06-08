@@ -8,8 +8,6 @@
         <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/../AImageKit" />
-            <option value="$PROJECT_DIR$/../AImageKit/imagek_blur" />
             <option value="$PROJECT_DIR$/../AManifestKit_XXPermissions" />
             <option value="$PROJECT_DIR$/../AManifestKit_XXPermissions/library" />
             <option value="$PROJECT_DIR$/../AManifestKit_XXPermissions/manifestk_xxpermissions" />
@@ -23,6 +21,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/basick" />
             <option value="$PROJECT_DIR$/basicktest" />
+            <option value="$PROJECT_DIR$/blurk" />
             <option value="$PROJECT_DIR$/composek" />
             <option value="$PROJECT_DIR$/composektest" />
             <option value="$PROJECT_DIR$/xmlk" />

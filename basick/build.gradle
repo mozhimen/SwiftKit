@@ -10,7 +10,6 @@ android {
 
     defaultConfig {
         minSdk 19
-        targetSdk 33
         multiDexEnabled true
 
         //fileProvider
