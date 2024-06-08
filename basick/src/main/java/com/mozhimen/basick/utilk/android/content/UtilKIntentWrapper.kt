@@ -59,7 +59,7 @@ object UtilKIntentWrapper {
         }
 
     @JvmStatic
-    fun getSendFileApk(uriApk: Uri):Intent{
+    fun getSendFileApk(uriApk: Uri): Intent {
         val intent = getSend()
         if (UtilKBuildVersion.isAfterV_24_7_N()) //判断安卓系统是否大于7.0  大于7.0使用以下方法
             intent.addFlags(CIntent.FLAG_GRANT_READ_URI_PERMISSION) //增加读写权限//添加这一句表示对目标应用临时授权该Uri所代表的文件
@@ -239,27 +239,27 @@ object UtilKIntentWrapper {
      *  定位服务
      */
     @JvmStatic
-    fun getLocationSourceSettings(): Intent =
+    fun getSettingLocationSourceSettings(): Intent =
         UtilKIntent.get(CSettings.ACTION_LOCATION_SOURCE_SETTINGS)
 
     /**
      * 获取设置无障碍
      */
     @JvmStatic
-    fun getAccessibilitySettings(): Intent =
+    fun getSettingAccessibilitySettings(): Intent =
         UtilKIntent.get(CSettings.ACTION_ACCESSIBILITY_SETTINGS)
 
     /**
      * 管理APP设置
      */
     @JvmStatic
-    fun getApplicationDetailsSettings(context: Context): Intent =
+    fun getSettingApplicationDetailsSettings(context: Context): Intent =
         UtilKIntent.get(CSettings.ACTION_APPLICATION_DETAILS_SETTINGS, UtilKUri.getPackage_ofParts(context))
 
     /**
      * 管理APP下载
      */
-    fun getApplicationDetailsSettings_ofDownloads(context: Context): Intent =
+    fun getSettingApplicationDetailsSettings_ofDownloads(context: Context): Intent =
         UtilKIntent.get(CSettings.ACTION_APPLICATION_DETAILS_SETTINGS, "package:${CStrPackage.COM_ANDROID_PROVIDERS_DOWNLOADS}".strUri2uri())
 
     /**
@@ -267,7 +267,7 @@ object UtilKIntentWrapper {
      */
     @RequiresApi(CVersCode.V_26_8_O)
     @JvmStatic
-    fun getAppNotificationSettings(context: Context): Intent =
+    fun getSettingAppNotificationSettings(context: Context): Intent =
         UtilKIntent.get(CSettings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
             putExtra(CSettings.EXTRA_APP_PACKAGE, context.packageName)
         }
@@ -277,8 +277,8 @@ object UtilKIntentWrapper {
      */
     @RequiresApi(CVersCode.V_26_8_O)
     @JvmStatic
-    fun getAppNotificationSettings_ofUid(context: Context): Intent =
-        getAppNotificationSettings(context).apply {
+    fun getSettingAppNotificationSettings_ofUid(context: Context): Intent =
+        getSettingAppNotificationSettings(context).apply {
             putExtra("app_package", context.packageName)
             putExtra("app_uid", context.applicationInfo.uid)
         }
@@ -290,7 +290,7 @@ object UtilKIntentWrapper {
     @JvmStatic
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
     @OPermission_MANAGE_EXTERNAL_STORAGE
-    fun getManageAppAllFilesAccessPermission(context: Context): Intent =
+    fun getSettingManageAppAllFilesAccessPermission(context: Context): Intent =
         UtilKIntent.get(CSettings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, UtilKUri.getPackage(context))
 
     /**
@@ -298,7 +298,7 @@ object UtilKIntentWrapper {
      */
     @RequiresApi(CVersCode.V_23_6_M)
     @JvmStatic
-    fun getManageOverlayPermission(context: Context): Intent =
+    fun getSettingManageOverlayPermission(context: Context): Intent =
         UtilKIntent.get(CSettings.ACTION_MANAGE_OVERLAY_PERMISSION, UtilKUri.getPackage(context))
 
     /**
@@ -306,28 +306,38 @@ object UtilKIntentWrapper {
      */
     @RequiresApi(CVersCode.V_26_8_O)
     @JvmStatic
-    fun getManageUnknownAppSources(context: Context): Intent =
+    fun getSettingManageUnknownAppSources(context: Context): Intent =
         UtilKIntent.get(CSettings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, UtilKUri.getPackage(context))
+
+    /**
+     * androidx.biometric提供的录入生物信息的API仅在Android R(30)以上有效
+     */
+    @RequiresApi(CVersCode.V_30_11_R)
+    @JvmStatic
+    fun getSettingBiometricEnroll(allowedAuthenticators: Int): Intent =
+        UtilKIntent.get(CSettings.ACTION_BIOMETRIC_ENROLL).apply {
+            putExtra(CSettings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED, allowedAuthenticators)
+        }
 
     ///////////////////////////////////////////////////////////////////////////////////////
     //MediaStore
     ///////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun getImageCapture(): Intent =
+    fun getMediaStoreImageCapture(): Intent =
         UtilKIntent.get(CMediaStore.ACTION_IMAGE_CAPTURE)
 
     @JvmStatic
-    fun getImageCaptureOutput(uri: Uri): Intent =
-        getImageCapture().apply {
+    fun getMediaStoreImageCaptureOutput(uri: Uri): Intent =
+        getMediaStoreImageCapture().apply {
             putExtra(CMediaStore.EXTRA_OUTPUT, uri)
         }
 
     @JvmStatic
-    fun getImageCaptureOutput(strFilePathName: String): Intent? =
-        strFilePathName.strFilePath2uri()?.let { getImageCaptureOutput(it) }
+    fun getMediaStoreImageCaptureOutput(strFilePathName: String): Intent? =
+        strFilePathName.strFilePath2uri()?.let { getMediaStoreImageCaptureOutput(it) }
 
     @JvmStatic
-    fun getImageCaptureOutput(file: File): Intent? =
-        file.file2uri()?.let { getImageCaptureOutput(it) }
+    fun getMediaStoreImageCaptureOutput(file: File): Intent? =
+        file.file2uri()?.let { getMediaStoreImageCaptureOutput(it) }
 }

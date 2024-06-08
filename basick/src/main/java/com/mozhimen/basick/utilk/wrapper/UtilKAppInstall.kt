@@ -16,7 +16,6 @@ import com.mozhimen.basick.utilk.android.content.UtilKPackageInstaller
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.lang.UtilKRuntime
 import com.mozhimen.basick.utilk.java.lang.UtilKRuntimeWrapper
 import java.io.*
 
@@ -46,7 +45,7 @@ object UtilKAppInstall : BaseUtilK() {
      */
     @JvmStatic
     fun startManageUnknownInstallSource(activity: Activity) {
-        UtilKActivityStart.startManageUnknownInstallSource(activity)
+        UtilKActivityStart.startSettingManageUnknownInstallSource(activity)
     }
 
     /**
@@ -54,7 +53,7 @@ object UtilKAppInstall : BaseUtilK() {
      */
     @JvmStatic
     fun startManageUnknownInstallSource(context: Context) {
-        UtilKActivityStart.startManageUnknownInstallSource(context)
+        UtilKActivityStart.startSettingManageUnknownInstallSource(context)
     }
 
     ///////////////////////////////////////////////////////////////////////////

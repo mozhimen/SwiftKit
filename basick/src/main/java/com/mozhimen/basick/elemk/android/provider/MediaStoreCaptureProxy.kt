@@ -16,7 +16,6 @@ import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.content.UtilKIntentWrapper
 import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.java.io.UtilKFileWrapper
 import com.mozhimen.basick.utilk.java.io.file2uri_ofImage
 import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
@@ -55,7 +54,7 @@ class MediaStoreCaptureProxy {
     @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
     @SuppressLint("QueryPermissionsNeeded")
     fun dispatchCaptureIntent(context: Context, requestCode: Int) {
-        val intent = UtilKIntentWrapper.getImageCapture()
+        val intent = UtilKIntentWrapper.getMediaStoreImageCapture()
 
         if (intent.resolveActivity(context.packageManager) != null) {
             // 创建uri

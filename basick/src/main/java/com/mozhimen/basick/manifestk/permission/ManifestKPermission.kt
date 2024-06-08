@@ -25,7 +25,7 @@ object ManifestKPermission : BaseUtilK() {
     fun requestPermissions(
         activity: AppCompatActivity,
         onSuccess: I_Listener,
-        onFail: I_Listener? = { UtilKActivityStart.startApplicationDetailsSettings(activity) }
+        onFail: I_Listener? = { UtilKActivityStart.startSettingApplicationDetailsSettings(activity) }
     ) {
         requestPermissions(
             activity,

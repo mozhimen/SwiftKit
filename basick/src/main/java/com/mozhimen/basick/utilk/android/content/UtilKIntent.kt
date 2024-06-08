@@ -26,6 +26,8 @@ fun Intent.createChooser(title: CharSequence): Intent =
 fun Intent.isIntentAvailable(context: Context): Boolean =
     UtilKIntent.isIntentAvailable(this, context)
 
+///////////////////////////////////////////////////////////////////////////////////////
+
 object UtilKIntent : IUtilK {
     @JvmStatic
     fun get(): Intent =

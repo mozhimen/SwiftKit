@@ -23,9 +23,6 @@ object CSettings {
     const val ACTION_MANAGE_UNKNOWN_APP_SOURCES = Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES
 
     @RequiresApi(CVersCode.V_26_8_O)
-    const val EXTRA_APP_PACKAGE = Settings.EXTRA_APP_PACKAGE
-
-    @RequiresApi(CVersCode.V_26_8_O)
     const val ACTION_APP_NOTIFICATION_SETTINGS = Settings.ACTION_APP_NOTIFICATION_SETTINGS
 
     const val ACTION_ACCESSIBILITY_SETTINGS = Settings.ACTION_ACCESSIBILITY_SETTINGS
@@ -36,6 +33,19 @@ object CSettings {
     const val ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION =
         Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
 
+    @RequiresApi(CVersCode.V_30_11_R)
+    const val ACTION_BIOMETRIC_ENROLL =
+        Settings.ACTION_BIOMETRIC_ENROLL
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+
+    @RequiresApi(CVersCode.V_30_11_R)
+    const val EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED = Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED
+
+    @RequiresApi(CVersCode.V_26_8_O)
+    const val EXTRA_APP_PACKAGE = Settings.EXTRA_APP_PACKAGE
+
+    ///////////////////////////////////////////////////////////////////////////////////////
 
     object Secure {
         const val ACCESSIBILITY_ENABLED = Settings.Secure.ACCESSIBILITY_ENABLED

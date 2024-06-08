@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.android.app
 import android.app.Activity
 import android.content.Context
 import android.net.Uri
+import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.lintk.optins.permission.OPermission_MANAGE_EXTERNAL_STORAGE
@@ -70,65 +71,72 @@ object UtilKActivityStart {
 
     //打开包安装权限
     @JvmStatic
-    fun startManageUnknownInstallSource(context: Context) {
+    fun startSettingManageUnknownInstallSource(context: Context) {
         if (UtilKBuildVersion.isAfterV_26_8_O())
-            context.startContext(UtilKIntentWrapper.getManageUnknownAppSources(context))
+            context.startContext(UtilKIntentWrapper.getSettingManageUnknownAppSources(context))
     }
 
     //打开包安装权限
     @JvmStatic
-    fun startForResultManageUnknownInstallSource(activity: Activity, requestCode: Int) {
+    fun startSettingManageUnknownInstallSource_ofResult(activity: Activity, requestCode: Int) {
         if (UtilKBuildVersion.isAfterV_26_8_O())
-            activity.startActivityForResult(UtilKIntentWrapper.getManageUnknownAppSources(activity), requestCode)
+            activity.startActivityForResult(UtilKIntentWrapper.getSettingManageUnknownAppSources(activity), requestCode)
     }
 
     //设置申请权限 当系统在23及以上
     @JvmStatic
-    fun startManageOverlayPermission(context: Context) {
+    fun startSettingManageOverlayPermission(context: Context) {
         if (UtilKBuildVersion.isAfterV_23_6_M())
-            context.startContext(UtilKIntentWrapper.getManageOverlayPermission(context))
+            context.startContext(UtilKIntentWrapper.getSettingManageOverlayPermission(context))
     }
 
     //设置申请权限 当系统在11及以上
     @JvmStatic
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
     @OPermission_MANAGE_EXTERNAL_STORAGE
-    fun startManageAllFilesAccessPermission(context: Context) {
+    fun startSettingManageAllFilesAccessPermission(context: Context) {
         if (UtilKBuildVersion.isAfterV_30_11_R()) {
-            context.startContext(UtilKIntentWrapper.getManageAppAllFilesAccessPermission(context))
-        } else startApplicationDetailsSettings(context)
+            context.startContext(UtilKIntentWrapper.getSettingManageAppAllFilesAccessPermission(context))
+        } else startSettingApplicationDetailsSettings(context)
     }
 
     ///////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun startAppNotificationSettings(context: Context) {
+    fun startSettingAppNotificationSettings(context: Context) {
         if (UtilKBuildVersion.isAfterV_26_8_O())
-            context.startContext(UtilKIntentWrapper.getAppNotificationSettings(context))
+            context.startContext(UtilKIntentWrapper.getSettingAppNotificationSettings(context))
         else
-            startApplicationDetailsSettings(context)
+            startSettingApplicationDetailsSettings(context)
     }
 
     //设置申请app权限
     @JvmStatic
-    fun startApplicationDetailsSettings(context: Context) {
-        context.startContext(UtilKIntentWrapper.getApplicationDetailsSettings(context))
+    fun startSettingApplicationDetailsSettings(context: Context) {
+        context.startContext(UtilKIntentWrapper.getSettingApplicationDetailsSettings(context))
     }
 
     @JvmStatic
-    fun startApplicationDetailsSettings_ofDownloads(context: Context) {
-        context.startContext(UtilKIntentWrapper.getApplicationDetailsSettings_ofDownloads(context))
+    fun startSettingApplicationDetailsSettings_ofDownloads(context: Context) {
+        context.startContext(UtilKIntentWrapper.getSettingApplicationDetailsSettings_ofDownloads(context))
     }
 
     //设置申请无障碍权限
     @JvmStatic
-    fun startAccessibilitySettings(context: Context) {
-        context.startContext(UtilKIntentWrapper.getAccessibilitySettings())
+    fun startSettingAccessibilitySettings(context: Context) {
+        context.startContext(UtilKIntentWrapper.getSettingAccessibilitySettings())
     }
 
     //设置申请定位
     @JvmStatic
-    fun startLocationSourceSettings(context: Context) {
-        context.startContext(UtilKIntentWrapper.getLocationSourceSettings())
+    fun startSettingLocationSourceSettings(context: Context) {
+        context.startContext(UtilKIntentWrapper.getSettingLocationSourceSettings())
+    }
+
+    //设置生物识别
+    @RequiresApi(CVersCode.V_30_11_R)
+    @JvmStatic
+    fun startSettingBiometricEnroll_ofResult(activity: Activity, allowedAuthenticators: Int, requestCode: Int) {
+        activity.startActivityForResult(UtilKIntentWrapper.getSettingBiometricEnroll(allowedAuthenticators), requestCode)
     }
 }
