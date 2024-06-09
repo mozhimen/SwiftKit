@@ -8,12 +8,10 @@ import android.view.animation.Animation
 import androidx.annotation.ColorInt
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.android.view.motionEvent2str
-import com.mozhimen.basick.utilk.google.gson.UtilKGsonWrapper
 import com.mozhimen.basick.utilk.java.io.byteArrayOutputStream2bytes_use
 import com.mozhimen.basick.utilk.java.io.flushClose
 import com.mozhimen.basick.utilk.kotlin.collections.list2str
 import com.mozhimen.basick.utilk.kotlin.collections.map2str
-import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import java.io.ObjectOutputStream
 
@@ -25,8 +23,6 @@ import java.io.ObjectOutputStream
  * @Date 2023/8/7 12:30
  * @Version 1.0
  */
-fun Any.obj2jSONObject(): JSONObject =
-    UtilKAnyFormat.obj2jSONObject(this)
 
 fun Any.obj2intColor(): Int =
     UtilKAnyFormat.obj2intColor(this)
@@ -46,11 +42,6 @@ fun Any.obj2bytes(): ByteArray? =
 //////////////////////////////////////////////////////////////////
 
 object UtilKAnyFormat {
-    @JvmStatic
-    fun obj2jSONObject(obj: Any): JSONObject =
-        if (obj is String)
-            JSONObject(obj)
-        else JSONObject(UtilKGsonWrapper.obj2strJson_ofGson(obj))
 
     @JvmStatic
     @ColorInt

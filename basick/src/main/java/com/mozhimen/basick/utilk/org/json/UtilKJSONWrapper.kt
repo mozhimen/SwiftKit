@@ -15,7 +15,7 @@ import org.json.JSONObject
  * @Date 2023/2/3 17:30
  * @Version 1.0
  */
-object UtilKJSON : BaseUtilK() {
+object UtilKJSONWrapper : BaseUtilK() {
 
     /**
      * 从Json中摘取string

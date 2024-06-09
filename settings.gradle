@@ -20,6 +20,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "SwiftKit"
+include ':blurk'
 include ':basick'
 include ':basicktest'
 include ':xmlk'
@@ -42,4 +43,3 @@ include ":AManifestKit_XXPermissions"
 project(':AManifestKit_XXPermissions').projectDir = new File("D:\\WorkSpace\\GitHub\\AManifestKit_XXPermissions")
 include ':AManifestKit_XXPermissions:manifestk_xxpermissions'
 include ':AManifestKit_XXPermissions:library'
-include ':blurk'

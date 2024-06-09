@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk.kotlin
 
-import com.mozhimen.basick.utilk.org.json.UtilKJSON
 import com.mozhimen.basick.utilk.org.json.UtilKJSONArrayFormat
 import org.json.JSONArray
 import org.json.JSONObject
@@ -18,11 +17,10 @@ fun String.strJson2jSONObject(): JSONObject =
 fun String.strJson2jSONArray(): JSONArray =
     UtilKStrJson.strJson2jSONArray(this)
 
-fun <T> String.strJson2tList(clazz: Class<T>): ArrayList<T?>? =
-    UtilKStrJson.strJson2tList(this, clazz)
-
 fun String.strJson2strArray(): Array<String?> =
     UtilKStrJson.strJson2strArray(this)
+
+//////////////////////////////////////////////////////////////////////
 
 object UtilKStrJson {
     @JvmStatic
@@ -32,10 +30,6 @@ object UtilKStrJson {
     @JvmStatic
     fun strJson2jSONArray(strJson: String): JSONArray =
         JSONArray(strJson)
-
-    @JvmStatic
-    fun <T> strJson2tList(strJson: String, clazz: Class<T>): ArrayList<T?>? =
-        UtilKJSONArrayFormat.jSONArray2tList(JSONArray(strJson.trim { strJson <= " " }), clazz)
 
     @JvmStatic
     fun strJson2strArray(strJson: String): Array<String?> {

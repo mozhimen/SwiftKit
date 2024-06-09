@@ -2,7 +2,6 @@ package com.mozhimen.basick.utilk.android.widget
 
 import android.animation.ObjectAnimator
 import android.widget.ProgressBar
-import com.mozhimen.basick.animk.builder.impls.AnimatorIntType
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 
 /**

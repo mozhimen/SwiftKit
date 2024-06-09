@@ -5,7 +5,7 @@ import com.mozhimen.basick.elemk.cons.CCons
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.lang.UtilKStackTraceElement
 import com.mozhimen.basick.utilk.kotlin.obj2str
-import com.mozhimen.basick.utilk.org.json.UtilKJSON
+import com.mozhimen.basick.utilk.org.json.UtilKJSONWrapper
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -107,7 +107,7 @@ object UtilKLongLogWrapper : BaseUtilK() {
             methodName = element.methodName
             lineNumber = element.lineNumber
         }
-        return "  ($clazzName:$lineNumber) #$methodName: \n${UtilKJSON.wrapStrJson(msg)}"
+        return "  ($clazzName:$lineNumber) #$methodName: \n${UtilKJSONWrapper.wrapStrJson(msg)}"
     }
 
     private fun log(level: Int, tag: String, vararg msg: Any) {
