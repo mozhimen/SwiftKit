@@ -18,6 +18,8 @@ fun String.strUriEncode(): String =
 fun String.strUriDecode(): String =
     UtilKStrUri.strUriDecode(this)
 
+////////////////////////////////////////////////////////////
+
 object UtilKStrUri {
     @JvmStatic
     fun strUri2uri(strUri: String): Uri =

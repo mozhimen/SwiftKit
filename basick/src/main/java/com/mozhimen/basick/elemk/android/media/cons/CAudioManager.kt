@@ -12,4 +12,5 @@ import android.media.AudioManager
 object CAudioManager {
     const val MODE_IN_COMMUNICATION = AudioManager.MODE_IN_COMMUNICATION
     const val MODE_IN_CALL = AudioManager.MODE_IN_CALL
+    const val STREAM_MUSIC = AudioManager.STREAM_MUSIC
 }

@@ -21,10 +21,10 @@ object UtilKWifi : BaseUtilK() {
     @OPermission_ACCESS_FINE_LOCATION
     fun getIpAddress(): String {
         var ipAddress = 0
-        if (UtilKBuildVersion.isAfterV_29_10_Q()) {
+        ipAddress = if (UtilKBuildVersion.isAfterV_29_10_Q()) {
             UtilKWifiInfo.getIpAddress_ofActive(_context) ?: 0
         } else
-            ipAddress = UtilKWifiInfo.getIpAddress_ofMgr(_context) ?: 0
+            UtilKWifiInfo.getIpAddress_ofMgr(_context) ?: 0
         if (ipAddress == 0) return ""
         return (ipAddress and 0xFF).toString() + "." + (ipAddress shr 8 and 0xFF) + "." + (ipAddress shr 16 and 0xFF) + "." + (ipAddress shr 24 and 0xFF)
     }
