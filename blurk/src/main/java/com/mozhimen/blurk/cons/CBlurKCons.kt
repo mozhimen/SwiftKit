@@ -7,7 +7,7 @@ package com.mozhimen.blurk.cons
  * @Date 2023/6/20 19:02
  * @Version 1.0
  */
-object CBlurCons {
+object CBlurKCons {
     const val RADIUS = 10f
     const val PRE_SCALE_RATIO = 0.125f
     const val ANIMATION_DURATION: Long = 500

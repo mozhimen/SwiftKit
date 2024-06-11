@@ -3,7 +3,7 @@ package com.mozhimen.blurk.mos
 import android.text.TextUtils
 import android.view.View
 import com.mozhimen.basick.utilk.android.view.UtilKView
-import com.mozhimen.blurk.cons.CBlurCons
+import com.mozhimen.blurk.cons.CBlurKCons
 import java.lang.ref.WeakReference
 
 /**
@@ -13,13 +13,13 @@ import java.lang.ref.WeakReference
  * @Date 2022/11/30 21:41
  * @Version 1.0
  */
-class ImageKBlurConfig {
+class BlurKConfig {
     private var _weakBlurView: WeakReference<View>? = null
-    private var _blurRadius = CBlurCons.RADIUS
-    private var _blurPreScaleRatio = CBlurCons.PRE_SCALE_RATIO
-    private var _blurInDuration = CBlurCons.ANIMATION_DURATION
-    private var _blurOutDuration = CBlurCons.ANIMATION_DURATION
-    private var _blurAsync = CBlurCons.BLUR_ASYNC
+    private var _blurRadius = CBlurKCons.RADIUS
+    private var _blurPreScaleRatio = CBlurKCons.PRE_SCALE_RATIO
+    private var _blurInDuration = CBlurKCons.ANIMATION_DURATION
+    private var _blurOutDuration = CBlurKCons.ANIMATION_DURATION
+    private var _blurAsync = CBlurKCons.BLUR_ASYNC
     private var _isFullScreen = true
 
     fun getBlurView(): View? {
@@ -39,11 +39,11 @@ class ImageKBlurConfig {
     }
 
     fun getBlurInDuration(): Long {
-        return if (_blurInDuration < 0) CBlurCons.ANIMATION_DURATION else _blurInDuration
+        return if (_blurInDuration < 0) CBlurKCons.ANIMATION_DURATION else _blurInDuration
     }
 
     fun getBlurOutDuration(): Long {
-        return if (_blurOutDuration < 0) CBlurCons.ANIMATION_DURATION else _blurOutDuration
+        return if (_blurOutDuration < 0) CBlurKCons.ANIMATION_DURATION else _blurOutDuration
     }
 
     fun isBlurAsync(): Boolean {
@@ -54,7 +54,7 @@ class ImageKBlurConfig {
         return getBlurView() != null
     }
 
-    fun setBlurView(blurView: View): ImageKBlurConfig {
+    fun setBlurView(blurView: View): BlurKConfig {
         _weakBlurView = WeakReference(blurView)
         var isContentOrDecorView = false
         if (blurView.parent != null) isContentOrDecorView = TextUtils.equals(blurView.parent.javaClass.name, "com.android.internal.policy.DecorView")
@@ -63,7 +63,7 @@ class ImageKBlurConfig {
         return this
     }
 
-    fun setBlurRadius(blurRadius: Float): ImageKBlurConfig {
+    fun setBlurRadius(blurRadius: Float): BlurKConfig {
         var tempBlurRadius = blurRadius
         if (tempBlurRadius <= 0) {
             tempBlurRadius = 0.1f
@@ -74,27 +74,27 @@ class ImageKBlurConfig {
         return this
     }
 
-    fun setBlurPreScaleRatio(blurPreScaleRatio: Float): ImageKBlurConfig {
+    fun setBlurPreScaleRatio(blurPreScaleRatio: Float): BlurKConfig {
         _blurPreScaleRatio = blurPreScaleRatio
         return this
     }
 
-    fun setBlurInDuration(blurInDuration: Long): ImageKBlurConfig {
+    fun setBlurInDuration(blurInDuration: Long): BlurKConfig {
         _blurInDuration = blurInDuration
         return this
     }
 
-    fun setBlurOutDuration(blurOutDuration: Long): ImageKBlurConfig {
+    fun setBlurOutDuration(blurOutDuration: Long): BlurKConfig {
         _blurOutDuration = blurOutDuration
         return this
     }
 
-    fun setBlurAsync(blurAsync: Boolean): ImageKBlurConfig {
+    fun setBlurAsync(blurAsync: Boolean): BlurKConfig {
         _blurAsync = blurAsync
         return this
     }
 
-    fun setFullScreen(fullScreen: Boolean): ImageKBlurConfig {
+    fun setFullScreen(fullScreen: Boolean): BlurKConfig {
         _isFullScreen = fullScreen
         return this
     }

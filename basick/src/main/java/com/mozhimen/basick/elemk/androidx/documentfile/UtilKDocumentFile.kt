@@ -9,13 +9,13 @@ import androidx.documentfile.provider.DocumentFile
  * @Date 2024/5/17
  * @Version 1.0
  */
-fun DocumentFile.isZipped(): Boolean =
-    UtilKDocumentFile.isZipped(this)
+fun DocumentFile.isTypeZip(): Boolean =
+    UtilKDocumentFile.isTypeZip(this)
 
 //////////////////////////////////////////////////////////////////////////////
 
 object UtilKDocumentFile {
     @JvmStatic
-    fun isZipped(documentFile: DocumentFile): Boolean =
+    fun isTypeZip(documentFile: DocumentFile): Boolean =
         documentFile.type == "application/zip"
 }
