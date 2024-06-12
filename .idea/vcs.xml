@@ -2,7 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../AImageKit" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../AManifestKit_XXPermissions" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../ANavigateKit" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../AXmlKit" vcs="Git" />
