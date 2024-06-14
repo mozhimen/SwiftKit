@@ -15,16 +15,6 @@ import androidx.lifecycle.Lifecycle
  * @Date 2023/9/3 20:39
  * @Version 1.0
  */
-fun FragmentActivity.addHideFragments(currentFragment: Fragment, currentTag: String, lastFragment: Fragment?, lastTag: String?, @IdRes containerViewId: Int) {
-    UtilKFragmentTransaction.addHideFragments(this, currentFragment, currentTag, lastFragment, lastTag, containerViewId)
-}
-
-fun FragmentActivity.showHideFragments(currentFragment: Fragment, currentTag: String, lastFragment: Fragment?, lastTag: String?, @IdRes containerViewId: Int) {
-    UtilKFragmentTransaction.showHideFragments(this, currentFragment, currentTag, lastFragment, lastTag, containerViewId)
-}
-
-//////////////////////////////////////////////////////////////////////////
-
 object UtilKFragmentTransaction {
     @JvmStatic
     fun get(fragmentActivity: FragmentActivity): FragmentTransaction =
@@ -37,21 +27,6 @@ object UtilKFragmentTransaction {
     ///////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun replace_commit(fragmentActivity: FragmentActivity, @IdRes containerViewId: Int, fragment: Fragment) {
-        get(fragmentActivity).replace(containerViewId, fragment).commit()
-    }
-
-    @JvmStatic
-    fun replace_commit(mainFragment: Fragment, @IdRes containerViewId: Int, fragment: Fragment) {
-        get(mainFragment).replace(containerViewId, fragment).commit()
-    }
-
-    @JvmStatic
-    fun remove_commit(fragmentActivity: FragmentActivity, fragment: Fragment) {
-        get(fragmentActivity).remove(fragment).commit()
-    }
-
-    @JvmStatic
     fun setMaxLifecycle(fragmentTransaction: FragmentTransaction, fragment: Fragment, state: Lifecycle.State) {
         fragmentTransaction.setMaxLifecycle(fragment, state)
     }
@@ -59,6 +34,11 @@ object UtilKFragmentTransaction {
     @JvmStatic
     fun commitAllowingStateLoss(fragmentTransaction: FragmentTransaction) {
         fragmentTransaction.commitAllowingStateLoss()
+    }
+
+    @JvmStatic
+    fun commit(fragmentTransaction: FragmentTransaction) {
+        fragmentTransaction.commit()
     }
 
     @JvmStatic
@@ -78,50 +58,53 @@ object UtilKFragmentTransaction {
 
     ///////////////////////////////////////////////////////////////////////////////
 
-    /**
-     *         //设置容器
-     *         var nextFragment: Fragment? = findFragmentByTag(navigateKDes.id)
-     *         if (null == nextFragment) {
-     *             nextFragment = _fragmentMap[navigateKDes.id] ?: run {
-     *                 navigateKDes.onInvokeFragment.invoke().also { _fragmentMap[navigateKDes.id] = it }
-     *             }
-     *             addHideFragments(nextFragment, navigateKDes.id, lastFragment, _navigateKDes?.id, R.id.main_fragment_container)
-     *         } else {
-     *             showHideFragments(nextFragment, navigateKDes.id, lastFragment, _navigateKDes?.id, R.id.main_fragment_container)
-     *         }
-     *         _navigateKDes = navigateKDes
-     */
     @JvmStatic
-    fun addHideFragments(fragmentActivity: FragmentActivity, currentFragment: Fragment, currentTag: String, lastFragment: Fragment?, lastTag: String?, @IdRes containerViewId: Int) {
-        val fragmentTransaction = get(fragmentActivity)
-        if (fragmentActivity.findFragmentByTag(currentTag) == null && !currentFragment.isAdded) {
-            add(fragmentTransaction, containerViewId, currentFragment, currentTag)
-            setMaxLifecycle(fragmentTransaction, currentFragment, Lifecycle.State.RESUMED)
-        } else {
-            show(fragmentTransaction, currentFragment)
-            setMaxLifecycle(fragmentTransaction, currentFragment, Lifecycle.State.RESUMED)
+    fun replace_commit(fragmentActivity: FragmentActivity, @IdRes containerViewId: Int, fragment: Fragment): FragmentTransaction =
+        get(fragmentActivity).apply {
+            replace(containerViewId, fragment).commit()
         }
-        if (lastFragment != null && lastTag != null && fragmentActivity.findFragmentByTag(lastTag) != null && lastFragment.isAdded) {
-            hide(fragmentTransaction, lastFragment)
-            setMaxLifecycle(fragmentTransaction, lastFragment, Lifecycle.State.STARTED)
-        }
-        commitAllowingStateLoss(fragmentTransaction)
-    }
 
     @JvmStatic
-    fun showHideFragments(fragmentActivity: FragmentActivity, currentFragment: Fragment, currentTag: String, lastFragment: Fragment?, lastTag: String?, @IdRes containerViewId: Int) {
-        val fragmentTransaction = get(fragmentActivity)
-        if (fragmentActivity.findFragmentByTag(currentTag) != null && currentFragment.isAdded) {
-            show(fragmentTransaction, currentFragment)
-            setMaxLifecycle(fragmentTransaction, currentFragment, Lifecycle.State.RESUMED)
-        } else {
-            add(fragmentTransaction, containerViewId, currentFragment, currentTag)
-            setMaxLifecycle(fragmentTransaction, currentFragment, Lifecycle.State.RESUMED)
+    fun replace_commit(mainFragment: Fragment, @IdRes containerViewId: Int, fragment: Fragment): FragmentTransaction =
+        get(mainFragment).apply {
+            replace(containerViewId, fragment).commit()
         }
-        if (lastFragment != null && lastTag != null && fragmentActivity.findFragmentByTag(lastTag) != null && lastFragment.isAdded) {
-            hide(fragmentTransaction, lastFragment)
-            setMaxLifecycle(fragmentTransaction, lastFragment, Lifecycle.State.STARTED)
+
+    @JvmStatic
+    fun replace_commitAllowingStateLoss(fragmentActivity: FragmentActivity, @IdRes containerViewId: Int, fragment: Fragment): FragmentTransaction =
+        get(fragmentActivity).apply {
+            replace(containerViewId, fragment).commitAllowingStateLoss()
         }
-        commitAllowingStateLoss(fragmentTransaction)
-    }
+
+    @JvmStatic
+    fun replace_commitAllowingStateLoss(mainFragment: Fragment, @IdRes containerViewId: Int, fragment: Fragment): FragmentTransaction =
+        get(mainFragment).apply {
+            replace(containerViewId, fragment).commitAllowingStateLoss()
+        }
+
+    ///////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun remove_commit(fragmentActivity: FragmentActivity, fragment: Fragment): FragmentTransaction =
+        get(fragmentActivity).apply {
+            remove(fragment).commit()
+        }
+
+    @JvmStatic
+    fun remove_commit(mainFragment: Fragment, fragment: Fragment) =
+        get(mainFragment).apply {
+            remove(fragment).commit()
+        }
+
+    @JvmStatic
+    fun remove_commitAllowingStateLoss(fragmentActivity: FragmentActivity, fragment: Fragment): FragmentTransaction =
+        get(fragmentActivity).apply {
+            remove(fragment).commitAllowingStateLoss()
+        }
+
+    @JvmStatic
+    fun remove_commitAllowingStateLoss(mainFragment: Fragment, fragment: Fragment) =
+        get(mainFragment).apply {
+            remove(fragment).commitAllowingStateLoss()
+        }
 }
