@@ -11,7 +11,7 @@ import kotlinx.coroutines.delay
 
 class TaskKAsyncActivity : BaseActivityVDB<ActivityTaskkAsyncBinding>() {
     @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
-    private val _taskKAsync by lazy { TaskKAsync() }
+    private val _taskKAsync by lazy_ofNone { TaskKAsync() }
 
     @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
     override fun initView(savedInstanceState: Bundle?) {

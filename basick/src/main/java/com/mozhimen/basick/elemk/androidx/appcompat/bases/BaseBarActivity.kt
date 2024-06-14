@@ -10,6 +10,7 @@ import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
 import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
 import com.mozhimen.basick.utilk.androidx.appcompat.UtilKActionBar
+import com.mozhimen.basick.utilk.kotlin.UtilKLazyJVM.lazy_ofNone
 
 /**
  * @ClassName BaseBarActivityVB
@@ -20,7 +21,7 @@ import com.mozhimen.basick.utilk.androidx.appcompat.UtilKActionBar
 abstract class BaseBarActivity : BaseSaveStateActivity(), IActivity, IToolbarProxyProvider {
 
     @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class, OApiUse_BaseApplication::class)
-    private val _toolBarProxy by lazy { ToolbarProxy<BaseBarActivity>().apply { bindLifecycle(this@BaseBarActivity) } }
+    private val _toolBarProxy by lazy_ofNone { ToolbarProxy<BaseBarActivity>().apply { bindLifecycle(this@BaseBarActivity) } }
 
     /////////////////////////////////////////////////////////////////////
 
