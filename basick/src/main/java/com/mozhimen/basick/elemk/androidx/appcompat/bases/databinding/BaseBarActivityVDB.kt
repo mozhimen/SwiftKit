@@ -14,7 +14,6 @@ import com.mozhimen.basick.utilk.androidx.databinding.UtilKViewDataBinding
  * @Version 1.0
  */
 abstract class BaseBarActivityVDB<VDB : ViewDataBinding> : BaseBarActivity() {
-
     protected val vdb: VDB by lazy(mode = LazyThreadSafetyMode.NONE) {
         UtilKViewDataBinding.get<VDB>(this::class.java, layoutInflater/*, 0*/).apply {
             lifecycleOwner = this@BaseBarActivityVDB

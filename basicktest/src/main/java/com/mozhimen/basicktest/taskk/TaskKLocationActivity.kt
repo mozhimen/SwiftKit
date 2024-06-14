@@ -15,7 +15,7 @@ import com.mozhimen.basicktest.databinding.ActivityTaskkLocationBinding
 
 class TaskKLocationActivity : BaseActivityVDB<ActivityTaskkLocationBinding>() {
     @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
-    private val _taskKLocation by lazy { TaskKLocation().apply { bindLifecycle(this@TaskKLocationActivity) } }
+    private val _taskKLocation by lazy_ofNone { TaskKLocation().apply { bindLifecycle(this@TaskKLocationActivity) } }
 
     @SuppressLint("MissingPermission", "SetTextI18n")
     @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class, OPermission_ACCESS_FINE_LOCATION::class, OPermission_ACCESS_COARSE_LOCATION::class)

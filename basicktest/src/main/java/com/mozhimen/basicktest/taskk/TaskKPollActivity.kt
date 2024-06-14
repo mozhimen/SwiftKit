@@ -12,7 +12,7 @@ import kotlinx.coroutines.withContext
 
 class TaskKPollActivity : BaseActivityVDB<ActivityTaskkPollBinding>() {
     @OptIn(OApiCall_BindLifecycle::class, OApiInit_ByLazy::class)
-    private val _taskKPoll: TaskKPoll by lazy { TaskKPoll().apply { bindLifecycle(this@TaskKPollActivity) } }
+    private val _taskKPoll: TaskKPoll by lazy_ofNone { TaskKPoll().apply { bindLifecycle(this@TaskKPollActivity) } }
 
     @OptIn(OApiCall_BindLifecycle::class, OApiInit_ByLazy::class)
     override fun initView(savedInstanceState: Bundle?) {

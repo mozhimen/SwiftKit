@@ -19,7 +19,7 @@ import com.mozhimen.basicktest.databinding.ActivityElemkGestureBinding
  */
 class ElemKGestureActivity : BaseActivityVDB<ActivityElemkGestureBinding>() {
     @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
-    private val _dragAndDropProxy by lazy { DragAndDropProxy() }
+    private val _dragAndDropProxy by lazy_ofNone { DragAndDropProxy() }
 
     @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
     override fun initView(savedInstanceState: Bundle?) {

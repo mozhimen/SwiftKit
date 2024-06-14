@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.bases
 
 import com.mozhimen.basick.utilk.android.app.UtilKApplicationWrapper
 import com.mozhimen.basick.utilk.commons.IUtilK
+import com.mozhimen.basick.utilk.kotlin.UtilKLazyJVM.lazy_ofNone
 
 
 /**
@@ -12,5 +13,5 @@ import com.mozhimen.basick.utilk.commons.IUtilK
  * @Version 1.0
  */
 open class BaseUtilK : IUtilK {
-    protected val _context by lazy { UtilKApplicationWrapper.instance.applicationContext }
+    protected val _context by lazy_ofNone { UtilKApplicationWrapper.instance.applicationContext }
 }

@@ -34,7 +34,7 @@ class ElemKViewModel() : BaseViewModel() {
         true
     }
 
-    val lv_num by lazy { MutableLiveData(_num.toString()) }
+    val lv_num = MutableLiveData(_num.toString())
 
     fun addNum() {
         _num++

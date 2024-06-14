@@ -12,7 +12,7 @@ import kotlin.math.roundToInt
 class TaskKCountDownActivity : BaseActivityVDB<ActivityTaskkCountDownBinding>() {
 
     @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
-    private val _taskKCountDown: TaskKCountDownBefPause by lazy { TaskKCountDownBefPause().apply { bindLifecycle(this@TaskKCountDownActivity) } }
+    private val _taskKCountDown: TaskKCountDownBefPause by lazy_ofNone { TaskKCountDownBefPause().apply { bindLifecycle(this@TaskKCountDownActivity) } }
 
     @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
     override fun initView(savedInstanceState: Bundle?) {

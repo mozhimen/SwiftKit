@@ -15,7 +15,7 @@ import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
  */
 class ElemKAndroidViewActivity : AppCompatActivity() {
     @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
-    private val _screenOrientationOfSensorProxy: ScreenOrientationOfSensorProxy<ElemKAndroidViewActivity> by lazy { ScreenOrientationOfSensorProxy(this) }
+    private val _screenOrientationOfSensorProxy: ScreenOrientationOfSensorProxy<ElemKAndroidViewActivity> by lazy_ofNone { ScreenOrientationOfSensorProxy(this) }
 
     @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
     override fun onCreate(savedInstanceState: Bundle?) {
