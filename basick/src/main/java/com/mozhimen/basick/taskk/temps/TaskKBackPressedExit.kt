@@ -19,7 +19,7 @@ import com.mozhimen.basick.utilk.android.widget.showToast
 class TaskKBackPressedExit : BaseWakeBefDestroyTaskK() {
     private var _exitWaitTime = 2000L//退出App判断时间
     private var _firstClickTime = 0L//用来记录第一次点击的时间
-    private var _strTip = "再按一次退出"
+    private var _strTip = ""
     private var _onExit: I_Listener? = null
 
     override fun isActive(): Boolean = _firstClickTime != 0L
@@ -48,11 +48,12 @@ class TaskKBackPressedExit : BaseWakeBefDestroyTaskK() {
         val secondClickTime = System.currentTimeMillis()
         if (secondClickTime - _firstClickTime > _exitWaitTime) {
             _firstClickTime = secondClickTime
-            _strTip.showToast()
+            if (_strTip.isNotEmpty())
+                _strTip.showToast()
             return false
         }
         _onExit?.invoke()
-        UtilKApp.exitApp()
+//        UtilKApp.exitApp()
         return true
     }
 }

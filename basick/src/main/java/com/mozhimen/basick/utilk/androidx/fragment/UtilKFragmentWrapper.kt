@@ -34,18 +34,6 @@ fun FragmentActivity.showHideFragments(currentFragment: Fragment, currentTag: St
     UtilKFragmentWrapper.showHideFragments(this, currentFragment, currentTag, lastFragment, lastTag, containerViewId)
 }
 
-fun FragmentActivity.replaceFragment_commit(@IdRes containerViewId: Int, fragment: Fragment): Pair<FragmentTransaction, Fragment> =
-    UtilKFragmentWrapper.replaceFragment_commit(this, containerViewId, fragment)
-
-fun Fragment.replaceFragment_commit(@IdRes containerViewId: Int, fragment: Fragment): Pair<FragmentTransaction, Fragment> =
-    UtilKFragmentWrapper.replaceFragment_commit(this, containerViewId, fragment)
-
-fun FragmentActivity.removeFragment_commit(fragment: Fragment): Pair<FragmentTransaction, Fragment> =
-    UtilKFragmentWrapper.removeFragment_commit(this, fragment)
-
-fun Fragment.removeFragment_commit(fragment: Fragment): Pair<FragmentTransaction, Fragment> =
-    UtilKFragmentWrapper.removeFragment_commit(this, fragment)
-
 ////////////////////////////////////////////////////////////////////
 
 object UtilKFragmentWrapper : IUtilK {
@@ -53,26 +41,6 @@ object UtilKFragmentWrapper : IUtilK {
     fun runOnViewLifecycleState(fragment: Fragment, state: Lifecycle.State, coroutineContext: CoroutineContext = EmptyCoroutineContext, block: ISuspendExt_Listener<CoroutineScope>) {
         UtilKLifecycleOwner.runOnLifecycleState(fragment.viewLifecycleOwner, fragment.lifecycleScope, state, coroutineContext, block)
     }
-
-    /////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun replaceFragment_commit(fragmentActivity: FragmentActivity, @IdRes containerViewId: Int, fragment: Fragment): Pair<FragmentTransaction, Fragment> =
-        UtilKFragmentTransaction.replace_commit(fragmentActivity, containerViewId, fragment) to fragment
-
-    @JvmStatic
-    fun replaceFragment_commit(mainFragment: Fragment, @IdRes containerViewId: Int, fragment: Fragment): Pair<FragmentTransaction, Fragment> =
-        UtilKFragmentTransaction.replace_commit(mainFragment, containerViewId, fragment) to fragment
-
-    /////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun removeFragment_commit(fragmentActivity: FragmentActivity, fragment: Fragment): Pair<FragmentTransaction, Fragment> =
-        UtilKFragmentTransaction.remove_commit(fragmentActivity, fragment) to fragment
-
-    @JvmStatic
-    fun removeFragment_commit(mainFragment: Fragment, fragment: Fragment): Pair<FragmentTransaction, Fragment> =
-        UtilKFragmentTransaction.remove_commit(mainFragment, fragment) to fragment
 
     /////////////////////////////////////////////////////////////////////
 
@@ -123,33 +91,33 @@ object UtilKFragmentWrapper : IUtilK {
     fun addHideFragments(fragmentActivity: FragmentActivity, currentFragment: Fragment, currentTag: String, lastFragment: Fragment?, lastTag: String?, @IdRes containerViewId: Int) {
         val fragmentTransaction = UtilKFragmentTransaction.get(fragmentActivity)
         if (fragmentActivity.findFragmentByTag(currentTag) == null && !currentFragment.isAdded) {
-            UtilKFragmentTransaction.add(fragmentTransaction, containerViewId, currentFragment, currentTag)
-            UtilKFragmentTransaction.setMaxLifecycle(fragmentTransaction, currentFragment, Lifecycle.State.RESUMED)
+            fragmentTransaction.add(containerViewId, currentFragment, currentTag)
+            fragmentTransaction.setMaxLifecycle(currentFragment, Lifecycle.State.RESUMED)
         } else {
-            UtilKFragmentTransaction.show(fragmentTransaction, currentFragment)
-            UtilKFragmentTransaction.setMaxLifecycle(fragmentTransaction, currentFragment, Lifecycle.State.RESUMED)
+            fragmentTransaction.show(currentFragment)
+            fragmentTransaction.setMaxLifecycle(currentFragment, Lifecycle.State.RESUMED)
         }
         if (lastFragment != null && lastTag != null && fragmentActivity.findFragmentByTag(lastTag) != null && lastFragment.isAdded) {
-            UtilKFragmentTransaction.hide(fragmentTransaction, lastFragment)
-            UtilKFragmentTransaction.setMaxLifecycle(fragmentTransaction, lastFragment, Lifecycle.State.STARTED)
+            fragmentTransaction.hide(lastFragment)
+            fragmentTransaction.setMaxLifecycle(lastFragment, Lifecycle.State.STARTED)
         }
-        UtilKFragmentTransaction.commitAllowingStateLoss(fragmentTransaction)
+        fragmentTransaction.commitAllowingStateLoss()
     }
 
     @JvmStatic
     fun showHideFragments(fragmentActivity: FragmentActivity, currentFragment: Fragment, currentTag: String, lastFragment: Fragment?, lastTag: String?, @IdRes containerViewId: Int) {
         val fragmentTransaction = UtilKFragmentTransaction.get(fragmentActivity)
         if (fragmentActivity.findFragmentByTag(currentTag) != null && currentFragment.isAdded) {
-            UtilKFragmentTransaction.show(fragmentTransaction, currentFragment)
-            UtilKFragmentTransaction.setMaxLifecycle(fragmentTransaction, currentFragment, Lifecycle.State.RESUMED)
+            fragmentTransaction.show(currentFragment)
+            fragmentTransaction.setMaxLifecycle(currentFragment, Lifecycle.State.RESUMED)
         } else {
-            UtilKFragmentTransaction.add(fragmentTransaction, containerViewId, currentFragment, currentTag)
-            UtilKFragmentTransaction.setMaxLifecycle(fragmentTransaction, currentFragment, Lifecycle.State.RESUMED)
+            fragmentTransaction.add(containerViewId, currentFragment, currentTag)
+            fragmentTransaction.setMaxLifecycle(currentFragment, Lifecycle.State.RESUMED)
         }
         if (lastFragment != null && lastTag != null && fragmentActivity.findFragmentByTag(lastTag) != null && lastFragment.isAdded) {
-            UtilKFragmentTransaction.hide(fragmentTransaction, lastFragment)
-            UtilKFragmentTransaction.setMaxLifecycle(fragmentTransaction, lastFragment, Lifecycle.State.STARTED)
+            fragmentTransaction.hide(lastFragment)
+            fragmentTransaction.setMaxLifecycle(lastFragment, Lifecycle.State.STARTED)
         }
-        UtilKFragmentTransaction.commitAllowingStateLoss(fragmentTransaction)
+        fragmentTransaction.commitAllowingStateLoss()
     }
 }
