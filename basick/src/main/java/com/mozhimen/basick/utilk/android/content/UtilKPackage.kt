@@ -110,7 +110,7 @@ object UtilKPackage : BaseUtilK() {
     @JvmStatic
     fun isDownloadComponentEnabled(context: Context): Boolean {
         try {
-            val setting = UtilKPackageManager.getApplicationEnabledSetting(context, CStrPackage.COM_ANDROID_PROVIDERS_DOWNLOADS)
+            val setting = UtilKPackageManager.getApplicationEnabledSetting(context, CStrPackage.com_android_providers_downloads)
             if (setting == CPackageManager.COMPONENT_ENABLED_STATE_DISABLED || setting == CPackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER || setting == CPackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED)
                 return false
         } catch (e: Exception) {

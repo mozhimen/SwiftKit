@@ -45,7 +45,7 @@ object UtilKRuntimeWrapper : IUtilK {
     }
 
     @JvmStatic
-    fun exec_getprop(strPackage: String): String {
+    fun exec_getprop(strPackage: String): String? {
         var process: Process? = null
         try {
             process = UtilKRuntime.exec("getprop $strPackage")
@@ -56,7 +56,7 @@ object UtilKRuntimeWrapper : IUtilK {
         } finally {
             process?.destroy()
         }
-        return ""
+        return null
     }
 
     @JvmStatic

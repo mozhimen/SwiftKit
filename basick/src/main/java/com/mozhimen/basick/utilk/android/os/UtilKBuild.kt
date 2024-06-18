@@ -111,7 +111,7 @@ object UtilKBuild {
 
     //构建显示ID
     @JvmStatic
-    fun getDisplayId(): String =
+    fun getDisplay(): String =
         Build.DISPLAY
 
     //构建变更列表号

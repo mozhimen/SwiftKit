@@ -260,7 +260,7 @@ object UtilKIntentWrapper {
      * 管理APP下载
      */
     fun getSettingApplicationDetailsSettings_ofDownloads(context: Context): Intent =
-        UtilKIntent.get(CSettings.ACTION_APPLICATION_DETAILS_SETTINGS, "package:${CStrPackage.COM_ANDROID_PROVIDERS_DOWNLOADS}".strUri2uri())
+        UtilKIntent.get(CSettings.ACTION_APPLICATION_DETAILS_SETTINGS, "package:${CStrPackage.com_android_providers_downloads}".strUri2uri())
 
     /**
      * 管理通知

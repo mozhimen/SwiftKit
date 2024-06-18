@@ -13,9 +13,7 @@ import com.mozhimen.basick.elemk.android.view.cons.CHapticFeedbackConstants
 import com.mozhimen.basick.elemk.android.view.cons.CView
 import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.elemk.cons.CStrPackage
-import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.android.app.UtilKActivityWrapper
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 
 
@@ -141,7 +139,7 @@ object UtilKView : BaseUtilK() {
     @JvmStatic
     fun isContentOrDecorView(view: View): Boolean =
         if (view.id == CPackage.ANDROID_R_ID_CONTENT) true
-        else TextUtils.equals(view.javaClass.name, CStrPackage.COM_ANDROID_INTERNAL_POLICY_DECORVIEW)
+        else TextUtils.equals(view.javaClass.name, CStrPackage.com_android_internal_policy_Decorview)
 
     @JvmStatic
     fun isVisible(view: View): Boolean =

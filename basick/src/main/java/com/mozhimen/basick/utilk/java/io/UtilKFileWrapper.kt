@@ -28,7 +28,7 @@ fun File.gerStrCrc_use(): String =
 fun File.getFileNameNoExtension(): String? =
     UtilKFileWrapper.getFileNameNoExtension(this)
 
-fun File.getUnZippedInputStream():InputStream =
+fun File.getUnZippedInputStream(): InputStream =
     UtilKFileWrapper.getUnZippedInputStream(this)
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -77,7 +77,7 @@ fun File.isFolderExist(): Boolean =
 fun File.isFileZipped(): Boolean =
     UtilKFileWrapper.isFileZipped(this)
 
-fun File.createFolder(): File =
+fun File.createFolder(): Boolean =
     UtilKFileWrapper.createFolder(this)
 
 fun File.deleteFolder(): Boolean =
@@ -208,8 +208,6 @@ object UtilKFileWrapper : BaseUtilK() {
             UtilKZipOutputStream.read_write_use(zipOutputStream, zipOutputStream.outputStream2bufferedOutputStream(), fileSource, fileSource.name)
             zipFile
         }
-
-
     //endregion
 
     /////////////////////////////////////////////////////////////////////////////////////////
@@ -254,10 +252,9 @@ object UtilKFileWrapper : BaseUtilK() {
 
     //创建文件夹
     @JvmStatic
-    fun createFolder(folder: File): File {
-        if (!isFolderExist(folder)) folder.mkdirs().also { UtilKLogWrapper.d(TAG, "createFolder: create path ${folder.absolutePath} $it") }
-        return folder
-    }
+    fun createFolder(folder: File): Boolean =
+        if (isFolderExist(folder)) true
+        else folder.mkdirs().also { UtilKLogWrapper.d(TAG, "createFolder: create path ${folder.absolutePath} $it") }
 
     /**
      * 删除文件夹

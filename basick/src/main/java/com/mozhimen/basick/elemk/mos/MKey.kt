@@ -11,9 +11,11 @@ import java.io.Serializable
  * @Version 1.0
  */
 data class MKey(
-    val id: String,
-    val name: String
+    var id: String,
+    var name: String
 ) : Serializable, Parcelable {
+
+    constructor() : this("", "")
 
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",

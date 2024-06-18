@@ -31,9 +31,9 @@ object UtilKStatusBarIcon : BaseUtilK() {
     @JvmStatic
     fun applyIcon(activity: Activity, isThemeDark: Boolean) {
         when {
-            UtilKSysRom.isMiui() -> applyIcon_ofMiui(activity, isThemeDark)
+            UtilKSysRom.isXiaomi() -> applyIcon_ofMiui(activity, isThemeDark)
             UtilKSysRom.isOppo() -> applyIcon_ofColorOsUi(activity, isThemeDark)
-            UtilKSysRom.isFlyme() -> applyIcon_ofFlymeUi(activity, isThemeDark)
+            UtilKSysRom.isMeizu() -> applyIcon_ofFlymeUi(activity, isThemeDark)
             else -> applyIcon_ofCommon(activity, isThemeDark)
         }
     }

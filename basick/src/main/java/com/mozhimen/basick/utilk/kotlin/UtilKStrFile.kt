@@ -138,7 +138,7 @@ fun String.isFolder(): Boolean =
 fun String.isFolderExist(): Boolean =
     UtilKStrFile.isFolderExist(this)
 
-fun String.createFolder(): File =
+fun String.createFolder(): Boolean =
     UtilKStrFile.createFolder(this)
 
 fun String.deleteFolder(): Boolean =
@@ -356,7 +356,7 @@ object UtilKStrFile : IUtilK {
      * 创建文件夹
      */
     @JvmStatic
-    fun createFolder(strFolderPath: String): File =
+    fun createFolder(strFolderPath: String): Boolean =
         strFolderPath.getStrFolderPath().strFilePath2file().createFolder()
 
     /**

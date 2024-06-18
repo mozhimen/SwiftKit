@@ -23,5 +23,9 @@ object UtilKFile {
     @JvmStatic
     fun getNameWithoutExtension(file: File): String =
         file.nameWithoutExtension
+
+    @JvmStatic
+    fun getExtension(file: File): String =
+        file.extension
 }
 

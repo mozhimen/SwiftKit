@@ -29,7 +29,6 @@ import com.mozhimen.basick.utilk.android.telephony.UtilKImeiOrMeid
 import com.mozhimen.basick.utilk.android.telephony.UtilKTelephonyManager
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFileReader
-import com.mozhimen.basick.utilk.java.io.UtilKRandomAccessFile
 import com.mozhimen.basick.utilk.java.io.UtilKRandomAccessFileWrapper
 
 /**
@@ -93,7 +92,7 @@ object UtilKDevice : BaseUtilK() {
     } else if (UtilKBuildVersion.isAfterV_26_8_O()) {
         UtilKBuild.getSerial()
     } else {
-        UtilKSystemProperties.getStr(CStrPackage.RO_SERIALNO, CBuild.UNKNOWN)
+        UtilKSystemProperties.getStr(CStrPackage.ro_serialno, CBuild.UNKNOWN)
     }
 
     /**

@@ -81,13 +81,13 @@ object UtilKUri : BaseUtilK() {
 
     @JvmStatic
     fun isAuthorityDownloadsDocument(uri: Uri): Boolean =
-        uri.authority == CStrPackage.COM_ANDROID_PROVIDERS_DOWNLOADS_DOCUMENTS//"com.android.providers.downloads.documents"
+        uri.authority == CStrPackage.com_android_providers_downloads_documents//"com.android.providers.downloads.documents"
 
     @JvmStatic
     fun isAuthorityExternalStorageDocument(uri: Uri): Boolean =
-        uri.authority == CStrPackage.COM_ANDROID_EXTERNALSTORAGE_DOCUMENTS//"com.android.externalstorage.documents"
+        uri.authority == CStrPackage.com_android_externalstorage_documents//"com.android.externalstorage.documents"
 
     @JvmStatic
     fun isAuthorityMediaDocument(uri: Uri): Boolean =
-        uri.authority == CStrPackage.COM_ANDROID_INTERNAL_POLICY_DECORVIEW//"com.android.providers.media.documents"
+        uri.authority == CStrPackage.com_android_internal_policy_Decorview//"com.android.providers.media.documents"
 }

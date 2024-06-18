@@ -13,6 +13,7 @@ import com.mozhimen.basick.lintk.optins.permission.OPermission_REQUEST_INSTALL_P
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKActivityStart
 import com.mozhimen.basick.utilk.android.content.UtilKPackageInstaller
+import com.mozhimen.basick.utilk.android.content.UtilKPackageInstallerSession
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -92,6 +93,7 @@ object UtilKAppInstall : BaseUtilK() {
     @JvmStatic
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
     @OPermission_INSTALL_PACKAGES
+    @OPermission_REQUEST_INSTALL_PACKAGES
     fun install_ofSilence(strPathNameApk: String, receiver: Class<*>) {
         if (UtilKBuildVersion.isAfterV_28_9_P()) install_ofSilence_after28(strPathNameApk, receiver)
         else UtilKRuntimeWrapper.exec_pm_install_before28(strPathNameApk)
@@ -104,6 +106,7 @@ object UtilKAppInstall : BaseUtilK() {
     @RequiresApi(CVersCode.V_28_9_P)
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
     @OPermission_INSTALL_PACKAGES
+    @OPermission_REQUEST_INSTALL_PACKAGES
     fun install_ofSilence_after28(strPathNameApk: String, receiver: Class<*>) {
         "install_ofSilence_after28 pathApk $strPathNameApk".d(TAG)
         val fileApk = File(strPathNameApk)
@@ -118,7 +121,7 @@ object UtilKAppInstall : BaseUtilK() {
             val isCopySuccess = UtilKPackageInstaller.copyBaseApk(packageInstaller, sessionId, strPathNameApk)
             "install_ofSilence_after28 isCopySuccess $isCopySuccess".d(TAG)
             if (isCopySuccess)
-                UtilKPackageInstaller.commitSession(packageInstaller, sessionId, receiver)
+                UtilKPackageInstallerSession.commitSession(packageInstaller, sessionId, receiver)
         }
     }
 }

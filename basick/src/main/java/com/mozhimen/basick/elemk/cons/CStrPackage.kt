@@ -9,27 +9,47 @@ package com.mozhimen.basick.elemk.cons
  * @Version 1.0
  */
 object CStrPackage {
-    const val PERSIST_SENSEPASS_AUTORUN = "persist.sensepass.autorun"
-    const val RO_PRODUCT_ROM_VERSION = "ro.product.rom.version"
-    const val RO_PRODUCT_HW_VERSION = "ro.product.hw.version"
-    const val RO_SERIALNO = "ro.serialno"
+    const val persist_sensepass_autorun = "persist.sensepass.autorun"
 
-    const val RO_MIUI_UI_VERSION_NAME = "ro.miui.ui.version.name"
-    const val RO_BUILD_VERSION_EMUI = "ro.build.version.emui"
-    const val RO_BUILD_VERSION_OPPOROM = "ro.build.version.opporom"
-    const val RO_SMARTISAN_VERSION = "ro.smartisan.version"
-    const val RO_VIVO_OS_VERSION = "ro.vivo.os.version"
+    ////////////////////////////////////////////////////////////////////////////////
 
-    const val LINE_SEPARATOR = "line.separator"
+    const val ro_product_rom_version = "ro.product.rom.version"
+    const val ro_product_hw_version = "ro.product.hw.version"
+    const val ro_serialno = "ro.serialno"
 
-    const val SYS_POWERED = "sys.powered"
+    const val ro_miui_ui_version_name = "ro.miui.ui.version.name"
+    const val ro_smartisan_version = "ro.smartisan.version"
+    const val ro_vivo_os_version = "ro.vivo.os.version"
+    const val ro_build_version_emui: String = "ro.build.version.emui"
+    const val ro_vivo_os_build_display_id: String = "ro.vivo.os.build.display.id"
+    const val ro_build_version_incremental: String = "ro.build.version.incremental"
+    const val ro_build_version_opporom: String = "ro.build.version.opporom"
+    const val ro_letv_release_version: String = "ro.letv.release.version"
+    const val ro_build_uiversion: String = "ro.build.uiversion"
+    const val ro_build_MiFavor_version: String = "ro.build.MiFavor_version"
+    const val ro_rom_version: String = "ro.rom.version"
+    const val ro_build_rom_id: String = "ro.build.rom.id"
 
-    const val COM_ANDROID_PROVIDERS_DOWNLOADS = "com.android.providers.downloads"
-    const val COM_ANDROID_PROVIDERS_DOWNLOADS_DOCUMENTS = "com.android.providers.downloads.documents"
-    const val COM_ANDROID_EXTERNALSTORAGE_DOCUMENTS = "com.android.externalstorage.documents"
-    const val COM_ANDROID_PROVIDERS_MEDIA_DOCUMENTS = "com.android.providers.media.documents"
-    const val COM_ANDROID_INTERNAL_POLICY_DECORVIEW = "com.android.internal.policy.DecorView"
-    const val ANDROID_OS_SYSTEMPROPERTIES = "android.os.SystemProperties"
-    const val RIL_GSM_IMEI = "ril.gsm.imei"
-    const val RIL_CDMA_MEID = "ril.cdma.meid"
+    ////////////////////////////////////////////////////////////////////////////////
+
+    const val line_separator = "line.separator"
+
+    ////////////////////////////////////////////////////////////////////////////////
+
+    const val sys_powered = "sys.powered"
+
+    ////////////////////////////////////////////////////////////////////////////////
+
+    const val com_android_providers_downloads = "com.android.providers.downloads"
+    const val com_android_providers_downloads_documents = "com.android.providers.downloads.documents"
+    const val com_android_externalstorage_documents = "com.android.externalstorage.documents"
+    const val com_android_providers_media_documents = "com.android.providers.media.documents"
+    const val com_android_internal_policy_Decorview = "com.android.internal.policy.DecorView"
+    const val android_os_SystemProperties = "android.os.SystemProperties"
+    const val ril_gsm_imei = "ril.gsm.imei"
+    const val ril_cdma_meid = "ril.cdma.meid"
+
+    ////////////////////////////////////////////////////////////////////////////////
+
+    const val build_prop = "build.prop"
 }
