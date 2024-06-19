@@ -66,7 +66,10 @@ fun String.getFileSizeAvailable(): Long? =
 /////////////////////////////////////////////////////////////////
 
 fun String.isFileExist(): Boolean =
-    UtilKStrFile.isFile(this)
+    UtilKStrFile.isFileExist(this)
+
+fun String.isFileNotExist(): Boolean =
+    UtilKStrFile.isFileNotExist(this)
 
 /////////////////////////////////////////////////////////////////
 
@@ -74,7 +77,7 @@ fun String.strFileExtension2strMineTypeImage(): String =
     UtilKStrFile.strFileExtension2strMineTypeImage(this)
 
 fun String.strFilePath2str(isAddLineBreak: Boolean = false): String? =
-    UtilKStrFile.strFilePath2str(this,isAddLineBreak)
+    UtilKStrFile.strFilePath2str(this, isAddLineBreak)
 
 fun String.strFilePath2fileOutputStream(isAppend: Boolean = false): FileOutputStream =
     UtilKStrFile.strFilePath2fileOutputStream(this, isAppend)
@@ -82,7 +85,7 @@ fun String.strFilePath2fileOutputStream(isAppend: Boolean = false): FileOutputSt
 fun String.strFilePath2fileInputStream(): FileInputStream =
     UtilKStrFile.strFilePath2fileInputStream(this)
 
-fun String.strFilePath2fileInputStream2(): FileInputStream =
+fun String.strFilePath2fileInputStream2(): FileInputStream? =
     UtilKStrFile.strFilePath2fileInputStream2(this)
 
 fun String.strFilePath2file(): File =
@@ -232,7 +235,11 @@ object UtilKStrFile : IUtilK {
      */
     @JvmStatic
     fun isFileExist(strFilePathName: String): Boolean =
-        strFilePathName.strFilePath2file().isFileExist()
+        isFile(strFilePathName)
+
+    @JvmStatic
+    fun isFileNotExist(strFilePathName: String): Boolean =
+        !isFileExist(strFilePathName)
 
     /////////////////////////////////////////////////////////////////
 
@@ -257,7 +264,7 @@ object UtilKStrFile : IUtilK {
         FileInputStream(strFilePathName)
 
     @JvmStatic
-    fun strFilePath2fileInputStream2(strFilePathName: String): FileInputStream =
+    fun strFilePath2fileInputStream2(strFilePathName: String): FileInputStream? =
         strFilePathName.strFilePath2file().file2fileInputStream()
 
     @JvmStatic

@@ -12,6 +12,9 @@ import com.mozhimen.basick.lintk.optins.permission.OPermission_INSTALL_PACKAGES
 import com.mozhimen.basick.lintk.optins.permission.OPermission_REQUEST_INSTALL_PACKAGES
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKActivityStart
+import com.mozhimen.basick.utilk.android.app.UtilKPendingIntent
+import com.mozhimen.basick.utilk.android.app.UtilKPendingIntentWrapper
+import com.mozhimen.basick.utilk.android.content.UtilKIntent
 import com.mozhimen.basick.utilk.android.content.UtilKPackageInstaller
 import com.mozhimen.basick.utilk.android.content.UtilKPackageInstallerSession
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
@@ -121,7 +124,7 @@ object UtilKAppInstall : BaseUtilK() {
             val isCopySuccess = UtilKPackageInstaller.copyBaseApk(packageInstaller, sessionId, strPathNameApk)
             "install_ofSilence_after28 isCopySuccess $isCopySuccess".d(TAG)
             if (isCopySuccess)
-                UtilKPackageInstallerSession.commit_use_ofBroadCast(packageInstaller, sessionId, receiverClazz, 1)
+                UtilKPackageInstallerSession.commit_use_ofBroadCast(packageInstaller, sessionId, UtilKIntent.get(_context, receiverClazz), 1,UtilKPendingIntentWrapper.getFlag_UPDATE_CURRENT())
         }
     }
 }

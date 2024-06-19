@@ -1,6 +1,7 @@
 package com.mozhimen.basick.elemk.android.app.cons
 
 import android.app.PendingIntent
+import com.mozhimen.basick.lintk.optins.OApiDeprecated_Official_AfterV_31_11_S
 
 /**
  * @ClassName CPendingIntent
@@ -10,6 +11,9 @@ import android.app.PendingIntent
  * @Version 1.0
  */
 object CPendingIntent {
+    @OApiDeprecated_Official_AfterV_31_11_S
+    const val FLAG_NONE = 0
+
     const val FLAG_UPDATE_CURRENT = PendingIntent.FLAG_UPDATE_CURRENT
 
     /**

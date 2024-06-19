@@ -22,13 +22,13 @@ import kotlin.jvm.Throws
  * @Date 2024/3/28
  * @Version 1.0
  */
-fun File.gerStrCrc_use(): String =
+fun File.gerStrCrc_use(): String? =
     UtilKFileWrapper.gerStrCrc_use(this)
 
 fun File.getFileNameNoExtension(): String? =
     UtilKFileWrapper.getFileNameNoExtension(this)
 
-fun File.getUnZippedInputStream(): InputStream =
+fun File.getUnZippedInputStream(): InputStream? =
     UtilKFileWrapper.getUnZippedInputStream(this)
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -44,6 +44,9 @@ fun File.getFileCreateTime(): Long =
 
 fun File.getFileCreateTimeStr(): String =
     UtilKFileWrapper.getFileCreateTimeStr(this)
+
+fun File.isFileNotExist():Boolean =
+    UtilKFileWrapper.isFileNotExist(this)
 
 fun File.isFileExist(): Boolean =
     UtilKFileWrapper.isFileExist(this)
@@ -88,8 +91,8 @@ fun File.deleteFolder(): Boolean =
 object UtilKFileWrapper : BaseUtilK() {
     //region # file
     @JvmStatic
-    fun gerStrCrc_use(file: File): String =
-        file.file2fileInputStream().getStrCrc32_use()
+    fun gerStrCrc_use(file: File): String? =
+        file.file2fileInputStream()?.getStrCrc32_use()
 
     @JvmStatic
     fun getFileNameNoExtension(file: File): String? =
@@ -100,7 +103,7 @@ object UtilKFileWrapper : BaseUtilK() {
     @JvmStatic
     fun getFileSize_ofAvaioflable(file: File): Long? =
         if (!isFileExist(file)) null
-        else file.file2fileInputStream().getAvailableLong_use()
+        else file.file2fileInputStream()?.getAvailableLong_use()
 
     /**
      * 获取文件大小
@@ -123,8 +126,8 @@ object UtilKFileWrapper : BaseUtilK() {
 
     //Returns the uncompressed input stream if gzip compressed.
     @JvmStatic
-    fun getUnZippedInputStream(file: File): InputStream {
-        val pushbackInputStream = file.file2fileInputStream().inputStream2pushbackInputStream(2)
+    fun getUnZippedInputStream(file: File): InputStream? {
+        val pushbackInputStream = file.file2fileInputStream()?.inputStream2pushbackInputStream(2)?:return null
         val signature = ByteArray(2)
         val len = pushbackInputStream.read(signature)
         pushbackInputStream.unread(signature, 0, len)
@@ -142,6 +145,10 @@ object UtilKFileWrapper : BaseUtilK() {
     @JvmStatic
     fun isFileZipped(file: File): Boolean =
         file.extension == "zip"
+
+    @JvmStatic
+    fun isFileNotExist(file: File):Boolean =
+        !isFileExist(file)
 
     //文件是否存在
     @JvmStatic
@@ -176,28 +183,29 @@ object UtilKFileWrapper : BaseUtilK() {
     @JvmStatic
     fun copyFile(fileSource: File, fileDest: File, isAppend: Boolean = false): File? =
         if (!isFileExist(fileSource)) null
-        else fileSource.file2fileInputStream().inputStream2file_use(fileDest, isAppend)
+        else fileSource.file2fileInputStream()?.inputStream2file_use(fileDest, isAppend)
 
     @JvmStatic
-    fun copyFile_ofFileChannel(fileSource: File, fileDest: File, isAppend: Boolean = false): File? =
-        if (!isFileExist(fileSource)) null
+    fun copyFile_ofFileChannel(fileSource: File, fileDest: File, isAppend: Boolean = false): File? {
+        if (!isFileExist(fileSource)) return null
         else {
             var channelSource: FileChannel? = null
             var channelDest: FileChannel? = null
             try {
                 // 使用文件通道进行文件复制
-                channelSource = fileSource.file2fileInputStream().channel
+                channelSource = fileSource.file2fileInputStream()?.channel ?: return null
                 channelDest = fileDest.file2fileOutputStream(isAppend).channel
                 channelDest.transferFrom(channelSource, 0, channelSource.size())
-                fileDest
+                return fileDest
             } catch (e: IOException) {
                 e.printStackTrace()
-                null
+                return null
             } finally {
                 channelSource?.close()
                 channelDest?.close()
             }
         }
+    }
 
     //压缩文件
     @JvmStatic

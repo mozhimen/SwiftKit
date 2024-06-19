@@ -1,7 +1,6 @@
 package com.mozhimen.basick.utilk.android.app
 
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import com.mozhimen.basick.elemk.android.app.cons.CPendingIntent
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
@@ -16,16 +15,36 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
  */
 object UtilKPendingIntentWrapper : BaseUtilK() {
     @JvmStatic
+    fun get_ofActivity(requestCode: Int, intent: Intent, flags: Int): PendingIntent =
+        UtilKPendingIntent.getActivity(_context, requestCode, intent, flags)
+
+    @JvmStatic
+    fun get_ofBroadCast(requestCode: Int, intent: Intent, flags: Int): PendingIntent =
+        UtilKPendingIntent.getBroadcast(_context, requestCode, intent, flags)
+
+    /////////////////////////////////////////////////////////////////
+
+    @Deprecated("""
+        Targeting S+ (version 31 and above) requires that one of FLAG_IMMUTABLE or FLAG_MUTABLE be specified when creating a PendingIntent.
+        Strongly consider using FLAG_IMMUTABLE, only use FLAG_MUTABLE if some functionality depends on the PendingIntent being mutable, e.g. if it needs to be used with inline replies or bubbles.
+    """)
+    @JvmStatic
+    fun get_ofActivity_NONE(requestCode: Int, intent: Intent): PendingIntent =
+        get_ofActivity(requestCode, intent, CPendingIntent.FLAG_NONE)
+
+    @JvmStatic
     fun get_ofActivity_IMMUTABLE(requestCode: Int, intent: Intent): PendingIntent =
-        UtilKPendingIntent.getActivity(_context, requestCode, intent, CPendingIntent.FLAG_IMMUTABLE)
+        get_ofActivity(requestCode, intent, CPendingIntent.FLAG_IMMUTABLE)
 
     @JvmStatic
     fun get_ofActivity_UPDATE_CURRENT(requestCode: Int, intent: Intent): PendingIntent =
-        UtilKPendingIntent.getActivity(_context, requestCode, intent, getFlag_UPDATE_CURRENT())
+        get_ofActivity(requestCode, intent, getFlag_UPDATE_CURRENT())
+
+    /////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun get_ofBroadCast_UPDATE_CURRENT(requestCode: Int, intent: Intent): PendingIntent =
-        UtilKPendingIntent.getBroadcast(_context, requestCode, intent, getFlag_UPDATE_CURRENT())
+        get_ofBroadCast(requestCode, intent, getFlag_UPDATE_CURRENT())
 
     /////////////////////////////////////////////////////////////////
 

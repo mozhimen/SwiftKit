@@ -43,7 +43,7 @@ object UtilKZipOutputStream : IUtilK {
                     }
             } else {
                 zipOutputStream.putNextEntry(ZipEntry(fileName))
-                UtilKInputStream.read_write_use(fileSource.file2fileInputStream().inputStream2bufferedInputStream(),bufferedOutputStream)
+                UtilKInputStream.read_write_use(fileSource.file2fileInputStream()?.inputStream2bufferedInputStream()?:return,bufferedOutputStream)
             }
         } finally {
             zipOutputStream.flushClose()

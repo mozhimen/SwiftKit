@@ -21,7 +21,13 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 fun PackageInfo.getVersionCode(): Int =
     UtilKPackageInfo.getVersionCode(this)
 
+/////////////////////////////////////////////////////////////////////////
+
 object UtilKPackageInfo : BaseUtilK() {
+    @JvmStatic
+    fun get(context: Context, strPackageName: String, flags: Int): PackageInfo? =
+        UtilKPackageManager.getPackageInfo(context, strPackageName, flags)
+
     @JvmStatic
     fun get(context: Context): PackageInfo? =
         get_ofInstallLocationAuto(context)
@@ -29,10 +35,6 @@ object UtilKPackageInfo : BaseUtilK() {
     @JvmStatic
     fun get(context: Context, flags: Int): PackageInfo? =
         get(context, UtilKContext.getPackageName(context), flags /*0*/)
-
-    @JvmStatic
-    fun get(context: Context, strPackageName: String, flags: Int): PackageInfo? =
-        UtilKPackageManager.getPackageInfo(context, strPackageName, flags)
 
     @JvmStatic
     fun get_ofInstallLocationAuto(context: Context): PackageInfo? =

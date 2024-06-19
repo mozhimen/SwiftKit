@@ -22,6 +22,8 @@ import com.mozhimen.basick.utilk.java.io.UtilKInputStream
 import com.mozhimen.basick.utilk.java.io.file2fileInputStream
 import com.mozhimen.basick.utilk.java.io.flushClose
 import com.mozhimen.basick.utilk.java.io.inputStream2bufferedInputStream
+import com.mozhimen.basick.utilk.java.io.isFileExist
+import com.mozhimen.basick.utilk.java.io.isFileNotExist
 import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import com.mozhimen.basick.utilk.kotlin.strFilePath2file
 import com.mozhimen.basick.utilk.kotlin.strFilePath2fileInputStream
@@ -79,12 +81,14 @@ object UtilKPackageInstaller : BaseUtilK() {
     @RequiresApi(CVersCode.V_21_5_L)
     @JvmStatic
     fun copyBaseApk(packageInstaller: PackageInstaller, sessionId: Int, fileApk: File): Boolean {
+        if (fileApk.isFileNotExist())
+            return false
         var outputStream: OutputStream? = null
         var session: Session? = null
         try {
             session = openSession(packageInstaller, sessionId)
             outputStream = session.openWrite("base.apk", 0, fileApk.length())
-            UtilKInputStream.read_write_use(fileApk.file2fileInputStream(), outputStream, 65536)
+            UtilKInputStream.read_write_use(fileApk.file2fileInputStream()?:return false, outputStream, 65536)
             session.fsync(outputStream)
             return true
         } catch (e: Exception) {

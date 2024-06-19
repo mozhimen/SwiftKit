@@ -4,10 +4,11 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.Intent
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import android.view.View
-import android.view.Window
 import androidx.fragment.app.Fragment
+import com.mozhimen.basick.elemk.android.app.cons.CActivity
 import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.lintk.optins.OApiInit_InApplication
 import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
@@ -37,6 +38,16 @@ fun <A : Annotation> Activity.getAnnotation(annotationClazz: Class<A>): A? =
 
 fun Activity.isFinishingOrDestroyed(): Boolean =
     UtilKActivityWrapper.isFinishingOrDestroyed(this)
+
+/////////////////////////////////////////////////////////////////////////
+
+fun Activity.applyResult_ofCANCELED(data: Intent? = null, isFinish: Boolean = true) {
+    UtilKActivityWrapper.applyResult_ofCANCELED(this, data, isFinish)
+}
+
+fun Activity.applyResult_ofOK(data: Intent? = null, isFinish: Boolean = true) {
+    UtilKActivityWrapper.applyResult_ofOK(this, data, isFinish)
+}
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -144,6 +155,21 @@ object UtilKActivityWrapper : IUtilK {
     fun isFinishingOrDestroyed(context: Context): Boolean {
         val activity: Activity? = get_ofContext(context)
         return (if (activity != null) isFinishingOrDestroyed(activity) else true).also { UtilKLogWrapper.d(TAG, "isFinishingOrDestroyed: $it") }
+    }
+    /////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun applyResult_ofCANCELED(activity: Activity, data: Intent? = null, isFinish: Boolean = true) {
+        UtilKActivity.applyResult(activity, CActivity.RESULT_CANCELED, data)
+        if (isFinish)
+            activity.finish()
+    }
+
+    @JvmStatic
+    fun applyResult_ofOK(activity: Activity, data: Intent? = null, isFinish: Boolean = true) {
+        UtilKActivity.applyResult(activity, CActivity.RESULT_OK, data)
+        if (isFinish)
+            activity.finish()
     }
 
     /////////////////////////////////////////////////////////////////////////

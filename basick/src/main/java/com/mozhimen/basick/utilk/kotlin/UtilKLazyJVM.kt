@@ -13,4 +13,12 @@ object UtilKLazyJVM {
     @JvmStatic
     fun <T> lazy_ofNone(initializer: I_AListener<T>): Lazy<T> =
         lazy(UtilKLazyThreadSafetyMode.getNONE(), initializer)
+
+    @JvmStatic
+    fun <T> lazy_ofPublication(initializer: I_AListener<T>): Lazy<T> =
+        lazy(UtilKLazyThreadSafetyMode.getPUBLICATION(), initializer)
+
+    @JvmStatic
+    fun <T> lazy_ofSynchronized(initializer: I_AListener<T>): Lazy<T> =
+        lazy(UtilKLazyThreadSafetyMode.getSYNCHRONIZED(), initializer)
 }

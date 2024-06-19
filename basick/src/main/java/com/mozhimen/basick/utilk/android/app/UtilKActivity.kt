@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.android.app
 
 import android.app.Activity
+import android.content.Intent
 import android.view.Display
 import android.view.View
 import android.view.WindowManager
@@ -41,6 +42,15 @@ object UtilKActivity : IUtilK {
         activity.isDestroyed
 
     //////////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun applyResult(activity: Activity, resultCode: Int, data: Intent?) {
+        data?.let {
+            activity.setResult(resultCode, it)
+        } ?: run {
+            activity.setResult(resultCode)
+        }
+    }
 
     /**
      * android.util.AndroidRuntimeException: requestFeature() must be called before adding content

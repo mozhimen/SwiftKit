@@ -32,10 +32,12 @@ object UtilKProperties {
         get(fileInputStream)?.getProperty(key)
 
     @JvmStatic
-    fun getProperty_ofBuildProp(key: String): String? =
-        getProperty(File(Environment.getRootDirectory(), CStrPackage.build_prop).file2fileInputStream(), key)
+    fun getProperty_ofBuildProp(key: String): String? {
+        return getProperty(File(Environment.getRootDirectory(), CStrPackage.build_prop).file2fileInputStream()?:return null, key)
+    }
 
     @JvmStatic
-    fun getProperty_ofBuildProp(key: String, defaultValue: String): String? =
-        getProperty(File(Environment.getRootDirectory(), CStrPackage.build_prop).file2fileInputStream(), key, defaultValue)
+    fun getProperty_ofBuildProp(key: String, defaultValue: String): String? {
+        return getProperty(File(Environment.getRootDirectory(), CStrPackage.build_prop).file2fileInputStream()?:return null, key, defaultValue)
+    }
 }

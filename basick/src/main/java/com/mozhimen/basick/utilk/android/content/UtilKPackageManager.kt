@@ -25,6 +25,8 @@ import com.mozhimen.basick.lintk.optins.permission.OPermission_QUERY_ALL_PACKAGE
 import com.mozhimen.basick.lintk.optins.permission.OPermission_REQUEST_INSTALL_PACKAGES
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
+import com.mozhimen.basick.utilk.commons.IUtilK
 
 
 /**
@@ -34,7 +36,7 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
  * @Date 2023/3/20 10:50
  * @Version 1.0
  */
-object UtilKPackageManager {
+object UtilKPackageManager : IUtilK {
 
     @JvmStatic
     fun get(context: Context): PackageManager =
@@ -42,7 +44,13 @@ object UtilKPackageManager {
 
     @JvmStatic
     fun getPackageInfo(context: Context, strPackageName: String, flags: Int): PackageInfo? =
-        get(context).getPackageInfo(strPackageName, flags)
+        try {
+            get(context).getPackageInfo(strPackageName, flags)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            UtilKLogWrapper.e(TAG, "getPackageInfo: ", e)
+            null
+        }
 
     @JvmStatic
     fun getPackageArchiveInfo(context: Context, archiveFilePath: String, flags: Int): PackageInfo? =

@@ -45,7 +45,7 @@ fun File.file2strFilePath(): String =
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
-fun File.file2fileInputStream(): FileInputStream =
+fun File.file2fileInputStream(): FileInputStream? =
     UtilKFileFormat.file2fileInputStream(this)
 
 fun File.file2fileOutputStream(isAppend: Boolean = false): FileOutputStream =
@@ -54,7 +54,7 @@ fun File.file2fileOutputStream(isAppend: Boolean = false): FileOutputStream =
 fun File.file2bufferedOutputStream(isAppend: Boolean = false): BufferedOutputStream =
     UtilKFileFormat.file2bufferedOutputStream(this, isAppend)
 
-fun File.file2gZIPInputStream(): InputStream =
+fun File.file2gZIPInputStream(): InputStream? =
     UtilKFileFormat.file2gZIPInputStream(this)
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -123,7 +123,7 @@ object UtilKFileFormat : BaseUtilK() {
     ////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun file2fileInputStream(file: File): FileInputStream =
+    fun file2fileInputStream(file: File): FileInputStream? =
         UtilKFileInputStream.get(file)
 
     @JvmStatic
@@ -135,7 +135,7 @@ object UtilKFileFormat : BaseUtilK() {
         file2fileOutputStream(file, isAppend).outputStream2bufferedOutputStream()
 
     @JvmStatic
-    fun file2gZIPInputStream(file: File): InputStream =
+    fun file2gZIPInputStream(file: File): InputStream? =
         UtilKFileWrapper.getUnZippedInputStream(file)
 
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -143,12 +143,12 @@ object UtilKFileFormat : BaseUtilK() {
     @JvmStatic
     fun file2str_use(file: File, isAddLineBreak: Boolean = false): String? =
         if (!UtilKFileWrapper.isFileExist(file)) null
-        else file.file2fileInputStream().inputStream2str_use_ofBufferedReader(isAddLineBreak = isAddLineBreak)
+        else file.file2fileInputStream()?.inputStream2str_use_ofBufferedReader(isAddLineBreak = isAddLineBreak)
 
     @JvmStatic
     fun file2strMd5Hex_use_ofStream(file: File): String? =
         if (!UtilKFileWrapper.isFileExist(file)) null
-        else file.file2fileInputStream().inputStream2strMd5Hex_use_ofHexString()
+        else file.file2fileInputStream()?.inputStream2strMd5Hex_use_ofHexString()
 
     @JvmStatic
     fun file2strMd5Hex_use(file: File): String? =
@@ -160,19 +160,21 @@ object UtilKFileFormat : BaseUtilK() {
     @JvmStatic
     fun file2bytes_use(file: File): ByteArray? =
         if (!UtilKFileWrapper.isFileExist(file)) null
-        else file.file2fileInputStream().inputStream2bytes_use()
+        else file.file2fileInputStream()?.inputStream2bytes_use()
 
     @JvmStatic
-    fun file2bytes_use_ofReadWrite(file: File, bufferSize: Int = 1024): ByteArray? =
-        if (!UtilKFileWrapper.isFileExist(file)) null
-        else UtilKInputStream.read_write_use(file.file2fileInputStream().inputStream2bufferedInputStream(), UtilKByteArrayOutputStream.get(file), bufferSize)
+    fun file2bytes_use_ofReadWrite(file: File, bufferSize: Int = 1024): ByteArray? {
+        return if (!UtilKFileWrapper.isFileExist(file)) return null
+        else UtilKInputStream.read_write_use(file.file2fileInputStream()?.inputStream2bufferedInputStream()?:return null, UtilKByteArrayOutputStream.get(file), bufferSize)
+    }
 
     @JvmStatic
     fun file2bytes_use_ofReadBytes(file: File): ByteArray =
         file.readBytes()
 
     @JvmStatic
-    fun file2bytes_use_ofUnZip(file: File, bufferSize: Int = 8 * 1024): ByteArray? =
-        if (!UtilKFileWrapper.isFileExist(file)) null
-        else UtilKInputStream.read_write_use(file.file2gZIPInputStream(), UtilKByteArrayOutputStream.get(file), bufferSize)
+    fun file2bytes_use_ofUnZip(file: File, bufferSize: Int = 8 * 1024): ByteArray? {
+        if (!UtilKFileWrapper.isFileExist(file)) return null
+        else return UtilKInputStream.read_write_use(file.file2gZIPInputStream() ?: return null, UtilKByteArrayOutputStream.get(file), bufferSize)
+    }
 }
