@@ -91,7 +91,7 @@ object UtilKAppInstall : BaseUtilK() {
      * 静默安装
      */
     @JvmStatic
-    @RequiresPermission(CPermission.INSTALL_PACKAGES)
+    @RequiresPermission(allOf = [CPermission.INSTALL_PACKAGES, CPermission.REQUEST_INSTALL_PACKAGES])
     @OPermission_INSTALL_PACKAGES
     @OPermission_REQUEST_INSTALL_PACKAGES
     fun install_ofSilence(strPathNameApk: String, receiver: Class<*>) {
@@ -104,10 +104,10 @@ object UtilKAppInstall : BaseUtilK() {
      */
     @JvmStatic
     @RequiresApi(CVersCode.V_28_9_P)
-    @RequiresPermission(CPermission.INSTALL_PACKAGES)
+    @RequiresPermission(allOf = [CPermission.INSTALL_PACKAGES, CPermission.REQUEST_INSTALL_PACKAGES])
     @OPermission_INSTALL_PACKAGES
     @OPermission_REQUEST_INSTALL_PACKAGES
-    fun install_ofSilence_after28(strPathNameApk: String, receiver: Class<*>) {
+    fun install_ofSilence_after28(strPathNameApk: String, receiverClazz: Class<*>) {
         "install_ofSilence_after28 pathApk $strPathNameApk".d(TAG)
         val fileApk = File(strPathNameApk)
         val packageInstaller = UtilKPackageInstaller.get(_context)
@@ -121,7 +121,7 @@ object UtilKAppInstall : BaseUtilK() {
             val isCopySuccess = UtilKPackageInstaller.copyBaseApk(packageInstaller, sessionId, strPathNameApk)
             "install_ofSilence_after28 isCopySuccess $isCopySuccess".d(TAG)
             if (isCopySuccess)
-                UtilKPackageInstallerSession.commitSession(packageInstaller, sessionId, receiver)
+                UtilKPackageInstallerSession.commit_use_ofBroadCast(packageInstaller, sessionId, receiverClazz, 1)
         }
     }
 }

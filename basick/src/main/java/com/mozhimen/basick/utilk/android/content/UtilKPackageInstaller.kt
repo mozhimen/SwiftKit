@@ -71,20 +71,6 @@ object UtilKPackageInstaller : BaseUtilK() {
     fun openSession(packageInstaller: PackageInstaller, sessionId: Int): Session =
         packageInstaller.openSession(sessionId)
 
-    @OPermission_REQUEST_INSTALL_PACKAGES
-    @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
-    @RequiresApi(CVersCode.V_21_5_L)
-    fun commitSession(session: Session, intentSender: IntentSender) {
-        try {
-            session.commit(intentSender)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            UtilKLogWrapper.e(TAG, "commitSession: Exception ${e.message}")
-        } finally {
-            session.close()
-        }
-    }
-
     @RequiresApi(CVersCode.V_21_5_L)
     @JvmStatic
     fun copyBaseApk(packageInstaller: PackageInstaller, sessionId: Int, strFilePathNameApk: String): Boolean =
@@ -109,16 +95,5 @@ object UtilKPackageInstaller : BaseUtilK() {
             outputStream?.flushClose()
         }
         return false
-    }
-
-    @JvmStatic
-    @RequiresApi(CVersCode.V_21_5_L)
-    fun addStrApkPathNameToSession(strApkPathName: String, session: Session) {
-        // It's recommended to pass the file size to openWrite(). Otherwise installation may fail
-        // if the disk is almost full.
-        val strFileName = UtilKStrFile.getStrFileName(strApkPathName) ?: return
-        val outputStream = session.openWrite(strFileName,  /*getFileName()*/0, strApkPathName.strFilePath2file().length())
-        val bufferedInputStream = strApkPathName.strFilePath2fileInputStream().inputStream2bufferedInputStream()
-        UtilKInputStream.read_write_use(bufferedInputStream, outputStream, 16384)
     }
 }
