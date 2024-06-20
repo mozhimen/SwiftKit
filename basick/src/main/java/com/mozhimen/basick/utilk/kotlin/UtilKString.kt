@@ -80,15 +80,19 @@ object UtilKString : BaseUtilK() {
     fun getSplitLastIndexToStart(str: String, splitStr: String, isContainSplitStr: Boolean = true): String =
         if (isContainSplitStr)
             str.substring(0, str.lastIndexOf(splitStr) + 1)
-        else
-            str.substring(0, str.lastIndexOf(splitStr))
+        else {
+            val index = str.lastIndexOf(splitStr)
+            if (index >= 0) str.substring(0, index) else str
+        }
 
     /**
      * 获取分割后的第一个元素
      */
     @JvmStatic
-    fun getSplitFirstIndexToStart(str: String, splitStr: String): String =
-        str.substring(0, str.indexOf(splitStr))
+    fun getSplitFirstIndexToStart(str: String, splitStr: String): String {
+        val index = str.indexOf(splitStr)
+        return if (index >= 0) str.substring(0, index) else str
+    }
 
     ////////////////////////////////////////////////////////////////////////////
 
