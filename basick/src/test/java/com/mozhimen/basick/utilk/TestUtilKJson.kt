@@ -1,8 +1,8 @@
 package com.mozhimen.basick.utilk
 
 import com.mozhimen.basick.utilk.kotlin.printlog
-import com.mozhimen.basick.utilk.squareup.moshi.strJson2t_ofMoshi
-import com.mozhimen.basick.utilk.squareup.moshi.t2strJson_ofMoshi
+import com.mozhimen.serialk.moshi.strJson2t_ofMoshi
+import com.mozhimen.serialk.moshi.t2strJson_ofMoshi
 import org.junit.Test
 
 /**

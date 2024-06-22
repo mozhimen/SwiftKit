@@ -18,7 +18,7 @@ import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
 
 /**
- * @ClassName ServiceProxy
+ * @ClassName ServiceKProxy
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
  * @Version 1.0
