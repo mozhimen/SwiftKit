@@ -26,6 +26,7 @@ import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.android.util.i
 import com.mozhimen.basick.utilk.android.util.v
+import com.mozhimen.basick.utilk.androidx.core.UtilKNotificationManagerCompat
 
 /**
  * @ClassName UtilKPermission
@@ -50,6 +51,12 @@ object UtilKPermission : BaseUtilK() {
         UtilKContextCompat.isSelfPermissionGranted(_context, permission).also { UtilKLogWrapper.d(TAG, "isSelfGranted: permission $permission is $it") }
 
     /////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun hasPostNotification(): Boolean =
+        if (UtilKBuildVersion.isAfterV_33_13_TIRAMISU())
+            UtilKNotificationManagerCompat.areNotificationsEnabled()
+        else true
 
     @JvmStatic
     @OPermission_READ_EXTERNAL_STORAGE

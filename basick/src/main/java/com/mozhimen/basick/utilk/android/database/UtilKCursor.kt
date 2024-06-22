@@ -18,13 +18,19 @@ fun Cursor.getColumnString(key: String): String =
 
 object UtilKCursor {
     @JvmStatic
+    fun getString(cursor: Cursor, columnIndex: Int): String =
+        cursor.getString(columnIndex)
+
+    @JvmStatic
     fun getColumnIndex(cursor: Cursor, columnName: String): Int =
         cursor.getColumnIndex(columnName)
 
     @JvmStatic
     @SuppressLint("Range")
     fun getColumnString(cursor: Cursor, key: String): String =
-        cursor.getString(getColumnIndex(cursor, key))
+        getString(cursor, getColumnIndex(cursor, key))
+
+    //////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun getColumnValue_ofType(cursor: Cursor, index: Int, clazz: Class<*>): Any? =

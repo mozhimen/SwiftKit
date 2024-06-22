@@ -29,17 +29,32 @@ fun Uri.getMediaColumns(selection: String? = null, selectionArgs: Array<String>?
 
 object UtilKContentResolverWrapper : BaseUtilK() {
     @JvmStatic
+    fun getString(uri: Uri, projection: Array<String>? = null, selection: String? = null, selectionArgs: Array<String>? = null): String? {
+        try {
+            UtilKContentResolver.query(_context, uri, projection, selection, selectionArgs, null).use { cursor ->
+                if (cursor == null || !cursor.moveToFirst())
+                    return null
+                return cursor.getString(0)
+            }
+        }catch (e:Exception){
+            e.printStackTrace()
+            UtilKLogWrapper.e(TAG, "getString: ",e)
+        }
+        return null
+    }
+
+    @JvmStatic
     fun getOpenableColumns(uri: Uri, projection: Array<String>? = null, selection: String? = null, selectionArgs: Array<String>? = null): String? {
         try {
-            val cursor = UtilKContentResolver.query(_context, uri, projection, selection, selectionArgs, null)
-            cursor?.use {
-                if (cursor.moveToFirst()) {
-                    val index = cursor.getColumnIndex(COpenableColumns.DISPLAY_NAME)
-                    if (index == -1) return null
-                    val data = cursor.getColumnString(COpenableColumns.DISPLAY_NAME)
-                    if (data != "null")
-                        return data
-                }
+            UtilKContentResolver.query(_context, uri, projection, selection, selectionArgs, null).use { cursor ->
+                if (cursor == null || !cursor.moveToFirst())
+                    return null
+                val index = cursor.getColumnIndex(COpenableColumns.DISPLAY_NAME)
+                if (index == -1)
+                    return null
+                val data = cursor.getColumnString(COpenableColumns.DISPLAY_NAME)
+                if (data != "null")
+                    return data
             }
         } catch (e: Exception) {
             e.printStackTrace()

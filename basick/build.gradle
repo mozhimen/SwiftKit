@@ -78,8 +78,8 @@ dependencies {
     //////////////////////////////////////////////////////////////////
     //thread
     //coroutine
-    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
-    api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1'
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1'
 
     //databinding
     api 'androidx.databinding:databinding-common:7.1.2'

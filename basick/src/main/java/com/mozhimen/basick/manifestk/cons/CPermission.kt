@@ -272,6 +272,10 @@ object CPermission {
     const val READ_CALENDAR = Manifest.permission.READ_CALENDAR
     const val READ_CALL_LOG = Manifest.permission.READ_CALL_LOG
     const val READ_CONTACTS = Manifest.permission.READ_CONTACTS
+
+    /**
+     * CVersCode.V_23_6_M until CVersCode.V_30_11_R
+     */
     const val READ_EXTERNAL_STORAGE = Manifest.permission.READ_EXTERNAL_STORAGE
 
     @RequiresApi(CVersCode.V_33_13_TIRAMISU)
