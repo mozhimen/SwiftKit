@@ -29,7 +29,7 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures.compose = true
-    composeOptions.kotlinCompilerExtensionVersion = "1.5.10"
+//    composeOptions.kotlinCompilerExtensionVersion = "1.5.10"
 }
 
 dependencies {
@@ -38,6 +38,7 @@ dependencies {
     api 'androidx.compose.ui:ui-graphics'
     api 'androidx.compose.ui:ui-tooling-preview'
     api 'androidx.compose.ui:ui-util'
+    api 'androidx.compose.material:material'
     api 'androidx.compose.material3:material3'
     api 'androidx.compose.material:material-ripple'
     api 'androidx.compose.foundation:foundation'
