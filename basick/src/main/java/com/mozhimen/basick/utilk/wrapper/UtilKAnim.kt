@@ -1,10 +1,17 @@
 package com.mozhimen.basick.utilk.wrapper
 
 import android.animation.Animator
+import android.app.Activity
 import android.view.View
 import android.view.animation.Animation
+import androidx.annotation.RequiresApi
+import androidx.annotation.TransitionRes
+import android.transition.TransitionInflater
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.utilk.android.animation.UtilKAnimator
+import com.mozhimen.basick.utilk.android.app.UtilKActivityWrapper
 import com.mozhimen.basick.utilk.android.view.UtilKAnimation
+import com.mozhimen.basick.utilk.android.view.UtilKWindow
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 
 /**
@@ -20,6 +27,12 @@ fun View.stopAnim() {
 }
 
 object UtilKAnim : BaseUtilK() {
+    @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
+    fun applyActivityAnim(activity: Activity, @TransitionRes intTransitionRes: Int) {
+        UtilKActivityWrapper.requestWindowFeature_ofCONTENT_TRANSITIONS(activity)
+        UtilKWindow.applyEnterTransition(activity, TransitionInflater.from(activity).inflateTransition(intTransitionRes))
+    }
 
     /**
      * 释放Anim

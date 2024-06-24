@@ -143,8 +143,8 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
-        <item name="android:windowAnimationStyle">@style/AnimK_Theme_Activity</item>
+<!--        <item name="android:windowAnimationStyle">@style/AnimK_Theme_Activity</item>-->
     </style>
 
-    <style name="ThemeK_Dialog_Animation" parent="AnimK_Theme" />
+<!--    <style name="ThemeK_Dialog_Animation" parent="AnimK_Theme" />-->
 </resources>

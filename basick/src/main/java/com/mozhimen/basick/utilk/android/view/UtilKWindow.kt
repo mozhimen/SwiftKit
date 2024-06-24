@@ -6,6 +6,7 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
+import android.transition.Transition
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
 import com.mozhimen.basick.elemk.android.view.cons.CWindow
@@ -115,6 +116,20 @@ object UtilKWindow : BaseUtilK() {
     fun applyNavigationBarColor(activity: Activity, @ColorInt intColor: Int) {
         get(activity).navigationBarColor = intColor
     }
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
+    fun applyEnterTransition(window: Window, transition: Transition) {
+        window.enterTransition = transition
+    }
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
+    fun applyEnterTransition(activity: Activity, transition: Transition) {
+        applyEnterTransition(get(activity), transition)
+    }
+
+    //////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun clearFlags(activity: Activity, flags: Int) {

@@ -1,11 +1,15 @@
 package com.mozhimen.basick.utilk.android.content
 
 import android.app.Activity
+import android.app.ActivityOptions
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
+import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.commons.IExt_Listener
 import com.mozhimen.basick.lintk.optins.permission.OPermission_QUERY_ALL_PACKAGES
 import com.mozhimen.basick.manifestk.cons.CPermission
@@ -49,6 +53,16 @@ inline fun <reified A : Activity> Activity.startActivityAndFinish(block: IExt_Li
 
 /////////////////////////////////////////////////////////////////////////////////
 
+inline fun <reified A : Activity> Activity.startActivityAndFinishAnimation_ofActivityOptions() {
+    UtilKContextStart.startActivityAndFinishAnimation_ofActivityOptions<A>(this)
+}
+
+inline fun <reified A : Activity> Activity.startActivityAndFinishAnimation_ofActivityOptions(block: IExt_Listener<Intent>) {
+    UtilKContextStart.startActivityAndFinishAnimation_ofActivityOptions<A>(this, block)
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+
 inline fun <reified T : Activity> Activity.startActivityForResult(requestCode: Int) {
     UtilKContextStart.startActivityForResult<T>(this, requestCode)
 }
@@ -75,6 +89,20 @@ object UtilKContextStart : BaseUtilK() {
     }
 
     @JvmStatic
+    fun startContext(context: Context, intent: Intent, options: Bundle): Boolean {
+        if (context !is Activity)
+            intent.addFlags(CIntent.FLAG_ACTIVITY_NEW_TASK)
+        try {
+            context.startActivity(intent, options)
+            return true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            UtilKLogWrapper.e(TAG, "startContext: ", e)
+            return false
+        }
+    }
+
+    @JvmStatic
     fun startContext(context: Context, clazz: Class<*>): Boolean =
         startContext(context, UtilKIntent.get(context, clazz))
 
@@ -90,13 +118,23 @@ object UtilKContextStart : BaseUtilK() {
 
     @JvmStatic
     inline fun <reified T : Activity> startActivityAndFinish(activity: Activity) {
-        startContext(activity, Intent(activity, T::class.java))
-        activity.finish()
+        startContext(activity, Intent(activity, T::class.java)).also { activity.finish() }
     }
 
     @JvmStatic
     inline fun <reified T : Activity> startActivityAndFinish(activity: Activity, block: IExt_Listener<Intent>): Boolean =
         startContext(activity, Intent(activity, T::class.java).apply(block)).also { activity.finish() }
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
+    inline fun <reified T : Activity> startActivityAndFinishAnimation_ofActivityOptions(activity: Activity): Boolean =
+        startContext(activity, Intent(activity, T::class.java), ActivityOptions.makeSceneTransitionAnimation(activity).toBundle()).also { activity.finish() }
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
+    inline fun <reified T : Activity> startActivityAndFinishAnimation_ofActivityOptions(activity: Activity, block: IExt_Listener<Intent>): Boolean =
+        startContext(activity, Intent(activity, T::class.java).apply(block), ActivityOptions.makeSceneTransitionAnimation(activity).toBundle()).also { activity.finish() }
+
 
     /////////////////////////////////////////////////////////////////////////////////
 
@@ -132,4 +170,6 @@ object UtilKContextStart : BaseUtilK() {
     @JvmStatic
     fun startContextByPackageName(context: Context, strPackageName: String, strActivityName: String): Boolean =
         context.startContext(UtilKIntentWrapper.getComponent(strPackageName, strActivityName))
+
+    /////////////////////////////////////////////////////////////////////////////////
 }

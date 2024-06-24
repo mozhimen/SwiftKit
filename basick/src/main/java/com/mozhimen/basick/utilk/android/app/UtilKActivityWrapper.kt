@@ -7,8 +7,11 @@ import android.content.ContextWrapper
 import android.content.Intent
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.elemk.android.app.cons.CActivity
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.elemk.android.view.cons.CWindow
 import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.lintk.optins.OApiInit_InApplication
 import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
@@ -182,5 +185,13 @@ object UtilKActivityWrapper : IUtilK {
     @JvmStatic
     fun showAlertDialog(activity: Activity, strMsg: String, strLabel: String, block: I_Listener) {
         UtilKAlertDialog.show(activity, strMsg, strLabel, block)
+    }
+
+    /////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
+    fun requestWindowFeature_ofCONTENT_TRANSITIONS(activity: Activity) {
+        UtilKActivity.requestWindowFeature(activity, CWindow.FEATURE_CONTENT_TRANSITIONS)
     }
 }

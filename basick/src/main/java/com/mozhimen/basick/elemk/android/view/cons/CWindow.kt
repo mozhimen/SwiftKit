@@ -14,6 +14,9 @@ object CWindow {
     const val ID_ANDROID_CONTENT = Window.ID_ANDROID_CONTENT
     const val FEATURE_NO_TITLE = Window.FEATURE_NO_TITLE
 
+    @RequiresApi(CVersCode.V_21_5_L)
+    const val FEATURE_CONTENT_TRANSITIONS = Window.FEATURE_CONTENT_TRANSITIONS
+
     object Feature {
         const val OPTIONS_PANEL = Window.FEATURE_OPTIONS_PANEL
         const val NO_TITLE = Window.FEATURE_NO_TITLE
@@ -29,6 +32,7 @@ object CWindow {
 
         @RequiresApi(CVersCode.V_21_5_L)
         const val CONTENT_TRANSITIONS = Window.FEATURE_CONTENT_TRANSITIONS
+
         @RequiresApi(CVersCode.V_21_5_L)
         const val ACTIVITY_TRANSITIONS = Window.FEATURE_ACTIVITY_TRANSITIONS
     }
