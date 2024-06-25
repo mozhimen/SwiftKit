@@ -13,6 +13,7 @@ import kotlinx.coroutines.*
 @OApiInit_ByLazy
 class TaskKPoll : BaseWakeBefDestroyTaskK() {
     private var _pollingScope: CoroutineScope? = null
+    @Volatile
     private var _time = 0
 
     override fun isActive(): Boolean =
