@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.wrapper
 
 import android.animation.Animator
 import android.app.Activity
+import android.transition.Transition
 import android.view.View
 import android.view.animation.Animation
 import androidx.annotation.RequiresApi
@@ -10,6 +11,7 @@ import android.transition.TransitionInflater
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.utilk.android.animation.UtilKAnimator
 import com.mozhimen.basick.utilk.android.app.UtilKActivityWrapper
+import com.mozhimen.basick.utilk.android.transition.UtilKTransitionInflater
 import com.mozhimen.basick.utilk.android.view.UtilKAnimation
 import com.mozhimen.basick.utilk.android.view.UtilKWindow
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -29,11 +31,22 @@ fun View.stopAnim() {
 object UtilKAnim : BaseUtilK() {
     @JvmStatic
     @RequiresApi(CVersCode.V_21_5_L)
-    fun applyActivityAnim(activity: Activity, @TransitionRes intEnterTransitionRes: Int?) {
+    fun applyActivityTransition(activity: Activity, enterTransition: Transition?, exitTransition: Transition?, overlay: Boolean = true) {
         UtilKActivityWrapper.requestWindowFeature_ofCONTENT_TRANSITIONS(activity)
-        intEnterTransitionRes?.let {
-            UtilKWindow.applyEnterTransition(activity, TransitionInflater.from(activity).inflateTransition(it))
-        }
+        enterTransition?.let { UtilKWindow.applyEnterTransition(activity, it) }
+        exitTransition?.let { UtilKWindow.applyExitTransition(activity, it) }
+        UtilKWindow.applyAllowEnterTransitionOverlap(activity, overlay)
+    }
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
+    fun applyActivityTransition(activity: Activity, @TransitionRes intEnterTransitionRes: Int?, @TransitionRes intExitTransitionRes: Int?, overlay: Boolean = true) {
+        applyActivityTransition(
+            activity,
+            intEnterTransitionRes?.let { UtilKTransitionInflater.from_inflateTransition(activity, it) },
+            intExitTransitionRes?.let { UtilKTransitionInflater.from_inflateTransition(activity,it) },
+            overlay
+        )
     }
 
     /**

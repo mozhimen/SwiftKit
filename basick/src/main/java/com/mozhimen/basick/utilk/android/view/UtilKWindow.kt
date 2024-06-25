@@ -129,6 +129,30 @@ object UtilKWindow : BaseUtilK() {
         applyEnterTransition(get(activity), transition)
     }
 
+    @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
+    fun applyExitTransition(window: Window, transition: Transition) {
+        window.exitTransition = transition
+    }
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
+    fun applyExitTransition(activity: Activity, transition: Transition) {
+        applyExitTransition(get(activity), transition)
+    }
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
+    fun applyAllowEnterTransitionOverlap(activity: Activity, overlay: Boolean) {
+        applyAllowEnterTransitionOverlap(get(activity), overlay)
+    }
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
+    fun applyAllowEnterTransitionOverlap(window: Window, overlay: Boolean) {
+        window.setAllowEnterTransitionOverlap(overlay)
+    }
+
     //////////////////////////////////////////////////////////////////
 
     @JvmStatic

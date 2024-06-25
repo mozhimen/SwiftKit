@@ -51,14 +51,12 @@ inline fun <reified A : Activity> Activity.startActivityAndFinish(block: IExt_Li
     UtilKContextStart.startActivityAndFinish<A>(this, block)
 }
 
-/////////////////////////////////////////////////////////////////////////////////
-
-inline fun <reified A : Activity> Activity.startActivityAndFinishAnimation_ofActivityOptions() {
-    UtilKContextStart.startActivityAndFinishAnimation_ofActivityOptions<A>(this)
+inline fun <reified A : Activity> Activity.startActivityAndFinish(options: Bundle?) {
+    UtilKContextStart.startActivityAndFinish<A>(this, options)
 }
 
-inline fun <reified A : Activity> Activity.startActivityAndFinishAnimation_ofActivityOptions(block: IExt_Listener<Intent>) {
-    UtilKContextStart.startActivityAndFinishAnimation_ofActivityOptions<A>(this, block)
+inline fun <reified A : Activity> Activity.startActivityAndFinish(options: Bundle?, block: IExt_Listener<Intent>) {
+    UtilKContextStart.startActivityAndFinish<A>(this, options, block)
 }
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -89,7 +87,7 @@ object UtilKContextStart : BaseUtilK() {
     }
 
     @JvmStatic
-    fun startContext(context: Context, intent: Intent, options: Bundle): Boolean {
+    fun startContext(context: Context, intent: Intent, options: Bundle?): Boolean {
         if (context !is Activity)
             intent.addFlags(CIntent.FLAG_ACTIVITY_NEW_TASK)
         try {
@@ -127,14 +125,18 @@ object UtilKContextStart : BaseUtilK() {
 
     @JvmStatic
     @RequiresApi(CVersCode.V_21_5_L)
-    inline fun <reified T : Activity> startActivityAndFinishAnimation_ofActivityOptions(activity: Activity): Boolean =
-        startContext(activity, Intent(activity, T::class.java), ActivityOptions.makeSceneTransitionAnimation(activity).toBundle()).also { activity.finish() }
+    inline fun <reified T : Activity> startActivityAndFinish(activity: Activity, options: Bundle?): Boolean =
+        startContext(activity, Intent(activity, T::class.java), options).also { activity.finish() }
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
+    inline fun <reified T : Activity> startActivityAndFinish(activity: Activity, options: Bundle?, block: IExt_Listener<Intent>): Boolean =
+        startContext(activity, Intent(activity, T::class.java).apply(block), options).also { activity.finish() }
 
     @JvmStatic
     @RequiresApi(CVersCode.V_21_5_L)
     inline fun <reified T : Activity> startActivityAndFinishAnimation_ofActivityOptions(activity: Activity, block: IExt_Listener<Intent>): Boolean =
         startContext(activity, Intent(activity, T::class.java).apply(block), ActivityOptions.makeSceneTransitionAnimation(activity).toBundle()).also { activity.finish() }
-
 
     /////////////////////////////////////////////////////////////////////////////////
 
