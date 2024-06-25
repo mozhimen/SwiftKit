@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import com.mozhimen.basick.elemk.android.view.cons.CView
+import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 import com.mozhimen.basick.utilk.android.util.d
@@ -189,6 +190,22 @@ object UtilKDecorView : BaseUtilK() {
         applySystemUiVisibilityOr(activity, CView.SystemUiFlag.IMMERSIVE_STICKY)
     }
 
+    @JvmStatic
+    fun applyOnSystemUiVisibilityChangeListener(activity: Activity, block: IA_Listener<Int>) {
+        applyOnSystemUiVisibilityChangeListener(get(activity), block)
+    }
+
+    @JvmStatic
+    fun applyOnSystemUiVisibilityChangeListener(window: Window, block: IA_Listener<Int>) {
+        applyOnSystemUiVisibilityChangeListener(get(window), block)
+    }
+
+    @JvmStatic
+    fun applyOnSystemUiVisibilityChangeListener(decorView: View, block: IA_Listener<Int>) {
+        decorView.setOnSystemUiVisibilityChangeListener { visibility: Int ->
+            block.invoke(visibility)
+        }
+    }
 //    @JvmStatic
 //    fun applyFullScreen(activity: Activity) {
 //        setFullScreen(activity.window)

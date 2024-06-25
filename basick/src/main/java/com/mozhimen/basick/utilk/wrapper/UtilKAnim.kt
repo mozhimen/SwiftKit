@@ -29,9 +29,11 @@ fun View.stopAnim() {
 object UtilKAnim : BaseUtilK() {
     @JvmStatic
     @RequiresApi(CVersCode.V_21_5_L)
-    fun applyActivityAnim(activity: Activity, @TransitionRes intTransitionRes: Int) {
+    fun applyActivityAnim(activity: Activity, @TransitionRes intEnterTransitionRes: Int?) {
         UtilKActivityWrapper.requestWindowFeature_ofCONTENT_TRANSITIONS(activity)
-        UtilKWindow.applyEnterTransition(activity, TransitionInflater.from(activity).inflateTransition(intTransitionRes))
+        intEnterTransitionRes?.let {
+            UtilKWindow.applyEnterTransition(activity, TransitionInflater.from(activity).inflateTransition(it))
+        }
     }
 
     /**
