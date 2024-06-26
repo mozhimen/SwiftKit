@@ -18,4 +18,8 @@ object UtilKWindowInsetsCompat {
     @JvmStatic
     fun getInsets_ofSystemBars(windowInsetsCompat: WindowInsetsCompat): Insets =
         getInsets(windowInsetsCompat, UtilKWindowInsetsCompatType.systemBars())
+
+    @JvmStatic
+    fun getSystemBars(): Int =
+        WindowInsetsCompat.Type.systemBars()
 }
