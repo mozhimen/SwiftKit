@@ -5,6 +5,7 @@ import androidx.multidex.MultiDexApplication
 import com.mozhimen.basick.lintk.optins.OApiInit_InApplication
 import com.mozhimen.basick.lintk.optins.OApiMultiDex_InApplication
 import com.mozhimen.basick.stackk.cb.StackKCb
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.utilk.commons.IUtilK
 
 /**
@@ -25,6 +26,8 @@ open class BaseApplication : MultiDexApplication(), IUtilK {
     @CallSuper
     override fun onCreate() {
         super.onCreate()
+        val time = System.currentTimeMillis()
         StackKCb.instance.init()
+        UtilKLogWrapper.d(TAG, "onCreate: StackKCb.instance.init() time ${System.currentTimeMillis() - time}")
     }
 }
