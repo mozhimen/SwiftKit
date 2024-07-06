@@ -23,6 +23,10 @@ object UtilKUUID {
     fun get_ofFormat(): String =
         get().replace("-", "")
 
+    @JvmStatic
+    fun get_ofCompress():String =
+        get_ofFormat().strHex2bytes().bytes2bytesBase64(CBase64.URL_SAFE or CBase64.NO_PADDING or CBase64.NO_WRAP).bytes2str()
+
     //////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
