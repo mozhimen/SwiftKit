@@ -2,11 +2,14 @@ package com.mozhimen.basick.utilk.java.lang
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import com.mozhimen.basick.elemk.commons.ISuspendExt_Listener
 import com.mozhimen.basick.elemk.commons.ISuspend_Listener
 import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.utilk.android.os.UtilKLooper
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
 /**
@@ -47,19 +50,19 @@ object UtilKThread {
     ////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun runOnMainThread(lifecycleOwner: LifecycleOwner, block: I_Listener) {
-        if (isMainThread())
-            block.invoke()
-        else
-            lifecycleOwner.lifecycleScope.launch(Dispatchers.Main) { block.invoke() }
+    fun runOnMainThread(lifecycleOwner: LifecycleOwner, block: ISuspendExt_Listener<CoroutineScope>) {
+        if (isMainThread()) {
+            runBlocking { lifecycleOwner.lifecycleScope.block() }
+        } else
+            lifecycleOwner.lifecycleScope.launch(Dispatchers.Main) { block() }
     }
 
     @JvmStatic
-    fun runOnBackThread(lifecycleOwner: LifecycleOwner, block: I_Listener) {
+    fun runOnBackThread(lifecycleOwner: LifecycleOwner, block: ISuspendExt_Listener<CoroutineScope>) {
         if (isMainThread())
-            lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) { block.invoke() }
+            lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) { block() }
         else
-            block.invoke()
+            runBlocking { lifecycleOwner.lifecycleScope.block() }
     }
 
 

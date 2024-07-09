@@ -29,7 +29,7 @@ open class BaseBroadcastReceiverProxy<C> : BaseWakeBefDestroyLifecycleObserver w
         _activity = activity
         _receiver = receiver
         _actions = actions
-        _activity.runOnMainThread(::registerReceiver)
+        _activity.runOnMainThread{registerReceiver()}
     }
 
     /////////////////////////////////////////////////////////////////////////////

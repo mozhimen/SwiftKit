@@ -30,11 +30,11 @@ fun LifecycleOwner.runOnBackScope(block: ISuspendExt_Listener<CoroutineScope>) {
 
 ////////////////////////////////////////////////////////////////////
 
-fun LifecycleOwner.runOnMainThread(block: I_Listener) {
+fun LifecycleOwner.runOnMainThread(block: ISuspendExt_Listener<CoroutineScope>) {
     UtilKLifecycleOwner.runOnMainThread(this, block)
 }
 
-fun LifecycleOwner.runOnBackThread(block: I_Listener) {
+fun LifecycleOwner.runOnBackThread(block: ISuspendExt_Listener<CoroutineScope>) {
     UtilKLifecycleOwner.runOnBackThread(this, block)
 }
 
@@ -60,12 +60,12 @@ object UtilKLifecycleOwner {
     ////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun runOnMainThread(lifecycleOwner: LifecycleOwner, block: I_Listener) {
+    fun runOnMainThread(lifecycleOwner: LifecycleOwner, block: ISuspendExt_Listener<CoroutineScope>) {
         UtilKThread.runOnMainThread(lifecycleOwner, block)
     }
 
     @JvmStatic
-    fun runOnBackThread(lifecycleOwner: LifecycleOwner, block: I_Listener) {
+    fun runOnBackThread(lifecycleOwner: LifecycleOwner, block: ISuspendExt_Listener<CoroutineScope>) {
         UtilKThread.runOnBackThread(lifecycleOwner, block)
     }
 

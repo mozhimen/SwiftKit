@@ -37,7 +37,7 @@ class ScreenOrientationOfSensorProxy<A>(private val _activity: A) : BaseWakeBefD
     ////////////////////////////////////////////////////////////////////////
 
     init {
-        _activity.runOnMainThread(::startObserveScreen)
+        _activity.runOnMainThread{startObserveScreen()}
     }
     ////////////////////////////////////////////////////////////////////////
 

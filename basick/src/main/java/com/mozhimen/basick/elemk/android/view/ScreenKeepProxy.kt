@@ -19,7 +19,7 @@ import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
 class ScreenKeepProxy<A>(private val _activity: A) : BaseWakeBefDestroyLifecycleObserver() where A : Activity, A : LifecycleOwner {
 
     init {
-        _activity.runOnMainThread(::applyScreenOn)
+        _activity.runOnMainThread{applyScreenOn()}
     }
 
     ////////////////////////////////////////////////////////////////////////
