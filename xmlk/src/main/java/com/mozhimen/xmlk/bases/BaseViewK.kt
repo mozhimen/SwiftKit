@@ -24,16 +24,20 @@ abstract class BaseViewK : View, IViewK {
 
     ////////////////////////////////////////////////////////////
 
+    protected var widthF = 0f
+    protected var heightF = 0f
     protected var centerX = 0f
     protected var centerY = 0f
-    protected var sideLength = 0f//真实半径
-    protected var realRadius = sideLength / 2f//最短边长
+    protected var sideLength = 0f//最短边长
+    protected var realRadius = 0f//真实半径
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        centerX = width / 2f
-        centerY = height / 2f
-        realRadius = width.coerceAtMost(height).toFloat() / 2f
-        sideLength = width.coerceAtMost(height).toFloat()
+        widthF = w.toFloat() - paddingStart - paddingEnd
+        heightF = h.toFloat() - paddingTop - paddingBottom
+        centerX = widthF / 2f
+        centerY = heightF / 2f
+        sideLength = widthF.coerceAtMost(heightF)
+        realRadius = sideLength / 2f
         super.onSizeChanged(w, h, oldw, oldh)
     }
 }
