@@ -58,6 +58,12 @@ fun Float.sp2px(): Float =
 fun Int.sp2px(): Float =
     UtilKDisplayMetricsWrapper.sp2px(this.toFloat())
 
+fun Float.sp2pxI(): Int =
+    UtilKDisplayMetricsWrapper.sp2pxI(this)
+
+fun Int.sp2pxI(): Int =
+    UtilKDisplayMetricsWrapper.sp2pxI(this.toFloat())
+
 /////////////////////////////////////////////////////////////
 
 object UtilKDisplayMetricsWrapper {
@@ -69,7 +75,7 @@ object UtilKDisplayMetricsWrapper {
 
     @JvmStatic
     fun dp2pxI(@FloatRange(from = 0.0) dp: Float): Int =
-        (dp2px_ofSys(dp) + 0.5f).toInt()
+        (dp2px(dp) + 0.5f).toInt()
 
     @JvmStatic
     fun dp2px_ofSys(@FloatRange(from = 0.0) dp: Float): Float =
@@ -122,6 +128,10 @@ object UtilKDisplayMetricsWrapper {
     @JvmStatic
     fun sp2px(@FloatRange(from = 0.0) sp: Float): Float =
         sp2px_ofSys(sp)
+
+    @JvmStatic
+    fun sp2pxI(@FloatRange(from = 0.0) sp: Float): Int =
+        (sp2px(sp) + 0.5f).toInt()
 
     @JvmStatic
     fun sp2px_ofSys(@FloatRange(from = 0.0) sp: Float): Float =
