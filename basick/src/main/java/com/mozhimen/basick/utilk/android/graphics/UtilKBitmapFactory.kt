@@ -6,6 +6,8 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Rect
 import androidx.annotation.DrawableRes
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
+import com.mozhimen.basick.utilk.commons.IUtilK
 import java.io.FileDescriptor
 
 /**
@@ -15,14 +17,16 @@ import java.io.FileDescriptor
  * @Date 2023/12/19
  * @Version 1.0
  */
-object UtilKBitmapFactory {
+object UtilKBitmapFactory : IUtilK {
     @JvmStatic
     fun decodeFileDescriptor(fd: FileDescriptor, outPadding: Rect? = null, opts: BitmapFactory.Options? = null): Bitmap =
         BitmapFactory.decodeFileDescriptor(fd, outPadding, opts)
 
     @JvmStatic
-    fun decodeResource(res: Resources, @DrawableRes intResDrawable: Int): Bitmap =
-        BitmapFactory.decodeResource(res, intResDrawable)
+    fun decodeResource(res: Resources, @DrawableRes intResDrawable: Int): Bitmap {
+        UtilKLogWrapper.d(TAG, "decodeResource: intResDrawable $intResDrawable")
+        return BitmapFactory.decodeResource(res, intResDrawable)
+    }
 
     @JvmStatic
     fun decodeResource(res: Resources, @DrawableRes intResDrawable: Int, opts: BitmapFactory.Options): Bitmap =
