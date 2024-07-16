@@ -2,6 +2,13 @@ package com.mozhimen.basick.utilk.android.view
 
 import android.view.animation.Animation
 
+
+fun Animation.cancel_releaseAnimationListener() {
+    UtilKAnimation.cancel_releaseAnimationListener(this)
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
 object UtilKAnimation {
     /**
      * 获取时长

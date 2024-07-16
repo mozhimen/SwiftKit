@@ -39,6 +39,11 @@ import kotlinx.coroutines.flow.onEach
  * @Date 2023/8/7 14:13
  * @Version 1.0
  */
+fun View.getLocation(): Pair<Int, Int> =
+    UtilKViewWrapper.getLocation(this)
+
+//////////////////////////////////////////////////////////////////
+
 fun View.applyDebounceClickListener(thresholdMillis: Long = 500, block: IA_Listener<View>) {
     UtilKViewWrapper.applyDebounceClickListener(this, block, thresholdMillis)
 }
@@ -123,6 +128,12 @@ fun View.removeView_ofParent() {
 //////////////////////////////////////////////////////////////////
 
 object UtilKViewWrapper : IUtilK {
+
+    @JvmStatic
+    fun getLocation(view: View): Pair<Int, Int> {
+        val intArray = UtilKView.getLocationOnScreen(view)
+        return intArray[0] to intArray[1]
+    }
 
     //寻找父View是否匹配列举的类型
     @JvmStatic
@@ -391,7 +402,7 @@ object UtilKViewWrapper : IUtilK {
     fun removeView_ofParent(view: View): View {
         val viewParent: ViewParent? = view.parent
         if (viewParent != null && viewParent is ViewGroup && !UtilKActivityWrapper.isFinishingOrDestroyed(view.context)) {
-            UtilKLogWrapper.w(TAG,"removeView_ofParent")
+            UtilKLogWrapper.w(TAG, "removeView_ofParent")
             viewParent.removeView(view)
         }
         return view

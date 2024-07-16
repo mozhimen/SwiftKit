@@ -100,13 +100,19 @@ fun View.applyHapticOnTouchListener() {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-
 object UtilKView : BaseUtilK() {
     @JvmStatic
     fun get_ofInflate(viewGroup: ViewGroup, @LayoutRes intResLayout: Int): View =
         UtilKLayoutInflater.from_inflate(viewGroup, intResLayout)
 
     //////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun getLocationOnScreen(view: View): IntArray {
+        val intArray = IntArray(2)
+        view.getLocationOnScreen(intArray)
+        return intArray
+    }
 
     @JvmStatic
     fun getViewTreeObserver(view: View): ViewTreeObserver? =
@@ -267,3 +273,4 @@ object UtilKView : BaseUtilK() {
         else view.requestFocus()
     }
 }
+

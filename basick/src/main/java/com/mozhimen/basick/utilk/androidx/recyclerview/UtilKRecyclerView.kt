@@ -102,6 +102,41 @@ object UtilKRecyclerView : IUtilK {
         return -1
     }
 
+    /**
+     * 获取目标状态按钮
+     */
+//    open fun getProgressButtonByAppFileParams(appFileParams: AppFileParams): DownloadProgressButton? {
+//        val recyclerView = getRecyclerView()
+//        recyclerView ?: return null
+//        val linearLayoutManager =
+//            recyclerView.layoutManager as NiuLinearLayoutManager
+//        //拿到开始显示的位置和最后显示的位置
+//        val findFirstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition()
+//        if (findFirstVisibleItemPosition < 0) {
+//            return null
+//        }
+//        val findLastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition()
+//        if (findLastVisibleItemPosition < 0) {
+//            return null
+//        }
+//        (recyclerView.adapter as? AppBaseInfoPagedListAdapter<*>)?.let { adapter ->
+//            if (adapter.itemCount <= 0) {
+//                return null
+//            }
+//            for (position in findFirstVisibleItemPosition..findLastVisibleItemPosition) {
+//                adapter.getItem(position)?.let { appBaseInfo ->
+//                    if (appBaseInfo.id == appFileParams.appId && appBaseInfo.packageName == appFileParams.packName) {
+//                        linearLayoutManager.findViewByPosition(position)
+//                            ?.let { findViewByPosition ->
+//                                return findViewByPosition.findViewById(R.id.common_app_base_info_status)
+//                            }
+//                    }
+//                }
+//            }
+//        }
+//        return null
+//    }
+
     ///////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
@@ -137,4 +172,6 @@ object UtilKRecyclerView : IUtilK {
         }
         return layoutManager
     }
+
+
 }
