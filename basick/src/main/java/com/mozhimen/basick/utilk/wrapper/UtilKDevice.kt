@@ -23,6 +23,7 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuild
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.os.UtilKEnvironment
 import com.mozhimen.basick.utilk.android.os.UtilKStatFs
+import com.mozhimen.basick.utilk.android.os.UtilKStatFsWrapper
 import com.mozhimen.basick.utilk.android.os.UtilKSystemProperties
 import com.mozhimen.basick.utilk.android.os.UtilKSystemPropertiesWrapper
 import com.mozhimen.basick.utilk.android.telephony.UtilKImeiOrMeid
@@ -108,48 +109,6 @@ object UtilKDevice : BaseUtilK() {
             serial = serial.substring(14)
         return serial
     }
-
-    /**
-     * 本地存储可用大小
-     */
-    @JvmStatic
-    fun getFreeInternalMemorySize(): String =
-        UtilKStatFs.getStrFreeExternalDataMemorySize()
-
-    @JvmStatic
-    fun getAvailableInternalMemorySize(): String =
-        UtilKStatFs.getStrAvailableExternalDataMemorySize()
-
-    /**
-     * 获取手机内部空间大小
-     */
-    @JvmStatic
-    fun getTotalInternalMemorySize(): String =
-        UtilKStatFs.getStrTotalExternalDataMemorySize()
-
-    /**
-     * 获取手机空闲空间大小
-     */
-    @JvmStatic
-    fun getFreeExternalMemorySize(): String =
-        if (hasExternalStorage()) {
-            UtilKStatFs.getStrFreeExternalStorageMemorySize()
-        } else "0"
-
-    @JvmStatic
-    fun getAvailableExternalMemorySize(): String =
-        if (hasExternalStorage()) {
-            UtilKStatFs.getStrAvailableExternalStorageMemorySize()
-        } else "0"
-
-    /**
-     * 获取手机外部空间大小
-     */
-    @JvmStatic
-    fun getTotalExternalMemorySize(): String =
-        if (hasExternalStorage()) {
-            UtilKStatFs.getStrTotalExternalStorageMemorySize()
-        } else "0"
 
     ///////////////////////////////////////////////////////////////////////////////
 

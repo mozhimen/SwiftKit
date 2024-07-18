@@ -105,8 +105,8 @@
 //
 //    //////////////////////////////////////////////////////////////////
 //    //room cachek
-//    api("androidx.room:room-runtime:2.5.2")
-//    kapt("androidx.room:room-compiler:2.5.2")
+//    api("androidx.room:room-runtime:2.6.1")
+//    kapt("androidx.room:room-compiler:2.6.1")
 //
 //    //datastore
 //    api("androidx.datastore:datastore-preferences:1.0.0")

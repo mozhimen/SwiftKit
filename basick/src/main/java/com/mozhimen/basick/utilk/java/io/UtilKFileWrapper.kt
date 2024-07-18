@@ -1,6 +1,11 @@
 package com.mozhimen.basick.utilk.java.io
 
+import androidx.annotation.RequiresApi
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import com.mozhimen.basick.utilk.android.system.UtilKOs
+import com.mozhimen.basick.utilk.android.system.UtilKStructStat
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -30,6 +35,10 @@ fun File.getFileNameNoExtension(): String? =
 
 fun File.getUnZippedInputStream(): InputStream? =
     UtilKFileWrapper.getUnZippedInputStream(this)
+
+@RequiresApi(CVersCode.V_21_5_L)
+fun File.getLastAccessTime(): Long =
+    UtilKFileWrapper.getLastAccessTime(this)
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -91,6 +100,11 @@ fun File.deleteFolder(): Boolean =
 object UtilKFileWrapper : BaseUtilK() {
     //region # file
     @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
+    fun getLastAccessTime(file: File): Long =
+        UtilKStructStat.getSt_atime(file.file2strFilePath())
+
+    @JvmStatic
     fun gerStrCrc_use(file: File): String? =
         file.file2fileInputStream()?.getStrCrc32_use()
 
@@ -113,6 +127,10 @@ object UtilKFileWrapper : BaseUtilK() {
     fun getFileSize_ofTotal(file: File): Long? =
         if (!isFileExist(file)) null
         else file.length()
+
+    @JvmStatic
+    fun getFilesSize_ofTotal(files: List<File>): Long =
+        files.sumOf { it.length() }
 
     //文件创建时间
     @JvmStatic
@@ -247,6 +265,19 @@ object UtilKFileWrapper : BaseUtilK() {
         }
         return fileVector
     }
+
+    @JvmStatic
+    fun getFolderFiles_ofAllSorted(vararg file: File): List<File> =
+        file.map { it.walkBottomUp() }.asSequence().flatten()
+            .filter { it.isFile }
+            .sortedBy {
+                if (UtilKBuildVersion.isAfterV_21_5_L())
+                    it.getLastAccessTime()
+                else
+                    it.lastModified()
+            }
+            .toList()
+
 
     //判断是否是文件夹
     @JvmStatic
