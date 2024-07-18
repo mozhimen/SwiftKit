@@ -45,7 +45,7 @@ fun File.getFileCreateTime(): Long =
 fun File.getFileCreateTimeStr(): String =
     UtilKFileWrapper.getFileCreateTimeStr(this)
 
-fun File.isFileNotExist():Boolean =
+fun File.isFileNotExist(): Boolean =
     UtilKFileWrapper.isFileNotExist(this)
 
 fun File.isFileExist(): Boolean =
@@ -127,7 +127,7 @@ object UtilKFileWrapper : BaseUtilK() {
     //Returns the uncompressed input stream if gzip compressed.
     @JvmStatic
     fun getUnZippedInputStream(file: File): InputStream? {
-        val pushbackInputStream = file.file2fileInputStream()?.inputStream2pushbackInputStream(2)?:return null
+        val pushbackInputStream = file.file2fileInputStream()?.inputStream2pushbackInputStream(2) ?: return null
         val signature = ByteArray(2)
         val len = pushbackInputStream.read(signature)
         pushbackInputStream.unread(signature, 0, len)
@@ -147,7 +147,7 @@ object UtilKFileWrapper : BaseUtilK() {
         file.extension == "zip"
 
     @JvmStatic
-    fun isFileNotExist(file: File):Boolean =
+    fun isFileNotExist(file: File): Boolean =
         !isFileExist(file)
 
     //文件是否存在
@@ -273,13 +273,13 @@ object UtilKFileWrapper : BaseUtilK() {
         val listFiles: Array<File> = getFolderFiles(folder)
         if (listFiles.isNotEmpty()) {
             for (file in listFiles) {
-                if (isFolder(file)) { // 判断是否为文件夹
+                if (isFolder(file))  // 判断是否为文件夹
                     deleteFolder(file)
-                    file.delete()
-                } else
+                else
                     deleteFile(file)
             }
         }
+        folder.delete()
         return true.also { UtilKLogWrapper.d(TAG, "deleteFolder: success") }
     }
     //endregion
