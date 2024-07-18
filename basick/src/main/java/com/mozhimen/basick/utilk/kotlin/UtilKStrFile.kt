@@ -46,6 +46,9 @@ import java.util.Vector
 fun String.getStrFileExtension(): String? =
     UtilKStrFile.getStrFileExtension(this)
 
+fun String.getStrFilePathNoExtension(): String? =
+    UtilKStrFile.getStrFilePathNoExtension(this)
+
 fun String.getStrFileNameNoExtension(): String? =
     UtilKStrFile.getStrFileNameNoExtension(this)
 
@@ -187,6 +190,11 @@ object UtilKStrFile : IUtilK {
     fun getStrFileExtension(strFilePathName: String): String? =
         if (strFilePathName.isEmpty()) null
         else if (strFilePathName.containStr(".")) strFilePathName.getSplitLastIndexToEnd(".") else null
+
+    @JvmStatic
+    fun getStrFilePathNoExtension(strFilePathName: String): String? =
+        if (strFilePathName.isEmpty()) null
+        else if (strFilePathName.containStr(".")) strFilePathName.getSplitLastIndexToStart(".", false) else null
 
     @JvmStatic
     fun getStrFileNameNoExtension(strFilePathName: String): String? =
