@@ -267,8 +267,8 @@ object UtilKFileWrapper : BaseUtilK() {
     }
 
     @JvmStatic
-    fun getFolderFiles_ofAllSorted(vararg file: File): List<File> =
-        file.map { it.walkBottomUp() }.asSequence().flatten()
+    fun getFolderFiles_ofAllSorted(files: List<File>): List<File> =
+        files.map { it.walkBottomUp() }.asSequence().flatten()
             .filter { it.isFile }
             .sortedBy {
                 if (UtilKBuildVersion.isAfterV_21_5_L())
@@ -311,6 +311,25 @@ object UtilKFileWrapper : BaseUtilK() {
             }
         }
         folder.delete()
+        return true.also { UtilKLogWrapper.d(TAG, "deleteFolder: success") }
+    }
+
+    /**
+     * 删除文件夹
+     */
+    @JvmStatic
+    fun deleteFolderNoSelf(folder: File): Boolean {
+        if (!isFolderExist(folder)) return false
+        val listFiles: Array<File> = getFolderFiles(folder)
+        if (listFiles.isNotEmpty()) {
+            for (file in listFiles) {
+                if (isFolder(file)) { // 判断是否为文件夹
+                    deleteFolder(file)
+                    file.delete()
+                } else
+                    deleteFile(file)
+            }
+        }
         return true.also { UtilKLogWrapper.d(TAG, "deleteFolder: success") }
     }
     //endregion

@@ -3,12 +3,15 @@ package com.mozhimen.basick.stackk.cb.helpers
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import com.mozhimen.basick.elemk.android.app.bases.BaseActivityLifecycleCallbacks
 import com.mozhimen.basick.postk.event.PostKEventLiveData
 import com.mozhimen.basick.stackk.commons.IStackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.stackk.cons.CStackKCons
 import com.mozhimen.basick.utilk.android.app.UtilKApplicationWrapper
 import com.mozhimen.basick.utilk.android.app.isFinishingOrDestroyed
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import com.mozhimen.basick.utilk.kotlin.t2weakRef
 import java.lang.ref.WeakReference
 
 /**
@@ -66,7 +69,7 @@ internal class StackKCbDelegate : IStackK {
                     return getStackTopActivityRef(onlyAlive)
                 }
             }
-            return WeakReference(activity)
+            return activityRef
         }
     }
 
@@ -104,13 +107,28 @@ internal class StackKCbDelegate : IStackK {
 
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    private inner class InnerActivityLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
+    private fun postEventFirstActivity() {
+        if (getStackCount() == 1)
+            PostKEventLiveData.instance.with<Boolean>(CStackKCons.Event.STACKK_FIRST_ACTIVITY).setValue(true)
+    }
+
+    private fun onFrontBackChanged(isFront: Boolean, activity: Activity) {
+        for (listener in _frontBackListeners) {
+            listener.onChanged(isFront, activity.t2weakRef())
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    private inner class InnerActivityLifecycleCallbacks : BaseActivityLifecycleCallbacks() {
         override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-            _activityRefs.add(WeakReference(activity))
+            super.onActivityCreated(activity, savedInstanceState)
+            _activityRefs.add(activity.t2weakRef())
             postEventFirstActivity()
         }
 
         override fun onActivityStarted(activity: Activity) {
+            super.onActivityStarted(activity)
             _activityLaunchCount++
             //_activityLaunchCount>0 说明应用处在可见状态, 也就是前台
             //!isFront 之前是不是在后台
@@ -119,15 +137,8 @@ internal class StackKCbDelegate : IStackK {
             }
         }
 
-        override fun onActivityResumed(activity: Activity) {
-
-        }
-
-        override fun onActivityPaused(activity: Activity) {
-
-        }
-
         override fun onActivityStopped(activity: Activity) {
+            super.onActivityStopped(activity)
             _activityLaunchCount--
             if (_activityLaunchCount <= 0 && _isFront) {
                 onFrontBackChanged(false.also { _isFront = false }, activity)
@@ -135,28 +146,20 @@ internal class StackKCbDelegate : IStackK {
         }
 
         override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
-
+            super.onActivitySaveInstanceState(activity, outState)
         }
 
         override fun onActivityDestroyed(activity: Activity) {
-            for (activityRef in _activityRefs) {
-                if (activityRef.get() == activity) {
-                    _activityRefs.remove(activityRef)
-                    break
+            if (UtilKBuildVersion.isAfterV_24_7_N()){
+                _activityRefs.removeIf { it.get()==activity }
+            }else{
+                for (activityRef in _activityRefs) {
+                    if (activityRef.get() == activity) {
+                        _activityRefs.remove(activityRef)
+                        break
+                    }
                 }
             }
         }
-
-        ////////////////////////////////////////////////////////////
-
-        private fun onFrontBackChanged(isFront: Boolean, activity: Activity) {
-            for (listener in _frontBackListeners) {
-                listener.onChanged(isFront, WeakReference(activity))
-            }
-        }
-    }
-
-    private fun postEventFirstActivity() {
-        if (getStackCount() == 1) PostKEventLiveData.instance.with<Boolean>(CStackKCons.Event.STACKK_FIRST_ACTIVITY).setValue(true)
     }
 }

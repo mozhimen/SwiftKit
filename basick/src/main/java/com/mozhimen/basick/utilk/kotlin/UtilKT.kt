@@ -1,6 +1,8 @@
 package com.mozhimen.basick.utilk.kotlin
 
 import com.mozhimen.basick.elemk.commons.IA_BListener
+import com.mozhimen.basick.utilk.java.lang.UtilKWeakReference
+import java.lang.ref.WeakReference
 
 /**
  * @ClassName UtilKT
@@ -11,6 +13,9 @@ import com.mozhimen.basick.elemk.commons.IA_BListener
  */
 inline fun <T> T?.filterNullable(predicate: IA_BListener<T, Boolean>): T? =
     UtilKT.filterNullable(this, predicate)
+
+fun <T> T.t2weakRef(): WeakReference<T> =
+    UtilKT.t2weakRef(this)
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -33,6 +38,10 @@ object UtilKT {
     @JvmStatic
     fun <T> t2bytes(obj: T): ByteArray? =
         obj!!.obj2bytes()
+
+    @JvmStatic
+    fun <T> t2weakRef(obj: T): WeakReference<T> =
+        UtilKWeakReference.get(obj)
 
     ////////////////////////////////////////////////////
 
