@@ -1,4 +1,4 @@
-package com.mozhimen.basick.elemk.androidx.lifecycle.commons
+package com.mozhimen.basick.elemk.androidx.lifecycle.sticky
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
  * @Date 2023/7/11 21:44
  * @Version 1.0
  */
-interface IStickyLiveData<T> {
+interface ISticky<T> {
     fun getStickyVersion(): Int
     fun getStickyValue(): T?
     fun setStickyValue(stickyData: T)

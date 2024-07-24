@@ -1,7 +1,7 @@
 package com.mozhimen.basick.postk.event
 
 import androidx.lifecycle.*
-import com.mozhimen.basick.elemk.androidx.lifecycle.StickyLiveData
+import com.mozhimen.basick.elemk.androidx.lifecycle.sticky.MutableLiveDataSticky
 import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 import java.util.concurrent.ConcurrentHashMap
 
@@ -23,27 +23,33 @@ class PostKEventLiveData {
 
     /////////////////////////////////////////////////////////////////////////////////////
 
-    private val _eventLiveDataMap = ConcurrentHashMap<String, StickyEventLiveData<*>>()
+    private val _eventLiveDataMap = ConcurrentHashMap<String, MutableEventLiveDataSticky<*>>()
 
-    ///////////////////////////////////////////////////////////////////////////////////////////
-
-    @Suppress(CSuppress.UNCHECKED_CAST)
-    fun <T> with(eventName: String): StickyLiveData<T> {
-        var liveData = _eventLiveDataMap[eventName]
-        if (liveData == null) {
-            liveData = StickyEventLiveData<T>(eventName)
-            _eventLiveDataMap[eventName] = liveData
+    private inner class InnerLifecycleEventObserver(private val _name: String) :
+        LifecycleEventObserver {
+        override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+            if (event == Lifecycle.Event.ON_DESTROY)
+                _eventLiveDataMap.remove(_name)//监听宿主 发生销毁事件, 主动把liveData移除掉
         }
-        return liveData as StickyEventLiveData<T>
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
 
-    inner class StickyEventLiveData<T>(private val _name: String) : StickyLiveData<T>() {
+    @Suppress(CSuppress.UNCHECKED_CAST)
+    fun <T> with(eventName: String): MutableLiveDataSticky<T> {
+        var liveData = _eventLiveDataMap[eventName]
+        if (liveData == null) {
+            liveData = MutableEventLiveDataSticky<T>(eventName)
+            _eventLiveDataMap[eventName] = liveData
+        }
+        return liveData as MutableEventLiveDataSticky<T>
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    inner class MutableEventLiveDataSticky<T>(private val _name: String) : MutableLiveDataSticky<T>() {
         override fun observeSticky(owner: LifecycleOwner, observer: Observer<in T>) {
-            owner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
-                if (event == Lifecycle.Event.ON_DESTROY) _eventLiveDataMap.remove(_name)//监听宿主 发生销毁事件, 主动把liveData移除掉
-            })
+            owner.lifecycle.addObserver(InnerLifecycleEventObserver(_name))
             super.observeSticky(owner, observer)
         }
     }

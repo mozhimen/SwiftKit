@@ -4,6 +4,8 @@ package com.mozhimen.basick.stackk.cb
 import com.mozhimen.basick.lintk.optins.OApiInit_InApplication
 import com.mozhimen.basick.stackk.cb.helpers.StackKCbDelegate
 import com.mozhimen.basick.stackk.commons.IStackK
+import com.mozhimen.basick.stackk.commons.IStackKLifecycle
+import com.mozhimen.basick.stackk.commons.IStackKListener
 
 /**
  * @ClassName StackKCb
@@ -13,7 +15,7 @@ import com.mozhimen.basick.stackk.commons.IStackK
  * @Version 1.0
  */
 @OApiInit_InApplication
-class StackKCb private constructor() : IStackK by StackKCbDelegate() {
+class StackKCb private constructor(stackKCbDelegate: StackKCbDelegate) : IStackK by stackKCbDelegate, IStackKLifecycle by stackKCbDelegate {
     companion object {
         @JvmStatic
         val instance = INSTANCE.holder
@@ -22,6 +24,6 @@ class StackKCb private constructor() : IStackK by StackKCbDelegate() {
     /////////////////////////////////////////////////////////////////////////
 
     private object INSTANCE {
-        val holder = StackKCb()
+        val holder = StackKCb(StackKCbDelegate())
     }
 }

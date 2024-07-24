@@ -1,9 +1,8 @@
-package com.mozhimen.basick.elemk.androidx.lifecycle
+package com.mozhimen.basick.elemk.androidx.lifecycle.sticky
 
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.mozhimen.basick.elemk.androidx.lifecycle.commons.IStickyLiveData
 
 /**
  * @ClassName StickyLiveData
@@ -14,9 +13,19 @@ import com.mozhimen.basick.elemk.androidx.lifecycle.commons.IStickyLiveData
  * @Date 2023/7/12 0:30
  * @Version 1.0
  */
-open class StickyLiveData<T> : LiveData<T>(), IStickyLiveData<T> {
+open class MutableLiveDataSticky<T> : MutableLiveData<T>, ISticky<T> {
+    @Volatile
     private var _stickyValue: T? = null
+    @Volatile
     private var _stickyVersion = 0
+
+    //////////////////////////////////////////////////////////////////////
+
+    constructor(value: T) : super(value)
+
+    constructor() : super()
+
+    //////////////////////////////////////////////////////////////////////
 
     override fun getStickyVersion(): Int =
         _stickyVersion
@@ -34,25 +43,25 @@ open class StickyLiveData<T> : LiveData<T>(), IStickyLiveData<T> {
         postValue(stickyData)//不受线程的限制
     }
 
-    public override fun setValue(value: T) {
+    override fun setValue(value: T) {
         _stickyVersion++
         super.setValue(value)
     }
 
-    public override fun postValue(value: T) {
+    override fun postValue(value: T) {
         _stickyVersion++
         super.postValue(value)
     }
 
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
-        super.observe(owner, StickyObserver(this, false, observer))
+        super.observe(owner, ObserverSticky(this, false, observer))
     }
 
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>, isSticky: Boolean) {
-        super.observe(owner, StickyObserver(this, isSticky, observer))
+        super.observe(owner, ObserverSticky(this, isSticky, observer))
     }
 
     override fun observeSticky(owner: LifecycleOwner, observer: Observer<in T>) {
-        super.observe(owner, StickyObserver(this, true, observer))
+        super.observe(owner, ObserverSticky(this, true, observer))
     }
 }

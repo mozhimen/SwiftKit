@@ -6,6 +6,7 @@ import androidx.databinding.ViewDataBinding
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseSaveStateActivity
 import com.mozhimen.basick.elemk.androidx.appcompat.commons.IActivity
 import com.mozhimen.basick.utilk.androidx.databinding.UtilKViewDataBinding
+import com.mozhimen.basick.utilk.kotlin.UtilKLazyJVM.lazy_ofNone
 
 /**
  * @ClassName BaseSaveStateActivityVB
@@ -15,7 +16,7 @@ import com.mozhimen.basick.utilk.androidx.databinding.UtilKViewDataBinding
  */
 abstract class BaseSaveStateActivityVDB<VDB : ViewDataBinding> : BaseSaveStateActivity(), IActivity {
 
-    protected val vdb: VDB by lazy(mode = LazyThreadSafetyMode.NONE) {
+    protected val vdb: VDB by lazy_ofNone {
         UtilKViewDataBinding.get<VDB>(this::class.java, layoutInflater/*, 0*/).apply {
             lifecycleOwner = this@BaseSaveStateActivityVDB
         }

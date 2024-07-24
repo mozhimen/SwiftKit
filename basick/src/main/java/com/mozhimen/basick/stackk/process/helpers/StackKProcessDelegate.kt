@@ -84,70 +84,28 @@ internal class StackKProcessDelegate : IStackK {
 
     /////////////////////////////////////////////////////////////////////////
 
+    private fun onFrontBackChanged(isFront: Boolean, activity: Activity) {
+        for (listener in _frontBackListeners) {
+            listener.onChanged(isFront, WeakReference(activity))
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////
+
     @OApiCall_BindLifecycle
     @OApiInit_ByLazy
     private inner class ApplicationLifecycleProxy : BaseWakeBefDestroyLifecycleObserver() {
-
-        /**
-         * 在程序的整个生命周期中只会调用一次
-         * @param owner LifecycleOwner
-         */
-        override fun onCreate(owner: LifecycleOwner) {
-            UtilKLogWrapper.d(TAG, "onCreate")
-        }
-
-        /**
-         * 当程序在前台时调用
-         * @param owner LifecycleOwner
-         */
         override fun onStart(owner: LifecycleOwner) {
-            UtilKLogWrapper.d(TAG, "onStart")
+            super.onStart(owner)
             if (getLaunchCount() > 0 && !_isFront && owner is Activity) {
                 onFrontBackChanged(true.also { _isFront = true }, owner)
             }
         }
 
-        /**
-         * 当程序在前台时调用
-         * @param owner LifecycleOwner
-         */
-        override fun onResume(owner: LifecycleOwner) {
-            UtilKLogWrapper.d(TAG, "onResume")
-        }
-
-        /**
-         * 在程序在后台时调用
-         * @param owner LifecycleOwner
-         */
-        override fun onPause(owner: LifecycleOwner) {
-            UtilKLogWrapper.d(TAG, "onPause")
-        }
-
-        /**
-         * 在程序在后台时调用
-         * @param owner LifecycleOwner
-         */
         override fun onStop(owner: LifecycleOwner) {
-            UtilKLogWrapper.d(TAG, "onStop")
+            super.onStop(owner)
             if (getLaunchCount() <= 0 && _isFront && owner is Activity) {
                 onFrontBackChanged(false.also { _isFront = false }, owner)
-            }
-        }
-
-        /**
-         * 永远不会调用
-         * @param owner LifecycleOwner
-         */
-        override fun onDestroy(owner: LifecycleOwner) {
-            UtilKLogWrapper.d(TAG, "onDestroy")
-            super.onDestroy(owner)
-        }
-
-        //////////////////////////////////////////////////////////////////////////
-
-        private fun onFrontBackChanged(isFront: Boolean, activity: Activity) {
-            for (listener in _frontBackListeners) {
-                listener.onChanged(isFront, WeakReference(activity))
             }
         }
     }

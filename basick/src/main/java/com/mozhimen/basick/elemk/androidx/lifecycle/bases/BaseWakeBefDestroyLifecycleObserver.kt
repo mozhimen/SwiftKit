@@ -29,6 +29,7 @@ open class BaseWakeBefDestroyLifecycleObserver : IDefaultLifecycleObserver, Base
 
     @CallSuper
     override fun onDestroy(owner: LifecycleOwner) {
+        super.onDestroy(owner)
         owner.lifecycle.removeObserver(this@BaseWakeBefDestroyLifecycleObserver)
     }
 }

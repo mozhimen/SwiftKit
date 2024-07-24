@@ -1,6 +1,7 @@
 package com.mozhimen.basick.stackk.commons
 
 import android.app.Activity
+import android.app.Application
 import java.lang.ref.WeakReference
 
 /**
@@ -65,7 +66,7 @@ interface IStackK {
      * 获取监听器集合
      * @return List<StackKListener>
      */
-    fun getFrontBackListeners(): ArrayList<IStackKListener>
+    fun getFrontBackListeners(): List<IStackKListener>
 
     /////////////////////////////////////////////////////////////////
 

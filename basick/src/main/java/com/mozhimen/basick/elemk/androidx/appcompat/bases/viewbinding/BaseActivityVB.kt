@@ -6,10 +6,11 @@ import androidx.viewbinding.ViewBinding
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivity
 import com.mozhimen.basick.elemk.androidx.appcompat.commons.IActivity
 import com.mozhimen.basick.utilk.androidx.viewbinding.UtilKViewBinding
+import com.mozhimen.basick.utilk.kotlin.UtilKLazyJVM.lazy_ofNone
 
 abstract class BaseActivityVB<VB : ViewBinding> : BaseActivity(), IActivity {
 
-    protected val vb: VB by lazy(mode = LazyThreadSafetyMode.NONE) {
+    protected val vb: VB by lazy_ofNone {
         UtilKViewBinding.get(this::class.java, layoutInflater/*, 0*/)
     }
 

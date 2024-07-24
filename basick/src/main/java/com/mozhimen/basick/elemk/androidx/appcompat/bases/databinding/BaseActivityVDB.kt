@@ -6,10 +6,11 @@ import androidx.databinding.ViewDataBinding
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivity
 import com.mozhimen.basick.elemk.androidx.appcompat.commons.IActivity
 import com.mozhimen.basick.utilk.androidx.databinding.UtilKViewDataBinding
+import com.mozhimen.basick.utilk.kotlin.UtilKLazyJVM.lazy_ofNone
 
 abstract class BaseActivityVDB<VDB : ViewDataBinding> : BaseActivity(), IActivity {
 
-    protected val vdb: VDB by lazy(mode = LazyThreadSafetyMode.NONE) {
+    protected val vdb: VDB by lazy_ofNone {
         UtilKViewDataBinding.get<VDB>(this::class.java, layoutInflater/*, 0*/).apply {
             lifecycleOwner = this@BaseActivityVDB
         }

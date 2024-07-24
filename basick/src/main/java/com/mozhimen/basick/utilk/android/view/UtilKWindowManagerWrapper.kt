@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import com.mozhimen.basick.utilk.commons.IUtilK
+import com.mozhimen.basick.utilk.kotlin.UtilKLazyJVM.lazy_ofNone
 import com.mozhimen.basick.utilk.kotlin.strPackage2clazz
 
 /**
@@ -16,7 +17,7 @@ import com.mozhimen.basick.utilk.kotlin.strPackage2clazz
  */
 object UtilKWindowManagerWrapper : IUtilK {
 
-    private val _windowManagerClazz by lazy(LazyThreadSafetyMode.NONE) {
+    private val _windowManagerClazz by lazy_ofNone {
         try {
             "android.view.WindowManagerGlobal".strPackage2clazz()
         } catch (ignored: Throwable) {
@@ -25,17 +26,17 @@ object UtilKWindowManagerWrapper : IUtilK {
         }
     }
 
-    private val _windowManagerInstance by lazy(LazyThreadSafetyMode.NONE) {
+    private val _windowManagerInstance by lazy_ofNone {
         _windowManagerClazz?.getMethod("getInstance")?.invoke(null)
     }
 
-    private val _viewsField by lazy(LazyThreadSafetyMode.NONE) {
+    private val _viewsField by lazy_ofNone {
         _windowManagerClazz?.let { windowManagerClass ->
             windowManagerClass.getDeclaredField("mViews").apply { isAccessible = true }
         }
     }
 
-    private val _paramsField by lazy(LazyThreadSafetyMode.NONE) {
+    private val _paramsField by lazy_ofNone {
         _windowManagerClazz?.let { windowManagerClass ->
             windowManagerClass.getDeclaredField("mParams").apply { isAccessible = true }
         }

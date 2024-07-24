@@ -14,23 +14,7 @@ import androidx.lifecycle.Observer
  * @Date 2021/4/29 18:23
  * @Version 1.0
  */
-interface IMutableLiveObservableField<T> {
-    fun setValue(value: T)
-
-    /**
-     * 可在子线程调用
-     */
-    fun postValue(value: T)
-    fun getValue(): T?
-    fun observe(owner: LifecycleOwner, observer: Observer<T>)
-    fun observeForever(observer: Observer<T>)
-    fun hasObservers(): Boolean
-    fun hasActiveObservers(): Boolean
-}
-
-class MutableLiveObservableField<T>() : ObservableField<T>(), IMutableLiveObservableField<T> {
-    private var _mutableLiveData: MutableLiveData<T>? = null
-    private var _version = -1
+class ObservableFieldLiveData<T>() : ObservableField<T>() {
 
     /**
      * Wraps the given object and creates an observable object
@@ -42,50 +26,64 @@ class MutableLiveObservableField<T>() : ObservableField<T>(), IMutableLiveObserv
         _version++
     }
 
-    override fun setValue(value: T) {
+    ///////////////////////////////////////////////////////////////////
+
+    private var _mutableLiveData: MutableLiveData<T>? = null
+    private var _version = -1
+
+    ///////////////////////////////////////////////////////////////////
+
+    fun setValue(value: T) {
         set(value)
     }
 
-    override fun postValue(value: T) {
+    fun postValue(value: T) {
         super.set(value)
         _version++
         _mutableLiveData?.postValue(value!!)
     }
 
-    override fun set(value: T) {
-        super.set(value)
-        _version++
-        _mutableLiveData?.let {
-            if (Looper.myLooper() == Looper.getMainLooper()) {
-                it.value = value
-            } else it.postValue(value)
-        }
-    }
-
-    override fun getValue(): T? =
+    fun getValue(): T? =
         get()
 
-    override fun observe(owner: LifecycleOwner, observer: Observer<T>) {
+    @MainThread
+    fun observe(owner: LifecycleOwner, observer: Observer<T>) {
         activeMutableLiveData()
         _mutableLiveData?.observe(owner, observer)
     }
 
     @MainThread
-    override fun observeForever(observer: Observer<T>) {
+    fun observeForever(observer: Observer<T>) {
         activeMutableLiveData()
         _mutableLiveData?.observeForever(observer)
     }
 
-    override fun hasObservers(): Boolean =
+    fun hasObservers(): Boolean =
         _mutableLiveData?.hasObservers() ?: false
 
-    override fun hasActiveObservers(): Boolean =
+    fun hasActiveObservers(): Boolean =
         _mutableLiveData?.hasActiveObservers() ?: false
+
+    ///////////////////////////////////////////////////////////////////
+
+    override fun set(value: T) {
+        super.set(value)
+        _version++
+        _mutableLiveData?.let {
+            if (Looper.myLooper() == Looper.getMainLooper())
+                it.value = value
+            else
+                it.postValue(value)
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////
 
     private fun activeMutableLiveData() {
         if (_mutableLiveData == null) {
             _mutableLiveData = MutableLiveData()
-            if (_version > -1) _mutableLiveData!!.value = get()
+            if (_version > -1)
+                _mutableLiveData!!.value = get()
         }
     }
 }

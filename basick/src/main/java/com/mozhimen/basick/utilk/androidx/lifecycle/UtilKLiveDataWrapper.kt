@@ -2,8 +2,8 @@ package com.mozhimen.basick.utilk.androidx.lifecycle
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.mozhimen.basick.elemk.androidx.lifecycle.CombinedLiveData
-import com.mozhimen.basick.elemk.androidx.lifecycle.ThrottledLiveData
+import com.mozhimen.basick.elemk.androidx.lifecycle.MediatorLiveDataCombined
+import com.mozhimen.basick.elemk.androidx.lifecycle.MediatorLiveDataThrottled
 import com.mozhimen.basick.elemk.commons.IAB_CListener
 import com.mozhimen.basick.elemk.commons.IA_BListener
 import com.mozhimen.basick.utilk.kotlin.obj2str_trim
@@ -37,11 +37,11 @@ object UtilKLiveDataWrapper {
 
     @JvmStatic
     fun <T, K, S> liveData2combinedLiveData(liveData: LiveData<T>, other: LiveData<K>, combine: IAB_CListener<T, K, S>): LiveData<S> =
-        CombinedLiveData(liveData, other, combine)
+        MediatorLiveDataCombined(liveData, other, combine)
 
     @JvmStatic
     fun <T> liveData2throttledLiveData(liveData: LiveData<T>, delayMillis: Long): LiveData<T> =
-        ThrottledLiveData(liveData, delayMillis)
+        MediatorLiveDataThrottled(liveData, delayMillis)
 
     @JvmStatic
     fun liveDataValue2stringTrim(liveData: LiveData<String>): String =
