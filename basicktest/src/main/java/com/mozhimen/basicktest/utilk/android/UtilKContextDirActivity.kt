@@ -24,7 +24,7 @@ class UtilKContextDirActivity : BaseActivityVDB<ActivityUtilkContextDirBinding>(
             if (it) {
                 super.initData(savedInstanceState)
             } else {
-                UtilKActivityStart.startApplicationDetailsSettings(this)
+                UtilKActivityStart.startSettingApplicationDetailsSettings(this)
             }
         }
     }

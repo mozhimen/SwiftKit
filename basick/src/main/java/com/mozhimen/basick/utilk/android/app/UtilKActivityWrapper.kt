@@ -135,7 +135,7 @@ object UtilKActivityWrapper : IUtilK {
     /////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun hasFloatWindow_ofToken(activity: Activity): Boolean {
+    fun getFloatWindowSize(activity: Activity): Int {
         val targetDecorView = activity.window.decorView// 获取目标 Activity 的 decorView
         val targetSubToken = targetDecorView.windowToken// 获取目标 Activity 的 子窗口的 token
         val mView = UtilKWindowManagerWrapper.getViews().map { it }.toList()//  拿到 mView 集合，找到目标 Activity 所在的 index 位置
@@ -145,8 +145,12 @@ object UtilKActivityWrapper : IUtilK {
         return mParams
             .map { it.token }
             .filter { it == targetSubToken || it == null || it == targetToken }
-            .size > 1// 遍历判断时，目标 Activity 自己不能包括,所以 size 需要大于 1
+            .size // 遍历判断时，目标 Activity 自己不能包括,所以 size 需要大于 1
     }
+
+    @JvmStatic
+    fun hasFloatWindow_ofToken(activity: Activity): Boolean =
+        getFloatWindowSize(activity) > 1// 遍历判断时，目标 Activity 自己不能包括,所以 size 需要大于 1
 
     @JvmStatic
     fun isFinishingOrDestroyed(activity: Activity): Boolean =

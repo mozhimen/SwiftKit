@@ -16,6 +16,6 @@ import com.mozhimen.basicktest.databinding.ActivityUtilkLaunchActivityBinding
 class UtilKLaunchActivityActivity : BaseActivityVDB<ActivityUtilkLaunchActivityBinding>() {
     @OptIn(OPermission_MANAGE_EXTERNAL_STORAGE::class)
     fun startManageAllFilesAccess(view: View) {
-        UtilKActivityStart.startManageAllFilesAccessPermission(this)
+        UtilKActivityStart.startSettingManageAllFilesAccessPermission(this)
     }
 }

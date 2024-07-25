@@ -4,7 +4,6 @@ import android.view.View
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basick.utilk.android.content.startContext
 import com.mozhimen.basicktest.animk.AnimKActivity
-import com.mozhimen.basicktest.cachek.CacheKActivity
 import com.mozhimen.basicktest.stackk.StackKActivity
 import com.mozhimen.basicktest.utilk.UtilKActivity
 import com.mozhimen.basicktest.databinding.ActivityBasickBinding
@@ -16,10 +15,6 @@ import com.mozhimen.basicktest.taskk.TaskKActivity
 class BasicKActivity : BaseActivityVDB<ActivityBasickBinding>() {
     fun goAnimK(view: View) {
         startContext<AnimKActivity>()
-    }
-
-    fun goCacheK(view: View) {
-        startContext<CacheKActivity>()
     }
 
     fun goElemK(view: View) {

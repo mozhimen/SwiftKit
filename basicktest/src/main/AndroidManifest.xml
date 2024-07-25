@@ -26,6 +26,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit">
+
         <activity
             android:name=".utilk.kotlin.UtilKMathActivity"
             android:exported="false" />
@@ -59,20 +60,20 @@
         <activity
             android:name=".animk.AnimKActivity"
             android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
-        <!-- cachek -->
-        <activity
-            android:name=".cachek.CacheKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".cachek.CacheKDSActivity"
-            android:exported="false" />
-        <activity
-            android:name=".cachek.CacheKRMActivity"
-            android:exported="false" />
-        <activity
-            android:name=".cachek.CacheKSPActivity"
-            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+
         <!-- elemk -->
+        <activity
+            android:name=".elemk.androidx.ElemKLifecycleActivity"
+            android:exported="true">
+
+        </activity>
+
+        <activity
+            android:name=".elemk.androidx.ElemKLifecycleActivity2"
+            android:exported="false"/>
+        <activity
+            android:name=".elemk.androidx.ElemKLifecycleActivity3"
+            android:exported="false"/>
         <activity
             android:name=".elemk.androidx.ElemKAndroidXActivity"
             android:exported="false" />
@@ -90,8 +91,8 @@
             android:exported="false" />
         <activity
             android:name=".elemk.androidx.ElemKBarActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
         <activity
             android:name=".elemk.android.ElemKReceiverActivity"
             android:exported="false" />
@@ -110,8 +111,7 @@
 
                 <data android:scheme="package" />
             </intent-filter>
-        </receiver>
-        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+        </receiver> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- manifestk -->
         <activity
             android:name=".manifestk.ManifestKActivity"
@@ -174,9 +174,7 @@
             android:name=".taskk.TaskKCountDownActivity"
             android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- utilk -->
-        <activity
-            android:name=".utilk.kotlin.UtilKGenerateNoActivity"
-            android:exported="false" />
+
         <activity
             android:name=".utilk.UtilKActivity"
             android:exported="false" />
@@ -198,7 +196,6 @@
         <activity
             android:name=".utilk.androidx.UtilKAndroidXActivity"
             android:exported="false" />
-
         <activity
             android:name=".utilk.android.UtilKAndroidActivity"
             android:exported="false" />

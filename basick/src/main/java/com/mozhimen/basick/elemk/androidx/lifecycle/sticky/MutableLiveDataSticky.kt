@@ -16,12 +16,15 @@ import androidx.lifecycle.Observer
 open class MutableLiveDataSticky<T> : MutableLiveData<T>, ISticky<T> {
     @Volatile
     private var _stickyValue: T? = null
+
     @Volatile
     private var _stickyVersion = 0
 
     //////////////////////////////////////////////////////////////////////
 
-    constructor(value: T) : super(value)
+    constructor(value: T) : super(value) {
+        _stickyValue = value
+    }
 
     constructor() : super()
 

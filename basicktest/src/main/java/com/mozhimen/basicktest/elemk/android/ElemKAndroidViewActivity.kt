@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.basick.elemk.android.view.ScreenOrientationOfSensorProxy
 import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
 import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
+import com.mozhimen.basick.utilk.kotlin.UtilKLazyJVM.lazy_ofNone
 
 /**
  * @ClassName ElemKAndroidViewActivity

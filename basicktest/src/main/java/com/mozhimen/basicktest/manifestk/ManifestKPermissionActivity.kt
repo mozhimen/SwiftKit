@@ -16,7 +16,7 @@ class ManifestKPermissionActivity : BaseActivityVDB<ActivityManifestkPermissionB
             if (it) {
                 super.initData(savedInstanceState)
             } else {
-                UtilKActivityStart.startApplicationDetailsSettings(this)
+                UtilKActivityStart.startSettingApplicationDetailsSettings(this)
             }
         }
 
@@ -24,7 +24,7 @@ class ManifestKPermissionActivity : BaseActivityVDB<ActivityManifestkPermissionB
         ManifestKPermission.requestPermissions(this, onSuccess = {
             initView(savedInstanceState)
         }, onFail = {
-            UtilKActivityStart.startApplicationDetailsSettings(this)
+            UtilKActivityStart.startSettingApplicationDetailsSettings(this)
         })
 
         //方法三
@@ -32,7 +32,7 @@ class ManifestKPermissionActivity : BaseActivityVDB<ActivityManifestkPermissionB
             if (it) {
                 initView(savedInstanceState)
             } else {
-                UtilKActivityStart.startApplicationDetailsSettings(this)
+                UtilKActivityStart.startSettingApplicationDetailsSettings(this)
             }
         }
     }

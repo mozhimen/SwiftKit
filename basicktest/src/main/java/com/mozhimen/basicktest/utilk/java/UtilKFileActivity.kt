@@ -79,7 +79,7 @@ class UtilKFileActivity : BaseActivityVDB<ActivityUtilkFileBinding>() {
             val deviceInfoFolder = UtilKStrPath.Absolute.Internal.getFiles()
             "isFolder filesDir ${UtilKStrFile.isFolder(deviceInfoFolder)}".log()
             val createFolderPath = UtilKStrPath.Absolute.Internal.getFiles() + "/folder/"
-            "createFolder folder ${UtilKStrFile.createFolder(createFolderPath).absolutePath}".log()
+            "createFolder folder ${UtilKStrFile.createFolder(createFolderPath)}".log()
             "deleteFolder folder ${UtilKStrFile.deleteFolder(createFolderPath)}".log()
             val path = "${UtilKStrPath.Absolute.External.getEnvStorage()}/Android/obb/com.mozhimen.xxxx"
             path.createFolder()

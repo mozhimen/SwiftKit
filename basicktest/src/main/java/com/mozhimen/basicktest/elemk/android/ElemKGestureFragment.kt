@@ -6,6 +6,7 @@ import com.mozhimen.basick.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.basick.elemk.android.view.DragAndDropProxy
 import com.mozhimen.basick.elemk.androidx.fragment.bases.databinding.BaseFragmentVDB
 import com.mozhimen.basick.lintk.optins.OApiCall_BindLifecycle
+import com.mozhimen.basick.utilk.kotlin.UtilKLazyJVM.lazy_ofNone
 import com.mozhimen.basicktest.databinding.FragmentElemkGestureBinding
 
 class ElemKGestureFragment : BaseFragmentVDB<FragmentElemkGestureBinding>() {

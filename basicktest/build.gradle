@@ -46,7 +46,6 @@ dependencies {
     implementation project(':AXmlKit:recyclerk')
     implementation project(':ANavigateKit:navigatek_navigation')
     implementation project(':AManifestKit_XXPermissions:manifestk_xxpermissions')
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     //test
     testImplementation 'junit:junit:4.13.2'
