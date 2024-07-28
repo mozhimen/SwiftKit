@@ -8,4 +8,16 @@ package com.mozhimen.basick.utilk.kotlin
  * @Version 1.0
  */
 object UtilKStringWrapper {
+    @JvmStatic
+    fun getStr_ofCompute(str: String): String {
+        val sanitizedName = str
+            .replace(Regex("\\(.*\\)"), "")
+
+        return sanitizedName.asSequence()
+            .filter { it.isDigit() or it.isUpperCase() or (it == '&') }
+            .take(3)
+            .joinToString("")
+            .ifBlank { str.first().toString() }
+            .capitalize()
+    }
 }

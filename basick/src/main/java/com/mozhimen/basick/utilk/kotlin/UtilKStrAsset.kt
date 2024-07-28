@@ -1,8 +1,10 @@
 package com.mozhimen.basick.utilk.kotlin
 
 import android.graphics.Bitmap
+import android.util.Log
 import com.mozhimen.basick.elemk.commons.IAB_Listener
 import com.mozhimen.basick.utilk.android.content.UtilKAssetManager
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.inputStream2bitmapAny_use
 import com.mozhimen.basick.utilk.java.io.inputStream2bytes_use
@@ -70,10 +72,18 @@ object UtilKStrAsset : BaseUtilK() {
     @JvmStatic
     fun isAssetExists(strAssetName: String): Boolean {
         val parentPath = getStrAssetParentPath(strAssetName)
-        val assets = UtilKAssetManager.list_ofRes(_context, parentPath) ?: return false
-        for (index in assets.indices) {
-            if ((parentPath + assets[index]) == strAssetName) return true
+        UtilKLogWrapper.d(TAG, "isAssetExists: parentPath $parentPath")
+        val assets = UtilKAssetManager.list_ofRes(_context, parentPath) ?: kotlin.run {
+            UtilKLogWrapper.d(TAG, "isAssetExists: assets null")
+            return false
         }
+        for (index in assets.indices) {
+            if ((parentPath + assets[index]) == strAssetName) {
+                UtilKLogWrapper.d(TAG, "isAssetExists: true")
+                return true
+            }
+        }
+        UtilKLogWrapper.d(TAG, "isAssetExists: false")
         return false
     }
 
@@ -117,7 +127,10 @@ object UtilKStrAsset : BaseUtilK() {
      */
     @JvmStatic
     fun strAssetName2file(strAssetName: String, strFilePathNameDest: String, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
-        if (!isAssetExists(strAssetName)) null
+        if (!isAssetExists(strAssetName)) {
+            UtilKLogWrapper.d(TAG, "strAssetName2file: dont exist")
+            null
+        }
         else UtilKAssetManager.open_ofCxt(_context, strAssetName).inputStream2file_use(strAssetName.strAssetName2strFilePathName(strFilePathNameDest), isAppend, bufferSize, block)
 
     @JvmStatic
