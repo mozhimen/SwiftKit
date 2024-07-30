@@ -24,10 +24,7 @@ import kotlinx.coroutines.Dispatchers
 @OApiCall_BindLifecycle
 class TaskKLocation : TaskKPollInfinite() {
 
-    @Volatile
     private var _longitude: Double = 0.0
-
-    @Volatile
     private var _latitude: Double = 0.0
 
     val longitude get() = _longitude

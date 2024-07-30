@@ -71,6 +71,7 @@ object UtilKNet : BaseUtilK() {
 
     /////////////////////////////////////////////////////////////////////////
 
+    //是否连接网络,需要权限:ACCESS_NETWORK_STATE
     @JvmStatic
     @OPermission_ACCESS_NETWORK_STATE
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)

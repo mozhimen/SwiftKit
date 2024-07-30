@@ -21,14 +21,15 @@ return (LayoutInflater.from(_context).inflate(R.layout.optk_fps_view, null, fals
 typealias IOnFieldNull<T> = I_AListener<T>
 
 open class VarProperty_GetNonnull<T>(private val _onFieldNull: IOnFieldNull<T>) : ReadWriteProperty<Any?, T> {
-    @Volatile
     private var _field: T? = null
+
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
         _field = value
     }
 
     override fun getValue(thisRef: Any?, property: KProperty<*>): T {
-        if (_field != null) return _field!!
+        if (_field != null)
+            return _field!!
         return _onFieldNull.invoke().also { _field = it }
     }
 }
