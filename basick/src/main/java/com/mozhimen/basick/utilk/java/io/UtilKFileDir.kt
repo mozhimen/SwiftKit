@@ -1,8 +1,8 @@
 package com.mozhimen.basick.utilk.java.io
 
-import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKContextDir
 import com.mozhimen.basick.utilk.android.os.UtilKEnvironment
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import java.io.File
 
 
@@ -61,5 +61,22 @@ object UtilKFileDir : BaseUtilK() {
         @JvmStatic
         fun getData_ofEnvironment(): File =
             UtilKEnvironment.getDataDir()
+    }
+
+    //////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun delete(dir: File): Boolean {
+        if (dir.isDirectory) {
+            val childs = dir.list()
+            if (childs != null) {
+                for (i in childs.indices) {
+                    if (!delete(File(dir, childs[i]))) {
+                        return false
+                    }
+                }
+            }
+        }
+        return dir.delete()// 目录现在为空，可以删除
     }
 }
