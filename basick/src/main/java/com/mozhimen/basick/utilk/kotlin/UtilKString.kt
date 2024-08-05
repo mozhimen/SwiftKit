@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.kotlin
 
+import com.mozhimen.basick.elemk.commons.I_AListener
 import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.elemk.cons.CMsg
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -27,6 +28,9 @@ fun String.getSplitFirstIndexToStart(splitStr: String): String =
 fun String.isNotEmptyOrElse(isNotEmptyBlock: I_Listener, orElseBlock: I_Listener) {
     UtilKString.isNotEmptyOrElse(this, isNotEmptyBlock, orElseBlock)
 }
+
+inline fun String?.getEmptyOrDefault(default: I_AListener<String> = { "" }): String =
+    UtilKString.getEmptyOrDefault(this, default)
 
 fun String.hasSpace(): Boolean =
     UtilKString.hasSpace(this)
@@ -65,6 +69,12 @@ fun String.throwIllegalStateException() {
 }
 
 object UtilKString : BaseUtilK() {
+
+    @JvmStatic
+    inline fun getEmptyOrDefault(str: String?, default: I_AListener<String> = { "" }): String =
+        if (str.isNullOrEmpty())
+            default()
+        else str
 
     /**
      * 获取分割后的最后一个元素

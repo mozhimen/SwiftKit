@@ -13,6 +13,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.kotlin.equalsIgnoreCase
+import kotlin.math.acos
 
 /**
  * @ClassName UtilKActiveNetworkInfo
@@ -26,7 +27,7 @@ object UtilKActiveNetworkInfo : IUtilK {
     @OPermission_ACCESS_NETWORK_STATE
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     fun get(context: Context): NetworkInfo? =
-        UtilKNetworkInfo.getActive(context)
+        UtilKNetworkInfo.get_ofActive(context)
 
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
@@ -52,6 +53,12 @@ object UtilKActiveNetworkInfo : IUtilK {
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     fun isConnected(context: Context): Boolean =
         get(context)?.let { UtilKNetworkInfo.isConnected(it) } ?: false
+
+    @JvmStatic
+    @OPermission_ACCESS_NETWORK_STATE
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    fun isConnectedOrConnecting(context: Context): Boolean =
+        get(context)?.let { UtilKNetworkInfo.isConnectedOrConnecting(it) } ?: false
 
     //////////////////////////////////////////////////////////////////////////////
 
@@ -116,28 +123,28 @@ object UtilKActiveNetworkInfo : IUtilK {
     @OPermission_ACCESS_NETWORK_STATE
     @RequiresApi(CVersCode.V_21_5_L)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun isMobileAvailable(context: Context):Boolean =
+    fun isMobileAvailable(context: Context): Boolean =
         isMobile(context) && isAvailable(context)
 
     @JvmStatic
     @OPermission_ACCESS_NETWORK_STATE
     @RequiresApi(CVersCode.V_21_5_L)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun isEthernetAvailable(context: Context):Boolean =
+    fun isEthernetAvailable(context: Context): Boolean =
         isEthernet(context) && isAvailable(context)
 
     @JvmStatic
     @OPermission_ACCESS_NETWORK_STATE
     @RequiresApi(CVersCode.V_21_5_L)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun isWifiAvailable(context: Context):Boolean =
+    fun isWifiAvailable(context: Context): Boolean =
         isWifi(context) && isAvailable(context)
 
     @JvmStatic
     @OPermission_ACCESS_NETWORK_STATE
     @RequiresApi(CVersCode.V_21_5_L)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun isVpnAvailable(context: Context):Boolean =
+    fun isVpnAvailable(context: Context): Boolean =
         isVpn(context) && isAvailable(context)
 
     //////////////////////////////////////////////////////////////////////////////
@@ -146,28 +153,28 @@ object UtilKActiveNetworkInfo : IUtilK {
     @OPermission_ACCESS_NETWORK_STATE
     @RequiresApi(CVersCode.V_21_5_L)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun isMobileConnected(context: Context):Boolean =
+    fun isMobileConnected(context: Context): Boolean =
         isMobile(context) && isConnected(context)
 
     @JvmStatic
     @OPermission_ACCESS_NETWORK_STATE
     @RequiresApi(CVersCode.V_21_5_L)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun isEtherNetConnected(context: Context):Boolean =
+    fun isEtherNetConnected(context: Context): Boolean =
         isEthernet(context) && isConnected(context)
 
     @JvmStatic
     @OPermission_ACCESS_NETWORK_STATE
     @RequiresApi(CVersCode.V_21_5_L)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun isWifiConnected(context: Context):Boolean =
+    fun isWifiConnected(context: Context): Boolean =
         isWifi(context) && isConnected(context)
 
     @JvmStatic
     @OPermission_ACCESS_NETWORK_STATE
     @RequiresApi(CVersCode.V_21_5_L)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun isVpnConnected(context: Context):Boolean =
+    fun isVpnConnected(context: Context): Boolean =
         isVpn(context) && isConnected(context)
 
     //////////////////////////////////////////////////////////////////////////////
@@ -190,8 +197,14 @@ object UtilKActiveNetworkInfo : IUtilK {
             CConnectivityManager.TYPE_ETHERNET -> setOf(ENetType.ETHERNET)
             CConnectivityManager.TYPE_MOBILE -> when (networkInfo.subtype) {
                 CTelephonyManager.NETWORK_TYPE_LTE, CTelephonyManager.NETWORK_TYPE_IWLAN -> setOf(ENetType.MOBILE_4G)
-                CTelephonyManager.NETWORK_TYPE_TD_SCDMA, CTelephonyManager.NETWORK_TYPE_EVDO_A, CTelephonyManager.NETWORK_TYPE_UMTS, CTelephonyManager.NETWORK_TYPE_EVDO_0, CTelephonyManager.NETWORK_TYPE_HSDPA, CTelephonyManager.NETWORK_TYPE_HSUPA, CTelephonyManager.NETWORK_TYPE_HSPA, CTelephonyManager.NETWORK_TYPE_EVDO_B, CTelephonyManager.NETWORK_TYPE_EHRPD, CTelephonyManager.NETWORK_TYPE_HSPAP -> setOf(ENetType.MOBILE_3G)
-                CTelephonyManager.NETWORK_TYPE_GSM, CTelephonyManager.NETWORK_TYPE_GPRS, CTelephonyManager.NETWORK_TYPE_CDMA, CTelephonyManager.NETWORK_TYPE_EDGE, CTelephonyManager.NETWORK_TYPE_1xRTT, CTelephonyManager.NETWORK_TYPE_IDEN -> setOf(ENetType.MOBILE_2G)
+                CTelephonyManager.NETWORK_TYPE_TD_SCDMA, CTelephonyManager.NETWORK_TYPE_EVDO_A, CTelephonyManager.NETWORK_TYPE_UMTS, CTelephonyManager.NETWORK_TYPE_EVDO_0, CTelephonyManager.NETWORK_TYPE_HSDPA, CTelephonyManager.NETWORK_TYPE_HSUPA, CTelephonyManager.NETWORK_TYPE_HSPA, CTelephonyManager.NETWORK_TYPE_EVDO_B, CTelephonyManager.NETWORK_TYPE_EHRPD, CTelephonyManager.NETWORK_TYPE_HSPAP -> setOf(
+                    ENetType.MOBILE_3G
+                )
+
+                CTelephonyManager.NETWORK_TYPE_GSM, CTelephonyManager.NETWORK_TYPE_GPRS, CTelephonyManager.NETWORK_TYPE_CDMA, CTelephonyManager.NETWORK_TYPE_EDGE, CTelephonyManager.NETWORK_TYPE_1xRTT, CTelephonyManager.NETWORK_TYPE_IDEN -> setOf(
+                    ENetType.MOBILE_2G
+                )
+
                 else -> {
                     val subtypeName = networkInfo.subtypeName
                     if (subtypeName.equalsIgnoreCase("TD-SCDMA") || subtypeName.equalsIgnoreCase("WCDMA") || subtypeName.equalsIgnoreCase("CDMA2000")) setOf(ENetType.MOBILE_3G)

@@ -12,9 +12,9 @@ import android.text.TextPaint
  */
 object UtilKTextPaint {
     @JvmStatic
-    fun getTextRect(textPaint: TextPaint): Rect {
+    fun getTextRect(textPaint: TextPaint, str: String): Rect {
         val bounds = Rect()
-        textPaint.getTextBounds(mText, 0, mText.length(), bounds)
-        val height = bounds.height()
+        textPaint.getTextBounds(str, 0, str.length, bounds)
+        return bounds
     }
 }

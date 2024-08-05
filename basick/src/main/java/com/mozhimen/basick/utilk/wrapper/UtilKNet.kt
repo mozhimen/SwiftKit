@@ -91,6 +91,17 @@ object UtilKNet : BaseUtilK() {
         else
             UtilKActiveNetworkInfo.isConnected(_context)//UtilKConnectivityManager.getActiveNetworkInfo(_context)?.isAvailable ?: false
 
+    //是否连接网络,需要权限:ACCESS_NETWORK_STATE
+    @JvmStatic
+    @OPermission_ACCESS_NETWORK_STATE
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    fun isConnectedOrConnecting_ofActive(): Boolean =
+        if (UtilKBuildVersion.isAfterV_23_6_M())
+            UtilKNetworkCapabilities.isConnected_ofActive(_context)
+        else
+            UtilKActiveNetworkInfo.isConnectedOrConnecting(_context)//UtilKConnectivityManager.getActiveNetworkInfo(_context)?.isAvailable ?: false
+
+
     /////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
@@ -153,7 +164,7 @@ object UtilKNet : BaseUtilK() {
         else if (UtilKBuildVersion.isAfterV_21_5_L())
             UtilKActiveNetworkInfo.isMobileAvailable(_context)
         else
-            UtilKNetworkInfo.isMobileAvailable(_context)
+            UtilKNetworkInfo.isAvailable_ofMobile(_context)
 
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
@@ -164,7 +175,7 @@ object UtilKNet : BaseUtilK() {
         else if (UtilKBuildVersion.isAfterV_21_5_L())
             UtilKActiveNetworkInfo.isEthernetAvailable(_context)
         else
-            UtilKNetworkInfo.isEthernetAvailable(_context)
+            UtilKNetworkInfo.isAvailable_ofEthernet(_context)
 
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
@@ -175,7 +186,7 @@ object UtilKNet : BaseUtilK() {
         else if (UtilKBuildVersion.isAfterV_21_5_L())
             UtilKActiveNetworkInfo.isWifiAvailable(_context)
         else
-            UtilKNetworkInfo.isWifiAvailable(_context)
+            UtilKNetworkInfo.isAvailable_ofWifi(_context)
 
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
@@ -184,7 +195,7 @@ object UtilKNet : BaseUtilK() {
         if (UtilKBuildVersion.isAfterV_23_6_M())
             UtilKNetworkCapabilities.isVpnAvailable_ofActive(_context)
         else if (UtilKBuildVersion.isAfterV_21_5_L())
-            UtilKActiveNetworkInfo.isVpnAvailable(_context) || UtilKNetworkInfo.isVpnAvailable(_context)
+            UtilKActiveNetworkInfo.isVpnAvailable(_context) || UtilKNetworkInfo.isAvailable_ofVpn(_context)
         else false
 
     /////////////////////////////////////////////////////////////////////////
@@ -198,7 +209,7 @@ object UtilKNet : BaseUtilK() {
         else if (UtilKBuildVersion.isAfterV_21_5_L())
             UtilKActiveNetworkInfo.isMobileConnected(_context)
         else
-            UtilKNetworkInfo.isMobileConnected(_context)
+            UtilKNetworkInfo.isConnected_ofMobile(_context)
 
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
@@ -209,7 +220,7 @@ object UtilKNet : BaseUtilK() {
         else if (UtilKBuildVersion.isAfterV_21_5_L())
             UtilKActiveNetworkInfo.isEtherNetConnected(_context)
         else
-            UtilKNetworkInfo.isEthernetConnected(_context)
+            UtilKNetworkInfo.isConnected_ofEthernet(_context)
 
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
@@ -220,7 +231,7 @@ object UtilKNet : BaseUtilK() {
         else if (UtilKBuildVersion.isAfterV_21_5_L())
             UtilKActiveNetworkInfo.isWifiConnected(_context)
         else
-            UtilKNetworkInfo.isWifiConnected(_context)
+            UtilKNetworkInfo.isConnected_ofWifi(_context)
 
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
@@ -229,7 +240,7 @@ object UtilKNet : BaseUtilK() {
         if (UtilKBuildVersion.isAfterV_23_6_M())
             UtilKNetworkCapabilities.isVpnConnected_ofActive(_context)
         else if (UtilKBuildVersion.isAfterV_21_5_L())
-            UtilKActiveNetworkInfo.isVpnConnected(_context) || UtilKNetworkInfo.isVpnConnected(_context)
+            UtilKActiveNetworkInfo.isVpnConnected(_context) || UtilKNetworkInfo.isConnected_ofVpn(_context)
         else false
 
     /////////////////////////////////////////////////////////////////////////
