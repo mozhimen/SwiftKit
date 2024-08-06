@@ -46,7 +46,11 @@ object UtilKViewGroup : IUtilK {
     fun addViewSafe(viewGroup: ViewGroup, view: View, width: Int, height: Int) {
         if (view.parent == null)
             viewGroup.addView(view, ViewGroup.LayoutParams(width, height))
-        else
-            UtilKLogWrapper.e(TAG, "addViewMatchParent: ")
+        else if (view.parent is ViewGroup) {
+            (view.parent as ViewGroup).removeView(view)
+            viewGroup.addView(view, ViewGroup.LayoutParams(width, height))
+        } else {
+            UtilKLogWrapper.e(TAG, "addViewSafe: fail")
+        }
     }
 }

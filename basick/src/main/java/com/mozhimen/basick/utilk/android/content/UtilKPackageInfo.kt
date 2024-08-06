@@ -4,9 +4,11 @@ import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import androidx.annotation.RequiresApi
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.elemk.android.content.cons.CPackageInfo
 import com.mozhimen.basick.elemk.android.content.cons.CPackageManager
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 
@@ -18,25 +20,23 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
  * @Date 2023/3/20 10:53
  * @Version 1.0
  */
-fun PackageInfo.getVersionCode(): Int =
-    UtilKPackageInfo.getVersionCode(this)
-
-/////////////////////////////////////////////////////////////////////////
-
 object UtilKPackageInfo : BaseUtilK() {
     @JvmStatic
     fun get(context: Context, strPackageName: String, flags: Int): PackageInfo? =
         UtilKPackageManager.getPackageInfo(context, strPackageName, flags)
 
     @JvmStatic
-    fun get(context: Context): PackageInfo? =
-        get_ofInstallLocationAuto(context)
-
-    @JvmStatic
     fun get(context: Context, flags: Int): PackageInfo? =
         get(context, UtilKContext.getPackageName(context), flags /*0*/)
 
     @JvmStatic
+    fun get(context: Context): PackageInfo? =
+        get(context, 0)
+
+    /////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_21_5_L)
     fun get_ofInstallLocationAuto(context: Context): PackageInfo? =
         get(context, CPackageInfo.INSTALL_LOCATION_AUTO)
 
@@ -44,9 +44,11 @@ object UtilKPackageInfo : BaseUtilK() {
     fun get_ofGetConfigurations(context: Context): PackageInfo? =
         get(context, CPackageManager.GET_CONFIGURATIONS)
 
+    /////////////////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun getApplicationInfo(context: Context): ApplicationInfo? =
-        get(context)?.let { getApplicationInfo(it) }
+        getApplicationInfo(get(context))
 
     @JvmStatic
     fun getApplicationInfo(packageInfo: PackageInfo?): ApplicationInfo? =
@@ -62,7 +64,11 @@ object UtilKPackageInfo : BaseUtilK() {
 
     @JvmStatic
     fun getPackageName(context: Context): String? =
-        get(context)?.packageName
+        getPackageName(get(context))
+
+    @JvmStatic
+    fun getPackageName(packageInfo: PackageInfo?): String? =
+        packageInfo?.packageName
 
     /////////////////////////////////////////////////////////////////////////
 
@@ -74,9 +80,9 @@ object UtilKPackageInfo : BaseUtilK() {
         get(context)?.let { getVersionName(it) } ?: ""
 
     @JvmStatic
-    fun getVersionName(packageInfo: PackageInfo): String =
+    fun getVersionName(packageInfo: PackageInfo?): String =
         try {
-            packageInfo.versionName ?: ""
+            packageInfo?.versionName ?: ""
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             UtilKLogWrapper.e(TAG, "getVersionName: NameNotFoundException ${e.message}")
@@ -90,13 +96,14 @@ object UtilKPackageInfo : BaseUtilK() {
     fun getVersionCode(context: Context): Int =
         get(context)?.let { getVersionCode(it) } ?: 0
 
-
     @JvmStatic
-    fun getVersionCode(packageInfo: PackageInfo): Int =
+    fun getVersionCode(packageInfo: PackageInfo?): Int =
         try {
-            if (UtilKBuildVersion.isAfterV_28_9_P())
-                packageInfo.longVersionCode.toInt()
-            else packageInfo.versionCode
+            packageInfo?.let {
+                (if (UtilKBuildVersion.isAfterV_28_9_P())
+                    it.longVersionCode.toInt()
+                else it.versionCode)
+            } ?: 0
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             UtilKLogWrapper.e(TAG, "getVersionCode: NameNotFoundException ${e.message}")
