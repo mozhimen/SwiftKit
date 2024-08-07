@@ -4,7 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import com.mozhimen.basick.elemk.android.app.bases.BaseActivityLifecycleCallbacks
-import com.mozhimen.basick.postk.event.PostKEventLiveData
+import com.mozhimen.postk.livedata.PostKEventLiveData
 import com.mozhimen.basick.stackk.annors.ALifecycleOpportunity
 import com.mozhimen.basick.stackk.commons.IStackK
 import com.mozhimen.basick.stackk.commons.IStackKLifecycle
@@ -126,7 +126,7 @@ internal class StackKCbDelegate : IStackK, IStackKLifecycle {
 
     private fun postEventFirstActivity() {
         if (getStackCount() == 1)
-            PostKEventLiveData.instance.with<Boolean>(CStackKCons.Event.STACKK_FIRST_ACTIVITY).setValue(true)
+            com.mozhimen.postk.livedata.PostKEventLiveData.instance.with<Boolean>(CStackKCons.Event.STACKK_FIRST_ACTIVITY).setValue(true)
     }
 
     private fun onFrontBackChanged(isFront: Boolean, activity: Activity) {

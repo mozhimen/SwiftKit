@@ -118,32 +118,7 @@
             android:exported="false" />
         <activity
             android:name=".manifestk.ManifestKPermissionActivity"
-            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
-        <!-- postk -->
-        <activity
-            android:name=".postk.PostKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".postk.PostKLiveDataEventBusActivity"
-            android:exported="false" />
-        <activity
-            android:name=".postk.PostKLinkActivity"
-            android:exported="true">
-            <intent-filter>
-
-                <!-- 必有项 -->
-                <action android:name="android.intent.action.VIEW" />
-                <!-- 表示该页面可以被隐式调用，必须加上该项 -->
-                <category android:name="android.intent.category.DEFAULT" />
-                <!-- BROWSABLE指定该Activity能被浏览器安全调用 -->
-                <category android:name="android.intent.category.BROWSABLE" />
-                <!-- 协议部分 -->
-                <!-- 声明自定义scheme，类似于http, https -->
-                <data
-                    android:host="com.mozhimen.basick"
-                    android:scheme="basick" />
-            </intent-filter>
-        </activity> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+            android:exported="false" />  <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- stackk -->
         <activity
             android:name=".stackk.StackKActivity"
@@ -234,9 +209,6 @@
             android:exported="false" />
         <activity
             android:name=".utilk.android.UtilKBitmapActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.javax.UtilKEncryptActivity"
             android:exported="false" />
         <activity
             android:name=".utilk.java.UtilKFileActivity"

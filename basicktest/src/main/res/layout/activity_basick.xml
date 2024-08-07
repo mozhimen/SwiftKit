@@ -34,12 +34,6 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BasicKStyle_Btn"
-                android:onClick="goPostK"
-                android:text="goPostK"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/BasicKStyle_Btn"
                 android:onClick="goStackK"
                 android:text="goStackK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />

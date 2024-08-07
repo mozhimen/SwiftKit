@@ -25,10 +25,6 @@ class BasicKActivity : BaseActivityVDB<ActivityBasickBinding>() {
         startContext<ManifestKActivity>()
     }
 
-    fun goPostK(view: View) {
-        startContext<PostKActivity>()
-    }
-
     fun goStackK(view: View) {
         startContext<StackKActivity>()
     }
