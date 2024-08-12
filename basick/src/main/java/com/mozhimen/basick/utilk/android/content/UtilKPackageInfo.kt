@@ -110,6 +110,8 @@ object UtilKPackageInfo : BaseUtilK() {
             0
         }
 
+    /////////////////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun hasPackage(context: Context, strPackageName: String): Boolean =
         try {

@@ -1,16 +1,14 @@
 package com.mozhimen.basick.stackk.cb.helpers
 
 import android.app.Activity
-import android.app.Application
 import android.os.Bundle
 import com.mozhimen.basick.elemk.android.app.bases.BaseActivityLifecycleCallbacks
-import com.mozhimen.postk.livedata.PostKEventLiveData
 import com.mozhimen.basick.stackk.annors.ALifecycleOpportunity
 import com.mozhimen.basick.stackk.commons.IStackK
 import com.mozhimen.basick.stackk.commons.IStackKLifecycle
 import com.mozhimen.basick.stackk.commons.IStackKListener
-import com.mozhimen.basick.stackk.cons.CStackKCons
 import com.mozhimen.basick.stackk.cons.SLifecycleCallbackEvent
+import com.mozhimen.basick.stackk.impls.StackKActivityLifecycleCallbacks
 import com.mozhimen.basick.stackk.utils.StackKUtil
 import com.mozhimen.basick.utilk.android.app.UtilKApplicationWrapper
 import com.mozhimen.basick.utilk.android.app.isFinishingOrDestroyed
@@ -29,7 +27,7 @@ import java.lang.ref.WeakReference
 internal class StackKCbDelegate : IStackK, IStackKLifecycle {
     private val _activityRefs = ArrayList<WeakReference<Activity>>()
     private val _frontBackListeners = ArrayList<IStackKListener>()
-    private val _activityLifecycleCallbacks = ArrayList<Application.ActivityLifecycleCallbacks>()
+    private val _stackKActivityLifecycleCallbacks = ArrayList<StackKActivityLifecycleCallbacks>()
     private var _activityLaunchCount = 0
     private var _isFront = true
 
@@ -52,18 +50,18 @@ internal class StackKCbDelegate : IStackK, IStackKLifecycle {
     override fun getFrontBackListeners(): ArrayList<IStackKListener> =
         _frontBackListeners
 
-    override fun addActivityLifecycleCallbacks(listener: Application.ActivityLifecycleCallbacks) {
-        if (!_activityLifecycleCallbacks.contains(listener))
-            _activityLifecycleCallbacks.add(listener)
+    override fun addStackKActivityLifecycleCallbacks(listener: StackKActivityLifecycleCallbacks) {
+        if (!_stackKActivityLifecycleCallbacks.contains(listener))
+            _stackKActivityLifecycleCallbacks.add(listener)
     }
 
-    override fun removeActivityLifecycleCallbacks(listener: Application.ActivityLifecycleCallbacks) {
-        if (_activityLifecycleCallbacks.contains(listener))
-            _activityLifecycleCallbacks.remove(listener)
+    override fun removeStackKActivityLifecycleCallbacks(listener: StackKActivityLifecycleCallbacks) {
+        if (_stackKActivityLifecycleCallbacks.contains(listener))
+            _stackKActivityLifecycleCallbacks.remove(listener)
     }
 
-    override fun getActivityLifecycleCallbacks(): List<Application.ActivityLifecycleCallbacks> =
-        _activityLifecycleCallbacks
+    override fun getStackKActivityLifecycleCallbacks(): List<StackKActivityLifecycleCallbacks> =
+        _stackKActivityLifecycleCallbacks
 
     override fun getStackTopActivity(): Activity? =
         getStackTopActivityRef()?.get()
@@ -101,7 +99,7 @@ internal class StackKCbDelegate : IStackK, IStackKLifecycle {
 
     override fun finishAllActivity() {
         for (activityRef in _activityRefs) {
-            if (activityRef.get()?.isFinishing == false) {
+            if (activityRef.get()?.isFinishingOrDestroyed() == false) {
                 activityRef.get()?.finish()
             }
         }
@@ -124,9 +122,20 @@ internal class StackKCbDelegate : IStackK, IStackKLifecycle {
 
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    private fun postEventFirstActivity() {
+    private fun postEvent_FirstActivityPreCreated(activity: Activity, savedInstanceState: Bundle?) {
         if (getStackCount() == 1)
-            com.mozhimen.postk.livedata.PostKEventLiveData.instance.with<Boolean>(CStackKCons.Event.STACKK_FIRST_ACTIVITY).setValue(true)
+            onLifecycleChanged(activity, SLifecycleCallbackEvent.ON_CTRATE_FIRST(savedInstanceState), ALifecycleOpportunity.PRE)
+//            com.mozhimen.postk.livedata.PostKEventLiveData.instance.with<Boolean>(CStackKCons.Event.STACKK_FIRST_ACTIVITY).setValue(true)
+    }
+
+    private fun postEvent_FirstActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+        if (getStackCount() == 1)
+            onLifecycleChanged(activity, SLifecycleCallbackEvent.ON_CTRATE_FIRST(savedInstanceState), ALifecycleOpportunity.AT)
+    }
+
+    private fun postEvent_FirstActivityPostCreated(activity: Activity, savedInstanceState: Bundle?) {
+        if (getStackCount() == 1)
+            onLifecycleChanged(activity, SLifecycleCallbackEvent.ON_CTRATE_FIRST(savedInstanceState), ALifecycleOpportunity.POST)
     }
 
     private fun onFrontBackChanged(isFront: Boolean, activity: Activity) {
@@ -136,7 +145,7 @@ internal class StackKCbDelegate : IStackK, IStackKLifecycle {
     }
 
     private fun onLifecycleChanged(activity: Activity, event: SLifecycleCallbackEvent, @ALifecycleOpportunity opportunity: Int) {
-        _activityLifecycleCallbacks.ifNotEmpty { callbacks ->
+        _stackKActivityLifecycleCallbacks.ifNotEmpty { callbacks ->
             callbacks.forEach { callback ->
                 if (opportunity == ALifecycleOpportunity.AT) {
                     StackKUtil.onLifecycleChangedAt(activity, event, callback)
@@ -154,18 +163,20 @@ internal class StackKCbDelegate : IStackK, IStackKLifecycle {
     private inner class InnerActivityLifecycleCallbacks : BaseActivityLifecycleCallbacks() {
         override fun onActivityPreCreated(activity: Activity, savedInstanceState: Bundle?) {
             super.onActivityPreCreated(activity, savedInstanceState)
+            _activityRefs.add(activity.t2weakRef())
+            postEvent_FirstActivityPreCreated(activity, savedInstanceState)
             onLifecycleChanged(activity, SLifecycleCallbackEvent.ON_CREATE(savedInstanceState), ALifecycleOpportunity.PRE)
         }
 
         override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
             super.onActivityCreated(activity, savedInstanceState)
-            _activityRefs.add(activity.t2weakRef())
-            postEventFirstActivity()
+            postEvent_FirstActivityCreated(activity, savedInstanceState)
             onLifecycleChanged(activity, SLifecycleCallbackEvent.ON_CREATE(savedInstanceState), ALifecycleOpportunity.AT)
         }
 
         override fun onActivityPostCreated(activity: Activity, savedInstanceState: Bundle?) {
             super.onActivityPostCreated(activity, savedInstanceState)
+            postEvent_FirstActivityPostCreated(activity, savedInstanceState)
             onLifecycleChanged(activity, SLifecycleCallbackEvent.ON_CREATE(savedInstanceState), ALifecycleOpportunity.POST)
         }
 

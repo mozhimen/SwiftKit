@@ -5,6 +5,7 @@ import android.app.Application
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.stackk.cons.SLifecycleCallbackEvent
+import com.mozhimen.basick.stackk.impls.StackKActivityLifecycleCallbacks
 
 /**
  * @ClassName StackKUtil
@@ -16,8 +17,9 @@ import com.mozhimen.basick.stackk.cons.SLifecycleCallbackEvent
 object StackKUtil {
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
-    fun onLifecycleChangedPre(activity: Activity, event: SLifecycleCallbackEvent, callback: Application.ActivityLifecycleCallbacks) {
+    fun onLifecycleChangedPre(activity: Activity, event: SLifecycleCallbackEvent, callback: StackKActivityLifecycleCallbacks) {
         when (event) {
+            is SLifecycleCallbackEvent.ON_CTRATE_FIRST -> callback.onFirstActivityPreCreated(activity, event.saveinstancestate)
             is SLifecycleCallbackEvent.ON_CREATE -> callback.onActivityPreCreated(activity, event.savedInstanceState)
             SLifecycleCallbackEvent.ON_START -> callback.onActivityPreStarted(activity)
             SLifecycleCallbackEvent.ON_RESUME -> callback.onActivityPreResumed(activity)
@@ -29,8 +31,9 @@ object StackKUtil {
     }
 
     @JvmStatic
-    fun onLifecycleChangedAt(activity: Activity, event: SLifecycleCallbackEvent, callback: Application.ActivityLifecycleCallbacks) {
+    fun onLifecycleChangedAt(activity: Activity, event: SLifecycleCallbackEvent, callback: StackKActivityLifecycleCallbacks) {
         when (event) {
+            is SLifecycleCallbackEvent.ON_CTRATE_FIRST -> callback.onFirstActivityCreated(activity, event.saveinstancestate)
             is SLifecycleCallbackEvent.ON_CREATE -> callback.onActivityCreated(activity, event.savedInstanceState)
             SLifecycleCallbackEvent.ON_START -> callback.onActivityStarted(activity)
             SLifecycleCallbackEvent.ON_RESUME -> callback.onActivityResumed(activity)
@@ -43,8 +46,9 @@ object StackKUtil {
 
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
-    fun onLifecycleChangedPost(activity: Activity, event: SLifecycleCallbackEvent, callback: Application.ActivityLifecycleCallbacks) {
+    fun onLifecycleChangedPost(activity: Activity, event: SLifecycleCallbackEvent, callback: StackKActivityLifecycleCallbacks) {
         when (event) {
+            is SLifecycleCallbackEvent.ON_CTRATE_FIRST -> callback.onFirstActivityPostCreated(activity, event.saveinstancestate)
             is SLifecycleCallbackEvent.ON_CREATE -> callback.onActivityPostCreated(activity, event.savedInstanceState)
             SLifecycleCallbackEvent.ON_START -> callback.onActivityPostStarted(activity)
             SLifecycleCallbackEvent.ON_RESUME -> callback.onActivityPostResumed(activity)
