@@ -10,7 +10,8 @@ import android.os.Bundle
  * @Version 1.0
  */
 sealed class SLifecycleCallbackEvent {
-    data class ON_CREATE(val savedInstanceState: Bundle?) : SLifecycleCallbackEvent()
+    data class ON_CTRATE_FIRST(val saveinstancestate: Bundle?) : SLifecycleCallbackEvent()
+    data class ON_CREATE constructor(val savedInstanceState: Bundle?) : SLifecycleCallbackEvent()
     object ON_START : SLifecycleCallbackEvent()
     object ON_RESUME : SLifecycleCallbackEvent()
     object ON_PAUSE : SLifecycleCallbackEvent()

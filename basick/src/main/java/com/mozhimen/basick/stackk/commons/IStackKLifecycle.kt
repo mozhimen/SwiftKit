@@ -1,6 +1,6 @@
 package com.mozhimen.basick.stackk.commons
 
-import android.app.Application
+import com.mozhimen.basick.stackk.impls.StackKActivityLifecycleCallbacks
 
 /**
  * @ClassName IStackKLifecycle
@@ -13,15 +13,15 @@ interface IStackKLifecycle {
     /**
      * 增加栈监听器
      */
-    fun addActivityLifecycleCallbacks(listener: Application.ActivityLifecycleCallbacks)
+    fun addStackKActivityLifecycleCallbacks(listener: StackKActivityLifecycleCallbacks)
 
     /**
      * 移除栈监听器
      */
-    fun removeActivityLifecycleCallbacks(listener: Application.ActivityLifecycleCallbacks)
+    fun removeStackKActivityLifecycleCallbacks(listener: StackKActivityLifecycleCallbacks)
 
     /**
      * 获取监听器集合
      */
-    fun getActivityLifecycleCallbacks(): List<Application.ActivityLifecycleCallbacks>
+    fun getStackKActivityLifecycleCallbacks(): List<StackKActivityLifecycleCallbacks>
 }
