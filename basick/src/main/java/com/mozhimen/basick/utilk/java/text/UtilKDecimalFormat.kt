@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk.java.text
 
-import com.mozhimen.basick.utilk.kotlin.text.addStart_of0_ofDot
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
@@ -12,59 +11,14 @@ import java.util.Locale
  * @Date 2023/10/29 14:40
  * @Version 1.0
  */
-fun Double.getStrDecimal(bit: Int, locale: Locale? = null): String =
-    UtilKDecimalFormat.getStrDecimal(this, bit,locale)
-
-fun Double.getDoubleDecimal(bit: Int,locale: Locale? = null): Double =
-    UtilKDecimalFormat.getDoubleDecimal(this, bit,locale)
-
-fun Float.getStrDecimal(bit: Int,locale: Locale? = null): String =
-    UtilKDecimalFormat.getStrDecimal(this,bit, locale)
-
-fun Float.getFloatDecimal(bit: Int,locale: Locale? = null): Float =
-    UtilKDecimalFormat.getFloatDecimal(this,bit, locale)
-
-//////////////////////////////////////////////////////////////////////
-
-fun Double.getStrDecimal_of1(locale: Locale? = null): String =
-    UtilKDecimalFormat.getStrDecimal_of1(this, locale)
-
-fun Double.getDoubleDecimal_of1(locale: Locale? = null): Double =
-    UtilKDecimalFormat.getDoubleDecimal_of1(this, locale)
-
-fun Float.getStrDecimal_of1(locale: Locale? = null): String =
-    UtilKDecimalFormat.getStrDecimal_of1(this, locale)
-
-fun Float.getFloatDecimal_of1(locale: Locale? = null): Float =
-    UtilKDecimalFormat.getFloatDecimal_of1(this, locale)
-
-//////////////////////////////////////////////////////////////////////
-
-fun Double.getStrDecimal_of2(locale: Locale? = null): String =
-    UtilKDecimalFormat.getStrDecimal_of2(this, locale)
-
-fun Double.getDoubleDecimal_of2(locale: Locale? = null): Double =
-    UtilKDecimalFormat.getDoubleDecimal_of2(this, locale)
-
-fun Float.getStrDecimal_of2(locale: Locale? = null): String =
-    UtilKDecimalFormat.getStrDecimal_of2(this, locale)
-
-fun Float.getFloatDecimal_of2(locale: Locale? = null): Float =
-    UtilKDecimalFormat.getFloatDecimal_of2(this, locale)
-
-//////////////////////////////////////////////////////////////////////
-
 object UtilKDecimalFormat {
     @JvmStatic
     fun get(pattern: String): DecimalFormat =
         DecimalFormat(pattern/*, DecimalFormatSymbols()*/)
 
     @JvmStatic
-    fun get(pattern: String, locale: Locale?): DecimalFormat =
-        if (locale == null)
-            get(pattern)
-        else
-            DecimalFormat(pattern, DecimalFormatSymbols(locale))
+    fun get(pattern: String, locale: Locale): DecimalFormat =
+        DecimalFormat(pattern, DecimalFormatSymbols(locale))
 
     //////////////////////////////////////////////////////////////////////
 
@@ -74,48 +28,6 @@ object UtilKDecimalFormat {
         repeat(bit) {
             pattern += "0"
         }
-        return get(pattern, locale)
+        return locale?.let { get(pattern, it) } ?: get(pattern)
     }
-
-    //////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun getStrDecimal(obj: Any, bit: Int, locale: Locale?): String =
-        get_ofBit(bit, locale).format(obj).addStart_of0_ofDot()
-
-    @JvmStatic
-    fun getDoubleDecimal(obj: Any, bit: Int, locale: Locale?): Double =
-        get_ofBit(bit, locale).format(obj).addStart_of0_ofDot().toDouble()
-
-    @JvmStatic
-    fun getFloatDecimal(obj: Any, bit: Int, locale: Locale?): Float =
-        get_ofBit(bit, locale).format(obj).addStart_of0_ofDot().toFloat()
-
-    //////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun getStrDecimal_of1(obj: Any, locale: Locale? = null): String =
-        getStrDecimal(obj, 1, locale)
-
-    @JvmStatic
-    fun getDoubleDecimal_of1(obj: Any, locale: Locale? = null): Double =
-        getDoubleDecimal(obj, 1, locale)
-
-    @JvmStatic
-    fun getFloatDecimal_of1(obj: Any, locale: Locale? = null): Float =
-        getFloatDecimal(obj, 1, locale)
-
-    //////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun getStrDecimal_of2(obj: Any, locale: Locale? = null): String =
-        getStrDecimal(obj, 2, locale)
-
-    @JvmStatic
-    fun getDoubleDecimal_of2(obj: Any, locale: Locale? = null): Double =
-        getDoubleDecimal(obj, 2, locale)
-
-    @JvmStatic
-    fun getFloatDecimal_of2(obj: Any, locale: Locale? = null): Float =
-        getFloatDecimal(obj, 2, locale)
 }

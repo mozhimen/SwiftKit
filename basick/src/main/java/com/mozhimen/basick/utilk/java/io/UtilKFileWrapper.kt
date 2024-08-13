@@ -10,7 +10,7 @@ import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.util.UtilKZipOutputStream
-import com.mozhimen.basick.utilk.java.util.longDate2strDate
+import com.mozhimen.basick.utilk.java.text.longDate2strDate
 import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import java.io.File
 import java.io.IOException
@@ -139,7 +139,7 @@ object UtilKFileWrapper : BaseUtilK() {
 
     //文件创建时间
     @JvmStatic
-    fun getFileCreateTimeStr(file: File, formatDate: String = CDateFormat.yyyy_MM_dd_HH_mm_ss): String =
+    fun getFileCreateTimeStr(file: File, formatDate: String = CDateFormat.Format.yyyy_MM_dd_HH_mm_ss): String =
         getFileCreateTime(file).longDate2strDate(formatDate)
 
     //Returns the uncompressed input stream if gzip compressed.

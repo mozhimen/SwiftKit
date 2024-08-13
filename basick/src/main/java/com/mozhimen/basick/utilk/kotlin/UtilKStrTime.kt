@@ -67,7 +67,7 @@ object UtilKStrTime {
      */
     @JvmStatic
     fun isStrTime_ofHH(strTime_HH: String): Boolean =
-        isStrTime_ofHH(strTime_HH, UtilKDateWrapper.getNowStr(CDateFormat.HH_mm))
+        isStrTime_ofHH(strTime_HH, UtilKDateWrapper.getNowStr(CDateFormat.Format.HH_mm))
 
     /**
      * 是否是指定整点
@@ -87,7 +87,7 @@ object UtilKStrTime {
     //是否是整小时
     @JvmStatic
     fun isStrTime_ofmm(): Boolean =
-        isStrTime_ofHH(UtilKDateWrapper.getNowStr(CDateFormat.mm))
+        isStrTime_ofHH(UtilKDateWrapper.getNowStr(CDateFormat.Format.mm))
 
     /**
      * 是否是整小时

@@ -62,7 +62,7 @@ internal class StackKProcessDelegate : IStackK {
     override fun getStackTopActivityRef(onlyAlive: Boolean): WeakReference<Activity>? =
         StackKCb.instance.getStackTopActivityRef(onlyAlive)
 
-    override fun getActivityRefs(): ArrayList<WeakReference<Activity>> =
+    override fun getActivityRefs(): List<WeakReference<Activity>> =
         StackKCb.instance.getActivityRefs()
 
     override fun getStackCount(): Int =
@@ -86,7 +86,7 @@ internal class StackKProcessDelegate : IStackK {
 
     private fun onFrontBackChanged(isFront: Boolean, activity: Activity) {
         for (listener in _frontBackListeners) {
-            listener.onChanged(isFront, WeakReference(activity))
+            listener.onChanged(isFront, /*WeakReference(*/activity)
         }
     }
 

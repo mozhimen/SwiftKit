@@ -48,7 +48,7 @@ object UtilKStrProcess : BaseUtilK() {
 
     @JvmStatic
     fun getStrProcessName_ofCurrent_ofActivityManager(): String? =
-        UtilKRunningAppProcessInfo.getProcessName(_context)
+        UtilKRunningAppProcessInfo.getProcessName_ofCur(_context)
 
     @JvmStatic
     fun getStrProcessName_ofCurrent_ofReflect(): String? {

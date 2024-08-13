@@ -46,7 +46,7 @@ interface IStackK {
      * 获取activity集合
      * @return List<WeakReference<Activity>>
      */
-    fun getActivityRefs(): ArrayList<WeakReference<Activity>>
+    fun getActivityRefs(): List<WeakReference<Activity>>
 
     /////////////////////////////////////////////////////////////////
 

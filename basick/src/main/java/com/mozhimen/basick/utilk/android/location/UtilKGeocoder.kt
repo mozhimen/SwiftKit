@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.android.location
 
 import android.content.Context
 import android.location.Geocoder
+import com.mozhimen.basick.utilk.java.util.UtilKLocale
 import java.util.Locale
 
 
@@ -14,6 +15,6 @@ import java.util.Locale
  */
 object UtilKGeocoder {
     @JvmStatic
-    fun get(context: Context, locale: Locale = Locale.getDefault()): Geocoder =
+    fun get(context: Context, locale: Locale = UtilKLocale.get_ofDefault()): Geocoder =
         Geocoder(context, locale)
 }

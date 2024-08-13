@@ -70,7 +70,7 @@ fun InputStream.inputStream2strMd5Hex_use_ofHexString(): String =
     UtilKInputStreamFormat.inputStream2strMd5Hex_use_ofHexString(this)
 
 fun InputStream.inputStream2str_use_ofBufferedReader(charset: String? = null, bufferSize: Int = 1024, isAddLineBreak: Boolean = false): String =
-    UtilKInputStreamFormat.inputStream2str_use_ofBufferedReader(this, charset, bufferSize,isAddLineBreak)
+    UtilKInputStreamFormat.inputStream2str_use_ofBufferedReader(this, charset, bufferSize, isAddLineBreak)
 
 fun InputStream.inputStream2str_use_ofBytesOutStream(byteArrayOutputStream: ByteArrayOutputStream): String =
     UtilKInputStreamFormat.inputStream2str_use_ofBytesOutStream(this, byteArrayOutputStream)
@@ -129,6 +129,12 @@ fun InputStream.inputStream2file_use_ofFileUtils(strFilePathNameDest: String, is
 @RequiresApi(CVersCode.V_29_10_Q)
 fun InputStream.inputStream2file_use_ofFileUtils(fileDest: File, isAppend: Boolean = false): File? =
     UtilKInputStreamFormat.inputStream2file_use_ofFileUtils(this, fileDest, isAppend)
+
+fun InputStream.inputStream2file_use_ofReadWriteBytes(strFilePathNameDest: String): File? =
+    UtilKInputStreamFormat.inputStream2file_use_ofReadWriteBytes(this, strFilePathNameDest)
+
+fun InputStream.inputStream2file_use_ofReadWriteBytes(fileDest: File): File? =
+    UtilKInputStreamFormat.inputStream2file_use_ofReadWriteBytes(this, fileDest)
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -358,6 +364,19 @@ object UtilKInputStreamFormat : IUtilK {
     }
 
     @JvmStatic
-    fun inputStream2file_use_ofReadWriteBytes
+    fun inputStream2file_use_ofReadWriteBytes(inputStream: InputStream, strFilePathNameDest: String): File? =
+        inputStream2file_use_ofReadWriteBytes(inputStream, strFilePathNameDest.createFile())
+
+    @JvmStatic
+    fun inputStream2file_use_ofReadWriteBytes(inputStream: InputStream, fileDest: File): File? {
+        UtilKFileWrapper.createFile(fileDest)
+        try {
+            UtilKInputStream.read_write_use_ofReadWriteBytes(inputStream, fileDest)
+            return fileDest
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
+    }
 }
 

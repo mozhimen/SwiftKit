@@ -13,9 +13,12 @@ import com.mozhimen.basick.stackk.utils.StackKUtil
 import com.mozhimen.basick.utilk.android.app.UtilKApplicationWrapper
 import com.mozhimen.basick.utilk.android.app.isFinishingOrDestroyed
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import com.mozhimen.basick.utilk.kotlin.collections.containsBy
 import com.mozhimen.basick.utilk.kotlin.collections.ifNotEmpty
+import com.mozhimen.basick.utilk.kotlin.collections.removeBy
 import com.mozhimen.basick.utilk.kotlin.t2weakRef
 import java.lang.ref.WeakReference
+import java.util.LinkedList
 
 /**
  * @ClassName StackKCbProxy
@@ -25,7 +28,7 @@ import java.lang.ref.WeakReference
  * @Version 1.0
  */
 internal class StackKCbDelegate : IStackK, IStackKLifecycle {
-    private val _activityRefs = ArrayList<WeakReference<Activity>>()
+    private val _activityRefs = LinkedList<WeakReference<Activity>>()
     private val _frontBackListeners = ArrayList<IStackKListener>()
     private val _stackKActivityLifecycleCallbacks = ArrayList<StackKActivityLifecycleCallbacks>()
     private var _activityLaunchCount = 0
@@ -73,11 +76,11 @@ internal class StackKCbDelegate : IStackK, IStackKLifecycle {
         getStackTopActivityRef(true)
 
     override fun getStackTopActivityRef(onlyAlive: Boolean): WeakReference<Activity>? {
-        if (getStackCount() <= 0) {
+        if (getStackCount() <= 0 || _activityRefs.isEmpty()) {
             return null
         } else {
-            val activityRef: WeakReference<Activity> = _activityRefs[getStackCount() - 1]
-            val activity: Activity? = activityRef.get()
+            val activityRef: WeakReference<Activity>? = _activityRefs.last
+            val activity: Activity? = activityRef?.get()
             if (onlyAlive) {
                 if (activity == null || activity.isFinishingOrDestroyed()) {
                     _activityRefs.remove(activityRef)
@@ -88,7 +91,7 @@ internal class StackKCbDelegate : IStackK, IStackKLifecycle {
         }
     }
 
-    override fun getActivityRefs(): ArrayList<WeakReference<Activity>> =
+    override fun getActivityRefs(): List<WeakReference<Activity>> =
         _activityRefs
 
     override fun getStackCount(): Int =
@@ -140,7 +143,7 @@ internal class StackKCbDelegate : IStackK, IStackKLifecycle {
 
     private fun onFrontBackChanged(isFront: Boolean, activity: Activity) {
         for (listener in _frontBackListeners) {
-            listener.onChanged(isFront, activity.t2weakRef())
+            listener.onChanged(isFront, activity/*.t2weakRef()*/)
         }
     }
 
@@ -257,16 +260,7 @@ internal class StackKCbDelegate : IStackK, IStackKLifecycle {
 
         override fun onActivityDestroyed(activity: Activity) {
             super.onActivityDestroyed(activity)
-            if (UtilKBuildVersion.isAfterV_24_7_N()) {
-                _activityRefs.removeIf { it.get() == activity }
-            } else {
-                for (activityRef in _activityRefs) {
-                    if (activityRef.get() == activity) {
-                        _activityRefs.remove(activityRef)
-                        break
-                    }
-                }
-            }
+            _activityRefs.removeBy { it.get() == activity }
             onLifecycleChanged(activity, SLifecycleCallbackEvent.ON_DESTROY, ALifecycleOpportunity.AT)
         }
 

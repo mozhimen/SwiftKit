@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.java.util
 
+import com.mozhimen.basick.utilk.java.text.UtilKSimpleDateFormatFormat
 import java.util.Date
 
 /**
@@ -33,8 +34,8 @@ object UtilKDate {
     //时间比较
     @JvmStatic
     fun compareTo(strDate1: String, strDate2: String, strFormatDate: String): Int? {
-        val date1 = UtilKDateWrapper.strDate2date(strDate1, strFormatDate)
-        val date2 = UtilKDateWrapper.strDate2date(strDate2, strFormatDate)
+        val date1 = UtilKSimpleDateFormatFormat.strDate2date(strDate1, strFormatDate)
+        val date2 = UtilKSimpleDateFormatFormat.strDate2date(strDate2, strFormatDate)
         if (date1 == null || date2 == null) return null
         return compareTo(date1, date2)
     }

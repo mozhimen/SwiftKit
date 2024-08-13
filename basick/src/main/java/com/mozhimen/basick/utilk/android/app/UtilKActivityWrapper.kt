@@ -5,7 +5,6 @@ import android.app.Dialog
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
-import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -16,12 +15,15 @@ import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.lintk.optins.OApiInit_InApplication
 import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
 import com.mozhimen.basick.stackk.cb.StackKCb
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.utilk.android.view.UtilKContentView
 import com.mozhimen.basick.utilk.android.view.UtilKDecorView
 import com.mozhimen.basick.utilk.android.view.UtilKWindowManagerWrapper
 import com.mozhimen.basick.utilk.androidx.appcompat.UtilKAlertDialog
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.kotlin.UtilKClazz
+import com.mozhimen.basick.utilk.kotlin.strPackage2clazz
+import java.lang.reflect.InvocationTargetException
 
 /**
  * @ClassName UtilKActivityWrapper
@@ -116,6 +118,41 @@ object UtilKActivityWrapper : IUtilK {
             activity = StackKCb.instance.getStackTopActivity()
         }
         return activity
+    }
+
+    @JvmStatic
+    fun get_ofTop_ofReflect(): Activity? {
+        try {
+            val clazzActivityThread = "android.app.ActivityThread".strPackage2clazz()
+            val methodCurrentActivityThread = clazzActivityThread.getMethod("currentActivityThread").invoke(null)
+            val field_mActivityList = clazzActivityThread.getDeclaredField("mActivityList")
+            if (!field_mActivityList.isAccessible)
+                field_mActivityList.isAccessible = true
+            val activityMap: Map<*, *> = field_mActivityList[methodCurrentActivityThread] as Map<*, *>
+            for (activity in activityMap.values) {
+                val clazz_activityRecord: Class<*> = activity?.javaClass ?: continue
+                val field_paused = clazz_activityRecord.getDeclaredField("paused")
+                if (!field_paused.isAccessible)
+                    field_paused.isAccessible = true
+                if (!field_paused.getBoolean(activity)) {
+                    val field_activity = clazz_activityRecord.getDeclaredField("activity")
+                    if (!field_activity.isAccessible)
+                        field_activity.isAccessible = true
+                    return field_activity[activity] as Activity
+                }
+            }
+        } catch (e: ClassNotFoundException) {
+            e.printStackTrace()
+        } catch (e: IllegalAccessException) {
+            e.printStackTrace()
+        } catch (e: InvocationTargetException) {
+            e.printStackTrace()
+        } catch (e: NoSuchMethodException) {
+            e.printStackTrace()
+        } catch (e: NoSuchFieldException) {
+            e.printStackTrace()
+        }
+        return null
     }
 
     /////////////////////////////////////////////////////////////////////////

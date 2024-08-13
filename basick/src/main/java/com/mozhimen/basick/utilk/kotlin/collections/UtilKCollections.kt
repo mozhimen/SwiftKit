@@ -13,6 +13,9 @@ import java.util.stream.Collectors
  * @Date 2024/4/11
  * @Version 1.0
  */
+fun <T> MutableCollection<T>.removeBy(predicate: IA_BListener<T, Boolean>): Boolean =
+    UtilKCollections.removeBy(this, predicate)
+
 inline fun <T, K> Iterable<T>.associateByNotNull(keySelector: (T) -> K?): Map<K, T> =
     UtilKCollections.associateByNotNull(this, keySelector)
 
@@ -55,6 +58,26 @@ fun <K, V> Map<K, V>.map2str(): String =
 ///////////////////////////////////////////////////////////////////////
 
 object UtilKCollections {
+
+    @JvmStatic
+    fun <T> removeBy(collection: MutableCollection<T>, predicate: IA_BListener<T, Boolean>): Boolean {
+        if (UtilKBuildVersion.isAfterV_24_7_N()) {
+            return collection.removeIf(predicate)
+        } else {
+            var removed = false
+            val iterator = collection.iterator()
+            while (iterator.hasNext()) {
+                val obj = iterator.next()
+                if (predicate.invoke(obj)) {
+                    iterator.remove()
+                    removed = true
+                    break
+                }
+            }
+            return removed
+        }
+    }
+
     @JvmStatic
     inline fun <T, K> associateByNotNull(iterator: Iterable<T>, keySelector: (T) -> K?): Map<K, T> {
         return iterator.map { keySelector(it) to it }

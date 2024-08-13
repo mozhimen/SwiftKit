@@ -8,7 +8,7 @@ import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_PRIVILEGED_PHONE_STATE
 import com.mozhimen.basick.utilk.kotlin.array2str
-import com.mozhimen.basick.utilk.java.util.longDate2strDate
+import com.mozhimen.basick.utilk.java.text.longDate2strDate
 
 /**
  * @ClassName UtilKBuild
@@ -142,5 +142,5 @@ object UtilKBuild {
     //构建内部时间
     @JvmStatic
     fun getTime(): String =
-        Build.TIME.longDate2strDate(CDateFormat.yyyy_MM_dd_HH_mm_ss)
+        Build.TIME.longDate2strDate(CDateFormat.Format.yyyy_MM_dd_HH_mm_ss)
 }

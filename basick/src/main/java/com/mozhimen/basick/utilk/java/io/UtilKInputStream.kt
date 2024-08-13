@@ -10,6 +10,7 @@ import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.kotlin.long2strCrc32
 import com.mozhimen.basick.utilk.kotlin.ranges.constraint
 import java.io.ByteArrayOutputStream
+import java.io.File
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.zip.CRC32
@@ -132,5 +133,10 @@ object UtilKInputStream : IUtilK {
     @RequiresApi(CVersCode.V_29_10_Q)
     fun read_write_use_ofFileUtils(inputStream: InputStream, outputStream: OutputStream) {
         UtilKFileUtils.copy_use(inputStream, outputStream)
+    }
+
+    @JvmStatic
+    fun read_write_use_ofReadWriteBytes(inputStream: InputStream, file: File) {
+        file.writeBytes(inputStream.readBytes())
     }
 }

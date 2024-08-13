@@ -5,8 +5,6 @@ import com.mozhimen.basick.lintk.optins.OApiInit_InApplication
 import com.mozhimen.basick.stackk.cb.helpers.StackKCbDelegate
 import com.mozhimen.basick.stackk.commons.IStackK
 import com.mozhimen.basick.stackk.commons.IStackKLifecycle
-import com.mozhimen.basick.stackk.commons.IStackKListener
-
 /**
  * @ClassName StackKCb
  * @Description 提供前后台状态监听 以及栈顶activity的服务

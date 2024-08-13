@@ -79,6 +79,10 @@ object UtilKContextDir {
         @JvmStatic
         fun getPatchDir(context: Context): File =
             UtilKContext.getDir(context, "patch", CContext.MODE_PRIVATE)
+
+        @JvmStatic
+        fun getDex2optDir(context: Context): File =
+            UtilKContext.getDir(context, "dex2opt", CContext.MODE_PRIVATE)
     }
 
     /**

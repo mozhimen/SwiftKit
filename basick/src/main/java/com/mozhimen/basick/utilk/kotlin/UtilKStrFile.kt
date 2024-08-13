@@ -164,12 +164,12 @@ object UtilKStrFile : IUtilK {
 
     @JvmStatic
     fun getStrFileName_ofToday(locale: Locale = Locale.CHINA): String =
-        getStrFileName(CDateFormat.yyyy_MM_dd, locale)
+        getStrFileName(CDateFormat.Format.yyyy_MM_dd, locale)
 
     //当前小时转文件名
     @JvmStatic
     fun getStrFileName_ofCurrentHour(locale: Locale = Locale.CHINA): String =
-        getStrFileName(CDateFormat.yyyy_MM_dd_HH, locale)
+        getStrFileName(CDateFormat.Format.yyyy_MM_dd_HH, locale)
 
     /**
      * 当前时间转文件名
@@ -181,7 +181,7 @@ object UtilKStrFile : IUtilK {
 
     //时间转文件名
     @JvmStatic
-    fun getStrFileName(formatDate: String = CDateFormat.yyyy_MM_dd_HH_mm_ss, locale: Locale = Locale.CHINA): String =
+    fun getStrFileName(formatDate: String = CDateFormat.Format.yyyy_MM_dd_HH_mm_ss, locale: Locale = Locale.CHINA): String =
         UtilKDateWrapper.getNowStr(formatDate, locale).replace(" ", "~").replace(":", "-")
 
     /////////////////////////////////////////////////////////////////
