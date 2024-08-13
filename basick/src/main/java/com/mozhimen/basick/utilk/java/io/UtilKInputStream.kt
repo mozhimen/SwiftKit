@@ -62,6 +62,8 @@ object UtilKInputStream : IUtilK {
     fun read_use(inputStream: InputStream, bytes: ByteArray): Int =
         inputStream.use { inputStream.read(bytes) }
 
+    ////////////////////////////////////////////////////////////////////////////
+
     @JvmStatic
     @Throws(Exception::class)
     fun read_write_use(inputStream: InputStream, outputStream: OutputStream) {

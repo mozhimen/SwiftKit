@@ -12,6 +12,7 @@ import com.mozhimen.basick.elemk.android.os.cons.CVersCode
  * @Version 1.0
  */
 object CContext {
+    const val MODE_PRIVATE = Context.MODE_PRIVATE
     const val VIBRATOR_SERVICE = Context.VIBRATOR_SERVICE
 
     @RequiresApi(CVersCode.V_31_12_S)

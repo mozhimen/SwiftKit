@@ -94,6 +94,10 @@ object UtilKContext {
 
     ////////////////////////////////////////////////////////////////////////
 
+    @JvmStatic
+    fun getDir(context: Context,name:String,mode: Int):File =
+        context.getDir(name, mode)
+
     /**
      * 系统空间不足时可能会删除
      */

@@ -356,5 +356,8 @@ object UtilKInputStreamFormat : IUtilK {
         }
         return null
     }
+
+    @JvmStatic
+    fun inputStream2file_use_ofReadWriteBytes
 }
 

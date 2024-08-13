@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.android.content
 
 import android.content.Context
 import androidx.annotation.RequiresApi
+import com.mozhimen.basick.elemk.android.content.cons.CContext
 import com.mozhimen.basick.elemk.android.os.cons.CEnvironment
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
@@ -74,6 +75,10 @@ object UtilKContextDir {
         @JvmStatic
         fun getPackageResourceDir(context: Context): String =
             UtilKContext.getPackageResourcePath(context)
+
+        @JvmStatic
+        fun getPatchDir(context: Context): File =
+            UtilKContext.getDir(context, "patch", CContext.MODE_PRIVATE)
     }
 
     /**
