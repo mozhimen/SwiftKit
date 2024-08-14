@@ -10,6 +10,8 @@ import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.stackk.cons.SLifecycleCallbackEvent
 import com.mozhimen.basick.stackk.impls.StackKActivityLifecycleCallbacks
 import com.mozhimen.basick.stackk.utils.StackKUtil
+import com.mozhimen.basick.utilk.android.app.UtilKActivityManager
+import com.mozhimen.basick.utilk.android.app.UtilKActivityWrapper
 import com.mozhimen.basick.utilk.android.app.UtilKApplicationWrapper
 import com.mozhimen.basick.utilk.android.app.isFinishingOrDestroyed
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
@@ -70,7 +72,7 @@ internal class StackKCbDelegate : IStackK, IStackKLifecycle {
         getStackTopActivityRef()?.get()
 
     override fun getStackTopActivity(onlyAlive: Boolean): Activity? =
-        getStackTopActivityRef(onlyAlive)?.get()
+        getStackTopActivityRef(onlyAlive)?.get() ?: UtilKActivityWrapper.get_ofTop_ofReflect()
 
     override fun getStackTopActivityRef(): WeakReference<Activity>? =
         getStackTopActivityRef(true)
@@ -166,13 +168,13 @@ internal class StackKCbDelegate : IStackK, IStackKLifecycle {
     private inner class InnerActivityLifecycleCallbacks : BaseActivityLifecycleCallbacks() {
         override fun onActivityPreCreated(activity: Activity, savedInstanceState: Bundle?) {
             super.onActivityPreCreated(activity, savedInstanceState)
-            _activityRefs.add(activity.t2weakRef())
             postEvent_FirstActivityPreCreated(activity, savedInstanceState)
             onLifecycleChanged(activity, SLifecycleCallbackEvent.ON_CREATE(savedInstanceState), ALifecycleOpportunity.PRE)
         }
 
         override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
             super.onActivityCreated(activity, savedInstanceState)
+            _activityRefs.add(activity.t2weakRef())
             postEvent_FirstActivityCreated(activity, savedInstanceState)
             onLifecycleChanged(activity, SLifecycleCallbackEvent.ON_CREATE(savedInstanceState), ALifecycleOpportunity.AT)
         }
