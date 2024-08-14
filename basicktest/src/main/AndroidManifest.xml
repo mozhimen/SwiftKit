@@ -26,7 +26,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit">
-
+        <activity
+            android:name=".utilk.android.UtilKDateFormatActivity"
+            android:exported="false" />
         <activity
             android:name=".utilk.kotlin.UtilKMathActivity"
             android:exported="false" />
@@ -49,26 +51,21 @@
 
         <activity
             android:name=".BasicKActivity"
-            android:exported="true">
-        </activity> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+            android:exported="true"></activity> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- animk -->
         <activity
             android:name=".animk.AnimKActivity"
             android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
-
         <!-- elemk -->
         <activity
             android:name=".elemk.androidx.ElemKLifecycleActivity"
-            android:exported="true">
-
-        </activity>
-
+            android:exported="true"></activity>
         <activity
             android:name=".elemk.androidx.ElemKLifecycleActivity2"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".elemk.androidx.ElemKLifecycleActivity3"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".elemk.androidx.ElemKAndroidXActivity"
             android:exported="false" />
@@ -113,7 +110,7 @@
             android:exported="false" />
         <activity
             android:name=".manifestk.ManifestKPermissionActivity"
-            android:exported="false" />  <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- stackk -->
         <activity
             android:name=".stackk.StackKActivity"
@@ -123,7 +120,7 @@
             android:exported="false" />
         <activity
             android:name=".stackk.StackKCbActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -150,7 +147,6 @@
             android:name=".taskk.TaskKCountDownActivity"
             android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- utilk -->
-
         <activity
             android:name=".utilk.UtilKActivity"
             android:exported="false" />

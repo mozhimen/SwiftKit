@@ -1,7 +1,8 @@
 package com.mozhimen.basick.utilk.java.text
 
 import android.annotation.SuppressLint
-import java.text.DateFormat
+import android.content.Context
+import com.mozhimen.basick.utilk.android.text.UtilKDateFormat
 import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -17,6 +18,18 @@ import java.util.Locale
 @SuppressLint("SimpleDateFormat")
 object UtilKSimpleDateFormat {
     @JvmStatic
+    fun get_ofShort(context: Context): SimpleDateFormat =
+        UtilKDateFormat.getDateFormat(context) as SimpleDateFormat
+
+    @JvmStatic
+    fun get_ofMedium(context: Context): SimpleDateFormat =
+        UtilKDateFormat.getMediumDateFormat(context) as SimpleDateFormat
+
+    @JvmStatic
+    fun get_ofLong(context: Context): SimpleDateFormat =
+        UtilKDateFormat.getLongDateFormat(context) as SimpleDateFormat
+
+    @JvmStatic
     fun get(pattern: String): SimpleDateFormat =
         SimpleDateFormat(pattern)
 
@@ -27,6 +40,12 @@ object UtilKSimpleDateFormat {
     @JvmStatic
     fun get(pattern: String, decimalFormatSymbols: DateFormatSymbols): SimpleDateFormat =
         SimpleDateFormat(pattern, decimalFormatSymbols)
+
+    ////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun toLocalizedPattern(simpleDateFormat: SimpleDateFormat): String =
+        simpleDateFormat.toLocalizedPattern()
 
     ////////////////////////////////////////////////////////////////////
 
