@@ -17,6 +17,7 @@ import com.mozhimen.basick.utilk.kotlin.bytes2strHex
 import com.mozhimen.basick.utilk.kotlin.bytes2strHex_ofHexString
 import com.mozhimen.basick.utilk.kotlin.bytes2strHex_ofBigInteger
 import com.mozhimen.basick.utilk.kotlin.createFile
+import com.mozhimen.basick.utilk.kotlin.strFilePath2file
 import java.io.BufferedInputStream
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -273,7 +274,7 @@ object UtilKInputStreamFormat : IUtilK {
 
     @JvmStatic
     fun inputStream2file_use(inputStream: InputStream, strFilePathNameDest: String, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
-        inputStream2file_use(inputStream, strFilePathNameDest.createFile(), isAppend, bufferSize, block)
+        inputStream2file_use(inputStream, strFilePathNameDest.strFilePath2file().apply { createFile() }, isAppend, bufferSize, block)
 
     @JvmStatic
     fun inputStream2file_use(inputStream: InputStream, fileDest: File, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? {
@@ -295,7 +296,7 @@ object UtilKInputStreamFormat : IUtilK {
 
     @JvmStatic
     fun inputStream2file_use_ofCopyTo(inputStream: InputStream, strFilePathNameDest: String): File =
-        inputStream2file_use_ofCopyTo(inputStream, strFilePathNameDest.createFile())
+        inputStream2file_use_ofCopyTo(inputStream, strFilePathNameDest.strFilePath2file().apply { createFile() })
 
     @JvmStatic
     fun inputStream2file_use_ofCopyTo(inputStream: InputStream, fileDest: File): File {
@@ -325,7 +326,7 @@ object UtilKInputStreamFormat : IUtilK {
         bufferSize: Int = 1024,
         block: IAB_Listener<Int, Float>? = null
     ): File? =
-        inputStream2file_use_ofBufferedOutStream(inputStream, strFilePathNameDest.createFile(), isAppend, bufferSize, block)
+        inputStream2file_use_ofBufferedOutStream(inputStream, strFilePathNameDest.strFilePath2file().apply { createFile() }, isAppend, bufferSize, block)
 
     @JvmStatic
     fun inputStream2file_use_ofBufferedOutStream(inputStream: InputStream, fileDest: File, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? {
@@ -343,7 +344,7 @@ object UtilKInputStreamFormat : IUtilK {
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
     fun inputStream2file_use_ofFileUtils(inputStream: InputStream, strFilePathNameDest: String, isAppend: Boolean = false): File? =
-        inputStream2file_use_ofFileUtils(inputStream, strFilePathNameDest.createFile(), isAppend)
+        inputStream2file_use_ofFileUtils(inputStream, strFilePathNameDest.strFilePath2file().apply { createFile() }, isAppend)
 
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
@@ -365,7 +366,7 @@ object UtilKInputStreamFormat : IUtilK {
 
     @JvmStatic
     fun inputStream2file_use_ofReadWriteBytes(inputStream: InputStream, strFilePathNameDest: String): File? =
-        inputStream2file_use_ofReadWriteBytes(inputStream, strFilePathNameDest.createFile())
+        inputStream2file_use_ofReadWriteBytes(inputStream, strFilePathNameDest.strFilePath2file().apply { createFile() })
 
     @JvmStatic
     fun inputStream2file_use_ofReadWriteBytes(inputStream: InputStream, fileDest: File): File? {

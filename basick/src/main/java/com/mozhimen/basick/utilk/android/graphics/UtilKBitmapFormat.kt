@@ -25,6 +25,7 @@ import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFileWrapper
 import com.mozhimen.basick.utilk.java.io.byteArrayOutputStream2bytes_use
+import com.mozhimen.basick.utilk.java.io.createFile
 import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
 import com.mozhimen.basick.utilk.java.io.flushClose
 import com.mozhimen.basick.utilk.java.io.outputStream2bufferedOutputStream
@@ -32,6 +33,7 @@ import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import com.mozhimen.basick.utilk.kotlin.bytes2file
 import com.mozhimen.basick.utilk.kotlin.bytes2strBase64
 import com.mozhimen.basick.utilk.kotlin.createFile
+import com.mozhimen.basick.utilk.kotlin.strFilePath2file
 import java.io.BufferedOutputStream
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -115,7 +117,8 @@ object UtilKBitmapFormat : BaseUtilK() {
     @RequiresApi(CVersCode.V_29_10_Q)
     fun bitmapAny2fileImage(sourceBitmap: Bitmap, strBitmapPathName: String, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? {
         var outputStream: OutputStream? = null
-        val fileDest = strBitmapPathName.createFile()
+        val fileDest = strBitmapPathName.strFilePath2file()
+        fileDest.createFile()
         try {
             val contentValues = ContentValues().apply {
                 put(CMediaStore.Images.ImageColumns.DATA, fileDest.absolutePath)

@@ -8,6 +8,7 @@ import com.mozhimen.basick.utilk.android.system.UtilKOs
 import com.mozhimen.basick.utilk.android.system.UtilKStructStat
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.utilk.android.util.d
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.util.UtilKZipOutputStream
 import com.mozhimen.basick.utilk.java.text.longDate2strDate
@@ -60,7 +61,7 @@ fun File.isFileNotExist(): Boolean =
 fun File.isFileExist(): Boolean =
     UtilKFileWrapper.isFileExist(this)
 
-fun File.createFile(): File =
+fun File.createFile(): Boolean =
     UtilKFileWrapper.createFile(this)
 
 fun File.copyFile(fileDest: File, isAppend: Boolean = false): File? =
@@ -176,13 +177,23 @@ object UtilKFileWrapper : BaseUtilK() {
     //创建文件
     @JvmStatic
     @Throws(Exception::class)
-    fun createFile(file: File): File {
-        file.parent?.let { UtilKStrFile.createFolder(it) } ?: throw Exception("don't have parent folder")
+    fun createFile(file: File): Boolean {
+        file.parent?.let {
+            UtilKStrFile.createFolder(it)
+        } ?: throw Exception("don't have parent folder")
 
         if (!isFileExist(file)) {
-            file.createNewFile().also { "createFile: file ${file.absolutePath} $it".d(TAG) }
-        } else "createFile: file is exits".d(TAG)
-        return file
+            try {
+                return file.createNewFile().also { "createFile: file ${file.absolutePath}".d(TAG) }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                "createFile: file ${file.absolutePath} fail".e(TAG)
+            }
+        } else {
+            "createFile: file is exits".d(TAG)
+            return true
+        }
+        return false
     }
 
     //删除文件

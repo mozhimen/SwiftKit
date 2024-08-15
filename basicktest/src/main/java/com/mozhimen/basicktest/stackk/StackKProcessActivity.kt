@@ -10,7 +10,6 @@ import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.stackk.process.StackKProcess
 import com.mozhimen.basick.utilk.android.widget.showToast
 import com.mozhimen.basicktest.databinding.ActivityStackkProcessBinding
-import java.lang.ref.WeakReference
 
 class StackKProcessActivity : BaseActivityVDB<ActivityStackkProcessBinding>(), IStackKListener {
 
@@ -30,7 +29,7 @@ class StackKProcessActivity : BaseActivityVDB<ActivityStackkProcessBinding>(), I
         super.onDestroy()
     }
 
-    override fun onChanged(isFront: Boolean, activityRef: WeakReference<Activity>?) {
+    override fun onChanged(isFront: Boolean, activity: Activity) {
         "App is At Front ?: $isFront".showToast()
         UtilKLogWrapper.d(TAG, "App is At Front ?: $isFront")
     }

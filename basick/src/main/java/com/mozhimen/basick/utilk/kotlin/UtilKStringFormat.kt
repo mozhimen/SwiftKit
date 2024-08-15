@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.kotlin
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.java.io.UtilKFileFormat
 import com.mozhimen.basick.utilk.java.io.UtilKFileWrapper
+import com.mozhimen.basick.utilk.java.io.createFile
 import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
 import com.mozhimen.basick.utilk.java.io.write_flashClose
 import com.mozhimen.basick.utilk.java.io.write_use
@@ -45,7 +46,7 @@ object UtilKStringFormat {
      */
     @JvmStatic
     fun str2file(str: String, strFilePathNameDest: String): File? =
-        str2file(str, strFilePathNameDest.createFile())
+        str2file(str, strFilePathNameDest.strFilePath2file().apply { createFile() })
 
     /**
      * 文本转文件
@@ -65,7 +66,7 @@ object UtilKStringFormat {
 
     @JvmStatic
     fun str2fileOfFileOutStream(str: String, strFilePathName: String, isAppend: Boolean = false): File? =
-        str2fileOfFileOutStream(str, strFilePathName.createFile(), isAppend)
+        str2fileOfFileOutStream(str, strFilePathName.strFilePath2file().apply { createFile() }, isAppend)
 
     @JvmStatic
     fun str2fileOfFileOutStream(str: String, fileDest: File, isAppend: Boolean = false): File? {

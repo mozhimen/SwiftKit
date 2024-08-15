@@ -33,6 +33,9 @@ fun String.removeEnd_ofSeparator(): String =
 fun String.removeStart_ofSeparator(): String =
     UtilKStringsJVM.removeStart_ofSeparator(this)
 
+fun String.removeStart_of(prefix: String): String =
+    UtilKStringsJVM.removeStart_of(this, prefix)
+
 fun String.addStart_of0_ofDot(): String =
     UtilKStringsJVM.addStart_of0_ofDot(this)
 
@@ -77,6 +80,10 @@ object UtilKStringsJVM {
     @JvmStatic
     fun removeStart_ofSeparator(str: String): String =
         if (str.startsWith("/")) str.substring(1) else str
+
+    @JvmStatic
+    fun removeStart_of(str: String, prefix: String): String =
+        if (str.startsWith(prefix)) str.substring(prefix.length) else str
 
     ///////////////////////////////////////////////////////////////////
 

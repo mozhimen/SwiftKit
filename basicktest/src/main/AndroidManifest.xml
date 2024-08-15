@@ -121,11 +121,7 @@
         <activity
             android:name=".stackk.StackKCbActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- taskk -->
         <activity
@@ -209,7 +205,13 @@
             android:exported="false" />
         <activity
             android:name=".utilk.java.UtilKFileActivity"
-            android:exported="false" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

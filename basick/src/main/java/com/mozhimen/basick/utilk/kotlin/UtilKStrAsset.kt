@@ -1,7 +1,6 @@
 package com.mozhimen.basick.utilk.kotlin
 
 import android.graphics.Bitmap
-import android.util.Log
 import com.mozhimen.basick.elemk.commons.IAB_Listener
 import com.mozhimen.basick.utilk.android.content.UtilKAssetManager
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
@@ -42,11 +41,11 @@ fun String.strAssetName2bytes(): ByteArray =
 fun String.strAssetName2str_use_ofBufferedReader(): String? =
     UtilKStrAsset.strAssetName2str_use_ofBufferedReader(this)
 
-fun String.strAssetName2strOfBytes(): String? =
-    UtilKStrAsset.strAssetName2strOfBytes(this)
+fun String.strAssetName2str_ofBytes(): String? =
+    UtilKStrAsset.strAssetName2str_ofBytes(this)
 
-fun String.strAssetName2strOfStream(): String? =
-    UtilKStrAsset.strAssetName2strOfStream(this)
+fun String.strAssetName2str_ofStream(): String? =
+    UtilKStrAsset.strAssetName2str_ofStream(this)
 
 fun String.strAssetName2file(strFilePathNameDest: String, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
     UtilKStrAsset.strAssetName2file(this, strFilePathNameDest, isAppend, bufferSize, block)
@@ -110,7 +109,7 @@ object UtilKStrAsset : BaseUtilK() {
      * 获取文本文件内容: txt 最快的方法
      */
     @JvmStatic
-    fun strAssetName2strOfBytes(strAssetName: String): String? =
+    fun strAssetName2str_ofBytes(strAssetName: String): String? =
         if (!isAssetExists(strAssetName)) null
         else strAssetName2bytes(strAssetName).bytes2str()
 
@@ -118,7 +117,7 @@ object UtilKStrAsset : BaseUtilK() {
      * 通过路径加载Assets中的文本内容
      */
     @JvmStatic
-    fun strAssetName2strOfStream(strAssetName: String): String? =
+    fun strAssetName2str_ofStream(strAssetName: String): String? =
         if (!isAssetExists(strAssetName)) null
         else UtilKAssetManager.open_ofCxt(_context, strAssetName).inputStream2str_use_ofBytes()
 

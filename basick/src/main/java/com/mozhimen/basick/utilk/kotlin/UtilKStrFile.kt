@@ -113,7 +113,7 @@ fun String.strFilePath2bitmapAny(opts: BitmapFactory.Options): Bitmap? =
 
 /////////////////////////////////////////////////////////////////
 
-fun String.createFile(): File =
+fun String.createFile(): Boolean =
     UtilKStrFile.createFile(this)
 
 fun String.copyFile(strFilePathNameDest: String, isAppend: Boolean = false): File? =
@@ -313,7 +313,7 @@ object UtilKStrFile : IUtilK {
      * 创建文件
      */
     @JvmStatic
-    fun createFile(strFilePathName: String): File =
+    fun createFile(strFilePathName: String): Boolean =
         strFilePathName.strFilePath2file().createFile()
 
     /**

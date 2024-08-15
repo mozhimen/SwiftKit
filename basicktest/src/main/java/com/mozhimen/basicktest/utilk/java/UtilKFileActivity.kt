@@ -3,6 +3,7 @@ package com.mozhimen.basicktest.utilk.java
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
@@ -12,6 +13,7 @@ import com.mozhimen.basick.lintk.optins.permission.OPermission_WRITE_EXTERNAL_ST
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
+import com.mozhimen.basick.utilk.android.content.UtilKContextDir
 import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import com.mozhimen.basick.utilk.kotlin.UtilKStringFormat
@@ -52,43 +54,48 @@ class UtilKFileActivity : BaseActivityVDB<ActivityUtilkFileBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         lifecycleScope.launch(Dispatchers.IO) {
-            "section file".log()
-            "filePath getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS) ${this@UtilKFileActivity.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)!!.absolutePath}".log()
-            val deviceInfoPath = UtilKStrPath.Absolute.Internal.getFiles() + "/deviceInfo"
-            "isFile deviceInfo ${UtilKStrFile.isFile(deviceInfoPath)}".log()
-            val deviceInfo1Path = UtilKStrPath.Absolute.Internal.getFiles() + "/deviceInfo1"
-            "createFile deviceInfo1 ${UtilKStrFile.createFile(deviceInfo1Path).absolutePath}".log()
-            "deleteFile deviceInfo1 ${UtilKStrFile.deleteFile(deviceInfo1Path)}".log()
-            "getFileSize deviceInfo size ${UtilKStrFile.getFileSizeAvailable(deviceInfoPath)}".log()
-
-            val str2File1Path = UtilKStrPath.Absolute.Internal.getFiles() + "/tmp1.txt"
-            val str2File1Time = System.currentTimeMillis()
-            "str2File1 tmp1 ${UtilKStringFormat.str2file("第一行\n第二行", str2File1Path)} time ${System.currentTimeMillis() - str2File1Time}".log()
-            val str2File2Path = UtilKStrPath.Absolute.Internal.getFiles() + "/tmp2.txt"
-            val str2File2Time = System.currentTimeMillis()
-            "str2File2 tmp2 ${UtilKStringFormat.str2fileOfFileOutStream("第一行\n第二行", str2File2Path)} time ${System.currentTimeMillis() - str2File2Time}".log()
-
-            val file2StrTime = System.currentTimeMillis()
-            "file2Str tmp ${UtilKStrFile.strFilePath2str(str2File1Path)} time ${System.currentTimeMillis() - file2StrTime}".log()
-
-            val copyFileTime = System.currentTimeMillis()
-            val destTmpFilePath = UtilKStrPath.Absolute.Internal.getFiles() + "/tmp3.txt"
-            "copyFile tmp -> tmp3 ${UtilKStrFile.copyFile(str2File1Path, destTmpFilePath)?.absolutePath} time ${System.currentTimeMillis() - copyFileTime}".log()
-
-            "section folder".log()
-            val deviceInfoFolder = UtilKStrPath.Absolute.Internal.getFiles()
-            "isFolder filesDir ${UtilKStrFile.isFolder(deviceInfoFolder)}".log()
-            val createFolderPath = UtilKStrPath.Absolute.Internal.getFiles() + "/folder/"
-            "createFolder folder ${UtilKStrFile.createFolder(createFolderPath)}".log()
-            "deleteFolder folder ${UtilKStrFile.deleteFolder(createFolderPath)}".log()
-            val path = "${UtilKStrPath.Absolute.External.getEnvStorage()}/Android/obb/com.mozhimen.xxxx"
-            path.createFolder()
-            "$path/1.txt".createFile()
-            path.log()
+//            "section file".log()
+//            "filePath getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS) ${this@UtilKFileActivity.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)!!.absolutePath}".log()
+//            val deviceInfoPath = UtilKStrPath.Absolute.Internal.getFiles() + "/deviceInfo"
+//            "isFile deviceInfo ${UtilKStrFile.isFile(deviceInfoPath)}".log()
+//            val deviceInfo1Path = UtilKStrPath.Absolute.Internal.getFiles() + "/deviceInfo1"
+//            "createFile deviceInfo1 ${UtilKStrFile.createFile(deviceInfo1Path).absolutePath}".log()
+//            "deleteFile deviceInfo1 ${UtilKStrFile.deleteFile(deviceInfo1Path)}".log()
+//            "getFileSize deviceInfo size ${UtilKStrFile.getFileSizeAvailable(deviceInfoPath)}".log()
+//
+//            val str2File1Path = UtilKStrPath.Absolute.Internal.getFiles() + "/tmp1.txt"
+//            val str2File1Time = System.currentTimeMillis()
+//            "str2File1 tmp1 ${UtilKStringFormat.str2file("第一行\n第二行", str2File1Path)} time ${System.currentTimeMillis() - str2File1Time}".log()
+//            val str2File2Path = UtilKStrPath.Absolute.Internal.getFiles() + "/tmp2.txt"
+//            val str2File2Time = System.currentTimeMillis()
+//            "str2File2 tmp2 ${UtilKStringFormat.str2fileOfFileOutStream("第一行\n第二行", str2File2Path)} time ${System.currentTimeMillis() - str2File2Time}".log()
+//
+//            val file2StrTime = System.currentTimeMillis()
+//            "file2Str tmp ${UtilKStrFile.strFilePath2str(str2File1Path)} time ${System.currentTimeMillis() - file2StrTime}".log()
+//
+//            val copyFileTime = System.currentTimeMillis()
+//            val destTmpFilePath = UtilKStrPath.Absolute.Internal.getFiles() + "/tmp3.txt"
+//            "copyFile tmp -> tmp3 ${UtilKStrFile.copyFile(str2File1Path, destTmpFilePath)?.absolutePath} time ${System.currentTimeMillis() - copyFileTime}".log()
+//
+//            "section folder".log()
+//            val deviceInfoFolder = UtilKStrPath.Absolute.Internal.getFiles()
+//            "isFolder filesDir ${UtilKStrFile.isFolder(deviceInfoFolder)}".log()
+//            val createFolderPath = UtilKStrPath.Absolute.Internal.getFiles() + "/folder/"
+//            "createFolder folder ${UtilKStrFile.createFolder(createFolderPath)}".log()
+//            "deleteFolder folder ${UtilKStrFile.deleteFolder(createFolderPath)}".log()
+            val path1 = "${UtilKStrPath.Absolute.External.getEnvStorage()}/Android/obb/com.mozhimen.basicktest"
+            path1.createFolder()
+            "$path1/1.txt".createFile()
+            path1.log()
+            val path2 = UtilKContextDir.Internal.getObbDir(this@UtilKFileActivity).absolutePath
+            path2.createFolder()
+            "$path2/1.txt".createFile()
+            path2.log()
         }
     }
 
     private suspend fun String.log() {
+        Log.d(TAG, "log: $this")
         addLog(this)
     }
 

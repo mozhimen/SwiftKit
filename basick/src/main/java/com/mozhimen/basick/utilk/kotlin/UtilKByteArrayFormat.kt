@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFileWrapper
+import com.mozhimen.basick.utilk.java.io.createFile
 import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
 import com.mozhimen.basick.utilk.java.io.inputStream2File_use_ofCopyTo_gZip
 import com.mozhimen.basick.utilk.java.io.inputStream2file_use_ofCopyTo
@@ -97,7 +98,7 @@ object UtilKByteArrayFormat : IUtilK {
 
     @JvmStatic
     fun bytes2file(bytes: ByteArray, strFilePathNameDest: String, isAppend: Boolean = false): File =
-        bytes2file(bytes, strFilePathNameDest.createFile(), isAppend)
+        bytes2file(bytes, strFilePathNameDest.strFilePath2file().apply { createFile() }, isAppend)
 
     @JvmStatic
     fun bytes2file(bytes: ByteArray, fileDest: File, isAppend: Boolean = false): File {

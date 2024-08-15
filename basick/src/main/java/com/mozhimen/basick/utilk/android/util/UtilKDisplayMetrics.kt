@@ -89,8 +89,10 @@ object UtilKDisplayMetrics {
 
     @JvmStatic
     fun getRatio_ofSys(): Float {
-        val max = max(getWidthPixels_ofSys(), getHeightPixels_ofSys()).toFloat()
-        val min = min(getWidthPixels_ofSys(), getHeightPixels_ofSys()).toFloat()
+        val a = getWidthPixels_ofSys()
+        val b = getHeightPixels_ofSys()
+        val max = max(a, b).toFloat()
+        val min = min(a, b).toFloat()
         return max / min
     }
 
@@ -124,6 +126,26 @@ object UtilKDisplayMetrics {
 
     fun isOrientationLandscape_ofSys(): Boolean =
         !isOrientationPortrait_ofSys()
+
+    fun getRelativeWidth_ofSys(isOrientationPortrait: Boolean): Int {
+        val a = getWidthPixels_ofSys()
+        val b = getHeightPixels_ofSys()
+        val max = max(a, b)
+        val min = min(a, b)
+        val width = if (isOrientationPortrait) min
+        else max
+        return width
+    }
+
+    fun getRelativeHeight_ofSys(isOrientationPortrait: Boolean): Int {
+        val a = getWidthPixels_ofSys()
+        val b = getHeightPixels_ofSys()
+        val max = max(a, b)
+        val min = min(a, b)
+        val height = if (isOrientationPortrait) max
+        else min
+        return height
+    }
     //endregion
 
     //////////////////////////////////////////////////////////////////////

@@ -13,7 +13,7 @@ import com.mozhimen.basick.utilk.android.view.UtilKViewGroupWrapper
 import com.mozhimen.basick.utilk.android.view.applyDebounceClickListener
 import com.mozhimen.basick.utilk.android.view.applyHapticOnTouchListener
 import com.mozhimen.basick.utilk.android.view.applySuspendDebounceClickListener
-import com.mozhimen.basick.utilk.java.util.longDate2strDate
+import com.mozhimen.basick.utilk.java.text.longDate2strDate
 import com.mozhimen.basicktest.databinding.ActivityUtilkViewBinding
 import kotlinx.coroutines.delay
 import android.view.ViewGroup
@@ -27,13 +27,13 @@ class UtilKViewActivity : BaseActivityVDB<ActivityUtilkViewBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         vdb.utilkViewBtnDebounce.applyDebounceClickListener(lifecycleScope) {
-            "点击${System.currentTimeMillis().longDate2strDate(CDateFormat.yyyyMMddHHmmss)}".d(TAG)
+            "点击${System.currentTimeMillis().longDate2strDate(CDateFormat.Format.yyyyMMddHHmmss)}".d(TAG)
         }
 
         vdb.utilkViewBtnDebounceSuspend.applySuspendDebounceClickListener(lifecycleScope) {
-            "点击${System.currentTimeMillis().longDate2strDate(CDateFormat.yyyyMMddHHmmss)}".d(TAG)
+            "点击${System.currentTimeMillis().longDate2strDate(CDateFormat.Format.yyyyMMddHHmmss)}".d(TAG)
             delay(2000)
-            "延迟${System.currentTimeMillis().longDate2strDate(CDateFormat.yyyyMMddHHmmss)}".d(TAG)
+            "延迟${System.currentTimeMillis().longDate2strDate(CDateFormat.Format.yyyyMMddHHmmss)}".d(TAG)
         }
 
         vdb.utilkViewBtnHapticFeedback.apply {

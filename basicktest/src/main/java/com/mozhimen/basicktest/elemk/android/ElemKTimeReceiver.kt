@@ -20,7 +20,7 @@ import com.mozhimen.basick.utilk.java.util.UtilKDateWrapper
 class ElemKTimeReceiver : BaseTimeBroadcastReceiver(
     object : ITimeReceiverListener {
         override fun onTimeTick() {
-            UtilKLogWrapper.v("ElemKTimeReceiver>>>>>", "onTimeTick: long ${UtilKDateWrapper.getNowLong()} string ${UtilKDateWrapper.getNowStr(CDateFormat.HH_mm)}")
+            UtilKLogWrapper.v("ElemKTimeReceiver>>>>>", "onTimeTick: long ${UtilKDateWrapper.getNowLong()} string ${UtilKDateWrapper.getNowStr(CDateFormat.Format.HH_mm)}")
         }
     }
 )
