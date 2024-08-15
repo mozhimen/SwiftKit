@@ -42,13 +42,14 @@ object UtilKActivityStart {
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     @OPermission_REQUEST_INSTALL_PACKAGES
     @JvmStatic
-    fun startViewInstall(context: Context, strPathNameApk: String) {
+    fun startViewInstall(context: Context, strPathNameApk: String): Boolean {
         context.startContext(
             UtilKIntentWrapper.getViewInstall(strPathNameApk.apply {
                 if (UtilKBuildVersion.isBeforeVersion(CVersCode.V_24_7_N))
                     UtilKRuntimeWrapper.exec_chmod_777(this)
-            }) ?: return
+            }) ?: return false
         )
+        return true
     }
 
     //安装 if sdk >= 24 add provider

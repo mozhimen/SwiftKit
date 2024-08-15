@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.lintk.optins.OApiInit_InApplication
 import com.mozhimen.basick.lintk.optins.OApiUse_BaseApplication
 import com.mozhimen.basick.stackk.cb.StackKCb
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.utilk.android.view.UtilKContentView
 import com.mozhimen.basick.utilk.android.view.UtilKDecorView
@@ -185,6 +187,8 @@ object UtilKActivityWrapper : IUtilK {
             .size // 遍历判断时，目标 Activity 自己不能包括,所以 size 需要大于 1
     }
 
+    /////////////////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun hasFloatWindow_ofToken(activity: Activity): Boolean =
         getFloatWindowSize(activity) > 1// 遍历判断时，目标 Activity 自己不能包括,所以 size 需要大于 1
@@ -201,6 +205,19 @@ object UtilKActivityWrapper : IUtilK {
         return (if (activity != null) isFinishingOrDestroyed(activity) else true).also { UtilKLogWrapper.d(TAG, "isFinishingOrDestroyed: $it") }
     }
     /////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 判断这个意图的 Activity 是否存在
+     */
+    fun hasActivity_ofIntent(context: Context, intent: Intent): Boolean {
+        // 这里为什么不用 Intent.resolveActivity(intent) != null 来判断呢？
+        // 这是因为在 OPPO R7 Plus （Android 5.0）会出现误判，明明没有这个 Activity，却返回了 ComponentName 对象
+        val packageManager = context.packageManager
+        if (UtilKBuildVersion.isAfterV_33_13_TIRAMISU()) {
+            return packageManager.queryIntentActivities(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY.toLong())).isNotEmpty()
+        }
+        return packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY).isNotEmpty()
+    }
 
     @JvmStatic
     fun applyResult_ofCANCELED(activity: Activity, data: Intent? = null, isFinish: Boolean = true) {

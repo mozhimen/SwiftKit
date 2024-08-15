@@ -76,9 +76,8 @@ object UtilKAppInstall : BaseUtilK() {
     @JvmStatic
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     @OPermission_REQUEST_INSTALL_PACKAGES
-    fun install_ofView(strPathNameApk: String) {
+    fun install_ofView(strPathNameApk: String) :Boolean =
         UtilKActivityStart.startViewInstall(_context, strPathNameApk)
-    }
 
     /**
      * 手动安装 if sdk >= 24 add provider
