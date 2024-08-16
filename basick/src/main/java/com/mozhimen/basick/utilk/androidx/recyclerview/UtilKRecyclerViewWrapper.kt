@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.utilk.commons.IUtilK
+import com.mozhimen.basick.utilk.kotlin.ranges.constraint
+import kotlin.math.ceil
 
 /**
  * @ClassName UtilKRecyclerViewLayoutManager
@@ -166,14 +168,23 @@ object UtilKRecyclerViewWrapper : IUtilK {
      * 均分 GridLayoutManager 间距的便捷方法
      */
     @JvmStatic
-    fun equilibriumAssignment_ofGridLayoutManager(recyclerView: RecyclerView, itemView: View, outRect: Rect, gapOuter: Int, gapInner: Int = gapOuter / 2, gapOther: Int = gapOuter) {
+    fun equilibriumAssignment_ofGridLayoutManager(
+        recyclerView: RecyclerView,
+        itemView: View,
+        outRect: Rect,
+        gapOuter: Int,
+        gapInnerHorizontal: Int = gapOuter / 2,
+        gapInnerVertical: Int = gapInnerHorizontal,
+        gapOther: Int = gapOuter
+    ) {
         val itemCount = recyclerView.getItemCount()// item 的个数
         val spanCount = recyclerView.getSpanCount()// 网格布局的跨度数
         val itemPosition = recyclerView.getChildAdapterPosition(itemView)// 当前 item 的 position
-        val lastRowFirstPosition = itemCount - (itemCount % spanCount)
+        val lastRowFirstPosition = ((ceil(itemCount.toDouble() / spanCount.toDouble()).toInt() - 1) * spanCount).constraint(0, itemCount - 1)
+        UtilKLogWrapper.d(TAG, "equilibriumAssignment_ofGridLayoutManager: lastRowFirstPosition $lastRowFirstPosition");
         val layoutManager = recyclerView.requireLayoutManager_ofGrid() ?: return
         if (spanCount < 2) {
-            equilibriumAssignment_ofLinearLayoutManager(recyclerView, itemView, outRect, gapOuter, gapInner, gapOther)
+            equilibriumAssignment_ofLinearLayoutManager(recyclerView, itemView, outRect, gapOuter, gapInnerHorizontal, gapOther)
             return
         }
         val orientation = layoutManager.orientation// 获取 GridLayoutManager 的布局方向
@@ -183,34 +194,37 @@ object UtilKRecyclerViewWrapper : IUtilK {
             when {
                 itemPosition % spanCount == 0 -> {// 最左边的那一列
                     outRect.left = gapOuter
-                    outRect.right = gapInner
+                    outRect.right = gapInnerHorizontal
                 }
 
                 (itemPosition - (spanCount - 1)) % spanCount == 0 -> {// 最右边的那一列
-                    outRect.left = gapInner
+                    outRect.left = gapInnerHorizontal
                     outRect.right = gapOuter
                 }
 
                 else -> {// 中间的列（可能有多列）
-                    outRect.left = gapInner
-                    outRect.right = gapInner
+                    outRect.left = gapInnerHorizontal
+                    outRect.right = gapInnerHorizontal
                 }
             }
             when (itemPosition) {
                 in 0 until spanCount -> {
                     outRect.top = gapOuter
-                    outRect.bottom = gapInner
+                    if (itemPosition in lastRowFirstPosition until itemCount) {
+                        outRect.bottom = gapOuter
+                    } else
+                        outRect.bottom = gapInnerVertical
                 }
 
                 in lastRowFirstPosition until itemCount /*(itemCount - spanCount) until itemCount*/ -> {// 判断是否为最后一行，最后一行单独添加底部的间距
-                    UtilKLogWrapper.d(UtilKRecyclerView.TAG, "equilibriumAssignmentOfGridLayoutManager: itemPosition $itemPosition")
+                    UtilKLogWrapper.d(TAG, "equilibriumAssignment_ofGridLayoutManager: itemPosition $itemPosition")
                     outRect.bottom = gapOuter
-                    outRect.top = gapInner
+                    outRect.top = gapInnerVertical
                 }
 
                 else -> {
-                    outRect.top = gapInner
-                    outRect.bottom = gapInner
+                    outRect.top = gapInnerVertical
+                    outRect.bottom = gapInnerVertical
                 }
             }
         }
