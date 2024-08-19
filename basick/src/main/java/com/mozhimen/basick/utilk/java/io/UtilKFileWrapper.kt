@@ -307,7 +307,7 @@ object UtilKFileWrapper : BaseUtilK() {
         else folder.mkdirs().also { UtilKLogWrapper.d(TAG, "createFolder: create path ${folder.absolutePath} $it") }
 
     /**
-     * 删除文件夹
+     * 删除文件夹(不保留文件夹)
      */
     @JvmStatic
     fun deleteFolder(folder: File): Boolean {
@@ -326,7 +326,7 @@ object UtilKFileWrapper : BaseUtilK() {
     }
 
     /**
-     * 删除文件夹
+     * 删除文件夹(保留文件夹)
      */
     @JvmStatic
     fun deleteFolderNoSelf(folder: File): Boolean {
@@ -335,7 +335,7 @@ object UtilKFileWrapper : BaseUtilK() {
         if (listFiles.isNotEmpty()) {
             for (file in listFiles) {
                 if (isFolder(file)) { // 判断是否为文件夹
-                    deleteFolder(file)
+                    deleteFolderNoSelf(file)
                     file.delete()
                 } else
                     deleteFile(file)

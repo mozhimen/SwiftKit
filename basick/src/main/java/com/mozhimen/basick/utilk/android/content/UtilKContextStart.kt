@@ -24,14 +24,24 @@ import kotlin.jvm.Throws
  * @Date 2022/2/27 16:35
  * @Version 1.0
  */
-@Throws(ActivityNotFoundException::class)
-fun Context.startContext(intent: Intent) =
+fun Context.startContext_throw(intent: Intent) {
+    UtilKContextStart.startContext_throw(this, intent)
+}
+
+fun Context.startContext_throw(intent: Intent, options: Bundle?) {
+    UtilKContextStart.startContext_throw(this, intent, options)
+}
+
+fun Context.startContext(intent: Intent): Boolean =
     UtilKContextStart.startContext(this, intent)
 
-@Throws(ActivityNotFoundException::class)
-fun Context.startContext(clazz: Class<*>) {
+fun Context.startContext(intent: Intent, options: Bundle?): Boolean =
+    UtilKContextStart.startContext(this, intent, options)
+
+fun Context.startContext(clazz: Class<*>): Boolean =
     UtilKContextStart.startContext(this, clazz)
-}
+
+/////////////////////////////////////////////////////////////////////////////////
 
 inline fun <reified A : Context> Context.startContext() {
     UtilKContextStart.startContext<A>(this)
@@ -59,6 +69,10 @@ inline fun <reified A : Activity> Activity.startActivityAndFinish(options: Bundl
     UtilKContextStart.startActivityAndFinish<A>(this, options, block)
 }
 
+inline fun <reified A : Activity> Activity.startActivityAndFinishAnimation_ofActivityOptions(block: IExt_Listener<Intent>) {
+    UtilKContextStart.startActivityAndFinishAnimation_ofActivityOptions<A>(this, block)
+}
+
 /////////////////////////////////////////////////////////////////////////////////
 
 inline fun <reified T : Activity> Activity.startActivityForResult(requestCode: Int) {
@@ -71,13 +85,37 @@ inline fun <reified T : Activity> Activity.startActivityForResult(requestCode: I
 
 /////////////////////////////////////////////////////////////////////////////////
 
+@OPermission_QUERY_ALL_PACKAGES
+@RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
+fun Context.startContext_ofPackageName(strPackageName: String): Boolean =
+    UtilKContextStart.startContext_ofPackageName(this, strPackageName)
+
+fun Context.startContext_ofPackageName(strPackageName: String, strActivityName: String): Boolean =
+    UtilKContextStart.startContext_ofPackageName(this, strPackageName, strActivityName)
+
+/////////////////////////////////////////////////////////////////////////////////
+
 object UtilKContextStart : BaseUtilK() {
     @JvmStatic
-    fun startContext(context: Context, intent: Intent): Boolean {
+    @Throws(ActivityNotFoundException::class)
+    fun startContext_throw(context: Context, intent: Intent) {
         if (context !is Activity)
             intent.addFlags(CIntent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(intent)
+    }
+
+    @JvmStatic
+    @Throws(ActivityNotFoundException::class)
+    fun startContext_throw(context: Context, intent: Intent, options: Bundle?) {
+        if (context !is Activity)
+            intent.addFlags(CIntent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(intent, options)
+    }
+
+    @JvmStatic
+    fun startContext(context: Context, intent: Intent): Boolean {
         try {
-            context.startActivity(intent)
+            startContext_throw(context, intent)
             return true
         } catch (e: Exception) {
             e.printStackTrace()
@@ -88,10 +126,8 @@ object UtilKContextStart : BaseUtilK() {
 
     @JvmStatic
     fun startContext(context: Context, intent: Intent, options: Bundle?): Boolean {
-        if (context !is Activity)
-            intent.addFlags(CIntent.FLAG_ACTIVITY_NEW_TASK)
         try {
-            context.startActivity(intent, options)
+            startContext_throw(context, intent, options)
             return true
         } catch (e: Exception) {
             e.printStackTrace()
@@ -103,6 +139,8 @@ object UtilKContextStart : BaseUtilK() {
     @JvmStatic
     fun startContext(context: Context, clazz: Class<*>): Boolean =
         startContext(context, UtilKIntent.get(context, clazz))
+
+    /////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     inline fun <reified T : Context> startContext(context: Context): Boolean =
@@ -151,6 +189,8 @@ object UtilKContextStart : BaseUtilK() {
             false
         }
 
+    /////////////////////////////////////////////////////////////////////////////////
+
     @JvmStatic
     inline fun <reified T : Activity> startActivityForResult(activity: Activity, requestCode: Int): Boolean =
         startActivityForResult(activity, requestCode, Intent(activity, T::class.java))
@@ -164,14 +204,12 @@ object UtilKContextStart : BaseUtilK() {
     @JvmStatic
     @OPermission_QUERY_ALL_PACKAGES
     @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
-    fun startContextByPackageName(context: Context, strPackageName: String): Boolean {
+    fun startContext_ofPackageName(context: Context, strPackageName: String): Boolean {
         val intent = UtilKIntentWrapper.getMainLauncher_ofComponent(context, strPackageName) ?: return false
         return context.startContext(intent)
     }
 
     @JvmStatic
-    fun startContextByPackageName(context: Context, strPackageName: String, strActivityName: String): Boolean =
+    fun startContext_ofPackageName(context: Context, strPackageName: String, strActivityName: String): Boolean =
         context.startContext(UtilKIntentWrapper.getComponent(strPackageName, strActivityName))
-
-    /////////////////////////////////////////////////////////////////////////////////
 }
