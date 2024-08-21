@@ -2,11 +2,8 @@ package com.mozhimen.basick.utilk.android.content
 
 import android.content.Context
 import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.cons.CPackageManager
-import com.mozhimen.basick.elemk.android.os.cons.CProcess
-import com.mozhimen.basick.elemk.cons.CStrPackage
 import com.mozhimen.basick.lintk.optins.permission.OPermission_QUERY_ALL_PACKAGES
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -21,22 +18,29 @@ import com.mozhimen.basick.utilk.kotlin.UtilKStrClazz
  * @Version 1.0
  */
 object UtilKPackage : BaseUtilK() {
+    @JvmStatic
+    fun getPackageInfo(strPackageName: String, flags: Int): PackageInfo? =
+        UtilKPackageInfo.get(_context, strPackageName, flags)
+
+    //////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun getVersionCode(): Int =
-        UtilKPackageInfo.getVersionCode(_context)
+    fun getVersionCode(strPackageName: String, flags: Int): Int =
+        UtilKPackageInfo.getVersionCode(_context, strPackageName, flags)
 
     @JvmStatic
     fun getPackageName(): String =
         UtilKContext.getPackageName(_context)
 
     @JvmStatic
-    fun getVersionName(): String =
-        UtilKPackageInfo.getVersionName(_context)
+    fun getVersionName(strPackageName: String, flags: Int): String =
+        UtilKPackageInfo.getVersionName(_context, strPackageName, flags)
 
     @JvmStatic
-    fun getRequestedPermissionsStr(): String =
-        UtilKPackageInfo.getRequestedPermissions(_context).contentToString()
+    fun getRequestedPermissionsStr(strPackageName: String, flags: Int): String =
+        UtilKPackageInfo.getRequestedPermissions(_context, strPackageName, flags).contentToString()
+
+    //////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 获取所有安装程序包名
@@ -44,107 +48,65 @@ object UtilKPackage : BaseUtilK() {
     @JvmStatic
     @OPermission_QUERY_ALL_PACKAGES
     @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
-    fun getInstalledPackages(context: Context, hasSystemPackages: Boolean = false): List<PackageInfo> {
-        var installedPackages = UtilKPackageManager.getInstalledPackages(context).toMutableList()
-        if (installedPackages.isEmpty()) {
-            installedPackages = getInstalledPackages_ofForce(context).toMutableList()
-        }
-        if (!hasSystemPackages) {
-            val iterator = installedPackages.iterator()
-            while (iterator.hasNext()) {
-                val next = iterator.next()
-                if (UtilKApplicationInfo.isSystemApp(next.applicationInfo))
-                    iterator.remove()
-            }
-        }
-        return installedPackages
-    }
-
-    /**
-     * 强制获取软件包列表
-     * @return 获取查询到的应用列表
-     */
-    @JvmStatic
-    fun getInstalledPackages_ofForce(context: Context): List<PackageInfo> {
-        val installedPackages = mutableListOf<PackageInfo>()
-        val packageManager = UtilKPackageManager.get(context)
-        for (uid in CProcess.SYSTEM_UID..CProcess.LAST_APPLICATION_UID) {
-            val packagesForUid = try {
-                packageManager.getPackagesForUid(uid)
-            } catch (e: Exception) {
-                null
-            }
-            packagesForUid?.forEach { strPackageName ->
-                val packageInfo = try {
-                    packageManager.getPackageInfo(strPackageName, 0)
-                } catch (e: Exception) {
-                    null
-                }
-                packageInfo?.let {
-                    installedPackages.add(packageInfo)
-                }
-            }
-        }
-        return installedPackages
-    }
+    fun getInstalledPackages(hasSystemPackages: Boolean): List<PackageInfo> =
+        UtilKPackageManagerWrapper.getInstalledPackages(_context, hasSystemPackages)
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun isPackageInstalled(context: Context, strPackageName: String, flags: Int): Boolean {
-        return try {
-            UtilKApplicationInfo.enabled_ofPkM(context, strPackageName, flags)
-        } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
-            false
-        }
-    }
+    @OPermission_QUERY_ALL_PACKAGES
+    @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
+    fun hasPackage(strPackageName: String, flags: Int): Boolean =
+        hasPackage_ofPackageManager_enabled(strPackageName, flags)
+                || hasPackage_ofPackageInfo_enabled(strPackageName, flags)
+                || hasPackage_ofPackageManager(strPackageName, flags)
+                || hasPackage_ofPackageInfo(strPackageName, flags)
+                || hasPackage_ofClazz("${strPackageName}.MainActivity")
 
     @JvmStatic
-    fun isPackageInstalled(context: Context, strPackageName: String): Boolean =
-        isPackageInstalled(context, strPackageName, 0)
+    fun hasPackage_ofPackageManager_enabled(strPackageName: String, flags: Int): Boolean =
+        UtilKApplicationInfo.enabled_ofPackageManager(_context, strPackageName, flags)
 
-    /**
-     * 系统的下载组件是否可用
-     */
     @JvmStatic
-    fun isDownloadComponentEnabled(context: Context): Boolean {
-        try {
-            val setting = UtilKPackageManager.getApplicationEnabledSetting(context, CStrPackage.com_android_providers_downloads)
-            if (setting == CPackageManager.COMPONENT_ENABLED_STATE_DISABLED || setting == CPackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER || setting == CPackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED)
-                return false
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return false
-        }
-        return true
-    }
+    fun hasPackage_ofPackageInfo_enabled(strPackageName: String, flags: Int): Boolean =
+        UtilKApplicationInfo.enabled_ofPackageInfo(_context, strPackageName, flags)
 
     @JvmStatic
     @OPermission_QUERY_ALL_PACKAGES
     @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
-    fun hasPackage_ofQuery(context: Context, strPackageName: String): Boolean =
-        UtilKPackageManager.queryIntentActivities(context, UtilKIntentWrapper.getMainLauncher_ofPackage(strPackageName), 0).isNotEmpty()
+    fun hasPackage_ofPackageManager(strPackageName: String, flags: Int): Boolean =
+        UtilKPackageManager.queryIntentActivities(_context, UtilKIntentWrapper.getMainLauncher_ofPackage(strPackageName), flags).isNotEmpty()
 
     @JvmStatic
-    fun hasPackage(context: Context, strPackageName: String): Boolean =
-        UtilKPackageInfo.hasPackage(context, strPackageName)
+    fun hasPackage_ofPackageInfo(strPackageName: String, flags: Int): Boolean =
+        UtilKPackageInfo.hasPackage(_context, strPackageName, flags)
 
     @JvmStatic
     fun hasPackage_ofClazz(strPackageNameWithActivity: String): Boolean =
         UtilKStrClazz.isStrClassPackageExists(strPackageNameWithActivity)
 
+    //////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 系统的下载组件是否可用
+     */
+    @JvmStatic
+    fun isDownloadComponentEnabled(): Boolean =
+        UtilKPackageManagerWrapper.isDownloadComponentEnabled(_context)
+
+    //////////////////////////////////////////////////////////////////////////////////
+
     /**
      * 是否有前置
      */
     @JvmStatic
-    fun hasFrontCamera(context: Context): Boolean =
-        UtilKPackageManager.hasSystemFeature(context, CPackageManager.FEATURE_CAMERA_FRONT)
+    fun hasFrontCamera(): Boolean =
+        UtilKPackageManagerWrapper.hasFrontCamera(_context)
 
     /**
      * 是否有后置
      */
     @JvmStatic
-    fun hasBackCamera(context: Context): Boolean =
-        UtilKPackageManager.hasSystemFeature(context, CPackageManager.FEATURE_CAMERA)
+    fun hasBackCamera(): Boolean =
+        UtilKPackageManagerWrapper.hasBackCamera(_context)
 }

@@ -37,7 +37,7 @@ object UtilKContextDir {
         @JvmStatic
         fun getDataDir(context: Context): File =
             if (UtilKBuildVersion.isAfterV_24_7_N()) UtilKContext.getDataDir(context)
-            else UtilKApplicationInfo.get_ofPkI(context)!!.dataDir.strFilePath2file()
+            else UtilKApplicationInfo.get(context).dataDir.strFilePath2file()
 
         @JvmStatic
         fun getObbDir(context: Context): File =

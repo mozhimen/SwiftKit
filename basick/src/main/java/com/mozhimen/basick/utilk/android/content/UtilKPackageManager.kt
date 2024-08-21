@@ -84,15 +84,15 @@ object UtilKPackageManager : IUtilK {
      * 得到图标
      */
     @JvmStatic
-    fun getApplicationIcon(context: Context): Drawable? =
-        UtilKApplicationInfo.get_ofPkI(context)?.let { get(context).getApplicationIcon(it) }
+    fun getApplicationIcon(context: Context, applicationInfo: ApplicationInfo): Drawable =
+        get(context).getApplicationIcon(applicationInfo)
 
     /**
      * 得到图标
      */
     @JvmStatic
-    fun getApplicationIcon(context: Context, applicationInfo: ApplicationInfo): Drawable =
-        get(context).getApplicationIcon(applicationInfo)
+    fun getApplicationIcon(context: Context, strPackageName: String): Drawable =
+        get(context).getApplicationIcon(strPackageName)
 
     /**
      * 查询所有的符合Intent的Activities
@@ -122,6 +122,12 @@ object UtilKPackageManager : IUtilK {
     @JvmStatic
     @OPermission_QUERY_ALL_PACKAGES
     @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
+    fun getInstalledPackages_ofGET_ACTIVITIES(context: Context): List<PackageInfo> =
+        getInstalledPackages(context, CPackageManager.GET_ACTIVITIES)
+
+    @JvmStatic
+    @OPermission_QUERY_ALL_PACKAGES
+    @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
     fun getInstalledPackages(context: Context): List<PackageInfo> {
         val flags = CPackageManager.GET_ACTIVITIES or CPackageManager.GET_SERVICES
         val installedPackageInfos: List<PackageInfo> = if (UtilKBuildVersion.isAfterV_33_13_TIRAMISU()) {
@@ -132,12 +138,7 @@ object UtilKPackageManager : IUtilK {
         return installedPackageInfos
     }
 
-
-    @JvmStatic
-    @OPermission_QUERY_ALL_PACKAGES
-    @RequiresPermission(CPermission.QUERY_ALL_PACKAGES)
-    fun getInstalledPackagesActivities(context: Context): List<PackageInfo> =
-        getInstalledPackages(context, CPackageManager.GET_ACTIVITIES)
+    /////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun getPermissionInfo(context: Context, permName: String, flags: Int): PermissionInfo =

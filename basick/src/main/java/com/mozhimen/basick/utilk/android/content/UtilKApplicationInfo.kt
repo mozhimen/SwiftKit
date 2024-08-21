@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
-import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import androidx.annotation.IdRes
 import com.mozhimen.basick.elemk.android.content.cons.CApplicationInfo
 import com.mozhimen.basick.utilk.commons.IUtilK
@@ -20,15 +19,15 @@ import com.mozhimen.basick.utilk.wrapper.UtilKRes
 object UtilKApplicationInfo : IUtilK {
 
     @JvmStatic
-    fun get_ofCxt(context: Context): ApplicationInfo =
+    fun get(context: Context): ApplicationInfo =
         UtilKContext.getApplicationInfo(context)
 
     @JvmStatic
-    fun get_ofPkI(context: Context): ApplicationInfo? =
-        UtilKPackageInfo.getApplicationInfo(context)
+    fun get_ofPackageInfo(context: Context, strPackageName: String, flags: Int): ApplicationInfo? =
+        UtilKPackageInfo.getApplicationInfo(context, strPackageName, flags)
 
     @JvmStatic
-    fun get_ofPkM(context: Context, strPackageName: String, flags: Int): ApplicationInfo =
+    fun get_ofPackageManager(context: Context, strPackageName: String, flags: Int): ApplicationInfo =
         UtilKPackageManager.getApplicationInfo(context, strPackageName, flags)
 
     //////////////////////////////////////////////////////////////////////
@@ -77,59 +76,81 @@ object UtilKApplicationInfo : IUtilK {
 
     //得到包名
     @JvmStatic
-    fun getPackageName_ofCxt(context: Context): String =
-        getPackageName(get_ofCxt(context))
+    fun getPackageName(context: Context): String =
+        getPackageName(get(context))
 
     //app的目标版本
     @JvmStatic
-    fun getTargetSdkVersion_ofCxt(context: Context): Int =
-        get_ofCxt(context).targetSdkVersion
+    fun getTargetSdkVersion(context: Context): Int =
+        get(context).targetSdkVersion
 
     @JvmStatic
     @IdRes
-    fun getLabelRes_ofCxt(context: Context): Int =
-        get_ofCxt(context).labelRes
+    fun getLabelRes(context: Context): Int =
+        get(context).labelRes
 
     @JvmStatic
-    fun getLabelResStr_ofCxt(context: Context): String =
-        getLabelRes_ofCxt(context).let { UtilKRes.getString_ofContext(context, it) }
+    fun getLabelResStr(context: Context): String =
+        getLabelRes(context).let { UtilKRes.getString_ofContext(context, it) }
 
     @JvmStatic
-    fun getIcon_ofCxt(context: Context): Int =
-        getIcon(get_ofCxt(context))
-
-    ////////////////////////////////////////////////////////////////////
+    fun getIcon(context: Context): Int =
+        getIcon(get(context))
 
     @JvmStatic
-    fun getFlags_ofPkI(context: Context): Int? =
-        get_ofPkI(context)?.let { getFlags(it) }
+    fun isSystemApp(context: Context): Boolean =
+        isSystemApp(get(context))
+
+    @JvmStatic
+    fun isSystemUpdateApp(context: Context): Boolean =
+        isSystemUpdateApp(get(context))
+
+    @JvmStatic
+    fun isSystemOrSystemUpdateApp(context: Context): Boolean =
+        isSystemOrSystemUpdateApp(get(context))
+
+    @JvmStatic
+    fun isUserApp(context: Context): Boolean =
+        isUserApp(get(context))
+
+    @JvmStatic
+    fun getFlags(context: Context): Int =
+        getFlags(get(context))
 
     /**
      * 和这个方法一样[UtilKPackageManager.getApplicationIcon]
      */
     @JvmStatic
-    fun loadIcon_ofPkI(context: Context, packageManager: PackageManager): Drawable? =
-        loadIcon(get_ofPkI(context), packageManager)
-
-    @JvmStatic
-    fun isSystemApp_ofPkI(context: Context): Boolean =
-        get_ofPkI(context)?.let { isSystemApp(it) } ?: false.also { UtilKLogWrapper.d(TAG, "isSystemApp: getApplicationInfo fail") }
-
-    @JvmStatic
-    fun isSystemUpdateApp_ofPkI(context: Context): Boolean =
-        get_ofPkI(context)?.let { isSystemUpdateApp(it) } ?: false.also { UtilKLogWrapper.d(TAG, "isSystemUpdateApp: getApplicationInfo fail") }
-
-    @JvmStatic
-    fun isSystemOrSystemUpdateApp_ofPkI(context: Context): Boolean =
-        get_ofPkI(context)?.let { isSystemOrSystemUpdateApp(it) } ?: false.also { UtilKLogWrapper.d(TAG, "isSystemOrSystemUpdateApp: getApplicationInfo fail") }
-
-    @JvmStatic
-    fun isUserApp_ofPkI(context: Context): Boolean =
-        get_ofPkI(context)?.let { isUserApp(it) } ?: false.also { UtilKLogWrapper.d(TAG, "isUserApp: getApplicationInfo fail") }
+    fun loadIcon(context: Context, packageManager: PackageManager): Drawable? =
+        loadIcon(get(context), packageManager)
 
     ////////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun enabled_ofPkM(context: Context, strPackageName: String, flags: Int): Boolean =
-        enabled(get_ofPkM(context, strPackageName, flags))
+    fun enabled_ofPackageManager_throw(context: Context, strPackageName: String, flags: Int): Boolean =
+        enabled(get_ofPackageManager(context, strPackageName, flags))
+
+    @JvmStatic
+    fun enabled_ofPackageManager(context: Context, strPackageName: String, flags: Int): Boolean {
+        return try {
+            enabled_ofPackageManager_throw(context, strPackageName, flags)
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+            false
+        }
+    }
+
+    @JvmStatic
+    fun enabled_ofPackageInfo_throw(context: Context, strPackageName: String, flags: Int): Boolean =
+        enabled(get_ofPackageManager(context, strPackageName, flags))
+
+    @JvmStatic
+    fun enabled_ofPackageInfo(context: Context, strPackageName: String, flags: Int): Boolean {
+        return try {
+            enabled_ofPackageInfo_throw(context, strPackageName, flags)
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+            false
+        }
+    }
 }

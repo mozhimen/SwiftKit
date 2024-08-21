@@ -21,18 +21,18 @@ object UtilKApk : BaseUtilK() {
     //得到版本信息
     @JvmStatic
     fun getVersionName(strPathNameApk: String): String? =
-        UtilKPackageArchiveInfo.get_ofGetActivities(_context, strPathNameApk)?.let { UtilKPackageInfo.getVersionName(it) }
+        UtilKPackageArchiveInfo.get_ofGET_ACTIVITIES(_context, strPathNameApk)?.let { UtilKPackageInfo.getVersionName(it) }
 
     //得到版本号
     @JvmStatic
     fun getVersionCode(strPathNameApk: String): Int? =
-        UtilKPackageArchiveInfo.get_ofGetActivities(_context, strPathNameApk)?.let { UtilKPackageInfo.getVersionCode(it) }
+        UtilKPackageArchiveInfo.get_ofGET_ACTIVITIES(_context, strPathNameApk)?.let { UtilKPackageInfo.getVersionCode(it) }
 
     ////////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun getApplicationInfo(strPathNameApk: String): ApplicationInfo? =
-        UtilKPackageArchiveInfo.get_ofGetActivities(_context, strPathNameApk)?.let { UtilKPackageInfo.getApplicationInfo(it) }
+        UtilKPackageArchiveInfo.get_ofGET_ACTIVITIES(_context, strPathNameApk)?.let { UtilKPackageInfo.getApplicationInfo(it) }
 
     //得到应用名
     @JvmStatic

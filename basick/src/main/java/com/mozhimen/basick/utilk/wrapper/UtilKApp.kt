@@ -29,15 +29,19 @@ object UtilKApp : BaseUtilK() {
     @JvmStatic
     @Throws(IllegalArgumentException::class)
     fun isSystemApp(context: Context): Boolean =
-        UtilKApplicationInfo.isSystemApp_ofPkI(context)
+        UtilKApplicationInfo.isSystemApp(context)
 
     @JvmStatic
     fun isSystemUpdateApp(context: Context): Boolean =
-        UtilKApplicationInfo.isSystemUpdateApp_ofPkI(context)
+        UtilKApplicationInfo.isSystemUpdateApp(context)
 
     @JvmStatic
     fun isUserApp(context: Context): Boolean =
-        UtilKApplicationInfo.isUserApp_ofPkI(context)
+        UtilKApplicationInfo.isUserApp(context)
+
+    @JvmStatic
+    fun isSystemOrSystemUpdateApp(context: Context): Boolean =
+        UtilKApplicationInfo.isSystemOrSystemUpdateApp(context)
 
     /////////////////////////////////////////////////////////////////////////////
 
