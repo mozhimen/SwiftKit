@@ -12,6 +12,7 @@ import com.mozhimen.basicktest.databinding.ActivityUtilkAssetBinding
 import com.mozhimen.basicktest.databinding.ItemUtilkFileLogBinding
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
+import com.mozhimen.basick.utilk.android.content.UtilKAssetManager
 import com.mozhimen.basick.utilk.kotlin.UtilKStrAsset
 import com.mozhimen.basicktest.utilk.java.UtilKFileActivity
 import com.mozhimen.xmlk.recyclerk.quick.RecyclerKQuickAdapterVDB
@@ -43,6 +44,11 @@ class UtilKAssetActivity : BaseActivityVDB<ActivityUtilkAssetBinding>() {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
+        UtilKLogWrapper.d(TAG, "initView: assets ${UtilKAssetManager.get_ofContext(this)}")
+        UtilKLogWrapper.d(TAG, "initView: assets ${UtilKAssetManager.get_ofResources(this)}")
+        UtilKLogWrapper.d(TAG, "initView: assets ${UtilKAssetManager.get_ofResources(this)==UtilKAssetManager.get_ofContext(this)}")
+        UtilKLogWrapper.d(TAG, "initView: assets ${UtilKAssetManager.get_ofResources(this)===UtilKAssetManager.get_ofContext(this)}")
+
         lifecycleScope.launch(Dispatchers.IO) {
             addLog("isFileExists deviceInfo ${UtilKStrAsset.isAssetExists("deviceInfo")}")
             val file2StrTime = System.currentTimeMillis()

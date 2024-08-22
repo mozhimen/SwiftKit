@@ -72,7 +72,7 @@ object UtilKStrAsset : BaseUtilK() {
     fun isAssetExists(strAssetName: String): Boolean {
         val parentPath = getStrAssetParentPath(strAssetName)
         UtilKLogWrapper.d(TAG, "isAssetExists: parentPath $parentPath")
-        val assets = UtilKAssetManager.list_ofRes(_context, parentPath) ?: kotlin.run {
+        val assets = UtilKAssetManager.list(_context, parentPath) ?: kotlin.run {
             UtilKLogWrapper.d(TAG, "isAssetExists: assets null")
             return false
         }
@@ -95,7 +95,7 @@ object UtilKStrAsset : BaseUtilK() {
 
     @JvmStatic
     fun strAssetName2bytes(strAssetName: String): ByteArray =
-        UtilKAssetManager.open_ofCxt(_context, strAssetName).inputStream2bytes_use()
+        UtilKAssetManager.open(_context, strAssetName).inputStream2bytes_use()
 
     /**
      * 文件转String:分析json文件,从资产文件加载内容:license,获取txt文本文件内容等
@@ -103,7 +103,7 @@ object UtilKStrAsset : BaseUtilK() {
     @JvmStatic
     fun strAssetName2str_use_ofBufferedReader(strAssetName: String): String? =
         if (!isAssetExists(strAssetName)) null
-        else UtilKAssetManager.open_ofCxt(_context, strAssetName).inputStream2str_use_ofBufferedReader()
+        else UtilKAssetManager.open(_context, strAssetName).inputStream2str_use_ofBufferedReader()
 
     /**
      * 获取文本文件内容: txt 最快的方法
@@ -119,7 +119,7 @@ object UtilKStrAsset : BaseUtilK() {
     @JvmStatic
     fun strAssetName2str_ofStream(strAssetName: String): String? =
         if (!isAssetExists(strAssetName)) null
-        else UtilKAssetManager.open_ofCxt(_context, strAssetName).inputStream2str_use_ofBytes()
+        else UtilKAssetManager.open(_context, strAssetName).inputStream2str_use_ofBytes()
 
     /**
      * 从资产拷贝到文件
@@ -130,10 +130,10 @@ object UtilKStrAsset : BaseUtilK() {
             UtilKLogWrapper.d(TAG, "strAssetName2file: dont exist")
             null
         }
-        else UtilKAssetManager.open_ofCxt(_context, strAssetName).inputStream2file_use(strAssetName.strAssetName2strFilePathName(strFilePathNameDest), isAppend, bufferSize, block)
+        else UtilKAssetManager.open(_context, strAssetName).inputStream2file_use(strAssetName.strAssetName2strFilePathName(strFilePathNameDest), isAppend, bufferSize, block)
 
     @JvmStatic
     fun strAssetName2bitmap(strAssetName: String): Bitmap? =
         if (!isAssetExists(strAssetName)) null
-        else UtilKAssetManager.open_ofCxt(_context, strAssetName).inputStream2bitmapAny_use()
+        else UtilKAssetManager.open(_context, strAssetName).inputStream2bitmapAny_use()
 }

@@ -304,7 +304,15 @@ object UtilKFileWrapper : BaseUtilK() {
     @JvmStatic
     fun createFolder(folder: File): Boolean =
         if (isFolderExist(folder)) true
-        else folder.mkdirs().also { UtilKLogWrapper.d(TAG, "createFolder: create path ${folder.absolutePath} $it") }
+        else {
+            try {
+                folder.mkdirs().also { UtilKLogWrapper.d(TAG, "createFolder: create path ${folder.absolutePath} $it") }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                UtilKLogWrapper.e(TAG, "createFolder: create path ${folder.absolutePath}", e)
+                false
+            }
+        }
 
     /**
      * 删除文件夹(不保留文件夹)
@@ -343,5 +351,5 @@ object UtilKFileWrapper : BaseUtilK() {
         }
         return true.also { UtilKLogWrapper.d(TAG, "deleteFolder: success") }
     }
-    //endregion
+//endregion
 }

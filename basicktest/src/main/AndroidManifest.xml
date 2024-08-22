@@ -181,7 +181,13 @@
             android:exported="false" />
         <activity
             android:name=".utilk.android.UtilKAssetActivity"
-            android:exported="false" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".utilk.android.UtilKIntentActivity"
             android:exported="false" />
@@ -191,11 +197,7 @@
         <activity
             android:name=".utilk.android.UtilKPackageActivity"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".utilk.android.UtilKInputActivity"

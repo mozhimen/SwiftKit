@@ -38,14 +38,17 @@ fun String.hasSpace(): Boolean =
 fun String.containStr(str: String): Boolean =
     UtilKString.containStr(this, str)
 
-fun String.containAny(collection: Collection<String>): Boolean =
-    UtilKString.containAny(this, collection)
+fun String.containsAny(collection: Collection<String>): Boolean =
+    UtilKString.containsAny(this, collection)
 
 fun String.equalsIgnoreCase(str: String): Boolean =
     UtilKString.equalsIgnoreCase(this, str)
 
 fun String.startsWithAny(strs: Collection<String>): Boolean =
     UtilKString.startsWithAny(this, strs)
+
+fun String.endsWithWithAny(strs: Collection<String>): Boolean =
+    UtilKString.endsWithWithAny(this, strs)
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -147,7 +150,7 @@ object UtilKString : BaseUtilK() {
     }
 
     @JvmStatic
-    fun containAny(strContent: String, strs: Collection<String>): Boolean =
+    fun containsAny(strContent: String, strs: Collection<String>): Boolean =
         strs.any { strContent.containStr(it) }
 
     @JvmStatic
@@ -157,6 +160,10 @@ object UtilKString : BaseUtilK() {
     @JvmStatic
     fun startsWithAny(str: String, strs: Collection<String>): Boolean =
         strs.any { str.startsWith(it) }
+
+    @JvmStatic
+    fun endsWithWithAny(str: String, strs: Collection<String>): Boolean =
+        strs.any { str.endsWith(it) }
 
     ////////////////////////////////////////////////////////////////////////////
 

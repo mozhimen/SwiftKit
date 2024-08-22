@@ -45,7 +45,7 @@ object UtilKCamera {
     @JvmStatic
     fun hasCamera_of(context: Context, isFront: Boolean): Boolean {
         if (UtilKBuildVersion.isAfterV_28_9_P()) {
-            return if (isFront) UtilKPackage.hasFrontCamera(context) else UtilKPackage.hasBackCamera(context)
+            return if (isFront) UtilKPackage.hasFrontCamera() else UtilKPackage.hasBackCamera()
         } else {
             val cameraInfo = getCameraInfo()
             for (cameraId in 0 until getNumberOfCameras()) {

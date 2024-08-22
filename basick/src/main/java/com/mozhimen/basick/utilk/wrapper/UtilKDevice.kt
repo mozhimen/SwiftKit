@@ -145,7 +145,7 @@ object UtilKDevice : BaseUtilK() {
 
     @JvmStatic
     fun hasFrontCameraOfPackage(): Boolean =
-        UtilKPackage.hasFrontCamera(_context)
+        UtilKPackage.hasFrontCamera()
 
     @JvmStatic
     fun hasBackCamera(): Boolean =
@@ -153,7 +153,7 @@ object UtilKDevice : BaseUtilK() {
 
     @JvmStatic
     fun hasBackCameraOfPackage(): Boolean =
-        UtilKPackage.hasBackCamera(_context)
+        UtilKPackage.hasBackCamera()
 
     /**
      * 设备是否有sd卡
