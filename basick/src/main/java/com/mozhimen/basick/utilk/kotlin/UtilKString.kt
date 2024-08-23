@@ -6,6 +6,9 @@ import com.mozhimen.basick.elemk.cons.CMsg
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.ranges.constraint
 
+fun main() {
+    println("leleapk".getSplitFirstIndexToStart("."))
+}
 
 /**
  * @ClassName UtilKString
@@ -22,6 +25,9 @@ fun String.getSplitLastIndexToStart(splitStr: String, isContainSplitStr: Boolean
 
 fun String.getSplitFirstIndexToStart(splitStr: String): String =
     UtilKString.getSplitFirstIndexToStart(this, splitStr)
+
+fun String.getSplitFirstIndexToEnd(splitStr: String): String =
+    UtilKString.getSplitFirstIndexToEnd(this, splitStr)
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -108,6 +114,12 @@ object UtilKString : BaseUtilK() {
     fun getSplitFirstIndexToStart(str: String, splitStr: String): String {
         val index = str.indexOf(splitStr)
         return if (index >= 0) str.substring(0, index) else str
+    }
+
+    @JvmStatic
+    fun getSplitFirstIndexToEnd(str: String, splitStr: String): String {
+        val index = str.indexOf(splitStr)
+        return if (index >= 0) str.substring(index + 1, str.length) else str
     }
 
     ////////////////////////////////////////////////////////////////////////////

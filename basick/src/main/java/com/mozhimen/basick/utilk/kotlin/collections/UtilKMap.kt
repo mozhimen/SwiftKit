@@ -34,4 +34,22 @@ object UtilKMap {
                 key to f(map[key]!!, other[key]!!)
             }
             .toMap()
+
+    @JvmStatic
+    fun <K, V> mergeWith(vararg maps: Map<K, V>): HashMap<K, V> {
+        val mutableMap = HashMap<K, V>()
+        maps.forEach {
+            mutableMap.putAll(it)
+        }
+        return mutableMap
+    }
+}
+
+fun main() {
+    val maps = listOf(
+        mutableMapOf(1 to "1", 2 to "2", 3 to "3"),
+        mapOf(1 to "2", 4 to "4", 5 to "5")
+    )
+    val merged: Map<Int, String> = maps.fold(emptyMap()) { acc, next -> acc + next }
+    println(merged)
 }

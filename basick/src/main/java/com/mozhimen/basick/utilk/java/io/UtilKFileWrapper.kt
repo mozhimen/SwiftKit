@@ -329,8 +329,7 @@ object UtilKFileWrapper : BaseUtilK() {
                     deleteFile(file)
             }
         }
-        folder.delete()
-        return true.also { UtilKLogWrapper.d(TAG, "deleteFolder: success") }
+        return folder.delete().also { UtilKLogWrapper.d(TAG, "deleteFolder: success folder $folder") }
     }
 
     /**
