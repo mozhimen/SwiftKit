@@ -29,6 +29,10 @@ object UtilKPackage : BaseUtilK() {
         UtilKPackageInfo.getVersionCode(_context, strPackageName, flags)
 
     @JvmStatic
+    fun getVersionCode(flags: Int): Int =
+        UtilKPackageInfo.getVersionCode(_context, _context.packageName, flags)
+
+    @JvmStatic
     fun getPackageName(): String =
         UtilKContext.getPackageName(_context)
 
@@ -37,8 +41,16 @@ object UtilKPackage : BaseUtilK() {
         UtilKPackageInfo.getVersionName(_context, strPackageName, flags)
 
     @JvmStatic
+    fun getVersionName(flags: Int): String =
+        UtilKPackageInfo.getVersionName(_context, _context.packageName, flags)
+
+    @JvmStatic
     fun getRequestedPermissionsStr(strPackageName: String, flags: Int): String =
         UtilKPackageInfo.getRequestedPermissions(_context, strPackageName, flags).contentToString()
+
+    @JvmStatic
+    fun getRequestedPermissionsStr(flags: Int): String =
+        UtilKPackageInfo.getRequestedPermissions(_context, _context.packageName, flags).contentToString()
 
     //////////////////////////////////////////////////////////////////////////////////
 
