@@ -10,16 +10,16 @@ import android.renderscript.RenderScript
 import android.renderscript.ScriptIntrinsicBlur
 import android.view.View
 import androidx.annotation.ChecksSdkIntAtLeast
-import com.mozhimen.basick.elemk.android.os.cons.CVersCode
-import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.kotlin.elemk.android.os.cons.CVersCode
+import com.mozhimen.kotlin.utilk.bases.BaseUtilK
 import com.mozhimen.blurk.BlurKFast
-import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapDeal
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.android.util.UtilKLongLogWrapper
-import com.mozhimen.basick.utilk.android.util.d
-import com.mozhimen.basick.utilk.android.util.e
-import com.mozhimen.basick.utilk.android.view.UtilKViewWrapper
-import com.mozhimen.basick.utilk.kotlin.ranges.UtilK_Ranges
+import com.mozhimen.kotlin.utilk.android.graphics.UtilKBitmapDeal
+import com.mozhimen.kotlin.utilk.android.os.UtilKBuildVersion
+import com.mozhimen.kotlin.utilk.android.util.UtilKLongLogWrapper
+import com.mozhimen.kotlin.utilk.android.util.d
+import com.mozhimen.kotlin.utilk.android.util.e
+import com.mozhimen.kotlin.utilk.android.view.UtilKViewWrapper
+import com.mozhimen.kotlin.utilk.kotlin.ranges.UtilK_Ranges
 
 /**
  * @ClassName RenderScriptHelper

@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
-import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.kotlin.elemk.android.os.cons.CVersCode
 import com.mozhimen.xmlk.commons.ILayoutK
 
 /**

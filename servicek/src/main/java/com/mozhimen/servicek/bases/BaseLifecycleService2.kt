@@ -6,9 +6,9 @@ import androidx.annotation.CallSuper
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
-import com.mozhimen.basick.utilk.androidx.lifecycle.handleLifecycleEventOnCreate
-import com.mozhimen.basick.utilk.androidx.lifecycle.handleLifecycleEventOnDestroy
-import com.mozhimen.basick.utilk.androidx.lifecycle.handleLifecycleEventOnStart
+import com.mozhimen.kotlin.utilk.androidx.lifecycle.handleLifecycleEventOnCreate
+import com.mozhimen.kotlin.utilk.androidx.lifecycle.handleLifecycleEventOnDestroy
+import com.mozhimen.kotlin.utilk.androidx.lifecycle.handleLifecycleEventOnStart
 
 /**
  * @ClassName BaseService

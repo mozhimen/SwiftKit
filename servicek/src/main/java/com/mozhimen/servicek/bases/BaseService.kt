@@ -5,9 +5,9 @@ import android.os.RemoteCallbackList
 import android.os.RemoteException
 import com.mozhimen.servicek.commons.IBaseServiceConnListener
 import com.mozhimen.servicek.commons.IBaseServiceResListener
-import com.mozhimen.basick.elemk.commons.IA_Listener
-import com.mozhimen.basick.utilk.android.util.e
-import com.mozhimen.basick.utilk.commons.IUtilK
+import com.mozhimen.kotlin.elemk.commons.IA_Listener
+import com.mozhimen.kotlin.utilk.android.util.e
+import com.mozhimen.kotlin.utilk.commons.IUtilK
 
 /**
  * @ClassName BaseService

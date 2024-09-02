@@ -58,6 +58,9 @@ android {
 
 dependencies {
     //////////////////////////////////////////////////////////////////
+    //mine
+    api project(':KUtilKit:utilk_android')
+
     //google
     api "org.jetbrains.kotlin:kotlin-stdlib:1.9.22"
 
@@ -69,7 +72,6 @@ dependencies {
     api 'androidx.activity:activity-ktx:1.7.2'
     api 'androidx.fragment:fragment:1.6.2'
     api 'androidx.fragment:fragment-ktx:1.6.2'
-    api 'androidx.annotation:annotation:1.7.1'
 
     //////////////////////////////////////////////////////////////////
     //multidex
@@ -80,10 +82,6 @@ dependencies {
     //coroutine
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1'
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1'
-
-    //databinding
-    api 'androidx.databinding:databinding-common:7.1.2'
-    api 'androidx.databinding:databinding-runtime:7.1.2'
 
     //////////////////////////////////////////////////////////////////
     //lifecycle

@@ -22,7 +22,7 @@ dependencyResolutionManagement {
 rootProject.name = "SwiftKit"
 include ':blurk'
 include ':basick'
-include ':basicktest'
+include ':basick_test'
 include ':xmlk'
 include ':xmlktest'
 include ':composek'
@@ -44,3 +44,10 @@ include ":AManifestKit_XXPermissions"
 project(':AManifestKit_XXPermissions').projectDir = new File("D:\\WorkSpace\\GitHub\\AManifestKit_XXPermissions")
 include ':AManifestKit_XXPermissions:manifestk_xxpermissions'
 include ':AManifestKit_XXPermissions:library'
+//KUtilKit
+include ":KUtilKit"
+project(':KUtilKit').projectDir = new File("D:\\WorkSpace\\GitHub\\KUtilKit")
+include ':KUtilKit:utilk_android'
+include ':KUtilKit:utilk_kotlin'
+include ':mvvmk'
+include ':dslk'

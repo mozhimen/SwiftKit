@@ -2,7 +2,7 @@ package com.mozhimen.blurk.mos
 
 import android.text.TextUtils
 import android.view.View
-import com.mozhimen.basick.utilk.android.view.UtilKView
+import com.mozhimen.kotlin.utilk.android.view.UtilKView
 import com.mozhimen.blurk.cons.CBlurKCons
 import java.lang.ref.WeakReference
 

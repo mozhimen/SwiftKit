@@ -9,9 +9,9 @@ import android.renderscript.RenderScript
 import android.renderscript.ScriptIntrinsicBlur
 import androidx.annotation.FloatRange
 import androidx.annotation.RequiresApi
-import com.mozhimen.basick.elemk.android.os.cons.CVersCode
-import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapDeal
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import com.mozhimen.kotlin.elemk.android.os.cons.CVersCode
+import com.mozhimen.kotlin.utilk.android.graphics.UtilKBitmapDeal
+import com.mozhimen.kotlin.utilk.android.os.UtilKBuildVersion
 import kotlin.math.roundToInt
 
 
