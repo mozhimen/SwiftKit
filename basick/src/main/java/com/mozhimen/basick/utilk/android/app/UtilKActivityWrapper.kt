@@ -123,7 +123,7 @@ object UtilKActivityWrapper : IUtilK {
     }
 
     @JvmStatic
-    fun get_ofTop_ofReflect(): Activity? {
+    fun getTop_ofReflect(): Activity? {
         try {
             val clazzActivityThread = "android.app.ActivityThread".strPackage2clazz()
             val methodCurrentActivityThread = clazzActivityThread.getMethod("currentActivityThread").invoke(null)

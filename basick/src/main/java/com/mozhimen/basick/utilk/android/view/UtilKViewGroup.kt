@@ -43,12 +43,22 @@ object UtilKViewGroup : IUtilK {
     }
 
     @JvmStatic
+    fun addViewSafe_ofWrapContent(viewGroup: ViewGroup, view: View) {
+        addViewSafe(viewGroup, view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+    }
+
+    @JvmStatic
     fun addViewSafe(viewGroup: ViewGroup, view: View, width: Int, height: Int) {
+        addViewSafe(viewGroup, view, ViewGroup.LayoutParams(width, height))
+    }
+
+    @JvmStatic
+    fun addViewSafe(viewGroup: ViewGroup, view: View, layoutParams: ViewGroup.LayoutParams) {
         if (view.parent == null)
-            viewGroup.addView(view, ViewGroup.LayoutParams(width, height))
+            viewGroup.addView(view, layoutParams)
         else if (view.parent is ViewGroup) {
             (view.parent as ViewGroup).removeView(view)
-            viewGroup.addView(view, ViewGroup.LayoutParams(width, height))
+            viewGroup.addView(view, layoutParams)
         } else {
             UtilKLogWrapper.e(TAG, "addViewSafe: fail")
         }

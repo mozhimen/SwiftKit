@@ -10,12 +10,10 @@ import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.stackk.cons.SLifecycleCallbackEvent
 import com.mozhimen.basick.stackk.impls.StackKActivityLifecycleCallbacks
 import com.mozhimen.basick.stackk.utils.StackKUtil
-import com.mozhimen.basick.utilk.android.app.UtilKActivityManager
 import com.mozhimen.basick.utilk.android.app.UtilKActivityWrapper
 import com.mozhimen.basick.utilk.android.app.UtilKApplicationWrapper
 import com.mozhimen.basick.utilk.android.app.isFinishingOrDestroyed
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.kotlin.collections.containsBy
 import com.mozhimen.basick.utilk.kotlin.collections.ifNotEmpty
 import com.mozhimen.basick.utilk.kotlin.collections.removeBy
 import com.mozhimen.basick.utilk.kotlin.t2weakRef
@@ -72,7 +70,7 @@ internal class StackKCbDelegate : IStackK, IStackKLifecycle {
         getStackTopActivityRef()?.get()
 
     override fun getStackTopActivity(onlyAlive: Boolean): Activity? =
-        getStackTopActivityRef(onlyAlive)?.get() ?: UtilKActivityWrapper.get_ofTop_ofReflect()
+        getStackTopActivityRef(onlyAlive)?.get() ?: UtilKActivityWrapper.getTop_ofReflect()
 
     override fun getStackTopActivityRef(): WeakReference<Activity>? =
         getStackTopActivityRef(true)

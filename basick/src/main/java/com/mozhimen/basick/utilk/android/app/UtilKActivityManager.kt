@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.android.app
 
 import android.app.ActivityManager
 import android.app.ActivityManager.MemoryInfo
+import android.app.ActivityManager.RunningTaskInfo
 import android.content.Context
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.text.formatFileSize
@@ -37,4 +38,8 @@ object UtilKActivityManager {
     @JvmStatic
     fun getRegGlEsVersion(context: Context): Int =
         if (get(context).deviceConfigurationInfo.reqGlEsVersion >= 0x30000) 3 else 2
+
+    @JvmStatic
+    fun getRunningTasks(context: Context, maxCount: Int): List<RunningTaskInfo> =
+        get(context).getRunningTasks(maxCount)
 }
