@@ -29,7 +29,6 @@ include ':composek'
 include ':composektest'
 include ':servicek'
 include ':mvvmk'
-include ':dslk'
 //ANavigateKit
 include ":ANavigateKit"
 project(':ANavigateKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ANavigateKit")

@@ -11,21 +11,21 @@ import com.mozhimen.stackk.process.StackKProcess
 import com.mozhimen.kotlin.utilk.android.widget.showToast
 import com.mozhimen.basicktest.databinding.ActivityStackkProcessBinding
 
-class StackKProcessActivity : BaseActivityVDB<ActivityStackkProcessBinding>(), IStackKListener {
+class StackKProcessActivity : BaseActivityVDB<ActivityStackkProcessBinding>(), com.mozhimen.stackk.commons.IStackKListener {
 
     @OptIn(OApiInit_InApplication::class)
     @SuppressLint("SetTextI18n")
     override fun initView(savedInstanceState: Bundle?) {
-        val stackTopActivity = StackKProcess.instance.getStackTopActivity()
-        val stackCount = StackKProcess.instance.getStackCount()
+        val stackTopActivity = com.mozhimen.stackk.process.StackKProcess.instance.getStackTopActivity()
+        val stackCount = com.mozhimen.stackk.process.StackKProcess.instance.getStackCount()
         vdb.stackkProcessTitle.text = "StackTop: ${stackTopActivity?.javaClass?.simpleName ?: "Null"}, StackCount: $stackCount"
 
-        StackKProcess.instance.addFrontBackListener(this)
+        com.mozhimen.stackk.process.StackKProcess.instance.addFrontBackListener(this)
     }
 
     @OptIn(OApiInit_InApplication::class)
     override fun onDestroy() {
-        StackKProcess.instance.removeFrontBackListener(this)
+        com.mozhimen.stackk.process.StackKProcess.instance.removeFrontBackListener(this)
         super.onDestroy()
     }
 

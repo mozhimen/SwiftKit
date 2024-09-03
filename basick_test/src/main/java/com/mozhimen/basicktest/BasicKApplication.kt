@@ -11,6 +11,6 @@ class BasicKApplication : BaseApplication() {
     override fun onCreate() {
         super.onCreate()
 
-        StackKProcess.instance.init()
+        com.mozhimen.stackk.process.StackKProcess.instance.init()
     }
 }

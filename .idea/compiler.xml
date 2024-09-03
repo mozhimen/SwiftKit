@@ -3,7 +3,9 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.8">
       <module name="SwiftKit.AUICoreKit.adapterk" target="17" />
+      <module name="SwiftKit.dslk" target="17" />
       <module name="SwiftKit.JUtilKit.utilk_android" target="17" />
+      <module name="SwiftKit.stackk" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
