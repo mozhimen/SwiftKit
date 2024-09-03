@@ -28,6 +28,8 @@ include ':xmlktest'
 include ':composek'
 include ':composektest'
 include ':servicek'
+include ':mvvmk'
+include ':dslk'
 //ANavigateKit
 include ":ANavigateKit"
 project(':ANavigateKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ANavigateKit")
@@ -49,5 +51,4 @@ include ":KUtilKit"
 project(':KUtilKit').projectDir = new File("D:\\WorkSpace\\GitHub\\KUtilKit")
 include ':KUtilKit:utilk_android'
 include ':KUtilKit:utilk_kotlin'
-include ':mvvmk'
-include ':dslk'
+
