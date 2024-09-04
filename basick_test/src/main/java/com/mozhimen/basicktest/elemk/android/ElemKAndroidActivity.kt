@@ -3,7 +3,7 @@ package com.mozhimen.basicktest.elemk.android
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.mozhimen.kotlin.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
+import com.mozhimen.mvvmk.bases.activity.databinding.BaseActivityVDB
 import com.mozhimen.kotlin.utilk.android.content.startContext
 import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityElemkAndroidBinding

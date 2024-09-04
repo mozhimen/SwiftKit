@@ -2,13 +2,14 @@ package com.mozhimen.basicktest.elemk.android
 
 import android.os.Bundle
 import android.widget.TextView
-import com.mozhimen.kotlin.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
+import com.mozhimen.basick.helpers.DragAndDropProxy
+import com.mozhimen.mvvmk.bases.activity.databinding.BaseActivityVDB
 import com.mozhimen.kotlin.lintk.optins.OApiInit_ByLazy
-import com.mozhimen.kotlin.elemk.android.view.DragAndDropProxy
 import com.mozhimen.kotlin.lintk.optins.OApiCall_BindLifecycle
 import com.mozhimen.kotlin.utilk.kotlin.UtilKLazyJVM.lazy_ofNone
 import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityElemkGestureBinding
+import com.mozhimen.kotlin.utilk.android.view.UtilKViewLeak
 
 
 /**
@@ -76,7 +77,7 @@ class ElemKGestureActivity : BaseActivityVDB<ActivityElemkGestureBinding>() {
     }
 
     override fun onPause() {
-        com.mozhimen.basick.utilk.android.view.UtilKViewLeak.fixLeak_ofDragChild(findViewById(R.id.elemk_gesture_fragment_container))
+        UtilKViewLeak.fixLeak_ofDragChild(findViewById(R.id.elemk_gesture_fragment_container))
         super.onPause()
     }
 }

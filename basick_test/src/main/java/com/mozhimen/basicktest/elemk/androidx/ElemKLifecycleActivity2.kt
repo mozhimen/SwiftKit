@@ -4,14 +4,11 @@ import android.os.Bundle
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.mozhimen.kotlin.elemk.androidx.appcompat.bases.databinding.BaseActivityVDBVM
-import com.mozhimen.taskk.executor.TaskKExecutor
-import com.mozhimen.kotlin.utilk.android.content.startContext
-import com.mozhimen.kotlin.utilk.commons.IUtilK
 import com.mozhimen.basicktest.databinding.ActivityElemkLifecycleBinding
+import com.mozhimen.kotlin.utilk.android.content.startContext
+import com.mozhimen.mvvmk.bases.activity.databinding.BaseActivityVDBVM
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import java.util.concurrent.CopyOnWriteArrayList
 
 class ElemKLifecycleActivity2 : BaseActivityVDBVM<ActivityElemkLifecycleBinding, ElemkLifecycleViewModel2>(), Starter.IStarterListener {
 

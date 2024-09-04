@@ -2,7 +2,7 @@ package com.mozhimen.basicktest.elemk.android
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.mozhimen.kotlin.elemk.android.view.ScreenOrientationOfSensorProxy
+import com.mozhimen.basick.helpers.ScreenOrientationOfSensorProxy
 import com.mozhimen.kotlin.lintk.optins.OApiCall_BindLifecycle
 import com.mozhimen.kotlin.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.kotlin.utilk.kotlin.UtilKLazyJVM.lazy_ofNone

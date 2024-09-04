@@ -10,12 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.servicek.commons.IBaseServiceConnListener
 import com.mozhimen.servicek.commons.IBaseServiceResListener
-import com.mozhimen.kotlin.elemk.androidx.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
+import com.mozhimen.basick.bases.BaseWakeBefDestroyLifecycleObserver
 import com.mozhimen.kotlin.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.kotlin.lintk.optins.OApiCall_BindLifecycle
 import com.mozhimen.servicek.commons.IServiceKProxy
 import com.mozhimen.kotlin.utilk.android.util.e
-import com.mozhimen.kotlin.utilk.androidx.lifecycle.runOnMainThread
+import com.mozhimen.basick.utils.runOnMainThread
 
 /**
  * @ClassName ServiceKProxy

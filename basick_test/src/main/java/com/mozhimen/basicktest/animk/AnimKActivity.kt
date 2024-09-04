@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest.animk
 
 import android.os.Bundle
-import com.mozhimen.kotlin.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
+import com.mozhimen.mvvmk.bases.activity.databinding.BaseActivityVDB
 import com.mozhimen.basicktest.databinding.ActivityAnimkBinding
 
 /**

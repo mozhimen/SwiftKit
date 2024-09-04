@@ -1,6 +1,6 @@
 package com.mozhimen.xmlktest
 
-import com.mozhimen.kotlin.elemk.android.app.bases.BaseApplication
+import com.mozhimen.stackk.bases.BaseApplication
 import com.mozhimen.kotlin.lintk.optins.OApiMultiDex_InApplication
 
 

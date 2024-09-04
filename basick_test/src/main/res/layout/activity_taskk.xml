@@ -23,12 +23,6 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/BasicKStyle_Btn"
-            android:onClick="goTaskKExecutor"
-            android:text="goTaskKExecutor"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/BasicKStyle_Btn"
             android:onClick="goTaskKLocation"
             android:text="goTaskKLocation"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

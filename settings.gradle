@@ -50,4 +50,14 @@ include ":KUtilKit"
 project(':KUtilKit').projectDir = new File("D:\\WorkSpace\\GitHub\\KUtilKit")
 include ':KUtilKit:utilk_android'
 include ':KUtilKit:utilk_kotlin'
-
+//AStackKit
+include ":AStackKit"
+project(':AStackKit').projectDir = new File("D:\\WorkSpace\\GitHub\\AStackKit")
+include ':AStackKit:stackk'
+include ':AStackKit:stackk_callback'
+include ':AStackKit:stackk_process'
+include ':AStackKit:basic'
+//ATaskKit
+include ":ATaskKit"
+project(':ATaskKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ATaskKit")
+include ':ATaskKit:taskk_executor'

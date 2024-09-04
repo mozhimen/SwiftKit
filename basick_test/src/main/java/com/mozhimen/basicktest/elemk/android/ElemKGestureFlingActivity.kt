@@ -3,7 +3,7 @@ package com.mozhimen.basicktest.elemk.android
 import android.view.GestureDetector
 import android.view.MotionEvent
 import com.mozhimen.kotlin.elemk.android.view.bases.BaseFlingSimpleOnGestureCallback
-import com.mozhimen.kotlin.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
+import com.mozhimen.mvvmk.bases.activity.databinding.BaseActivityVDB
 import com.mozhimen.kotlin.utilk.android.widget.showToast
 import com.mozhimen.basicktest.databinding.ActivityUtilkGestureBinding
 

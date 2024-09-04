@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest.elemk.androidx
 
 import androidx.lifecycle.SavedStateViewModelFactory
-import com.mozhimen.kotlin.elemk.androidx.appcompat.bases.databinding.BaseActivityVDBVM
+import com.mozhimen.mvvmk.bases.activity.databinding.BaseActivityVDBVM
 import com.mozhimen.basicktest.databinding.ActivityElemkVbvmBinding
 
 class ElemKVBVMActivity : BaseActivityVDBVM<ActivityElemkVbvmBinding, ElemKViewModel>() {

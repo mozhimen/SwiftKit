@@ -26,6 +26,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit">
+
         <activity
             android:name=".utilk.android.UtilKDateFormatActivity"
             android:exported="false" />
@@ -35,7 +36,15 @@
         <activity
             android:name=".utilk.kotlin.UtilKMd5Activity"
             android:exported="false" />
+        <activity
+            android:name=".utilk.kotlin.UtilKStrPathActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <receiver
             android:name=".utilk.android.InstallKReceiver"
             android:enabled="true"
@@ -51,7 +60,7 @@
 
         <activity
             android:name=".BasicKActivity"
-            android:exported="true"></activity> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+            android:exported="true" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- animk -->
         <activity
             android:name=".animk.AnimKActivity"
@@ -59,7 +68,7 @@
         <!-- elemk -->
         <activity
             android:name=".elemk.androidx.ElemKLifecycleActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".elemk.androidx.ElemKLifecycleActivity2"
             android:exported="false" />
@@ -111,27 +120,12 @@
         <activity
             android:name=".manifestk.ManifestKPermissionActivity"
             android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
-        <!-- stackk -->
-        <activity
-            android:name=".stackk.StackKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".stackk.StackKProcessActivity"
-            android:exported="false" />
-        <activity
-            android:name=".stackk.StackKCbActivity"
-            android:exported="true">
-
-        </activity> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- taskk -->
         <activity
             android:name=".taskk.TaskKLocationActivity"
             android:exported="false" />
         <activity
             android:name=".taskk.TaskKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".taskk.TaskKExecutorActivity"
             android:exported="false" />
         <activity
             android:name=".taskk.TaskKPollActivity"
@@ -169,7 +163,9 @@
             android:exported="false" />
         <activity
             android:name=".utilk.android.UtilKContextDirActivity"
-            android:exported="false" />
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".utilk.android.UtilKGraphicsActivity"
             android:exported="false" />
@@ -181,13 +177,7 @@
             android:exported="false" />
         <activity
             android:name=".utilk.android.UtilKAssetActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".utilk.android.UtilKIntentActivity"
             android:exported="false" />
@@ -196,9 +186,7 @@
             android:exported="false" />
         <activity
             android:name=".utilk.android.UtilKPackageActivity"
-            android:exported="true" >
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".utilk.android.UtilKInputActivity"
             android:exported="false" />
@@ -213,9 +201,7 @@
             android:exported="false" />
         <activity
             android:name=".utilk.java.UtilKFileActivity"
-            android:exported="true" >
-
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>

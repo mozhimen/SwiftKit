@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest.utilk.android
 
 import android.os.Bundle
-import com.mozhimen.kotlin.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
+import com.mozhimen.mvvmk.bases.activity.databinding.BaseActivityVDB
 import com.mozhimen.kotlin.utilk.android.util.dp2px
 import com.mozhimen.kotlin.utilk.androidx.core.UtilKRoundedBitmapDrawable
 import com.mozhimen.basicktest.databinding.ActivityUtilkGraphicsBinding

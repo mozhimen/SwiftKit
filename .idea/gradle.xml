@@ -13,6 +13,13 @@
             <option value="$PROJECT_DIR$/../AManifestKit_XXPermissions/manifestk_xxpermissions" />
             <option value="$PROJECT_DIR$/../ANavigateKit" />
             <option value="$PROJECT_DIR$/../ANavigateKit/navigatek_navigation" />
+            <option value="$PROJECT_DIR$/../AStackKit" />
+            <option value="$PROJECT_DIR$/../AStackKit/basic" />
+            <option value="$PROJECT_DIR$/../AStackKit/stackk" />
+            <option value="$PROJECT_DIR$/../AStackKit/stackk_callback" />
+            <option value="$PROJECT_DIR$/../AStackKit/stackk_process" />
+            <option value="$PROJECT_DIR$/../ATaskKit" />
+            <option value="$PROJECT_DIR$/../ATaskKit/taskk_executor" />
             <option value="$PROJECT_DIR$/../AXmlKit" />
             <option value="$PROJECT_DIR$/../AXmlKit/layoutk" />
             <option value="$PROJECT_DIR$/../AXmlKit/layoutk_blur" />

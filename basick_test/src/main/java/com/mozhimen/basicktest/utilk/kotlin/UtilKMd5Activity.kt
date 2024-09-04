@@ -3,12 +3,11 @@ package com.mozhimen.basicktest.utilk.kotlin
 import android.os.Bundle
 import com.mozhimen.kotlin.utilk.android.util.UtilKLogWrapper
 import androidx.lifecycle.lifecycleScope
-import com.mozhimen.kotlin.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.kotlin.utilk.java.io.UtilKFileFormat
 import com.mozhimen.kotlin.utilk.java.io.isFileExist
-import com.mozhimen.kotlin.utilk.java.util.UtilKDate
 import com.mozhimen.kotlin.utilk.java.util.UtilKDateWrapper
 import com.mozhimen.basicktest.databinding.ActivityUtilkMd5Binding
+import com.mozhimen.mvvmk.bases.activity.databinding.BaseActivityVDB
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File

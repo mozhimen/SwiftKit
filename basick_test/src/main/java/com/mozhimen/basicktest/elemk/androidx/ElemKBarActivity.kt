@@ -3,10 +3,10 @@ package com.mozhimen.basicktest.elemk.androidx
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.mozhimen.kotlin.elemk.androidx.appcompat.bases.databinding.BaseBarActivityVDB
 import com.mozhimen.kotlin.utilk.android.widget.showToast
 import com.mozhimen.basicktest.databinding.ActivityElemkBarBinding
 import com.mozhimen.basicktest.R
+import com.mozhimen.mvvmk.bases.activity.databinding.BaseBarActivityVDB
 
 /**
  * @ClassName ElemKBarActivity

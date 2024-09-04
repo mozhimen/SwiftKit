@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest.taskk
 
 import android.view.View
-import com.mozhimen.kotlin.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
+import com.mozhimen.mvvmk.bases.activity.databinding.BaseActivityVDB
 import com.mozhimen.kotlin.utilk.android.content.startContext
 import com.mozhimen.basicktest.databinding.ActivityTaskkBinding
 
@@ -12,10 +12,6 @@ class TaskKActivity : BaseActivityVDB<ActivityTaskkBinding>() {
 
     fun goTaskKCountDown(view: View) {
         startContext<TaskKCountDownActivity>()
-    }
-
-    fun goTaskKExecutor(view: View) {
-        startContext<TaskKExecutorActivity>()
     }
 
     fun goTaskKLocation(view: View) {
