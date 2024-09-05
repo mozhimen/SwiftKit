@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context="com.mozhimen.componentktest.com.mozhimen.basicktest.permissionk.PermissionKActivity">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="申请权限(方式一)"
+            android:onClick="requestPermission1"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="申请权限(方式二)"
+            android:onClick="requestPermission2"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="申请权限(方式三)"
+            android:onClick="requestPermission3"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
 </layout>
