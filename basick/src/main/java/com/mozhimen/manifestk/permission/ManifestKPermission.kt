@@ -2,7 +2,8 @@ package com.mozhimen.manifestk.permission
 
 import android.app.Activity
 import androidx.fragment.app.FragmentActivity
-import com.mozhimen.kotlin.elemk.androidx.fragment.startInvisibleProxyFragment
+import com.mozhimen.kotlin.elemk.androidx.fragment.InvisibleProxyFragment_ofAndroid
+import com.mozhimen.kotlin.elemk.androidx.fragment.InvisibleProxyFragment_ofAndroidx
 import com.mozhimen.kotlin.elemk.commons.IA_Listener
 import com.mozhimen.kotlin.elemk.commons.I_Listener
 import com.mozhimen.manifestk.permission.annors.APermissionCheck
@@ -103,7 +104,7 @@ object ManifestKPermission : BaseUtilK() {
 //            }
 //            fragment.request(noPermissions.toTypedArray(), onResult)
             if (activity is FragmentActivity) {
-                startInvisibleProxyFragment<InvisiblePermissionProxyFragment_ofAndroidx>(activity.supportFragmentManager,
+                InvisibleProxyFragment_ofAndroidx.startInvisibleProxyFragment<InvisiblePermissionProxyFragment_ofAndroidx>(activity.supportFragmentManager,
                     onAction = { it.request(permissions) },
                     onResult = null,
                     onPermissionResult = PERMISSION_REQUEST_CODE to { deniedList ->
@@ -116,7 +117,7 @@ object ManifestKPermission : BaseUtilK() {
                     }
                 )
             } else if (UtilKBuildVersion.isAfterV_23_6_M()) {
-                startInvisibleProxyFragment<InvisiblePermissionProxyFragment_ofAndroid>(activity.fragmentManager,
+                InvisibleProxyFragment_ofAndroid.startInvisibleProxyFragment<InvisiblePermissionProxyFragment_ofAndroid>(activity.fragmentManager,
                     onAction = { it.request(permissions) },
                     onResult = null,
                     onPermissionResult = PERMISSION_REQUEST_CODE to { deniedList->
