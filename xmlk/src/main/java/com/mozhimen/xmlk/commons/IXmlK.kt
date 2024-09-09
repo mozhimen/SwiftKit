@@ -12,6 +12,7 @@ import com.mozhimen.kotlin.utilk.commons.IUtilK
  */
 interface IXmlK : IUtilK {
     fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {}
+    fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) {}
     fun initAttrs(attrs: AttributeSet?) {}
     fun initView() {}
 }
