@@ -3,7 +3,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
-        android:name=".BasicKApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,89 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit">
-
-        <activity
-            android:name=".utilk.android.UtilKDateFormatActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.kotlin.UtilKMathActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.kotlin.UtilKMd5Activity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.kotlin.UtilKStrPathActivity"
-            android:exported="true" >
-
-        </activity>
-        <receiver
-            android:name=".utilk.android.InstallKReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter android:priority="100">
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
-                <action android:name="android.intent.action.PACKAGE_REPLACED" />
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
-
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver>
-
         <activity
             android:name=".BasicKActivity"
             android:exported="true" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
-        <!-- animk -->
-        <activity
-            android:name=".animk.AnimKActivity"
-            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
-        <!-- elemk -->
-        <activity
-            android:name=".elemk.androidx.ElemKLifecycleActivity"
-            android:exported="true" />
-        <activity
-            android:name=".elemk.androidx.ElemKLifecycleActivity2"
-            android:exported="false" />
-        <activity
-            android:name=".elemk.androidx.ElemKLifecycleActivity3"
-            android:exported="false" />
-        <activity
-            android:name=".elemk.androidx.ElemKAndroidXActivity"
-            android:exported="false" />
-        <activity
-            android:name=".elemk.android.ElemKAndroidActivity"
-            android:exported="false" />
-        <activity
-            android:name=".elemk.android.ElemKGestureFlingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".elemk.ElemKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".elemk.androidx.ElemKVBVMActivity"
-            android:exported="false" />
-        <activity
-            android:name=".elemk.androidx.ElemKBarActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
-        <activity
-            android:name=".elemk.android.ElemKReceiverActivity"
-            android:exported="false" />
-        <activity
-            android:name=".elemk.android.ElemKGestureActivity"
-            android:exported="false" />
 
-        <receiver
-            android:name=".elemk.android.ElemKInstallObserverReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter android:priority="100">
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
-                <action android:name="android.intent.action.PACKAGE_REPLACED" />
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
-
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- manifestk -->
         <activity
             android:name=".manifestk.ManifestKActivity"
@@ -122,73 +42,8 @@
             android:exported="false" />
         <activity
             android:name=".taskk.TaskKCountDownActivity"
-            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
-        <!-- utilk -->
-        <activity
-            android:name=".utilk.UtilKActivity"
             android:exported="false" />
-        <activity
-            android:name=".utilk.androidx.UtilKActionBarActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.android.UtilKViewActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.kotlin.UtilKKotlinActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.javax.UtilKJavaXActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.java.UtilKJavaActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.androidx.UtilKAndroidXActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.android.UtilKAndroidActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.android.UtilKContextDirActivity"
-            android:exported="true">
 
-        </activity>
-        <activity
-            android:name=".utilk.android.UtilKGraphicsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.android.UtilKApkActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.android.UtilKAppInstallActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.android.UtilKAssetActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name=".utilk.android.UtilKIntentActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.android.UtilKLaunchActivityActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.android.UtilKPackageActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name=".utilk.android.UtilKInputActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.android.UtilKScreenActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.kotlin.UtilKVerifyUrlActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.android.UtilKBitmapActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.java.UtilKFileActivity"
-            android:exported="true"></activity>
     </application>
 
 </manifest>

@@ -43,12 +43,6 @@ android {
 dependencies {
     implementation project(':mvvmk')
     implementation project(':xmlk')
-    implementation project(':AStackKit:stackk')
-    implementation project(':AStackKit:stackk_process')
-    implementation project(':AXmlKit:recyclerk')
-    implementation project(':ATaskKit:taskk_executor')
-    implementation project(':ANavigateKit:navigatek_navigation')
-    implementation project(':AManifestKit_XXPermissions:manifestk_xxpermissions')
 
     //test
     testImplementation 'junit:junit:4.13.2'

@@ -2,7 +2,20 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.8">
+      <module name="SwiftKit.AManifestKit_XXPermissions.library" target="17" />
+      <module name="SwiftKit.AManifestKit_XXPermissions.manifestk_xxpermissions" target="17" />
+      <module name="SwiftKit.ANavigateKit.navigatek_navigation" target="17" />
+      <module name="SwiftKit.AStackKit.basic" target="17" />
+      <module name="SwiftKit.AStackKit.stackk" target="17" />
+      <module name="SwiftKit.AStackKit.stackk_callback" target="17" />
+      <module name="SwiftKit.AStackKit.stackk_process" target="17" />
+      <module name="SwiftKit.ATaskKit.taskk_executor" target="17" />
       <module name="SwiftKit.AUICoreKit.adapterk" target="17" />
+      <module name="SwiftKit.AXmlKit.layoutk" target="17" />
+      <module name="SwiftKit.AXmlKit.layoutk_blur" target="17" />
+      <module name="SwiftKit.AXmlKit.recyclerk" target="17" />
+      <module name="SwiftKit.AXmlKit.vhk" target="17" />
+      <module name="SwiftKit.composektest" target="17" />
       <module name="SwiftKit.dslk" target="17" />
       <module name="SwiftKit.JUtilKit.utilk_android" target="17" />
       <module name="SwiftKit.stackk" target="17" />

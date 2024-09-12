@@ -8,23 +8,11 @@
         <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/../AManifestKit_XXPermissions" />
-            <option value="$PROJECT_DIR$/../AManifestKit_XXPermissions/library" />
-            <option value="$PROJECT_DIR$/../AManifestKit_XXPermissions/manifestk_xxpermissions" />
-            <option value="$PROJECT_DIR$/../ANavigateKit" />
-            <option value="$PROJECT_DIR$/../ANavigateKit/navigatek_navigation" />
-            <option value="$PROJECT_DIR$/../AStackKit" />
-            <option value="$PROJECT_DIR$/../AStackKit/basic" />
-            <option value="$PROJECT_DIR$/../AStackKit/stackk" />
-            <option value="$PROJECT_DIR$/../AStackKit/stackk_callback" />
-            <option value="$PROJECT_DIR$/../AStackKit/stackk_process" />
-            <option value="$PROJECT_DIR$/../ATaskKit" />
-            <option value="$PROJECT_DIR$/../ATaskKit/taskk_executor" />
+            <option value="$PROJECT_DIR$/../ADslKit" />
+            <option value="$PROJECT_DIR$/../ADslKit/dslk_anko" />
             <option value="$PROJECT_DIR$/../AXmlKit" />
-            <option value="$PROJECT_DIR$/../AXmlKit/layoutk" />
-            <option value="$PROJECT_DIR$/../AXmlKit/layoutk_blur" />
-            <option value="$PROJECT_DIR$/../AXmlKit/recyclerk" />
-            <option value="$PROJECT_DIR$/../AXmlKit/vhk" />
+            <option value="$PROJECT_DIR$/../AXmlKit/basic" />
+            <option value="$PROJECT_DIR$/../AXmlKit/layoutk_magnet" />
             <option value="$PROJECT_DIR$/../KUtilKit" />
             <option value="$PROJECT_DIR$/../KUtilKit/utilk_android" />
             <option value="$PROJECT_DIR$/../KUtilKit/utilk_kotlin" />
@@ -33,7 +21,7 @@
             <option value="$PROJECT_DIR$/basick_test" />
             <option value="$PROJECT_DIR$/blurk" />
             <option value="$PROJECT_DIR$/composek" />
-            <option value="$PROJECT_DIR$/composektest" />
+            <option value="$PROJECT_DIR$/composek_test" />
             <option value="$PROJECT_DIR$/mvvmk" />
             <option value="$PROJECT_DIR$/servicek" />
             <option value="$PROJECT_DIR$/xmlk" />

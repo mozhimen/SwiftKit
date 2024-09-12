@@ -41,7 +41,6 @@ interface IToolbarProxyProvider {
     fun getToolbarMenuIcon(): Int = android.R.drawable.arrow_up_float
 }
 
-@OApiUse_BaseApplication
 @OApiInit_ByLazy
 @OApiCall_BindLifecycle
 class ToolbarProxy<A> : BaseWakeBefDestroyLifecycleObserver() where A : AppCompatActivity, A : IToolbarProxyProvider {

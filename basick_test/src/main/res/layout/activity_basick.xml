@@ -16,18 +16,6 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BasicKStyle_Btn"
-                android:onClick="goAnimK"
-                android:text="goAnimK"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/BasicKStyle_Btn"
-                android:onClick="goElemK"
-                android:text="goElemK"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/BasicKStyle_Btn"
                 android:onClick="goManifestK"
                 android:text="goManifestK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
@@ -37,12 +25,6 @@
                 style="@style/BasicKStyle_Btn"
                 android:onClick="goTaskK"
                 android:text="goTaskK"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/BasicKStyle_Btn"
-                android:onClick="goUtilK"
-                android:text="goUtilK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         </LinearLayout>

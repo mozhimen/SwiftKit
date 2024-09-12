@@ -26,38 +26,20 @@ include ':basick_test'
 include ':xmlk'
 include ':xmlktest'
 include ':composek'
-include ':composektest'
 include ':servicek'
 include ':mvvmk'
-//ANavigateKit
-include ":ANavigateKit"
-project(':ANavigateKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ANavigateKit")
-include ':ANavigateKit:navigatek_navigation'
-//AXmlKit
-include ":AXmlKit"
-project(':AXmlKit').projectDir = new File("D:\\WorkSpace\\GitHub\\AXmlKit")
-include ':AXmlKit:recyclerk'
-include ':AXmlKit:vhk'
-include ':AXmlKit:layoutk_blur'
-include ':AXmlKit:layoutk'
-//AManifestKit_XXPermissions
-include ":AManifestKit_XXPermissions"
-project(':AManifestKit_XXPermissions').projectDir = new File("D:\\WorkSpace\\GitHub\\AManifestKit_XXPermissions")
-include ':AManifestKit_XXPermissions:manifestk_xxpermissions'
-include ':AManifestKit_XXPermissions:library'
+include ':composek_test'
 //KUtilKit
 include ":KUtilKit"
 project(':KUtilKit').projectDir = new File("D:\\WorkSpace\\GitHub\\KUtilKit")
 include ':KUtilKit:utilk_android'
 include ':KUtilKit:utilk_kotlin'
-//AStackKit
-include ":AStackKit"
-project(':AStackKit').projectDir = new File("D:\\WorkSpace\\GitHub\\AStackKit")
-include ':AStackKit:stackk'
-include ':AStackKit:stackk_callback'
-include ':AStackKit:stackk_process'
-include ':AStackKit:basic'
-//ATaskKit
-include ":ATaskKit"
-project(':ATaskKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ATaskKit")
-include ':ATaskKit:taskk_executor'
+//ADslKit
+include ":ADslKit"
+project(':ADslKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ADslKit")
+include ':ADslKit:dslk_anko'
+//AXmlKit
+include ":AXmlKit"
+project(':AXmlKit').projectDir = new File("D:\\WorkSpace\\GitHub\\AXmlKit")
+include ':AXmlKit:layoutk_magnet'
+include ':AXmlKit:basic'
