@@ -1,6 +1,7 @@
 package com.mozhimen.composek.utils
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.painter.ColorPainter
 
 /**
@@ -22,6 +23,12 @@ fun Long.longColor2colorPainter(): ColorPainter =
 fun Int.intColor2colorPainter(): ColorPainter =
     ColorUtil.intColor2colorPainter(this)
 
+fun Long.longColor2solidColor(): SolidColor =
+    ColorUtil.longColor2solidColor(this)
+
+fun Int.intColor2solidColor(): SolidColor =
+    ColorUtil.intColor2solidColor(this)
+
 ////////////////////////////////////////////////////////////////
 object ColorUtil {
     @JvmStatic
@@ -39,4 +46,12 @@ object ColorUtil {
     @JvmStatic
     fun intColor2colorPainter(intColor: Int): ColorPainter =
         ColorPainter(intColor2color(intColor))
+
+    @JvmStatic
+    fun intColor2solidColor(intColor: Int): SolidColor =
+        SolidColor(intColor.intColor2color())
+
+    @JvmStatic
+    fun longColor2solidColor(longColor: Long): SolidColor =
+        SolidColor(longColor.longColor2color())
 }
