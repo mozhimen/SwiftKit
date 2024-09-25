@@ -1,8 +1,16 @@
-package com.mozhimen.composek.utils
+package com.mozhimen.composek.utils.ui
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.painter.ColorPainter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * @ClassName ColorUtil
@@ -12,25 +20,26 @@ import androidx.compose.ui.graphics.painter.ColorPainter
  * @Version 1.0
  */
 fun Long.longColor2color(): Color =
-    ColorUtil.longColor2color(this)
+    UtilKColor.longColor2color(this)
 
 fun Int.intColor2color(): Color =
-    ColorUtil.intColor2color(this)
+    UtilKColor.intColor2color(this)
 
 fun Long.longColor2colorPainter(): ColorPainter =
-    ColorUtil.longColor2colorPainter(this)
+    UtilKColor.longColor2colorPainter(this)
 
 fun Int.intColor2colorPainter(): ColorPainter =
-    ColorUtil.intColor2colorPainter(this)
+    UtilKColor.intColor2colorPainter(this)
 
 fun Long.longColor2solidColor(): SolidColor =
-    ColorUtil.longColor2solidColor(this)
+    UtilKColor.longColor2solidColor(this)
 
 fun Int.intColor2solidColor(): SolidColor =
-    ColorUtil.intColor2solidColor(this)
+    UtilKColor.intColor2solidColor(this)
 
 ////////////////////////////////////////////////////////////////
-object ColorUtil {
+
+object UtilKColor {
     @JvmStatic
     fun longColor2color(longColor: Long): Color =
         Color(longColor)
