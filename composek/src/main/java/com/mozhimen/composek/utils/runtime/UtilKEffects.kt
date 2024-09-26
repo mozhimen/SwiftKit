@@ -30,6 +30,13 @@ fun <T> T.debounceChange(
 
 object UtilKEffects {
 
+    /**
+     *     var text by remember { mutableStateOf("") }
+     *     //搜索
+     *     text.debounceChange(delayMillis = 2000) {
+     *         onTextChange?.invoke(it)
+     *     }
+     */
     @JvmStatic
     @Composable
     fun <T> debounceChange(

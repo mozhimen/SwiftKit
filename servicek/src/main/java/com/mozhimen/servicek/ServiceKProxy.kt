@@ -37,7 +37,9 @@ open class ServiceKProxy<A>(
     private var _isBindService = false
 
     init {
-        _activity.runOnMainThread(::bindService)
+        _activity.runOnMainThread{
+            bindService()
+        }
     }
 
     override fun getConnListener(): IBaseServiceConnListener? =
