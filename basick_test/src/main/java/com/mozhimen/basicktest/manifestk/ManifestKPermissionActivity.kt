@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest.manifestk
 
 import android.view.View
-import com.mozhimen.mvvmk.bases.activity.databinding.BaseActivityVDB
+import com.mozhimen.bindk.bases.activity.databinding.BaseActivityVDB
 import com.mozhimen.kotlin.elemk.android.cons.CPermission
 import com.mozhimen.manifestk.permission.ManifestKPermission
 import com.mozhimen.manifestk.permission.annors.APermissionCheck
