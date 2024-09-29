@@ -46,6 +46,7 @@ fun LifecycleOwner.runOnLifecycleState(state: Lifecycle.State, coroutineContext:
 ////////////////////////////////////////////////////////////////////
 
 object UtilKLifecycleOwner {
+
     @JvmStatic
     fun runOnMainScope(lifecycleOwner: LifecycleOwner, block: ISuspendExt_Listener<CoroutineScope>) {
         UtilKCoroutineScope.launchOnMainScope(lifecycleOwner.lifecycleScope, block)

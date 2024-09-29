@@ -1,21 +1,18 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
-    namespace "com.mozhimen.basicktest"
+    namespace 'com.mozhimen.bindk'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.mozhimen.basicktest"
-        minSdk 24
-        targetSdk 25
-        versionCode rootProject.android.versionCode
-        versionName rootProject.android.versionName
+        minSdk 19
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -31,20 +28,14 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures{
-        dataBinding true
-    }
-    lintOptions {
-        checkReleaseBuilds false
-        abortOnError false
-    }
 }
 
 dependencies {
-    implementation project(':bindk')
-    implementation project(':xmlk')
+    api project(project.path.replace(project.name,'')+":basick")
+    //databinding
+    api 'androidx.databinding:databinding-common:7.1.2'
+    api 'androidx.databinding:databinding-runtime:7.1.2'
 
-    //test
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'

@@ -27,7 +27,7 @@ include ':xmlk'
 include ':xmlktest'
 include ':composek'
 include ':servicek'
-include ':mvvmk'
+include ':bindk'
 include ':composek_test'
 //KUtilKit
 include ":KUtilKit"
