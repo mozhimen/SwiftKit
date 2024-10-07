@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utils
 
 import androidx.lifecycle.Lifecycle
-import com.mozhimen.basick.impls.LifecycleEventObserverDestroy
+import com.mozhimen.basick.impls.LifecycleEventObserverOnDestroy
 import com.mozhimen.kotlin.elemk.commons.I_Listener
 
 /**
@@ -12,15 +12,15 @@ import com.mozhimen.kotlin.elemk.commons.I_Listener
  * @Version 1.0
  */
 
-fun Lifecycle.addObserverDestroy(onDestroy: I_Listener) {
-    UtilKLifecycle.addObserverDestroy(this, onDestroy)
+fun Lifecycle.addObserverOnDestroy(onDestroy: I_Listener) {
+    UtilKLifecycle.addObserverOnDestroy(this, onDestroy)
 }
 
 //////////////////////////////////////////////////////////
 
 object UtilKLifecycle {
     @JvmStatic
-    fun addObserverDestroy(lifecycle: Lifecycle, onDestroy: I_Listener) {
-        lifecycle.addObserver(LifecycleEventObserverDestroy(lifecycle, onDestroy))
+    fun addObserverOnDestroy(lifecycle: Lifecycle, onDestroy: I_Listener) {
+        lifecycle.addObserver(LifecycleEventObserverOnDestroy(lifecycle, onDestroy))
     }
 }

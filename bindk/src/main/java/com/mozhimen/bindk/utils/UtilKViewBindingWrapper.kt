@@ -1,14 +1,14 @@
 package com.mozhimen.bindk.utils
 
-import android.app.Activity
 import android.app.Dialog
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.LifecycleOwner
 import androidx.viewbinding.ViewBinding
-import com.mozhimen.bindk.helpers.ActivityViewBindingDelegate
-import com.mozhimen.bindk.helpers.DialogViewBindingDelegate
-import com.mozhimen.bindk.helpers.FragmentViewBindingDelegate
+import com.mozhimen.bindk.impls.viewbinding.DelegateVBActivity
+import com.mozhimen.bindk.impls.viewbinding.DelegateVBAny
+import com.mozhimen.bindk.impls.viewbinding.DelegateVBDialog
+import com.mozhimen.bindk.impls.viewbinding.DelegateVBFragment
 
 /**
  * @ClassName UtilKViewDataBindingWrapper
@@ -17,36 +17,30 @@ import com.mozhimen.bindk.helpers.FragmentViewBindingDelegate
  * @Date 2024/9/28 23:18
  * @Version 1.0
  */
-inline fun <reified VB : ViewBinding> AppCompatActivity.viewBinding(): ActivityViewBindingDelegate<VB> =
+inline fun <reified VB : ViewBinding> ComponentActivity.viewBinding(): DelegateVBActivity<ComponentActivity, VB> =
     UtilKViewBindingWrapper.viewBinding<VB>(this)
 
-inline fun <reified VB : ViewBinding> FragmentActivity.viewBinding(): ActivityViewBindingDelegate<VB> =
+inline fun <reified VB : ViewBinding> Fragment.viewBinding(): DelegateVBFragment<VB> =
     UtilKViewBindingWrapper.viewBinding<VB>(this)
 
-inline fun <reified VB : ViewBinding> Activity.viewBinding(): ActivityViewBindingDelegate<VB> =
-    UtilKViewBindingWrapper.viewBinding<VB>(this)
+inline fun <D, reified VB : ViewBinding> D.viewBinding(): DelegateVBDialog<D, VB> where  D : Dialog, D : LifecycleOwner =
+    UtilKViewBindingWrapper.viewBinding<D, VB>(this)
 
-inline fun <reified VB : ViewBinding> Dialog.viewBinding(): DialogViewBindingDelegate<VB> =
-    UtilKViewBindingWrapper.viewBinding<VB>()
-
-inline fun <reified VB : ViewBinding> Fragment.viewBinding(): FragmentViewBindingDelegate<VB> =
-    UtilKViewBindingWrapper.viewBinding<VB>(this)
+inline fun <reified VB : ViewBinding> LifecycleOwner.viewBinding(): DelegateVBAny<VB> =
+    UtilKViewBindingWrapper.viewBinding(this)
 
 //////////////////////////////////////////////////////////////////
 
 object UtilKViewBindingWrapper {
-    inline fun <reified VB : ViewBinding> viewBinding(appCompatActivity: AppCompatActivity): ActivityViewBindingDelegate<VB> =
-        ActivityViewBindingDelegate(VB::class.java, appCompatActivity)
+    inline fun <reified VB : ViewBinding> viewBinding(componentActivity: ComponentActivity): DelegateVBActivity<ComponentActivity, VB> =
+        DelegateVBActivity(VB::class.java, componentActivity)
 
-    inline fun <reified VB : ViewBinding> viewBinding(fragmentActivity: FragmentActivity): ActivityViewBindingDelegate<VB> =
-        ActivityViewBindingDelegate(VB::class.java, fragmentActivity)
+    inline fun <reified VB : ViewBinding> viewBinding(fragment: Fragment): DelegateVBFragment<VB> =
+        DelegateVBFragment(VB::class.java, fragment)
 
-    inline fun <reified VB : ViewBinding> viewBinding(activity: Activity): ActivityViewBindingDelegate<VB> =
-        ActivityViewBindingDelegate(VB::class.java, activity)
+    inline fun <D, reified VB : ViewBinding> viewBinding(dialog: D): DelegateVBDialog<D, VB> where D : Dialog, D : LifecycleOwner =
+        DelegateVBDialog(VB::class.java, dialog)
 
-    inline fun <reified VB : ViewBinding> viewBinding(fragment: Fragment): FragmentViewBindingDelegate<VB> =
-        FragmentViewBindingDelegate(VB::class.java, fragment)
-
-    inline fun <reified VB : ViewBinding> viewBinding(): DialogViewBindingDelegate<VB> =
-        DialogViewBindingDelegate(VB::class.java)
+    inline fun <reified VB : ViewBinding> viewBinding(obj: LifecycleOwner): DelegateVBAny<VB> =
+        DelegateVBAny(VB::class.java, obj)
 }

@@ -4,7 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import com.mozhimen.kotlin.elemk.kotlin.cons.CSuppress
-import com.mozhimen.kotlin.utilk.java.lang.UtilKReflectGenericKotlin
+import com.mozhimen.kotlin.utilk.java.lang.UtilKMethod
+import com.mozhimen.kotlin.utilk.java.lang.UtilKType
 import kotlin.Exception
 
 /**
@@ -17,31 +18,27 @@ import kotlin.Exception
 object UtilKViewDataBinding {
     @JvmStatic
     @Suppress(CSuppress.UNCHECKED_CAST)
-    fun <VDB : ViewDataBinding> get(clazz: Class<*>, inflater: LayoutInflater/*, index: Int = 0*/): VDB =
-        UtilKReflectGenericKotlin.getParentGenericType_ofClazz(clazz, ViewDataBinding::class.java)?.run {
-            getDeclaredMethod("inflate", LayoutInflater::class.java).invoke(null, inflater) as VDB
+    fun <VDB : ViewDataBinding> get_ofClass(clazz: Class<*>, layoutInflater: LayoutInflater/*, index: Int = 0*/): VDB =
+        UtilKType.getClass_ofParent(clazz, ViewDataBinding::class.java)?.run {
+            get<VDB>(this, layoutInflater)
         } ?: throw Exception("inflate activity vb fail!")
 
     @JvmStatic
     @Suppress(CSuppress.UNCHECKED_CAST)
-    fun <VDB : ViewDataBinding> get(clazz: Class<*>, inflater: LayoutInflater, container: ViewGroup?/*, index: Int = 0*/): VDB =
-        UtilKReflectGenericKotlin.getParentGenericType_ofClazz(clazz, ViewDataBinding::class.java)?.run {
-            getDeclaredMethod("inflate", LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java).invoke(null, inflater, container, false) as VDB
+    fun <VDB : ViewDataBinding> get_ofClass(clazz: Class<*>, layoutInflater: LayoutInflater, container: ViewGroup?/*, index: Int = 0*/): VDB =
+        UtilKType.getClass_ofParent(clazz, ViewDataBinding::class.java)?.run {
+            get<VDB>(this, layoutInflater, container)
         } ?: throw Exception("inflate fragment vb fail!")
 
-    ///////////////////////////////////////////////////////////////////////////////////////
+    @JvmStatic
+    @Suppress(CSuppress.UNCHECKED_CAST)
+    fun <VDB : ViewDataBinding> get(clazzVDB: Class<*>, layoutInflater: LayoutInflater): VDB =
+//        clazzVDB.getDeclaredMethod("inflate", LayoutInflater::class.java).invoke(null, layoutInflater) as VDB
+        UtilKMethod.getDeclared_invoke_throw(clazzVDB, "inflate", arrayOf(LayoutInflater::class.java), null, layoutInflater) as VDB
 
-//    fun <VB : ViewDataBinding> Any.getViewBinding(inflater: LayoutInflater, position: Int = 0): VB {
-//        val vbClass = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments.filterIsInstance<Class<*>>()
-//        val inflate = vbClass[position].getDeclaredMethod("inflate", LayoutInflater::class.java)
-//        return inflate.invoke(null, inflater) as VB
-//    }
-//
-//
-//    fun <VB : ViewDataBinding> Any.getViewBinding(inflater: LayoutInflater, container: ViewGroup?, position: Int = 0): VB {
-//        val vbClass = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments.filterIsInstance<Class<VB>>()
-//        val inflate = vbClass[position].getDeclaredMethod("inflate", LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java)
-//        return inflate.invoke(null, inflater, container, false) as VB
-//    }
-
+    @JvmStatic
+    @Suppress(CSuppress.UNCHECKED_CAST)
+    fun <VDB : ViewDataBinding> get(clazzVDB: Class<*>, layoutInflater: LayoutInflater, container: ViewGroup?/*, index: Int = 0*/): VDB =
+//        clazzVDB.getDeclaredMethod("inflate", LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java).invoke(null, layoutInflater, container, false) as VDB
+        UtilKMethod.getDeclared_invoke_throw(clazzVDB, "inflate", arrayOf(LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java), null, layoutInflater, container, false) as VDB
 }
