@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest.manifestk
 
 import android.view.View
-import com.mozhimen.bindk.bases.activity.databinding.BaseActivityVDB
+import com.mozhimen.bindk.bases.viewdatabinding.activity.BaseActivityVDB
 import com.mozhimen.kotlin.utilk.android.content.startContext
 import com.mozhimen.basicktest.databinding.ActivityManifestkBinding
 
