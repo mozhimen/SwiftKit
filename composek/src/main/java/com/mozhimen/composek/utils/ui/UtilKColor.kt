@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.painter.ColorPainter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 /**
  * @ClassName ColorUtil
@@ -40,6 +41,15 @@ fun Int.intColor2solidColor(): SolidColor =
 ////////////////////////////////////////////////////////////////
 
 object UtilKColor {
+    @JvmStatic
+    fun getRandomColor():Color =
+        Color(
+            Random.nextInt(256),
+            Random.nextInt(256),
+            Random.nextInt(256),
+            alpha = 255
+        )
+
     @JvmStatic
     fun longColor2color(longColor: Long): Color =
         Color(longColor)
