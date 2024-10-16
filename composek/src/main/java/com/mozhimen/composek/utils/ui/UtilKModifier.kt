@@ -1,6 +1,7 @@
 package com.mozhimen.composek.utils.ui
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -10,7 +11,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.unit.dp
 import com.mozhimen.kotlin.elemk.commons.I_Listener
+import com.mozhimen.kotlin.utilk.BuildConfig
 import kotlinx.coroutines.delay
 
 /**
@@ -22,6 +25,9 @@ import kotlinx.coroutines.delay
  */
 fun Modifier.debouncedClickable(delay: Long = 500, onClick: I_Listener): Modifier =
     UtilKModifier.debouncedClickable(this, delay, onClick)
+
+fun Modifier.borderDebug(): Modifier =
+    UtilKModifier.borderDebug(this)
 
 object UtilKModifier {
     @JvmStatic
@@ -43,4 +49,8 @@ object UtilKModifier {
                 onClick()
             }
         }
+
+    @JvmStatic
+    fun borderDebug(modifier: Modifier): Modifier =
+        modifier.border(3.dp, UtilKColor.getRandomColor())
 }

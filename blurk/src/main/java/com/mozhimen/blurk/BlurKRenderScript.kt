@@ -30,7 +30,7 @@ object BlurKRenderScript {
      * @return Bitmap
      */
     @JvmStatic
-    @RequiresApi(CVersCode.V_17_42_J1)
+    @RequiresApi(CVersCode.V_17_42_JBM1)
     fun blurBitmapOfAndroid1(context: Context, sourceBitmap: Bitmap, @FloatRange(from = 1.0, to = 25.0) radius: Float = 25f, bitmapScale: Float = 0.4f): Bitmap {
         val inputBitmap = UtilKBitmapDeal.applyBitmapAnyResize(sourceBitmap, (sourceBitmap.width * bitmapScale).roundToInt(), (sourceBitmap.height * bitmapScale).roundToInt(), false)//将缩小后的图片作为预渲染的图片
         val outputBitmap = Bitmap.createBitmap(inputBitmap)//创建一张渲染后的输出图片

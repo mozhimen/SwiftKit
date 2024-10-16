@@ -50,9 +50,9 @@ object RenderScriptUtil : BaseUtilK() {
     }
 
     @JvmStatic
-    @ChecksSdkIntAtLeast(api = CVersCode.V_18_43_J2)
+    @ChecksSdkIntAtLeast(api = CVersCode.V_18_43_JBM2)
     fun isRenderScriptSupported(): Boolean =
-        UtilKBuildVersion.isAfterV_18_43_J2()
+        UtilKBuildVersion.isAfterV_18_43_JBM2()
 
     @JvmStatic
     fun blur(view: View, scaledRatio: Float, radius: Float): Bitmap? =
