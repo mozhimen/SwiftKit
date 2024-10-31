@@ -6,6 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.mozhimen.kotlin.elemk.commons.ISuspendExt_Listener
 import com.mozhimen.kotlin.utilk.java.lang.UtilKThread
+import com.mozhimen.kotlin.utilk.java.lang.UtilKThreadWrapper
 import com.mozhimen.kotlin.utilk.kotlinx.coroutines.UtilKCoroutineScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -61,12 +62,12 @@ object UtilKLifecycleOwner {
 
     @JvmStatic
     fun runOnMainThread(lifecycleOwner: LifecycleOwner, block: ISuspendExt_Listener<CoroutineScope>) {
-        UtilKThread.runOnMainThread(lifecycleOwner, block)
+        UtilKThreadWrapper.runOnMainThread(lifecycleOwner, block)
     }
 
     @JvmStatic
     fun runOnBackThread(lifecycleOwner: LifecycleOwner, block: ISuspendExt_Listener<CoroutineScope>) {
-        UtilKThread.runOnBackThread(lifecycleOwner, block)
+        UtilKThreadWrapper.runOnBackThread(lifecycleOwner, block)
     }
 
     ////////////////////////////////////////////////////////////////////
