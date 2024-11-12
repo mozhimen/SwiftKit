@@ -1,6 +1,7 @@
 package com.mozhimen.bindk.bases.viewdatabinding.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import com.mozhimen.kotlin.elemk.androidx.appcompat.commons.IActivity
 import com.mozhimen.kotlin.elemk.androidx.appcompat.commons.IFragment
 import com.mozhimen.kotlin.elemk.androidx.fragment.bases.BaseFragment
 import com.mozhimen.bindk.utils.UtilKViewDataBinding
+import com.mozhimen.kotlin.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.kotlin.utilk.androidx.fragment.UtilKFragment
 
 open class BaseFragmentVDB<VDB : ViewDataBinding> : BaseFragment(), IActivity, IFragment {
@@ -54,7 +56,7 @@ open class BaseFragmentVDB<VDB : ViewDataBinding> : BaseFragment(), IActivity, I
     }
 
     override fun inflateView(viewGroup: ViewGroup?) {
-
+        UtilKLogWrapper.d(TAG, "onCreateView: ")
     }
 
     override fun initFlag() {
