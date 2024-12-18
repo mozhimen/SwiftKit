@@ -7,7 +7,7 @@ import com.mozhimen.kotlin.lintk.optins.OApiInit_ByLazy
 import com.mozhimen.kotlin.lintk.optins.OApiCall_BindLifecycle
 import com.mozhimen.kotlin.lintk.optins.OApiCall_BindViewLifecycle
 import com.mozhimen.taskk.bases.BaseWakeBefDestroyTaskK
-import com.mozhimen.kotlin.utilk.android.animation.UtilKAnimator
+import com.mozhimen.kotlin.utilk.android.animation.UtilKAnimatorWrapper
 import com.mozhimen.kotlin.utilk.wrapper.UtilKAnim
 import java.util.concurrent.ConcurrentHashMap
 
@@ -42,7 +42,7 @@ class TaskKAnimator : BaseWakeBefDestroyTaskK() {
     override fun cancel() {
         _viewAnims.forEach {
             (it.value as ValueAnimator).removeAllUpdateListeners()
-            UtilKAnimator.cancel_removeAllListeners(it.value)
+            UtilKAnimatorWrapper.cancel_removeAllListeners(it.value)
             UtilKAnim.stopAnim(it.key)
         }
         _viewAnims.clear()
