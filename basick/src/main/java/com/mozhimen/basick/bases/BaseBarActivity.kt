@@ -39,7 +39,7 @@ abstract class BaseBarActivity : BaseSaveStateActivity(), IActivity, IToolbarPro
         _toolBarProxy.setToolbarTitle(strTitle)
     }
 
-    @OptIn(OApiUse_BaseApplication::class, OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
+    @OptIn(OApiInit_ByLazy::class, OApiCall_BindLifecycle::class)
     override fun setToolbarTitle(intResStr: Int) {
         _toolBarProxy.setToolbarTitle(getString(intResStr))
     }

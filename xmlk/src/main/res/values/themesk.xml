@@ -26,7 +26,19 @@
 
     <style name="ThemeK_WidgetAppLightDropSpinner" parent="Widget.AppCompat.Light.DropDownItem.Spinner" />
 
+    <style name="ThemeK_WidgetMaterialBtn" parent="@style/Widget.MaterialComponents.Button" />
+
+    <style name="ThemeK_Widget_MaterialComponents_Button" parent="@style/Widget.MaterialComponents.Button" />
+
+    <style name="ThemeK_Widget_MaterialComponents_Button_UnelevatedButton" parent="@style/Widget.MaterialComponents.Button.UnelevatedButton" />
+
+    <style name="ThemeK_Widget_MaterialComponents_Button_TextButton" parent="@style/Widget.MaterialComponents.Button.TextButton" />
+
     <style name="ThemeK_WidgetMaterialBtnOutlined" parent="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+    <style name="ThemeK_Widget_MaterialComponents_Button_OutlinedButton" parent="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+    <style name="ThemeK_Widget_MaterialComponents_Button_OutlinedButton_Icon" parent="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon" />
 
     <style name="ThemeK_WightDesignBottomSheetModel" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>

@@ -4,7 +4,17 @@
     <!--///StyleK_Btn-->
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
-    <style name="StyleK_Btn" parent="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_014.Width_Wrap.Height_Wrap">
+    <style name="StyleK_BtnK_Material" parent="ThemeK_Widget_MaterialComponents_Button_OutlinedButton" >
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/cok_gray_000000</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+
+
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/dp_040</item>
         <item name="android:paddingStart">@dimen/dp_010</item>
@@ -12,66 +22,67 @@
         <!--        <item name="android:stateListAnimator">@null</item>-->
         <item name="android:ellipsize">end</item>
         <item name="android:textAllCaps">false</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
-    <style name="StyleK_Btn.Ellip_End" >
+    <style name="StyleK_BtnK_Material.Ellip_End" >
         <item name="android:ellipsize">end</item>
     </style>
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
-    <style name="StyleK_Btn.Ellip_End.StateL_Anim_Null">
+    <style name="StyleK_BtnK_Material.Ellip_End.StateL_Anim_Null">
 <!--        <item name="android:stateListAnimator">@null</item>-->
     </style>
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
-    <style name="StyleK_Btn.Ellip_End.StateL_Anim_Null.PH_10" >
+    <style name="StyleK_BtnK_Material.Ellip_End.StateL_Anim_Null.PH_10" >
         <item name="android:paddingStart">@dimen/dp_010</item>
         <item name="android:paddingEnd">@dimen/dp_010</item>
     </style>
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
-    <style name="StyleK_Btn.Ellip_End.StateL_Anim_Null.PH_10.Width_War">
+    <style name="StyleK_BtnK_Material.Ellip_End.StateL_Anim_Null.PH_10.Width_War">
         <item name="android:layout_width">wrap_content</item>
     </style>
 
-    <style name="StyleK_Btn.Ellip_End.StateL_Anim_Null.PH_10.Width_Mat" >
+    <style name="StyleK_BtnK_Material.Ellip_End.StateL_Anim_Null.PH_10.Width_Mat" >
         <item name="android:layout_width">match_parent</item>
     </style>
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
-    <style name="StyleK_Btn.Ellip_End.StateL_Anim_Null.PH_10.Width_War.Height_War">
+    <style name="StyleK_BtnK_Material.Ellip_End.StateL_Anim_Null.PH_10.Width_War.Height_War">
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="StyleK_Btn.Ellip_End.StateL_Anim_Null.PH_10.Width_Mat.Height_040" >
+    <style name="StyleK_BtnK_Material.Ellip_End.StateL_Anim_Null.PH_10.Width_Mat.Height_040" >
         <item name="android:layout_height">@dimen/dp_040</item>
     </style>
 
-    <style name="StyleK_Btn.Ellip_End.StateL_Anim_Null.PH_10.Width_War.Height_040">
+    <style name="StyleK_BtnK_Material.Ellip_End.StateL_Anim_Null.PH_10.Width_War.Height_040">
         <item name="android:layout_height">@dimen/dp_040</item>
     </style>
 
-    <style name="StyleK_Btn.Ellip_End.StateL_Anim_Null.PH_10.Width_Mat.Height_050">
+    <style name="StyleK_BtnK_Material.Ellip_End.StateL_Anim_Null.PH_10.Width_Mat.Height_050">
         <item name="android:layout_height">@dimen/dp_050</item>
     </style>
 
-    <style name="StyleK_Btn.Ellip_End.StateL_Anim_Null.PH_10.Width_War.Height_050">
+    <style name="StyleK_BtnK_Material.Ellip_End.StateL_Anim_Null.PH_10.Width_War.Height_050">
         <item name="android:layout_height">@dimen/dp_050</item>
     </style>
 
-    <style name="StyleK_Btn.Ellip_End.StateL_Anim_Null.PH_10.Width_Mat.Height_060">
+    <style name="StyleK_BtnK_Material.Ellip_End.StateL_Anim_Null.PH_10.Width_Mat.Height_060">
         <item name="android:layout_height">@dimen/dp_060</item>
     </style>
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
-    <style name="StyleK_Btn.Ellip_End.StateL_Anim_Null.PH_10.Width_Mat.Height_040.Back_Null">
+    <style name="StyleK_BtnK_Material.Ellip_End.StateL_Anim_Null.PH_10.Width_Mat.Height_040.Back_Null">
         <item name="background">@null</item>
     </style>
 </resources>
