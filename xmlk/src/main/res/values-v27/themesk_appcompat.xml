@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ThemeK_AppCompat_Light_NoActionBar.Transparent">
+        <!-- 设置状态栏背景色为透明 -->
+        <item name="android:statusBarColor">@color/cok_transparent</item>
+        <!-- 设置导航栏背景色为透明 -->
+        <item name="android:navigationBarColor">@color/cok_transparent</item>
+        <!-- 设置状态栏文字色为深色, true为深色, false为白色 -->
+        <item name="android:windowLightStatusBar">true</item>
+        <!-- 设置导航栏文字色为深色, true为深色, false为白色 -->
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <style name="ThemeK_AppCompat_Light_NoActionBar.FullScreen">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:statusBarColor">@color/cok_transparent</item>
+        <item name="android:navigationBarColor">@color/cok_transparent</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+    </style>
+</resources>

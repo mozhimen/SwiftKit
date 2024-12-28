@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    <style name="ThemeK_OverlayAppLight" parent="ThemeOverlay.AppCompat.Light" />-->
+<!--    <style name="ThemeK_OverlayAppDarkAction" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
+
+    <style name="ThemeK_Overlay_AppCompat_Light" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="ThemeK_Overlay_AppCompat_Dark_ActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+</resources>

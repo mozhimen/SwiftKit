@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--修改toolbar弹出框的位置-->
+    <!--    <style name="ThemeK_WidgetAppLightPopupOverflow.DisOverlap" parent="WidgetK_AppCompat_Light_PopupMenu_Overflow">
+            &lt;!&ndash;false表示弹出框位置位于toolbar下面&ndash;&gt;
+            <item name="overlapAnchor">false</item>
+        </style>-->
+
+    <style name="WidgetK_AppCompat_ProgressBar_Horizontal" parent="Widget.AppCompat.ProgressBar.Horizontal" />
+    <style name="WidgetK_AppCompat_ProgressBar" parent="Widget.AppCompat.ProgressBar" />
+    <style name="WidgetK_AppCompat_Light_DropDownItem_Spinner" parent="Widget.AppCompat.Light.DropDownItem.Spinner" />
+    <style name="WidgetK_AppCompat_Light_PopupMenu_Overflow" parent="Widget.AppCompat.Light.PopupMenu.Overflow" />
+    <style name="WidgetK_AppCompat_Light_PopupMenu_Overflow.DisOverlap">
+        <!--false表示弹出框位置位于toolbar下面-->
+        <item name="overlapAnchor">false</item>
+    </style>
+    <style name="WidgetK_AppCompat_ActionBar" parent="Widget.AppCompat.ActionBar" />
+</resources>

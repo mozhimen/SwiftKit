@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="ThemeK_AppLightNoAction.Transparent">
+    <style name="ThemeK_AppCompat_Light_NoActionBar.Transparent">
         <!-- 设置状态栏背景色为透明 -->
         <item name="android:statusBarColor">@color/cok_transparent</item>
         <!-- 设置导航栏背景色为透明 -->
@@ -11,7 +11,7 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
     </style>
 
-    <style name="ThemeK_AppLightNoAction.FullScreen">
+    <style name="ThemeK_AppCompat_Light_NoActionBar.FullScreen">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>

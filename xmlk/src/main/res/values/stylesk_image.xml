@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <style name="StyleK_Shape" />
+    <style name="StyleK_ImageShapeable_Shape" />
 
     <!--ShapeableImageView 左上左下 圆角 -->
-    <style name="StyleK_Shape.Rounded">
+    <style name="StyleK_ImageShapeable_Shape.Rounded">
         <item name="cornerFamily">rounded</item>
     </style>
 
-    <style name="StyleK_Shape.Rounded.Left">
+    <style name="StyleK_ImageShapeable_Shape.Rounded.Left">
         <item name="cornerSizeTopLeft">10dp</item>
         <item name="cornerSizeBottomLeft">10dp</item>
     </style>

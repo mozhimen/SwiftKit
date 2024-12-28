@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="StyleK_BtnK_Material" parent="ThemeK_Widget_MaterialComponents_Button_OutlinedButton">
+    <style name="StyleK_BtnK_Material" parent="WidgetK_MaterialComponents_Button_OutlinedButton">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>

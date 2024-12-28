@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    <style name="ThemeK_WightDesignBottomSheetModel" parent="Widget_Design_BottomSheet_Modal">-->
+<!--        <item name="android:background">@android:color/transparent</item>-->
+<!--    </style>-->
+    <style name="WidgetK_Design_BottomSheet_Modal" parent="Widget.Design.BottomSheet.Modal" />
+    <style name="WidgetK_Design_BottomSheet_Modal.Transparent" parent="Widget.Design.BottomSheet.Modal" >
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+</resources>

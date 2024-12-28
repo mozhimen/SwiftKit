@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="ThemeK_MaterialComponents_Light_NoActionBar.Transparent">
+        <!-- 设置状态栏背景色为透明 -->
+        <item name="android:statusBarColor">@color/cok_transparent</item>
+        <!-- 设置导航栏背景色为透明 -->
+        <item name="android:navigationBarColor">@color/cok_transparent</item>
+        <!-- 设置状态栏文字色为深色, true为深色, false为白色 -->
+        <item name="android:windowLightStatusBar">true</item>
+        <!-- 设置导航栏文字色为深色, true为深色, false为白色 -->
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+    </style>
+</resources>

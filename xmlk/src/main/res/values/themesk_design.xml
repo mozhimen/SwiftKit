@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--实现BottomSheetDialog圆角效果-->
+    <!--    <style name="ThemeK_DesignLightBottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+            <item name="bottomSheetStyle">@style/ThemeK_WightDesignBottomSheetModel</item>
+        </style>-->
+
+    <style name="ThemeK_Design_Light_BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog" />
+
+    <style name="ThemeK_Design_Light_BottomSheetDialog.CornerRounded" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/WidgetK_Design_BottomSheet_Modal.Transparent</item>
+    </style>
+</resources>

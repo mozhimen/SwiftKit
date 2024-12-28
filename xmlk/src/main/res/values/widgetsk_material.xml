@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    <style name="ThemeK_WidgetMaterialBtn" parent="@style/Widget.MaterialComponents.Button" />-->
+<!--    <style name="ThemeK_WidgetMaterialBtnOutlined" parent="@style/Widget.MaterialComponents.Button.OutlinedButton" />-->
+
+    <style name="WidgetK_MaterialComponents_Button" parent="@style/Widget.MaterialComponents.Button" />
+    <style name="WidgetK_MaterialComponents_Button_UnelevatedButton" parent="@style/Widget.MaterialComponents.Button.UnelevatedButton" />
+    <style name="WidgetK_MaterialComponents_Button_TextButton" parent="@style/Widget.MaterialComponents.Button.TextButton" />
+    <style name="WidgetK_MaterialComponents_Button_OutlinedButton" parent="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+    <style name="WidgetK_MaterialComponents_Button_OutlinedButton_Icon" parent="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon" />
+</resources>
